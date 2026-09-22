@@ -1,0 +1,16 @@
+# Local development database for the Postgres TokenStore.
+# Dev-only credentials; never reuse them anywhere real.
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: connectorkit
+      POSTGRES_PASSWORD: connectorkit
+      POSTGRES_DB: connectorkit
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
