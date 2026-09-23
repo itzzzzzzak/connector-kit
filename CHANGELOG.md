@@ -6,3 +6,5 @@ All notable changes are documented here. Format based on [Keep a Changelog](http
 
 ### Added
 - Repository scaffold, design notebook and initial ADRs.
+- Core vertical slice: `defineConnector`, `execute` (validate, auth, HTTP, error normalization), `createConnectorKit().connect()`.
+- GitHub connector with `repos.get`.

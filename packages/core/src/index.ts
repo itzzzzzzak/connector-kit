@@ -1,2 +1,7 @@
-// Public API of @connector-kit/core. Implementation begins with ADR-004 (defineConnector).
-export {}
+export { defineConnector } from "./define.js"
+export type { ActionDefinition, AuthConfig, ConnectorDefinition, Effect, HttpMethod } from "./define.js"
+export { ConnectorKitError } from "./errors.js"
+export type { ErrorCode } from "./errors.js"
+export { createConnectorKit } from "./kit.js"
+export type { ConnectOptions, Connection, KitOptions } from "./kit.js"
+export type { Credentials } from "./execute.js"
