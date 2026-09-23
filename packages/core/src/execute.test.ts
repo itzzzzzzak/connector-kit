@@ -257,7 +257,14 @@ test("a provider that never answers times out with a retryable error", async () 
       }),
     { timeoutMs: 30 },
   )
-  await assert.rejects(() => conn.execute("items.get", { id: "x" }), isKitError("upstream_error", (e) => e.retryable && e.message.includes("30 ms")))
+  // AbortSignal.timeout() uses an unref'd timer and this fake holds no socket, so without a
+  // ref'd handle Node sees an empty event loop and cancels the test. A real hung request holds a socket.
+  const keepAlive = setInterval(() => {}, 1_000)
+  try {
+    await assert.rejects(() => conn.execute("items.get", { id: "x" }), isKitError("upstream_error", (e) => e.retryable && e.message.includes("30 ms")))
+  } finally {
+    clearInterval(keepAlive)
+  }
 })
 
 // ---------------------------------------------------------------- secrets

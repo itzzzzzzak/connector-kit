@@ -112,6 +112,7 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 
 - **A green run that ran the wrong thing.** `node --test dist/` reported "1 test, 1 pass" while our 7 real tests never executed. Lesson: check that the *number* of tests run matches what you expect, and use an explicit glob (`dist/**/*.test.js`).
 - **`declared engines: node >=20`** while the test glob needed Node 21+. Declared support must match what is actually exercised in CI (now `>=22`).
+- **Passed locally (Node 26), failed on CI (Node 22).** The timeout test used a fake provider that never settles; `AbortSignal.timeout()` uses an unref'd timer, so on CI Node saw an empty event loop and cancelled the test. Lesson: CI is the second opinion; keep a ref'd handle in tests that wait on timers, and always check the exact failing log before guessing.
 - **Assuming validation covers everything.** Zod proves a value is a string, not that it is a *safe path segment*. Type validation and security validation are different jobs.
 
 ## Concepts encountered
