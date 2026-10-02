@@ -1,7 +1,7 @@
 import assert from "node:assert/strict"
 import { test } from "node:test"
 import { z } from "zod"
-import { ConnectorKitError, createConnectorKit, defineConnector, type KitOptions } from "./index.js"
+import { ConnectorKitError, createConnectorKit, defineConnector, linkHeaderPagination, type KitOptions } from "./index.js"
 
 const demo = defineConnector({
   name: "demo",
@@ -40,6 +40,15 @@ const demo = defineConnector({
       output: z.undefined(),
       effect: "destructive",
     },
+    "widgets.list": {
+      description: "List widgets, one page at a time.",
+      method: "GET",
+      path: "/widgets",
+      input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional(), q: z.string().optional() }),
+      output: z.array(z.object({ id: z.string() })),
+      effect: "read",
+      paginate: linkHeaderPagination(),
+    },
     "things.get": {
       description: "Path param the schema does not require.",
       method: "GET",
@@ -74,7 +83,7 @@ function setup(handler: Handler, options: KitOptions = {}) {
   const kit = createConnectorKit({ ...options, fetch: fetchMock })
   const conn = kit.connect(demo, { connectionId: "u1", credentials: { token: SECRET } })
   const keyedConn = kit.connect(keyed, { connectionId: "u1", credentials: { token: SECRET } })
-  return { conn, keyedConn, calls }
+  return { kit, conn, keyedConn, calls }
 }
 
 const json = (body: unknown, status = 200, headers: Record<string, string> = {}) =>
@@ -165,6 +174,65 @@ test("objects cannot be sent as query parameters", async () => {
   const { conn, calls } = setup(() => json({ ok: true }))
   await assert.rejects(() => conn.execute("items.search", { meta: { a: 1 } }), isKitError("invalid_input", (e) => e.message.includes('"meta"')))
   assert.equal(calls.length, 0)
+})
+
+// ---------------------------------------------------------------- pagination (ADR-010)
+
+test("a paginated action sends the default page size and returns items + nextCursor", async () => {
+  const { conn, calls } = setup(() =>
+    json([{ id: "1" }, { id: "2" }], 200, { link: '<https://api.example.com/widgets?per_page=30&page=2>; rel="next"' }),
+  )
+  const page = await conn.execute("widgets.list", {})
+
+  assert.equal(calls[0]!.url.searchParams.get("per_page"), "30")
+  assert.deepEqual(page.items, [{ id: "1" }, { id: "2" }])
+  assert.equal(page.nextCursor, "https://api.example.com/widgets?per_page=30&page=2")
+})
+
+test("no Link header means no more pages", async () => {
+  const { conn } = setup(() => json([{ id: "1" }]))
+  const page = await conn.execute("widgets.list", {})
+  assert.equal(page.nextCursor, null)
+})
+
+test("pageSize is clamped to the strategy's max", async () => {
+  const { conn, calls } = setup(() => json([]))
+  await conn.execute("widgets.list", { pageSize: 10_000 })
+  assert.equal(calls[0]!.url.searchParams.get("per_page"), "100")
+})
+
+test("other query params still apply on the first page", async () => {
+  const { conn, calls } = setup(() => json([]))
+  await conn.execute("widgets.list", { q: "hello" })
+  assert.equal(calls[0]!.url.searchParams.get("q"), "hello")
+})
+
+test("passing a cursor fetches exactly that URL, ignoring the path/query that produced it", async () => {
+  const { conn, calls } = setup(() => json([{ id: "3" }]))
+  await conn.execute("widgets.list", { cursor: "https://api.example.com/widgets?per_page=30&page=2", q: "ignored" })
+  assert.equal(calls[0]!.url.toString(), "https://api.example.com/widgets?per_page=30&page=2")
+})
+
+test("a cursor pointing outside the base URL is rejected (defense in depth)", async () => {
+  const { conn, calls } = setup(() => json([]))
+  await assert.rejects(() => conn.execute("widgets.list", { cursor: "https://evil.example.com/widgets" }), isKitError("invalid_input"))
+  assert.equal(calls.length, 0)
+})
+
+test("kit.paginate() follows every page and yields flat items until nextCursor is null", async () => {
+  const { kit, conn, calls } = setup((url) => {
+    // The default page size (per_page=30) is present on every request; only `p` distinguishes pages here.
+    const p = url.searchParams.get("p")
+    if (p === null) return json([{ id: "1" }, { id: "2" }], 200, { link: '<https://api.example.com/widgets?per_page=30&p=2>; rel="next"' })
+    if (p === "2") return json([{ id: "3" }], 200, { link: '<https://api.example.com/widgets?per_page=30&p=3>; rel="next"' })
+    return json([{ id: "4" }])
+  })
+
+  const items: { id: string }[] = []
+  for await (const item of kit.paginate(conn, "widgets.list", {})) items.push(item)
+
+  assert.deepEqual(items, [{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }])
+  assert.equal(calls.length, 3) // stopped as soon as a page came back with no Link header
 })
 
 // ---------------------------------------------------------------- error mapping

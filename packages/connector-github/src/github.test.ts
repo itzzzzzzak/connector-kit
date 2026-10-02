@@ -58,3 +58,28 @@ test("repos.get cannot be steered to another endpoint with '..'", async () => {
   )
   assert.equal(calls.length, 0)
 })
+
+test("issues.list requests the default page size and exposes GitHub's Link header as nextCursor", async () => {
+  const { gh, calls } = githubWith((url) =>
+    new Response(JSON.stringify([{ id: 1, number: 10, title: "Bug", state: "open", html_url: "https://github.com/acme/api/issues/10" }]), {
+      status: 200,
+      headers: {
+        "content-type": "application/json",
+        link: `<${url}&page=2>; rel="next", <${url}&page=5>; rel="last"`,
+      },
+    }),
+  )
+
+  const page = await gh.execute("issues.list", { owner: "acme", name: "api" })
+
+  assert.equal(calls[0], "https://api.github.com/repos/acme/api/issues?per_page=30")
+  assert.equal(page.items.length, 1)
+  assert.equal(page.items[0]!.title, "Bug")
+  assert.equal(page.nextCursor, "https://api.github.com/repos/acme/api/issues?per_page=30&page=2")
+})
+
+test("issues.list has no next page when GitHub sends no Link header", async () => {
+  const { gh } = githubWith(() => new Response("[]", { status: 200, headers: { "content-type": "application/json" } }))
+  const page = await gh.execute("issues.list", { owner: "acme", name: "api" })
+  assert.equal(page.nextCursor, null)
+})

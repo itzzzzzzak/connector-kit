@@ -8,6 +8,7 @@ All notable changes are documented here. Format based on [Keep a Changelog](http
 - Repository scaffold, design notebook and initial ADRs.
 - Core vertical slice: `defineConnector`, `execute` (validate, auth, HTTP, error normalization), `createConnectorKit().connect()`.
 - GitHub connector with `repos.get`.
+- Pagination (ADR-010): paginated actions return `{ items, nextCursor }`; `linkHeaderPagination()` strategy; `kit.paginate()` async iterator for developers; GitHub `issues.list`.
 
 ### Fixed
 - Path parameters can no longer escape their segment (`.`, `..`, empty are rejected; final URL must stay under the base URL).

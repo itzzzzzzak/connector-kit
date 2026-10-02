@@ -1,5 +1,6 @@
 import { ConnectorKitError, errorFromStatus } from "./errors.js"
 import type { ActionDefinition, AuthConfig, ConnectorDefinition } from "./define.js"
+import type { PageEnvelope } from "./pagination.js"
 
 export const DEFAULT_TIMEOUT_MS = 30_000
 export const DEFAULT_MAX_RESPONSE_BYTES = 1_000_000
@@ -37,6 +38,17 @@ type Scalar = string | number | boolean | bigint
 
 function isScalar(value: unknown): value is Scalar {
   return ["string", "number", "boolean", "bigint"].includes(typeof value)
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value))
+}
+
+/** Defense in depth: the request must resolve under the connector's baseUrl, however the URL was built. */
+function assertWithinBase(url: URL, base: URL, basePath: string, context: string): void {
+  if (url.origin !== base.origin || !(url.pathname === basePath || url.pathname.startsWith(basePath + "/"))) {
+    throw invalid(`The ${context} resolved outside the connector's base URL.`)
+  }
 }
 
 /**
@@ -145,16 +157,33 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
   }
   const { path, rest } = fillPath(action.path, parsed.data as Record<string, unknown>)
 
-  // 2. Build the request. Non-body methods send leftovers as the query string.
   const base = new URL(connector.baseUrl)
   const basePath = base.pathname.replace(/\/$/, "")
-  const url = new URL(base.origin + basePath + path)
-  // Defense in depth: whatever the input was, the request must stay under the connector's base URL.
-  if (url.origin !== base.origin || !(url.pathname === basePath || url.pathname.startsWith(basePath + "/"))) {
-    throw invalid("The request path resolved outside the connector's base URL.")
+
+  // 2. Build the request. Non-body methods send leftovers as the query string.
+  //    A paginated action's `cursor`/`pageSize` are kit-managed, not arbitrary query params.
+  let url: URL
+  if (action.paginate) {
+    const { cursor, pageSize, ...queryRest } = rest as { cursor?: unknown; pageSize?: unknown } & Record<string, unknown>
+    if (cursor !== undefined) {
+      if (typeof cursor !== "string") throw invalid('"cursor" must be a string.')
+      // The cursor came from OUR previous nextCursor, but re-check anyway: never trust a URL blindly.
+      url = action.paginate.urlForCursor(cursor)
+      assertWithinBase(url, base, basePath, "pagination cursor")
+    } else {
+      url = new URL(base.origin + basePath + path)
+      assertWithinBase(url, base, basePath, "request path")
+      appendQuery(url, queryRest)
+      if (pageSize !== undefined && typeof pageSize !== "number") throw invalid('"pageSize" must be a number.')
+      const size = clamp(pageSize ?? action.paginate.defaultPageSize, 1, action.paginate.maxPageSize)
+      url.searchParams.set(action.paginate.pageSizeParam, String(size))
+    }
+  } else {
+    url = new URL(base.origin + basePath + path)
+    assertWithinBase(url, base, basePath, "request path")
   }
   const hasBody = action.method !== "GET" && action.method !== "DELETE"
-  if (!hasBody) appendQuery(url, rest)
+  if (!hasBody && !action.paginate) appendQuery(url, rest)
 
   const headers = new Headers(connector.defaultHeaders)
   applyAuth(headers, connector.auth, credentials)
@@ -218,6 +247,16 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
   const output = action.output.safeParse(body)
   if (!output.success) {
     throw new ConnectorKitError("upstream_error", `The provider response did not match the expected shape for "${actionName}".`, { retryable: false, status: response.status })
+  }
+
+  if (action.paginate) {
+    const nextCursor = action.paginate.nextCursor({ headers: response.headers })
+    if (nextCursor !== null) {
+      // The provider told us where to go next; verify that URL too before we ever hand it back to a caller.
+      assertWithinBase(action.paginate.urlForCursor(nextCursor), base, basePath, "next-page cursor")
+    }
+    // action.output is declared z.array(...) for a paginated action (see define.ts); safe to widen here.
+    return { items: output.data as unknown[], nextCursor } satisfies PageEnvelope<unknown>
   }
   return output.data
 }
