@@ -3,5 +3,7 @@ export type { ActionDefinition, AuthConfig, ConnectorDefinition, Effect, HttpMet
 export { ConnectorKitError } from "./errors.js"
 export type { ErrorCode } from "./errors.js"
 export { createConnectorKit } from "./kit.js"
-export type { ConnectOptions, Connection, KitOptions } from "./kit.js"
+export type { ConnectOptions, Connection, ExecuteResult, KitOptions } from "./kit.js"
 export type { Credentials } from "./execute.js"
+export { linkHeaderPagination } from "./pagination.js"
+export type { PageEnvelope, PaginationStrategy } from "./pagination.js"

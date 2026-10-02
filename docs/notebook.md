@@ -100,7 +100,7 @@ Operating cost is essentially one Postgres table.
 
 ## Decisions
 
-See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy.
+See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination.
 
 ## Failures
 
@@ -110,12 +110,16 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 
 ## Mistakes / misunderstandings
 
+- **Test-fixture off-by-one.** My fake fetch pushed to `calls` before invoking the handler, so `calls.length === 0` was never true inside it; and I forgot the default `per_page` made `url.search` non-empty. Both made the pagination iterator test fail while the code was correct. Lesson: when a test fails, read the actual output before changing product code.
+
 - **A green run that ran the wrong thing.** `node --test dist/` reported "1 test, 1 pass" while our 7 real tests never executed. Lesson: check that the *number* of tests run matches what you expect, and use an explicit glob (`dist/**/*.test.js`).
 - **`declared engines: node >=20`** while the test glob needed Node 21+. Declared support must match what is actually exercised in CI (now `>=22`).
 - **Passed locally (Node 26), failed on CI (Node 22).** The timeout test used a fake provider that never settles; `AbortSignal.timeout()` uses an unref'd timer, so on CI Node saw an empty event loop and cancelled the test. Lesson: CI is the second opinion; keep a ref'd handle in tests that wait on timers, and always check the exact failing log before guessing.
 - **Assuming validation covers everything.** Zod proves a value is a string, not that it is a *safe path segment*. Type validation and security validation are different jobs.
 
 ## Concepts encountered
+
+- Pagination styles (Link header, body cursor, offset); opaque cursors; why agents get one bounded page while developers get an async iterator.
 
 - Path traversal / dot-segment normalization in URLs; percent-encoding vs. URL parsing.
 - `AbortSignal.timeout` and why every outbound call needs a deadline.

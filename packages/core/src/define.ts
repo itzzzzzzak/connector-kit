@@ -1,4 +1,5 @@
 import type { ZodType } from "zod"
+import type { PaginationStrategy } from "./pagination.js"
 
 // ADR-007: every action declares how dangerous it is. The host decides policy.
 export type Effect = "read" | "write" | "destructive"
@@ -17,10 +18,20 @@ export interface ActionDefinition {
   /** Path template, e.g. "/repos/{owner}/{name}". {params} are filled from the input. */
   path: string
   input: ZodType
+  /**
+   * For a paginated action, this is the schema of ONE ITEM's array, i.e. z.array(item) —
+   * execute() wraps it as { items, nextCursor }. See ADR-010.
+   */
   output: ZodType
   effect: Effect
   /** ADR-008: only retry non-idempotent calls when this is true. */
   safeToRetry?: boolean
+  /**
+   * ADR-010: makes this a paginated action. `input` must include optional
+   * `cursor: z.string()` and `pageSize: z.number()` fields — the kit reads and
+   * removes them, it does not add them for you.
+   */
+  paginate?: PaginationStrategy
 }
 
 export interface ConnectorDefinition<A extends Record<string, ActionDefinition>> {
