@@ -49,6 +49,15 @@ const demo = defineConnector({
       effect: "read",
       paginate: linkHeaderPagination(),
     },
+    "items.upsert": {
+      description: "Idempotent write: same input, same result.",
+      method: "PUT",
+      path: "/items/{id}",
+      input: z.object({ id: z.string(), name: z.string() }),
+      output: z.object({ id: z.string() }),
+      effect: "write",
+      safeToRetry: true,
+    },
     "things.get": {
       description: "Path param the schema does not require.",
       method: "GET",
@@ -80,7 +89,7 @@ function setup(handler: Handler, options: KitOptions = {}) {
     calls.push({ url, init: init ?? {} })
     return handler(url, init ?? {})
   }) as typeof fetch
-  const kit = createConnectorKit({ ...options, fetch: fetchMock })
+  const kit = createConnectorKit({ retry: { maxRetries: 0 }, ...options, fetch: fetchMock })
   const conn = kit.connect(demo, { connectionId: "u1", credentials: { token: SECRET } })
   const keyedConn = kit.connect(keyed, { connectionId: "u1", credentials: { token: SECRET } })
   return { kit, conn, keyedConn, calls }
@@ -358,4 +367,113 @@ test("a network failure is a retryable upstream_error without leaking details", 
     () => conn.execute("items.get", { id: "x" }),
     isKitError("upstream_error", (e) => e.retryable && !e.message.includes(SECRET)),
   )
+})
+
+// ---------------------------------------------------------------- retries (ADR-008)
+
+function retrying(extra: Partial<NonNullable<KitOptions["retry"]>> = {}) {
+  const slept: number[] = []
+  const retry = { maxRetries: 2, sleep: async (ms: number) => void slept.push(ms), random: () => 0.5, ...extra }
+  return { slept, options: { retry } satisfies KitOptions }
+}
+
+/** Responds with each response in turn, then keeps repeating the last one. */
+const sequence = (...responses: (() => Response)[]) => {
+  let i = 0
+  return () => responses[Math.min(i++, responses.length - 1)]!()
+}
+
+test("429 waits for Retry-After, then succeeds", async () => {
+  const { slept, options } = retrying()
+  const { conn, calls } = setup(sequence(() => json({}, 429, { "retry-after": "2" }), () => json({ id: "1", name: "n" })), options)
+  assert.deepEqual(await conn.execute("items.get", { id: "1" }), { id: "1", name: "n" })
+  assert.deepEqual(slept, [2000])
+  assert.equal(calls.length, 2)
+})
+
+test("a Retry-After beyond the wait budget is not slept on: the error comes back with retryAfter", async () => {
+  const { slept, options } = retrying()
+  const { conn, calls } = setup(() => json({}, 429, { "retry-after": "300" }), options)
+  await assert.rejects(() => conn.execute("items.get", { id: "1" }), isKitError("rate_limited", (e) => e.retryAfter === 300))
+  assert.deepEqual(slept, [])
+  assert.equal(calls.length, 1)
+})
+
+test("the wait budget is shared across retries of one call", async () => {
+  const { slept, options } = retrying({ maxWaitMs: 30_000 })
+  const { conn, calls } = setup(() => json({}, 429, { "retry-after": "20" }), options)
+  await assert.rejects(() => conn.execute("items.get", { id: "1" }), isKitError("rate_limited"))
+  assert.deepEqual(slept, [20_000]) // a second 20s would total 40s > 30s budget
+  assert.equal(calls.length, 2)
+})
+
+test("429 is retried even for a write: the provider never processed it", async () => {
+  const { options } = retrying()
+  const { conn, calls } = setup(sequence(() => json({}, 429, { "retry-after": "1" }), () => json({ id: "9" }, 201)), options)
+  assert.deepEqual(await conn.execute("items.create", { collection: "c", title: "t" }), { id: "9" })
+  assert.equal(calls.length, 2)
+})
+
+test("a 503 on a read is retried with jittered backoff", async () => {
+  const { slept, options } = retrying()
+  const { conn, calls } = setup(sequence(() => json({}, 503), () => json({ id: "1", name: "n" })), options)
+  await conn.execute("items.get", { id: "1" })
+  assert.deepEqual(slept, [250]) // random() = 0.5 of min(8000, 500 * 2^0)
+  assert.equal(calls.length, 2)
+})
+
+test("a 503 on a write is NOT retried: it may already have taken effect", async () => {
+  const { slept, options } = retrying()
+  const { conn, calls } = setup(() => json({}, 503), options)
+  await assert.rejects(() => conn.execute("items.create", { collection: "c", title: "t" }), isKitError("upstream_error"))
+  assert.equal(calls.length, 1)
+  assert.deepEqual(slept, [])
+})
+
+test("a network failure on a write is NOT retried", async () => {
+  const { options } = retrying()
+  const { conn, calls } = setup(() => {
+    throw new Error("socket hang up")
+  }, options)
+  await assert.rejects(() => conn.execute("items.create", { collection: "c", title: "t" }), isKitError("upstream_error"))
+  assert.equal(calls.length, 1)
+})
+
+test("a write marked safeToRetry IS retried on 503", async () => {
+  const { options } = retrying()
+  const { conn, calls } = setup(sequence(() => json({}, 503), () => json({ id: "1" })), options)
+  await conn.execute("items.upsert", { id: "1", name: "n" })
+  assert.equal(calls.length, 2)
+})
+
+test("retries stop after maxRetries and surface the last error", async () => {
+  const { slept, options } = retrying({ maxRetries: 2 })
+  const { conn, calls } = setup(() => json({}, 503), options)
+  await assert.rejects(() => conn.execute("items.get", { id: "1" }), isKitError("upstream_error", (e) => e.status === 503))
+  assert.equal(calls.length, 3) // first attempt + 2 retries
+  assert.deepEqual(slept, [250, 500])
+})
+
+test("errors that retrying cannot fix are never retried (404, 401, 400)", async () => {
+  for (const status of [404, 401, 400]) {
+    const { options } = retrying()
+    const { conn, calls } = setup(() => json({}, status), options)
+    await assert.rejects(() => conn.execute("items.get", { id: "1" }))
+    assert.equal(calls.length, 1, `status ${status}`)
+  }
+})
+
+test("every attempt gets its own fresh timeout signal", async () => {
+  const { options } = retrying()
+  const { conn, calls } = setup(sequence(() => json({}, 503), () => json({ id: "1", name: "n" })), options)
+  await conn.execute("items.get", { id: "1" })
+  assert.notEqual(calls[0]!.init.signal, calls[1]!.init.signal)
+})
+
+test("maxRetries: 0 turns retrying off", async () => {
+  const { slept, options } = retrying({ maxRetries: 0 })
+  const { conn, calls } = setup(() => json({}, 429, { "retry-after": "1" }), options)
+  await assert.rejects(() => conn.execute("items.get", { id: "1" }), isKitError("rate_limited"))
+  assert.equal(calls.length, 1)
+  assert.deepEqual(slept, [])
 })

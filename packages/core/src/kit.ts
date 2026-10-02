@@ -2,6 +2,7 @@ import type { z } from "zod"
 import type { ActionDefinition, ConnectorDefinition } from "./define.js"
 import { DEFAULT_MAX_RESPONSE_BYTES, DEFAULT_TIMEOUT_MS, execute, type Credentials } from "./execute.js"
 import type { PageEnvelope, PaginationStrategy } from "./pagination.js"
+import { DEFAULT_RETRY, type RetryOptions } from "./retry.js"
 
 export interface KitOptions {
   /** Inject for tests. Defaults to the global fetch. */
@@ -10,6 +11,8 @@ export interface KitOptions {
   timeoutMs?: number
   /** Reject provider responses larger than this. Default 1 000 000 bytes. */
   maxResponseBytes?: number
+  /** Retry policy (ADR-008). Pass `{ maxRetries: 0 }` to disable retrying. */
+  retry?: Partial<RetryOptions>
 }
 
 export interface ConnectOptions {
@@ -43,6 +46,7 @@ export function createConnectorKit(options: KitOptions = {}) {
   const fetchImpl = options.fetch ?? globalThis.fetch
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS
   const maxResponseBytes = options.maxResponseBytes ?? DEFAULT_MAX_RESPONSE_BYTES
+  const retry: RetryOptions = { ...DEFAULT_RETRY, ...options.retry }
 
   return {
     connect<A extends Record<string, ActionDefinition>>(
@@ -58,6 +62,7 @@ export function createConnectorKit(options: KitOptions = {}) {
           fetch: fetchImpl,
           timeoutMs,
           maxResponseBytes,
+          retry,
         })
         // Safe: `execute` already built this from `action.output` (plus nextCursor, when paginated).
         return result as ExecuteResult<A[K]>

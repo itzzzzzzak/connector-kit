@@ -7,3 +7,4 @@ export type { ConnectOptions, Connection, ExecuteResult, KitOptions } from "./ki
 export type { Credentials } from "./execute.js"
 export { linkHeaderPagination } from "./pagination.js"
 export type { PageEnvelope, PaginationStrategy } from "./pagination.js"
+export type { RetryOptions } from "./retry.js"
