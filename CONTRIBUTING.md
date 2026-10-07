@@ -19,11 +19,21 @@ pnpm test
 
 ## Pull requests
 
-1. Fork and branch from `main`.
-2. Keep PRs focused; add or update tests.
-3. Update `CHANGELOG.md` under "Unreleased".
-4. Make sure `pnpm typecheck` and `pnpm test` pass.
+1. Fork and branch from `main` (`feat/<topic>`, `fix/<topic>`, `docs/<topic>`).
+2. Keep PRs focused; add or update tests, including failure paths.
+3. Run `pnpm smoke` if you touched `package.json`, exports, or the build: it packs the library and installs it into an empty project.
+4. Make sure `pnpm build` and `pnpm test` pass, and that the number of tests run is what you expect.
+5. **Title the PR `type: summary`** (`feat`, `fix`, `docs`, `test`, `refactor`, `chore`, `ci`; `feat!:` for breaking changes). The squash-merge uses this title, and it is what generates the version bump and changelog, so it matters.
+
+Maintainers merge with *Squash and merge*. See [MAINTAINING.md](MAINTAINING.md) for how reviews and releases work.
 
 ## Writing a connector
 
-Connector authoring docs will land with v0.1. Until then, `packages/connector-github` is the reference.
+`src/connectors/github` is the reference. Put a new connector in `src/connectors/<name>/index.ts` (tests next to it) and add a `./<name>` entry to `exports` in `package.json`; `pnpm smoke` will tell you if it doesn't install correctly. A good connector PR:
+
+- [ ] Declares each action with a `description` written for an LLM ("Use when..."), strict Zod `input`/`output`, and the right `effect` (`read`, `write`, `destructive`).
+- [ ] Marks a write `safeToRetry: true` **only** if repeating it cannot change the outcome (idempotent); otherwise leaves it unset.
+- [ ] Uses a provider pagination strategy from core (or adds a new reusable one) rather than hand-rolled paging; paginated actions declare optional `cursor` and `pageSize` inputs.
+- [ ] Has tests with a fake `fetch`: success, `404`, `429`, a malformed response, and bad input.
+- [ ] Has an opt-in live test (skipped without a token) if the API is public enough to try.
+- [ ] Keeps the connector small: if you need hand-written HTTP logic, say why in the PR.

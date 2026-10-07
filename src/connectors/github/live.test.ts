@@ -1,9 +1,9 @@
 // Opt-in smoke test against the REAL GitHub API. Skipped unless GITHUB_TOKEN is set, so CI
 // and contributors without a token are unaffected. Run it with:
-//   GITHUB_TOKEN=... pnpm --filter @connector-kit/github test
+//   GITHUB_TOKEN=... pnpm test
 import assert from "node:assert/strict"
 import { test } from "node:test"
-import { createConnectorKit } from "@connector-kit/core"
+import { createConnectorKit } from "../../index.js"
 import { github } from "./index.js"
 
 const token = process.env.GITHUB_TOKEN

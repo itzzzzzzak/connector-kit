@@ -10,6 +10,9 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
-  }
+    "forceConsistentCasingInFileNames": true,
+    "rootDir": "src",
+    "outDir": ".test-dist"
+  },
+  "include": ["src"]
 }

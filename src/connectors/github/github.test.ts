@@ -1,6 +1,6 @@
 import assert from "node:assert/strict"
 import { test } from "node:test"
-import { ConnectorKitError, createConnectorKit } from "@connector-kit/core"
+import { ConnectorKitError, createConnectorKit } from "../../index.js"
 import { github } from "./index.js"
 
 const repoPayload = {
