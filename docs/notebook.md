@@ -110,6 +110,8 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 
 ## Mistakes / misunderstandings
 
+- **Verified on a dirty checkout.** `pnpm typecheck` passed locally but failed on CI: the examples import `connector-kit` by name, which resolves to `dist/*.d.ts`, and my machine had a stale `dist/` from earlier builds. Lesson: verify from a clean state (`git clean -fdx -e node_modules`, or a fresh clone) before pushing, and make scripts build what they depend on.
+
 - **Assumed a `prepare` build hook would make `github:` installs work.** Testing a real install showed current npm blocks dependency install scripts until approved, so the package would have arrived unbuilt. Lesson: simulate the user's install (`pnpm smoke`) before documenting it. Also: the first layout (two packages + peer dependency + registry release tooling) was designed before deciding where the code would be distributed; decide the distribution channel first.
 
 - **Test-fixture off-by-one.** My fake fetch pushed to `calls` before invoking the handler, so `calls.length === 0` was never true inside it; and I forgot the default `per_page` made `url.search` non-empty. Both made the pagination iterator test fail while the code was correct. Lesson: when a test fails, read the actual output before changing product code.
