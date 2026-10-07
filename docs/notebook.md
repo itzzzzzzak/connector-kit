@@ -100,7 +100,7 @@ Operating cost is essentially one Postgres table.
 
 ## Decisions
 
-See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination.
+See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination · 011 agent tools + policy hook.
 
 ## Failures
 
@@ -118,6 +118,10 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 - **Assuming validation covers everything.** Zod proves a value is a string, not that it is a *safe path segment*. Type validation and security validation are different jobs.
 
 ## Concepts encountered
+
+- Fail-closed vs fail-open policy hooks; why a denial must not depend on the hook behaving.
+- JSON Schema for LLM tool calling (generated from Zod); tool-name character limits.
+- Mutation checks can themselves be wrong: my first fail-open mutation broke the file's syntax and 'failed' whole test files for the wrong reason. A valid mutation changes one behavior and fails one targeted test.
 
 - Retry safety: 'not processed' (429) vs 'outcome unknown' (timeout/5xx); idempotency decides whether re-sending is safe.
 - Exponential backoff with full jitter (avoids synchronized retry storms); a shared wait budget; injecting `sleep`/`random` for deterministic tests.

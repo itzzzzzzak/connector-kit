@@ -27,6 +27,15 @@ Existing options tend to be source-available rather than open source, closed at 
 
 See [docs/notebook.md](docs/notebook.md) for the full design and [docs/adr](docs/adr) for decisions.
 
+## Quickstart
+
+```bash
+pnpm install && pnpm build
+GITHUB_TOKEN=... pnpm --filter connector-kit-examples quickstart
+```
+
+See [examples/quickstart.ts](examples/quickstart.ts): typed SDK calls, `toTools()` for LLMs, and a policy hook.
+
 ## Target API (subject to change)
 
 ```ts

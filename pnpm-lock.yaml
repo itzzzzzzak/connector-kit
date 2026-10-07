@@ -15,6 +15,15 @@ importers:
         specifier: ^5.6.0
         version: 5.9.3
 
+  examples:
+    dependencies:
+      '@connector-kit/core':
+        specifier: workspace:*
+        version: link:../packages/core
+      '@connector-kit/github':
+        specifier: workspace:*
+        version: link:../packages/connector-github
+
   packages/connector-github:
     dependencies:
       '@connector-kit/core':

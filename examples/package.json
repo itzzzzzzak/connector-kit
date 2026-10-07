@@ -1,0 +1,14 @@
+{
+  "name": "connector-kit-examples",
+  "private": true,
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "quickstart": "node quickstart.ts"
+  },
+  "dependencies": {
+    "@connector-kit/core": "workspace:*",
+    "@connector-kit/github": "workspace:*"
+  }
+}
