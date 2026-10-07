@@ -1,6 +1,7 @@
 import { ConnectorKitError, errorFromStatus } from "./errors.js"
 import type { ActionDefinition, AuthConfig, ConnectorDefinition } from "./define.js"
 import type { PageEnvelope } from "./pagination.js"
+import { retryDelayMs, type RetryOptions } from "./retry.js"
 
 export const DEFAULT_TIMEOUT_MS = 30_000
 export const DEFAULT_MAX_RESPONSE_BYTES = 1_000_000
@@ -21,6 +22,7 @@ export interface ExecuteParams {
   fetch: typeof fetch
   timeoutMs: number
   maxResponseBytes: number
+  retry: RetryOptions
 }
 
 const invalid = (message: string): ConnectorKitError =>
@@ -185,78 +187,97 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
   const hasBody = action.method !== "GET" && action.method !== "DELETE"
   if (!hasBody && !action.paginate) appendQuery(url, rest)
 
-  const headers = new Headers(connector.defaultHeaders)
-  applyAuth(headers, connector.auth, credentials)
-  const init: RequestInit = { method: action.method, headers, signal: AbortSignal.timeout(params.timeoutMs) }
-  if (hasBody) {
-    headers.set("Content-Type", "application/json")
-    init.body = JSON.stringify(rest)
-  }
-
-  // 3. Call and read, both under the same timeout signal.
-  let response: Response
-  try {
-    response = await params.fetch(url, init)
-  } catch (error) {
-    throw networkError(error, params.timeoutMs)
-  }
-
-  // 4. Normalize errors, keeping what the provider said in `raw` for developers.
-  if (!response.ok) {
-    let body = ""
-    try {
-      body = (await readCapped(response, ERROR_BODY_READ_BYTES)).text.slice(0, RAW_BODY_LIMIT_CHARS)
-    } catch {
-      // The error body is best-effort; the status alone is enough to classify.
+  // One attempt = one HTTP request. Everything below can throw a ConnectorKitError.
+  const attempt = async (): Promise<unknown> => {
+    const headers = new Headers(connector.defaultHeaders)
+    applyAuth(headers, connector.auth, credentials)
+    const init: RequestInit = { method: action.method, headers, signal: AbortSignal.timeout(params.timeoutMs) }  // fresh deadline per attempt
+    if (hasBody) {
+      headers.set("Content-Type", "application/json")
+      init.body = JSON.stringify(rest)
     }
-    const rateLimitExhausted = response.headers.get("x-ratelimit-remaining") === "0"
-    const retryAfter = parseRetryAfter(response.headers, rateLimitExhausted)
-    throw errorFromStatus(response.status, {
-      raw: { status: response.status, body },
-      rateLimitExhausted,
-      ...(retryAfter !== undefined && { retryAfter }),
-    })
-  }
 
-  // 5. Read with a size cap, then validate the shape so callers get typed, trustworthy data.
-  const declared = Number(response.headers.get("content-length"))
-  if (Number.isFinite(declared) && declared > params.maxResponseBytes) {
-    await response.body?.cancel()
-    throw new ConnectorKitError("upstream_error", `The provider response is too large (limit ${params.maxResponseBytes} bytes).`, { retryable: false, status: response.status })
-  }
-  let text: string
-  try {
-    const read = await readCapped(response, params.maxResponseBytes)
-    if (read.truncated) {
+    // 3. Call and read, both under the same timeout signal.
+    let response: Response
+    try {
+      response = await params.fetch(url, init)
+    } catch (error) {
+      throw networkError(error, params.timeoutMs)
+    }
+
+    // 4. Normalize errors, keeping what the provider said in `raw` for developers.
+    if (!response.ok) {
+      let body = ""
+      try {
+        body = (await readCapped(response, ERROR_BODY_READ_BYTES)).text.slice(0, RAW_BODY_LIMIT_CHARS)
+      } catch {
+        // The error body is best-effort; the status alone is enough to classify.
+      }
+      const rateLimitExhausted = response.headers.get("x-ratelimit-remaining") === "0"
+      const retryAfter = parseRetryAfter(response.headers, rateLimitExhausted)
+      throw errorFromStatus(response.status, {
+        raw: { status: response.status, body },
+        rateLimitExhausted,
+        ...(retryAfter !== undefined && { retryAfter }),
+      })
+    }
+
+    // 5. Read with a size cap, then validate the shape so callers get typed, trustworthy data.
+    const declared = Number(response.headers.get("content-length"))
+    if (Number.isFinite(declared) && declared > params.maxResponseBytes) {
+      await response.body?.cancel()
       throw new ConnectorKitError("upstream_error", `The provider response is too large (limit ${params.maxResponseBytes} bytes).`, { retryable: false, status: response.status })
     }
-    text = read.text
-  } catch (error) {
-    if (error instanceof ConnectorKitError) throw error
-    throw networkError(error, params.timeoutMs)
-  }
-
-  let body: unknown
-  if (response.status !== 204 && text !== "") {
+    let text: string
     try {
-      body = JSON.parse(text)
-    } catch {
-      throw new ConnectorKitError("upstream_error", "The provider returned a response that was not valid JSON.", { retryable: false, status: response.status })
+      const read = await readCapped(response, params.maxResponseBytes)
+      if (read.truncated) {
+        throw new ConnectorKitError("upstream_error", `The provider response is too large (limit ${params.maxResponseBytes} bytes).`, { retryable: false, status: response.status })
+      }
+      text = read.text
+    } catch (error) {
+      if (error instanceof ConnectorKitError) throw error
+      throw networkError(error, params.timeoutMs)
     }
-  }
-  const output = action.output.safeParse(body)
-  if (!output.success) {
-    throw new ConnectorKitError("upstream_error", `The provider response did not match the expected shape for "${actionName}".`, { retryable: false, status: response.status })
+
+    let body: unknown
+    if (response.status !== 204 && text !== "") {
+      try {
+        body = JSON.parse(text)
+      } catch {
+        throw new ConnectorKitError("upstream_error", "The provider returned a response that was not valid JSON.", { retryable: false, status: response.status })
+      }
+    }
+    const output = action.output.safeParse(body)
+    if (!output.success) {
+      throw new ConnectorKitError("upstream_error", `The provider response did not match the expected shape for "${actionName}".`, { retryable: false, status: response.status })
+    }
+
+    if (action.paginate) {
+      const nextCursor = action.paginate.nextCursor({ headers: response.headers })
+      if (nextCursor !== null) {
+        // The provider told us where to go next; verify that URL too before we ever hand it back to a caller.
+        assertWithinBase(action.paginate.urlForCursor(nextCursor), base, basePath, "next-page cursor")
+      }
+      // action.output is declared z.array(...) for a paginated action (see define.ts); safe to widen here.
+      return { items: output.data as unknown[], nextCursor } satisfies PageEnvelope<unknown>
+    }
+    return output.data
   }
 
-  if (action.paginate) {
-    const nextCursor = action.paginate.nextCursor({ headers: response.headers })
-    if (nextCursor !== null) {
-      // The provider told us where to go next; verify that URL too before we ever hand it back to a caller.
-      assertWithinBase(action.paginate.urlForCursor(nextCursor), base, basePath, "next-page cursor")
+  // 6. Retry loop (ADR-008): only when the error says retrying is safe, within a total wait budget.
+  let retriesDone = 0
+  let waitedMs = 0
+  for (;;) {
+    try {
+      return await attempt()
+    } catch (error) {
+      if (!(error instanceof ConnectorKitError)) throw error
+      const delay = retryDelayMs(error, action, retriesDone, waitedMs, params.retry)
+      if (delay === null) throw error
+      await params.retry.sleep(delay)
+      waitedMs += delay
+      retriesDone += 1
     }
-    // action.output is declared z.array(...) for a paginated action (see define.ts); safe to widen here.
-    return { items: output.data as unknown[], nextCursor } satisfies PageEnvelope<unknown>
   }
-  return output.data
 }

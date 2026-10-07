@@ -119,6 +119,9 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 
 ## Concepts encountered
 
+- Retry safety: 'not processed' (429) vs 'outcome unknown' (timeout/5xx); idempotency decides whether re-sending is safe.
+- Exponential backoff with full jitter (avoids synchronized retry storms); a shared wait budget; injecting `sleep`/`random` for deterministic tests.
+
 - Pagination styles (Link header, body cursor, offset); opaque cursors; why agents get one bounded page while developers get an async iterator.
 
 - Path traversal / dot-segment normalization in URLs; percent-encoding vs. URL parsing.

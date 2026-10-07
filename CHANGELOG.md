@@ -8,6 +8,7 @@ All notable changes are documented here. Format based on [Keep a Changelog](http
 - Repository scaffold, design notebook and initial ADRs.
 - Core vertical slice: `defineConnector`, `execute` (validate, auth, HTTP, error normalization), `createConnectorKit().connect()`.
 - GitHub connector with `repos.get`.
+- Retries (ADR-008): 429 waits for `Retry-After` within a shared wait budget; 5xx/timeouts retried with jittered backoff only for reads or `safeToRetry` writes.
 - Pagination (ADR-010): paginated actions return `{ items, nextCursor }`; `linkHeaderPagination()` strategy; `kit.paginate()` async iterator for developers; GitHub `issues.list`.
 
 ### Fixed
