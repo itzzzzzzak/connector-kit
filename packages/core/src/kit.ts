@@ -2,7 +2,9 @@ import type { z } from "zod"
 import type { ActionDefinition, ConnectorDefinition } from "./define.js"
 import { DEFAULT_MAX_RESPONSE_BYTES, DEFAULT_TIMEOUT_MS, execute, type Credentials } from "./execute.js"
 import type { PageEnvelope, PaginationStrategy } from "./pagination.js"
+import type { BeforeExecute } from "./policy.js"
 import { DEFAULT_RETRY, type RetryOptions } from "./retry.js"
+import { toTools, type Tool, type ToolsOptions } from "./tools.js"
 
 export interface KitOptions {
   /** Inject for tests. Defaults to the global fetch. */
@@ -13,6 +15,8 @@ export interface KitOptions {
   maxResponseBytes?: number
   /** Retry policy (ADR-008). Pass `{ maxRetries: 0 }` to disable retrying. */
   retry?: Partial<RetryOptions>
+  /** Host policy hook (ADR-007). Without it, every action runs. */
+  beforeExecute?: BeforeExecute
 }
 
 export interface ConnectOptions {
@@ -34,6 +38,7 @@ export type ExecuteResult<Def extends ActionDefinition> = Def extends { paginate
 
 export interface Connection<A extends Record<string, ActionDefinition>> {
   readonly connectionId: string
+  readonly connector: ConnectorDefinition<A>
   execute<K extends keyof A & string>(action: K, input: z.input<A[K]["input"]>): Promise<ExecuteResult<A[K]>>
 }
 
@@ -58,6 +63,8 @@ export function createConnectorKit(options: KitOptions = {}) {
           connector,
           actionName: action,
           input,
+          connectionId,
+          ...(options.beforeExecute && { beforeExecute: options.beforeExecute }),
           credentials,
           fetch: fetchImpl,
           timeoutMs,
@@ -67,7 +74,12 @@ export function createConnectorKit(options: KitOptions = {}) {
         // Safe: `execute` already built this from `action.output` (plus nextCursor, when paginated).
         return result as ExecuteResult<A[K]>
       }
-      return { connectionId, execute: run }
+      return { connectionId, connector, execute: run }
+    },
+
+    /** Turn a connection's actions into LLM tool definitions (ADR-011). */
+    toTools<A extends Record<string, ActionDefinition>>(connection: Connection<A>, toolsOptions?: ToolsOptions): Tool[] {
+      return toTools(connection, toolsOptions)
     },
 
     /**

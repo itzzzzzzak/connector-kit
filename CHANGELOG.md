@@ -8,6 +8,7 @@ All notable changes are documented here. Format based on [Keep a Changelog](http
 - Repository scaffold, design notebook and initial ADRs.
 - Core vertical slice: `defineConnector`, `execute` (validate, auth, HTTP, error normalization), `createConnectorKit().connect()`.
 - GitHub connector with `repos.get`.
+- `kit.toTools()` (LLM tool definitions from connector actions) and the `beforeExecute` policy hook with the new `denied` error (ADR-011); opt-in live GitHub smoke tests; runnable `examples/quickstart.ts`.
 - Retries (ADR-008): 429 waits for `Retry-After` within a shared wait budget; 5xx/timeouts retried with jittered backoff only for reads or `safeToRetry` writes.
 - Pagination (ADR-010): paginated actions return `{ items, nextCursor }`; `linkHeaderPagination()` strategy; `kit.paginate()` async iterator for developers; GitHub `issues.list`.
 

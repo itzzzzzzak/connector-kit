@@ -1,6 +1,7 @@
 import { ConnectorKitError, errorFromStatus } from "./errors.js"
 import type { ActionDefinition, AuthConfig, ConnectorDefinition } from "./define.js"
 import type { PageEnvelope } from "./pagination.js"
+import type { BeforeExecute } from "./policy.js"
 import { retryDelayMs, type RetryOptions } from "./retry.js"
 
 export const DEFAULT_TIMEOUT_MS = 30_000
@@ -18,6 +19,8 @@ export interface ExecuteParams {
   connector: ConnectorDefinition<Record<string, ActionDefinition>>
   actionName: string
   input: unknown
+  connectionId: string
+  beforeExecute?: BeforeExecute
   credentials: Credentials
   fetch: typeof fetch
   timeoutMs: number
@@ -157,6 +160,26 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
     const detail = parsed.error.issues.map((i) => `${i.path.join(".") || "input"}: ${i.message}`).join("; ")
     throw invalid(`Invalid input for "${actionName}": ${detail}`)
   }
+
+  // 1b. Host policy (ADR-007). After validation, before any network I/O; fail closed.
+  if (params.beforeExecute) {
+    let decision: Awaited<ReturnType<BeforeExecute>>
+    try {
+      decision = await params.beforeExecute({
+        connector: connector.name,
+        action: actionName,
+        effect: action.effect,
+        input: parsed.data,
+        connectionId: params.connectionId,
+      })
+    } catch {
+      throw new ConnectorKitError("denied", "The approval check failed, so the action was not run.", { retryable: false })
+    }
+    if (!decision.allow) {
+      throw new ConnectorKitError("denied", `Not allowed: ${decision.reason ?? "denied by policy"}.`, { retryable: false })
+    }
+  }
+
   const { path, rest } = fillPath(action.path, parsed.data as Record<string, unknown>)
 
   const base = new URL(connector.baseUrl)

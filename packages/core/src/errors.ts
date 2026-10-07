@@ -2,6 +2,7 @@
 export type ErrorCode =
   | "auth_expired"
   | "forbidden"
+  | "denied"
   | "rate_limited"
   | "not_found"
   | "invalid_input"
