@@ -1,7 +1,6 @@
-// Run:  GITHUB_TOKEN=... pnpm --filter connector-kit-examples quickstart
-// (build first with `pnpm build`)
-import { createConnectorKit } from "@connector-kit/core"
-import { github } from "@connector-kit/github"
+// Run:  pnpm build && GITHUB_TOKEN=... pnpm example:quickstart
+import { createConnectorKit } from "connector-kit"
+import { github } from "connector-kit/github"
 
 const token = process.env.GITHUB_TOKEN
 if (!token) {

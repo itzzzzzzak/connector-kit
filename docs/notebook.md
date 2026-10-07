@@ -100,7 +100,7 @@ Operating cost is essentially one Postgres table.
 
 ## Decisions
 
-See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination · 011 agent tools + policy hook.
+See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination · 011 agent tools + policy hook · 012 GitHub distribution, single package.
 
 ## Failures
 
@@ -110,6 +110,8 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 
 ## Mistakes / misunderstandings
 
+- **Assumed a `prepare` build hook would make `github:` installs work.** Testing a real install showed current npm blocks dependency install scripts until approved, so the package would have arrived unbuilt. Lesson: simulate the user's install (`pnpm smoke`) before documenting it. Also: the first layout (two packages + peer dependency + registry release tooling) was designed before deciding where the code would be distributed; decide the distribution channel first.
+
 - **Test-fixture off-by-one.** My fake fetch pushed to `calls` before invoking the handler, so `calls.length === 0` was never true inside it; and I forgot the default `per_page` made `url.search` non-empty. Both made the pagination iterator test fail while the code was correct. Lesson: when a test fails, read the actual output before changing product code.
 
 - **A green run that ran the wrong thing.** `node --test dist/` reported "1 test, 1 pass" while our 7 real tests never executed. Lesson: check that the *number* of tests run matches what you expect, and use an explicit glob (`dist/**/*.test.js`).
@@ -118,6 +120,8 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 - **Assuming validation covers everything.** Zod proves a value is a string, not that it is a *safe path segment*. Type validation and security validation are different jobs.
 
 ## Concepts encountered
+
+- Package `exports` subpaths, self-referencing a package by its own name, `files`/`prepack` vs `prepare`, npm script gating for dependencies, conventional commits + release-please for automated versioning without a registry.
 
 - Fail-closed vs fail-open policy hooks; why a denial must not depend on the hook behaving.
 - JSON Schema for LLM tool calling (generated from Zod); tool-name character limits.

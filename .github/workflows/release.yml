@@ -1,0 +1,55 @@
+name: Release
+
+# GitHub is the distribution channel (no npm). On every push to main, release-please keeps a
+# "chore(main): release x.y.z" PR up to date from the squash-merged PR titles (feat/fix/...).
+# Merging that PR creates the git tag + GitHub Release; this workflow then builds the package
+# tarball and attaches it to the release. See MAINTAINING.md.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.rp.outputs.release_created }}
+      tag_name: ${{ steps.rp.outputs.tag_name }}
+    steps:
+      - id: rp
+        uses: googleapis/release-please-action@v4
+        with:
+          # A PAT lets CI run on the release PR (PRs opened with GITHUB_TOKEN do not trigger workflows).
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  attach-tarball:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-please.outputs.tag_name }}
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm smoke
+      - name: Pack and checksum
+        run: |
+          mkdir release-assets
+          npm pack --pack-destination release-assets
+          (cd release-assets && sha256sum *.tgz > SHA256SUMS)
+      - name: Attach to the GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${{ needs.release-please.outputs.tag_name }}" release-assets/* --clobber

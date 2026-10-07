@@ -1,4 +1,4 @@
-import { defineConnector, linkHeaderPagination } from "@connector-kit/core"
+import { defineConnector, linkHeaderPagination } from "../../index.js"
 import { z } from "zod"
 
 const issue = z.object({
