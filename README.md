@@ -72,6 +72,40 @@ const tools = kit.toTools(gh) // [{ name: "github_issues_list", description, inp
 const result = await tools[0].run({ owner: 123 }) // -> { ok: false, error: { code: "invalid_input", ... } }
 ```
 
+## Use it from Claude, Cursor, or any MCP client
+
+connector-kit includes an [MCP](https://modelcontextprotocol.io) server, so any MCP host can use your connectors as tools with no code. It is **read-only by default**: the host is driven by a model, so actions that change data are refused unless you opt in with `--allow-writes`, and destructive actions are never allowed through this command.
+
+```bash
+# Claude Code (use an absolute path; prefer a fine-grained, read-only GitHub token)
+claude mcp add github -e GITHUB_TOKEN=<token> -- node /abs/path/to/connector-kit/dist/bin/mcp.js github
+```
+
+Claude Desktop (`claude_desktop_config.json`) and Cursor (`.cursor/mcp.json`) use the same shape:
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "node",
+      "args": ["/abs/path/to/connector-kit/dist/bin/mcp.js", "github"],
+      "env": { "GITHUB_TOKEN": "<token>" }
+    }
+  }
+}
+```
+
+If you installed the release tarball, the command is `node_modules/.bin/connector-kit-mcp github`. Options: `--only repos.get,issues.list` (expose fewer tools, which saves model context) and `--allow-writes`.
+
+To embed it in your own program instead, with your own policy, use `connector-kit/mcp`:
+
+```ts
+import { serveMcp } from "connector-kit/mcp"
+await serveMcp(kit.toTools(connection))
+```
+
+The server is dependency-free and is tested against the official MCP SDK's client ([ADR-013](docs/adr/0013-mcp-server.md)).
+
 ## Writing a connector
 
 A connector is a declarative description. Zod schemas give you compile-time types, runtime validation, and the JSON Schema that LLMs need, from one definition:
@@ -131,7 +165,7 @@ The reasoning behind each decision is in [docs/adr](docs/adr), and the design ov
 - [x] `toTools()` and the `beforeExecute` policy hook
 - [x] GitHub reference connector, verified against the real API
 - [ ] `TokenStore` (in-memory + Postgres, encrypted at rest) and OAuth 2.0 (`startAuth` / `finishAuth`, `state`, PKCE, token refresh with locking)
-- [ ] MCP server adapter
+- [x] MCP server (`connector-kit/mcp` and the `connector-kit-mcp` command)
 - [ ] More connectors and pagination strategies (body cursor, offset)
 - [ ] Webhook verification and delivery de-duplication
 - [ ] First GitHub Release (`0.1.0`)
@@ -144,6 +178,7 @@ Have an idea or a connector you need? [Open an issue](https://github.com/itzzzzz
 |---|---|
 | [`connector-kit`](src) | The runtime (`defineConnector`, `createConnectorKit`, retries, pagination, `toTools()`, policy hook) |
 | [`connector-kit/github`](src/connectors/github) | GitHub connector (reference implementation) |
+| [`connector-kit/mcp`](src/mcp.ts) | MCP server over stdio, plus the `connector-kit-mcp` command |
 | [`examples/`](examples) | Runnable examples |
 | [`docs/`](docs) | Design notebook and [architecture decision records](docs/adr) |
 
