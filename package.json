@@ -1,6 +1,6 @@
 {
   "name": "connector-kit",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "Agent-first TypeScript library for safe SaaS API connectors: typed actions, pagination, retries, rate limits, and LLM tools.",
   "license": "MIT",
