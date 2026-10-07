@@ -2,6 +2,18 @@
 
 All notable changes are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims to follow [Semantic Versioning](https://semver.org/) from 0.1.
 
+## 0.1.0 (2026-10-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* single-package layout distributed from GitHub Releases ([#5](https://github.com/itzzzzzzak/connector-kit/issues/5))
+
+### Features
+
+* MCP server adapter and connector-kit-mcp command ([#12](https://github.com/itzzzzzzak/connector-kit/issues/12)) ([2086492](https://github.com/itzzzzzzak/connector-kit/commit/2086492d805d1dd4574dcaa66b14bd67eb78f72f))
+* single-package layout distributed from GitHub Releases ([#5](https://github.com/itzzzzzzak/connector-kit/issues/5)) ([201ab76](https://github.com/itzzzzzzak/connector-kit/commit/201ab767dddcf58d2f6cb8cabe77c9f51c33318f))
+
 ## [Unreleased]
 
 ### Added
