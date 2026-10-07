@@ -129,7 +129,12 @@ To force a specific version (e.g. the first one), add a commit with the footer `
 
 ### The first release (`0.1.0`)
 
-Cut it when the roadmap items you consider the "v0.1 promise" are done (at minimum: the README claims all hold, `pnpm smoke` passes, and the quickstart runs against the real API with a fresh token). Merge a commit with `Release-As: 0.1.0`, then merge the release PR it produces.
+release-please treats a breaking change on a `0.0.0` baseline as a jump to `1.0.0`, which we do not want. The first release is therefore **pinned** with `"release-as": "0.1.0"` in `release-please-config.json`.
+
+1. Check the release PR title says `0.1.0` (not `1.0.0`) and that the README claims all hold: `pnpm smoke` passes and the quickstart runs against the real API with a fresh token.
+2. Merge the release PR. The tarball and `SHA256SUMS` are attached to the GitHub Release by the second job.
+3. **Immediately afterwards, remove `release-as` from `release-please-config.json`** in a `chore:` PR. If it stays, every future release would be forced back to `0.1.0`.
+4. The first release's generated notes are thin (earlier commits were not conventional). Edit the GitHub Release notes by hand to give a proper summary.
 
 ### Pre-releases
 
