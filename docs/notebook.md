@@ -133,6 +133,8 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 
 ## Concepts encountered
 
+- Postgres: `INSERT ... ON CONFLICT DO UPDATE ... WHERE` as a compare-and-set, `DELETE ... RETURNING` as an atomic take, database-clock expiry, advisory locks vs. lease rows (pool starvation, pgbouncer), why a silent test skip must be made a failure in CI (`REQUIRE_POSTGRES`).
+
 - AEAD (AES-GCM): nonce must never repeat per key; associated data binds ciphertext to its context; envelope versioning and key ids for rotation.
 - OAuth 2.0 authorization-code flow, `state` (CSRF), PKCE S256, refresh-token rotation, the refresh race and why a lock plus re-read-inside-the-lock fixes it.
 

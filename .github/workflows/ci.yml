@@ -35,3 +35,33 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm smoke
+
+  # The Postgres store is only trustworthy if it runs against a REAL Postgres (atomic DELETE...RETURNING,
+  # the cross-server lock). REQUIRE_POSTGRES makes a missing database a failure, not a quiet skip.
+  postgres:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: connectorkit
+          POSTGRES_PASSWORD: connectorkit
+          POSTGRES_DB: connectorkit
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U connectorkit"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgres://connectorkit:connectorkit@localhost:5432/connectorkit
+      REQUIRE_POSTGRES: "1"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test

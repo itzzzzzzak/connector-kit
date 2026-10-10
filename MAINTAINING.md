@@ -30,7 +30,7 @@ Most of this is already done; use it as an audit checklist.
   ```bash
   gh api -X PUT repos/itzzzzzzak/connector-kit/branches/main/protection --input - <<'JSON'
   {
-    "required_status_checks": { "strict": true, "contexts": ["check (22)", "check (24)", "package"] },
+    "required_status_checks": { "strict": true, "contexts": ["check (22)", "check (24)", "package", "postgres"] },
     "enforce_admins": false,
     "required_pull_request_reviews": null,
     "restrictions": null,
@@ -77,7 +77,7 @@ Stacked PRs (a PR whose base is another feature branch) are allowed but must say
 
 **Review checklist** (also in the PR template)
 
-- [ ] Does CI pass on both Node versions and the `package` job? Read the log if not; don't guess.
+- [ ] Does CI pass on both Node versions, the `package` job and the `postgres` job? Read the log if not; don't guess.
 - [ ] Are there tests for failure paths, not just the happy path?
 - [ ] Could a model or untrusted caller misuse this? (path/URL injection, oversized input or output, prompt-injectable text, retrying a non-idempotent write)
 - [ ] Could a secret end up in an error, log, or tool result?
