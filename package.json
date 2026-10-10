@@ -28,6 +28,10 @@
       "types": "./dist/connectors/digitalocean/index.d.ts",
       "default": "./dist/connectors/digitalocean/index.js"
     },
+    "./figma": {
+      "types": "./dist/connectors/figma/index.d.ts",
+      "default": "./dist/connectors/figma/index.js"
+    },
     "./github": {
       "types": "./dist/connectors/github/index.d.ts",
       "default": "./dist/connectors/github/index.js"
@@ -40,13 +44,25 @@
       "types": "./dist/connectors/hubspot/index.d.ts",
       "default": "./dist/connectors/hubspot/index.js"
     },
+    "./intercom": {
+      "types": "./dist/connectors/intercom/index.d.ts",
+      "default": "./dist/connectors/intercom/index.js"
+    },
     "./netlify": {
       "types": "./dist/connectors/netlify/index.d.ts",
       "default": "./dist/connectors/netlify/index.js"
     },
+    "./pipedrive": {
+      "types": "./dist/connectors/pipedrive/index.d.ts",
+      "default": "./dist/connectors/pipedrive/index.js"
+    },
     "./slack": {
       "types": "./dist/connectors/slack/index.d.ts",
       "default": "./dist/connectors/slack/index.js"
+    },
+    "./vercel": {
+      "types": "./dist/connectors/vercel/index.d.ts",
+      "default": "./dist/connectors/vercel/index.js"
     },
     "./zoom": {
       "types": "./dist/connectors/zoom/index.d.ts",
