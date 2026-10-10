@@ -3,6 +3,8 @@ export type ErrorCode =
   | "auth_expired"
   | "forbidden"
   | "denied"
+  | "not_connected"
+  | "storage_error"
   | "rate_limited"
   | "not_found"
   | "invalid_input"
