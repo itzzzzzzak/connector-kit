@@ -100,7 +100,7 @@ Operating cost is essentially one Postgres table.
 
 ## Decisions
 
-See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination · 011 agent tools + policy hook · 012 GitHub distribution, single package · 013 MCP server.
+See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination · 011 agent tools + policy hook · 012 GitHub distribution, single package · 013 MCP server · 014 OAuth + token store.
 
 ## Failures
 
@@ -109,6 +109,9 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 - **GitHub signals rate limits with 403.** Treating every 403 as "permission denied" would tell an agent not to retry. Fix: 403 with `x-ratelimit-remaining: 0` maps to `rate_limited`; other 403s map to the new `forbidden` code.
 
 ## Mistakes / misunderstandings
+
+- **Two invalid mutation checks in a row.** One `sed` pattern (`cipher.setAAD`) also matched inside `decipher.setAAD`, leaving a dangling `de` that broke decryption entirely, so the 'moved record' test was never the one failing. A valid mutation changes exactly one behavior and fails exactly the tests meant to catch it; check which tests failed, not just that something did.
+- **Polling CI with a loop that exited immediately.** `gh pr checks` prints 'no checks reported' before CI registers, and my 'until no pending' loop treated that as done. Wait for the expected number of checks to exist first.
 
 - **A smoke test that did not test what it claimed.** The first version launched the MCP CLI by file path, so breaking the package's `bin` field did not fail it; the mutation check exposed this. It also embedded code in a template string, where a backslash-n became a real newline and broke the script. Lessons: exercise the *interface users use* (the installed `bin` command), keep scripts in real files, and always check a test can fail.
 - **Re-exported a Node-only module from the package root.** Caught in review of my own diff: the MCP server imports `node:readline`, which would have broken edge-runtime users of the core. Node-only code lives behind its own subpath.
@@ -125,6 +128,9 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 - **Assuming validation covers everything.** Zod proves a value is a string, not that it is a *safe path segment*. Type validation and security validation are different jobs.
 
 ## Concepts encountered
+
+- AEAD (AES-GCM): nonce must never repeat per key; associated data binds ciphertext to its context; envelope versioning and key ids for rotation.
+- OAuth 2.0 authorization-code flow, `state` (CSRF), PKCE S256, refresh-token rotation, the refresh race and why a lock plus re-read-inside-the-lock fixes it.
 
 - MCP over stdio: JSON-RPC 2.0, newline-delimited framing, protocol-version negotiation, notifications vs requests, tool annotations, `isError` vs JSON-RPC errors; stdout must carry only protocol messages.
 
