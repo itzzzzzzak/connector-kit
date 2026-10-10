@@ -1,5 +1,6 @@
 export { defineConnector } from "./define.js"
-export type { ActionDefinition, AuthConfig, ConnectorDefinition, Effect, HttpMethod } from "./define.js"
+export type { ActionDefinition, AuthConfig, ConnectorDefinition, ConnectorMeta, ConnectorStatus, Effect, HttpMethod } from "./define.js"
+export { checkConnector } from "./conformance.js"
 export { ConnectorKitError } from "./errors.js"
 export type { ErrorCode } from "./errors.js"
 export { createConnectorKit } from "./kit.js"

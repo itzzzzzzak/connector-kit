@@ -83,7 +83,7 @@ Stacked PRs (a PR whose base is another feature branch) are allowed but must say
 - [ ] Could a secret end up in an error, log, or tool result?
 - [ ] Is the public API change intentional and documented? Is the PR title right (`feat!:` if breaking)?
 - [ ] Does the change keep the invariants: *the core knows nothing about agents; adapters know nothing about providers; every call goes through `execute`*?
-- [ ] New connector? Does it follow the checklist in [CONTRIBUTING.md](CONTRIBUTING.md)?
+- [ ] New connector? CI already enforces shape (conformance check, tests exist, exports and catalog generated). **You** check truth: open the provider's official docs and spot-check at least three actions (path, method, auth, pagination, a response field). Is `status` honest (`docs-based` unless someone ran it live, with evidence)? Are the descriptions the contributor's own words, not pasted docs?
 
 **Merging**
 

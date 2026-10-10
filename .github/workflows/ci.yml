@@ -20,6 +20,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
+      - run: pnpm check:generated
       - run: pnpm test
 
   # Proves the thing users actually install works: pack it, install the tarball into an empty

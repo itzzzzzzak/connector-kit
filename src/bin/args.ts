@@ -1,31 +1,37 @@
 import type { BeforeExecute } from "../policy.js"
 
 export interface McpCliArgs {
-  connector: string
+  /** Undefined only when `list` is set. */
+  connector?: string
   only?: string[]
   allowWrites: boolean
+  list: boolean
 }
 
 export const USAGE = `Usage: connector-kit-mcp <connector> [--only action1,action2] [--allow-writes]
+       connector-kit-mcp --list
 
 Serves a connector's actions as MCP tools over stdio.
 
-  <connector>       one of: github, slack
+  <connector>       a connector name; run --list to see them all
+  --list            print the available connectors and the environment variable each one reads
   --only a,b        expose only these actions (e.g. repos.get,issues.list)
   --allow-writes    allow actions that change data. Default is read-only.
                     Destructive actions are never allowed through this command.
 
-Credentials come from the environment (github: GITHUB_TOKEN, slack: SLACK_BOT_TOKEN).`
+The credential comes from the environment variable shown by --list (for example GITHUB_TOKEN).`
 
 /** Returns the parsed args, or an error message to show the user. */
 export function parseMcpArgs(argv: string[]): McpCliArgs | { error: string } {
   let connector: string | undefined
   let only: string[] | undefined
   let allowWrites = false
+  let list = false
 
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i]!
     if (arg === "--allow-writes") allowWrites = true
+    else if (arg === "--list") list = true
     else if (arg === "--only") {
       const value = argv[++i]
       if (!value) return { error: "--only needs a comma-separated list of actions" }
@@ -34,8 +40,8 @@ export function parseMcpArgs(argv: string[]): McpCliArgs | { error: string } {
     else if (connector === undefined) connector = arg
     else return { error: `Unexpected argument: ${arg}` }
   }
-  if (connector === undefined) return { error: "Missing connector name" }
-  return { connector, ...(only && { only }), allowWrites }
+  if (connector === undefined && !list) return { error: "Missing connector name" }
+  return { ...(connector !== undefined && { connector }), ...(only && { only }), allowWrites, list }
 }
 
 /**

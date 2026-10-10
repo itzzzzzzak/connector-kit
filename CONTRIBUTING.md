@@ -22,12 +22,14 @@ pnpm test
 1. Fork and branch from `main` (`feat/<topic>`, `fix/<topic>`, `docs/<topic>`).
 2. Keep PRs focused; add or update tests, including failure paths.
 3. Run `pnpm smoke` if you touched `package.json`, exports, or the build: it packs the library and installs it into an empty project.
-4. Make sure `pnpm build` and `pnpm test` pass, and that the number of tests run is what you expect.
+4. Make sure `pnpm build` and `pnpm test` pass, and that the number of tests run is what you expect. If you added or changed a connector, also run `pnpm sync && pnpm catalog && pnpm check:generated`.
 5. **Title the PR `type: summary`** (`feat`, `fix`, `docs`, `test`, `refactor`, `chore`, `ci`; `feat!:` for breaking changes). The squash-merge uses this title, and it is what generates the version bump and changelog, so it matters.
 
 Maintainers merge with *Squash and merge*. See [MAINTAINING.md](MAINTAINING.md) for how reviews and releases work.
 
 ## Writing a connector
+
+**Start with [docs/writing-connectors.md](docs/writing-connectors.md)** and scaffold with `pnpm new:connector <name>`. The automatic check and the rules below apply to every connector. Summary:
 
 `src/connectors/github` is the reference. Put a new connector in `src/connectors/<name>/index.ts` (tests next to it) and add a `./<name>` entry to `exports` in `package.json`; `pnpm smoke` will tell you if it doesn't install correctly. A good connector PR:
 

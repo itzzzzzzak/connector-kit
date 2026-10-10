@@ -64,7 +64,11 @@
     "test": "node -e \"fs.rmSync('.test-dist',{recursive:true,force:true})\" && tsc -p tsconfig.json && node --test \".test-dist/**/*.test.js\"",
     "example:quickstart": "node examples/quickstart.ts",
     "prepack": "npm run build",
-    "smoke": "node scripts/smoke-install.mjs"
+    "smoke": "node scripts/smoke-install.mjs",
+    "sync": "node scripts/sync-exports.mjs",
+    "catalog": "npm run build && node scripts/catalog.mjs",
+    "check:generated": "node scripts/sync-exports.mjs --check && node scripts/catalog.mjs --check",
+    "new:connector": "node scripts/new-connector.mjs"
   },
   "dependencies": {
     "zod": "^4.6.5"

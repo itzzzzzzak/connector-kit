@@ -1,6 +1,6 @@
 // Runs INSIDE the throwaway project that scripts/smoke-install.mjs installs the tarball into.
 import assert from "node:assert/strict"
-import { spawn } from "node:child_process"
+import { spawn, spawnSync } from "node:child_process"
 import { readdirSync } from "node:fs"
 import { createConnectorKit, defineConnector, ConnectorKitError, memoryTokenStore, postgresTokenStore, encryptedStore, createEncryption, generateEncryptionKey } from "connector-kit"
 import { github } from "connector-kit/github"
@@ -27,6 +27,11 @@ assert.deepEqual(tools.map((t) => t.name).sort(), ["github_issues_list", "github
 
 const shipped = readdirSync("node_modules/connector-kit/dist", { recursive: true }).map(String)
 assert.ok(!shipped.some((f) => /\.test\.|\.map$/.test(f)), "tests or source maps leaked into the package")
+
+// --list must discover the connectors that shipped.
+const listed = spawnSync("node_modules/.bin/connector-kit-mcp", ["--list"], { encoding: "utf8" })
+assert.equal(listed.status, 0, `--list failed: ${listed.stderr}`)
+for (const name of ["github", "slack"]) assert.match(listed.stderr, new RegExp(`^${name}\\s`, "m"), `--list did not show ${name}`)
 
 // The installed CLI must speak MCP over stdio exactly as a host (Claude Desktop, Cursor, ...) would use it.
 // Run the command npm links from the package's `bin` field, the same one a user's config would call.

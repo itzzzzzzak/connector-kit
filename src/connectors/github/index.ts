@@ -37,6 +37,13 @@ export const github = defineConnector({
     // GitHub rejects requests without a User-Agent.
     "User-Agent": "connector-kit",
   },
+  meta: {
+    title: "GitHub",
+    description: "Read repositories and issues; connect with a personal access token or OAuth.",
+    docsUrl: "https://docs.github.com/en/rest",
+    status: "live-tested", // repos.get and issues.list were run against the real API
+    credentialEnv: "GITHUB_TOKEN",
+  },
   actions: {
     "repos.get": {
       description: "Get details about a GitHub repository. Use when the user asks about a specific repo.",
@@ -58,3 +65,5 @@ export const github = defineConnector({
     },
   },
 })
+
+export default github
