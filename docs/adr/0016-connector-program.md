@@ -29,6 +29,10 @@ Found by surveying the providers' documented behavior (to be built just in time,
 | Auth in query parameters / several headers | Trello, Datadog |
 | GraphQL actions | Linear, Monday, GitHub GraphQL |
 
+## Progress notes
+- **Batch 1a, PR 1 (Asana, HubSpot, Airtable, Calendly)** was written from the providers' official specs (Asana, HubSpot, Calendly) and official reference pages (Airtable). Reading them found four more things the core could not express, each added as a small general hook with tests: `buildBody` (Asana's `{ data }` envelope), `buildQuery` (Airtable's `fields[]` and `sort[0][field]` conventions), an optional page-size parameter on pagination strategies (Airtable's base list has none), and a case-sensitive `TODO` check (a legitimate `'Todo'` status value tripped the old, case-insensitive one).
+- Each connector ships an opt-in live test (read-only actions) so anyone with an account can verify it.
+
 ## Alternatives considered
 - **Generate from OpenAPI** (offered; maintainer chose hand-writing). Faster to scale, but the public directory is incomplete for popular SaaS (several major ones are absent), most specs declare no license, and generated action lists are not curated for agents.
 - **Count everything as a connector with no tiers.** Rejected: it hides which ones have been proven.

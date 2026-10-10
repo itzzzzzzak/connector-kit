@@ -203,10 +203,12 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
   assertWithinBase(url, base, basePath, "request path")
   if (action.paginate) {
     const { cursor, pageSize, ...queryRest } = rest as { cursor?: unknown; pageSize?: unknown } & Record<string, unknown>
-    appendQuery(url, queryRest)
+    appendQuery(url, action.buildQuery ? action.buildQuery(queryRest) : queryRest)
     if (pageSize !== undefined && typeof pageSize !== "number") throw invalid('"pageSize" must be a number.')
-    const size = clamp(pageSize ?? action.paginate.defaultPageSize, 1, action.paginate.maxPageSize)
-    url.searchParams.set(action.paginate.pageSizeParam, String(size))
+    if (action.paginate.pageSizeParam) {
+      const size = clamp(pageSize ?? action.paginate.defaultPageSize, 1, action.paginate.maxPageSize)
+      url.searchParams.set(action.paginate.pageSizeParam, String(size))
+    }
     if (cursor !== undefined) {
       if (typeof cursor !== "string") throw invalid('"cursor" must be a string.')
       // The cursor came from OUR previous nextCursor, but never trust it blindly: the final URL must still be ours.
@@ -215,7 +217,7 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
     }
   }
   const hasBody = action.method !== "GET" && action.method !== "DELETE"
-  if (!hasBody && !action.paginate) appendQuery(url, rest)
+  if (!hasBody && !action.paginate) appendQuery(url, action.buildQuery ? action.buildQuery(rest) : rest)
 
   // One attempt = one HTTP request. Everything below can throw a ConnectorKitError.
   let lastToken: string | undefined // the token the most recent attempt sent
@@ -227,7 +229,7 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
     const init: RequestInit = { method: action.method, headers, signal: AbortSignal.timeout(params.timeoutMs) }  // fresh deadline per attempt
     if (hasBody) {
       headers.set("Content-Type", "application/json")
-      init.body = JSON.stringify(rest)
+      init.body = JSON.stringify(action.buildBody ? action.buildBody(rest) : rest)
     }
 
     // 3. Call and read, both under the same timeout signal.

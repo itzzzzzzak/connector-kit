@@ -48,6 +48,17 @@ export interface ActionDefinition {
   /** ADR-008: only retry non-idempotent calls when this is true. */
   safeToRetry?: boolean
   /**
+   * Shape the JSON request body from the validated input (path parameters already removed). Default: the
+   * input itself. For APIs that wrap bodies, e.g. Asana's `{ "data": { ... } }`.
+   */
+  buildBody?: (input: Record<string, unknown>) => unknown
+  /**
+   * Shape the query string from the validated input (path parameters, and for paginated actions the cursor and
+   * page size, already removed). Return the parameters to send; array values are sent as repeated parameters.
+   * For APIs with their own conventions, e.g. Airtable's `fields[]=a` and `sort[0][field]=Name`.
+   */
+  buildQuery?: (input: Record<string, unknown>) => Record<string, unknown>
+  /**
    * ADR-010: makes this a paginated action. `input` must include optional
    * `cursor: z.string()` and `pageSize: z.number()` fields — the kit reads and
    * removes them, it does not add them for you.
