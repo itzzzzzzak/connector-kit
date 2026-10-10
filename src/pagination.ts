@@ -86,3 +86,31 @@ export function bodyCursorPagination(options: {
     },
   }
 }
+
+/**
+ * DigitalOcean/Zendesk-style: the list is a field of the body and the body also carries the FULL URL of
+ * the next page (`links.pages.next`); there is no separate cursor parameter. The URL is the cursor.
+ */
+export function bodyLinkPagination(options: {
+  /** Key of the list in the response body, e.g. "droplets". */
+  itemsKey: string
+  /** Path to the next-page URL in the response body, e.g. ["links", "pages", "next"]. */
+  nextUrlPath: string[]
+  pageSizeParam?: string
+  defaultPageSize?: number
+  maxPageSize?: number
+}): PaginationStrategy {
+  return {
+    pageSizeParam: options.pageSizeParam ?? "per_page",
+    defaultPageSize: options.defaultPageSize ?? 30,
+    maxPageSize: options.maxPageSize ?? 100,
+    items: (body) => dig(body, [options.itemsKey]),
+    nextCursor({ body }) {
+      const next = dig(body, options.nextUrlPath)
+      return typeof next === "string" && next !== "" ? next : null
+    },
+    applyCursor(_url, cursor) {
+      return new URL(cursor)
+    },
+  }
+}

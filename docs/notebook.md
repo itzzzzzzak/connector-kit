@@ -110,6 +110,9 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 
 ## Mistakes / misunderstandings
 
+- **A gate that is right in spirit can still be wrong in letter.** "Path parameters must be required" flagged Zoom's `userId`, which defaults to `"me"` and therefore can never be missing. The right response was to understand *why* the rule exists (a missing path value builds a broken URL) and tighten it to that (optional is fine with a default), not to drop the default or disable the rule.
+- **Omission is a security feature.** Zoom's responses carry meeting passcodes and a host login link. Because the kit validates responses against the connector's schema and drops the rest, simply not listing those fields guarantees no caller or model ever sees them. This is stated in the connector and enforced by a test that plants a secret in the fake response.
+
 - **My own quality gate had a false positive.** The case-insensitive `TODO` detector flagged a correct Airtable description that contains the status value `'Todo'`. The right fix was to make the gate precise (uppercase placeholders only) and add a test for the legitimate word, not to reword accurate documentation to satisfy the gate.
 - **Reading the vendor's spec corrected my memory three times in one connector** (Asana has no `/users/me` path; it is `/users/{user_gid}` with `me`; Airtable's PATCH is partial but PUT clears unspecified fields; Calendly paginates with `page_token`/`count`). Memory of an API is a hypothesis; the official description is the evidence.
 

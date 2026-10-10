@@ -111,3 +111,50 @@ test("buildQuery also applies to non-paginated GETs", async () => {
   await conn.execute("plain.get", { tags: ["a", "b"] })
   assert.deepEqual(calls[0]!.url.searchParams.getAll("tags[]"), ["a", "b"])
 })
+
+// ---------------------------------------------------------------- query-only writes
+
+const queryOnly = defineConnector({
+  name: "queryonly",
+  baseUrl: "https://api.queryonly.dev/v1",
+  auth: { type: "bearer" },
+  actions: {
+    "builds.create": {
+      description: "Trigger a build; the provider takes its options as query parameters and wants no body.",
+      method: "POST",
+      path: "/sites/{site}/builds",
+      input: z.object({ site: z.string(), branch: z.string().optional(), clear_cache: z.boolean().optional() }),
+      output: z.object({ id: z.string() }),
+      effect: "write",
+      buildQuery: (input) => input,
+    },
+    "both.create": {
+      description: "Declares both: parameters go to the query string and the body is built separately.",
+      method: "POST",
+      path: "/both",
+      input: z.object({ mode: z.string(), payload: z.string() }),
+      output: z.object({ id: z.string() }),
+      effect: "write",
+      buildQuery: ({ mode }) => ({ mode }),
+      buildBody: ({ payload }) => ({ payload }),
+    },
+  },
+})
+
+test("a POST that declares only buildQuery sends its parameters in the query and NO body", async () => {
+  const { conn, calls } = harness(queryOnly, () => json({ id: "b1" }))
+  await conn.execute("builds.create", { site: "s1", branch: "main", clear_cache: true })
+  assert.equal(calls[0]!.init.method, "POST")
+  assert.equal(calls[0]!.url.pathname, "/v1/sites/s1/builds")
+  assert.equal(calls[0]!.url.searchParams.get("branch"), "main")
+  assert.equal(calls[0]!.url.searchParams.get("clear_cache"), "true")
+  assert.equal(calls[0]!.init.body, undefined)
+  assert.equal(calls[0]!.header("content-type"), null)
+})
+
+test("declaring both buildQuery and buildBody splits the input between them", async () => {
+  const { conn, calls } = harness(queryOnly, () => json({ id: "x" }))
+  await conn.execute("both.create", { mode: "fast", payload: "hello" })
+  assert.equal(calls[0]!.url.searchParams.get("mode"), "fast")
+  assert.deepEqual(calls[0]!.body, { payload: "hello" })
+})

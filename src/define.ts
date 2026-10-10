@@ -56,6 +56,8 @@ export interface ActionDefinition {
    * Shape the query string from the validated input (path parameters, and for paginated actions the cursor and
    * page size, already removed). Return the parameters to send; array values are sent as repeated parameters.
    * For APIs with their own conventions, e.g. Airtable's `fields[]=a` and `sort[0][field]=Name`.
+   * On a POST/PUT/PATCH, declaring `buildQuery` WITHOUT `buildBody` means the parameters travel in the query
+   * string and no body is sent (e.g. Netlify's `POST /sites/{id}/builds?branch=main`).
    */
   buildQuery?: (input: Record<string, unknown>) => Record<string, unknown>
   /**
