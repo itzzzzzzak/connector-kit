@@ -2,6 +2,15 @@
 
 All notable changes are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims to follow [Semantic Versioning](https://semver.org/) from 0.1.
 
+## [0.2.0](https://github.com/itzzzzzzak/connector-kit/compare/v0.1.0...v0.2.0) (2026-10-10)
+
+
+### Features
+
+* OAuth 2.0 flow, token resolution from the store, and safe refresh ([#19](https://github.com/itzzzzzzak/connector-kit/issues/19)) ([6169f08](https://github.com/itzzzzzzak/connector-kit/commit/6169f0827fc2d6f9e8df2e5225b43ac751025d83))
+* Postgres TokenStore with a cross-server lock ([#20](https://github.com/itzzzzzzak/connector-kit/issues/20)) ([a092d1b](https://github.com/itzzzzzzak/connector-kit/commit/a092d1b318ce1fc8f934078e7d9de6d1f66b6364))
+* TokenStore with in-memory store and encryption at rest ([#17](https://github.com/itzzzzzzak/connector-kit/issues/17)) ([b1f0170](https://github.com/itzzzzzzak/connector-kit/commit/b1f0170b73ce298b3d38718fe6191c4628beefdd))
+
 ## 0.1.0 (2026-10-07)
 
 
