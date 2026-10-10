@@ -1,4 +1,5 @@
 import type { ZodType } from "zod"
+import type { ConnectorKitError } from "./errors.js"
 import type { PaginationStrategy } from "./pagination.js"
 
 // ADR-007: every action declares how dangerous it is. The host decides policy.
@@ -59,6 +60,13 @@ export interface ConnectorDefinition<A extends Record<string, ActionDefinition>>
   baseUrl: string
   auth: AuthConfig
   defaultHeaders?: Record<string, string>
+  /**
+   * For providers that answer HTTP 200 even when the call failed (Slack: `{ "ok": false, "error": "..." }`).
+   * Called with the parsed body of every 2xx response; return a ConnectorKitError to fail the call with the
+   * right code, or undefined when the body is fine. Retries and token refresh then work as for any other error
+   * (see ADR-015).
+   */
+  detectError?: (body: unknown) => ConnectorKitError | undefined
   actions: A
 }
 

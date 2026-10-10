@@ -124,6 +124,7 @@ connector-kit includes an [MCP](https://modelcontextprotocol.io) server, so any 
 ```bash
 # Claude Code (use an absolute path; prefer a fine-grained, read-only GitHub token)
 claude mcp add github -e GITHUB_TOKEN=<token> -- node /abs/path/to/connector-kit/dist/bin/mcp.js github
+claude mcp add slack -e SLACK_BOT_TOKEN=<xoxb-token> -- node /abs/path/to/connector-kit/dist/bin/mcp.js slack
 ```
 
 Claude Desktop (`claude_desktop_config.json`) and Cursor (`.cursor/mcp.json`) use the same shape:
@@ -195,7 +196,8 @@ See [src/connectors/github](src/connectors/github/index.ts) for the full referen
 | **Errors** | A small fixed set (`auth_expired`, `forbidden`, `rate_limited`, `not_found`, `invalid_input`, `denied`, `upstream_error`), each with `retryable` and a message written for a model. Provider detail lives in a non-enumerable `error.raw`, so it stays out of logs. |
 | **Rate limits** | `429` (and GitHub-style `403`) wait for `Retry-After` within a shared 30 s budget; longer waits return `rate_limited` with `retryAfter` instead of hanging your function or agent. |
 | **Retries** | Exponential backoff with jitter. Failures where the outcome is unknown (timeout, `5xx`) are retried **only for reads or actions marked `safeToRetry`**, so a retry cannot create a duplicate. |
-| **Pagination** | One bounded page per call (default 30, max 100) plus an opaque `nextCursor`. The same primitive serves agents and developers. |
+| **Pagination** | One bounded page per call (default 30, capped per provider) plus an opaque `nextCursor`. Works for providers that page by `Link` header (GitHub) and by a cursor inside the body (Slack). The same primitive serves agents and developers. |
+| **"200 OK" that failed** | Providers like Slack report errors inside a successful response. A connector's `detectError` hook maps them to the normal error codes, so retries and token refresh behave as for any other failure. |
 | **Timeouts and size** | Every attempt has a deadline (30 s) and responses are size-capped (1 MB). |
 | **Secrets** | Tokens appear only in the outgoing auth header: never in errors, tool results, or `JSON.stringify(error)`. |
 | **Policy** | An optional `beforeExecute` hook sees each call's `effect` and validated input and can allow or deny (async, so a human can approve). It **fails closed**: if the hook throws, the action does not run. |
@@ -212,7 +214,8 @@ The reasoning behind each decision is in [docs/adr](docs/adr), and the design ov
 - [x] OAuth 2.0 (`startAuth` / `finishAuth`, `state`, PKCE, refresh with locking) and an encrypted `TokenStore` (in-memory)
 - [x] Postgres `TokenStore` (cross-server lock, tested against real Postgres)
 - [x] MCP server (`connector-kit/mcp` and the `connector-kit-mcp` command)
-- [ ] More connectors and pagination strategies (body cursor, offset)
+- [x] A second connector (Slack) and body-cursor pagination
+- [ ] More connectors and an offset pagination strategy
 - [ ] Webhook verification and delivery de-duplication
 - [ ] First GitHub Release (`0.1.0`)
 
@@ -224,6 +227,7 @@ Have an idea or a connector you need? [Open an issue](https://github.com/itzzzzz
 |---|---|
 | [`connector-kit`](src) | The runtime (`defineConnector`, `createConnectorKit`, retries, pagination, `toTools()`, policy hook) |
 | [`connector-kit/github`](src/connectors/github) | GitHub connector (reference implementation) |
+| [`connector-kit/slack`](src/connectors/slack) | Slack connector: channels, history, users, post message (a write, never auto-retried) |
 | [`connector-kit/mcp`](src/mcp.ts) | MCP server over stdio, plus the `connector-kit-mcp` command |
 | [`examples/`](examples) | Runnable examples |
 | [`docs/`](docs) | Design notebook and [architecture decision records](docs/adr) |

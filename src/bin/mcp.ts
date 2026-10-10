@@ -2,11 +2,13 @@
 import type { ActionDefinition, ConnectorDefinition } from "../define.js"
 import { createConnectorKit } from "../kit.js"
 import { github } from "../connectors/github/index.js"
+import { slack } from "../connectors/slack/index.js"
 import { serveMcp } from "../mcp.js"
 import { mcpPolicy, parseMcpArgs, USAGE } from "./args.js"
 
 const REGISTRY: Record<string, { connector: ConnectorDefinition<Record<string, ActionDefinition>>; tokenEnv: string }> = {
   github: { connector: github, tokenEnv: "GITHUB_TOKEN" },
+  slack: { connector: slack, tokenEnv: "SLACK_BOT_TOKEN" },
 }
 
 // stdout is the protocol channel: everything human-readable goes to stderr.

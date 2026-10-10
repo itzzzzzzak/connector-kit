@@ -33,7 +33,8 @@ Maintainers merge with *Squash and merge*. See [MAINTAINING.md](MAINTAINING.md) 
 
 - [ ] Declares each action with a `description` written for an LLM ("Use when..."), strict Zod `input`/`output`, and the right `effect` (`read`, `write`, `destructive`).
 - [ ] Marks a write `safeToRetry: true` **only** if repeating it cannot change the outcome (idempotent); otherwise leaves it unset.
-- [ ] Uses a provider pagination strategy from core (or adds a new reusable one) rather than hand-rolled paging; paginated actions declare optional `cursor` and `pageSize` inputs.
+- [ ] Uses a provider pagination strategy from core (`linkHeaderPagination`, `bodyCursorPagination`, or a new reusable one) rather than hand-rolled paging; paginated actions declare optional `cursor` and `pageSize` inputs.
+- [ ] If the API reports failures inside a 200 response, implements `detectError` (see Slack) so retries and token refresh still work.
 - [ ] Has tests with a fake `fetch`: success, `404`, `429`, a malformed response, and bad input.
 - [ ] Has an opt-in live test (skipped without a token) if the API is public enough to try.
 - [ ] Keeps the connector small: if you need hand-written HTTP logic, say why in the PR.

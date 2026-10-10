@@ -8,7 +8,7 @@ import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js"
 
 const cli = fileURLToPath(new URL("./mcp.js", import.meta.url))
 
-async function connect(args: string[], env: Record<string, string> = { GITHUB_TOKEN: "ghp_fake_token_for_tests" }) {
+async function connect(args: string[], env: Record<string, string> = { GITHUB_TOKEN: "ghp_fake_token_for_tests", SLACK_BOT_TOKEN: "xoxb-fake-for-tests" }) {
   const transport = new StdioClientTransport({ command: process.execPath, args: [cli, ...args], env: { PATH: process.env.PATH ?? "", ...env } })
   const client = new Client({ name: "conformance-test", version: "1.0.0" })
   await client.connect(transport)
@@ -54,4 +54,27 @@ test("an unknown tool is an error the client surfaces", async () => {
 
 test("without a token the server refuses to start and says why", async () => {
   await assert.rejects(() => connect(["github"], {}))
+})
+
+test("slack over MCP: four tools, reads are hinted read-only, and posting is DENIED unless --allow-writes", async () => {
+  const client = await connect(["slack"])
+  try {
+    const { tools } = await client.listTools()
+    assert.deepEqual(tools.map((t) => t.name).sort(), ["slack_chat_postMessage", "slack_conversations_history", "slack_conversations_list", "slack_users_info"])
+    assert.equal(tools.find((t) => t.name === "slack_chat_postMessage")!.annotations?.readOnlyHint, false)
+    assert.equal(tools.find((t) => t.name === "slack_conversations_list")!.annotations?.readOnlyHint, true)
+
+    // Denied BEFORE any network call, so this is safe to run without a real Slack.
+    const result = await client.callTool({ name: "slack_chat_postMessage", arguments: { channel: "C1", text: "hello" } })
+    assert.equal(result.isError, true)
+    const error = JSON.parse((result.content as Array<{ text: string }>)[0]!.text)
+    assert.equal(error.code, "denied")
+    assert.match(error.message, /read-only/)
+  } finally {
+    await client.close()
+  }
+})
+
+test("without the slack token the slack server refuses to start", async () => {
+  await assert.rejects(() => connect(["slack"], { GITHUB_TOKEN: "ghp_only" }))
 })
