@@ -42,10 +42,15 @@ test("body cursor: finds the list and the cursor inside the body", () => {
   assert.equal(strategy.nextCursor({ headers: new Headers(), body }), "abc")
 })
 
-test("body cursor: empty, missing, null or non-string cursors all mean 'no more pages'", () => {
-  for (const body of [{ meta: { next: "" } }, { meta: {} }, { meta: { next: null } }, { meta: { next: 5 } }, {}, null, "text", undefined]) {
+test("body cursor: empty, missing, null or non-scalar cursors all mean 'no more pages'", () => {
+  for (const body of [{ meta: { next: "" } }, { meta: {} }, { meta: { next: null } }, { meta: { next: true } }, { meta: { next: { a: 1 } } }, {}, null, "text", undefined]) {
     assert.equal(strategy.nextCursor({ headers: new Headers(), body }), null, JSON.stringify(body))
   }
+})
+
+test("body cursor: a numeric cursor (e.g. a timestamp) becomes an opaque string; zero, negatives and NaN mean 'no more'", () => {
+  assert.equal(strategy.nextCursor({ headers: new Headers(), body: { meta: { next: 1700000000000 } } }), "1700000000000")
+  for (const bad of [0, -5, Number.NaN, Infinity]) assert.equal(strategy.nextCursor({ headers: new Headers(), body: { meta: { next: bad } } }), null, String(bad))
 })
 
 test("body cursor: applyCursor adds one param, keeps the rest, and does not mutate the input URL", () => {

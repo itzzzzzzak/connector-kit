@@ -223,7 +223,7 @@ Have an idea or a connector you need? [Open an issue](https://github.com/itzzzzz
 
 ## Connectors
 
-The catalog is in [docs/connectors.md](docs/connectors.md), generated from each connector's own metadata. Every connector is marked **`live-tested`** (run against the real API) or **`docs-based`** (written from the provider's official docs and tested against a fake server, **not** run live). We do not blur the two. See ADR-016 for the plan and [docs/writing-connectors.md](docs/writing-connectors.md) to add one: `pnpm new:connector <name>` scaffolds it, and an automatic check over every connector keeps them consistent.
+The catalog is in [docs/connectors.md](docs/connectors.md) (14 connectors so far: GitHub, Slack, Asana, HubSpot, Airtable, Calendly, Zoom, GitLab, Netlify, DigitalOcean, Vercel, Pipedrive, Intercom, Figma), generated from each connector's own metadata. Every connector is marked **`live-tested`** (run against the real API) or **`docs-based`** (written from the provider's official docs and tested against a fake server, **not** run live). We do not blur the two. See ADR-016 for the plan and [docs/writing-connectors.md](docs/writing-connectors.md) to add one: `pnpm new:connector <name>` scaffolds it, and an automatic check over every connector keeps them consistent.
 
 List what you can serve over MCP with `connector-kit-mcp --list`.
 

@@ -77,6 +77,8 @@ export function bodyCursorPagination(options: {
     items: (body) => dig(body, [options.itemsKey]),
     nextCursor({ body }) {
       const cursor = dig(body, options.cursorPath)
+      // Some providers (Vercel: a millisecond timestamp) use a number. Cursors stay opaque strings for callers.
+      if (typeof cursor === "number" && Number.isFinite(cursor) && cursor > 0) return String(cursor)
       return typeof cursor === "string" && cursor !== "" ? cursor : null
     },
     applyCursor(url, cursor) {

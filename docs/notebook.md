@@ -110,6 +110,8 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 
 ## Mistakes / misunderstandings
 
+- **Memory of an API is stale the moment the provider ships v2.** I would have written Pipedrive from memory as `/v1/deals`; the official v1 spec no longer contains deals at all. Across 12 connectors, reading the vendor's own description changed the plan more than once (a deprecated endpoint, a renamed path parameter, a missing pagination parameter, an ambiguous write body). The method works: facts from the official spec, an honest `docs-based` label, and a read-only first version when a write cannot be verified.
+
 - **A gate that is right in spirit can still be wrong in letter.** "Path parameters must be required" flagged Zoom's `userId`, which defaults to `"me"` and therefore can never be missing. The right response was to understand *why* the rule exists (a missing path value builds a broken URL) and tighten it to that (optional is fine with a default), not to drop the default or disable the rule.
 - **Omission is a security feature.** Zoom's responses carry meeting passcodes and a host login link. Because the kit validates responses against the connector's schema and drops the rest, simply not listing those fields guarantees no caller or model ever sees them. This is stated in the connector and enforced by a test that plants a secret in the fake response.
 
