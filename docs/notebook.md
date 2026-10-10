@@ -100,7 +100,7 @@ Operating cost is essentially one Postgres table.
 
 ## Decisions
 
-See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination · 011 agent tools + policy hook · 012 GitHub distribution, single package · 013 MCP server · 014 OAuth + token store · 015 second connector.
+See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination · 011 agent tools + policy hook · 012 GitHub distribution, single package · 013 MCP server · 014 OAuth + token store · 015 second connector · 016 connector program.
 
 ## Failures
 
@@ -109,6 +109,8 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 - **GitHub signals rate limits with 403.** Treating every 403 as "permission denied" would tell an agent not to retry. Fix: 403 with `x-ratelimit-remaining: 0` maps to `rate_limited`; other 403s map to the new `forbidden` code.
 
 ## Mistakes / misunderstandings
+
+- **A mutation that the compiler catches first proves nothing about the check I meant to test.** I broke a connector by removing an input field; TypeScript rejected the existing tests before the conformance check ran. A valid mutation is invisible to everything except the rule under test (here: a path parameter the input does not declare).
 
 - **GitHub made the design look more general than it was.** The first connector fit because the design was shaped by it: the list was the body, the cursor was in a header, errors had error status codes. Slack broke all three on contact. Lesson: a design is not validated until a second, different consumer uses it; build the awkward one second on purpose.
 - **A 'successful' response can mean failure.** Any error handling keyed only on HTTP status misses providers that return 200 with `ok: false`, and the failure then shows up far away (as a schema mismatch, or as a token that is never refreshed).

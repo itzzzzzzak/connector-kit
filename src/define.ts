@@ -55,10 +55,32 @@ export interface ActionDefinition {
   paginate?: PaginationStrategy
 }
 
+/**
+ * How much we can vouch for a connector.
+ * - "live-tested": its actions were run against the real API with a real account.
+ * - "docs-based": written from the provider's official documentation and tested against a fake server,
+ *   but NOT run against the real service. It may have small mistakes; please report them.
+ */
+export type ConnectorStatus = "live-tested" | "docs-based"
+
+/** Catalog information. Built-in connectors must have it; the conformance check enforces that. */
+export interface ConnectorMeta {
+  /** Display name, e.g. "GitHub". */
+  title: string
+  /** One sentence: what an agent or app can do with it. */
+  description: string
+  /** The provider's official API documentation. */
+  docsUrl: string
+  status: ConnectorStatus
+  /** Environment variable `connector-kit-mcp` reads the credential from, e.g. "GITHUB_TOKEN". */
+  credentialEnv: string
+}
+
 export interface ConnectorDefinition<A extends Record<string, ActionDefinition>> {
   name: string
   baseUrl: string
   auth: AuthConfig
+  meta?: ConnectorMeta
   defaultHeaders?: Record<string, string>
   /**
    * For providers that answer HTTP 200 even when the call failed (Slack: `{ "ok": false, "error": "..." }`).

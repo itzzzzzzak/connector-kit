@@ -83,6 +83,13 @@ export const slack = defineConnector({
     scopeSeparator: ",",
     pkce: false,
   },
+  meta: {
+    title: "Slack",
+    description: "List channels, read message history and users, and post messages (posting needs --allow-writes over MCP).",
+    docsUrl: "https://api.slack.com/methods",
+    status: "docs-based",
+    credentialEnv: "SLACK_BOT_TOKEN",
+  },
   detectError: slackError,
   actions: {
     "conversations.list": {
@@ -138,3 +145,4 @@ export const slack = defineConnector({
   },
 })
 
+export default slack

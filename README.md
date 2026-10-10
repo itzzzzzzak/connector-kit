@@ -221,6 +221,12 @@ The reasoning behind each decision is in [docs/adr](docs/adr), and the design ov
 
 Have an idea or a connector you need? [Open an issue](https://github.com/itzzzzzzak/connector-kit/issues/new/choose).
 
+## Connectors
+
+The catalog is in [docs/connectors.md](docs/connectors.md), generated from each connector's own metadata. Every connector is marked **`live-tested`** (run against the real API) or **`docs-based`** (written from the provider's official docs and tested against a fake server, **not** run live). We do not blur the two. See ADR-016 for the plan and [docs/writing-connectors.md](docs/writing-connectors.md) to add one: `pnpm new:connector <name>` scaffolds it, and an automatic check over every connector keeps them consistent.
+
+List what you can serve over MCP with `connector-kit-mcp --list`.
+
 ## What's in the box
 
 | Path | Purpose |
@@ -228,6 +234,7 @@ Have an idea or a connector you need? [Open an issue](https://github.com/itzzzzz
 | [`connector-kit`](src) | The runtime (`defineConnector`, `createConnectorKit`, retries, pagination, `toTools()`, policy hook) |
 | [`connector-kit/github`](src/connectors/github) | GitHub connector (reference implementation) |
 | [`connector-kit/slack`](src/connectors/slack) | Slack connector: channels, history, users, post message (a write, never auto-retried) |
+| `connector-kit/<name>` | Every connector in [the catalog](docs/connectors.md) has its own import path |
 | [`connector-kit/mcp`](src/mcp.ts) | MCP server over stdio, plus the `connector-kit-mcp` command |
 | [`examples/`](examples) | Runnable examples |
 | [`docs/`](docs) | Design notebook and [architecture decision records](docs/adr) |
