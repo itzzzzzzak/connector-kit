@@ -16,6 +16,10 @@
       "types": "./dist/connectors/github/index.d.ts",
       "default": "./dist/connectors/github/index.js"
     },
+    "./slack": {
+      "types": "./dist/connectors/slack/index.d.ts",
+      "default": "./dist/connectors/slack/index.js"
+    },
     "./mcp": {
       "types": "./dist/mcp.d.ts",
       "default": "./dist/mcp.js"

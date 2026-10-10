@@ -100,7 +100,7 @@ Operating cost is essentially one Postgres table.
 
 ## Decisions
 
-See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination · 011 agent tools + policy hook · 012 GitHub distribution, single package · 013 MCP server · 014 OAuth + token store.
+See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination · 011 agent tools + policy hook · 012 GitHub distribution, single package · 013 MCP server · 014 OAuth + token store · 015 second connector.
 
 ## Failures
 
@@ -109,6 +109,9 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 - **GitHub signals rate limits with 403.** Treating every 403 as "permission denied" would tell an agent not to retry. Fix: 403 with `x-ratelimit-remaining: 0` maps to `rate_limited`; other 403s map to the new `forbidden` code.
 
 ## Mistakes / misunderstandings
+
+- **GitHub made the design look more general than it was.** The first connector fit because the design was shaped by it: the list was the body, the cursor was in a header, errors had error status codes. Slack broke all three on contact. Lesson: a design is not validated until a second, different consumer uses it; build the awkward one second on purpose.
+- **A 'successful' response can mean failure.** Any error handling keyed only on HTTP status misses providers that return 200 with `ok: false`, and the failure then shows up far away (as a schema mismatch, or as a token that is never refreshed).
 
 - **A sync throw inside a function meant to be awaited.** `kit.startAuth` threw configuration errors synchronously, so `kit.startAuth(...).catch(...)` would never see them. My own test caught it. Any function that returns a Promise should be `async` so every failure is a rejection.
 - **A test fake that silently parsed nothing.** My fake token endpoint read `init.body` as a string, but `fetch` was given a `URLSearchParams`; the fake saw an empty form and ten tests failed in confusing ways. Debug the fake before the code under test.
@@ -132,6 +135,9 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 - **Assuming validation covers everything.** Zod proves a value is a string, not that it is a *safe path segment*. Type validation and security validation are different jobs.
 
 ## Concepts encountered
+
+- Cursor pagination styles (header link, body cursor, offset); why the kit builds the first-page request and then applies the cursor; infinite-loop hazards when a cursor is not sent back (mutation tests need a timeout).
+- In-band errors (HTTP 200 + `ok:false`) and mapping them into the same retry/refresh machinery as status-code errors.
 
 - Postgres: `INSERT ... ON CONFLICT DO UPDATE ... WHERE` as a compare-and-set, `DELETE ... RETURNING` as an atomic take, database-clock expiry, advisory locks vs. lease rows (pool starvation, pgbouncer), why a silent test skip must be made a failure in CI (`REQUIRE_POSTGRES`).
 

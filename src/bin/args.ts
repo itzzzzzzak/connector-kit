@@ -10,12 +10,12 @@ export const USAGE = `Usage: connector-kit-mcp <connector> [--only action1,actio
 
 Serves a connector's actions as MCP tools over stdio.
 
-  <connector>       one of: github
+  <connector>       one of: github, slack
   --only a,b        expose only these actions (e.g. repos.get,issues.list)
   --allow-writes    allow actions that change data. Default is read-only.
                     Destructive actions are never allowed through this command.
 
-Credentials come from the environment (github: GITHUB_TOKEN).`
+Credentials come from the environment (github: GITHUB_TOKEN, slack: SLACK_BOT_TOKEN).`
 
 /** Returns the parsed args, or an error message to show the user. */
 export function parseMcpArgs(argv: string[]): McpCliArgs | { error: string } {

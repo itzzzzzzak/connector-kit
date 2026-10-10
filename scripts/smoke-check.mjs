@@ -4,6 +4,7 @@ import { spawn } from "node:child_process"
 import { readdirSync } from "node:fs"
 import { createConnectorKit, defineConnector, ConnectorKitError, memoryTokenStore, postgresTokenStore, encryptedStore, createEncryption, generateEncryptionKey } from "connector-kit"
 import { github } from "connector-kit/github"
+import { slack } from "connector-kit/slack"
 import { createMcpHandler, serveMcp } from "connector-kit/mcp"
 
 assert.equal(typeof createConnectorKit, "function")
@@ -18,6 +19,7 @@ assert.equal(typeof postgresTokenStore, "function")
 assert.equal(typeof createMcpHandler, "function")
 assert.equal(typeof serveMcp, "function")
 assert.deepEqual(Object.keys(github.actions).sort(), ["issues.list", "repos.get"])
+assert.deepEqual(Object.keys(slack.actions).sort(), ["chat.postMessage", "conversations.history", "conversations.list", "users.info"])
 
 const kit = createConnectorKit({ fetch: async () => new Response("{}", { status: 200 }) })
 const tools = kit.toTools(kit.connect(github, { connectionId: "smoke", credentials: { token: "x" } }))
