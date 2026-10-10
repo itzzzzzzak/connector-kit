@@ -110,7 +110,12 @@ A runnable version is [examples/oauth-server.ts](examples/oauth-server.ts). What
 | A dead connection | A revoked refresh token deletes the record; callers get `auth_expired`, then `not_connected`. A transient provider error never logs a user out. |
 | Secrets in errors | Provider free text lives only in the non-enumerable `error.raw`. Token and authorize URLs must be https. |
 
-`TokenStore` is a small interface (`get/set/delete`, `putTemp/takeTemp`, `withLock`). **A store shared by several servers must implement `withLock` across processes**, or the refresh race comes back. A Postgres store is next on the roadmap.
+`TokenStore` is a small interface (`get/set/delete`, `putTemp/takeTemp`, `withLock`). **A store shared by several servers must implement `withLock` across processes**, or the refresh race comes back. Two are included:
+
+- `memoryTokenStore()`: for trying it out and tests. Nothing survives a restart, and its lock covers one process only.
+- `postgresTokenStore(pool)`: durable, and its lock works **across servers**. Pass any `pg` pool (or anything with `query(text, values)`); call `await store.migrate()` once (or run `store.schemaSql()` in your own migrations). Wrap it: `encryptedStore(postgresTokenStore(pool), encryption)` so the table only ever holds ciphertext. Expiry uses the database's clock, `takeTemp` is one atomic `DELETE ... RETURNING`, and the lock is a lease row (no connection is held while waiting; a crashed server's lease expires), tested against a real Postgres in CI.
+
+Writing your own store (Redis, DynamoDB, ...)? The shared contract in [src/store-contract.test.ts](src/store-contract.test.ts) is the spec your store must pass.
 
 ## Use it from Claude, Cursor, or any MCP client
 
@@ -205,7 +210,7 @@ The reasoning behind each decision is in [docs/adr](docs/adr), and the design ov
 - [x] `toTools()` and the `beforeExecute` policy hook
 - [x] GitHub reference connector, verified against the real API
 - [x] OAuth 2.0 (`startAuth` / `finishAuth`, `state`, PKCE, refresh with locking) and an encrypted `TokenStore` (in-memory)
-- [ ] Postgres `TokenStore` (cross-process lock)
+- [x] Postgres `TokenStore` (cross-server lock, tested against real Postgres)
 - [x] MCP server (`connector-kit/mcp` and the `connector-kit-mcp` command)
 - [ ] More connectors and pagination strategies (body cursor, offset)
 - [ ] Webhook verification and delivery de-duplication

@@ -2,7 +2,7 @@
 import assert from "node:assert/strict"
 import { spawn } from "node:child_process"
 import { readdirSync } from "node:fs"
-import { createConnectorKit, defineConnector, ConnectorKitError, memoryTokenStore, encryptedStore, createEncryption, generateEncryptionKey } from "connector-kit"
+import { createConnectorKit, defineConnector, ConnectorKitError, memoryTokenStore, postgresTokenStore, encryptedStore, createEncryption, generateEncryptionKey } from "connector-kit"
 import { github } from "connector-kit/github"
 import { createMcpHandler, serveMcp } from "connector-kit/mcp"
 
@@ -14,6 +14,7 @@ const secureStore = encryptedStore(memoryTokenStore(), createEncryption({ curren
 await secureStore.set("cred/smoke/u", "secret")
 assert.equal(await secureStore.get("cred/smoke/u"), "secret")
 assert.equal(typeof createConnectorKit({ tokenStore: memoryTokenStore() }).startAuth, "function")
+assert.equal(typeof postgresTokenStore, "function")
 assert.equal(typeof createMcpHandler, "function")
 assert.equal(typeof serveMcp, "function")
 assert.deepEqual(Object.keys(github.actions).sort(), ["issues.list", "repos.get"])

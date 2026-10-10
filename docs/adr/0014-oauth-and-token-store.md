@@ -1,6 +1,6 @@
 # ADR-014: OAuth 2.0, the TokenStore, encryption at rest, and refresh
 
-- Status: accepted and implemented (in-memory store; the Postgres store is still to come)
+- Status: accepted and implemented (in-memory and Postgres stores)
 - Date: 2026-10-10
 - Supersedes the open questions in ADR-003 and ADR-006
 
@@ -28,6 +28,9 @@ A product with many users needs each user to connect their own account, and the 
 - `startAuth`/`finishAuth` must always return a promise: a missing-configuration error thrown synchronously would slip past `.catch()`. They are `async`; configuration problems reject.
 - GitHub reports OAuth errors with HTTP 200 and an `error` field, so the error check must not depend on the status code.
 - Verified against a local HTTP server that invalidates each refresh token on first use, with 8 concurrent callers: exactly one refresh per expiry.
+
+## The Postgres store's lock (and why it is not an advisory lock)
+The textbook cross-process lock is `pg_advisory_lock` on a dedicated connection. We do not use it: every *waiter* would hold a pool connection while it waits, so the lock *holder* can be starved of the connection it needs to do its own reads and writes (a pool deadlock), and session or transaction advisory locks do not survive transaction-mode poolers such as pgbouncer. Instead the lock is a **lease row**: one atomic `INSERT ... ON CONFLICT DO UPDATE ... WHERE expires_at <= now()` claims it or takes it over from an expired holder, waiters poll with jittered backoff and hold no connection, and the holder releases with `DELETE ... WHERE value = <owner>` so a holder whose lease expired cannot remove its successor's lock. Cost: a lock is only as exclusive as its lease (`leaseMs`, default 120 s, must exceed the longest refresh), and waiting polls the database. The same shared contract test suite runs against the memory and Postgres stores.
 
 ## Alternatives considered
 - A store that returns typed credential objects (simpler, but encryption would have to be re-implemented in every store).
