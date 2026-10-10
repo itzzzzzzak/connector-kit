@@ -92,7 +92,8 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
       const required = new Set(input.required ?? [])
       for (const [, param] of action.path.matchAll(/\{(\w+)\}/g)) {
         if (!param || !(param in properties)) fail(`${at}: path parameter {${param}} is not in the input schema`)
-        else if (!required.has(param)) fail(`${at}: path parameter {${param}} must be required in the input schema`)
+        // Optional is fine ONLY with a default (e.g. userId defaults to "me"): the value is then always present.
+        else if (!required.has(param) && (properties[param] as { default?: unknown }).default === undefined) fail(`${at}: path parameter {${param}} must be required in the input schema (or have a default)`)
       }
 
       if (action.paginate) {

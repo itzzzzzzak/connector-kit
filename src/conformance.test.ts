@@ -38,6 +38,8 @@ test("missing or placeholder metadata is flagged", () => {
 test("a path parameter missing from the input, or optional, is flagged", () => {
   assert.match(problems(make({ "a.b": read({ input: z.object({ other: z.string() }) }) })), /\{id\} is not in the input/)
   assert.match(problems(make({ "a.b": read({ input: z.object({ id: z.string().optional() }) }) })), /\{id\} must be required/)
+  // an optional path parameter WITH a default is always present, so it is fine (e.g. Zoom's userId defaults to "me")
+  assert.deepEqual(checkConnector(make({ "a.b": read({ input: z.object({ id: z.string().default("me") }) }) })), [])
 })
 
 test("only the uppercase TODO placeholder is flagged; the ordinary word 'Todo' is fine", () => {

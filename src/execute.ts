@@ -217,7 +217,9 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
     }
   }
   const hasBody = action.method !== "GET" && action.method !== "DELETE"
-  if (!hasBody && !action.paginate) appendQuery(url, action.buildQuery ? action.buildQuery(rest) : rest)
+  // A POST/PUT/PATCH that declares buildQuery but no buildBody takes its parameters in the query string and sends no body.
+  const queryOnly = hasBody && action.buildQuery !== undefined && action.buildBody === undefined
+  if ((!hasBody || action.buildQuery) && !action.paginate) appendQuery(url, action.buildQuery ? action.buildQuery(rest) : rest)
 
   // One attempt = one HTTP request. Everything below can throw a ConnectorKitError.
   let lastToken: string | undefined // the token the most recent attempt sent
@@ -227,7 +229,7 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
     lastToken = await params.tokens.get(rejectedToken === undefined ? undefined : { rejected: rejectedToken })
     applyAuth(headers, connector.auth, lastToken)
     const init: RequestInit = { method: action.method, headers, signal: AbortSignal.timeout(params.timeoutMs) }  // fresh deadline per attempt
-    if (hasBody) {
+    if (hasBody && !queryOnly) {
       headers.set("Content-Type", "application/json")
       init.body = JSON.stringify(action.buildBody ? action.buildBody(rest) : rest)
     }

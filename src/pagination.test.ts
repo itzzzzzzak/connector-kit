@@ -1,7 +1,7 @@
 import assert from "node:assert/strict"
 import { test } from "node:test"
 import { z } from "zod"
-import { bodyCursorPagination, ConnectorKitError, createConnectorKit, defineConnector, linkHeaderPagination } from "./index.js"
+import { bodyCursorPagination, bodyLinkPagination, ConnectorKitError, createConnectorKit, defineConnector, linkHeaderPagination } from "./index.js"
 
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json" } })
 
@@ -145,3 +145,47 @@ test("an error from detectError takes part in retries like any other (retryable 
   assert.equal(n, 2)
   assert.equal(slept.length, 1)
 })
+
+// ----------------------------------------------------------------- bodyLinkPagination (next-page URL inside the body)
+
+const linked = defineConnector({
+  name: "linked",
+  baseUrl: "https://api.linked.test/v2",
+  auth: { type: "bearer" },
+  actions: {
+    "items.list": {
+      description: "List items; the body carries the next page's full URL.",
+      method: "GET",
+      path: "/items",
+      input: z.object({ name: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+      output: z.array(z.object({ id: z.number() })),
+      effect: "read",
+      paginate: bodyLinkPagination({ itemsKey: "items", nextUrlPath: ["links", "pages", "next"], defaultPageSize: 20, maxPageSize: 200 }),
+    },
+  },
+})
+
+test("body link: the list is read from the body and the next-page URL becomes the cursor", async () => {
+  const { kit, conn, calls } = setup2((url) =>
+    url.searchParams.get("page") === "2" ? json({ items: [{ id: 3 }], links: { pages: { prev: "https://api.linked.test/v2/items?page=1" } } }) : json({ items: [{ id: 1 }, { id: 2 }], links: { pages: { next: "https://api.linked.test/v2/items?page=2&per_page=20", last: "x" } } }),
+  )
+  const ids: number[] = []
+  for await (const i of kit.paginate(conn, "items.list", { name: "web" })) ids.push(i.id)
+  assert.deepEqual(ids, [1, 2, 3])
+  assert.equal(calls[0]!.searchParams.get("per_page"), "20")
+  assert.equal(calls[0]!.searchParams.get("name"), "web")
+  assert.equal(calls[1]!.toString(), "https://api.linked.test/v2/items?page=2&per_page=20")
+})
+
+test("body link: no next link means the end, and a next link pointing off-host is refused", async () => {
+  const done = setup2(() => json({ items: [], links: {} }))
+  assert.equal((await done.conn.execute("items.list", {})).nextCursor, null)
+  const evil = setup2(() => json({ items: [{ id: 1 }], links: { pages: { next: "https://evil.example.net/steal?page=2" } } }))
+  await assert.rejects(() => evil.conn.execute("items.list", {}), (e: unknown) => e instanceof ConnectorKitError && e.code === "invalid_input")
+})
+
+function setup2(handler: (url: URL) => Response) {
+  const calls: URL[] = []
+  const kit = createConnectorKit({ retry: { maxRetries: 0 }, fetch: (async (input: URL | string) => (calls.push(new URL(String(input))), handler(new URL(String(input))))) as typeof fetch })
+  return { kit, calls, conn: kit.connect(linked, { connectionId: "c", credentials: { token: "t" } }) }
+}

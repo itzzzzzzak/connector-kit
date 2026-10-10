@@ -24,17 +24,33 @@
       "types": "./dist/connectors/calendly/index.d.ts",
       "default": "./dist/connectors/calendly/index.js"
     },
+    "./digitalocean": {
+      "types": "./dist/connectors/digitalocean/index.d.ts",
+      "default": "./dist/connectors/digitalocean/index.js"
+    },
     "./github": {
       "types": "./dist/connectors/github/index.d.ts",
       "default": "./dist/connectors/github/index.js"
+    },
+    "./gitlab": {
+      "types": "./dist/connectors/gitlab/index.d.ts",
+      "default": "./dist/connectors/gitlab/index.js"
     },
     "./hubspot": {
       "types": "./dist/connectors/hubspot/index.d.ts",
       "default": "./dist/connectors/hubspot/index.js"
     },
+    "./netlify": {
+      "types": "./dist/connectors/netlify/index.d.ts",
+      "default": "./dist/connectors/netlify/index.js"
+    },
     "./slack": {
       "types": "./dist/connectors/slack/index.d.ts",
       "default": "./dist/connectors/slack/index.js"
+    },
+    "./zoom": {
+      "types": "./dist/connectors/zoom/index.d.ts",
+      "default": "./dist/connectors/zoom/index.js"
     },
     "./mcp": {
       "types": "./dist/mcp.d.ts",
