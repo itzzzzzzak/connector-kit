@@ -15,13 +15,25 @@ export interface Credentials {
   token: string
 }
 
+/**
+ * Where an access token comes from. Static credentials return the same token forever; an OAuth
+ * source reads the TokenStore and refreshes. `rejected` is the token the provider just refused:
+ * a source that can refresh must not hand it back (ADR-014).
+ */
+export interface TokenSource {
+  readonly refreshable: boolean
+  get(options?: { rejected?: string }): Promise<string>
+}
+
+export const staticTokenSource = (token: string): TokenSource => ({ refreshable: false, get: async () => token })
+
 export interface ExecuteParams {
   connector: ConnectorDefinition<Record<string, ActionDefinition>>
   actionName: string
   input: unknown
   connectionId: string
   beforeExecute?: BeforeExecute
-  credentials: Credentials
+  tokens: TokenSource
   fetch: typeof fetch
   timeoutMs: number
   maxResponseBytes: number
@@ -31,11 +43,11 @@ export interface ExecuteParams {
 const invalid = (message: string): ConnectorKitError =>
   new ConnectorKitError("invalid_input", message, { retryable: false })
 
-function applyAuth(headers: Headers, auth: AuthConfig, credentials: Credentials): void {
-  if (auth.type === "bearer") {
-    headers.set("Authorization", `Bearer ${credentials.token}`)
+function applyAuth(headers: Headers, auth: AuthConfig, token: string): void {
+  if (auth.type === "apiKey") {
+    headers.set(auth.header, `${auth.prefix ?? ""}${token}`)
   } else {
-    headers.set(auth.header, `${auth.prefix ?? ""}${credentials.token}`)
+    headers.set("Authorization", `Bearer ${token}`)
   }
 }
 
@@ -115,7 +127,7 @@ function parseRetryAfter(headers: Headers, rateLimitExhausted: boolean): number 
 }
 
 /** Read at most maxBytes. Never buffers an unbounded body. */
-async function readCapped(response: Response, maxBytes: number): Promise<{ text: string; truncated: boolean }> {
+export async function readCapped(response: Response, maxBytes: number): Promise<{ text: string; truncated: boolean }> {
   if (!response.body) return { text: "", truncated: false }
   const reader = response.body.getReader()
   const decoder = new TextDecoder()
@@ -148,7 +160,7 @@ function networkError(error: unknown, timeoutMs: number): ConnectorKitError {
  * Retries, rate limiting and the beforeExecute hook will be added here, not around it.
  */
 export async function execute(params: ExecuteParams): Promise<unknown> {
-  const { connector, actionName, credentials } = params
+  const { connector, actionName } = params
   const action = connector.actions[actionName]
   if (!action) {
     throw invalid(`Unknown action "${actionName}" on connector "${connector.name}".`)
@@ -211,9 +223,12 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
   if (!hasBody && !action.paginate) appendQuery(url, rest)
 
   // One attempt = one HTTP request. Everything below can throw a ConnectorKitError.
+  let lastToken: string | undefined // the token the most recent attempt sent
+  let rejectedToken: string | undefined // set after a 401 so a refreshable source cannot hand it back
   const attempt = async (): Promise<unknown> => {
     const headers = new Headers(connector.defaultHeaders)
-    applyAuth(headers, connector.auth, credentials)
+    lastToken = await params.tokens.get(rejectedToken === undefined ? undefined : { rejected: rejectedToken })
+    applyAuth(headers, connector.auth, lastToken)
     const init: RequestInit = { method: action.method, headers, signal: AbortSignal.timeout(params.timeoutMs) }  // fresh deadline per attempt
     if (hasBody) {
       headers.set("Content-Type", "application/json")
@@ -291,11 +306,19 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
   // 6. Retry loop (ADR-008): only when the error says retrying is safe, within a total wait budget.
   let retriesDone = 0
   let waitedMs = 0
+  let refreshedAfter401 = false
   for (;;) {
     try {
       return await attempt()
     } catch (error) {
       if (!(error instanceof ConnectorKitError)) throw error
+      // A 401 means the provider REJECTED the request (nothing happened), so replaying is safe for any
+      // action. Try once with a refreshed token; never loop.
+      if (error.code === "auth_expired" && params.tokens.refreshable && !refreshedAfter401 && lastToken !== undefined) {
+        refreshedAfter401 = true
+        rejectedToken = lastToken
+        continue
+      }
       const delay = retryDelayMs(error, action, retriesDone, waitedMs, params.retry)
       if (delay === null) throw error
       await params.retry.sleep(delay)

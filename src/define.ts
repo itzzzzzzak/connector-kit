@@ -9,6 +9,26 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
 export type AuthConfig =
   | { type: "bearer" }
   | { type: "apiKey"; header: string; prefix?: string }
+  /**
+   * OAuth 2.0 authorization-code flow (ADR-014). Calls are sent as `Authorization: Bearer <token>`,
+   * where the token comes from the TokenStore (refreshed when needed) or from static `credentials`
+   * passed to `connect()` (e.g. a personal access token).
+   */
+  | {
+      type: "oauth2"
+      authorizeUrl: string
+      tokenUrl: string
+      /** Default scopes for startAuth(); the host may override per connection. */
+      scopes?: string[]
+      /** Default " ". Some providers use ",". */
+      scopeSeparator?: string
+      /** PKCE (S256). Default true. */
+      pkce?: boolean
+      /** How the client authenticates at the token endpoint. Default "body". */
+      clientAuth?: "body" | "basic"
+      /** Extra query params for the authorize URL (e.g. { access_type: "offline" }). */
+      authorizeParams?: Record<string, string>
+    }
 
 /** Description of one operation. Says WHAT; the runtime decides HOW. */
 export interface ActionDefinition {
