@@ -9,8 +9,8 @@ export interface PageEnvelope<Item> {
  * a connector picks one instead of re-implementing paging. See ADR-010 and ADR-015.
  */
 export interface PaginationStrategy {
-  /** The query param this provider uses to request a page size, e.g. "per_page" or "limit". */
-  pageSizeParam: string
+  /** The query param this provider uses to request a page size, e.g. "per_page" or "limit". Omit when it has none. */
+  pageSizeParam?: string
   defaultPageSize: number
   maxPageSize: number
   /** Where the list is inside the response body. Omit when the body IS the list (GitHub). */
@@ -64,13 +64,14 @@ export function bodyCursorPagination(options: {
   cursorPath: string[]
   /** Query param that carries the cursor back. Default "cursor". */
   cursorParam?: string
-  pageSizeParam?: string
+  /** Default "limit". Pass `null` for an endpoint that has no page-size parameter. */
+  pageSizeParam?: string | null
   defaultPageSize?: number
   maxPageSize?: number
 }): PaginationStrategy {
   const cursorParam = options.cursorParam ?? "cursor"
   return {
-    pageSizeParam: options.pageSizeParam ?? "limit",
+    ...(options.pageSizeParam === null ? {} : { pageSizeParam: options.pageSizeParam ?? "limit" }),
     defaultPageSize: options.defaultPageSize ?? 30,
     maxPageSize: options.maxPageSize ?? 200,
     items: (body) => dig(body, [options.itemsKey]),

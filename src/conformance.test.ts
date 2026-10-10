@@ -40,6 +40,11 @@ test("a path parameter missing from the input, or optional, is flagged", () => {
   assert.match(problems(make({ "a.b": read({ input: z.object({ id: z.string().optional() }) }) })), /\{id\} must be required/)
 })
 
+test("only the uppercase TODO placeholder is flagged; the ordinary word 'Todo' is fine", () => {
+  assert.deepEqual(checkConnector(make({ "a.b": read({ description: "List records where the Status is 'Todo' or 'Done'. Use for task boards." }) })), [])
+  assert.match(problems(make({ "a.b": read({ description: "TODO: write what this returns for a model" }) })), /TODO/)
+})
+
 test("descriptions that are too short, too long or unfinished are flagged", () => {
   assert.match(problems(make({ "a.b": read({ description: "Get it" }) })), /too short/)
   assert.match(problems(make({ "a.b": read({ description: "x".repeat(501) }) })), /longer than 500/)

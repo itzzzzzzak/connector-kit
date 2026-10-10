@@ -110,6 +110,9 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 
 ## Mistakes / misunderstandings
 
+- **My own quality gate had a false positive.** The case-insensitive `TODO` detector flagged a correct Airtable description that contains the status value `'Todo'`. The right fix was to make the gate precise (uppercase placeholders only) and add a test for the legitimate word, not to reword accurate documentation to satisfy the gate.
+- **Reading the vendor's spec corrected my memory three times in one connector** (Asana has no `/users/me` path; it is `/users/{user_gid}` with `me`; Airtable's PATCH is partial but PUT clears unspecified fields; Calendly paginates with `page_token`/`count`). Memory of an API is a hypothesis; the official description is the evidence.
+
 - **A mutation that the compiler catches first proves nothing about the check I meant to test.** I broke a connector by removing an input field; TypeScript rejected the existing tests before the conformance check ran. A valid mutation is invisible to everything except the rule under test (here: a path parameter the input does not declare).
 
 - **GitHub made the design look more general than it was.** The first connector fit because the design was shaped by it: the list was the body, the cursor was in a header, errors had error status codes. Slack broke all three on contact. Lesson: a design is not validated until a second, different consumer uses it; build the awkward one second on purpose.

@@ -12,9 +12,25 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./airtable": {
+      "types": "./dist/connectors/airtable/index.d.ts",
+      "default": "./dist/connectors/airtable/index.js"
+    },
+    "./asana": {
+      "types": "./dist/connectors/asana/index.d.ts",
+      "default": "./dist/connectors/asana/index.js"
+    },
+    "./calendly": {
+      "types": "./dist/connectors/calendly/index.d.ts",
+      "default": "./dist/connectors/calendly/index.js"
+    },
     "./github": {
       "types": "./dist/connectors/github/index.d.ts",
       "default": "./dist/connectors/github/index.js"
+    },
+    "./hubspot": {
+      "types": "./dist/connectors/hubspot/index.d.ts",
+      "default": "./dist/connectors/hubspot/index.js"
     },
     "./slack": {
       "types": "./dist/connectors/slack/index.d.ts",

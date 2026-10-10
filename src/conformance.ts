@@ -42,7 +42,7 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
     if (!/^https:\/\/(?!example\.)/.test(meta.docsUrl)) fail("meta.docsUrl must be the provider's real https documentation URL")
     if (meta.status !== "live-tested" && meta.status !== "docs-based") fail(`meta.status must be "live-tested" or "docs-based"`)
     if (!/^[A-Z][A-Z0-9_]{2,}$/.test(meta.credentialEnv)) fail("meta.credentialEnv must be an UPPER_SNAKE environment variable name")
-    for (const [field, value] of Object.entries(meta)) if (/\bTODO\b/i.test(String(value))) fail(`meta.${field} still contains TODO`)
+    for (const [field, value] of Object.entries(meta)) if (/\bTODO\b/.test(String(value))) fail(`meta.${field} still contains TODO`)
   }
 
   // ---- actions
@@ -64,7 +64,7 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
     const description = action.description.trim()
     if (description.length < 30) fail(`${at}: description is too short for an LLM to choose the tool by (at least 30 characters)`)
     if (description.length > 500) fail(`${at}: description is longer than 500 characters; every tool description costs model context on every call`)
-    if (/\bTODO\b/i.test(description)) fail(`${at}: description still contains TODO`)
+    if (/\bTODO\b/.test(description)) fail(`${at}: description still contains TODO`)
 
     if (!action.path.startsWith("/")) fail(`${at}: path must start with "/"`)
 
@@ -97,7 +97,7 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
 
       if (action.paginate) {
         if (properties.cursor?.type !== "string") fail(`${at}: a paginated action needs an optional string "cursor" input`)
-        if (!["number", "integer"].includes(String(properties.pageSize?.type))) fail(`${at}: a paginated action needs an optional number "pageSize" input`)
+        if (action.paginate.pageSizeParam && !["number", "integer"].includes(String(properties.pageSize?.type))) fail(`${at}: a paginated action needs an optional number "pageSize" input`)
         if (required.has("cursor") || required.has("pageSize")) fail(`${at}: "cursor" and "pageSize" must be optional`)
         if (action.method !== "GET") fail(`${at}: paginated actions are expected to be GET`)
         let outputType: unknown
