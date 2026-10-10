@@ -23,7 +23,14 @@ const repository = z.object({
 export const github = defineConnector({
   name: "github",
   baseUrl: "https://api.github.com",
-  auth: { type: "bearer" },
+  // Works two ways: a personal access token via connect({ credentials }), or OAuth (startAuth/finishAuth).
+  auth: {
+    type: "oauth2",
+    authorizeUrl: "https://github.com/login/oauth/authorize",
+    tokenUrl: "https://github.com/login/oauth/access_token",
+    scopes: ["public_repo"], // minimal default; pass `scopes: ["repo"]` to startAuth() for private repositories
+    scopeSeparator: " ",
+  },
   defaultHeaders: {
     Accept: "application/vnd.github+json",
     "X-GitHub-Api-Version": "2022-11-28",

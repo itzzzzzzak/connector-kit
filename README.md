@@ -72,6 +72,46 @@ const tools = kit.toTools(gh) // [{ name: "github_issues_list", description, inp
 const result = await tools[0].run({ owner: 123 }) // -> { ok: false, error: { code: "invalid_input", ... } }
 ```
 
+## Connecting your users' accounts (OAuth)
+
+For a product with many users, each user connects their own account. connector-kit runs **no server**: you host two routes, and the kit does the security-sensitive parts (state, PKCE, token storage, refresh).
+
+```ts
+import { createConnectorKit, createEncryption, encryptedStore, generateEncryptionKey, memoryTokenStore } from "connector-kit"
+import { github } from "connector-kit/github"
+
+const kit = createConnectorKit({
+  // memoryTokenStore() is for trying it out. In production use a durable store and keep the key in a secret manager.
+  tokenStore: encryptedStore(memoryTokenStore(), createEncryption({ current: "k1", keys: { k1: process.env.ENCRYPTION_KEY! } })),
+  oauth: { github: { clientId: "...", clientSecret: "...", redirectUri: "https://yourapp.com/callback" } },
+})
+
+// Route 1: user clicks "Connect GitHub"
+const { url } = await kit.startAuth(github, { connectionId: user.id }) // add scopes: ["repo"] for private repos
+redirect(url)
+
+// Route 2: GitHub sends the user back to https://yourapp.com/callback?code=...&state=...
+await kit.finishAuth(github, { code, state, expectedConnectionId: user.id })
+
+// Anywhere later: no token handling. Expired tokens are refreshed for you.
+const gh = kit.connect(github, { connectionId: user.id })
+await gh.execute("repos.get", { owner: "octocat", name: "Hello-World" })
+```
+
+A runnable version is [examples/oauth-server.ts](examples/oauth-server.ts). What the kit does for you, and why ([ADR-014](docs/adr/0014-oauth-and-token-store.md)):
+
+| Risk | How it is handled |
+|---|---|
+| Forged login (CSRF) | A random `state`, stored server-side, **single use**, expires in 10 minutes, bound to the `connectionId`. `expectedConnectionId` rejects a login started for someone else. PKCE (S256) is on by default. |
+| Tokens stolen from the database | `encryptedStore`: AES-256-GCM, a fresh nonce per value, and the record's key bound in as authenticated data, so records cannot be swapped between users. Key rotation is supported. |
+| Expired tokens | Refreshed silently shortly before expiry. A rotating refresh token is saved. |
+| The refresh race | Concurrent calls refresh **once** (a lock plus re-reading the record inside it); important because many providers invalidate a refresh token the moment it is used. |
+| Token expires mid-call | A `401` triggers one refresh and one retry (safe for any action: the provider rejected the request). |
+| A dead connection | A revoked refresh token deletes the record; callers get `auth_expired`, then `not_connected`. A transient provider error never logs a user out. |
+| Secrets in errors | Provider free text lives only in the non-enumerable `error.raw`. Token and authorize URLs must be https. |
+
+`TokenStore` is a small interface (`get/set/delete`, `putTemp/takeTemp`, `withLock`). **A store shared by several servers must implement `withLock` across processes**, or the refresh race comes back. A Postgres store is next on the roadmap.
+
 ## Use it from Claude, Cursor, or any MCP client
 
 connector-kit includes an [MCP](https://modelcontextprotocol.io) server, so any MCP host can use your connectors as tools with no code. It is **read-only by default**: the host is driven by a model, so actions that change data are refused unless you opt in with `--allow-writes`, and destructive actions are never allowed through this command.
@@ -164,7 +204,8 @@ The reasoning behind each decision is in [docs/adr](docs/adr), and the design ov
 - [x] Retries and bounded rate-limit waiting
 - [x] `toTools()` and the `beforeExecute` policy hook
 - [x] GitHub reference connector, verified against the real API
-- [ ] `TokenStore` (in-memory + Postgres, encrypted at rest) and OAuth 2.0 (`startAuth` / `finishAuth`, `state`, PKCE, token refresh with locking)
+- [x] OAuth 2.0 (`startAuth` / `finishAuth`, `state`, PKCE, refresh with locking) and an encrypted `TokenStore` (in-memory)
+- [ ] Postgres `TokenStore` (cross-process lock)
 - [x] MCP server (`connector-kit/mcp` and the `connector-kit-mcp` command)
 - [ ] More connectors and pagination strategies (body cursor, offset)
 - [ ] Webhook verification and delivery de-duplication

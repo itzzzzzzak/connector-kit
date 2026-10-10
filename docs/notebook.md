@@ -110,6 +110,10 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 
 ## Mistakes / misunderstandings
 
+- **A sync throw inside a function meant to be awaited.** `kit.startAuth` threw configuration errors synchronously, so `kit.startAuth(...).catch(...)` would never see them. My own test caught it. Any function that returns a Promise should be `async` so every failure is a rejection.
+- **A test fake that silently parsed nothing.** My fake token endpoint read `init.body` as a string, but `fetch` was given a `URLSearchParams`; the fake saw an empty form and ten tests failed in confusing ways. Debug the fake before the code under test.
+- **Mutation checks should assert their own pattern exists.** After two invalid mutations I made the script fail loudly when the text to change is not found. It then caught a third bad guess immediately.
+
 - **Two invalid mutation checks in a row.** One `sed` pattern (`cipher.setAAD`) also matched inside `decipher.setAAD`, leaving a dangling `de` that broke decryption entirely, so the 'moved record' test was never the one failing. A valid mutation changes exactly one behavior and fails exactly the tests meant to catch it; check which tests failed, not just that something did.
 - **Polling CI with a loop that exited immediately.** `gh pr checks` prints 'no checks reported' before CI registers, and my 'until no pending' loop treated that as done. Wait for the expected number of checks to exist first.
 

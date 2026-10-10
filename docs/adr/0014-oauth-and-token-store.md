@@ -1,6 +1,6 @@
 # ADR-014: OAuth 2.0, the TokenStore, encryption at rest, and refresh
 
-- Status: accepted (storage: implemented; OAuth flow and refresh: next PR)
+- Status: accepted and implemented (in-memory store; the Postgres store is still to come)
 - Date: 2026-10-10
 - Supersedes the open questions in ADR-003 and ADR-006
 
@@ -15,14 +15,19 @@ A product with many users needs each user to connect their own account, and the 
 
 **Where tokens live:** in the host's store, owned by the host, scoped by `connectorName/connectionId` (URL-encoded segments, so a `connectionId` cannot forge another's key).
 
-**OAuth flow (next PR):** `kit.startAuth(connector, { connectionId })` returns the provider URL; the host redirects the user. `kit.finishAuth(connector, { code, state })` runs in the host's callback route. The kit runs no server (ADR-006).
+**OAuth flow:** `kit.startAuth(connector, { connectionId })` returns the provider URL; the host redirects the user. `kit.finishAuth(connector, { code, state })` runs in the host's callback route. The kit runs no server (ADR-006).
 - `state`: 32 random bytes, stored server-side with a 10 minute ttl, **single use**, and it carries the `connectionId`, so the callback cannot name a different connection. The host may also pass `expectedConnectionId` (the logged-in user) and a mismatch is rejected.
 - **PKCE (S256)** by default; the verifier is stored with the state and never leaves the server.
 - Token and authorize endpoints must be `https` (loopback allowed for tests); provider error text goes only to the non-enumerable `raw`, never into messages.
 
-**Refresh (next PR):** refresh when the token is within 60 s of expiry, under `withLock`, **re-reading the record inside the lock** so callers that waited reuse the winner's result instead of refreshing again. A refresh token that rotates is saved; one that does not is kept. `invalid_grant` means the user must reconnect: the record is deleted (`not_connected` afterwards). A transient failure (network, 5xx) keeps the record. A `401` mid-call triggers **one** forced refresh and one retry (a 401 means the request was rejected, so replaying is safe for any action); if the token another caller already refreshed differs from the one that failed, it is used without refreshing again.
+**Refresh:** refresh when the token is within 60 s of expiry, under `withLock`, **re-reading the record inside the lock** so callers that waited reuse the winner's result instead of refreshing again. A refresh token that rotates is saved; one that does not is kept. `invalid_grant` means the user must reconnect: the record is deleted (`not_connected` afterwards). A transient failure (network, 5xx) keeps the record. A `401` mid-call triggers **one** forced refresh and one retry (a 401 means the request was rejected, so replaying is safe for any action); if the token another caller already refreshed differs from the one that failed, it is used without refreshing again.
 
 **New error codes:** `not_connected` (no stored credentials; the user must connect) and `storage_error` (stored data could not be read or decrypted).
+
+## Found while building
+- `startAuth`/`finishAuth` must always return a promise: a missing-configuration error thrown synchronously would slip past `.catch()`. They are `async`; configuration problems reject.
+- GitHub reports OAuth errors with HTTP 200 and an `error` field, so the error check must not depend on the status code.
+- Verified against a local HTTP server that invalidates each refresh token on first use, with 8 concurrent callers: exactly one refresh per expiry.
 
 ## Alternatives considered
 - A store that returns typed credential objects (simpler, but encryption would have to be re-implemented in every store).
