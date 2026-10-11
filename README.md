@@ -3,7 +3,8 @@
 [![CI](https://github.com/itzzzzzzak/connector-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/itzzzzzzak/connector-kit/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Node](https://img.shields.io/badge/node-%3E%3D22-339933)
-![Status](https://img.shields.io/badge/status-pre--0.1-orange)
+[![Release](https://img.shields.io/github/v/release/itzzzzzzak/connector-kit)](https://github.com/itzzzzzzak/connector-kit/releases)
+![Status](https://img.shields.io/badge/status-pre--1.0-orange)
 
 **Define a SaaS integration once. Call it from your app, or hand it to an AI agent as tools.**
 
@@ -11,13 +12,13 @@ connector-kit is an open-source TypeScript library for building and running conn
 
 It is designed **agent-first**. Every action is a typed, validated, LLM-readable tool, and the same definition also gives you a normal developer SDK.
 
-> **Status: pre-0.1.** The core works end to end against the real GitHub API (see [Quickstart](#quickstart)), but OAuth, token storage, an MCP adapter, and more connectors are still ahead. See the [roadmap](#roadmap). Expect breaking changes until 1.0. Distributed from GitHub Releases, not npm.
+> **Status: pre-1.0.** The core (validation, OAuth, token storage, retries, pagination, MCP server) is tested end to end, and **20 connectors cover about 9,500 API actions**. Only GitHub has been run against its real API so far; the rest are built from official API descriptions and tested against fake servers (see [Connectors](#connectors)). Expect breaking changes until 1.0. Distributed from GitHub Releases, not npm.
 
 ## Why
 
 Every product that talks to third-party APIs re-implements the same plumbing, and every AI agent that calls tools needs it to be *safe*: a model can invent arguments, repeat a call in a loop, or be steered by text inside an API response. connector-kit puts that plumbing, and those guardrails, in one small, permissively licensed (MIT) library instead of in every integration.
 
-It is a **library, not a platform**: no server to run, no dashboard, no hosted service. It does not try to compete on connector count with established integration platforms; it competes on being small, embeddable, and safe by default.
+It is a **library, not a platform**: no server to run, no dashboard, no hosted service. It covers a lot of ground (20 providers, whole APIs) but stays small to adopt: you import only the connector you use, and nothing runs until you call it. It competes on being embeddable and safe by default.
 
 ## Install
 
@@ -27,7 +28,7 @@ connector-kit is distributed from **GitHub Releases**, not npm. Each release has
 npm install https://github.com/itzzzzzzak/connector-kit/releases/download/v<version>/connector-kit-<version>.tgz
 ```
 
-Pick a `<version>` (e.g. `0.1.0`) from the [Releases page](https://github.com/itzzzzzzak/connector-kit/releases) (the first release is still to come). Until then, or to hack on it, clone and build:
+Pick a `<version>` (the latest is `0.4.0`) from the [Releases page](https://github.com/itzzzzzzak/connector-kit/releases). To hack on it instead, clone and build:
 
 ```bash
 git clone https://github.com/itzzzzzzak/connector-kit && cd connector-kit
@@ -196,7 +197,7 @@ See [src/connectors/github](src/connectors/github/index.ts) for the full referen
 | **Errors** | A small fixed set (`auth_expired`, `forbidden`, `rate_limited`, `not_found`, `invalid_input`, `denied`, `upstream_error`), each with `retryable` and a message written for a model. Provider detail lives in a non-enumerable `error.raw`, so it stays out of logs. |
 | **Rate limits** | `429` (and GitHub-style `403`) wait for `Retry-After` within a shared 30 s budget; longer waits return `rate_limited` with `retryAfter` instead of hanging your function or agent. |
 | **Retries** | Exponential backoff with jitter. Failures where the outcome is unknown (timeout, `5xx`) are retried **only for reads or actions marked `safeToRetry`**, so a retry cannot create a duplicate. |
-| **Pagination** | One bounded page per call (default 30, capped per provider) plus an opaque `nextCursor`. Works for providers that page by `Link` header (GitHub) and by a cursor inside the body (Slack). The same primitive serves agents and developers. |
+| **Pagination** | One bounded page per call (default 30, capped per provider) plus an opaque `nextCursor`. Works for providers that page by `Link` header (GitHub), a cursor or next-link inside the body (Slack, DigitalOcean), and offsets or page numbers (PagerDuty, Mailchimp). The same primitive serves agents and developers. |
 | **"200 OK" that failed** | Providers like Slack report errors inside a successful response. A connector's `detectError` hook maps them to the normal error codes, so retries and token refresh behave as for any other failure. |
 | **Timeouts and size** | Every attempt has a deadline (30 s) and responses are size-capped (1 MB). |
 | **Secrets** | Tokens appear only in the outgoing auth header: never in errors, tool results, or `JSON.stringify(error)`. |
@@ -206,24 +207,25 @@ The reasoning behind each decision is in [docs/adr](docs/adr), and the design ov
 
 ## Roadmap
 
-- [x] Core runtime: `defineConnector`, validated `execute`, normalized errors
-- [x] Pagination (`{ items, nextCursor }`, `kit.paginate`)
-- [x] Retries and bounded rate-limit waiting
+- [x] Core runtime: `defineConnector`, validated `execute`, normalized errors, retries, bounded rate-limit waiting
+- [x] Pagination for Link headers, body cursors, next-links, offsets and page numbers
 - [x] `toTools()` and the `beforeExecute` policy hook
-- [x] GitHub reference connector, verified against the real API
-- [x] OAuth 2.0 (`startAuth` / `finishAuth`, `state`, PKCE, refresh with locking) and an encrypted `TokenStore` (in-memory)
-- [x] Postgres `TokenStore` (cross-server lock, tested against real Postgres)
-- [x] MCP server (`connector-kit/mcp` and the `connector-kit-mcp` command)
-- [x] A second connector (Slack) and body-cursor pagination
-- [ ] More connectors and an offset pagination strategy
+- [x] OAuth 2.0 with PKCE, refresh with locking, encrypted token storage (memory and Postgres)
+- [x] MCP server (`connector-kit/mcp` and the `connector-kit-mcp` command), with `--group` filtering
+- [x] HTTP Basic auth and per-account base URLs (Zendesk, Jira, Mailchimp, Sentry)
+- [x] 20 connectors with full API coverage, generated from official API descriptions ([ADR-018](docs/adr/0018-full-api-coverage-and-groups.md))
+- [ ] Full coverage for Airtable and Calendly (no official machine-readable description; hand-written)
+- [ ] Stripe, Twilio, Discord, Salesforce, Datadog, Notion, Linear, Shopify (each needs one core feature first)
+- [ ] Promote connectors to `live-tested` as they are run against real accounts
 - [ ] Webhook verification and delivery de-duplication
-- [ ] First GitHub Release (`0.1.0`)
 
 Have an idea or a connector you need? [Open an issue](https://github.com/itzzzzzzak/connector-kit/issues/new/choose).
 
 ## Connectors
 
-The catalog is in [docs/connectors.md](docs/connectors.md) (20 connectors, about 9,500 actions, so far: GitHub, Slack, Asana, HubSpot, Airtable, Calendly, Zoom, GitLab, Netlify, DigitalOcean, Vercel, Pipedrive, Intercom, Figma, Zendesk, Jira, PagerDuty, Mailchimp, ClickUp, Sentry), generated from each connector's own metadata. Every connector is marked **`live-tested`** (run against the real API) or **`docs-based`** (written from the provider's official docs and tested against a fake server, **not** run live). We do not blur the two. See ADR-016 for the plan and [docs/writing-connectors.md](docs/writing-connectors.md) to add one: `pnpm new:connector <name>` scaffolds it, and an automatic check over every connector keeps them consistent.
+The catalog is in [docs/connectors.md](docs/connectors.md) (20 connectors, about 9,500 actions: GitHub, Slack, Asana, HubSpot, Airtable, Calendly, Zoom, GitLab, Netlify, DigitalOcean, Vercel, Pipedrive, Intercom, Figma, Zendesk, Jira, PagerDuty, Mailchimp, ClickUp, Sentry), generated from each connector's own metadata. Every connector is marked **`live-tested`** (run against the real API) or **`docs-based`** (written from the provider's official docs and tested against a fake server, **not** run live). We do not blur the two. See ADR-016 for the plan and [docs/writing-connectors.md](docs/writing-connectors.md) to add one: `pnpm new:connector <name>` scaffolds it, and an automatic check over every connector keeps them consistent.
+
+**Big connectors are used by group.** GitHub alone has about 1,190 actions, far too many to give a model at once. Actions are named `group.verb` (for example `issues.create`); expose a group with `--group issues,repos` (MCP) or `kit.toTools(connection, { groups: ["issues"] })`, or single actions with `only`. The MCP command refuses to start a connector with more than 40 actions unless you choose. Most actions are generated from the provider's official API description; the important ones are hand-written with typed results and take precedence by name. Generated actions are never marked safe to retry, and writes are blocked over MCP unless you pass `--allow-writes`.
 
 List what you can serve over MCP with `connector-kit-mcp --list`.
 
@@ -232,8 +234,7 @@ List what you can serve over MCP with `connector-kit-mcp --list`.
 | Path | Purpose |
 |---|---|
 | [`connector-kit`](src) | The runtime (`defineConnector`, `createConnectorKit`, retries, pagination, `toTools()`, policy hook) |
-| [`connector-kit/github`](src/connectors/github) | GitHub connector (reference implementation) |
-| [`connector-kit/slack`](src/connectors/slack) | Slack connector: channels, history, users, post message (a write, never auto-retried) |
+| [`connector-kit/github`](src/connectors/github) | GitHub connector (reference implementation, the only `live-tested` one) |
 | `connector-kit/<name>` | Every connector in [the catalog](docs/connectors.md) has its own import path |
 | [`connector-kit/mcp`](src/mcp.ts) | MCP server over stdio, plus the `connector-kit-mcp` command |
 | [`examples/`](examples) | Runnable examples |
