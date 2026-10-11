@@ -1,5 +1,6 @@
 import { defineConnector, linkHeaderPagination } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 const issue = z.object({
   id: z.number(),
@@ -39,12 +40,15 @@ export const github = defineConnector({
   },
   meta: {
     title: "GitHub",
-    description: "Read repositories and issues; connect with a personal access token or OAuth.",
+    description: "The GitHub REST API: repositories, issues, pull requests, actions, orgs, gists and more; connect with a token or OAuth.",
     docsUrl: "https://docs.github.com/en/rest",
     status: "live-tested", // repos.get and issues.list were run against the real API
     credentialEnv: "GITHUB_TOKEN",
   },
   actions: {
+    // The rest of the REST API, generated from GitHub's official OpenAPI description (scripts/gen-openapi.mjs).
+    ...generatedActions,
+    // Hand-written actions come last, so they win over a generated action of the same name: they have typed outputs.
     "repos.get": {
       description: "Get details about a GitHub repository. Use when the user asks about a specific repo.",
       method: "GET",

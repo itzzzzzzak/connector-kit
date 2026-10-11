@@ -221,7 +221,8 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
       assertWithinBase(url, base, basePath, "pagination cursor")
     }
   }
-  const hasBody = action.method !== "GET" && action.method !== "DELETE"
+  // A DELETE has no body unless the action says how to build one (a few APIs take a list of items to remove in the body).
+  const hasBody = action.method !== "GET" && (action.method !== "DELETE" || action.buildBody !== undefined)
   // A POST/PUT/PATCH that declares buildQuery but no buildBody takes its parameters in the query string and sends no body.
   const queryOnly = hasBody && action.buildQuery !== undefined && action.buildBody === undefined
   if ((!hasBody || action.buildQuery) && !action.paginate) appendQuery(url, action.buildQuery ? action.buildQuery(rest) : rest)

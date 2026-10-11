@@ -10,7 +10,7 @@ The goal is a large catalog (100-200 connectors) so the kit is useful out of the
 - **Connectors are written by hand from the provider's official documentation** (decision of the maintainer), in the same style, one folder each (`src/connectors/<name>/`).
 - **Honest status in the code and the catalog:** `live-tested` (run against the real API) or `docs-based` (official docs + fake-server tests, not run live). A connector starts `docs-based`; promotion needs evidence in a PR.
 - **Consistency is enforced by tooling, not by memory:** `ConnectorMeta`, an automatic `checkConnector` run over every connector, a required test file, a scaffold command that fails until finished, generated package exports and a generated catalog (`docs/connectors.md`), all verified in CI.
-- **Curated, not mirrored:** 5-15 actions per connector (hard cap 40). Agents choose worse from large tool lists.
+- **Curated, not mirrored:** 5-15 actions per connector (hard cap 40). Agents choose worse from large tool lists. *(Superseded by [ADR-018](0018-full-api-coverage-and-groups.md): full coverage, exposed by group.)*
 - **Provenance:** every connector records its official `docsUrl`; descriptions are written in our own words (API descriptions are mostly unlicensed, so we do not copy their text).
 - **Core features are added when a real connector needs them**, not speculatively.
 - **Growth in batches of about 25**, each a reviewable PR, the first batch limited to providers that fit the current core.

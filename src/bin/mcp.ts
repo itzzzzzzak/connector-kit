@@ -3,7 +3,11 @@ import { readdirSync } from "node:fs"
 import type { ActionDefinition, ConnectorDefinition } from "../define.js"
 import { createConnectorKit } from "../kit.js"
 import { serveMcp } from "../mcp.js"
+import { groupsOf } from "../tools.js"
 import { mcpPolicy, parseMcpArgs, USAGE } from "./args.js"
+
+/** Above this many actions a model must be given a subset (--group or --only): it chooses worse from hundreds of tools. */
+const MAX_UNFILTERED_TOOLS = 40
 
 type AnyConnector = ConnectorDefinition<Record<string, ActionDefinition>>
 
@@ -53,7 +57,12 @@ else if (args.list) {
         return fail(error instanceof Error ? error.message : "could not connect")
       }
     })()
-    const tools = kit.toTools(connection, args.only ? { only: args.only } : {})
+    const total = Object.keys(connector.actions).length
+    if (total > MAX_UNFILTERED_TOOLS && !args.only && !args.groups) {
+      const list = Object.entries(groupsOf(connector)).map(([g, n]) => `${g} (${n})`).join(", ")
+      fail(`${name} has ${total} actions: too many to give a model at once. Choose with --group (${list}) or --only action1,action2.`)
+    }
+    const tools = kit.toTools(connection, { ...(args.only && { only: args.only }), ...(args.groups && { groups: args.groups }) })
     console.error(`connector-kit-mcp: serving ${name} (${tools.length} tools, ${args.allowWrites ? "writes allowed" : "read-only"})`)
     await serveMcp(tools, { name: `connector-kit-${name}`, onError: (e) => console.error("connector-kit-mcp: internal error:", e instanceof Error ? e.message : "unknown") })
   }

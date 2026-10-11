@@ -181,3 +181,10 @@ test("a denial reaches the model as { ok: false, code: 'denied' }", async () => 
     assert.ok(result.error.message.includes("read-only mode"))
   }
 })
+
+test("`groups` exposes only the actions whose name starts with that group; unknown groups fail loudly", () => {
+  const { kit, conn } = setup(() => json({}))
+  assert.deepEqual(kit.toTools(conn, { groups: ["items"] }).map((t) => t.name), ["demo_items_get", "demo_items_delete"])
+  assert.throws(() => kit.toTools(conn, { groups: ["nope"] }), /no group "nope"\. Groups: items/)
+  assert.deepEqual(kit.toTools(conn, { groups: ["items"], only: ["items.get"] }).map((t) => t.name), ["demo_items_get"])
+})

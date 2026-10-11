@@ -158,3 +158,25 @@ test("declaring both buildQuery and buildBody splits the input between them", as
   assert.equal(calls[0]!.url.searchParams.get("mode"), "fast")
   assert.deepEqual(calls[0]!.body, { payload: "hello" })
 })
+
+// ---------------------------------------------------------------- DELETE with a body
+
+const del = defineConnector({
+  name: "del",
+  baseUrl: "https://api.del.dev/v1",
+  auth: { type: "bearer" },
+  actions: {
+    "items.remove": { description: "Delete several items; the ids travel in the body.", method: "DELETE", path: "/items/{list}", input: z.object({ list: z.string(), ids: z.array(z.string()) }), output: z.unknown(), effect: "destructive", buildBody: (i) => ({ ids: i.ids }) },
+    "items.removeOne": { description: "Delete one item; a DELETE normally has no body.", method: "DELETE", path: "/items/{list}/one", input: z.object({ list: z.string(), force: z.boolean().optional() }), output: z.unknown(), effect: "destructive" },
+  },
+})
+
+test("a DELETE sends a body only when the action declares buildBody", async () => {
+  const { conn, calls } = harness(del, () => json({}))
+  await conn.execute("items.remove", { list: "l", ids: ["a", "b"] })
+  assert.equal(calls[0]!.init.method, "DELETE")
+  assert.deepEqual(calls[0]!.body, { ids: ["a", "b"] })
+  await conn.execute("items.removeOne", { list: "l", force: true })
+  assert.equal(calls[1]!.init.body, undefined)
+  assert.equal(calls[1]!.url.searchParams.get("force"), "true")
+})

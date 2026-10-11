@@ -29,7 +29,7 @@ The folder name, the connector's `name`, and the import path (`connector-kit/acm
 
 ## 3. Choose the actions: curate, do not mirror
 
-An agent that sees 300 tools chooses worse than one that sees 10. Pick the **5-15 actions** that apps and agents use most (the checker rejects more than 40).
+An agent that sees 300 tools chooses worse than one that sees 10, so connectors name their actions `group.verb` and callers expose a group (`--group issues`) or single actions (`--only`). Cover the provider's whole API where you can ([ADR-018](adr/0018-full-api-coverage-and-groups.md)); hand-write the 5-15 actions apps and agents use most, with typed outputs and tests, and generate the rest from the provider's official OpenAPI description if it has a permissive license (`scripts/gen-openapi.mjs`).
 
 - Prefer reads. Add writes only where the value is clear, and expect each to be gated by the host's policy.
 - Skip admin, billing, and bulk-destructive endpoints unless you can say who needs them.
@@ -119,4 +119,4 @@ PR title: `feat: add <name> connector`. In the description, link the API docs pa
 
 ## What the automatic check enforces
 
-Name and folder agree; base URL is https and not a placeholder; `meta` is complete with no `TODO`; description length 30-500; at most 40 actions; unique LLM tool names of at most 64 characters; every path parameter is a required input; `GET` is read and `DELETE` is destructive; no `safeToRetry` on `POST` or on reads; paginated actions have `cursor`/`pageSize` and an array output; OAuth URLs are https; the package export exists; a test file exists. It checks **shape, not truth**: whether a path actually exists at the provider is what your tests and the live check are for.
+Name and folder agree; base URL is https and not a placeholder; `meta` is complete with no `TODO`; description length 30-500; unique LLM tool names of at most 64 characters; every path parameter is a required input; `GET` is read and `DELETE` is destructive; no `safeToRetry` on `POST` or on reads; paginated actions have `cursor`/`pageSize` and an array output; OAuth URLs are https; the package export exists; a test file exists. It checks **shape, not truth**: whether a path actually exists at the provider is what your tests and the live check are for.

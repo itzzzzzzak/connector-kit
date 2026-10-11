@@ -4,13 +4,14 @@ export interface McpCliArgs {
   /** Undefined only when `list` is set. */
   connector?: string
   only?: string[]
+  groups?: string[]
   allowWrites: boolean
   list: boolean
   /** Values for the connector's base-URL placeholders, from repeated --var name=value. */
   variables?: Record<string, string>
 }
 
-export const USAGE = `Usage: connector-kit-mcp <connector> [--var name=value ...] [--only action1,action2] [--allow-writes]
+export const USAGE = `Usage: connector-kit-mcp <connector> [--var name=value ...] [--only action1,action2] [--group g1,g2] [--allow-writes]
        connector-kit-mcp --list
 
 Serves a connector's actions as MCP tools over stdio.
@@ -19,6 +20,8 @@ Serves a connector's actions as MCP tools over stdio.
   --list            print the available connectors, the environment variable each one reads, and any --var it needs
   --var name=value  a value for the connector's base URL, e.g. --var subdomain=acme (repeat for several)
   --only a,b        expose only these actions (e.g. repos.get,issues.list)
+  --group g1,g2     expose only these groups of actions (the part of an action name before the dot, e.g. issues,repos).
+                    Required for connectors with more than 40 actions: a model chooses worse from hundreds of tools.
   --allow-writes    allow actions that change data. Default is read-only.
                     Destructive actions are never allowed through this command.
 
@@ -28,6 +31,7 @@ The credential comes from the environment variable shown by --list (for example 
 export function parseMcpArgs(argv: string[]): McpCliArgs | { error: string } {
   let connector: string | undefined
   let only: string[] | undefined
+  let groups: string[] | undefined
   let allowWrites = false
   let list = false
   const variables: Record<string, string> = {}
@@ -42,7 +46,11 @@ export function parseMcpArgs(argv: string[]): McpCliArgs | { error: string } {
       if (!pair || eq < 1) return { error: "--var needs name=value, e.g. --var subdomain=acme" }
       variables[pair.slice(0, eq)] = pair.slice(eq + 1)
     }
-    else if (arg === "--only") {
+    else if (arg === "--group") {
+      const value = argv[++i]
+      if (!value) return { error: "--group needs a comma-separated list of groups" }
+      groups = value.split(",").map((s) => s.trim()).filter(Boolean)
+    } else if (arg === "--only") {
       const value = argv[++i]
       if (!value) return { error: "--only needs a comma-separated list of actions" }
       only = value.split(",").map((s) => s.trim()).filter(Boolean)
@@ -51,7 +59,7 @@ export function parseMcpArgs(argv: string[]): McpCliArgs | { error: string } {
     else return { error: `Unexpected argument: ${arg}` }
   }
   if (connector === undefined && !list) return { error: "Missing connector name" }
-  return { ...(connector !== undefined && { connector }), ...(only && { only }), ...(Object.keys(variables).length > 0 && { variables }), allowWrites, list }
+  return { ...(connector !== undefined && { connector }), ...(only && { only }), ...(groups && { groups }), ...(Object.keys(variables).length > 0 && { variables }), allowWrites, list }
 }
 
 /**

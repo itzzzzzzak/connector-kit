@@ -141,7 +141,7 @@ Claude Desktop (`claude_desktop_config.json`) and Cursor (`.cursor/mcp.json`) us
 }
 ```
 
-If you installed the release tarball, the command is `node_modules/.bin/connector-kit-mcp github`. Options: `--only repos.get,issues.list` (expose fewer tools, which saves model context), `--allow-writes`, and `--var name=value` for connectors whose address depends on your account (for example `claude mcp add zendesk -e ZENDESK_CREDENTIALS='you@co.com/token:API_TOKEN' -- node .../mcp.js zendesk --var subdomain=acme`). `--list` shows which connectors need which.
+If you installed the release tarball, the command is `node_modules/.bin/connector-kit-mcp github`. Options: `--only repos.get,issues.list` (expose fewer tools, which saves model context), `--group issues,repos` (expose whole groups; required for connectors with more than 40 actions, like GitHub's 1,190), `--allow-writes`, and `--var name=value` for connectors whose address depends on your account (for example `claude mcp add zendesk -e ZENDESK_CREDENTIALS='you@co.com/token:API_TOKEN' -- node .../mcp.js zendesk --var subdomain=acme`). `--list` shows which connectors need which.
 
 To embed it in your own program instead, with your own policy, use `connector-kit/mcp`:
 

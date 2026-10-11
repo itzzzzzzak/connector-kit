@@ -16,7 +16,7 @@ async function connect(args: string[], env: Record<string, string> = { GITHUB_TO
 }
 
 test("a real MCP client can initialize, list tools, and call one", async () => {
-  const client = await connect(["github"])
+  const client = await connect(["github", "--only", "repos.get,issues.list"])
   try {
     const { tools } = await client.listTools()
     assert.deepEqual(tools.map((t) => t.name).sort(), ["github_issues_list", "github_repos_get"])
@@ -44,7 +44,7 @@ test("--only limits which tools the client sees", async () => {
 })
 
 test("an unknown tool is an error the client surfaces", async () => {
-  const client = await connect(["github"])
+  const client = await connect(["github", "--only", "repos.get"])
   try {
     await assert.rejects(() => client.callTool({ name: "github_delete_everything", arguments: {} }))
   } finally {
@@ -104,4 +104,16 @@ test("a missing or hostile --var stops the server from starting", async () => {
 
 test("a Basic-auth connector without a colon in its credential does not start", async () => {
   await assert.rejects(() => connect(["jira", "--var", "site=acme"], { JIRA_CREDENTIALS: "no-colon-here" }))
+})
+
+test("a connector with hundreds of actions refuses to start without --group or --only, and lists the groups", async () => {
+  await assert.rejects(() => connect(["github"]), /Connection closed/)
+  const client = await connect(["github", "--group", "gists"])
+  try {
+    const { tools } = await client.listTools()
+    assert.ok(tools.length > 5 && tools.length < 40)
+    assert.ok(tools.every((t) => t.name.startsWith("github_gists_")))
+  } finally {
+    await client.close()
+  }
 })

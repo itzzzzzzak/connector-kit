@@ -82,8 +82,10 @@ test("two actions that collapse to the same tool name, and an over-long tool nam
 
 test("a connector with no actions, or an absurd number, is flagged", () => {
   assert.match(problems(make({})), /at least one action/)
-  const many = Object.fromEntries(Array.from({ length: 41 }, (_, i) => [`r${i}.get`, read()]))
-  assert.match(problems(make(many)), /too many/)
+  const big = Object.fromEntries(Array.from({ length: 300 }, (_, i) => [`r${i}.get`, read()]))
+  assert.equal(problems(make(big)), "") // full API coverage is allowed: exposure is limited by group, not by size
+  const absurd = Object.fromEntries(Array.from({ length: 2001 }, (_, i) => [`r${i}.get`, read()]))
+  assert.match(problems(make(absurd)), /split the connector/)
 })
 
 test("an input that cannot become JSON Schema (so cannot become an LLM tool) is flagged", () => {

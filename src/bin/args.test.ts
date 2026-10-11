@@ -39,3 +39,8 @@ test("--var collects name=value pairs, keeps '=' inside values, and works with o
 test("--var without a name or an '=' is an error, not a silent skip", () => {
   for (const argv of [["zendesk", "--var"], ["zendesk", "--var", "acme"], ["zendesk", "--var", "=x"]]) assert.ok("error" in parseMcpArgs(argv), JSON.stringify(argv))
 })
+
+test("--group takes a comma-separated list and needs a value", () => {
+  assert.deepEqual((parseMcpArgs(["github", "--group", "issues, repos"]) as { groups?: string[] }).groups, ["issues", "repos"])
+  assert.match((parseMcpArgs(["github", "--group"]) as { error: string }).error, /--group needs/)
+})

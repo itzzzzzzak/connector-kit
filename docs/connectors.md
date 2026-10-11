@@ -12,7 +12,7 @@
 | **ClickUp** | `connector-kit/clickup` | docs-based | API key | - | 9 | [API docs](https://developer.clickup.com/reference) |
 | **DigitalOcean** | `connector-kit/digitalocean` | docs-based | OAuth 2.0 or token | - | 5 | [API docs](https://docs.digitalocean.com/reference/api/) |
 | **Figma** | `connector-kit/figma` | docs-based | API key | - | 6 | [API docs](https://www.figma.com/developers/api) |
-| **GitHub** | `connector-kit/github` | live-tested | OAuth 2.0 or token | - | 2 | [API docs](https://docs.github.com/en/rest) |
+| **GitHub** | `connector-kit/github` | live-tested | OAuth 2.0 or token | - | 1191 | [API docs](https://docs.github.com/en/rest) |
 | **GitLab** | `connector-kit/gitlab` | docs-based | API key | - | 8 | [API docs](https://docs.gitlab.com/api/rest/) |
 | **HubSpot** | `connector-kit/hubspot` | docs-based | OAuth 2.0 or token | - | 10 | [API docs](https://developers.hubspot.com/docs/api/crm/contacts) |
 | **Intercom** | `connector-kit/intercom` | docs-based | API token | - | 5 | [API docs](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/introduction) |
@@ -107,10 +107,1199 @@ Read file structure and comments, render frames as images, and post comments.
 
 ### GitHub (`github`)
 
-Read repositories and issues; connect with a personal access token or OAuth.
+The GitHub REST API: repositories, issues, pull requests, actions, orgs, gists and more; connect with a token or OAuth.
 
-- `repos.get` (read): Get details about a GitHub repository.
+- `actions.getActionsCacheRetentionLimitForEnterprise` (read): Get GitHub Actions cache retention limit for an enterprise.
+- `actions.setActionsCacheRetentionLimitForEnterprise` (write): Set GitHub Actions cache retention limit for an enterprise.
+- `actions.getActionsCacheStorageLimitForEnterprise` (read): Get GitHub Actions cache storage limit for an enterprise.
+- `actions.setActionsCacheStorageLimitForEnterprise` (write): Set GitHub Actions cache storage limit for an enterprise.
+- `actions.getActionsCacheRetentionLimitForOrganization` (read): Get GitHub Actions cache retention limit for an organization.
+- `actions.setActionsCacheRetentionLimitForOrganization` (write): Set GitHub Actions cache retention limit for an organization.
+- `actions.getActionsCacheStorageLimitForOrganization` (read): Get GitHub Actions cache storage limit for an organization.
+- `actions.setActionsCacheStorageLimitForOrganization` (write): Set GitHub Actions cache storage limit for an organization.
+- `actions.getActionsCacheUsageForOrg` (read): Get GitHub Actions cache usage for an organization.
+- `actions.getActionsCacheUsageByRepoForOrg` (read): List repositories with GitHub Actions cache usage for an organization.
+- `actions.listHostedRunnersForOrg` (read): List GitHub-hosted runners for an organization.
+- `actions.createHostedRunnerForOrg` (write): Create a GitHub-hosted runner for an organization.
+- `actions.listCustomImagesForOrg` (read): List custom images for an organization
+- `actions.getCustomImageForOrg` (read): Get a custom image definition for GitHub Actions Hosted Runners
+- `actions.deleteCustomImageFromOrg` (destructive): Delete a custom image from the organization
+- `actions.listCustomImageVersionsForOrg` (read): List image versions of a custom image for an organization
+- `actions.getCustomImageVersionForOrg` (read): Get an image version of a custom image for GitHub Actions Hosted Runners
+- `actions.deleteCustomImageVersionFromOrg` (destructive): Delete an image version of custom image from the organization
+- `actions.getHostedRunnersGithubOwnedImagesForOrg` (read): Get GitHub-owned images for GitHub-hosted runners in an organization.
+- `actions.getHostedRunnersPartnerImagesForOrg` (read): Get partner images for GitHub-hosted runners in an organization.
+- `actions.getHostedRunnersLimitsForOrg` (read): Get limits on GitHub-hosted runners for an organization.
+- `actions.getHostedRunnersMachineSpecsForOrg` (read): Get GitHub-hosted runners machine specs for an organization.
+- `actions.getHostedRunnersPlatformsForOrg` (read): Get platforms for GitHub-hosted runners in an organization.
+- `actions.getHostedRunnerForOrg` (read): Get a GitHub-hosted runner for an organization.
+- `actions.updateHostedRunnerForOrg` (write): Update a GitHub-hosted runner for an organization.
+- `actions.deleteHostedRunnerForOrg` (destructive): Delete a GitHub-hosted runner for an organization.
+- `actions.getGithubActionsPermissionsOrganization` (read): Get GitHub Actions permissions for an organization.
+- `actions.setGithubActionsPermissionsOrganization` (write): Set GitHub Actions permissions for an organization.
+- `actions.getArtifactAndLogRetentionSettingsOrganization` (read): Get artifact and log retention settings for an organization.
+- `actions.setArtifactAndLogRetentionSettingsOrganization` (write): Set artifact and log retention settings for an organization.
+- `actions.getForkPrContribApprovalPermsOrg` (read): Get fork PR contributor approval permissions for an organization.
+- `actions.setForkPrContribApprovalPermsOrg` (write): Set fork PR contributor approval permissions for an organization.
+- `actions.getPrivateRepoForkPrWorkflowsSettingsOrganization` (read): Get private repo fork PR workflow settings for an organization.
+- `actions.setPrivateRepoForkPrWorkflowsSettingsOrganization` (write): Set private repo fork PR workflow settings for an organization.
+- `actions.listSelectedReposEnabledGithubActionsOrg` (read): List selected repositories enabled for GitHub Actions in an organization.
+- `actions.setSelectedReposEnabledGithubActionsOrg` (write): Set selected repositories enabled for GitHub Actions in an organization.
+- `actions.enableSelectedRepositoryGithubActionsOrganization` (write): Enable a selected repository for GitHub Actions in an organization.
+- `actions.disableSelectedRepoGithubActionsOrg` (destructive): Disable a selected repository for GitHub Actions in an organization.
+- `actions.getAllowedActionsOrganization` (read): Get allowed actions and reusable workflows for an organization.
+- `actions.setAllowedActionsOrganization` (write): Set allowed actions and reusable workflows for an organization.
+- `actions.getSelfHostedRunnersPermissionsOrganization` (read): Get self-hosted runners settings for an organization.
+- `actions.setSelfHostedRunnersPermissionsOrganization` (write): Set self-hosted runners settings for an organization.
+- `actions.listSelectedReposSelfHostedRunnersOrg` (read): List repositories allowed to use self-hosted runners in an organization.
+- `actions.setSelectedReposSelfHostedRunnersOrg` (write): Set repositories allowed to use self-hosted runners in an organization.
+- `actions.enableSelectedRepoSelfHostedRunnersOrg` (write): Add a repository to the list of repositories allowed to use self-hosted runners in an organization.
+- `actions.disableSelectedRepoSelfHostedRunnersOrg` (destructive): Remove a repository from the list of repositories allowed to use self-hosted runners in an organization.
+- `actions.getGithubActionsDefaultWorkflowPermsOrg` (read): Get default workflow permissions for an organization.
+- `actions.setGithubActionsDefaultWorkflowPermsOrg` (write): Set default workflow permissions for an organization.
+- `actions.getOrgActionsPolicies` (read): List organization Actions policies.
+- `actions.createOrgActionsPolicy` (write): Create an organization Actions policy.
+- `actions.getOrgActionsPolicy` (read): Get an organization Actions policy.
+- `actions.updateOrgActionsPolicy` (write): Update an organization Actions policy.
+- `actions.deleteOrgActionsPolicy` (destructive): Delete an organization Actions policy.
+- `actions.listSelfHostedRunnerGroupsForOrg` (read): List self-hosted runner groups for an organization.
+- `actions.createSelfHostedRunnerGroupForOrg` (write): Create a self-hosted runner group for an organization.
+- `actions.getSelfHostedRunnerGroupForOrg` (read): Get a self-hosted runner group for an organization.
+- `actions.updateSelfHostedRunnerGroupForOrg` (write): Update a self-hosted runner group for an organization.
+- `actions.deleteSelfHostedRunnerGroupFromOrg` (destructive): Delete a self-hosted runner group from an organization.
+- `actions.listGithubHostedRunnersInGroupForOrg` (read): List GitHub-hosted runners in a group for an organization.
+- `actions.listRepoAccessToSelfHostedRunnerGroupInOrg` (read): List repository access to a self-hosted runner group in an organization.
+- `actions.setRepoAccessToSelfHostedRunnerGroupInOrg` (write): Set repository access for a self-hosted runner group in an organization.
+- `actions.addRepoAccessToSelfHostedRunnerGroupInOrg` (write): Add repository access to a self-hosted runner group in an organization.
+- `actions.removeRepoAccessToSelfHostedRunnerGroupInOrg` (destructive): Remove repository access to a self-hosted runner group in an organization.
+- `actions.listSelfHostedRunnersInGroupForOrg` (read): List self-hosted runners in a group for an organization.
+- `actions.setSelfHostedRunnersInGroupForOrg` (write): Set self-hosted runners in a group for an organization.
+- `actions.addSelfHostedRunnerToGroupForOrg` (write): Add a self-hosted runner to a group for an organization.
+- `actions.removeSelfHostedRunnerFromGroupForOrg` (destructive): Remove a self-hosted runner from a group for an organization.
+- `actions.listSelfHostedRunnersForOrg` (read): List self-hosted runners for an organization.
+- `actions.getRunnerVersionDeprecationForOrg` (read): Get runner version end-of-life schedule for an organization.
+- `actions.listRunnerApplicationsForOrg` (read): List runner applications for an organization.
+- `actions.generateRunnerJitconfigForOrg` (write): Create configuration for a just-in-time runner for an organization.
+- `actions.createRegistrationTokenForOrg` (write): Create a registration token for an organization.
+- `actions.createRemoveTokenForOrg` (write): Create a remove token for an organization.
+- `actions.getSelfHostedRunnerForOrg` (read): Get a self-hosted runner for an organization.
+- `actions.deleteSelfHostedRunnerFromOrg` (destructive): Delete a self-hosted runner from an organization.
+- `actions.listLabelsForSelfHostedRunnerForOrg` (read): List labels for a self-hosted runner for an organization.
+- `actions.addCustomLabelsToSelfHostedRunnerForOrg` (write): Add custom labels to a self-hosted runner for an organization.
+- `actions.setCustomLabelsForSelfHostedRunnerForOrg` (write): Set custom labels for a self-hosted runner for an organization.
+- `actions.removeAllCustomLabelsFromSelfHostedRunnerForOrg` (destructive): Remove all custom labels from a self-hosted runner for an organization
+- `actions.removeCustomLabelFromSelfHostedRunnerForOrg` (destructive): Remove a custom label from a self-hosted runner for an organization
+- `actions.listOrgSecrets` (read): List organization secrets.
+- `actions.getOrgPublicKey` (read): Get an organization public key.
+- `actions.getOrgSecret` (read): Get an organization secret.
+- `actions.createOrUpdateOrgSecret` (write): Create or update an organization secret.
+- `actions.deleteOrgSecret` (destructive): Delete an organization secret.
+- `actions.listSelectedReposForOrgSecret` (read): List selected repositories for an organization secret.
+- `actions.setSelectedReposForOrgSecret` (write): Set selected repositories for an organization secret.
+- `actions.addSelectedRepoToOrgSecret` (write): Add selected repository to an organization secret.
+- `actions.removeSelectedRepoFromOrgSecret` (destructive): Remove selected repository from an organization secret.
+- `actions.listOrgVariables` (read): List organization variables.
+- `actions.createOrgVariable` (write): Create an organization variable.
+- `actions.getOrgVariable` (read): Get an organization variable.
+- `actions.updateOrgVariable` (write): Update an organization variable.
+- `actions.deleteOrgVariable` (destructive): Delete an organization variable.
+- `actions.listSelectedReposForOrgVariable` (read): List selected repositories for an organization variable.
+- `actions.setSelectedReposForOrgVariable` (write): Set selected repositories for an organization variable.
+- `actions.addSelectedRepoToOrgVariable` (write): Add selected repository to an organization variable.
+- `actions.removeSelectedRepoFromOrgVariable` (destructive): Remove selected repository from an organization variable.
+- `actions.listArtifactsForRepo` (read): List artifacts for a repository.
+- `actions.getArtifact` (read): Get an artifact.
+- `actions.deleteArtifact` (destructive): Delete an artifact.
+- `actions.downloadArtifact` (read): Download an artifact.
+- `actions.getActionsCacheRetentionLimitForRepository` (read): Get GitHub Actions cache retention limit for a repository.
+- `actions.setActionsCacheRetentionLimitForRepository` (write): Set GitHub Actions cache retention limit for a repository.
+- `actions.getActionsCacheStorageLimitForRepository` (read): Get GitHub Actions cache storage limit for a repository.
+- `actions.setActionsCacheStorageLimitForRepository` (write): Set GitHub Actions cache storage limit for a repository.
+- `actions.getActionsCacheUsage` (read): Get GitHub Actions cache usage for a repository.
+- `actions.getActionsCacheList` (read): List GitHub Actions caches for a repository.
+- `actions.deleteActionsCacheByKey` (destructive): Delete GitHub Actions caches for a repository (using a cache key).
+- `actions.deleteActionsCacheById` (destructive): Delete a GitHub Actions cache for a repository (using a cache ID).
+- `actions.listConcurrencyGroupsForRepository` (read): List concurrency groups for a repository.
+- `actions.getConcurrencyGroupForRepository` (read): Get a concurrency group for a repository.
+- `actions.getJobForWorkflowRun` (read): Get a job for a workflow run.
+- `actions.downloadJobLogsForWorkflowRun` (read): Download job logs for a workflow run.
+- `actions.reRunJobForWorkflowRun` (write): Re-run a job from a workflow run.
+- `actions.downloadStepLogsForWorkflowRunJob` (read): Download step logs for a workflow run job.
+- `actions.getCustomOidcSubClaimForRepo` (read): Get the customization template for an OIDC subject claim for a repository.
+- `actions.setCustomOidcSubClaimForRepo` (write): Set the customization template for an OIDC subject claim for a repository.
+- `actions.listRepoOrganizationSecrets` (read): List repository organization secrets.
+- `actions.listRepoOrganizationVariables` (read): List repository organization variables.
+- `actions.getGithubActionsPermissionsRepository` (read): Get GitHub Actions permissions for a repository.
+- `actions.setGithubActionsPermissionsRepository` (write): Set GitHub Actions permissions for a repository.
+- `actions.getWorkflowAccessToRepository` (read): Get the level of access for workflows outside of the repository.
+- `actions.setWorkflowAccessToRepository` (write): Set the level of access for workflows outside of the repository.
+- `actions.getArtifactAndLogRetentionSettingsRepository` (read): Get artifact and log retention settings for a repository.
+- `actions.setArtifactAndLogRetentionSettingsRepository` (write): Set artifact and log retention settings for a repository.
+- `actions.getForkPrContributorApprovalPermissionsRepository` (read): Get fork PR contributor approval permissions for a repository.
+- `actions.setForkPrContributorApprovalPermissionsRepository` (write): Set fork PR contributor approval permissions for a repository.
+- `actions.getPrivateRepoForkPrWorkflowsSettingsRepository` (read): Get private repo fork PR workflow settings for a repository.
+- `actions.setPrivateRepoForkPrWorkflowsSettingsRepository` (write): Set private repo fork PR workflow settings for a repository.
+- `actions.getAllowedActionsRepository` (read): Get allowed actions and reusable workflows for a repository.
+- `actions.setAllowedActionsRepository` (write): Set allowed actions and reusable workflows for a repository.
+- `actions.getGithubActionsDefaultWorkflowPermsRepo` (read): Get default workflow permissions for a repository.
+- `actions.setGithubActionsDefaultWorkflowPermsRepo` (write): Set default workflow permissions for a repository.
+- `actions.getRepoActionsPolicies` (read): List repository Actions policies.
+- `actions.createRepoActionsPolicy` (write): Create a repository Actions policy.
+- `actions.getRepoActionsPolicy` (read): Get a repository Actions policy.
+- `actions.updateRepoActionsPolicy` (write): Update a repository Actions policy.
+- `actions.deleteRepoActionsPolicy` (destructive): Delete a repository Actions policy.
+- `actions.listSelfHostedRunnersForRepo` (read): List self-hosted runners for a repository.
+- `actions.getRunnerVersionDeprecationForRepo` (read): Get runner version end-of-life schedule for a repository.
+- `actions.listRunnerApplicationsForRepo` (read): List runner applications for a repository.
+- `actions.generateRunnerJitconfigForRepo` (write): Create configuration for a just-in-time runner for a repository.
+- `actions.createRegistrationTokenForRepo` (write): Create a registration token for a repository.
+- `actions.createRemoveTokenForRepo` (write): Create a remove token for a repository.
+- `actions.getSelfHostedRunnerForRepo` (read): Get a self-hosted runner for a repository.
+- `actions.deleteSelfHostedRunnerFromRepo` (destructive): Delete a self-hosted runner from a repository.
+- `actions.listLabelsForSelfHostedRunnerForRepo` (read): List labels for a self-hosted runner for a repository.
+- `actions.addCustomLabelsToSelfHostedRunnerForRepo` (write): Add custom labels to a self-hosted runner for a repository.
+- `actions.setCustomLabelsForSelfHostedRunnerForRepo` (write): Set custom labels for a self-hosted runner for a repository.
+- `actions.removeAllCustomLabelsFromSelfHostedRunnerForRepo` (destructive): Remove all custom labels from a self-hosted runner for a repository
+- `actions.removeCustomLabelFromSelfHostedRunnerForRepo` (destructive): Remove a custom label from a self-hosted runner for a repository
+- `actions.listWorkflowRunsForRepo` (read): List workflow runs for a repository.
+- `actions.getWorkflowRun` (read): Get a workflow run.
+- `actions.deleteWorkflowRun` (destructive): Delete a workflow run.
+- `actions.getReviewsForRun` (read): Get the review history for a workflow run.
+- `actions.approveWorkflowRun` (write): Approve a workflow run for a fork pull request.
+- `actions.listWorkflowRunArtifacts` (read): List workflow run artifacts.
+- `actions.getWorkflowRunAttempt` (read): Get a workflow run attempt.
+- `actions.listJobsForWorkflowRunAttempt` (read): List jobs for a workflow run attempt.
+- `actions.downloadWorkflowRunAttemptLogs` (read): Download workflow run attempt logs.
+- `actions.cancelWorkflowRun` (write): Cancel a workflow run.
+- `actions.listConcurrencyGroupsForWorkflowRun` (read): List concurrency groups for a workflow run.
+- `actions.reviewCustomGatesForRun` (write): Review custom deployment protection rules for a workflow run.
+- `actions.forceCancelWorkflowRun` (write): Force cancel a workflow run.
+- `actions.listJobsForWorkflowRun` (read): List jobs for a workflow run.
+- `actions.downloadWorkflowRunLogs` (read): Download workflow run logs.
+- `actions.deleteWorkflowRunLogs` (destructive): Delete workflow run logs.
+- `actions.getPendingDeploymentsForRun` (read): Get pending deployments for a workflow run.
+- `actions.reviewPendingDeploymentsForRun` (write): Review pending deployments for a workflow run.
+- `actions.reRunWorkflow` (write): Re-run a workflow.
+- `actions.reRunWorkflowFailedJobs` (write): Re-run failed jobs from a workflow run.
+- `actions.getWorkflowRunUsage` (read): Get workflow run usage.
+- `actions.listRepoSecrets` (read): List repository secrets.
+- `actions.getRepoPublicKey` (read): Get a repository public key.
+- `actions.getRepoSecret` (read): Get a repository secret.
+- `actions.createOrUpdateRepoSecret` (write): Create or update a repository secret.
+- `actions.deleteRepoSecret` (destructive): Delete a repository secret.
+- `actions.listRepoVariables` (read): List repository variables.
+- `actions.createRepoVariable` (write): Create a repository variable.
+- `actions.getRepoVariable` (read): Get a repository variable.
+- `actions.updateRepoVariable` (write): Update a repository variable.
+- `actions.deleteRepoVariable` (destructive): Delete a repository variable.
+- `actions.listRepoWorkflows` (read): List repository workflows.
+- `actions.getWorkflow` (read): Get a workflow.
+- `actions.disableWorkflow` (write): Disable a workflow.
+- `actions.createWorkflowDispatch` (write): Create a workflow dispatch event.
+- `actions.enableWorkflow` (write): Enable a workflow.
+- `actions.listWorkflowRuns` (read): List workflow runs for a workflow.
+- `actions.getWorkflowUsage` (read): Get workflow usage.
+- `actions.listEnvironmentSecrets` (read): List environment secrets.
+- `actions.getEnvironmentPublicKey` (read): Get an environment public key.
+- `actions.getEnvironmentSecret` (read): Get an environment secret.
+- `actions.createOrUpdateEnvironmentSecret` (write): Create or update an environment secret.
+- `actions.deleteEnvironmentSecret` (destructive): Delete an environment secret.
+- `actions.listEnvironmentVariables` (read): List environment variables.
+- `actions.createEnvironmentVariable` (write): Create an environment variable
+- `actions.getEnvironmentVariable` (read): Get an environment variable.
+- `actions.updateEnvironmentVariable` (write): Update an environment variable.
+- `actions.deleteEnvironmentVariable` (destructive): Delete an environment variable.
+- `activity.listPublicEvents` (read): List public events.
+- `activity.getFeeds` (read): Get feeds.
+- `activity.listPublicEventsForRepoNetwork` (read): List public events for a network of repositories.
+- `activity.listNotificationsForAuthenticatedUser` (read): List notifications for the authenticated user.
+- `activity.markNotificationsAsRead` (write): Mark notifications as read.
+- `activity.getThread` (read): Get a thread.
+- `activity.markThreadAsRead` (write): Mark a thread as read.
+- `activity.markThreadAsDone` (destructive): Mark a thread as done.
+- `activity.getThreadSubscriptionForAuthenticatedUser` (read): Get a thread subscription for the authenticated user.
+- `activity.setThreadSubscription` (write): Set a thread subscription.
+- `activity.deleteThreadSubscription` (destructive): Delete a thread subscription.
+- `activity.listPublicOrgEvents` (read): List public organization events.
+- `activity.listRepoEvents` (read): List repository events.
+- `activity.listRepoNotificationsForAuthenticatedUser` (read): List repository notifications for the authenticated user.
+- `activity.markRepoNotificationsAsRead` (write): Mark repository notifications as read.
+- `activity.listStargazersForRepo` (read): List stargazers.
+- `activity.getStargazerCountForRepo` (read): Get stargazer count.
+- `activity.getStargazerHistoryForRepo` (read): Get repository star history.
+- `activity.listWatchersForRepo` (read): List watchers.
+- `activity.getRepoSubscription` (read): Get a repository subscription.
+- `activity.setRepoSubscription` (write): Set a repository subscription.
+- `activity.deleteRepoSubscription` (destructive): Delete a repository subscription.
+- `activity.listReposStarredByAuthenticatedUser` (read): List repositories starred by the authenticated user.
+- `activity.checkRepoIsStarredByAuthenticatedUser` (read): Check if a repository is starred by the authenticated user.
+- `activity.starRepoForAuthenticatedUser` (write): Star a repository for the authenticated user.
+- `activity.unstarRepoForAuthenticatedUser` (destructive): Unstar a repository for the authenticated user Destroys data.
+- `activity.listWatchedReposForAuthenticatedUser` (read): List repositories watched by the authenticated user.
+- `activity.listEventsForAuthenticatedUser` (read): List events for the authenticated user.
+- `activity.listOrgEventsForAuthenticatedUser` (read): List organization events for the authenticated user.
+- `activity.listPublicEventsForUser` (read): List public events for a user.
+- `activity.listReceivedEventsForUser` (read): List events received by the authenticated user.
+- `activity.listReceivedPublicEventsForUser` (read): List public events received by a user.
+- `activity.listReposStarredByUser` (read): List repositories starred by a user.
+- `activity.listReposWatchedByUser` (read): List repositories watched by a user.
+- `agentTasks.listTasksForRepo` (read): List tasks for repository.
+- `agentTasks.createTaskInRepo` (write): Start a task.
+- `agentTasks.getTaskByRepoAndId` (read): Get a task by repo.
+- `agentTasks.listTasks` (read): List tasks.
+- `agentTasks.getTaskById` (read): Get a task by ID.
+- `agents.listOrgSecrets` (read): List organization secrets.
+- `agents.getOrgPublicKey` (read): Get an organization public key.
+- `agents.getOrgSecret` (read): Get an organization secret.
+- `agents.createOrUpdateOrgSecret` (write): Create or update an organization secret.
+- `agents.deleteOrgSecret` (destructive): Delete an organization secret.
+- `agents.listSelectedReposForOrgSecret` (read): List selected repositories for an organization secret.
+- `agents.setSelectedReposForOrgSecret` (write): Set selected repositories for an organization secret.
+- `agents.addSelectedRepoToOrgSecret` (write): Add selected repository to an organization secret.
+- `agents.removeSelectedRepoFromOrgSecret` (destructive): Remove selected repository from an organization secret.
+- `agents.listOrgVariables` (read): List organization variables.
+- `agents.createOrgVariable` (write): Create an organization variable.
+- `agents.getOrgVariable` (read): Get an organization variable.
+- `agents.updateOrgVariable` (write): Update an organization variable.
+- `agents.deleteOrgVariable` (destructive): Delete an organization variable.
+- `agents.listSelectedReposForOrgVariable` (read): List selected repositories for an organization variable.
+- `agents.setSelectedReposForOrgVariable` (write): Set selected repositories for an organization variable.
+- `agents.addSelectedRepoToOrgVariable` (write): Add selected repository to an organization variable.
+- `agents.removeSelectedRepoFromOrgVariable` (destructive): Remove selected repository from an organization variable.
+- `agents.listRepoOrganizationSecrets` (read): List repository organization secrets.
+- `agents.listRepoOrganizationVariables` (read): List repository organization variables.
+- `agents.listRepoSecrets` (read): List repository secrets.
+- `agents.getRepoPublicKey` (read): Get a repository public key.
+- `agents.getRepoSecret` (read): Get a repository secret.
+- `agents.createOrUpdateRepoSecret` (write): Create or update a repository secret.
+- `agents.deleteRepoSecret` (destructive): Delete a repository secret.
+- `agents.listRepoVariables` (read): List repository variables.
+- `agents.createRepoVariable` (write): Create a repository variable.
+- `agents.getRepoVariable` (read): Get a repository variable.
+- `agents.updateRepoVariable` (write): Update a repository variable.
+- `agents.deleteRepoVariable` (destructive): Delete a repository variable.
+- `apiInsights.getRouteStatsByActor` (read): Get route stats by actor.
+- `apiInsights.getSubjectStats` (read): Get subject stats.
+- `apiInsights.getSummaryStats` (read): Get summary stats.
+- `apiInsights.getSummaryStatsByUser` (read): Get summary stats by user.
+- `apiInsights.getSummaryStatsByActor` (read): Get summary stats by actor.
+- `apiInsights.getTimeStats` (read): Get time stats.
+- `apiInsights.getTimeStatsByUser` (read): Get time stats by user.
+- `apiInsights.getTimeStatsByActor` (read): Get time stats by actor.
+- `apiInsights.getUserStats` (read): Get user stats.
+- `apps.getAuthenticated` (read): Get the authenticated app.
+- `apps.createFromManifest` (write): Create a GitHub App from a manifest.
+- `apps.getWebhookConfigForApp` (read): Get a webhook configuration for an app.
+- `apps.updateWebhookConfigForApp` (write): Update a webhook configuration for an app.
+- `apps.listWebhookDeliveries` (read): List deliveries for an app webhook.
+- `apps.getWebhookDelivery` (read): Get a delivery for an app webhook.
+- `apps.redeliverWebhookDelivery` (write): Redeliver a delivery for an app webhook
+- `apps.listInstallationRequestsForAuthenticatedApp` (read): List installation requests for the authenticated app.
+- `apps.listInstallations` (read): List installations for the authenticated app.
+- `apps.getInstallation` (read): Get an installation for the authenticated app.
+- `apps.deleteInstallation` (destructive): Delete an installation for the authenticated app.
+- `apps.createInstallationAccessToken` (write): Create an installation access token for an app.
+- `apps.suspendInstallation` (write): Suspend an app installation.
+- `apps.unsuspendInstallation` (destructive): Unsuspend an app installation.
+- `apps.deleteAuthorization` (destructive): Delete an app authorization.
+- `apps.checkToken` (write): Check a token.
+- `apps.resetToken` (write): Reset a token.
+- `apps.deleteToken` (destructive): Delete an app token.
+- `apps.scopeToken` (write): Create a scoped access token.
+- `apps.getBySlug` (read): Get an app.
+- `apps.listReposAccessibleToInstallation` (read): List repositories accessible to the app installation.
+- `apps.revokeInstallationAccessToken` (destructive): Revoke an installation access token.
+- `apps.getSubscriptionPlanForAccount` (read): Get a subscription plan for an account.
+- `apps.listPlans` (read): List plans.
+- `apps.listAccountsForPlan` (read): List accounts for a plan.
+- `apps.getSubscriptionPlanForAccountStubbed` (read): Get a subscription plan for an account (stubbed).
+- `apps.listPlansStubbed` (read): List plans (stubbed).
+- `apps.listAccountsForPlanStubbed` (read): List accounts for a plan (stubbed).
+- `apps.getOrgInstallation` (read): Get an organization installation for the authenticated app.
+- `apps.getRepoInstallation` (read): Get a repository installation for the authenticated app.
+- `apps.listInstallationsForAuthenticatedUser` (read): List app installations accessible to the user access token.
+- `apps.listInstallationReposForAuthenticatedUser` (read): List repositories accessible to the user access token.
+- `apps.addRepoToInstallationForAuthenticatedUser` (write): Add a repository to an app installation.
+- `apps.removeRepoFromInstallationForAuthenticatedUser` (destructive): Remove a repository from an app installation.
+- `apps.listSubscriptionsForAuthenticatedUser` (read): List subscriptions for the authenticated user.
+- `apps.listSubscriptionsForAuthenticatedUserStubbed` (read): List subscriptions for the authenticated user (stubbed).
+- `apps.getUserInstallation` (read): Get a user installation for the authenticated app.
+- `billing.getGithubBillingAiCreditUsageReportOrg` (read): Get billing AI credit usage report for an organization.
+- `billing.getAllBudgetsOrg` (read): Get all budgets for an organization.
+- `billing.createOrganizationBudget` (write): Create a budget for an organization.
+- `billing.getBudgetOrg` (read): Get a budget by ID for an organization.
+- `billing.updateBudgetOrg` (write): Update a budget for an organization.
+- `billing.deleteBudgetOrg` (destructive): Delete a budget for an organization.
+- `billing.getGithubBillingPremiumRequestUsageReportOrg` (read): Get billing premium request usage report for an organization.
+- `billing.getGithubBillingUsageReportOrg` (read): Get billing usage report for an organization.
+- `billing.getGithubBillingUsageSummaryReportOrg` (read): Get billing usage summary for an organization.
+- `billing.getGithubBillingAiCreditUsageReportUser` (read): Get billing AI credit usage report for a user.
+- `billing.getGithubBillingPremiumRequestUsageReportUser` (read): Get billing premium request usage report for a user.
+- `billing.getGithubBillingUsageReportUser` (read): Get billing usage report for a user.
+- `billing.getGithubBillingUsageSummaryReportUser` (read): Get billing usage summary for a user.
+- `campaigns.listOrgCampaigns` (read): List campaigns for an organization.
+- `campaigns.createCampaign` (write): Create a campaign for an organization
+- `campaigns.getCampaignSummary` (read): Get a campaign for an organization.
+- `campaigns.updateCampaign` (write): Update a campaign.
+- `campaigns.deleteCampaign` (destructive): Delete a campaign for an organization.
+- `checks.create` (write): Create a check run.
+- `checks.get` (read): Get a check run.
+- `checks.update` (write): Update a check run.
+- `checks.listAnnotations` (read): List check run annotations.
+- `checks.rerequestRun` (write): Rerequest a check run.
+- `checks.createSuite` (write): Create a check suite.
+- `checks.setSuitesPreferences` (write): Update repository preferences for check suites.
+- `checks.getSuite` (read): Get a check suite.
+- `checks.listForSuite` (read): List check runs in a check suite.
+- `checks.rerequestSuite` (write): Rerequest a check suite.
+- `checks.listForRef` (read): List check runs for a Git reference.
+- `checks.listSuitesForRef` (read): List check suites for a Git reference.
+- `codeQuality.listFindingsForRepo` (read): List code quality findings for a repository.
+- `codeQuality.getFinding` (read): Get a code quality finding.
+- `codeQuality.getSetup` (read): Get a code quality setup configuration.
+- `codeQuality.updateSetup` (write): Update a code quality setup configuration.
+- `codeScanning.getAiScanEnablementForOrg` (read): Get the AI Scan setting for an organization.
+- `codeScanning.updateAiScanEnablementForOrg` (write): Update the AI Scan setting for an organization.
+- `codeScanning.listAlertsForOrg` (read): List code scanning alerts for an organization.
+- `codeScanning.getAiScanEnablement` (read): Get AI Scan enablement for a repository.
+- `codeScanning.updateAiScanEnablement` (write): Update AI Scan enablement for a repository.
+- `codeScanning.listAlertsForRepo` (read): List code scanning alerts for a repository.
+- `codeScanning.getAlert` (read): Get a code scanning alert.
+- `codeScanning.updateAlert` (write): Update a code scanning alert.
+- `codeScanning.getAutofix` (read): Get the status of an autofix for a code scanning alert.
+- `codeScanning.createAutofix` (write): Create an autofix for a code scanning alert.
+- `codeScanning.commitAutofix` (write): Commit an autofix for a code scanning alert.
+- `codeScanning.listAlertInstances` (read): List instances of a code scanning alert.
+- `codeScanning.listRecentAnalyses` (read): List code scanning analyses for a repository.
+- `codeScanning.getAnalysis` (read): Get a code scanning analysis for a repository.
+- `codeScanning.deleteAnalysis` (destructive): Delete a code scanning analysis from a repository.
+- `codeScanning.listCodeqlDatabases` (read): List CodeQL databases for a repository.
+- `codeScanning.getCodeqlDatabase` (read): Get a CodeQL database for a repository.
+- `codeScanning.deleteCodeqlDatabase` (destructive): Delete a CodeQL database.
+- `codeScanning.createVariantAnalysis` (write): Create a CodeQL variant analysis.
+- `codeScanning.getVariantAnalysis` (read): Get the summary of a CodeQL variant analysis.
+- `codeScanning.getVariantAnalysisRepoTask` (read): Get the analysis status of a repository in a CodeQL variant analysis.
+- `codeScanning.getDefaultSetup` (read): Get a code scanning default setup configuration.
+- `codeScanning.updateDefaultSetup` (write): Update a code scanning default setup configuration.
+- `codeScanning.uploadSarif` (write): Upload an analysis as SARIF data.
+- `codeScanning.getSarif` (read): Get information about a SARIF upload.
+- `codeSecurity.getConfigurationsForEnterprise` (read): Get code security configurations for an enterprise.
+- `codeSecurity.createConfigurationForEnterprise` (write): Create a code security configuration for an enterprise.
+- `codeSecurity.getDefaultConfigurationsForEnterprise` (read): Get default code security configurations for an enterprise.
+- `codeSecurity.getSingleConfigurationForEnterprise` (read): Retrieve a code security configuration of an enterprise.
+- `codeSecurity.updateEnterpriseConfiguration` (write): Update a custom code security configuration for an enterprise.
+- `codeSecurity.deleteConfigurationForEnterprise` (destructive): Delete a code security configuration for an enterprise.
+- `codeSecurity.attachEnterpriseConfiguration` (write): Attach an enterprise configuration to repositories.
+- `codeSecurity.setConfigurationAsDefaultForEnterprise` (write): Set a code security configuration as a default for an enterprise.
+- `codeSecurity.getRepositoriesForEnterpriseConfiguration` (read): Get repositories associated with an enterprise code security configuration.
+- `codeSecurity.getConfigurationsForOrg` (read): Get code security configurations for an organization.
+- `codeSecurity.createConfiguration` (write): Create a code security configuration.
+- `codeSecurity.getDefaultConfigurations` (read): Get default code security configurations.
+- `codeSecurity.detachConfiguration` (destructive): Detach configurations from repositories.
+- `codeSecurity.getConfiguration` (read): Get a code security configuration.
+- `codeSecurity.updateConfiguration` (write): Update a code security configuration.
+- `codeSecurity.deleteConfiguration` (destructive): Delete a code security configuration.
+- `codeSecurity.attachConfiguration` (write): Attach a configuration to repositories.
+- `codeSecurity.setConfigurationAsDefault` (write): Set a code security configuration as a default for an organization.
+- `codeSecurity.getRepositoriesForConfiguration` (read): Get repositories associated with a code security configuration.
+- `codeSecurity.getConfigurationForRepository` (read): Get the code security configuration associated with a repository
+- `codesOfConduct.getAllCodesOfConduct` (read): Get all codes of conduct.
+- `codesOfConduct.getConductCode` (read): Get a code of conduct.
+- `codespaces.listInOrganization` (read): List codespaces for the organization.
+- `codespaces.listOrgSecrets` (read): List organization secrets.
+- `codespaces.getOrgPublicKey` (read): Get an organization public key.
+- `codespaces.getOrgSecret` (read): Get an organization secret.
+- `codespaces.createOrUpdateOrgSecret` (write): Create or update an organization secret.
+- `codespaces.deleteOrgSecret` (destructive): Delete an organization secret.
+- `codespaces.listSelectedReposForOrgSecret` (read): List selected repositories for an organization secret.
+- `codespaces.setSelectedReposForOrgSecret` (write): Set selected repositories for an organization secret.
+- `codespaces.addSelectedRepoToOrgSecret` (write): Add selected repository to an organization secret.
+- `codespaces.removeSelectedRepoFromOrgSecret` (destructive): Remove selected repository from an organization secret.
+- `codespaces.getCodespacesForUserInOrg` (read): List codespaces for a user in organization.
+- `codespaces.deleteFromOrganization` (destructive): Delete a codespace from the organization.
+- `codespaces.stopInOrganization` (write): Stop a codespace for an organization user.
+- `codespaces.listInRepositoryForAuthenticatedUser` (read): List codespaces in a repository for the authenticated user.
+- `codespaces.createWithRepoForAuthenticatedUser` (write): Create a codespace in a repository.
+- `codespaces.listDevcontainersInRepoForAuthUser` (read): List devcontainer configurations in a repository for the authenticated user.
+- `codespaces.repoMachinesForAuthenticatedUser` (read): List available machine types for a repository.
+- `codespaces.preFlightWithRepoForAuthenticatedUser` (read): Get default attributes for a codespace.
+- `codespaces.checkPermissionsForDevcontainer` (read): Check if permissions defined by a devcontainer have been accepted by the authenticated user.
+- `codespaces.listRepoSecrets` (read): List repository secrets.
+- `codespaces.getRepoPublicKey` (read): Get a repository public key.
+- `codespaces.getRepoSecret` (read): Get a repository secret.
+- `codespaces.createOrUpdateRepoSecret` (write): Create or update a repository secret.
+- `codespaces.deleteRepoSecret` (destructive): Delete a repository secret.
+- `codespaces.createWithPrForAuthenticatedUser` (write): Create a codespace from a pull request.
+- `codespaces.listForAuthenticatedUser` (read): List codespaces for the authenticated user.
+- `codespaces.createForAuthenticatedUser` (write): Create a codespace for the authenticated user.
+- `codespaces.listSecretsForAuthenticatedUser` (read): List secrets for the authenticated user.
+- `codespaces.getPublicKeyForAuthenticatedUser` (read): Get public key for the authenticated user.
+- `codespaces.getSecretForAuthenticatedUser` (read): Get a secret for the authenticated user.
+- `codespaces.createOrUpdateSecretForAuthenticatedUser` (write): Create or update a secret for the authenticated user.
+- `codespaces.deleteSecretForAuthenticatedUser` (destructive): Delete a secret for the authenticated user.
+- `codespaces.listRepositoriesForSecretForAuthenticatedUser` (read): List selected repositories for a user secret.
+- `codespaces.setRepositoriesForSecretForAuthenticatedUser` (write): Set selected repositories for a user secret.
+- `codespaces.addRepositoryForSecretForAuthenticatedUser` (write): Add a selected repository to a user secret.
+- `codespaces.removeRepositoryForSecretForAuthenticatedUser` (destructive): Remove a selected repository from a user secret.
+- `codespaces.getForAuthenticatedUser` (read): Get a codespace for the authenticated user.
+- `codespaces.updateForAuthenticatedUser` (write): Update a codespace for the authenticated user.
+- `codespaces.deleteForAuthenticatedUser` (destructive): Delete a codespace for the authenticated user.
+- `codespaces.exportForAuthenticatedUser` (write): Export a codespace for the authenticated user.
+- `codespaces.getExportDetailsForAuthenticatedUser` (read): Get details about a codespace export.
+- `codespaces.codespaceMachinesForAuthenticatedUser` (read): List machine types for a codespace.
+- `codespaces.publishForAuthenticatedUser` (write): Create a repository from an unpublished codespace.
+- `codespaces.startForAuthenticatedUser` (write): Start a codespace for the authenticated user.
+- `codespaces.stopForAuthenticatedUser` (write): Stop a codespace for the authenticated user.
+- `copilot.copilotEnterpriseOneDayUsageMetrics` (read): Get Copilot enterprise usage metrics for a specific day.
+- `copilot.copilotEnterpriseUsageMetrics` (read): Get Copilot enterprise usage metrics.
+- `copilot.copilotEnterpriseReposOneDayReport` (read): Get Copilot enterprise repository report for a specific day.
+- `copilot.copilotEnterpriseUserTeamsOneDayReport` (read): Get Copilot enterprise user-teams report for a specific day.
+- `copilot.copilotUsersOneDayUsageMetrics` (read): Get Copilot users usage metrics for a specific day.
+- `copilot.copilotUsersUsageMetrics` (read): Get Copilot users usage metrics.
+- `copilot.setEnterpriseCodingAgentPolicy` (write): Set the coding agent policy for an enterprise.
+- `copilot.addOrganizationsToEnterpriseCodingAgentPolicy` (write): Add organizations to the enterprise coding agent policy.
+- `copilot.removeOrgsFromEntCodingAgentPolicy` (destructive): Remove organizations from the enterprise coding agent policy.
+- `copilot.getCopilotOrganizationDetails` (read): Get Copilot seat information and settings for an organization.
+- `copilot.listCopilotSeats` (read): List all Copilot seat assignments for an organization.
+- `copilot.addCopilotSeatsForTeams` (write): Add teams to the Copilot subscription for an organization.
+- `copilot.cancelCopilotSeatAssignmentForTeams` (destructive): Remove teams from the Copilot subscription for an organization.
+- `copilot.addCopilotSeatsForUsers` (write): Add users to the Copilot subscription for an organization.
+- `copilot.cancelCopilotSeatAssignmentForUsers` (destructive): Remove users from the Copilot subscription for an organization.
+- `copilot.getCopilotCodingAgentPermissionsOrganization` (read): Get Copilot cloud agent permissions for an organization.
+- `copilot.setCopilotCodingAgentPermissionsOrganization` (write): Set Copilot cloud agent permissions for an organization.
+- `copilot.listCopilotCodingAgentSelectedReposForOrg` (read): List repositories enabled for Copilot cloud agent in an organization.
+- `copilot.setCopilotCodingAgentSelectedReposForOrg` (write): Set selected repositories for Copilot cloud agent in an organization.
+- `copilot.enableCopilotCodingAgentForRepoInOrg` (write): Enable a repository for Copilot cloud agent in an organization.
+- `copilot.disableCopilotCodingAgentForRepoInOrg` (destructive): Disable a repository for Copilot cloud agent in an organization.
+- `copilot.copilotContentExclusionForOrganization` (read): Get Copilot content exclusion rules for an organization.
+- `copilot.setCopilotContentExclusionForOrganization` (write): Set Copilot content exclusion rules for an organization.
+- `copilot.copilotOrganizationOneDayUsageMetrics` (read): Get Copilot organization usage metrics for a specific day.
+- `copilot.copilotOrganizationUsageMetrics` (read): Get Copilot organization usage metrics.
+- `copilot.copilotOrganizationReposOneDayReport` (read): Get Copilot organization repository report for a specific day.
+- `copilot.copilotOrganizationUserTeamsOneDayReport` (read): Get Copilot organization user-teams report for a specific day.
+- `copilot.copilotOrganizationUsersOneDayUsageMetrics` (read): Get Copilot organization users usage metrics for a specific day.
+- `copilot.copilotOrganizationUsersUsageMetrics` (read): Get Copilot organization users usage metrics.
+- `copilot.getCopilotSeatDetailsForUser` (read): Get Copilot seat assignment details for a user.
+- `copilot.getCopilotCloudAgentConfiguration` (read): Get Copilot cloud agent configuration for a repository.
+- `copilotSpaces.listForOrg` (read): List organization Copilot Spaces.
+- `copilotSpaces.createForOrg` (write): Create an organization Copilot Space.
+- `copilotSpaces.getForOrg` (read): Get an organization Copilot Space.
+- `copilotSpaces.updateForOrg` (write): Set an organization Copilot Space.
+- `copilotSpaces.deleteForOrg` (destructive): Delete an organization Copilot Space.
+- `copilotSpaces.listCollaboratorsForOrg` (read): List collaborators for an organization Copilot Space.
+- `copilotSpaces.addCollaboratorForOrg` (write): Add a collaborator to an organization Copilot Space.
+- `copilotSpaces.updateCollaboratorForOrg` (write): Set a collaborator role for an organization Copilot Space.
+- `copilotSpaces.removeCollaboratorForOrg` (destructive): Remove a collaborator from an organization Copilot Space.
+- `copilotSpaces.listResourcesForOrg` (read): List resources for an organization Copilot Space.
+- `copilotSpaces.createResourceForOrg` (write): Create a resource for an organization Copilot Space.
+- `copilotSpaces.getResourceForOrg` (read): Get a resource for an organization Copilot Space.
+- `copilotSpaces.updateResourceForOrg` (write): Set a resource for an organization Copilot Space.
+- `copilotSpaces.deleteResourceForOrg` (destructive): Delete a resource from an organization Copilot Space.
+- `copilotSpaces.listForUser` (read): List Copilot Spaces for a user.
+- `copilotSpaces.createForUser` (write): Create a Copilot Space for a user.
+- `copilotSpaces.getForUser` (read): Get a Copilot Space for a user.
+- `copilotSpaces.updateForUser` (write): Set a Copilot Space for a user.
+- `copilotSpaces.deleteForUser` (destructive): Delete a Copilot Space for a user.
+- `copilotSpaces.listCollaboratorsForUser` (read): List collaborators for a Copilot Space for a user.
+- `copilotSpaces.addCollaboratorForUser` (write): Add a collaborator to a Copilot Space for a user.
+- `copilotSpaces.updateCollaboratorForUser` (write): Set a collaborator role for a Copilot Space for a user.
+- `copilotSpaces.removeCollaboratorForUser` (destructive): Remove a collaborator from a Copilot Space for a user.
+- `copilotSpaces.listResourcesForUser` (read): List resources for a Copilot Space for a user.
+- `copilotSpaces.createResourceForUser` (write): Create a resource for a Copilot Space for a user.
+- `copilotSpaces.getResourceForUser` (read): Get a resource for a Copilot Space for a user.
+- `copilotSpaces.updateResourceForUser` (write): Set a resource for a Copilot Space for a user.
+- `copilotSpaces.deleteResourceForUser` (destructive): Delete a resource from a Copilot Space for a user.
+- `credentials.revoke` (write): Revoke a list of credentials.
+- `dependabot.listAlertsForEnterprise` (read): List Dependabot alerts for an enterprise.
+- `dependabot.repositoryAccessForEnterprise` (read): Lists the repositories Dependabot can access in an enterprise.
+- `dependabot.updateRepositoryAccessForEnterprise` (write): Updates Dependabot's repository access list for an enterprise.
+- `dependabot.setRepositoryAccessDefaultLevelForEnterprise` (write): Set the default repository access level for Dependabot in an enterprise.
+- `dependabot.listAlertsForOrg` (read): List Dependabot alerts for an organization.
+- `dependabot.repositoryAccessForOrg` (read): Lists the repositories Dependabot can access in an organization.
+- `dependabot.updateRepositoryAccessForOrg` (write): Updates Dependabot's repository access list for an organization.
+- `dependabot.setRepositoryAccessDefaultLevel` (write): Set the default repository access level for Dependabot.
+- `dependabot.listOrgSecrets` (read): List organization secrets.
+- `dependabot.getOrgPublicKey` (read): Get an organization public key.
+- `dependabot.getOrgSecret` (read): Get an organization secret.
+- `dependabot.createOrUpdateOrgSecret` (write): Create or update an organization secret.
+- `dependabot.deleteOrgSecret` (destructive): Delete an organization secret.
+- `dependabot.listSelectedReposForOrgSecret` (read): List selected repositories for an organization secret.
+- `dependabot.setSelectedReposForOrgSecret` (write): Set selected repositories for an organization secret.
+- `dependabot.addSelectedRepoToOrgSecret` (write): Add selected repository to an organization secret.
+- `dependabot.removeSelectedRepoFromOrgSecret` (destructive): Remove selected repository from an organization secret.
+- `dependabot.listAlertsForRepo` (read): List Dependabot alerts for a repository.
+- `dependabot.getAlert` (read): Get a Dependabot alert.
+- `dependabot.updateAlert` (write): Update a Dependabot alert.
+- `dependabot.listRepoSecrets` (read): List repository secrets.
+- `dependabot.getRepoPublicKey` (read): Get a repository public key.
+- `dependabot.getRepoSecret` (read): Get a repository secret.
+- `dependabot.createOrUpdateRepoSecret` (write): Create or update a repository secret.
+- `dependabot.deleteRepoSecret` (destructive): Delete a repository secret.
+- `dependencyGraph.diffRange` (read): Get a diff of the dependencies between commits.
+- `dependencyGraph.fetchSbomReport` (read): Fetch a software bill of materials (SBOM) for a repository.
+- `dependencyGraph.generateSbomReport` (read): Request generation of a software bill of materials (SBOM) for a repository.
+- `dependencyGraph.createRepositorySnapshot` (write): Create a snapshot of dependencies for a repository.
+- `emojis.get` (read): Get emojis.
+- `gists.list` (read): List gists for the authenticated user.
+- `gists.create` (write): Create a gist.
+- `gists.listPublic` (read): List public gists (GET /gists/public)
+- `gists.listStarred` (read): List starred gists.
+- `gists.get` (read): Get a gist.
+- `gists.update` (write): Update a gist.
+- `gists.delete` (destructive): Delete a gist (DELETE /gists/{gistid})
+- `gists.listComments` (read): List gist comments.
+- `gists.createComment` (write): Create a gist comment.
+- `gists.getComment` (read): Get a gist comment.
+- `gists.updateComment` (write): Update a gist comment.
+- `gists.deleteComment` (destructive): Delete a gist comment (DELETE /gists/{gistid}/comments/{commentid})
+- `gists.listCommits` (read): List gist commits (GET /gists/{gistid}/commits)
+- `gists.listForks` (read): List gist forks (GET /gists/{gistid}/forks)
+- `gists.fork` (write): Fork a gist (POST /gists/{gistid}/forks)
+- `gists.checkIsStarred` (read): Check if a gist is starred (GET /gists/{gistid}/star)
+- `gists.star` (write): Star a gist.
+- `gists.unstar` (destructive): Unstar a gist (DELETE /gists/{gistid}/star)
+- `gists.getRevision` (read): Get a gist revision.
+- `gists.listForUser` (read): List gists for a user.
+- `git.createBlob` (write): Create a blob (POST /repos/{owner}/{repo}/git/blobs)
+- `git.getBlob` (read): Get a blob.
+- `git.createCommit` (write): Create a commit.
+- `git.getCommit` (read): Get a commit object.
+- `git.listMatchingRefs` (read): List matching references.
+- `git.getRef` (read): Get a reference.
+- `git.createRef` (write): Create a reference.
+- `git.updateRef` (write): Update a reference.
+- `git.deleteRef` (destructive): Delete a reference.
+- `git.createTag` (write): Create a tag object.
+- `git.getTag` (read): Get a tag.
+- `git.createTree` (write): Create a tree.
+- `git.getTree` (read): Get a tree.
+- `gitignore.getAllTemplates` (read): Get all gitignore templates.
+- `gitignore.getTemplate` (read): Get a gitignore template.
+- `hostedCompute.listNetworkConfigurationsForOrg` (read): List hosted compute network configurations for an organization.
+- `hostedCompute.createNetworkConfigurationForOrg` (write): Create a hosted compute network configuration for an organization.
+- `hostedCompute.getNetworkConfigurationForOrg` (read): Get a hosted compute network configuration for an organization.
+- `hostedCompute.updateNetworkConfigurationForOrg` (write): Update a hosted compute network configuration for an organization.
+- `hostedCompute.deleteNetworkConfigurationFromOrg` (destructive): Delete a hosted compute network configuration from an organization.
+- `hostedCompute.getNetworkSettingsForOrg` (read): Get a hosted compute network settings resource for an organization.
+- `interactions.getRestrictionsForOrg` (read): Get interaction restrictions for an organization.
+- `interactions.setRestrictionsForOrg` (write): Set interaction restrictions for an organization.
+- `interactions.removeRestrictionsForOrg` (destructive): Remove interaction restrictions for an organization.
+- `interactions.getPullRequestCreationCapForOrg` (read): Get pull request creation cap for an org.
+- `interactions.updatePullRequestCreationCapForOrg` (write): Update pull request creation cap for an org.
+- `interactions.getRestrictionsForRepo` (read): Get interaction restrictions for a repository.
+- `interactions.setRestrictionsForRepo` (write): Set interaction restrictions for a repository.
+- `interactions.removeRestrictionsForRepo` (destructive): Remove interaction restrictions for a repository.
+- `interactions.getPullRequestBypassListForRepo` (read): Get pull request creation cap bypass list for a repository.
+- `interactions.setPullRequestBypassListForRepo` (write): Add users to the pull request creation cap bypass list for a repository.
+- `interactions.removePullRequestBypassListForRepo` (destructive): Remove users from the pull request creation cap bypass list for a repository.
+- `interactions.getPullRequestCreationCapForRepo` (read): Get pull request creation cap for a repository.
+- `interactions.updatePullRequestCreationCapForRepo` (write): Update pull request creation cap for a repository.
+- `interactions.getRestrictionsForAuthenticatedUser` (read): Get interaction restrictions for your public repositories.
+- `interactions.setRestrictionsForAuthenticatedUser` (write): Set interaction restrictions for your public repositories.
+- `interactions.removeRestrictionsForAuthenticatedUser` (destructive): Remove interaction restrictions from your public repositories.
 - `issues.list` (read): List issues in a GitHub repository.
+- `issues.listForOrg` (read): List organization issues assigned to the authenticated user.
+- `issues.listAssignees` (read): List assignees.
+- `issues.checkUserCanBeAssigned` (read): Check if a user can be assigned.
+- `issues.create` (write): Create an issue.
+- `issues.listCommentsForRepo` (read): List issue comments for a repository.
+- `issues.getComment` (read): Get an issue comment.
+- `issues.updateComment` (write): Update an issue comment.
+- `issues.deleteComment` (destructive): Delete an issue comment.
+- `issues.pinComment` (write): Pin an issue comment.
+- `issues.unpinComment` (destructive): Unpin an issue comment.
+- `issues.listEventsForRepo` (read): List issue events for a repository.
+- `issues.getEvent` (read): Get an issue event.
+- `issues.get` (read): Get an issue.
+- `issues.update` (write): Update an issue.
+- `issues.addAssignees` (write): Add assignees to an issue.
+- `issues.removeAssignees` (destructive): Remove assignees from an issue.
+- `issues.checkUserCanBeAssignedToIssue` (read): Check if a user can be assigned to a issue.
+- `issues.listComments` (read): List issue comments.
+- `issues.createComment` (write): Create an issue comment.
+- `issues.listDependenciesBlockedBy` (read): List dependencies an issue is blocked by.
+- `issues.addBlockedByDependency` (write): Add a dependency an issue is blocked by.
+- `issues.removeDependencyBlockedBy` (destructive): Remove dependency an issue is blocked by.
+- `issues.listDependenciesBlocking` (read): List dependencies an issue is blocking.
+- `issues.listEvents` (read): List issue events.
+- `issues.listIssueFieldValuesForIssue` (read): List issue field values for an issue.
+- `issues.addIssueFieldValues` (write): Add issue field values to an issue.
+- `issues.setIssueFieldValues` (write): Set issue field values for an issue.
+- `issues.deleteIssueFieldValue` (destructive): Delete an issue field value from an issue.
+- `issues.listLabelsOnIssue` (read): List labels for an issue.
+- `issues.addLabels` (write): Add labels to an issue.
+- `issues.setLabels` (write): Set labels for an issue.
+- `issues.removeAllLabels` (destructive): Remove all labels from an issue.
+- `issues.removeLabel` (destructive): Remove a label from an issue.
+- `issues.lock` (write): Lock an issue.
+- `issues.unlock` (destructive): Unlock an issue.
+- `issues.getParent` (read): Get parent issue.
+- `issues.listRelatesTo` (read): List issues related to an issue.
+- `issues.addRelatesTo` (write): Add a related issue.
+- `issues.removeRelatesTo` (destructive): Remove a related issue.
+- `issues.removeSubIssue` (destructive): Remove sub-issue.
+- `issues.listSubIssues` (read): List sub-issues.
+- `issues.addSubIssue` (write): Add sub-issue.
+- `issues.reprioritizeSubIssue` (write): Reprioritize sub-issue.
+- `issues.listSuggestions` (read): List issue suggestions.
+- `issues.approveSuggestion` (write): Approve an issue suggestion.
+- `issues.dismissSuggestion` (write): Dismiss an issue suggestion.
+- `issues.listEventsForTimeline` (read): List timeline events for an issue.
+- `issues.listLabelsForRepo` (read): List labels for a repository.
+- `issues.createLabel` (write): Create a label.
+- `issues.getLabel` (read): Get a label.
+- `issues.updateLabel` (write): Update a label.
+- `issues.deleteLabel` (destructive): Delete a label.
+- `issues.listMilestones` (read): List milestones.
+- `issues.createMilestone` (write): Create a milestone.
+- `issues.getMilestone` (read): Get a milestone.
+- `issues.updateMilestone` (write): Update a milestone (PATCH /repos/{owner}/{repo}/milestones/{milestonenumber})
+- `issues.deleteMilestone` (destructive): Delete a milestone.
+- `issues.listLabelsForMilestone` (read): List labels for issues in a milestone.
+- `issues.listForAuthenticatedUser` (read): List user account issues assigned to the authenticated user.
+- `licenses.getAllCommonlyUsed` (read): Get all commonly used licenses.
+- `licenses.get` (read): Get a license.
+- `licenses.getForRepo` (read): Get the license for a repository.
+- `markdown.render` (write): Render a Markdown document.
+- `meta.root` (read): GitHub API Root.
+- `meta.get` (read): Get GitHub meta information.
+- `meta.getOctocat` (read): Get Octocat.
+- `meta.getAllVersions` (read): Get all API versions.
+- `meta.getZen` (read): Get the Zen of GitHub.
+- `migrations.listForOrg` (read): List organization migrations.
+- `migrations.startForOrg` (write): Start an organization migration.
+- `migrations.getStatusForOrg` (read): Get an organization migration status.
+- `migrations.downloadArchiveForOrg` (read): Download an organization migration archive.
+- `migrations.deleteArchiveForOrg` (destructive): Delete an organization migration archive.
+- `migrations.unlockRepoForOrg` (destructive): Unlock an organization repository.
+- `migrations.listReposForOrg` (read): List repositories in an organization migration.
+- `migrations.listForAuthenticatedUser` (read): List user migrations.
+- `migrations.startForAuthenticatedUser` (write): Start a user migration.
+- `migrations.getStatusForAuthenticatedUser` (read): Get a user migration status.
+- `migrations.getArchiveForAuthenticatedUser` (read): Download a user migration archive.
+- `migrations.deleteArchiveForAuthenticatedUser` (destructive): Delete a user migration archive.
+- `migrations.unlockRepoForAuthenticatedUser` (destructive): Unlock a user repository.
+- `migrations.listReposForAuthenticatedUser` (read): List repositories for a user migration.
+- `oidc.listOidcCustomPropertyInclusionsForEnterprise` (read): List OIDC custom property inclusions for an enterprise.
+- `oidc.createOidcCustomPropertyInclusionForEnterprise` (write): Create an OIDC custom property inclusion for an enterprise.
+- `oidc.deleteOidcCustomPropertyInclusionForEnterprise` (destructive): Delete an OIDC custom property inclusion for an enterprise.
+- `oidc.listOidcCustomPropertyInclusionsForOrg` (read): List OIDC custom property inclusions for an organization.
+- `oidc.createOidcCustomPropertyInclusionForOrg` (write): Create an OIDC custom property inclusion for an organization.
+- `oidc.deleteOidcCustomPropertyInclusionForOrg` (destructive): Delete an OIDC custom property inclusion for an organization.
+- `oidc.getOidcCustomSubTemplateForOrg` (read): Get the customization template for an OIDC subject claim for an organization.
+- `oidc.updateOidcCustomSubTemplateForOrg` (write): Set the customization template for an OIDC subject claim for an organization.
+- `orgs.list` (read): List organizations.
+- `orgs.get` (read): Get an organization.
+- `orgs.update` (write): Update an organization.
+- `orgs.delete` (destructive): Delete an organization.
+- `orgs.createArtifactDeploymentRecord` (write): Create an artifact deployment record.
+- `orgs.setClusterDeploymentRecords` (write): Set cluster deployment records.
+- `orgs.createClusterDeploymentRecordsJob` (write): Create a cluster deployment records job.
+- `orgs.getClusterDeploymentRecordsJob` (read): Get cluster deployment records job status.
+- `orgs.createArtifactStorageRecord` (write): Create artifact metadata storage record.
+- `orgs.listArtifactDeploymentRecords` (read): List artifact deployment records.
+- `orgs.listArtifactStorageRecords` (read): List artifact storage records (GET /orgs/{org}/artifacts/{subjectdigest}/metadata/storage-records)
+- `orgs.listAttestationsBulk` (write): List attestations by bulk subject digests.
+- `orgs.deleteAttestationsBulk` (write): Delete attestations in bulk.
+- `orgs.deleteAttestationsBySubjectDigest` (destructive): Delete attestations by subject digest.
+- `orgs.listAttestationRepositories` (read): List attestation repositories.
+- `orgs.deleteAttestationsById` (destructive): Delete attestations by ID.
+- `orgs.listAttestations` (read): List attestations.
+- `orgs.listBlockedUsers` (read): List users blocked by an organization.
+- `orgs.checkBlockedUser` (read): Check if a user is blocked by an organization.
+- `orgs.blockUser` (write): Block a user from an organization.
+- `orgs.unblockUser` (destructive): Unblock a user from an organization.
+- `orgs.listFailedInvitations` (read): List failed organization invitations.
+- `orgs.listWebhooks` (read): List organization webhooks.
+- `orgs.createWebhook` (write): Create an organization webhook.
+- `orgs.getWebhook` (read): Get an organization webhook.
+- `orgs.updateWebhook` (write): Update an organization webhook.
+- `orgs.deleteWebhook` (destructive): Delete an organization webhook.
+- `orgs.getWebhookConfigForOrg` (read): Get a webhook configuration for an organization.
+- `orgs.updateWebhookConfigForOrg` (write): Update a webhook configuration for an organization.
+- `orgs.listWebhookDeliveries` (read): List deliveries for an organization webhook.
+- `orgs.getWebhookDelivery` (read): Get a webhook delivery for an organization webhook.
+- `orgs.redeliverWebhookDelivery` (write): Redeliver a delivery for an organization webhook
+- `orgs.pingWebhook` (write): Ping an organization webhook.
+- `orgs.listAppInstallations` (read): List app installations for an organization.
+- `orgs.listPendingInvitations` (read): List pending organization invitations.
+- `orgs.createInvitation` (write): Create an organization invitation.
+- `orgs.cancelInvitation` (destructive): Cancel an organization invitation
+- `orgs.listInvitationTeams` (read): List organization invitation teams.
+- `orgs.listIssueFields` (read): List issue fields for an organization.
+- `orgs.createIssueField` (write): Create issue field for an organization.
+- `orgs.updateIssueField` (write): Update issue field for an organization.
+- `orgs.deleteIssueField` (destructive): Delete issue field for an organization.
+- `orgs.listIssueTypes` (read): List issue types for an organization.
+- `orgs.createIssueType` (write): Create issue type for an organization.
+- `orgs.updateIssueType` (write): Update issue type for an organization.
+- `orgs.deleteIssueType` (destructive): Delete issue type for an organization.
+- `orgs.listMembers` (read): List organization members.
+- `orgs.checkMembershipForUser` (read): Check organization membership for a user.
+- `orgs.removeMember` (destructive): Remove an organization member.
+- `orgs.getMembershipForUser` (read): Get organization membership for a user.
+- `orgs.setMembershipForUser` (write): Set organization membership for a user.
+- `orgs.removeMembershipForUser` (destructive): Remove organization membership for a user.
+- `orgs.listOrgRoles` (read): Get all organization roles for an organization.
+- `orgs.revokeAllOrgRolesTeam` (destructive): Remove all organization roles for a team.
+- `orgs.assignTeamToOrgRole` (write): Assign an organization role to a team.
+- `orgs.revokeOrgRoleTeam` (destructive): Remove an organization role from a team.
+- `orgs.revokeAllOrgRolesUser` (destructive): Remove all organization roles for a user.
+- `orgs.assignUserToOrgRole` (write): Assign an organization role to a user.
+- `orgs.revokeOrgRoleUser` (destructive): Remove an organization role from a user
+- `orgs.getOrgRole` (read): Get an organization role.
+- `orgs.listOrgRoleTeams` (read): List teams that are assigned to an organization role.
+- `orgs.listOrgRoleUsers` (read): List users that are assigned to an organization role.
+- `orgs.listOutsideCollaborators` (read): List outside collaborators for an organization.
+- `orgs.convertMemberToOutsideCollaborator` (write): Convert an organization member to outside collaborator.
+- `orgs.removeOutsideCollaborator` (destructive): Remove outside collaborator from an organization.
+- `orgs.listPatGrantRequests` (read): List requests to access organization resources with fine-grained personal access tokens.
+- `orgs.reviewPatGrantRequestsInBulk` (write): Review requests to access organization resources with fine-grained personal access tokens.
+- `orgs.reviewPatGrantRequest` (write): Review a request to access organization resources with a fine-grained personal access token.
+- `orgs.listPatGrantRequestRepositories` (read): List repositories requested to be accessed by a fine-grained personal access token.
+- `orgs.listPatGrants` (read): List fine-grained personal access tokens with access to organization resources.
+- `orgs.updatePatAccesses` (write): Update the access to organization resources via fine-grained personal access tokens.
+- `orgs.updatePatAccess` (write): Update the access a fine-grained personal access token has to organization resources.
+- `orgs.listPatGrantRepositories` (read): List repositories a fine-grained personal access token has access to.
+- `orgs.externalPropertiesForReposGetOrgAppInstalls` (read): Get registered app installations for external custom properties.
+- `orgs.externalPropertiesForReposRegisterOrgAppInstall` (write): Register an app installation for external custom properties.
+- `orgs.externalPropertiesForReposGetOrganizationDefinitions` (read): Get all external custom properties for a GitHub App installation in an organization.
+- `orgs.externalPropertiesForReposCreateOrUpdateOrgValues` (write): Create or update external custom property values for organization repositories.
+- `orgs.externalForReposCreateOrUpdateValuesForOrgProperty` (write): Create or update external custom property values for a property across organization repositories.
+- `orgs.externalPropertiesForReposDeleteOrganizationValues` (destructive): Remove all external custom property values for a property across all organization repositories.
+- `orgs.customPropertiesForReposGetOrganizationDefinitions` (read): Get all custom properties for an organization.
+- `orgs.customPropertiesForReposCreateOrUpdateOrgDefinitions` (write): Create or update custom properties for an organization.
+- `orgs.customPropertiesForReposGetOrganizationDefinition` (read): Get a custom property for an organization.
+- `orgs.customPropertiesForReposCreateOrUpdateOrgDefinition` (write): Create or update a custom property for an organization.
+- `orgs.customPropertiesForReposDeleteOrganizationDefinition` (destructive): Remove a custom property for an organization.
+- `orgs.customPropertiesForReposGetOrganizationValues` (read): List custom property values for organization repositories.
+- `orgs.customPropertiesForReposCreateOrUpdateOrgValues` (write): Create or update custom property values for organization repositories.
+- `orgs.listPublicMembers` (read): List public organization members.
+- `orgs.checkPublicMembershipForUser` (read): Check public organization membership for a user.
+- `orgs.setPublicMembershipForAuthenticatedUser` (write): Set public organization membership for the authenticated user.
+- `orgs.removePublicMembershipForAuthenticatedUser` (destructive): Remove public organization membership for the authenticated user.
+- `orgs.getOrgRulesetHistory` (read): Get organization ruleset history.
+- `orgs.getOrgRulesetVersion` (read): Get organization ruleset version.
+- `orgs.getImmutableReleasesSettings` (read): Get immutable releases settings for an organization.
+- `orgs.setImmutableReleasesSettings` (write): Set immutable releases settings for an organization.
+- `orgs.getImmutableReleasesSettingsRepositories` (read): List selected repositories for immutable releases enforcement.
+- `orgs.setImmutableReleasesSettingsRepositories` (write): Set selected repositories for immutable releases enforcement.
+- `orgs.enableSelectedRepoImmutableReleasesOrg` (write): Enable a selected repository for immutable releases in an organization.
+- `orgs.disableSelectedRepoImmutableReleasesOrg` (destructive): Disable a selected repository for immutable releases in an organization.
+- `orgs.listMembershipsForAuthenticatedUser` (read): List organization memberships for the authenticated user.
+- `orgs.getMembershipForAuthenticatedUser` (read): Get an organization membership for the authenticated user.
+- `orgs.updateMembershipForAuthenticatedUser` (write): Update an organization membership for the authenticated user.
+- `orgs.listForAuthenticatedUser` (read): List organizations for the authenticated user
+- `orgs.listForUser` (read): List organizations for a user.
+- `packages.listDockerMigrationConflictingPackagesForOrg` (read): Get list of conflicting packages during Docker migration for organization.
+- `packages.listPackagesForOrganization` (read): List packages for an organization.
+- `packages.getPackageForOrganization` (read): Get a package for an organization.
+- `packages.deletePackageForOrg` (destructive): Delete a package for an organization.
+- `packages.restorePackageForOrg` (write): Restore a package for an organization.
+- `packages.getAllPackageVersionsForPackageOwnedByOrg` (read): List package versions for a package owned by an organization.
+- `packages.getPackageVersionForOrganization` (read): Get a package version for an organization.
+- `packages.deletePackageVersionForOrg` (destructive): Delete package version for an organization.
+- `packages.restorePackageVersionForOrg` (write): Restore package version for an organization.
+- `packages.listMigrationConflictingPackagesForAuthUser` (read): Get list of conflicting packages during Docker migration for authenticated-user.
+- `packages.listPackagesForAuthenticatedUser` (read): List packages for the authenticated user's namespace.
+- `packages.getPackageForAuthenticatedUser` (read): Get a package for the authenticated user.
+- `packages.deletePackageForAuthenticatedUser` (destructive): Delete a package for the authenticated user.
+- `packages.restorePackageForAuthenticatedUser` (write): Restore a package for the authenticated user.
+- `packages.getAllPackageVersionsForPackageOwnedByAuthUser` (read): List package versions for a package owned by the authenticated user.
+- `packages.getPackageVersionForAuthenticatedUser` (read): Get a package version for the authenticated user.
+- `packages.deletePackageVersionForAuthenticatedUser` (destructive): Delete a package version for the authenticated user.
+- `packages.restorePackageVersionForAuthenticatedUser` (write): Restore a package version for the authenticated user.
+- `packages.listDockerMigrationConflictingPackagesForUser` (read): Get list of conflicting packages during Docker migration for user.
+- `packages.listPackagesForUser` (read): List packages for a user.
+- `packages.getPackageForUser` (read): Get a package for a user.
+- `packages.deletePackageForUser` (destructive): Delete a package for a user.
+- `packages.restorePackageForUser` (write): Restore a package for a user.
+- `packages.getAllPackageVersionsForPackageOwnedByUser` (read): List package versions for a package owned by a user.
+- `packages.getPackageVersionForUser` (read): Get a package version for a user.
+- `packages.deletePackageVersionForUser` (destructive): Delete package version for a user.
+- `packages.restorePackageVersionForUser` (write): Restore package version for a user.
+- `privateRegistries.listOrgPrivateRegistries` (read): List private registries for an organization.
+- `privateRegistries.createOrgPrivateRegistry` (write): Create a private registry for an organization.
+- `privateRegistries.getOrgPublicKey` (read): Get private registries public key for an organization.
+- `privateRegistries.getOrgPrivateRegistry` (read): Get a private registry for an organization.
+- `privateRegistries.updateOrgPrivateRegistry` (write): Update a private registry for an organization.
+- `privateRegistries.deleteOrgPrivateRegistry` (destructive): Delete a private registry for an organization
+- `projects.listForOrg` (read): List projects for organization.
+- `projects.getForOrg` (read): Get project for organization.
+- `projects.createDraftItemForOrg` (write): Create draft item for organization owned project.
+- `projects.listFieldsForOrg` (read): List project fields for organization.
+- `projects.addFieldForOrg` (write): Add a field to an organization-owned project.
+- `projects.getFieldForOrg` (read): Get project field for organization.
+- `projects.listItemsForOrg` (read): List items for an organization owned project.
+- `projects.addItemForOrg` (write): Add item to organization owned project.
+- `projects.getOrgItem` (read): Get an item for an organization owned project.
+- `projects.updateItemForOrg` (write): Update project item for organization.
+- `projects.deleteItemForOrg` (destructive): Delete project item for organization.
+- `projects.createViewForOrg` (write): Create a view for an organization-owned project.
+- `projects.listViewItemsForOrg` (read): List items for an organization project view.
+- `projects.createDraftItemForAuthenticatedUser` (write): Create draft item for user owned project.
+- `projects.createViewForUser` (write): Create a view for a user-owned project.
+- `projects.listForUser` (read): List projects for user.
+- `projects.getForUser` (read): Get project for user.
+- `projects.listFieldsForUser` (read): List project fields for user.
+- `projects.addFieldForUser` (write): Add field to user owned project.
+- `projects.getFieldForUser` (read): Get project field for user.
+- `projects.listItemsForUser` (read): List items for a user owned project.
+- `projects.addItemForUser` (write): Add item to user owned project.
+- `projects.getUserItem` (read): Get an item for a user owned project.
+- `projects.updateItemForUser` (write): Update project item for user.
+- `projects.deleteItemForUser` (destructive): Delete project item for user.
+- `projects.listViewItemsForUser` (read): List items for a user project view.
+- `pullRequestStacks.list` (read): List pull request stacks.
+- `pullRequestStacks.create` (write): Create a pull request stack.
+- `pullRequestStacks.get` (read): Get a pull request stack.
+- `pullRequestStacks.add` (write): Add pull requests to a pull request stack.
+- `pullRequestStacks.unstack` (write): Remove pull requests from a pull request stack.
+- `pulls.list` (read): List pull requests.
+- `pulls.create` (write): Create a pull request.
+- `pulls.listReviewCommentsForRepo` (read): List review comments in a repository.
+- `pulls.getReviewComment` (read): Get a review comment for a pull request.
+- `pulls.updateReviewComment` (write): Update a review comment for a pull request.
+- `pulls.deleteReviewComment` (destructive): Delete a review comment for a pull request.
+- `pulls.get` (read): Get a pull request.
+- `pulls.update` (write): Update a pull request.
+- `pulls.listReviewComments` (read): List review comments on a pull request.
+- `pulls.createReviewComment` (write): Create a review comment for a pull request.
+- `pulls.createReplyForReviewComment` (write): Create a reply for a review comment.
+- `pulls.listCommits` (read): List commits on a pull request.
+- `pulls.listFiles` (read): List pull requests files.
+- `pulls.checkIfMerged` (read): Check if a pull request has been merged.
+- `pulls.merge` (write): Merge a pull request.
+- `pulls.mergeAsync` (write): Merge a pull request asynchronously.
+- `pulls.getMergeAsyncResult` (read): Get the result of an asynchronous merge.
+- `pulls.listRequestedReviewers` (read): Get all requested reviewers for a pull request.
+- `pulls.requestReviewers` (write): Request reviewers for a pull request.
+- `pulls.removeRequestedReviewers` (destructive): Remove requested reviewers from a pull request.
+- `pulls.rerequestReviewers` (write): Rerequest reviewers for a pull request.
+- `pulls.listReviews` (read): List reviews for a pull request.
+- `pulls.createReview` (write): Create a review for a pull request.
+- `pulls.getReview` (read): Get a review for a pull request.
+- `pulls.updateReview` (write): Update a review for a pull request.
+- `pulls.deletePendingReview` (destructive): Delete a pending review for a pull request.
+- `pulls.listCommentsForReview` (read): List comments for a pull request review.
+- `pulls.dismissReview` (write): Dismiss a review for a pull request.
+- `pulls.submitReview` (write): Submit a review for a pull request.
+- `pulls.updateBranch` (write): Update a pull request branch.
+- `rateLimit.get` (read): Get rate limit status for the authenticated user.
+- `reactions.listForCommitComment` (read): List reactions for a commit comment.
+- `reactions.createForCommitComment` (write): Create reaction for a commit comment.
+- `reactions.deleteForCommitComment` (destructive): Delete a commit comment reaction.
+- `reactions.listForIssueComment` (read): List reactions for an issue comment.
+- `reactions.createForIssueComment` (write): Create reaction for an issue comment.
+- `reactions.deleteForIssueComment` (destructive): Delete an issue comment reaction.
+- `reactions.listForIssue` (read): List reactions for an issue.
+- `reactions.createForIssue` (write): Create reaction for an issue.
+- `reactions.deleteForIssue` (destructive): Delete an issue reaction.
+- `reactions.listForPullRequestReviewComment` (read): List reactions for a pull request review comment.
+- `reactions.createForPullRequestReviewComment` (write): Create reaction for a pull request review comment.
+- `reactions.deleteForPullRequestComment` (destructive): Delete a pull request comment reaction.
+- `reactions.listForRelease` (read): List reactions for a release.
+- `reactions.createForRelease` (write): Create reaction for a release.
+- `reactions.deleteForRelease` (destructive): Delete a release reaction.
+- `repos.listForOrg` (read): List organization repositories.
+- `repos.createInOrg` (write): Create an organization repository.
+- `repos.getOrgRulesets` (read): Get all organization repository rulesets.
+- `repos.createOrgRuleset` (write): Create an organization repository ruleset.
+- `repos.getOrgRuleSuites` (read): List organization rule suites.
+- `repos.getOrgRuleSuite` (read): Get an organization rule suite.
+- `repos.getOrgRuleset` (read): Get an organization repository ruleset.
+- `repos.updateOrgRuleset` (write): Update an organization repository ruleset.
+- `repos.deleteOrgRuleset` (destructive): Delete an organization repository ruleset.
+- `repos.update` (write): Update a repository.
+- `repos.delete` (destructive): Delete a repository.
+- `repos.listActivities` (read): List repository activities.
+- `repos.createAttestation` (write): Create an attestation.
+- `repos.listAttestations` (read): List attestations.
+- `repos.listAutolinks` (read): Get all autolinks of a repository.
+- `repos.createAutolink` (write): Create an autolink reference for a repository.
+- `repos.getAutolink` (read): Get an autolink reference of a repository.
+- `repos.deleteAutolink` (destructive): Delete an autolink reference from a repository.
+- `repos.checkAutomatedSecurityFixes` (read): Check if Dependabot security updates are enabled for a repository.
+- `repos.enableAutomatedSecurityFixes` (write): Enable Dependabot security updates.
+- `repos.disableAutomatedSecurityFixes` (destructive): Disable Dependabot security updates.
+- `repos.listBranches` (read): List branches (GET /repos/{owner}/{repo}/branches)
+- `repos.getBranch` (read): Get a branch (GET /repos/{owner}/{repo}/branches/{branch})
+- `repos.getBranchProtection` (read): Get branch protection.
+- `repos.updateBranchProtection` (write): Update branch protection.
+- `repos.deleteBranchProtection` (destructive): Delete branch protection.
+- `repos.getAdminBranchProtection` (read): Get admin branch protection.
+- `repos.setAdminBranchProtection` (write): Set admin branch protection.
+- `repos.deleteAdminBranchProtection` (destructive): Delete admin branch protection.
+- `repos.getPullRequestReviewProtection` (read): Get pull request review protection.
+- `repos.updatePullRequestReviewProtection` (write): Update pull request review protection.
+- `repos.deletePullRequestReviewProtection` (destructive): Delete pull request review protection.
+- `repos.getCommitSignatureProtection` (read): Get commit signature protection.
+- `repos.createCommitSignatureProtection` (write): Create commit signature protection.
+- `repos.deleteCommitSignatureProtection` (destructive): Delete commit signature protection.
+- `repos.getStatusChecksProtection` (read): Get status checks protection.
+- `repos.updateStatusCheckProtection` (write): Update status check protection.
+- `repos.removeStatusCheckProtection` (destructive): Remove status check protection.
+- `repos.getAllStatusCheckContexts` (read): Get all status check contexts.
+- `repos.addStatusCheckContexts` (write): Add status check contexts.
+- `repos.setStatusCheckContexts` (write): Set status check contexts.
+- `repos.removeStatusCheckContexts` (destructive): Remove status check contexts.
+- `repos.getAccessRestrictions` (read): Get access restrictions.
+- `repos.deleteAccessRestrictions` (destructive): Delete access restrictions.
+- `repos.getAppsWithAccessToProtectedBranch` (read): Get apps with access to the protected branch.
+- `repos.addAppAccessRestrictions` (write): Add app access restrictions.
+- `repos.setAppAccessRestrictions` (write): Set app access restrictions.
+- `repos.removeAppAccessRestrictions` (destructive): Remove app access restrictions.
+- `repos.getTeamsWithAccessToProtectedBranch` (read): Get teams with access to the protected branch.
+- `repos.addTeamAccessRestrictions` (write): Add team access restrictions.
+- `repos.setTeamAccessRestrictions` (write): Set team access restrictions.
+- `repos.removeTeamAccessRestrictions` (destructive): Remove team access restrictions.
+- `repos.getUsersWithAccessToProtectedBranch` (read): Get users with access to the protected branch.
+- `repos.addUserAccessRestrictions` (write): Add user access restrictions.
+- `repos.setUserAccessRestrictions` (write): Set user access restrictions.
+- `repos.removeUserAccessRestrictions` (destructive): Remove user access restrictions.
+- `repos.renameBranch` (write): Rename a branch.
+- `repos.codeownersErrors` (read): List CODEOWNERS errors.
+- `repos.listCollaborators` (read): List repository collaborators.
+- `repos.checkCollaborator` (read): Check if a user is a repository collaborator.
+- `repos.addCollaborator` (write): Add a repository collaborator.
+- `repos.removeCollaborator` (destructive): Remove a repository collaborator.
+- `repos.getCollaboratorPermissionLevel` (read): Get repository permissions for a user.
+- `repos.listCommitCommentsForRepo` (read): List commit comments for a repository.
+- `repos.getCommitComment` (read): Get a commit comment.
+- `repos.updateCommitComment` (write): Update a commit comment.
+- `repos.deleteCommitComment` (destructive): Delete a commit comment (DELETE /repos/{owner}/{repo}/comments/{commentid})
+- `repos.listCommits` (read): List commits.
+- `repos.listBranchesForHeadCommit` (read): List branches for HEAD commit.
+- `repos.listCommentsForCommit` (read): List commit comments.
+- `repos.createCommitComment` (write): Create a commit comment.
+- `repos.listPullRequestsAssociatedWithCommit` (read): List pull requests associated with a commit.
+- `repos.getCommit` (read): Get a commit.
+- `repos.getCombinedStatusForRef` (read): Get the combined status for a specific reference.
+- `repos.listCommitStatusesForRef` (read): List commit statuses for a reference.
+- `repos.getCommunityProfileMetrics` (read): Get community profile metrics.
+- `repos.compareCommits` (read): Compare two commits.
+- `repos.getContent` (read): Get repository content.
+- `repos.createOrUpdateFileContents` (write): Create or update file contents.
+- `repos.deleteFile` (destructive): Delete a file.
+- `repos.listContributors` (read): List repository contributors.
+- `repos.listDeployments` (read): List deployments.
+- `repos.createDeployment` (write): Create a deployment.
+- `repos.getDeployment` (read): Get a deployment (GET /repos/{owner}/{repo}/deployments/{deploymentid})
+- `repos.deleteDeployment` (destructive): Delete a deployment.
+- `repos.listDeploymentStatuses` (read): List deployment statuses.
+- `repos.createDeploymentStatus` (write): Create a deployment status.
+- `repos.getDeploymentStatus` (read): Get a deployment status.
+- `repos.createDispatchEvent` (write): Create a repository dispatch event.
+- `repos.getAllEnvironments` (read): List environments.
+- `repos.getEnvironment` (read): Get an environment.
+- `repos.createOrUpdateEnvironment` (write): Create or update an environment
+- `repos.deleteAnEnvironment` (destructive): Delete an environment.
+- `repos.listDeploymentBranchPolicies` (read): List deployment branch policies.
+- `repos.createDeploymentBranchPolicy` (write): Create a deployment branch policy.
+- `repos.getDeploymentBranchPolicy` (read): Get a deployment branch policy.
+- `repos.updateDeploymentBranchPolicy` (write): Update a deployment branch policy.
+- `repos.deleteDeploymentBranchPolicy` (destructive): Delete a deployment branch policy.
+- `repos.getAllDeploymentProtectionRules` (read): Get all deployment protection rules for an environment.
+- `repos.createDeploymentProtectionRule` (write): Create a custom deployment protection rule on an environment.
+- `repos.listCustomDeploymentRuleIntegrations` (read): List custom deployment rule integrations available for an environment.
+- `repos.getCustomDeploymentProtectionRule` (read): Get a custom deployment protection rule.
+- `repos.disableDeploymentProtectionRule` (destructive): Disable a custom protection rule for an environment.
+- `repos.listForks` (read): List forks (GET /repos/{owner}/{repo}/forks)
+- `repos.createFork` (write): Create a fork (POST /repos/{owner}/{repo}/forks)
+- `repos.getHashAlgorithm` (read): Get the hash algorithm for a repository.
+- `repos.listWebhooks` (read): List repository webhooks.
+- `repos.createWebhook` (write): Create a repository webhook.
+- `repos.getWebhook` (read): Get a repository webhook.
+- `repos.updateWebhook` (write): Update a repository webhook.
+- `repos.deleteWebhook` (destructive): Delete a repository webhook.
+- `repos.getWebhookConfigForRepo` (read): Get a webhook configuration for a repository.
+- `repos.updateWebhookConfigForRepo` (write): Update a webhook configuration for a repository.
+- `repos.listWebhookDeliveries` (read): List deliveries for a repository webhook.
+- `repos.getWebhookDelivery` (read): Get a delivery for a repository webhook.
+- `repos.redeliverWebhookDelivery` (write): Redeliver a delivery for a repository webhook.
+- `repos.pingWebhook` (write): Ping a repository webhook.
+- `repos.testPushWebhook` (write): Test the push repository webhook.
+- `repos.checkImmutableReleases` (read): Check if immutable releases are enabled for a repository.
+- `repos.enableImmutableReleases` (write): Enable immutable releases.
+- `repos.disableImmutableReleases` (destructive): Disable immutable releases.
+- `repos.listInvitations` (read): List repository invitations.
+- `repos.updateInvitation` (write): Update a repository invitation
+- `repos.deleteInvitation` (destructive): Delete a repository invitation
+- `repos.listIssueTypes` (read): List issue types for a repository.
+- `repos.listDeployKeys` (read): List deploy keys (GET /repos/{owner}/{repo}/keys)
+- `repos.createDeployKey` (write): Create a deploy key.
+- `repos.getDeployKey` (read): Get a deploy key (GET /repos/{owner}/{repo}/keys/{keyid})
+- `repos.deleteDeployKey` (destructive): Delete a deploy key.
+- `repos.listLanguages` (read): List repository languages.
+- `repos.mergeUpstream` (write): Sync a fork branch with the upstream repository.
+- `repos.merge` (write): Merge a branch (POST /repos/{owner}/{repo}/merges)
+- `repos.getPages` (read): Get a GitHub Pages site.
+- `repos.createPagesSite` (write): Create a GitHub Pages site.
+- `repos.updateInformationAboutPagesSite` (write): Update information about a GitHub Pages site.
+- `repos.deletePagesSite` (destructive): Delete a GitHub Pages site.
+- `repos.listPagesBuilds` (read): List GitHub Pages builds.
+- `repos.requestPagesBuild` (write): Request a GitHub Pages build.
+- `repos.getLatestPagesBuild` (read): Get latest Pages build.
+- `repos.getPagesBuild` (read): Get GitHub Pages build.
+- `repos.createPagesDeployment` (write): Create a GitHub Pages deployment
+- `repos.getPagesDeployment` (read): Get the status of a GitHub Pages deployment.
+- `repos.cancelPagesDeployment` (write): Cancel a GitHub Pages deployment.
+- `repos.getPagesHealthCheck` (read): Get a DNS health check for GitHub Pages.
+- `repos.checkPrivateVulnerabilityReporting` (read): Check if private vulnerability reporting is enabled for a repository.
+- `repos.enablePrivateVulnerabilityReporting` (write): Enable private vulnerability reporting for a repository.
+- `repos.disablePrivateVulnerabilityReporting` (destructive): Disable private vulnerability reporting for a repository.
+- `repos.customPropertiesForReposGetRepositoryValues` (read): Get all custom property values for a repository.
+- `repos.customPropertiesForReposCreateOrUpdateRepoValues` (write): Create or update custom property values for a repository.
+- `repos.getReadme` (read): Get a repository README.
+- `repos.getReadmeInDirectory` (read): Get a repository README for a directory.
+- `repos.listReleases` (read): List releases.
+- `repos.createRelease` (write): Create a release.
+- `repos.getReleaseAsset` (read): Get a release asset.
+- `repos.updateReleaseAsset` (write): Update a release asset.
+- `repos.deleteReleaseAsset` (destructive): Delete a release asset (DELETE /repos/{owner}/{repo}/releases/assets/{assetid})
+- `repos.generateReleaseNotes` (write): Generate release notes content for a release.
+- `repos.getLatestRelease` (read): Get the latest release.
+- `repos.getReleaseByTag` (read): Get a release by tag name.
+- `repos.getRelease` (read): Get a release.
+- `repos.updateRelease` (write): Update a release.
+- `repos.deleteRelease` (destructive): Delete a release.
+- `repos.listReleaseAssets` (read): List release assets (GET /repos/{owner}/{repo}/releases/{releaseid}/assets)
+- `repos.getBranchRules` (read): Get rules for a branch.
+- `repos.getRepoRulesets` (read): Get all repository rulesets.
+- `repos.createRepoRuleset` (write): Create a repository ruleset.
+- `repos.getRepoRuleSuites` (read): List repository rule suites.
+- `repos.getRepoRuleSuite` (read): Get a repository rule suite.
+- `repos.getRepoRuleset` (read): Get a repository ruleset.
+- `repos.updateRepoRuleset` (write): Update a repository ruleset.
+- `repos.deleteRepoRuleset` (destructive): Delete a repository ruleset.
+- `repos.getRepoRulesetHistory` (read): Get repository ruleset history.
+- `repos.getRepoRulesetVersion` (read): Get repository ruleset version.
+- `repos.getCodeFrequencyStats` (read): Get the weekly commit activity.
+- `repos.getCommitActivityStats` (read): Get the last year of commit activity.
+- `repos.getContributorsStats` (read): Get all contributor commit activity.
+- `repos.getParticipationStats` (read): Get the weekly commit count.
+- `repos.getPunchCardStats` (read): Get the hourly commit count for each day.
+- `repos.createCommitStatus` (write): Create a commit status.
+- `repos.listTags` (read): List repository tags (GET /repos/{owner}/{repo}/tags)
+- `repos.downloadTarballArchive` (read): Download a repository archive (tar).
+- `repos.listTeams` (read): List repository teams.
+- `repos.getAllTopics` (read): Get all repository topics (GET /repos/{owner}/{repo}/topics)
+- `repos.replaceAllTopics` (write): Replace all repository topics (PUT /repos/{owner}/{repo}/topics)
+- `repos.getClones` (read): Get repository clones.
+- `repos.getTopPaths` (read): Get top referral paths.
+- `repos.getTopReferrers` (read): Get top referral sources.
+- `repos.getViews` (read): Get page views.
+- `repos.transfer` (write): Transfer a repository.
+- `repos.checkVulnerabilityAlerts` (read): Check if vulnerability alerts are enabled for a repository.
+- `repos.enableVulnerabilityAlerts` (write): Enable vulnerability alerts.
+- `repos.disableVulnerabilityAlerts` (destructive): Disable vulnerability alerts.
+- `repos.downloadZipballArchive` (read): Download a repository archive (zip).
+- `repos.createUsingTemplate` (write): Create a repository using a template.
+- `repos.listPublic` (read): List public repositories.
+- `repos.listForAuthenticatedUser` (read): List repositories for the authenticated user.
+- `repos.createForAuthenticatedUser` (write): Create a repository for the authenticated user.
+- `repos.listInvitationsForAuthenticatedUser` (read): List repository invitations for the authenticated user.
+- `repos.acceptInvitationForAuthenticatedUser` (write): Accept a repository invitation
+- `repos.declineInvitationForAuthenticatedUser` (destructive): Decline a repository invitation Destroys data.
+- `repos.listForUser` (read): List repositories for a user.
+- `search.code` (read): Search code.
+- `search.commits` (read): Search commits.
+- `search.issuesAndPullRequests` (read): Search issues and pull requests.
+- `search.labels` (read): Search labels.
+- `search.repos` (read): Search repositories.
+- `search.topics` (read): Search topics.
+- `search.users` (read): Search users.
+- `secretScanning.listAlertsForOrg` (read): List secret scanning alerts for an organization.
+- `secretScanning.listOrgCustomPatterns` (read): List organization custom patterns.
+- `secretScanning.bulkCreateOrgCustomPatterns` (write): Bulk create organization custom patterns.
+- `secretScanning.bulkDeleteOrgCustomPatterns` (destructive): Bulk delete organization custom patterns.
+- `secretScanning.updateOrgCustomPattern` (write): Update an organization custom pattern.
+- `secretScanning.listOrgPatternConfigs` (read): List organization pattern configurations.
+- `secretScanning.updateOrgPatternConfigs` (write): Update organization pattern configurations.
+- `secretScanning.listAlertsForRepo` (read): List secret scanning alerts for a repository.
+- `secretScanning.getAlert` (read): Get a secret scanning alert.
+- `secretScanning.updateAlert` (write): Update a secret scanning alert.
+- `secretScanning.listLocationsForAlert` (read): List locations for a secret scanning alert.
+- `secretScanning.listRepoCustomPatterns` (read): List repository custom patterns.
+- `secretScanning.bulkCreateRepoCustomPatterns` (write): Bulk create repository custom patterns.
+- `secretScanning.bulkDeleteRepoCustomPatterns` (destructive): Bulk delete repository custom patterns.
+- `secretScanning.updateRepoCustomPattern` (write): Update a repository custom pattern.
+- `secretScanning.createPushProtectionBypass` (write): Create a push protection bypass.
+- `secretScanning.getScanHistory` (read): Get secret scanning scan history for a repository.
+- `securityAdvisories.listGlobalAdvisories` (read): List global security advisories.
+- `securityAdvisories.getGlobalAdvisory` (read): Get a global security advisory.
+- `securityAdvisories.listOrgRepositoryAdvisories` (read): List repository security advisories for an organization.
+- `securityAdvisories.listRepositoryAdvisories` (read): List repository security advisories.
+- `securityAdvisories.createRepositoryAdvisory` (write): Create a repository security advisory.
+- `securityAdvisories.createPrivateVulnerabilityReport` (write): Privately report a security vulnerability.
+- `securityAdvisories.getRepositoryAdvisory` (read): Get a repository security advisory
+- `securityAdvisories.updateRepositoryAdvisory` (write): Update a repository security advisory
+- `securityAdvisories.createRepositoryAdvisoryCveRequest` (write): Request a CVE for a repository security advisory.
+- `securityAdvisories.createFork` (write): Create a temporary private fork
+- `teams.list` (read): List teams.
+- `teams.create` (write): Create a team.
+- `teams.getByName` (read): Get a team by name.
+- `teams.updateInOrg` (write): Update a team.
+- `teams.deleteInOrg` (destructive): Delete a team.
+- `teams.listPendingInvitationsInOrg` (read): List pending team invitations.
+- `teams.listMembersInOrg` (read): List team members.
+- `teams.getMembershipForUserInOrg` (read): Get team membership for a user.
+- `teams.addOrUpdateMembershipForUserInOrg` (write): Add or update team membership for a user.
+- `teams.removeMembershipForUserInOrg` (destructive): Remove team membership for a user.
+- `teams.listReposInOrg` (read): List team repositories.
+- `teams.checkPermissionsForRepoInOrg` (read): Check team permissions for a repository.
+- `teams.addOrUpdateRepoPermissionsInOrg` (write): Add or update team repository permissions.
+- `teams.removeRepoInOrg` (destructive): Remove a repository from a team.
+- `teams.listChildInOrg` (read): List child teams.
+- `teams.listForAuthenticatedUser` (read): List teams for the authenticated user.
+- `users.getAuthenticated` (read): Get the authenticated user.
+- `users.updateAuthenticated` (write): Update the authenticated user.
+- `users.listBlockedByAuthenticatedUser` (read): List users blocked by the authenticated user.
+- `users.checkBlocked` (read): Check if a user is blocked by the authenticated user.
+- `users.block` (write): Block a user.
+- `users.unblock` (destructive): Unblock a user.
+- `users.setPrimaryEmailVisibilityForAuthenticatedUser` (write): Set primary email visibility for the authenticated user.
+- `users.listEmailsForAuthenticatedUser` (read): List email addresses for the authenticated user.
+- `users.addEmailForAuthenticatedUser` (write): Add an email address for the authenticated user.
+- `users.deleteEmailForAuthenticatedUser` (destructive): Delete an email address for the authenticated user.
+- `users.listFollowersForAuthenticatedUser` (read): List followers of the authenticated user.
+- `users.listFollowedByAuthenticatedUser` (read): List the people the authenticated user follows.
+- `users.checkPersonIsFollowedByAuthenticated` (read): Check if a person is followed by the authenticated user
+- `users.follow` (write): Follow a user.
+- `users.unfollow` (destructive): Unfollow a user.
+- `users.listGpgKeysForAuthenticatedUser` (read): List GPG keys for the authenticated user.
+- `users.createGpgKeyForAuthenticatedUser` (write): Create a GPG key for the authenticated user.
+- `users.getGpgKeyForAuthenticatedUser` (read): Get a GPG key for the authenticated user.
+- `users.deleteGpgKeyForAuthenticatedUser` (destructive): Delete a GPG key for the authenticated user.
+- `users.listPublicSshKeysForAuthenticatedUser` (read): List public SSH keys for the authenticated user.
+- `users.createPublicSshKeyForAuthenticatedUser` (write): Create a public SSH key for the authenticated user.
+- `users.getPublicSshKeyForAuthenticatedUser` (read): Get a public SSH key for the authenticated user.
+- `users.deletePublicSshKeyForAuthenticatedUser` (destructive): Delete a public SSH key for the authenticated user.
+- `users.listPublicEmailsForAuthenticatedUser` (read): List public email addresses for the authenticated user.
+- `users.listSocialAccountsForAuthenticatedUser` (read): List social accounts for the authenticated user.
+- `users.addSocialAccountForAuthenticatedUser` (write): Add social accounts for the authenticated user.
+- `users.deleteSocialAccountForAuthenticatedUser` (destructive): Delete social accounts for the authenticated user.
+- `users.listSshSigningKeysForAuthenticatedUser` (read): List SSH signing keys for the authenticated user.
+- `users.createSshSigningKeyForAuthenticatedUser` (write): Create a SSH signing key for the authenticated user.
+- `users.getSshSigningKeyForAuthenticatedUser` (read): Get an SSH signing key for the authenticated user.
+- `users.deleteSshSigningKeyForAuthenticatedUser` (destructive): Delete an SSH signing key for the authenticated user.
+- `users.getById` (read): Get a user using their ID.
+- `users.list` (read): List users.
+- `users.getByUsername` (read): Get a user.
+- `users.listAttestationsBulk` (write): List attestations by bulk subject digests.
+- `users.deleteAttestationsBulk` (write): Delete attestations in bulk.
+- `users.deleteAttestationsBySubjectDigest` (destructive): Delete attestations by subject digest.
+- `users.deleteAttestationsById` (destructive): Delete attestations by ID.
+- `users.listAttestations` (read): List attestations.
+- `users.listFollowersForUser` (read): List followers of a user.
+- `users.listFollowingForUser` (read): List the people a user follows.
+- `users.checkFollowingForUser` (read): Check if a user follows another user
+- `users.listGpgKeysForUser` (read): List GPG keys for a user.
+- `users.getContextForUser` (read): Get contextual information for a user.
+- `users.listPublicKeysForUser` (read): List public keys for a user.
+- `users.listSocialAccountsForUser` (read): List social accounts for a user.
+- `users.listSshSigningKeysForUser` (read): List SSH signing keys for a user.
+- `repos.get` (read): Get details about a GitHub repository.
 
 ### GitLab (`gitlab`)
 

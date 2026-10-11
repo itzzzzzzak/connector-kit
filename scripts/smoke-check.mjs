@@ -18,11 +18,11 @@ assert.equal(typeof createConnectorKit({ tokenStore: memoryTokenStore() }).start
 assert.equal(typeof postgresTokenStore, "function")
 assert.equal(typeof createMcpHandler, "function")
 assert.equal(typeof serveMcp, "function")
-assert.deepEqual(Object.keys(github.actions).sort(), ["issues.list", "repos.get"])
+assert.ok(Object.keys(github.actions).length > 1000 && "repos.get" in github.actions && "issues.list" in github.actions, "github should carry the whole REST API")
 assert.deepEqual(Object.keys(slack.actions).sort(), ["chat.postMessage", "conversations.history", "conversations.list", "users.info"])
 
 const kit = createConnectorKit({ fetch: async () => new Response("{}", { status: 200 }) })
-const tools = kit.toTools(kit.connect(github, { connectionId: "smoke", credentials: { token: "x" } }))
+const tools = kit.toTools(kit.connect(github, { connectionId: "smoke", credentials: { token: "x" } }), { only: ["repos.get", "issues.list"] })
 assert.deepEqual(tools.map((t) => t.name).sort(), ["github_issues_list", "github_repos_get"])
 
 const shipped = readdirSync("node_modules/connector-kit/dist", { recursive: true }).map(String)
@@ -35,7 +35,7 @@ for (const name of ["github", "slack"]) assert.match(listed.stderr, new RegExp(`
 
 // The installed CLI must speak MCP over stdio exactly as a host (Claude Desktop, Cursor, ...) would use it.
 // Run the command npm links from the package's `bin` field, the same one a user's config would call.
-const child = spawn("node_modules/.bin/connector-kit-mcp", ["github"], {
+const child = spawn("node_modules/.bin/connector-kit-mcp", ["github", "--only", "repos.get,issues.list"], {
   env: { PATH: process.env.PATH, GITHUB_TOKEN: "smoke_fake_token" },
   stdio: ["pipe", "pipe", "ignore"],
 })

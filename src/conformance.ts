@@ -85,7 +85,8 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
   // ---- actions
   const names = Object.keys(connector.actions)
   if (names.length === 0) fail("a connector needs at least one action")
-  if (names.length > 40) fail(`${names.length} actions is too many: an agent that sees this many tools chooses worse. Curate to the 40 most useful`)
+  // Large connectors are fine (full API coverage): the MCP command and toTools() expose them by group, never all at once.
+  if (names.length > 2000) fail(`${names.length} actions is more than the checker expects; split the connector`)
 
   const toolNames = new Set<string>()
   for (const name of names) {
