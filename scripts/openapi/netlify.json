@@ -1,0 +1,2 @@
+{ "name": "netlify", "title": "Netlify", "spec": "https://open-api.netlify.com/swagger.json", "license": "MIT, Copyright (c) 2016 Netlify (netlify/open-api)",
+  "pagination": [{ "size": "per_page", "page": "page", "import": "linkHeaderPagination", "call": "linkHeaderPagination({ pageSizeParam: \"per_page\", defaultPageSize: 30, maxPageSize: 100 })" }] }

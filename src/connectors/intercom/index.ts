@@ -1,5 +1,6 @@
 import { bodyCursorPagination, defineConnector } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from Intercom's official OpenAPI description (github.com/intercom/Intercom-OpenAPI, version 2.14) and its
 // pagination guide: base URL https://api.intercom.io, Bearer token, the `Intercom-Version` header, cursor pagination with
@@ -60,6 +61,9 @@ export const intercom = defineConnector({
     credentialEnv: "INTERCOM_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "me.get": {
       description: "Identify the Intercom admin the token belongs to, and the workspace (name, region). Use to check the token works.",
       method: "GET",

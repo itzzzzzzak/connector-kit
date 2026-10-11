@@ -24,7 +24,7 @@ const code = (c: string, extra?: (e: ConnectorKitError) => boolean) => (e: unkno
 
 test("tools: four actions, reads and one write, with LLM-safe names", () => {
   const { kit, conn } = setup(() => json({}))
-  const tools = kit.toTools(conn)
+  const tools = kit.toTools(conn, { only: ["conversations.list", "conversations.history", "users.info", "chat.postMessage"] })
   assert.deepEqual(tools.map((t) => [t.name, t.effect]), [
     ["slack_conversations_list", "read"],
     ["slack_conversations_history", "read"],

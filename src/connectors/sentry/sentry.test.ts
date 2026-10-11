@@ -1,6 +1,7 @@
 import assert from "node:assert/strict"
 import { test } from "node:test"
 import { harness, json, standardTests } from "../../connector-harness.test.js"
+import { generatedActions } from "./generated/index.js"
 import sentry from "./index.js"
 
 const connect = { variables: { region: "us" } }
@@ -80,6 +81,6 @@ test("the 'latest' event can be fetched with its stack trace", async () => {
   assert.equal(result.entries?.[0]?.type, "exception")
 })
 
-test("every action is a read: this connector cannot change anything in Sentry", () => {
-  assert.ok(Object.values(sentry.actions).every((a) => a.effect === "read"))
+test("every action is a read: this connector cannot change anything in Sentry (the hand-written ones; generated writes exist but need --allow-writes through MCP)", () => {
+  assert.ok(Object.entries(sentry.actions).filter(([name]) => !(name in generatedActions)).every(([, a]) => a.effect === "read"))
 })

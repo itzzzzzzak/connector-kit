@@ -1,0 +1,2 @@
+{ "name": "asana", "title": "Asana", "spec": "https://raw.githubusercontent.com/Asana/openapi/master/defs/asana_oas.yaml", "license": "Apache 2.0, declared in the specification",
+  "pagination": [{ "size": "limit", "cursor": "offset", "itemsKey": "data", "import": "bodyCursorPagination", "call": "bodyCursorPagination({ itemsKey: \"data\", cursorPath: [\"next_page\", \"offset\"], cursorParam: \"offset\", pageSizeParam: \"limit\", defaultPageSize: 30, maxPageSize: 100 })" }] }

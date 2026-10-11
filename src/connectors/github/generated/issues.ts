@@ -7,7 +7,7 @@ import { pick } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 export const issuesActions = {
-  "issues.list": {
+  "issues.list2": {
     description: "List issues assigned to the authenticated user",
     method: "GET",
     path: "/issues",
@@ -92,7 +92,7 @@ export const issuesActions = {
     effect: "write",
   },
   "issues.unpinComment": {
-    description: "Unpin an issue comment. You can use the REST API to unpin comments on issues. Destroys data.",
+    description: "Unpin an issue comment. You can use the REST API to unpin comments on issues.",
     method: "DELETE",
     path: "/repos/{owner}/{repo}/issues/comments/{comment_id}/pin",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), comment_id: z.number().describe("The unique identifier of the comment.") }),
@@ -302,7 +302,7 @@ export const issuesActions = {
     effect: "write",
   },
   "issues.unlock": {
-    description: "Unlock an issue. Users with push access can unlock an issue's conversation. Destroys data.",
+    description: "Unlock an issue. Users with push access can unlock an issue's conversation.",
     method: "DELETE",
     path: "/repos/{owner}/{repo}/issues/{issue_number}/lock",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), issue_number: z.number().describe("The number that identifies the issue.") }),
@@ -461,7 +461,7 @@ export const issuesActions = {
     paginate: linkHeaderPagination(),
   },
   "issues.createMilestone": {
-    description: "Create a milestone. Creates a milestone.",
+    description: "Create a milestone. Creates a milestone. Calls POST /repos/{owner}/{repo}/milestones on github.",
     method: "POST",
     path: "/repos/{owner}/{repo}/milestones",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), title: z.string().describe("The title of the milestone."), state: z.enum(["open", "closed"]).describe("The state of the milestone. Either open or closed.").optional(), description: z.string().describe("A description of the milestone.").optional(), due_on: z.string().describe("The milestone due date. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional() }),
@@ -477,7 +477,7 @@ export const issuesActions = {
     effect: "read",
   },
   "issues.updateMilestone": {
-    description: "Update a milestone (PATCH /repos/{owner}/{repo}/milestones/{milestonenumber})",
+    description: "Update a milestone Calls PATCH /repos/{owner}/{repo}/milestones/{milestonenumber} on github.",
     method: "PATCH",
     path: "/repos/{owner}/{repo}/milestones/{milestone_number}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), milestone_number: z.number().describe("The number that identifies the milestone."), title: z.string().describe("The title of the milestone.").optional(), state: z.enum(["open", "closed"]).describe("The state of the milestone. Either open or closed.").optional(), description: z.string().describe("A description of the milestone.").optional(), due_on: z.string().describe("The milestone due date. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional() }),

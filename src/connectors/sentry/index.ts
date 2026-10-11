@@ -1,5 +1,6 @@
 import { defineConnector, linkHeaderCursorPagination } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from Sentry's official API schema (github.com/getsentry/sentry-api-schema) and its pagination docs: base URL
 // https://{region}.sentry.io/api/0 with region "us" or "de" (the schema's own list), Bearer auth token, organization
@@ -67,6 +68,9 @@ export const sentry = defineConnector({
     credentialEnv: "SENTRY_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "organizations.list": {
       description: "List the Sentry organizations the token can access, with their slugs. Use first: the slug is needed for every other call. Returns one bounded page; pass nextCursor for more.",
       method: "GET",

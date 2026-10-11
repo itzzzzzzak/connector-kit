@@ -1,6 +1,7 @@
 import assert from "node:assert/strict"
 import { test } from "node:test"
 import { harness, json, standardTests } from "../../connector-harness.test.js"
+import { generatedActions } from "./generated/index.js"
 import vercel from "./index.js"
 
 const dep = { uid: "dpl_1", name: "web", url: "web-abc.vercel.app", state: "READY", readyState: "READY", target: "production", projectId: "prj_1", created: 1700000000000, creator: { uid: "u1", username: "ada" }, meta: { githubCommitMessage: "fix crash" } }
@@ -50,5 +51,5 @@ test("deployments.get tolerates a failed build: error fields present, URL missin
 })
 
 test("every action is read-only", () => {
-  assert.ok(Object.values(vercel.actions).every((a) => a.effect === "read"))
+  assert.ok(Object.entries(vercel.actions).filter(([name]) => !(name in generatedActions)).every(([, a]) => a.effect === "read"))
 })

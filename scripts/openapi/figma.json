@@ -1,0 +1,1 @@
+{ "name": "figma", "title": "Figma", "spec": "https://raw.githubusercontent.com/figma/rest-api-spec/main/openapi/openapi.yaml", "license": "MIT, Copyright (c) 2023 Figma (figma/rest-api-spec)" }

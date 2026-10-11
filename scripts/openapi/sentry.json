@@ -1,0 +1,5 @@
+{ "name": "sentry", "title": "Sentry", "descriptions": "derived", "spec": "https://raw.githubusercontent.com/getsentry/sentry-api-schema/main/openapi-derefed.json", "license": "the schema repository uses the Functional Source License; only endpoint structure is used and descriptions are written by this project",
+  "pagination": [
+    { "size": "per_page", "cursor": "cursor", "import": "linkHeaderCursorPagination", "call": "linkHeaderCursorPagination({ cursorParam: \"cursor\", pageSizeParam: \"per_page\", defaultPageSize: 30, maxPageSize: 100 })" },
+    { "size": "limit", "cursor": "cursor", "import": "linkHeaderCursorPagination", "call": "linkHeaderCursorPagination({ cursorParam: \"cursor\", pageSizeParam: \"limit\", defaultPageSize: 30, maxPageSize: 100 })" }
+  ] }

@@ -1,0 +1,22 @@
+{
+ "name": "slack",
+ "title": "Slack",
+ "spec": "https://raw.githubusercontent.com/slackapi/slack-api-specs/master/web-api/slack_web_openapi_v2.json",
+ "license": "MIT, Copyright (c) 2017 SlackAPI (slackapi/slack-api-specs)",
+ "formAsJson": true,
+ "dropParams": [
+  "token"
+ ],
+ "pagination": [
+  {
+   "size": "limit",
+   "cursor": "cursor",
+   "itemsKey": "auto",
+   "import": "bodyCursorPagination",
+   "call": "bodyCursorPagination({ itemsKey: \"{items}\", cursorPath: [\"response_metadata\", \"next_cursor\"] })"
+  }
+ ],
+ "ignoreHeaders": [
+  "token"
+ ]
+}

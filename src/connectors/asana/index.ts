@@ -1,5 +1,6 @@
 import { bodyCursorPagination, defineConnector } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts come from Asana's official OpenAPI spec (github.com/Asana/openapi): base URL, paths, pagination
 // (`next_page.offset` sent back as `offset`), `{ "data": ... }` envelopes, and the OAuth endpoints.
@@ -50,6 +51,9 @@ export const asana = defineConnector({
     credentialEnv: "ASANA_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "users.get": {
       description: 'Get a user. Pass "me" as user_gid for the authenticated user. Use first to find the workspaces the token can see.',
       method: "GET",

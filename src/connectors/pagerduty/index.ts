@@ -1,5 +1,6 @@
 import { defineConnector, offsetPagination } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from PagerDuty's official REST API v2 OpenAPI (github.com/PagerDuty/api-schema): base URL
 // https://api.pagerduty.com, `Authorization: Token token=<API key>`, `Accept: application/vnd.pagerduty+json;version=2`,
@@ -76,6 +77,9 @@ export const pagerduty = defineConnector({
     credentialEnv: "PAGERDUTY_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "incidents.list": {
       description: "List incidents, newest first. Use when the user asks what is on fire, what is unresolved, or what happened. Filter by status, urgency, service or time. Returns one bounded page; pass nextCursor for more.",
       method: "GET",

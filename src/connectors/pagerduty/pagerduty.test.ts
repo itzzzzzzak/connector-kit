@@ -1,6 +1,7 @@
 import assert from "node:assert/strict"
 import { test } from "node:test"
 import { harness, json, standardTests } from "../../connector-harness.test.js"
+import { generatedActions } from "./generated/index.js"
 import pagerduty from "./index.js"
 
 const incident = { id: "Q1", incident_number: 42, title: "DB down", status: "triggered", urgency: "high", created_at: "2026-10-01T00:00:00Z", resolved_at: null, service: { id: "S1", summary: "Database", html_url: "https://x.pagerduty.com/services/S1" }, assignments: [{ assignee: { id: "U1", summary: "Ada" } }], priority: null }
@@ -63,8 +64,8 @@ test("null fields PagerDuty really sends (no priority, no resolved time, no sche
   assert.equal(result.incident.resolved_at, null)
 })
 
-test("this connector cannot change anything: every action is a read", () => {
-  assert.ok(Object.values(pagerduty.actions).every((a) => a.effect === "read"))
+test("this connector cannot change anything: every action is a read (the hand-written ones; generated writes exist but need --allow-writes through MCP)", () => {
+  assert.ok(Object.entries(pagerduty.actions).filter(([name]) => !(name in generatedActions)).every(([, a]) => a.effect === "read"))
 })
 
 test("an incident id that tries to change the path is rejected before anything is sent", async () => {

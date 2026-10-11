@@ -56,7 +56,7 @@ export const appsActions = {
     effect: "read",
   },
   "apps.redeliverWebhookDelivery": {
-    description: "Redeliver a delivery for an app webhook",
+    description: "Redeliver a delivery for an app webhook Calls POST /app/hook/deliveries/{deliveryid}/attempts on github.",
     method: "POST",
     path: "/app/hook/deliveries/{delivery_id}/attempts",
     input: z.object({ delivery_id: z.number() }),

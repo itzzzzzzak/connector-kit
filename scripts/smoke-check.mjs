@@ -19,7 +19,7 @@ assert.equal(typeof postgresTokenStore, "function")
 assert.equal(typeof createMcpHandler, "function")
 assert.equal(typeof serveMcp, "function")
 assert.ok(Object.keys(github.actions).length > 1000 && "repos.get" in github.actions && "issues.list" in github.actions, "github should carry the whole REST API")
-assert.deepEqual(Object.keys(slack.actions).sort(), ["chat.postMessage", "conversations.history", "conversations.list", "users.info"])
+for (const a of ["chat.postMessage", "conversations.history", "conversations.list", "users.info"]) assert.ok(a in slack.actions, `slack is missing ${a}`)
 
 const kit = createConnectorKit({ fetch: async () => new Response("{}", { status: 200 }) })
 const tools = kit.toTools(kit.connect(github, { connectionId: "smoke", credentials: { token: "x" } }), { only: ["repos.get", "issues.list"] })

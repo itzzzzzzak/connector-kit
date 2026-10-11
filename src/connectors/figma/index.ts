@@ -1,5 +1,6 @@
 import { defineConnector } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from Figma's official OpenAPI spec (github.com/figma/rest-api-spec): base URL https://api.figma.com,
 // personal access tokens in the `X-Figma-Token` header, the file/nodes/comments/images operations below.
@@ -34,6 +35,9 @@ export const figma = defineConnector({
     credentialEnv: "FIGMA_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "me.get": {
       description: "Get the authenticated Figma user (id, handle, email). Use to check the token works.",
       method: "GET",

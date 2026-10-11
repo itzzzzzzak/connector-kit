@@ -44,10 +44,23 @@ const lines = [
     "",
     c.meta.description,
     "",
-    ...Object.entries(c.actions).map(([action, a]) => `- \`${action}\` (${a.effect}): ${a.description.split(/(?<=[.!?])\s/)[0]}`),
+    ...(Object.keys(c.actions).length <= 40
+      ? Object.entries(c.actions).map(([action, a]) => `- \`${action}\` (${a.effect}): ${a.description.split(/(?<=[.!?])\s/)[0]}`)
+      : [
+          `${Object.keys(c.actions).length} actions: too many to list. Expose a group with \`connector-kit-mcp ${name} --group <group>\` (or \`toTools(connection, { groups: [...] })\`).`,
+          "",
+          "| Group | Actions | Reads | Writes | Destructive |",
+          "|---|---|---|---|---|",
+          ...Object.entries(groupsOf(c.actions)).sort(([a], [b]) => a.localeCompare(b)).map(([g, list]) => `| \`${g}\` | ${list.length} | ${list.filter((a) => a.effect === "read").length} | ${list.filter((a) => a.effect === "write").length} | ${list.filter((a) => a.effect === "destructive").length} |`),
+        ]),
     "",
   ]),
 ]
+function groupsOf(actions) {
+  const groups = {}
+  for (const [name, a] of Object.entries(actions)) (groups[name.split(".")[0]] ??= []).push(a)
+  return groups
+}
 const output = lines.join("\n")
 
 if (check) {

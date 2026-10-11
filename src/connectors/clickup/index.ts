@@ -1,5 +1,6 @@
 import { defineConnector, offsetPagination } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from ClickUp's official API v2 OpenAPI (developer.clickup.com/openapi/clickup-api-v2-reference.json): base URL
 // https://api.clickup.com/api/v2, a personal API key sent as the raw `Authorization` header value (no "Bearer"), the
@@ -63,6 +64,9 @@ export const clickup = defineConnector({
     credentialEnv: "CLICKUP_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "workspaces.list": {
       description: "List the ClickUp workspaces the token can access. Use first: workspace ids are needed to find spaces.",
       method: "GET",

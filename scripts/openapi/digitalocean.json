@@ -1,0 +1,2 @@
+{ "name": "digitalocean", "title": "DigitalOcean", "spec": "https://api-engineering.nyc3.cdn.digitaloceanspaces.com/spec-ci/DigitalOcean-public.v2.yaml", "license": "Apache 2.0, declared in the specification",
+  "pagination": [{ "size": "per_page", "page": "page", "itemsKey": "auto", "import": "bodyLinkPagination", "call": "bodyLinkPagination({ itemsKey: \"{items}\", nextUrlPath: [\"links\", \"pages\", \"next\"], pageSizeParam: \"per_page\", defaultPageSize: 30, maxPageSize: 200 })" }] }

@@ -1,0 +1,2 @@
+{ "name": "pagerduty", "title": "PagerDuty", "descriptions": "derived", "spec": "https://raw.githubusercontent.com/PagerDuty/api-schema/main/reference/REST/openapiv3.json", "license": "none declared in the specification; descriptions are written by this project",
+  "pagination": [{ "size": "limit", "position": "offset", "itemsKey": "auto", "import": "offsetPagination", "call": "offsetPagination({ itemsKey: \"{items}\", hasMorePath: [\"more\"], pageSizeParam: \"limit\", defaultPageSize: 30, maxPageSize: 100 })" }] }

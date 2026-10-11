@@ -1,5 +1,6 @@
 import { bodyLinkPagination, defineConnector } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from DigitalOcean's official OpenAPI spec (github.com/digitalocean/openapi, bundled build) and its OAuth
 // docs: base URL, paths, list envelopes (`droplets`, `domains`, `domain_records` + `links.pages.next`, a FULL url),
@@ -39,6 +40,9 @@ export const digitalocean = defineConnector({
     credentialEnv: "DIGITALOCEAN_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "account.get": {
       description: "Get the DigitalOcean account: email, status, and the droplet limit. Use to check the token works and what the account may create.",
       method: "GET",

@@ -61,5 +61,5 @@ test("an empty or huge comment is rejected locally", async () => {
 })
 
 test("the deprecated team-projects and project-files endpoints are deliberately not exposed", () => {
-  assert.ok(!Object.values(figma.actions).some((a) => /\/teams\/|\/projects\//.test(a.path)))
+  assert.ok(!Object.values(figma.actions).some((a) => a.path === "/v1/teams/{team_id}/projects" || a.path === "/v1/projects/{project_id}/files"))
 })

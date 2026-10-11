@@ -88,7 +88,7 @@ export const orgsActions = {
     effect: "read",
   },
   "orgs.listArtifactStorageRecords": {
-    description: "List artifact storage records (GET /orgs/{org}/artifacts/{subjectdigest}/metadata/storage-records)",
+    description: "List artifact storage records Calls GET /orgs/{org}/artifacts/{subjectdigest}/metadata/storage-records on github.",
     method: "GET",
     path: "/orgs/{org}/artifacts/{subject_digest}/metadata/storage-records",
     input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), subject_digest: z.string().describe("The parameter should be set to the attestation's subject's SHA256 digest, in the form sha256:HEXDIGEST.") }),
@@ -172,7 +172,7 @@ export const orgsActions = {
     effect: "write",
   },
   "orgs.unblockUser": {
-    description: "Unblock a user from an organization. Unblocks the given user on behalf of the specified organization. Destroys data.",
+    description: "Unblock a user from an organization. Unblocks the given user on behalf of the specified organization.",
     method: "DELETE",
     path: "/orgs/{org}/blocks/{username}",
     input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), username: z.string().describe("The handle for the GitHub user account.") }),
@@ -303,7 +303,7 @@ export const orgsActions = {
     effect: "write",
   },
   "orgs.cancelInvitation": {
-    description: "Cancel an organization invitation",
+    description: "Cancel an organization invitation Calls DELETE /orgs/{org}/invitations/{invitationid} on github.",
     method: "DELETE",
     path: "/orgs/{org}/invitations/{invitation_id}",
     input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), invitation_id: z.number().describe("The unique identifier of the invitation.") }),
@@ -481,7 +481,7 @@ export const orgsActions = {
     effect: "write",
   },
   "orgs.revokeOrgRoleUser": {
-    description: "Remove an organization role from a user",
+    description: "Remove an organization role from a user Calls DELETE /orgs/{org}/organization-roles/users/{username}/{roleid} on github.",
     method: "DELETE",
     path: "/orgs/{org}/organization-roles/users/{username}/{role_id}",
     input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), username: z.string().describe("The handle for the GitHub user account."), role_id: z.number().describe("The unique identifier of the role.") }),
@@ -607,7 +607,7 @@ export const orgsActions = {
     effect: "read",
     paginate: linkHeaderPagination(),
   },
-  "orgs.externalPropertiesForReposGetOrgAppInstalls": {
+  "orgs.externalPropsForReposGetOrgAppInstalls": {
     description: "Get registered app installations for external custom properties. Gets the registered GitHub App installations used to read and write external custom properties for an organization.",
     method: "GET",
     path: "/orgs/{org}/properties/installations",
@@ -615,7 +615,7 @@ export const orgsActions = {
     output: z.unknown(),
     effect: "read",
   },
-  "orgs.externalPropertiesForReposRegisterOrgAppInstall": {
+  "orgs.externalPropsForReposRegisterOrgAppInstall": {
     description: "Register an app installation for external custom properties. Registers a GitHub App installation so it can read and write external custom properties for an organization, and assigns it a display name.",
     method: "POST",
     path: "/orgs/{org}/properties/installations",
@@ -631,7 +631,7 @@ export const orgsActions = {
     output: z.unknown(),
     effect: "read",
   },
-  "orgs.externalPropertiesForReposCreateOrUpdateOrgValues": {
+  "orgs.externalPropsForReposCreateOrUpdateOrgValues": {
     description: "Create or update external custom property values for organization repositories. Create new or update existing external custom property values for repositories in a batch that belong to an organization. Each target repository will have its external custom property values updated to match the values provided in the request.",
     method: "PATCH",
     path: "/orgs/{org}/properties/installations/values",
@@ -639,7 +639,7 @@ export const orgsActions = {
     output: z.unknown(),
     effect: "write",
   },
-  "orgs.externalForReposCreateOrUpdateValuesForOrgProperty": {
+  "orgs.externalPropsForReposCreateOrUpdateValuesForOrgProp": {
     description: "Create or update external custom property values for a property across organization repositories. Create new or update existing external custom property values for a single named property across repositories that belong to an organization.",
     method: "PATCH",
     path: "/orgs/{org}/properties/installations/values/{property_name}",
@@ -663,7 +663,7 @@ export const orgsActions = {
     output: z.unknown(),
     effect: "read",
   },
-  "orgs.customPropertiesForReposCreateOrUpdateOrgDefinitions": {
+  "orgs.customPropsForReposCreateOrUpdateOrgDefinitions": {
     description: "Create or update custom properties for an organization. Creates new or updates existing custom properties defined for an organization in a batch.",
     method: "PATCH",
     path: "/orgs/{org}/properties/schema",
@@ -679,7 +679,7 @@ export const orgsActions = {
     output: z.unknown(),
     effect: "read",
   },
-  "orgs.customPropertiesForReposCreateOrUpdateOrgDefinition": {
+  "orgs.customPropsForReposCreateOrUpdateOrgDefinition": {
     description: "Create or update a custom property for an organization. Creates a new or updates an existing custom property that is defined for an organization.",
     method: "PUT",
     path: "/orgs/{org}/properties/schema/{custom_property_name}",
@@ -704,7 +704,7 @@ export const orgsActions = {
     effect: "read",
     paginate: linkHeaderPagination(),
   },
-  "orgs.customPropertiesForReposCreateOrUpdateOrgValues": {
+  "orgs.customPropsForReposCreateOrUpdateOrgValues": {
     description: "Create or update custom property values for organization repositories. Create new or update existing custom property values for repositories in a batch that belong to an organization. Each target repository will have its custom property values updated to match the values provided in the request.",
     method: "PATCH",
     path: "/orgs/{org}/properties/values",

@@ -1,0 +1,2 @@
+{ "name": "zendesk", "title": "Zendesk", "descriptions": "derived", "spec": "https://developer.zendesk.com/zendesk/oas.yaml", "license": "none declared in the specification; descriptions are written by this project",
+  "pagination": [{ "size": "page[size]", "cursor": "page[after]", "itemsKey": "auto", "import": "bodyLinkPagination", "call": "bodyLinkPagination({ itemsKey: \"{items}\", nextUrlPath: [\"links\", \"next\"], hasMorePath: [\"meta\", \"has_more\"], pageSizeParam: \"page[size]\", defaultPageSize: 30, maxPageSize: 100 })" }] }

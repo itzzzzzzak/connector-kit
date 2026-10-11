@@ -1,5 +1,6 @@
 import { bodyCursorPagination, bodyLinkPagination, defineConnector } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from Atlassian's official Jira Cloud platform OpenAPI (REST API v3, developer.atlassian.com): base URL
 // https://{site}.atlassian.net/rest/api/3, HTTP Basic with "email:api_token", the paths below, projects paged by
@@ -49,6 +50,9 @@ export const jira = defineConnector({
     credentialEnv: "JIRA_CREDENTIALS",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "myself.get": {
       description: "Get the authenticated Jira user (account id, display name, email). Use to check the credentials work.",
       method: "GET",

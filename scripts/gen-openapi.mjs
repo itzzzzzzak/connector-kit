@@ -1,20 +1,28 @@
-// Generates a connector's action list from a provider's OFFICIAL OpenAPI description:
-//   node scripts/gen-openapi.mjs scripts/openapi/github.json [--spec path/to/local/spec.json]
+// Generates a connector's action list from a provider's OFFICIAL OpenAPI / Swagger description:
+//   node scripts/gen-openapi.mjs scripts/openapi/github.json [--spec path/to/local/spec]
 // Output: src/connectors/<name>/generated/<group>.ts (one file per group) + generated/index.ts. The output is plain,
-// reviewable TypeScript that is committed; this script is only run when the provider's API changes.
-// Inputs are typed from the spec (path, query and top-level body fields). Responses are left open (z.unknown()), because
-// the spec's response schemas are large and wrong in small ways; a hand-written action can always take precedence.
+// reviewable TypeScript that is committed; this script is only run when the provider's API changes (see ADR-018).
+// Inputs (path, query and top-level body fields) are typed from the spec. Responses are left open (z.unknown()),
+// because response schemas in specs are large and wrong in small ways; a hand-written action always takes precedence.
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs"
+import { parse as parseYaml } from "yaml"
 
 const [configPath, ...rest] = process.argv.slice(2)
 if (!configPath) {
-  console.error("Usage: node scripts/gen-openapi.mjs <config.json> [--spec local.json]")
+  console.error("Usage: node scripts/gen-openapi.mjs <config.json> [--spec local-file]")
   process.exit(2)
 }
 const config = JSON.parse(readFileSync(configPath, "utf8"))
 const localSpec = rest[0] === "--spec" ? rest[1] : undefined
-const spec = JSON.parse(localSpec ? readFileSync(localSpec, "utf8") : await (await fetch(config.spec)).text())
+const specText = localSpec ? readFileSync(localSpec, "utf8") : await (await fetch(config.spec)).text()
+const spec = specText.trimStart().startsWith("{") ? JSON.parse(specText) : parseYaml(specText)
+const swagger2 = typeof spec.swagger === "string"
+// "spec" copies the provider's own summaries (only for permissively licensed specs). "derived" writes our own short
+// description from the operation name, tag and path, and leaves out parameter descriptions: used when the spec's license is
+// absent or restrictive, so no provider text is copied.
+const derived = config.descriptions === "derived"
 const outDir = `src/connectors/${config.name}/generated`
+const connectorSource = readFileSync(`src/connectors/${config.name}/index.ts`, "utf8")
 
 // ---------------------------------------------------------------- spec helpers
 const resolveRef = (node, seen = 0) => {
@@ -37,6 +45,7 @@ const mergeAllOf = (schema) => {
 const clean = (text, max) => {
   const t = String(text ?? "")
     .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1") // markdown links -> text
+    .replace(/<\/?(p|br|a|b|i|em|strong|code|ul|ol|li|h[1-6]|div|span|pre|table|tr|td|th)(\s[^>]*)?\/?>/gi, "") // html tags
     .replace(/[`*_>#]/g, "")
     .replace(/\s+/g, " ")
     .trim()
@@ -46,24 +55,56 @@ const firstSentences = (text, max) => {
   const t = clean(String(text ?? "").split(/\n\s*\n/)[0], 2000)
   return t.length > max ? clean(t.slice(0, max), max) : t
 }
+const camel = (s) => {
+  const words = String(s).split(/[^A-Za-z0-9]+/).filter(Boolean)
+  return words.map((w, i) => (i === 0 ? w[0].toLowerCase() + w.slice(1) : w[0].toUpperCase() + w.slice(1))).join("")
+}
 // LLM tool names (connector_group_verb) may be at most 64 characters: abbreviate common words, then drop middle words.
-const ABBREVIATIONS = { Organization: "Org", Organizations: "Orgs", Repository: "Repo", Repositories: "Repos", Authenticated: "Auth", Permissions: "Perms", Permission: "Perm", Configuration: "Config", Enterprise: "Ent", Installations: "Installs", Installation: "Install", Environment: "Env", Environments: "Envs", Information: "Info", Notification: "Notif", Notifications: "Notifs", Integration: "Integ", Integrations: "Integs", Application: "App", Applications: "Apps", Subscription: "Sub", Subscriptions: "Subs", Administrator: "Admin", Administrators: "Admins", Authentication: "Authn", Authorization: "Authz", Collaborator: "Collab", Collaborators: "Collabs", Contributor: "Contrib", Contributors: "Contribs", Repositorys: "Repos", Dependency: "Dep", Dependencies: "Deps", Vulnerability: "Vuln", Vulnerabilities: "Vulns", Organizations_: "Orgs" }
-function fitVerb(connector, group, verb) {
-  const max = 64 - (connector.length + 1 + group.length + 1)
-  if (verb.length <= max) return verb
-  let words = verb.match(/[A-Z]?[a-z0-9]+|[A-Z]+(?![a-z])/g) ?? [verb]
+const ABBREVIATIONS = { Organization: "Org", Organizations: "Orgs", Repository: "Repo", Repositories: "Repos", Authenticated: "Auth", Permissions: "Perms", Permission: "Perm", Configuration: "Config", Configurations: "Configs", Enterprise: "Ent", Installations: "Installs", Installation: "Install", Environment: "Env", Environments: "Envs", Information: "Info", Notification: "Notif", Notifications: "Notifs", Integration: "Integ", Integrations: "Integs", Application: "App", Applications: "Apps", Subscription: "Sub", Subscriptions: "Subs", Administrator: "Admin", Administrators: "Admins", Authentication: "Authn", Authorization: "Authz", Collaborator: "Collab", Collaborators: "Collabs", Contributor: "Contrib", Contributors: "Contribs", Dependency: "Dep", Dependencies: "Deps", Vulnerability: "Vuln", Vulnerabilities: "Vulns", Management: "Mgmt", Properties: "Props", Property: "Prop", Attachment: "Attach", Attachments: "Attaches", Conversation: "Conv", Conversations: "Convs", Description: "Desc", Identifier: "Id", Specification: "Spec", Registration: "Reg", Notebook: "Nb" }
+function fit(text, max) {
+  if (text.length <= max) return text
+  let words = text.match(/[A-Z]?[a-z0-9]+|[A-Z]+(?![a-z])/g) ?? [text]
   words = words.map((w, i) => (i > 0 && ABBREVIATIONS[w]) || w)
   const join = (ws) => ws.map((w, i) => (i === 0 ? w.toLowerCase() : w[0].toUpperCase() + w.slice(1))).join("")
   while (join(words).length > max && words.length > 2) words.splice(1, 1)
   return join(words).slice(0, max)
 }
 const q = (s) => JSON.stringify(s)
-const camel = (s) => s.replace(/[-_ ]+([a-zA-Z0-9])/g, (_, c) => c.toUpperCase()).replace(/^[A-Z]/, (c) => c.toLowerCase())
+const ident = (k) => (/^[A-Za-z_$][\w$]*$/.test(k) ? k : q(k))
+
+// ---------------------------------------------------------------- what the connector already has by hand
+const handNames = new Set()
+const handSignatures = new Set()
+const norm = (m, p) => `${m.toUpperCase()} ${p.replace(/\{[^}]+\}/g, "{}")}`
+{
+  const parts = connectorSource.split(/\n {4}"([\w.]+)": \{/)
+  for (let i = 1; i < parts.length; i += 2) {
+    handNames.add(parts[i])
+    const m = /method:\s*"(\w+)"/.exec(parts[i + 1]), p = /path:\s*[`"]([^`"]+)[`"]/.exec(parts[i + 1])
+    if (m && p) handSignatures.add(norm(m[1], p[1].replace(/\$\{[^}]+\}/g, "{x}")))
+  }
+}
+
+// ---------------------------------------------------------------- base path: connector base URL vs. the spec's server
+const connectorBasePath = new URL(/baseUrl:\s*"([^"]+)"/.exec(connectorSource)[1].replace(/\{[^}]+\}/g, "x")).pathname.replace(/\/$/, "")
+const serverPath = (() => {
+  if (swagger2) return (spec.basePath ?? "").replace(/\/$/, "")
+  const url = spec.servers?.[0]?.url ?? ""
+  try { return new URL(url.replace(/\{[^}]+\}/g, "x")).pathname.replace(/\/$/, "") } catch { return "" }
+})()
+const relativePath = (specPath) => {
+  const full = serverPath + specPath
+  if (full === connectorBasePath) return "/"
+  if (!full.startsWith(connectorBasePath + "/")) return null
+  return full.slice(connectorBasePath.length)
+}
 
 // ---------------------------------------------------------------- JSON Schema -> Zod source
 function zodOf(schema, depth = 0) {
   schema = mergeAllOf(schema)
   if (!schema || typeof schema !== "object") return "z.unknown()"
+  // Form-encoded APIs that describe a field as "a JSON string" accept the real structure when we send JSON.
+  if (schema.jsonish) return "z.union([z.string(), z.array(z.unknown()), z.record(z.string(), z.unknown())])"
   let base
   if (schema.enum && schema.enum.every((v) => typeof v === "string") && schema.enum.length > 0) base = `z.enum([${schema.enum.map(q).join(", ")}])`
   else if (schema.type === "string" || (Array.isArray(schema.type) && schema.type.includes("string") && schema.type.length <= 2)) base = "z.string()"
@@ -75,91 +116,161 @@ function zodOf(schema, depth = 0) {
     if (props.length === 0 || depth >= 2) base = "z.record(z.string(), z.unknown())"
     else {
       const required = new Set(schema.required ?? [])
-      const body = props.map(([k, v]) => `${/^[A-Za-z_$][\w$]*$/.test(k) ? k : q(k)}: ${zodOf(v, depth + 1)}${required.has(k) ? "" : ".optional()"}`)
-      base = `z.object({ ${body.join(", ")} })`
+      base = `z.object({ ${props.map(([k, v]) => `${ident(k)}: ${zodOf(v, depth + 1)}${required.has(k) ? "" : ".optional()"}`).join(", ")} })`
     }
   } else base = "z.unknown()"
-  if (schema.nullable === true || (Array.isArray(schema.type) && schema.type.includes("null"))) base += ".nullable()"
+  if (schema.nullable === true || schema["x-nullable"] === true || (Array.isArray(schema.type) && schema.type.includes("null"))) base += ".nullable()"
   return base
 }
 
 // ---------------------------------------------------------------- operations
+// The kit can send scalars and arrays of scalars as query parameters, nothing deeper.
+const isComplexQuery = (p) => {
+  if (p.in !== "query") return false
+  const sch = mergeAllOf(swagger2 ? p : p.schema)
+  if (sch?.type === "object") return true
+  if (sch?.type === "array") {
+    const t = mergeAllOf(sch.items)?.type
+    return t === "object" || t === "array"
+  }
+  return false
+}
+const METHODS = ["get", "post", "put", "patch", "delete"]
 const excluded = new Set(config.exclude ?? [])
-const skipped = { deprecated: 0, nonJsonBody: 0, excluded: 0, noId: 0 }
+const dropParams = new Set(config.dropParams ?? [])
+const skipped = { oddPath: 0, complexQuery: 0, deprecated: 0, nonJsonBody: 0, handWritten: 0, outsideBase: 0, requiredHeader: 0, noId: 0 }
 const ops = []
 for (const [path, item] of Object.entries(spec.paths)) {
-  for (const method of ["get", "post", "put", "patch", "delete"]) {
+  for (const method of METHODS) {
     const op = item[method]
     if (!op) continue
-    if (excluded.has(`${method.toUpperCase()} ${path}`)) { skipped.excluded++; continue }
+    const rel = relativePath(path)
+    if (/[\\\s]/.test(path)) { skipped.oddPath++; continue }
+    if (rel === null) { skipped.outsideBase++; continue }
+    if (excluded.has(`${method.toUpperCase()} ${path}`) || handSignatures.has(norm(method, rel))) { skipped.handWritten++; continue }
     if (op.deprecated) { skipped.deprecated++; continue }
-    if (!op.operationId) { skipped.noId++; continue }
-    const content = resolveRef(op.requestBody)?.content
-    if (content && !content["application/json"]) { skipped.nonJsonBody++; continue }
-    ops.push({ path, method, op, shared: item.parameters ?? [], bodySchema: content?.["application/json"]?.schema })
+    const params = [...(item.parameters ?? []), ...(op.parameters ?? [])].map(resolveRef).filter(Boolean)
+    // A query parameter that is an object (deepObject style) cannot be sent by the kit: skip it, or the whole operation when it is required.
+    const isObj = isComplexQuery
+    if (params.some((p) => isObj(p) && p.required)) { skipped.complexQuery++; continue }
+    if (params.some((p) => (p.in === "header" || p.in === "cookie") && p.required && !/^(accept|content-type|authorization)$/i.test(p.name) && !(config.ignoreHeaders ?? []).includes(p.name))) { skipped.requiredHeader++; continue }
+
+    // Normalize the request body: OpenAPI 3 requestBody, Swagger 2 `in: body` / `in: formData`.
+    let bodySchema, bodyRequired = false, formFields = []
+    if (swagger2) {
+      const bodyParam = params.find((p) => p.in === "body")
+      const consumes = op.consumes ?? spec.consumes ?? ["application/json"]
+      const isJson = consumes.some((c) => c.includes("json"))
+      const forms = params.filter((p) => p.in === "formData")
+      if (forms.some((p) => p.type === "file")) { skipped.nonJsonBody++; continue }
+      if ((forms.length > 0 || bodyParam) && !isJson && !config.formAsJson) { skipped.nonJsonBody++; continue }
+      if (bodyParam) { bodySchema = bodyParam.schema; bodyRequired = bodyParam.required === true }
+      formFields = forms
+    } else {
+      const requestBody = resolveRef(op.requestBody)
+      const content = requestBody?.content
+      if (content && !content["application/json"] && !(config.formAsJson && (content["application/x-www-form-urlencoded"]))) { skipped.nonJsonBody++; continue }
+      const media = content?.["application/json"] ?? content?.["application/x-www-form-urlencoded"]
+      bodySchema = media?.schema
+      bodyRequired = requestBody?.required === true
+    }
+    ops.push({ path, rel, method, op, params, bodySchema, bodyRequired, formFields })
   }
 }
 
-const used = new Set()
+const used = new Set(handNames)
 const groups = new Map()
-for (const { path, method, op, shared, bodySchema } of ops) {
-  const [g, ...restId] = op.operationId.split("/")
-  const group = camel(restId.length ? g : (op.tags?.[0] ?? "misc")) || "misc"
-  let verb = camel(restId.length ? restId.join("-") : g)
-  if (!verb) verb = method
-  verb = fitVerb(config.name, group, verb)
+for (const { path, rel, method, op, params: allParams, bodySchema, bodyRequired, formFields } of ops) {
+  // ---- name: group.verb
+  const id = String(op.operationId ?? "")
+  let groupWords, verbWords
+  const sep = /^([A-Za-z0-9-]+)[/_](.+)$/.exec(id)
+  if (sep && !/\s/.test(id)) { groupWords = sep[1]; verbWords = sep[2] }
+  else {
+    groupWords = op.tags?.[0] ?? rel.split("/").filter((s) => s && !s.startsWith("{"))[0] ?? "misc"
+    verbWords = id || `${method}${rel.split("/").filter((s) => s && !s.startsWith("{")).slice(-2).join(" ")}`
+  }
+  if (config.stripFromOperationId) verbWords = verbWords.replace(new RegExp(config.stripFromOperationId, "g"), "")
+  let group = camel(groupWords) || "misc"
+  let verb = camel(verbWords) || method
+  group = fit(group, 30)
+  const maxVerb = 64 - (config.name.length + 1 + group.length + 1)
+  verb = fit(verb, maxVerb)
   let name = `${group}.${verb}`
-  for (let n = 2; used.has(name); n++) name = `${group}.${verb.slice(0, verb.length - String(n).length)}${n}`
+  for (let n = 2; used.has(name); n++) name = `${group}.${(verb + n).length <= maxVerb ? verb + n : verb.slice(0, Math.max(1, maxVerb - String(n).length)) + n}`
   used.add(name)
 
-  const params = [...shared, ...(op.parameters ?? [])].map(resolveRef).filter((p) => p && (p.in === "path" || p.in === "query"))
-  const fields = new Map() // input name -> { zod, required, where: "path"|"query"|"body", wire }
-  const add = (key, entry) => { if (!fields.has(key)) fields.set(key, entry); return fields.has(key) && fields.get(key) === entry }
-  let paginated = false
-  const pageSize = config.pageParams?.size
-  const pageNum = config.pageParams?.page
-  const respSchema = resolveRef(Object.values(resolveRef(op.responses?.["200"])?.content ?? {})[0]?.schema)
-  if (method === "get" && pageSize && params.some((p) => p.name === pageSize) && params.some((p) => p.name === pageNum) && respSchema?.type === "array") paginated = true
+  const params = allParams.filter((p) => (p.in === "path" || p.in === "query") && !dropParams.has(p.name) && !isComplexQuery(p))
+  const fields = new Map() // input name -> { zod, required, where, wire }
+  const add = (key, entry) => { if (!fields.has(key)) fields.set(key, entry) }
+
+  // ---- pagination (config rules)
+  const respSchema = (() => {
+    const r = resolveRef(op.responses?.["200"] ?? op.responses?.["201"])
+    const s = swagger2 ? r?.schema : Object.values(r?.content ?? {})[0]?.schema
+    return mergeAllOf(s)
+  })()
+  let rule = null
+  if (method === "get") {
+    for (const r of config.pagination ?? []) {
+      const need = [r.size, r.position, r.page, r.cursor].filter(Boolean)
+      if (!need.every((n) => params.some((p) => p.name === n))) continue
+      let itemsKey = r.itemsKey
+      if (itemsKey === "auto") {
+        const arrays = Object.entries(respSchema?.properties ?? {}).filter(([, v]) => mergeAllOf(v)?.type === "array").map(([k]) => k)
+        if (arrays.length !== 1) continue
+        itemsKey = arrays[0]
+      }
+      const items = itemsKey ? mergeAllOf(respSchema?.properties?.[itemsKey]) : respSchema
+      if (items?.type !== "array") continue
+      rule = { ...r, call: r.call.replace("{items}", itemsKey ?? "") }
+      break
+    }
+  }
+  const paged = new Set(rule ? [rule.size, rule.position, rule.page, rule.cursor].filter(Boolean) : [])
 
   for (const p of params) {
-    if (paginated && (p.name === pageSize || p.name === pageNum)) continue
+    if (paged.has(p.name)) continue
     const key = p.name.replace(/[^A-Za-z0-9_]/g, "_")
-    const desc = clean(resolveRef(p).description, 160)
-    const schema = resolveRef(p.schema)
-    let zod = zodOf(schema)
-    if (schema?.default !== undefined && ["string", "number", "boolean"].includes(typeof schema.default) && p.in !== "path") { /* defaults are applied by the provider */ }
+    const desc = derived ? "" : clean(p.description, 160)
+    let zod = zodOf(swagger2 ? { type: p.type, enum: p.enum, items: p.items, format: p.format } : p.schema)
     if (desc) zod += `.describe(${q(desc)})`
     add(key, { zod, required: p.in === "path" || p.required === true, where: p.in, wire: p.name })
   }
 
   let wholeBody = false
   const body = mergeAllOf(bodySchema)
-  if (body) {
-    const props = Object.entries(body.properties ?? {})
-    const clash = props.some(([k]) => fields.has(k))
-    if (body.type === "object" && props.length > 0 && !clash && !body.oneOf && !body.anyOf) {
-      const required = new Set(body.required ?? [])
-      for (const [k, v] of props) {
+  const bodyProps = [...Object.entries(body?.properties ?? {}).map(([k, v]) => [k, v, (body.required ?? []).includes(k)]), ...formFields.filter((f) => !dropParams.has(f.name)).map((f) => [f.name, { jsonish: config.formAsJson && /json/i.test(f.description ?? ""), type: f.type, enum: f.enum, items: f.items, description: f.description }, f.required === true])]
+  if (body || formFields.length > 0) {
+    const clash = bodyProps.some(([k]) => fields.has(k.replace(/[^A-Za-z0-9_]/g, "_")))
+    if ((body?.type === "object" || (!body && formFields.length > 0) || body?.properties) && bodyProps.length > 0 && !clash && !body?.oneOf && !body?.anyOf) {
+      for (const [k, v, req] of bodyProps) {
         const sch = mergeAllOf(v)
-        const desc = clean(sch?.description, 160)
-        add(k, { zod: zodOf(v) + (desc ? `.describe(${q(desc)})` : ""), required: required.has(k), where: "body", wire: k })
+        const desc = derived ? "" : clean(sch?.description, 160)
+        const key = k.replace(/[^A-Za-z0-9_]/g, "_")
+        add(key, { zod: zodOf(v) + (desc ? `.describe(${q(desc)})` : ""), required: req, where: "body", wire: k })
       }
-    } else {
+    } else if (body) {
       wholeBody = true
-      add("body", { zod: `${body.type === "array" ? zodOf(body) : "z.record(z.string(), z.unknown())"}.describe("The JSON request body (see the provider documentation)")`, required: resolveRef(op.requestBody)?.required === true, where: "body", wire: "body" })
+      add("body", { zod: `${body.type === "array" ? zodOf(body) : "z.record(z.string(), z.unknown())"}.describe("The JSON request body (see the provider documentation)")`, required: bodyRequired, where: "body", wire: "body" })
     }
   }
 
   const entries = [...fields.entries()]
-  const inputFields = entries.map(([k, f]) => `${/^[A-Za-z_$][\w$]*$/.test(k) ? k : q(k)}: ${f.zod}${f.required ? "" : ".optional()"}`)
-  if (paginated) inputFields.push("cursor: z.string().optional()", "pageSize: z.number().optional()")
-  const description = (() => {
-    const summary = clean(op.summary, 160)
+  const inputFields = entries.map(([k, f]) => `${ident(k)}: ${f.zod}${f.required ? "" : ".optional()"}`)
+  if (rule) inputFields.push("cursor: z.string().optional()", "pageSize: z.number().optional()")
+  const description = derived ? (() => {
+    const words = (verbWords || id).replace(/([a-z0-9])([A-Z])/g, "$1 $2").replace(/[^A-Za-z0-9]+/g, " ").trim().toLowerCase()
+    const sentence = words ? words[0].toUpperCase() + words.slice(1) : method.toUpperCase()
+    const topic = op.tags?.[0] ? ` Part of: ${clean(op.tags[0], 60)}.` : ""
+    return clean(`${sentence}.${topic} Calls ${method.toUpperCase()} ${rel} on ${config.title ?? config.name}.`, 480)
+  })() : (() => {
+    const humanized = (verbWords || id).replace(/([a-z0-9])([A-Z])/g, "$1 $2").replace(/[^A-Za-z0-9]+/g, " ").trim().toLowerCase()
+    const summary = clean(op.summary || op.description || (humanized ? humanized[0].toUpperCase() + humanized.slice(1) : ""), 160)
     const detail = firstSentences(op.description, 330)
     let d = summary
     if (detail && !detail.toLowerCase().startsWith(summary.toLowerCase().slice(0, 20))) d += d.endsWith(".") ? ` ${detail}` : `. ${detail}`
-    if (d.length < 30) d += ` (${method.toUpperCase()} ${path})`
-    if (method !== "get" && !/\bdelete|remov|revok|cancel/i.test(d) && method === "delete") d += " Destroys data."
+    if (d.length < 45) d += ` Calls ${method.toUpperCase()} ${rel} on ${config.title ?? config.name}.`
     return clean(d, 480)
   })()
 
@@ -169,18 +280,19 @@ for (const { path, method, op, shared, bodySchema } of ops) {
   const lines = [
     `description: ${q(description)}`,
     `method: ${q(method.toUpperCase())}`,
-    `path: ${q(path)}`,
+    `path: ${q(rel)}`,
     `input: z.object({ ${inputFields.join(", ")} })`,
-    `output: ${paginated ? "z.array(z.unknown())" : "z.unknown()"}`,
+    `output: ${rule ? "z.array(z.unknown())" : "z.unknown()"}`,
     `effect: ${q(effect)}`,
   ]
-  if (paginated) lines.push(`paginate: ${config.paginationCall}`)
-  const nameMap = (list) => `{ ${list.map(([k, f]) => `${/^[A-Za-z_$][\w$]*$/.test(k) ? k : q(k)}: ${q(f.wire)}`).join(", ")} }`
+  if (rule) lines.push(`paginate: ${rule.call}`)
+  const nameMap = (list) => `{ ${list.map(([k, f]) => `${ident(k)}: ${q(f.wire)}`).join(", ")} }`
   const identity = (list) => list.every(([k, f]) => k === f.wire)
-  if (method !== "get" && method !== "delete" || (method === "delete" && bodyKeys.length > 0)) {
+  if ((method !== "get" && method !== "delete") || (method === "delete" && bodyKeys.length > 0)) {
     if (queryKeys.length > 0) lines.push(identity(queryKeys) ? `buildQuery: (i) => pick(i, ${q(queryKeys.map(([k]) => k))})` : `buildQuery: (i) => pickAs(i, ${nameMap(queryKeys)})`)
-    if ((queryKeys.length > 0 && bodyKeys.length > 0) || (method === "delete" && !wholeBody)) lines.push(wholeBody ? "buildBody: (i) => i.body" : identity(bodyKeys) ? `buildBody: (i) => pick(i, ${q(bodyKeys.map(([k]) => k))})` : `buildBody: (i) => pickAs(i, ${nameMap(bodyKeys)})`)
-    else if (wholeBody) lines.push("buildBody: (i) => i.body")
+    if (wholeBody) lines.push("buildBody: (i) => i.body")
+    else if ((queryKeys.length > 0 && bodyKeys.length > 0) || (method === "delete" && bodyKeys.length > 0)) lines.push(identity(bodyKeys) ? `buildBody: (i) => pick(i, ${q(bodyKeys.map(([k]) => k))})` : `buildBody: (i) => pickAs(i, ${nameMap(bodyKeys)})`)
+    else if (bodyKeys.length > 0 && !identity(bodyKeys)) lines.push(`buildBody: (i) => pickAs(i, ${nameMap(bodyKeys)})`)
   } else if (queryKeys.some(([k, f]) => k !== f.wire)) {
     lines.push(`buildQuery: (i) => pickAs(i, ${nameMap(queryKeys)})`)
   }
@@ -195,11 +307,12 @@ mkdirSync(outDir, { recursive: true })
 const header = `// GENERATED by scripts/gen-openapi.mjs from ${config.spec}\n// Source license: ${config.license}\n// Do not edit by hand: change scripts/openapi/${config.name}.json or the generator, then re-run it.\n`
 const names = [...groups.keys()].sort()
 for (const group of names) {
-  const imports = [`import { z } from "zod"`, `import type { ActionDefinition } from "../../../define.js"`]
   const text = groups.get(group).join("\n")
+  const imports = [`import { z } from "zod"`, `import type { ActionDefinition } from "../../../define.js"`]
   if (/pickAs\(/.test(text)) imports.push(`import { pick, pickAs } from "../../../openapi-helpers.js"`)
   else if (/pick\(/.test(text)) imports.push(`import { pick } from "../../../openapi-helpers.js"`)
-  if (/paginate:/.test(text)) imports.push(`import { ${config.paginationImport} } from "../../../index.js"`)
+  const strategies = [...new Set((config.pagination ?? []).map((r) => r.import).filter((n) => text.includes(`paginate: ${n}(`)))]
+  if (strategies.length > 0) imports.push(`import { ${strategies.join(", ")} } from "../../../index.js"`)
   writeFileSync(`${outDir}/${group}.ts`, `${header}${imports.join("\n")}\n\nexport const ${group}Actions = {\n${text}\n} satisfies Record<string, ActionDefinition>\n`)
 }
 writeFileSync(

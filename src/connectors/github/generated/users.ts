@@ -49,7 +49,7 @@ export const usersActions = {
     effect: "write",
   },
   "users.unblock": {
-    description: "Unblock a user. Unblocks the given user and returns a 204. Destroys data.",
+    description: "Unblock a user. Unblocks the given user and returns a 204.",
     method: "DELETE",
     path: "/user/blocks/{username}",
     input: z.object({ username: z.string().describe("The handle for the GitHub user account.") }),
@@ -126,7 +126,7 @@ export const usersActions = {
     effect: "write",
   },
   "users.unfollow": {
-    description: "Unfollow a user. OAuth app tokens and personal access tokens (classic) need the user:follow scope to use this endpoint. Destroys data.",
+    description: "Unfollow a user. OAuth app tokens and personal access tokens (classic) need the user:follow scope to use this endpoint.",
     method: "DELETE",
     path: "/user/following/{username}",
     input: z.object({ username: z.string().describe("The handle for the GitHub user account.") }),
@@ -353,7 +353,7 @@ export const usersActions = {
     paginate: linkHeaderPagination(),
   },
   "users.checkFollowingForUser": {
-    description: "Check if a user follows another user",
+    description: "Check if a user follows another user Calls GET /users/{username}/following/{targetuser} on github.",
     method: "GET",
     path: "/users/{username}/following/{target_user}",
     input: z.object({ username: z.string().describe("The handle for the GitHub user account."), target_user: z.string() }),

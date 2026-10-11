@@ -1,0 +1,2 @@
+{ "name": "gitlab", "title": "GitLab", "descriptions": "derived", "spec": "https://gitlab.com/gitlab-org/gitlab/-/raw/master/doc/api/openapi/openapi_v2.yaml", "license": "none declared in the specification; descriptions are written by this project", "stripFromOperationId": "(Api)?V4",
+  "pagination": [{ "size": "per_page", "page": "page", "import": "linkHeaderPagination", "call": "linkHeaderPagination({ pageSizeParam: \"per_page\", defaultPageSize: 30, maxPageSize: 100 })" }] }

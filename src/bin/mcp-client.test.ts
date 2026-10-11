@@ -57,7 +57,7 @@ test("without a token the server refuses to start and says why", async () => {
 })
 
 test("slack over MCP: four tools, reads are hinted read-only, and posting is DENIED unless --allow-writes", async () => {
-  const client = await connect(["slack"])
+  const client = await connect(["slack", "--only", "conversations.list,conversations.history,users.info,chat.postMessage"])
   try {
     const { tools } = await client.listTools()
     assert.deepEqual(tools.map((t) => t.name).sort(), ["slack_chat_postMessage", "slack_conversations_history", "slack_conversations_list", "slack_users_info"])
@@ -82,10 +82,10 @@ test("without the slack token the slack server refuses to start", async () => {
 const ZEN = { ZENDESK_CREDENTIALS: "me@acme.dev/token:FAKE" }
 
 test("a connector with a base-URL variable serves its tools when given --var (real MCP client)", async () => {
-  const client = await connect(["zendesk", "--var", "subdomain=acme"], ZEN)
+  const client = await connect(["zendesk", "--var", "subdomain=acme", "--only", "users.me,tickets.list,tickets.get,tickets.comments.list,tickets.create,tickets.update"], ZEN)
   try {
     const { tools } = await client.listTools()
-    assert.equal(tools.length, 7)
+    assert.equal(tools.length, 6)
     assert.ok(tools.some((t) => t.name === "zendesk_tickets_create" && t.annotations?.readOnlyHint === false))
     // Writes are denied by default over MCP, before any request
     const denied = await client.callTool({ name: "zendesk_tickets_create", arguments: { subject: "s", comment: "c" } })

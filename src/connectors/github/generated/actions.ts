@@ -102,7 +102,7 @@ export const actionsActions = {
     effect: "write",
   },
   "actions.listCustomImagesForOrg": {
-    description: "List custom images for an organization",
+    description: "List custom images for an organization Calls GET /orgs/{org}/actions/hosted-runners/images/custom on github.",
     method: "GET",
     path: "/orgs/{org}/actions/hosted-runners/images/custom",
     input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive.") }),
@@ -118,7 +118,7 @@ export const actionsActions = {
     effect: "read",
   },
   "actions.deleteCustomImageFromOrg": {
-    description: "Delete a custom image from the organization",
+    description: "Delete a custom image from the organization Calls DELETE /orgs/{org}/actions/hosted-runners/images/custom/{imagedefinitionid} on github.",
     method: "DELETE",
     path: "/orgs/{org}/actions/hosted-runners/images/custom/{image_definition_id}",
     input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), image_definition_id: z.number().describe("Image definition ID of custom image") }),
@@ -1577,7 +1577,7 @@ export const actionsActions = {
     effect: "read",
   },
   "actions.createEnvironmentVariable": {
-    description: "Create an environment variable",
+    description: "Create an environment variable Calls POST /repos/{owner}/{repo}/environments/{environmentname}/variables on github.",
     method: "POST",
     path: "/repos/{owner}/{repo}/environments/{environment_name}/variables",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), environment_name: z.string().describe("The name of the environment. The name must be URL encoded. For example, any slashes in the name must be replaced with %2F."), name: z.string().describe("The name of the variable."), value: z.string().describe("The value of the variable.") }),

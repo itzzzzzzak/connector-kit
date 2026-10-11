@@ -1,5 +1,6 @@
 import { defineConnector, linkHeaderPagination } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from GitLab's official REST API documentation (docs.gitlab.com/api): base path /api/v4 on the GitLab host,
 // the PRIVATE-TOKEN header, `page`/`per_page` (default 20, max 100) with a Link header (rel="next"), projects
@@ -78,6 +79,9 @@ export const gitlab = defineConnector({
     credentialEnv: "GITLAB_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "user.get": {
       description: "Get the authenticated GitLab user (username, name, profile link). Use to check the token works.",
       method: "GET",

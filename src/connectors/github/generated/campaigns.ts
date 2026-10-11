@@ -16,7 +16,7 @@ export const campaignsActions = {
     paginate: linkHeaderPagination(),
   },
   "campaigns.createCampaign": {
-    description: "Create a campaign for an organization",
+    description: "Create a campaign for an organization Calls POST /orgs/{org}/campaigns on github.",
     method: "POST",
     path: "/orgs/{org}/campaigns",
     input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),

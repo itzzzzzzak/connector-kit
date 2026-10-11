@@ -171,7 +171,7 @@ export const reposActions = {
     effect: "write",
   },
   "repos.disableAutomatedSecurityFixes": {
-    description: "Disable Dependabot security updates. Disables Dependabot security updates for a repository. The authenticated user must have admin access to the repository. For more information, see \"Configuring Dependabot security updates\". Destroys data.",
+    description: "Disable Dependabot security updates. Disables Dependabot security updates for a repository. The authenticated user must have admin access to the repository. For more information, see \"Configuring Dependabot security updates\".",
     method: "DELETE",
     path: "/repos/{owner}/{repo}/automated-security-fixes",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive.") }),
@@ -179,7 +179,7 @@ export const reposActions = {
     effect: "destructive",
   },
   "repos.listBranches": {
-    description: "List branches (GET /repos/{owner}/{repo}/branches)",
+    description: "List branches Calls GET /repos/{owner}/{repo}/branches on github.",
     method: "GET",
     path: "/repos/{owner}/{repo}/branches",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), protected: z.boolean().describe("Setting to true returns only branches protected by branch protections or rulesets. When set to false, only unprotected branches are returned. Omitting this…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
@@ -188,7 +188,7 @@ export const reposActions = {
     paginate: linkHeaderPagination(),
   },
   "repos.getBranch": {
-    description: "Get a branch (GET /repos/{owner}/{repo}/branches/{branch})",
+    description: "Get a branch Calls GET /repos/{owner}/{repo}/branches/{branch} on github.",
     method: "GET",
     path: "/repos/{owner}/{repo}/branches/{branch}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), branch: z.string().describe("The name of the branch. Cannot contain wildcard characters. To use wildcard characters in branch names, use the GraphQL API.") }),
@@ -550,7 +550,7 @@ export const reposActions = {
     effect: "write",
   },
   "repos.deleteCommitComment": {
-    description: "Delete a commit comment (DELETE /repos/{owner}/{repo}/comments/{commentid})",
+    description: "Delete a commit comment Calls DELETE /repos/{owner}/{repo}/comments/{commentid} on github.",
     method: "DELETE",
     path: "/repos/{owner}/{repo}/comments/{comment_id}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), comment_id: z.number().describe("The unique identifier of the comment.") }),
@@ -558,7 +558,7 @@ export const reposActions = {
     effect: "destructive",
   },
   "repos.listCommits": {
-    description: "List commits. Signature verification object",
+    description: "List commits. Signature verification object Calls GET /repos/{owner}/{repo}/commits on github.",
     method: "GET",
     path: "/repos/{owner}/{repo}/commits",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), sha: z.string().describe("SHA or branch to start listing commits from. Default: the repository’s default branch (usually main).").optional(), path: z.string().describe("Only commits containing this file path will be returned.").optional(), author: z.string().describe("GitHub username or email address to use to filter by commit author.").optional(), committer: z.string().describe("GitHub username or email address to use to filter by commit committer.").optional(), since: z.string().describe("Only show results that were last updated after the given time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Due to limitations of Git,…").optional(), until: z.string().describe("Only commits before this date will be returned. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ. Due to limitations of Git, timestamps must be…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
@@ -693,7 +693,7 @@ export const reposActions = {
     effect: "write",
   },
   "repos.getDeployment": {
-    description: "Get a deployment (GET /repos/{owner}/{repo}/deployments/{deploymentid})",
+    description: "Get a deployment Calls GET /repos/{owner}/{repo}/deployments/{deploymentid} on github.",
     method: "GET",
     path: "/repos/{owner}/{repo}/deployments/{deployment_id}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), deployment_id: z.number().describe("deploymentid parameter") }),
@@ -758,7 +758,7 @@ export const reposActions = {
     effect: "read",
   },
   "repos.createOrUpdateEnvironment": {
-    description: "Create or update an environment",
+    description: "Create or update an environment Calls PUT /repos/{owner}/{repo}/environments/{environmentname} on github.",
     method: "PUT",
     path: "/repos/{owner}/{repo}/environments/{environment_name}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), environment_name: z.string().describe("The name of the environment. The name must be URL encoded. For example, any slashes in the name must be replaced with %2F."), wait_timer: z.number().describe("The amount of time to delay a job after the job is initially triggered. The time (in minutes) must be an integer between 0 and 43,200 (30 days).").optional(), prevent_self_review: z.boolean().describe("Whether or not a user who created the job is prevented from approving their own job.").optional(), reviewers: z.array(z.object({ type: z.enum(["User", "Team"]).optional(), id: z.number().optional() })).nullable().describe("The people or teams that may review jobs that reference the environment. You can list up to six users or teams as reviewers. The reviewers must have at least…").optional(), deployment_branch_policy: z.object({ protected_branches: z.boolean(), custom_branch_policies: z.boolean() }).nullable().describe("The type of deployment branch policy for this environment. To allow all branches to deploy, set to null.").optional() }),
@@ -846,7 +846,7 @@ export const reposActions = {
     effect: "read",
   },
   "repos.disableDeploymentProtectionRule": {
-    description: "Disable a custom protection rule for an environment. Disables a custom deployment protection rule for an environment. Destroys data.",
+    description: "Disable a custom protection rule for an environment. Disables a custom deployment protection rule for an environment.",
     method: "DELETE",
     path: "/repos/{owner}/{repo}/environments/{environment_name}/deployment_protection_rules/{protection_rule_id}",
     input: z.object({ environment_name: z.string().describe("The name of the environment. The name must be URL encoded. For example, any slashes in the name must be replaced with %2F."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), protection_rule_id: z.number().describe("The unique identifier of the protection rule.") }),
@@ -854,7 +854,7 @@ export const reposActions = {
     effect: "destructive",
   },
   "repos.listForks": {
-    description: "List forks (GET /repos/{owner}/{repo}/forks)",
+    description: "List forks Calls GET /repos/{owner}/{repo}/forks on github.",
     method: "GET",
     path: "/repos/{owner}/{repo}/forks",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), sort: z.enum(["newest", "oldest", "stargazers", "watchers"]).describe("The sort order. stargazers will sort by star count.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
@@ -863,7 +863,7 @@ export const reposActions = {
     paginate: linkHeaderPagination(),
   },
   "repos.createFork": {
-    description: "Create a fork (POST /repos/{owner}/{repo}/forks)",
+    description: "Create a fork Calls POST /repos/{owner}/{repo}/forks on github.",
     method: "POST",
     path: "/repos/{owner}/{repo}/forks",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), organization: z.string().describe("Optional parameter to specify the organization name if forking into an organization.").optional(), name: z.string().describe("When forking from an existing repository, a new name for the fork.").optional(), default_branch_only: z.boolean().describe("When forking from an existing repository, fork with only the default branch.").optional() }),
@@ -992,7 +992,7 @@ export const reposActions = {
     effect: "write",
   },
   "repos.disableImmutableReleases": {
-    description: "Disable immutable releases. Disables immutable releases for a repository. The authenticated user must have admin access to the repository. Destroys data.",
+    description: "Disable immutable releases. Disables immutable releases for a repository. The authenticated user must have admin access to the repository.",
     method: "DELETE",
     path: "/repos/{owner}/{repo}/immutable-releases",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive.") }),
@@ -1009,7 +1009,7 @@ export const reposActions = {
     paginate: linkHeaderPagination(),
   },
   "repos.updateInvitation": {
-    description: "Update a repository invitation",
+    description: "Update a repository invitation Calls PATCH /repos/{owner}/{repo}/invitations/{invitationid} on github.",
     method: "PATCH",
     path: "/repos/{owner}/{repo}/invitations/{invitation_id}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), invitation_id: z.number().describe("The unique identifier of the invitation."), permissions: z.enum(["read", "write", "maintain", "triage", "admin"]).describe("The permissions that the associated user will have on the repository. Valid values are read, write, maintain, triage, and admin.").optional() }),
@@ -1017,7 +1017,7 @@ export const reposActions = {
     effect: "write",
   },
   "repos.deleteInvitation": {
-    description: "Delete a repository invitation",
+    description: "Delete a repository invitation Calls DELETE /repos/{owner}/{repo}/invitations/{invitationid} on github.",
     method: "DELETE",
     path: "/repos/{owner}/{repo}/invitations/{invitation_id}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), invitation_id: z.number().describe("The unique identifier of the invitation.") }),
@@ -1033,7 +1033,7 @@ export const reposActions = {
     effect: "read",
   },
   "repos.listDeployKeys": {
-    description: "List deploy keys (GET /repos/{owner}/{repo}/keys)",
+    description: "List deploy keys Calls GET /repos/{owner}/{repo}/keys on github.",
     method: "GET",
     path: "/repos/{owner}/{repo}/keys",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), cursor: z.string().optional(), pageSize: z.number().optional() }),
@@ -1050,7 +1050,7 @@ export const reposActions = {
     effect: "write",
   },
   "repos.getDeployKey": {
-    description: "Get a deploy key (GET /repos/{owner}/{repo}/keys/{keyid})",
+    description: "Get a deploy key Calls GET /repos/{owner}/{repo}/keys/{keyid} on github.",
     method: "GET",
     path: "/repos/{owner}/{repo}/keys/{key_id}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), key_id: z.number().describe("The unique identifier of the key.") }),
@@ -1082,7 +1082,7 @@ export const reposActions = {
     effect: "write",
   },
   "repos.merge": {
-    description: "Merge a branch (POST /repos/{owner}/{repo}/merges)",
+    description: "Merge a branch Calls POST /repos/{owner}/{repo}/merges on github.",
     method: "POST",
     path: "/repos/{owner}/{repo}/merges",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), base: z.string().describe("The name of the base branch that the head will be merged into."), head: z.string().describe("The head to merge. This can be a branch name or a commit SHA1."), commit_message: z.string().describe("Commit message to use for the merge commit. If omitted, a default message will be used.").optional() }),
@@ -1157,7 +1157,7 @@ export const reposActions = {
     effect: "read",
   },
   "repos.createPagesDeployment": {
-    description: "Create a GitHub Pages deployment",
+    description: "Create a GitHub Pages deployment Calls POST /repos/{owner}/{repo}/pages/deployments on github.",
     method: "POST",
     path: "/repos/{owner}/{repo}/pages/deployments",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), artifact_id: z.number().describe("The ID of an artifact that contains the .zip or .tar of static assets to deploy. The artifact belongs to the repository. Either artifactid or artifacturl are…").optional(), artifact_url: z.string().describe("The URL of an artifact that contains the .zip or .tar of static assets to deploy. The artifact belongs to the repository. Either artifactid or artifacturl are…").optional(), environment: z.string().describe("The target environment for this GitHub Pages deployment.").optional(), pages_build_version: z.string().describe("A unique string that represents the version of the build for this deployment."), oidc_token: z.string().describe("The OIDC token issued by GitHub Actions certifying the origin of the deployment.") }),
@@ -1205,7 +1205,7 @@ export const reposActions = {
     effect: "write",
   },
   "repos.disablePrivateVulnerabilityReporting": {
-    description: "Disable private vulnerability reporting for a repository. Disables private vulnerability reporting for a repository. The authenticated user must have admin access to the repository. For more information, see \"Privately reporting a security vulnerability\". Destroys data.",
+    description: "Disable private vulnerability reporting for a repository. Disables private vulnerability reporting for a repository. The authenticated user must have admin access to the repository. For more information, see \"Privately reporting a security vulnerability\".",
     method: "DELETE",
     path: "/repos/{owner}/{repo}/private-vulnerability-reporting",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive.") }),
@@ -1220,7 +1220,7 @@ export const reposActions = {
     output: z.unknown(),
     effect: "read",
   },
-  "repos.customPropertiesForReposCreateOrUpdateRepoValues": {
+  "repos.customPropsForReposCreateOrUpdateRepoValues": {
     description: "Create or update custom property values for a repository. Create new or update existing custom property values for a repository. Using a value of null for a custom property will remove or 'unset' the property value from the repository.",
     method: "PATCH",
     path: "/repos/{owner}/{repo}/properties/values",
@@ -1278,7 +1278,7 @@ export const reposActions = {
     effect: "write",
   },
   "repos.deleteReleaseAsset": {
-    description: "Delete a release asset (DELETE /repos/{owner}/{repo}/releases/assets/{assetid})",
+    description: "Delete a release asset Calls DELETE /repos/{owner}/{repo}/releases/assets/{assetid} on github.",
     method: "DELETE",
     path: "/repos/{owner}/{repo}/releases/assets/{asset_id}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), asset_id: z.number().describe("The unique identifier of the asset.") }),
@@ -1334,7 +1334,7 @@ export const reposActions = {
     effect: "destructive",
   },
   "repos.listReleaseAssets": {
-    description: "List release assets (GET /repos/{owner}/{repo}/releases/{releaseid}/assets)",
+    description: "List release assets Calls GET /repos/{owner}/{repo}/releases/{releaseid}/assets on github.",
     method: "GET",
     path: "/repos/{owner}/{repo}/releases/{release_id}/assets",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), release_id: z.number().describe("The unique identifier of the release."), cursor: z.string().optional(), pageSize: z.number().optional() }),
@@ -1475,7 +1475,7 @@ export const reposActions = {
     effect: "write",
   },
   "repos.listTags": {
-    description: "List repository tags (GET /repos/{owner}/{repo}/tags)",
+    description: "List repository tags Calls GET /repos/{owner}/{repo}/tags on github.",
     method: "GET",
     path: "/repos/{owner}/{repo}/tags",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), cursor: z.string().optional(), pageSize: z.number().optional() }),
@@ -1501,7 +1501,7 @@ export const reposActions = {
     paginate: linkHeaderPagination(),
   },
   "repos.getAllTopics": {
-    description: "Get all repository topics (GET /repos/{owner}/{repo}/topics)",
+    description: "Get all repository topics Calls GET /repos/{owner}/{repo}/topics on github.",
     method: "GET",
     path: "/repos/{owner}/{repo}/topics",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), page: z.number().describe("The page number of the results to fetch. For more information, see \"Using pagination in the REST API.\"").optional(), per_page: z.number().describe("The number of results per page (max 100). For more information, see \"Using pagination in the REST API.\"").optional() }),
@@ -1509,7 +1509,7 @@ export const reposActions = {
     effect: "read",
   },
   "repos.replaceAllTopics": {
-    description: "Replace all repository topics (PUT /repos/{owner}/{repo}/topics)",
+    description: "Replace all repository topics Calls PUT /repos/{owner}/{repo}/topics on github.",
     method: "PUT",
     path: "/repos/{owner}/{repo}/topics",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), names: z.array(z.string()).describe("An array of topics to add to the repository. Pass one or more topics to replace the set of existing topics. Send an empty array ([]) to clear all topics from…") }),
@@ -1573,7 +1573,7 @@ export const reposActions = {
     effect: "write",
   },
   "repos.disableVulnerabilityAlerts": {
-    description: "Disable vulnerability alerts. Disables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see \"About security alerts for vulnerable dependencies\". Destroys data.",
+    description: "Disable vulnerability alerts. Disables dependency alerts and the dependency graph for a repository. The authenticated user must have admin access to the repository. For more information, see \"About security alerts for vulnerable dependencies\".",
     method: "DELETE",
     path: "/repos/{owner}/{repo}/vulnerability-alerts",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive.") }),
@@ -1631,7 +1631,7 @@ export const reposActions = {
     paginate: linkHeaderPagination(),
   },
   "repos.acceptInvitationForAuthenticatedUser": {
-    description: "Accept a repository invitation",
+    description: "Accept a repository invitation Calls PATCH /user/repositoryinvitations/{invitationid} on github.",
     method: "PATCH",
     path: "/user/repository_invitations/{invitation_id}",
     input: z.object({ invitation_id: z.number().describe("The unique identifier of the invitation.") }),
@@ -1639,7 +1639,7 @@ export const reposActions = {
     effect: "write",
   },
   "repos.declineInvitationForAuthenticatedUser": {
-    description: "Decline a repository invitation Destroys data.",
+    description: "Decline a repository invitation Calls DELETE /user/repositoryinvitations/{invitationid} on github.",
     method: "DELETE",
     path: "/user/repository_invitations/{invitation_id}",
     input: z.object({ invitation_id: z.number().describe("The unique identifier of the invitation.") }),

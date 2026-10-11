@@ -15,6 +15,8 @@ export interface PaginationStrategy {
   maxPageSize: number
   /** Where the list is inside the response body. Omit when the body IS the list (GitHub). */
   items?(body: unknown): unknown
+  /** The key holding the list in the body, when there is one (informational: used by tests and tooling). */
+  itemsKey?: string
   /** Read the next cursor from a successful response. Null means "no more pages". */
   nextCursor(response: { headers: Headers; body: unknown; /** The request URL this response answers (carries the current offset/page and page size). */ url: URL }): string | null
   /**
@@ -74,6 +76,7 @@ export function bodyCursorPagination(options: {
     ...(options.pageSizeParam === null ? {} : { pageSizeParam: options.pageSizeParam ?? "limit" }),
     defaultPageSize: options.defaultPageSize ?? 30,
     maxPageSize: options.maxPageSize ?? 200,
+    itemsKey: options.itemsKey,
     items: (body) => dig(body, [options.itemsKey]),
     nextCursor({ body }) {
       const cursor = dig(body, options.cursorPath)
@@ -111,6 +114,7 @@ export function bodyLinkPagination(options: {
     pageSizeParam: options.pageSizeParam ?? "per_page",
     defaultPageSize: options.defaultPageSize ?? 30,
     maxPageSize: options.maxPageSize ?? 100,
+    itemsKey: options.itemsKey,
     items: (body) => dig(body, [options.itemsKey]),
     nextCursor({ body }) {
       if (options.hasMorePath && dig(body, options.hasMorePath) !== true) return null
@@ -156,7 +160,7 @@ export function offsetPagination(options: {
     ...(sizeParam !== undefined && { pageSizeParam: sizeParam }),
     defaultPageSize: options.defaultPageSize ?? 30,
     maxPageSize: options.maxPageSize ?? 100,
-    ...(options.itemsKey !== undefined && { items: (body) => dig(body, [options.itemsKey!]) }),
+    ...(options.itemsKey !== undefined && { itemsKey: options.itemsKey, items: (body) => dig(body, [options.itemsKey!]) }),
     nextCursor({ body, url }) {
       const items = options.itemsKey !== undefined ? dig(body, [options.itemsKey]) : body
       if (!Array.isArray(items) || items.length === 0) return null // an empty page always ends paging

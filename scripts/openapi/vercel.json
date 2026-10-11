@@ -1,0 +1,2 @@
+{ "name": "vercel", "title": "Vercel", "descriptions": "derived", "spec": "https://openapi.vercel.sh/", "license": "none declared in the specification; descriptions are written by this project",
+  "pagination": [{ "size": "limit", "cursor": "until", "itemsKey": "auto", "import": "bodyCursorPagination", "call": "bodyCursorPagination({ itemsKey: \"{items}\", cursorPath: [\"pagination\", \"next\"], cursorParam: \"until\", pageSizeParam: \"limit\", defaultPageSize: 30, maxPageSize: 100 })" }] }

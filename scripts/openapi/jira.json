@@ -1,0 +1,2 @@
+{ "name": "jira", "title": "Jira", "spec": "https://dac-static.atlassian.com/cloud/jira/platform/swagger-v3.v3.json", "license": "Apache 2.0, declared in the specification",
+  "pagination": [{ "size": "maxResults", "position": "startAt", "itemsKey": "auto", "import": "offsetPagination", "call": "offsetPagination({ itemsKey: \"{items}\", positionParam: \"startAt\", pageSizeParam: \"maxResults\", lastPagePath: [\"isLast\"], totalPath: [\"total\"], defaultPageSize: 30, maxPageSize: 100 })" }] }

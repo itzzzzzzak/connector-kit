@@ -103,7 +103,7 @@ export const codeSecurityActions = {
     effect: "read",
   },
   "codeSecurity.detachConfiguration": {
-    description: "Detach configurations from repositories. Detach code security configuration(s) from a set of repositories. Repositories will retain their settings but will no longer be associated with the configuration. Destroys data.",
+    description: "Detach configurations from repositories. Detach code security configuration(s) from a set of repositories. Repositories will retain their settings but will no longer be associated with the configuration.",
     method: "DELETE",
     path: "/orgs/{org}/code-security/configurations/detach",
     input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), selected_repository_ids: z.array(z.number()).describe("An array of repository IDs to detach from configurations. Up to 250 IDs can be provided.") }),

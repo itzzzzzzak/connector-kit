@@ -54,7 +54,7 @@ export const securityAdvisoriesActions = {
     effect: "write",
   },
   "securityAdvisories.getRepositoryAdvisory": {
-    description: "Get a repository security advisory",
+    description: "Get a repository security advisory Calls GET /repos/{owner}/{repo}/security-advisories/{ghsaid} on github.",
     method: "GET",
     path: "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), ghsa_id: z.string().describe("The GHSA (GitHub Security Advisory) identifier of the advisory.") }),
@@ -62,7 +62,7 @@ export const securityAdvisoriesActions = {
     effect: "read",
   },
   "securityAdvisories.updateRepositoryAdvisory": {
-    description: "Update a repository security advisory",
+    description: "Update a repository security advisory Calls PATCH /repos/{owner}/{repo}/security-advisories/{ghsaid} on github.",
     method: "PATCH",
     path: "/repos/{owner}/{repo}/security-advisories/{ghsa_id}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), ghsa_id: z.string().describe("The GHSA (GitHub Security Advisory) identifier of the advisory."), summary: z.string().describe("A short summary of the advisory.").optional(), description: z.string().describe("A detailed description of what the advisory impacts.").optional(), cve_id: z.string().nullable().describe("The Common Vulnerabilities and Exposures (CVE) ID.").optional(), vulnerabilities: z.array(z.object({ package: z.record(z.string(), z.unknown()), vulnerable_version_range: z.string().nullable().optional(), patched_versions: z.string().nullable().optional(), vulnerable_functions: z.array(z.string()).nullable().optional() })).describe("A product affected by the vulnerability detailed in a repository security advisory.").optional(), cwe_ids: z.array(z.string()).nullable().describe("A list of Common Weakness Enumeration (CWE) IDs.").optional(), credits: z.array(z.object({ login: z.string(), type: z.enum(["analyst", "finder", "reporter", "coordinator", "remediation_developer", "remediation_reviewer", "remediation_verifier", "tool", "sponsor", "other"]) })).nullable().describe("A list of users receiving credit for their participation in the security advisory.").optional(), severity: z.enum(["critical", "high", "medium", "low"]).nullable().describe("The severity of the advisory. You must choose between setting this field or cvssvectorstring.").optional(), cvss_vector_string: z.string().nullable().describe("The CVSS vector that calculates the severity of the advisory. You must choose between setting this field or severity.").optional(), state: z.enum(["published", "closed", "draft"]).describe("The state of the advisory.").optional(), collaborating_users: z.array(z.string()).nullable().describe("A list of usernames who have been granted write access to the advisory.").optional(), collaborating_teams: z.array(z.string()).nullable().describe("A list of team slugs which have been granted write access to the advisory.").optional() }),
@@ -78,7 +78,7 @@ export const securityAdvisoriesActions = {
     effect: "write",
   },
   "securityAdvisories.createFork": {
-    description: "Create a temporary private fork",
+    description: "Create a temporary private fork Calls POST /repos/{owner}/{repo}/security-advisories/{ghsaid}/forks on github.",
     method: "POST",
     path: "/repos/{owner}/{repo}/security-advisories/{ghsa_id}/forks",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), ghsa_id: z.string().describe("The GHSA (GitHub Security Advisory) identifier of the advisory.") }),

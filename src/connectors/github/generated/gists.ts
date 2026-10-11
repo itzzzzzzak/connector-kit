@@ -24,7 +24,7 @@ export const gistsActions = {
     effect: "write",
   },
   "gists.listPublic": {
-    description: "List public gists (GET /gists/public)",
+    description: "List public gists Calls GET /gists/public on github.",
     method: "GET",
     path: "/gists/public",
     input: z.object({ since: z.string().describe("Only show results that were last updated after the given time. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
@@ -42,7 +42,7 @@ export const gistsActions = {
     paginate: linkHeaderPagination(),
   },
   "gists.get": {
-    description: "Get a gist. Gets a specified gist.",
+    description: "Get a gist. Gets a specified gist. Calls GET /gists/{gistid} on github.",
     method: "GET",
     path: "/gists/{gist_id}",
     input: z.object({ gist_id: z.string().describe("The unique identifier of the gist.") }),
@@ -58,7 +58,7 @@ export const gistsActions = {
     effect: "write",
   },
   "gists.delete": {
-    description: "Delete a gist (DELETE /gists/{gistid})",
+    description: "Delete a gist Calls DELETE /gists/{gistid} on github.",
     method: "DELETE",
     path: "/gists/{gist_id}",
     input: z.object({ gist_id: z.string().describe("The unique identifier of the gist.") }),
@@ -99,7 +99,7 @@ export const gistsActions = {
     effect: "write",
   },
   "gists.deleteComment": {
-    description: "Delete a gist comment (DELETE /gists/{gistid}/comments/{commentid})",
+    description: "Delete a gist comment Calls DELETE /gists/{gistid}/comments/{commentid} on github.",
     method: "DELETE",
     path: "/gists/{gist_id}/comments/{comment_id}",
     input: z.object({ gist_id: z.string().describe("The unique identifier of the gist."), comment_id: z.number().describe("The unique identifier of the comment.") }),
@@ -107,7 +107,7 @@ export const gistsActions = {
     effect: "destructive",
   },
   "gists.listCommits": {
-    description: "List gist commits (GET /gists/{gistid}/commits)",
+    description: "List gist commits Calls GET /gists/{gistid}/commits on github.",
     method: "GET",
     path: "/gists/{gist_id}/commits",
     input: z.object({ gist_id: z.string().describe("The unique identifier of the gist."), cursor: z.string().optional(), pageSize: z.number().optional() }),
@@ -116,7 +116,7 @@ export const gistsActions = {
     paginate: linkHeaderPagination(),
   },
   "gists.listForks": {
-    description: "List gist forks (GET /gists/{gistid}/forks)",
+    description: "List gist forks Calls GET /gists/{gistid}/forks on github.",
     method: "GET",
     path: "/gists/{gist_id}/forks",
     input: z.object({ gist_id: z.string().describe("The unique identifier of the gist."), cursor: z.string().optional(), pageSize: z.number().optional() }),
@@ -125,7 +125,7 @@ export const gistsActions = {
     paginate: linkHeaderPagination(),
   },
   "gists.fork": {
-    description: "Fork a gist (POST /gists/{gistid}/forks)",
+    description: "Fork a gist Calls POST /gists/{gistid}/forks on github.",
     method: "POST",
     path: "/gists/{gist_id}/forks",
     input: z.object({ gist_id: z.string().describe("The unique identifier of the gist.") }),
@@ -133,7 +133,7 @@ export const gistsActions = {
     effect: "write",
   },
   "gists.checkIsStarred": {
-    description: "Check if a gist is starred (GET /gists/{gistid}/star)",
+    description: "Check if a gist is starred Calls GET /gists/{gistid}/star on github.",
     method: "GET",
     path: "/gists/{gist_id}/star",
     input: z.object({ gist_id: z.string().describe("The unique identifier of the gist.") }),
@@ -149,7 +149,7 @@ export const gistsActions = {
     effect: "write",
   },
   "gists.unstar": {
-    description: "Unstar a gist (DELETE /gists/{gistid}/star)",
+    description: "Unstar a gist Calls DELETE /gists/{gistid}/star on github.",
     method: "DELETE",
     path: "/gists/{gist_id}/star",
     input: z.object({ gist_id: z.string().describe("The unique identifier of the gist.") }),

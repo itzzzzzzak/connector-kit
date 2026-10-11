@@ -1,5 +1,6 @@
 import { defineConnector, linkHeaderPagination } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from Netlify's official OpenAPI (Swagger 2) spec (open-api.netlify.com) and its API guide: base URL
 // https://api.netlify.com/api/v1, Bearer personal access token, `page`/`per_page` with a Link header (default and
@@ -53,6 +54,9 @@ export const netlify = defineConnector({
     credentialEnv: "NETLIFY_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "user.get": {
       description: "Get the authenticated Netlify user (name, email, number of sites). Use to check the token works.",
       method: "GET",

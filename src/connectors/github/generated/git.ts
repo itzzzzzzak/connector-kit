@@ -6,7 +6,7 @@ import type { ActionDefinition } from "../../../define.js"
 
 export const gitActions = {
   "git.createBlob": {
-    description: "Create a blob (POST /repos/{owner}/{repo}/git/blobs)",
+    description: "Create a blob Calls POST /repos/{owner}/{repo}/git/blobs on github.",
     method: "POST",
     path: "/repos/{owner}/{repo}/git/blobs",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), content: z.string().describe("The new blob's content."), encoding: z.string().describe("The encoding used for content. Currently, \"utf-8\" and \"base64\" are supported.").optional() }),
@@ -86,7 +86,7 @@ export const gitActions = {
     effect: "write",
   },
   "git.getTag": {
-    description: "Get a tag. Signature verification object",
+    description: "Get a tag. Signature verification object Calls GET /repos/{owner}/{repo}/git/tags/{tagsha} on github.",
     method: "GET",
     path: "/repos/{owner}/{repo}/git/tags/{tag_sha}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), tag_sha: z.string() }),

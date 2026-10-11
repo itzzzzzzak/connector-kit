@@ -170,7 +170,7 @@ export const copilotActions = {
     effect: "write",
   },
   "copilot.disableCopilotCodingAgentForRepoInOrg": {
-    description: "Disable a repository for Copilot cloud agent in an organization. [!NOTE] This endpoint is in public preview and is subject to change. Destroys data.",
+    description: "Disable a repository for Copilot cloud agent in an organization. [!NOTE] This endpoint is in public preview and is subject to change.",
     method: "DELETE",
     path: "/orgs/{org}/copilot/coding-agent/permissions/repositories/{repository_id}",
     input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), repository_id: z.number().describe("The unique identifier of the repository.") }),

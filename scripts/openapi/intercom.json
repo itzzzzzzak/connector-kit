@@ -1,0 +1,2 @@
+{ "name": "intercom", "title": "Intercom", "spec": "https://raw.githubusercontent.com/intercom/Intercom-OpenAPI/main/descriptions/2.11/api.intercom.io.yaml", "license": "MIT, Copyright (c) 2022 Intercom, Inc. (intercom/Intercom-OpenAPI)",
+  "pagination": [{ "size": "per_page", "cursor": "starting_after", "itemsKey": "auto", "import": "bodyCursorPagination", "call": "bodyCursorPagination({ itemsKey: \"{items}\", cursorPath: [\"pages\", \"next\", \"starting_after\"], cursorParam: \"starting_after\", pageSizeParam: \"per_page\", defaultPageSize: 30, maxPageSize: 150 })" }] }

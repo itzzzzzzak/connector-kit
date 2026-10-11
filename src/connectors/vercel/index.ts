@@ -1,5 +1,6 @@
 import { bodyCursorPagination, defineConnector } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from Vercel's official OpenAPI spec (openapi.vercel.sh): base URL https://api.vercel.com, Bearer token,
 // versioned paths (/v10/projects, /v7/deployments, /v13/deployments/{id}, /v9/projects/{id}, /v2/user, /v2/teams),
@@ -72,6 +73,9 @@ export const vercel = defineConnector({
     credentialEnv: "VERCEL_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "user.get": {
       description: "Get the authenticated Vercel user. Use to check the token works and to find the default team.",
       method: "GET",

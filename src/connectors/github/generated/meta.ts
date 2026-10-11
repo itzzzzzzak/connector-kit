@@ -22,7 +22,7 @@ export const metaActions = {
     effect: "read",
   },
   "meta.getOctocat": {
-    description: "Get Octocat. Get the octocat as ASCII art",
+    description: "Get Octocat. Get the octocat as ASCII art Calls GET /octocat on github.",
     method: "GET",
     path: "/octocat",
     input: z.object({ s: z.string().describe("The words to show in Octocat's speech bubble").optional() }),

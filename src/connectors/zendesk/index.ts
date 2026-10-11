@@ -1,5 +1,6 @@
 import { bodyLinkPagination, defineConnector } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from Zendesk's official Support API OpenAPI spec (developer.zendesk.com/zendesk/oas.yaml) and its pagination
 // and authentication guides: base URL https://{subdomain}.zendesk.com/api/v2; API-token login is HTTP Basic with the
@@ -76,6 +77,9 @@ export const zendesk = defineConnector({
     credentialEnv: "ZENDESK_CREDENTIALS",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "users.me": {
       description: "Get the authenticated Zendesk user (name, email, role). Use to check the credentials work.",
       method: "GET",

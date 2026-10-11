@@ -1,5 +1,6 @@
 import { bodyCursorPagination, ConnectorKitError, defineConnector, type ErrorCode } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 /**
  * Slack Web API (ADR-015). Two things make it different from GitHub, and both are why this connector exists:
@@ -92,6 +93,9 @@ export const slack = defineConnector({
   },
   detectError: slackError,
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "conversations.list": {
       description: "List Slack channels the app can see. Use to find a channel id from a name. Returns one bounded page; pass the previous nextCursor for more.",
       method: "GET",

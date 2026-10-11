@@ -66,7 +66,7 @@ export const activityActions = {
     effect: "write",
   },
   "activity.markThreadAsDone": {
-    description: "Mark a thread as done. Marks a thread as \"done.\" Marking a thread as \"done\" is equivalent to marking a notification in your notification inbox on GitHub as done: https://github.com/notifications. Destroys data.",
+    description: "Mark a thread as done. Marks a thread as \"done.\" Marking a thread as \"done\" is equivalent to marking a notification in your notification inbox on GitHub as done: https://github.com/notifications.",
     method: "DELETE",
     path: "/notifications/threads/{thread_id}",
     input: z.object({ thread_id: z.number().describe("The unique identifier of the notification thread. This corresponds to the value returned in the id field when you retrieve notifications (for example with the…") }),
@@ -216,7 +216,7 @@ export const activityActions = {
     effect: "write",
   },
   "activity.unstarRepoForAuthenticatedUser": {
-    description: "Unstar a repository for the authenticated user Destroys data.",
+    description: "Unstar a repository for the authenticated user",
     method: "DELETE",
     path: "/user/starred/{owner}/{repo}",
     input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive.") }),

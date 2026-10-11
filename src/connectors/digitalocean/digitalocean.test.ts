@@ -1,6 +1,7 @@
 import assert from "node:assert/strict"
 import { test } from "node:test"
 import { harness, json, standardTests } from "../../connector-harness.test.js"
+import { generatedActions } from "./generated/index.js"
 import digitalocean from "./index.js"
 
 const droplet = { id: 3164444, name: "web-1", status: "active", memory: 1024, vcpus: 1, disk: 25, locked: false, created_at: "2026-01-01T00:00:00Z", size_slug: "s-1vcpu-1gb", region: { slug: "nyc3", name: "New York 3" }, image: { id: 1, name: "22.04", distribution: "Ubuntu", slug: "ubuntu-22-04-x64" }, tags: ["web"], networks: { v4: [{ ip_address: "203.0.113.10", type: "public" }], v6: [] } }
@@ -55,8 +56,8 @@ test("DNS records: domain in the path (encoded), type and name as filters", asyn
   assert.equal(calls[0]!.url.searchParams.get("type"), "MX")
 })
 
-test("every action is a read: this connector cannot change anything", () => {
-  assert.ok(Object.values(digitalocean.actions).every((a) => a.effect === "read"))
+test("every action is a read: this connector cannot change anything (the hand-written ones; generated writes exist but need --allow-writes through MCP)", () => {
+  assert.ok(Object.entries(digitalocean.actions).filter(([name]) => !(name in generatedActions)).every(([, a]) => a.effect === "read"))
 })
 
 test("OAuth: DigitalOcean's endpoints, client credentials in the body, read scope by default", () => {
