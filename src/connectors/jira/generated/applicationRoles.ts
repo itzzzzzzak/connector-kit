@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const applicationRolesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const applicationRolesActions: Record<string, ActionDefinition> = {
   "applicationRoles.getAllApplicationRoles": {
     description: "Get all application roles. Returns all application roles. In Jira, application roles are managed using the Application access configuration page.",
     method: "GET",
@@ -21,4 +22,4 @@ export const applicationRolesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

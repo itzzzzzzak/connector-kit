@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const emojiActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const emojiActions: Record<string, ActionDefinition> = {
   "emoji.list": {
     description: "Lists custom emoji for a team. Calls GET /emoji.list on Slack.",
     method: "GET",
@@ -13,4 +14,4 @@ export const emojiActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

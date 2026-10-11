@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const environmentVariablesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const environmentVariablesActions: Record<string, ActionDefinition> = {
   "environmentVariables.getEnvVars": {
     description: "Returns all environment variables for an account or site. An account corresponds to a team in the Netlify UI.",
     method: "GET",
@@ -76,4 +77,4 @@ export const environmentVariablesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

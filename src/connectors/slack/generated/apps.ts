@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const appsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const appsActions: Record<string, ActionDefinition> = {
   "apps.eventAuthorizationsList": {
     description: "Get a list of authorizations for the given event context. Each authorization represents an app installation that the event is visible to.",
     method: "GET",
@@ -71,4 +72,4 @@ export const appsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

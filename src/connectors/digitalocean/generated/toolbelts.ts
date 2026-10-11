@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const toolbeltsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const toolbeltsActions: Record<string, ActionDefinition> = {
   "toolbelts.list": {
     description: "List Toolbelts. Returns your team's toolbelts, one entry per name describing its latest version, sorted by name. Offset-paged with page and perpage; pagination reports the total.",
     method: "GET",
@@ -81,4 +82,4 @@ export const toolbeltsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

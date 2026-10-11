@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const timeTrackingActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const timeTrackingActions: Record<string, ActionDefinition> = {
   "timeTracking.getSelectedTimeTrackingImplementation": {
     description: "Get selected time tracking provider. Returns the time tracking provider that is currently selected. Note that if time tracking is disabled, then a successful but empty response is returned.",
     method: "GET",
@@ -45,4 +46,4 @@ export const timeTrackingActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

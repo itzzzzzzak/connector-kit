@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const activityActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const activityActions: Record<string, ActionDefinition> = {
   "activity.listPublicEvents": {
     description: "List public events. [!NOTE] This API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.",
     method: "GET",
@@ -294,4 +295,4 @@ export const activityActions = {
     effect: "read",
     paginate: linkHeaderPagination(),
   },
-} satisfies Record<string, ActionDefinition>
+}

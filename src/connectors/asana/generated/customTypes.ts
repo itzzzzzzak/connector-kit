@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const customTypesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const customTypesActions: Record<string, ActionDefinition> = {
   "customTypes.getCustomTypes": {
     description: "Get all custom types associated with an object. Required scope: customtypes:read",
     method: "GET",
@@ -23,4 +24,4 @@ export const customTypesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

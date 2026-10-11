@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const registriesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const registriesActions: Record<string, ActionDefinition> = {
   "registries.list": {
     description: "List All Container Registries. To get information about any container registry in your account, send a GET request to /v2/registries/.",
     method: "GET",
@@ -162,4 +163,4 @@ export const registriesActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

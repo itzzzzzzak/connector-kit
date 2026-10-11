@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const timeTrackingEntriesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const timeTrackingEntriesActions: Record<string, ActionDefinition> = {
   "timeTrackingEntries.getTimeTrackingEntriesForTask": {
     description: "Get time tracking entries for a task. Required scope: timetrackingentries:read",
     method: "GET",
@@ -61,4 +62,4 @@ export const timeTrackingEntriesActions = {
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

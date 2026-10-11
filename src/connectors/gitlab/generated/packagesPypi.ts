@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const packagesPypiActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const packagesPypiActions: Record<string, ActionDefinition> = {
   "packagesPypi.getGroupsIdPackagesPypiFilesSha256FileId": {
     description: "Get groups id packages pypi files sha256 file identifier. Part of: packagespypi. Calls GET /groups/{id}/-/packages/pypi/files/{sha256}/fileidentifier on GitLab.",
     method: "GET",
@@ -77,4 +78,4 @@ export const packagesPypiActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const issueBulkOperationsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueBulkOperationsActions: Record<string, ActionDefinition> = {
   "issueBulkOperations.submitBulkDelete": {
     description: "Bulk delete issues. Use this API to submit a bulk delete request. You can delete up to 1,000 issues in a single operation.",
     method: "POST",
@@ -77,4 +78,4 @@ export const issueBulkOperationsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const appDataPoliciesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const appDataPoliciesActions: Record<string, ActionDefinition> = {
   "appDataPolicies.getPolicy": {
     description: "Get data policy for the workspace. Returns data policy for the workspace.",
     method: "GET",
@@ -21,4 +22,4 @@ export const appDataPoliciesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

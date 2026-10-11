@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const exportsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const exportsActions: Record<string, ActionDefinition> = {
   "exports.createGraphExport": {
     description: "Initiate a graph export. Initiates a graph export job for a given parent object (goal, team, portfolio, or project). The export will be processed asynchronously. Once initiated, use the jobs endpoint to monitor progress.",
     method: "POST",
@@ -21,4 +22,4 @@ export const exportsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

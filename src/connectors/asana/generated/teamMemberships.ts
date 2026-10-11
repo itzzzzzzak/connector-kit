@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const teamMembershipsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const teamMembershipsActions: Record<string, ActionDefinition> = {
   "teamMemberships.getTeamMembership": {
     description: "Get a team membership. Required scope: teammemberships:read",
     method: "GET",
@@ -41,4 +42,4 @@ export const teamMembershipsActions = {
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

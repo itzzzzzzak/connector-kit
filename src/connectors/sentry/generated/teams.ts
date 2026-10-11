@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { linkHeaderCursorPagination } from "../../../index.js"
 
-export const teamsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const teamsActions: Record<string, ActionDefinition> = {
   "teams.addOrganizationMemberTeam": {
     description: "Add organization member team. Part of: Teams. Calls POST /organizations/{organizationidorslug}/members/{memberid}/teams/{teamidorslug}/ on Sentry.",
     method: "POST",
@@ -103,4 +104,4 @@ export const teamsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

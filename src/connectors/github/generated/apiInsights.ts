@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const apiInsightsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const apiInsightsActions: Record<string, ActionDefinition> = {
   "apiInsights.getRouteStatsByActor": {
     description: "Get route stats by actor. Get API request count statistics for an actor broken down by route within a specified time frame.",
     method: "GET",
@@ -81,4 +82,4 @@ export const apiInsightsActions = {
     effect: "read",
     paginate: linkHeaderPagination(),
   },
-} satisfies Record<string, ActionDefinition>
+}

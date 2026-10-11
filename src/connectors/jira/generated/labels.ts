@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const labelsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const labelsActions: Record<string, ActionDefinition> = {
   "labels.getAllLabels": {
     description: "Get all labels. Returns a paginated list of labels.",
     method: "GET",
@@ -15,4 +16,4 @@ export const labelsActions = {
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

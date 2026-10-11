@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const batchedBackgroundOperationsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const batchedBackgroundOperationsActions: Record<string, ActionDefinition> = {
   "batchedBackgroundOperations.getBackgroundOperations": {
     description: "Get admin batched background operations. Part of: batchedbackgroundoperations. Calls GET /admin/batchedbackgroundoperations on GitLab.",
     method: "GET",
@@ -37,4 +38,4 @@ export const batchedBackgroundOperationsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

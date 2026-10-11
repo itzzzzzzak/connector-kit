@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const workflowTransitionRulesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const workflowTransitionRulesActions: Record<string, ActionDefinition> = {
   "workflowTransitionRules.getWorkflowTransitionRuleConfigs": {
     description: "Get workflow transition rule configurations. Returns a paginated list of workflows with transition rules. The workflows can be filtered to return only those containing workflow transition rules:",
     method: "GET",
@@ -31,4 +32,4 @@ export const workflowTransitionRulesActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

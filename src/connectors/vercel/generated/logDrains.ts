@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const logDrainsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const logDrainsActions: Record<string, ActionDefinition> = {
   "logDrains.getConfigurableLogDrain": {
     description: "Get configurable log drain. Part of: logDrains. Calls GET /v1/log-drains/{id} on Vercel.",
     method: "GET",
@@ -66,4 +67,4 @@ export const logDrainsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

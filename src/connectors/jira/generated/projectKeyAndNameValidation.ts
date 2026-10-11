@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const projectKeyAndNameValidationActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const projectKeyAndNameValidationActions: Record<string, ActionDefinition> = {
   "projectKeyAndNameValidation.validateProjectKey": {
     description: "Validate project key. Validates a project key by confirming the key is a valid string and not in use.",
     method: "GET",
@@ -29,4 +30,4 @@ export const projectKeyAndNameValidationActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

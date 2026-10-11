@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const gistsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const gistsActions: Record<string, ActionDefinition> = {
   "gists.list": {
     description: "List gists for the authenticated user. Lists the authenticated user's gists or if called anonymously, this endpoint returns all public gists:",
     method: "GET",
@@ -173,4 +174,4 @@ export const gistsActions = {
     effect: "read",
     paginate: linkHeaderPagination(),
   },
-} satisfies Record<string, ActionDefinition>
+}

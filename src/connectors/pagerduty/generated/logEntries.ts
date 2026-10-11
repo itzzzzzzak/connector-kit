@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const logEntriesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const logEntriesActions: Record<string, ActionDefinition> = {
   "logEntries.listLogEntries": {
     description: "List log entries. Part of: Log Entries. Calls GET /logentries on PagerDuty.",
     method: "GET",
@@ -26,4 +27,4 @@ export const logEntriesActions = {
     effect: "read",
     buildQuery: (i) => pickAs(i, { time_zone: "time_zone", include__: "include[]" }),
   },
-} satisfies Record<string, ActionDefinition>
+}

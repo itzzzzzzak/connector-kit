@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const dynamicContentActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const dynamicContentActions: Record<string, ActionDefinition> = {
   "dynamicContent.listDynamicContents": {
     description: "List dynamic contents. Part of: Dynamic Content. Calls GET /dynamiccontent/items on Zendesk.",
     method: "GET",
@@ -53,4 +54,4 @@ export const dynamicContentActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

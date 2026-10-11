@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const databaseActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const databaseActions: Record<string, ActionDefinition> = {
   "database.getSiteDatabase": {
     description: "Returns the database connection string for the specified site.",
     method: "GET",
@@ -160,4 +161,4 @@ export const databaseActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

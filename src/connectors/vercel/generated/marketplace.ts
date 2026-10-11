@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const marketplaceActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const marketplaceActions: Record<string, ActionDefinition> = {
   "marketplace.updateInstallation": {
     description: "Update installation. Part of: marketplace. Calls PATCH /v1/installations/{integrationConfigurationId} on Vercel.",
     method: "PATCH",
@@ -190,4 +191,4 @@ export const marketplaceActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

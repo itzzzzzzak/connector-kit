@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const sectionsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const sectionsActions: Record<string, ActionDefinition> = {
   "sections.getSection": {
     description: "Get a section. Returns the complete record for a single section.",
     method: "GET",
@@ -72,4 +73,4 @@ export const sectionsActions = {
     buildQuery: (i) => pick(i, ["opt_pretty"]),
     buildBody: (i) => pick(i, ["data"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

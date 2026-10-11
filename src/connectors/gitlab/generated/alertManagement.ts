@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const alertManagementActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const alertManagementActions: Record<string, ActionDefinition> = {
   "alertManagement.postAlertsAlertIidMetricImagesAuthorize": {
     description: "Post projects id alert management alerts alert iid metric images authorize. Part of: alertmanagement. Calls POST /projects/{id}/alertmanagementalerts/{alertiid}/metricimages/authorize on GitLab.",
     method: "POST",
@@ -29,4 +30,4 @@ export const alertManagementActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

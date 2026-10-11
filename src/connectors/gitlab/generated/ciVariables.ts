@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
-export const ciVariablesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const ciVariablesActions: Record<string, ActionDefinition> = {
   "ciVariables.getGroupsIdVariables": {
     description: "Get groups id variables. Part of: civariables. Calls GET /groups/{id}/variables on GitLab.",
     method: "GET",
@@ -128,4 +129,4 @@ export const ciVariablesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

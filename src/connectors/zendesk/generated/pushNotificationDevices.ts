@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const pushNotificationDevicesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const pushNotificationDevicesActions: Record<string, ActionDefinition> = {
   "pushNotificationDevices.pushNotificationDevices": {
     description: "Push notification devices. Part of: Push Notification Devices. Calls POST /pushnotificationdevices/destroymany on Zendesk.",
     method: "POST",
@@ -13,4 +14,4 @@ export const pushNotificationDevicesActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

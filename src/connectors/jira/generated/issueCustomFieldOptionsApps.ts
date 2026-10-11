@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const issueCustomFieldOptionsAppsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueCustomFieldOptionsAppsActions: Record<string, ActionDefinition> = {
   "issueCustomFieldOptionsApps.getAllIssueFieldOptions": {
     description: "Get all issue field options. Returns a paginated list of all the options of a select list issue field. A select list issue field is a type of issue field that enables a user to select a value from a list of options.",
     method: "GET",
@@ -73,4 +74,4 @@ export const issueCustomFieldOptionsAppsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const actionsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const actionsActions: Record<string, ActionDefinition> = {
   "actions.getActionsCacheRetentionLimitForEnterprise": {
     description: "Get GitHub Actions cache retention limit for an enterprise. Gets GitHub Actions cache retention limit for an enterprise. All organizations and repositories under this enterprise may not set a higher cache retention limit.",
     method: "GET",
@@ -1609,4 +1610,4 @@ export const actionsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

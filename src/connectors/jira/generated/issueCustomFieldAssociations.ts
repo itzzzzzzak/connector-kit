@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const issueCustomFieldAssociationsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueCustomFieldAssociationsActions: Record<string, ActionDefinition> = {
   "issueCustomFieldAssociations.createAssociations": {
     description: "Create associations. Associates fields with projects.",
     method: "PUT",
@@ -23,4 +24,4 @@ export const issueCustomFieldAssociationsActions = {
     effect: "destructive",
     buildBody: (i) => pick(i, ["associationContexts","fields"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

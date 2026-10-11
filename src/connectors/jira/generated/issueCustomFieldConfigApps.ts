@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const issueCustomFieldConfigAppsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueCustomFieldConfigAppsActions: Record<string, ActionDefinition> = {
   "issueCustomFieldConfigApps.getCustomFieldsConfigurations": {
     description: "Bulk get custom field configurations. Returns a paginated list of configurations for list of custom fields of a type created by a Forge app.",
     method: "POST",
@@ -34,4 +35,4 @@ export const issueCustomFieldConfigAppsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

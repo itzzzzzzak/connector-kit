@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const microvmsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const microvmsActions: Record<string, ActionDefinition> = {
   "microvms.list": {
     description: "List all MicroVMs. To list all of the MicroVMs on your team, send a GET request to /v2/microvms.",
     method: "GET",
@@ -79,4 +80,4 @@ export const microvmsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

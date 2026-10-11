@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const codespacesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const codespacesActions: Record<string, ActionDefinition> = {
   "codespaces.listInOrganization": {
     description: "List codespaces for the organization. Lists the codespaces associated to a specified organization.",
     method: "GET",
@@ -366,4 +367,4 @@ export const codespacesActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

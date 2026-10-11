@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const markdownActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const markdownActions: Record<string, ActionDefinition> = {
   "markdown.render": {
     description: "Render a Markdown document. Depending on what is rendered in the Markdown, you may need to provide additional token scopes for labels, such as issues:read or pullrequests:read.",
     method: "POST",
@@ -13,4 +14,4 @@ export const markdownActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

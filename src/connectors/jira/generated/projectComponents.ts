@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const projectComponentsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const projectComponentsActions: Record<string, ActionDefinition> = {
   "projectComponents.findComponentsForProjects": {
     description: "Find components for projects. Returns a paginated list of all components in a project, including global (Compass) components when applicable.",
     method: "GET",
@@ -73,4 +74,4 @@ export const projectComponentsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

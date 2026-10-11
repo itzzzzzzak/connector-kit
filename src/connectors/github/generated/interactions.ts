@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const interactionsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const interactionsActions: Record<string, ActionDefinition> = {
   "interactions.getRestrictionsForOrg": {
     description: "Get interaction restrictions for an organization. Shows which type of GitHub user can interact with this organization and when the restriction expires. If there is no restrictions, you will see an empty response.",
     method: "GET",
@@ -135,4 +136,4 @@ export const interactionsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

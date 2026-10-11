@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const partnerAttachmentsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const partnerAttachmentsActions: Record<string, ActionDefinition> = {
   "partnerAttachments.list": {
     description: "List all partner attachments. To list all of the Partner Attachments on your account, send a GET request to /v2/partnernetworkconnect/attachments.",
     method: "GET",
@@ -81,4 +82,4 @@ export const partnerAttachmentsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

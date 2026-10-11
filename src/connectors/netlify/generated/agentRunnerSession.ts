@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const agentRunnerSessionActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const agentRunnerSessionActions: Record<string, ActionDefinition> = {
   "agentRunnerSession.listAgentRunnerSessions": {
     description: "List agent runner sessions Calls GET /agentrunners/{agentrunnerid}/sessions on Netlify.",
     method: "GET",
@@ -50,4 +51,4 @@ export const agentRunnerSessionActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

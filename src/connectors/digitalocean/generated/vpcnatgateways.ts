@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const vpcnatgatewaysActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const vpcnatgatewaysActions: Record<string, ActionDefinition> = {
   "vpcnatgateways.list": {
     description: "List All VPC NAT Gateways. To list all VPC NAT gateways in your team, send a GET request to /v2/vpcnatgateways. The response body will be a JSON object with a key of vpcnatgateways containing an array of VPC NAT gateway objects. These each contain the standard VPC NAT gateway attributes.",
     method: "GET",
@@ -47,4 +48,4 @@ export const vpcnatgatewaysActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

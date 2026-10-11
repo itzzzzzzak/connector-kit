@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const foldersActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const foldersActions: Record<string, ActionDefinition> = {
   "folders.createFolder": {
     description: "Create folder. Part of: Folders. Calls POST /space/{spaceid}/folder on ClickUp.",
     method: "POST",
@@ -53,4 +54,4 @@ export const foldersActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

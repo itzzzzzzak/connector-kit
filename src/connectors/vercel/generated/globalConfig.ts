@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const globalConfigActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const globalConfigActions: Record<string, ActionDefinition> = {
   "globalConfig.getEdgeConfigs": {
     description: "Get edge configs. Part of: global-config. Calls GET /v1/global-config on Vercel.",
     method: "GET",
@@ -163,4 +164,4 @@ export const globalConfigActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

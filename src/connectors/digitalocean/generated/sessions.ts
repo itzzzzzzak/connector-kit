@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const sessionsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const sessionsActions: Record<string, ActionDefinition> = {
   "sessions.list": {
     description: "List Sessions. Returns the sessions you can see, newest first. Offset-paged with page and perpage; enduserid filters to one actor.",
     method: "GET",
@@ -39,4 +40,4 @@ export const sessionsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

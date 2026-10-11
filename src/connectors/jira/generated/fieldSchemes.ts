@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const fieldSchemesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const fieldSchemesActions: Record<string, ActionDefinition> = {
   "fieldSchemes.getFieldAssociationSchemes": {
     description: "Get field schemes. REST endpoint for retrieving a paginated list of field association schemes with optional filtering.",
     method: "GET",
@@ -135,4 +136,4 @@ export const fieldSchemesActions = {
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

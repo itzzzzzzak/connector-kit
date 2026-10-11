@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const sshKeysActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const sshKeysActions: Record<string, ActionDefinition> = {
   "sshKeys.list": {
     description: "List All SSH Keys. To list all of the keys in your account, send a GET request to /v2/account/keys. The response will be a JSON object with a key set to sshkeys. The value of this will be an array of sshkey objects, each of which contains the standard sshkey attributes.",
     method: "GET",
@@ -47,4 +48,4 @@ export const sshKeysActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

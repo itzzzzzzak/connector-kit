@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const environmentActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const environmentActions: Record<string, ActionDefinition> = {
   "environment.listSharedEnvVariable": {
     description: "List shared env variable. Part of: environment. Calls GET /v1/env on Vercel.",
     method: "GET",
@@ -107,4 +108,4 @@ export const environmentActions = {
     buildQuery: (i) => pick(i, ["teamId","slug"]),
     buildBody: (i) => pick(i, ["deleteUnassignedEnvironmentVariables"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

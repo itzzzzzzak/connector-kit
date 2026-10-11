@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const filterSharingActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const filterSharingActions: Record<string, ActionDefinition> = {
   "filterSharing.getDefaultShareScope": {
     description: "Get default share scope. Returns the default sharing settings for new filters and dashboards for a user.",
     method: "GET",
@@ -53,4 +54,4 @@ export const filterSharingActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

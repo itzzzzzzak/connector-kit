@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const subscriptionTypesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const subscriptionTypesActions: Record<string, ActionDefinition> = {
   "subscriptionTypes.attachSubscriptionTypeToContact": {
     description: "Add subscription to a contact. You can add a specific subscription to a contact. In Intercom, we have two different subscription types based on user consent - opt-out and opt-in:",
     method: "POST",
@@ -29,4 +30,4 @@ export const subscriptionTypesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

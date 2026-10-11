@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const reposActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const reposActions: Record<string, ActionDefinition> = {
   "repos.listForOrg": {
     description: "List organization repositories. Lists repositories for the specified organization.",
     method: "GET",
@@ -1655,4 +1656,4 @@ export const reposActions = {
     effect: "read",
     paginate: linkHeaderPagination(),
   },
-} satisfies Record<string, ActionDefinition>
+}

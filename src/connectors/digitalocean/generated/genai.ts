@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const genaiActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const genaiActions: Record<string, ActionDefinition> = {
   "genai.listAgents": {
     description: "List Agents. To list all agents, send a GET request to /v2/gen-ai/agents.",
     method: "GET",
@@ -1183,4 +1184,4 @@ export const genaiActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

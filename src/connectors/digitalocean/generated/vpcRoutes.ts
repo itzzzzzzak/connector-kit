@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const vpcRoutesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const vpcRoutesActions: Record<string, ActionDefinition> = {
   "vpcRoutes.list": {
     description: "List VPC Routes. To list the read-only VPC-scoped routes for a VPC, send a GET request to /v2/vpcs/$VPCUUID/routes. VPC-scoped routes cannot be created, updated, or deleted through the public API.",
     method: "GET",
@@ -15,4 +16,4 @@ export const vpcRoutesActions = {
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "routes", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const goalRelationshipsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const goalRelationshipsActions: Record<string, ActionDefinition> = {
   "goalRelationships.getGoalRelationship": {
     description: "Get a goal relationship. Returns the complete updated goal relationship record for a single goal relationship.",
     method: "GET",
@@ -54,4 +55,4 @@ export const goalRelationshipsActions = {
     buildQuery: (i) => pick(i, ["opt_pretty"]),
     buildBody: (i) => pick(i, ["data"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

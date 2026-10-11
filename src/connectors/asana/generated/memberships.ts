@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const membershipsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const membershipsActions: Record<string, ActionDefinition> = {
   "memberships.getMemberships": {
     description: "Get multiple memberships. Returns compact goalmembership, projectmembership, portfoliomembership, customtypemembership, or customfieldmembership records. The possible types for parent in this request are goal, project, portfolio, customtype, or customfield. An additional member (user GID or team GID) can be passed in to filter to a specific membership.",
     method: "GET",
@@ -52,4 +53,4 @@ export const membershipsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

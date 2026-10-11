@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const projectPropertiesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const projectPropertiesActions: Record<string, ActionDefinition> = {
   "projectProperties.getProjectPropertyKeys": {
     description: "Get project property keys. Returns all project property keys for the project.",
     method: "GET",
@@ -38,4 +39,4 @@ export const projectPropertiesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

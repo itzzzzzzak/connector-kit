@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const tagsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const tagsActions: Record<string, ActionDefinition> = {
   "tags.createEntityTypeByIdChangeTags": {
     description: "Create entity type by id change tags. Part of: Tags. Calls POST /{entitytype}/{id}/changetags on PagerDuty.",
     method: "POST",
@@ -64,4 +65,4 @@ export const tagsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

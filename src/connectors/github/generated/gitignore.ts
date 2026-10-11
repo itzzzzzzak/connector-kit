@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const gitignoreActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const gitignoreActions: Record<string, ActionDefinition> = {
   "gitignore.getAllTemplates": {
     description: "Get all gitignore templates. List all templates available to pass as an option when creating a repository.",
     method: "GET",
@@ -21,4 +22,4 @@ export const gitignoreActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

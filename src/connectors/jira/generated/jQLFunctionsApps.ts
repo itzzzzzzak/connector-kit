@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const jQLFunctionsAppsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const jQLFunctionsAppsActions: Record<string, ActionDefinition> = {
   "jQLFunctionsApps.getPrecomputations": {
     description: "Get precomputations (apps). Returns the list of a function's precomputations along with information about when they were created, updated, and last used. Each precomputation has a value \\- the JQL fragment to replace the custom function clause with.",
     method: "GET",
@@ -36,4 +37,4 @@ export const jQLFunctionsAppsActions = {
     buildQuery: (i) => pick(i, ["orderBy"]),
     buildBody: (i) => pick(i, ["precomputationIDs"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

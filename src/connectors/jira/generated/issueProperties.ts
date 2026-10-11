@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const issuePropertiesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issuePropertiesActions: Record<string, ActionDefinition> = {
   "issueProperties.bulkSetIssuesPropertiesList": {
     description: "Bulk set issues properties by list. Sets or updates a list of entity property values on issues. A list of up to 10 entity properties can be specified along with up to 10,000 issues on which to set or update that list of entity properties.",
     method: "POST",
@@ -72,4 +73,4 @@ export const issuePropertiesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

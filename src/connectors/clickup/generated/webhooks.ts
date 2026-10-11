@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const webhooksActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const webhooksActions: Record<string, ActionDefinition> = {
   "webhooks.getWebhooks": {
     description: "Get webhooks. Part of: Webhooks. Calls GET /team/{teamid}/webhook on ClickUp.",
     method: "GET",
@@ -37,4 +38,4 @@ export const webhooksActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

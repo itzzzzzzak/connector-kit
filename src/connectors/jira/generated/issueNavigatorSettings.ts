@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const issueNavigatorSettingsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueNavigatorSettingsActions: Record<string, ActionDefinition> = {
   "issueNavigatorSettings.getIssueNavigatorDefaultColumns": {
     description: "Get issue navigator default columns. Returns the default issue navigator columns.",
     method: "GET",
@@ -13,4 +14,4 @@ export const issueNavigatorSettingsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

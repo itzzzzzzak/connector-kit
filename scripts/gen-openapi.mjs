@@ -14,9 +14,46 @@ if (!configPath) {
 }
 const config = JSON.parse(readFileSync(configPath, "utf8"))
 const localSpec = rest[0] === "--spec" ? rest[1] : undefined
-const specText = localSpec ? readFileSync(localSpec, "utf8") : await (await fetch(config.spec)).text()
-const spec = specText.trimStart().startsWith("{") ? JSON.parse(specText) : parseYaml(specText)
-const swagger2 = typeof spec.swagger === "string"
+// One or several specifications feed one connector (e.g. HubSpot publishes one per API). Each may set `serverPath`
+// (when its paths are relative to a different base than the spec says), `verbSuffix` (to tell two API generations apart)
+// and `bundleRemoteRefs` (Mailchimp splits its description into one file per path).
+const specDefs = config.specs ?? [{ url: config.spec }]
+let spec
+let swagger2
+const remoteCache = new Map()
+async function inlineRemoteRefs(node, depth = 0) {
+  if (!node || typeof node !== "object") return node
+  if (typeof node.$ref === "string" && /^https:\/\//.test(node.$ref)) {
+    if (depth > 3) return {}
+    let url = node.$ref
+    for (const [from, to] of config.rewriteRemote ?? []) url = url.replace(new RegExp(from), to)
+    if (!remoteCache.has(url)) remoteCache.set(url, (async () => {
+      for (let attempt = 0; attempt < 6; attempt++) {
+        const r = await fetch(url)
+        if (r.ok) return await r.json()
+        await new Promise((resolve) => setTimeout(resolve, 500 * (attempt + 1) ** 2))
+      }
+      throw new Error(`could not fetch ${url}`) // never silently drop part of an API
+    })())
+    return inlineRemoteRefs(await remoteCache.get(url), depth + 1)
+  }
+  if (Array.isArray(node)) return Promise.all(node.map((n) => inlineRemoteRefs(n, depth)))
+  const out = {}
+  for (const [k, v] of Object.entries(node)) out[k] = await inlineRemoteRefs(v, depth)
+  return out
+}
+async function loadSpec(def) {
+  const text = localSpec ? readFileSync(localSpec, "utf8") : await (await fetch(def.url)).text()
+  let parsed = text.trimStart().startsWith("{") ? JSON.parse(text) : parseYaml(text)
+  if (def.bundleRemoteRefs) {
+    // Resolve the path files (and the definitions they point to) from the web, a few at a time.
+    const entries = Object.entries(parsed.paths)
+    const resolved = {}
+    for (let i = 0; i < entries.length; i += 3) await Promise.all(entries.slice(i, i + 3).map(async ([p, item]) => { resolved[p] = await inlineRemoteRefs(item) }))
+    parsed = { ...parsed, paths: resolved }
+  }
+  return parsed
+}
 // "spec" copies the provider's own summaries (only for permissively licensed specs). "derived" writes our own short
 // description from the operation name, tag and path, and leaves out parameter descriptions: used when the spec's license is
 // absent or restrictive, so no provider text is copied.
@@ -87,11 +124,13 @@ const norm = (m, p) => `${m.toUpperCase()} ${p.replace(/\{[^}]+\}/g, "{}")}`
 
 // ---------------------------------------------------------------- base path: connector base URL vs. the spec's server
 const connectorBasePath = new URL(/baseUrl:\s*"([^"]+)"/.exec(connectorSource)[1].replace(/\{[^}]+\}/g, "x")).pathname.replace(/\/$/, "")
-const serverPath = (() => {
+let serverPath = ""
+const computeServerPath = (def) => {
+  if (def.serverPath !== undefined) return def.serverPath
   if (swagger2) return (spec.basePath ?? "").replace(/\/$/, "")
   const url = spec.servers?.[0]?.url ?? ""
   try { return new URL(url.replace(/\{[^}]+\}/g, "x")).pathname.replace(/\/$/, "") } catch { return "" }
-})()
+}
 const relativePath = (specPath) => {
   const full = serverPath + specPath
   if (full === connectorBasePath) return "/"
@@ -136,9 +175,16 @@ const isComplexQuery = (p) => {
   return false
 }
 const METHODS = ["get", "post", "put", "patch", "delete"]
+const used = new Set(handNames)
+const seenSignatures = new Set() // method + path already generated from an earlier specification
+const groups = new Map()
 const excluded = new Set(config.exclude ?? [])
 const dropParams = new Set(config.dropParams ?? [])
 const skipped = { oddPath: 0, complexQuery: 0, deprecated: 0, nonJsonBody: 0, handWritten: 0, outsideBase: 0, requiredHeader: 0, noId: 0 }
+async function processSpec(def) {
+spec = await loadSpec(def)
+swagger2 = typeof spec.swagger === "string"
+serverPath = computeServerPath(def)
 const ops = []
 for (const [path, item] of Object.entries(spec.paths)) {
   for (const method of METHODS) {
@@ -149,6 +195,8 @@ for (const [path, item] of Object.entries(spec.paths)) {
     if (rel === null) { skipped.outsideBase++; continue }
     if (excluded.has(`${method.toUpperCase()} ${path}`) || handSignatures.has(norm(method, rel))) { skipped.handWritten++; continue }
     if (op.deprecated) { skipped.deprecated++; continue }
+    if (seenSignatures.has(norm(method, rel))) { skipped.duplicate = (skipped.duplicate ?? 0) + 1; continue }
+    seenSignatures.add(norm(method, rel))
     const params = [...(item.parameters ?? []), ...(op.parameters ?? [])].map(resolveRef).filter(Boolean)
     // A query parameter that is an object (deepObject style) cannot be sent by the kit: skip it, or the whole operation when it is required.
     const isObj = isComplexQuery
@@ -178,14 +226,26 @@ for (const [path, item] of Object.entries(spec.paths)) {
   }
 }
 
-const used = new Set(handNames)
-const groups = new Map()
 for (const { path, rel, method, op, params: allParams, bodySchema, bodyRequired, formFields } of ops) {
   // ---- name: group.verb
   const id = String(op.operationId ?? "")
   let groupWords, verbWords
-  const sep = /^([A-Za-z0-9-]+)[/_](.+)$/.exec(id)
-  if (sep && !/\s/.test(id)) { groupWords = sep[1]; verbWords = sep[2] }
+  if (config.naming === "path") {
+    // For providers whose operation ids are generic or are just "method-path" (HubSpot): name from the path.
+    const segs = rel.split("/").filter(Boolean)
+    const isParam = (x) => x.startsWith("{")
+    const isNoise = (x) => /^v\d+$/.test(x) || /^\d{4}-\d{2}(-beta)?$/.test(x) || x === "api"
+    const stat = segs.filter((x) => !isParam(x) && !isNoise(x))
+    const trailingParam = segs.length > 0 && isParam(segs[segs.length - 1])
+    const g = stat[1] === "objects" && stat[2] ? [stat[0], stat[2]] : stat.slice(0, 2)
+    groupWords = g.join(" ") || "misc"
+    const tail = stat.slice(g.length === 2 && stat[1] === "objects" ? 3 : g.length)
+    const prefix = { get: trailingParam ? "get" : "list", post: "create", put: "replace", patch: "update", delete: "delete" }[method]
+    verbWords = `${prefix} ${tail.join(" ")}${trailingParam && !tail.length ? "" : ""}`
+  }
+  const sep = config.naming === "path" ? null : /^([A-Za-z0-9-]+)[/_](.+)$/.exec(id)
+  if (config.naming === "path") { /* names set above */ }
+  else if (sep && !/\s/.test(id)) { groupWords = sep[1]; verbWords = sep[2] }
   else {
     groupWords = op.tags?.[0] ?? rel.split("/").filter((s) => s && !s.startsWith("{"))[0] ?? "misc"
     verbWords = id || `${method}${rel.split("/").filter((s) => s && !s.startsWith("{")).slice(-2).join(" ")}`
@@ -195,12 +255,14 @@ for (const { path, rel, method, op, params: allParams, bodySchema, bodyRequired,
   let verb = camel(verbWords) || method
   group = fit(group, 30)
   const maxVerb = 64 - (config.name.length + 1 + group.length + 1)
-  verb = fit(verb, maxVerb)
+  verb = fit(verb + (def.verbSuffix ?? ""), maxVerb)
   let name = `${group}.${verb}`
   for (let n = 2; used.has(name); n++) name = `${group}.${(verb + n).length <= maxVerb ? verb + n : verb.slice(0, Math.max(1, maxVerb - String(n).length)) + n}`
   used.add(name)
 
-  const params = allParams.filter((p) => (p.in === "path" || p.in === "query") && !dropParams.has(p.name) && !isComplexQuery(p))
+  const params = allParams.filter((p) => (p.in === "path" || p.in === "query") && !dropParams.has(p.name) && !isComplexQuery(p) && (p.in !== "path" || rel.includes(`{${p.name}}`)))
+  // A placeholder the specification forgot to declare is still a required string.
+  for (const [, ph] of rel.matchAll(/\{(\w+)\}/g)) if (!params.some((p) => p.in === "path" && p.name === ph)) params.push({ in: "path", name: ph, required: true, schema: { type: "string" }, type: "string" })
   const fields = new Map() // input name -> { zod, required, where, wire }
   const add = (key, entry) => { if (!fields.has(key)) fields.set(key, entry) }
 
@@ -300,11 +362,13 @@ for (const { path, rel, method, op, params: allParams, bodySchema, bodyRequired,
   list.push(`  ${q(name)}: {\n${lines.map((l) => `    ${l},`).join("\n")}\n  },`)
   groups.set(group, list)
 }
+}
+for (const def of specDefs) await processSpec(def)
 
 // ---------------------------------------------------------------- write files
 rmSync(outDir, { recursive: true, force: true })
 mkdirSync(outDir, { recursive: true })
-const header = `// GENERATED by scripts/gen-openapi.mjs from ${config.spec}\n// Source license: ${config.license}\n// Do not edit by hand: change scripts/openapi/${config.name}.json or the generator, then re-run it.\n`
+const header = `// GENERATED by scripts/gen-openapi.mjs from ${specDefs.map((d) => d.url).join(", ")}\n// Source license: ${config.license}\n// Do not edit by hand: change scripts/openapi/${config.name}.json or the generator, then re-run it.\n`
 const names = [...groups.keys()].sort()
 for (const group of names) {
   const text = groups.get(group).join("\n")
@@ -313,7 +377,7 @@ for (const group of names) {
   else if (/pick\(/.test(text)) imports.push(`import { pick } from "../../../openapi-helpers.js"`)
   const strategies = [...new Set((config.pagination ?? []).map((r) => r.import).filter((n) => text.includes(`paginate: ${n}(`)))]
   if (strategies.length > 0) imports.push(`import { ${strategies.join(", ")} } from "../../../index.js"`)
-  writeFileSync(`${outDir}/${group}.ts`, `${header}${imports.join("\n")}\n\nexport const ${group}Actions = {\n${text}\n} satisfies Record<string, ActionDefinition>\n`)
+  writeFileSync(`${outDir}/${group}.ts`, `${header}${imports.join("\n")}\n\n// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.\nexport const ${group}Actions: Record<string, ActionDefinition> = {\n${text}\n}\n`)
 }
 writeFileSync(
   `${outDir}/index.ts`,

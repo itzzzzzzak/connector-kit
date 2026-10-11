@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const projectPermissionSchemesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const projectPermissionSchemesActions: Record<string, ActionDefinition> = {
   "projectPermissionSchemes.getProjectIssueSecurityScheme": {
     description: "Get project issue security scheme. Returns the issue security scheme associated with the project.",
     method: "GET",
@@ -40,4 +41,4 @@ export const projectPermissionSchemesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

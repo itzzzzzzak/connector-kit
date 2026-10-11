@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const workflowsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const workflowsActions: Record<string, ActionDefinition> = {
   "workflows.readWorkflowFromHistory": {
     description: "Read workflow version from history. Returns a workflow and related statuses for a specified workflow id and version number.",
     method: "POST",
@@ -136,4 +137,4 @@ export const workflowsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

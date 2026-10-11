@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const issueWatchersActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueWatchersActions: Record<string, ActionDefinition> = {
   "issueWatchers.getIsWatchingIssueBulk": {
     description: "Get is watching issue bulk. Returns, for the user, details of the watched status of issues from a list. If an issue ID is invalid, the returned watched status is false.",
     method: "POST",
@@ -38,4 +39,4 @@ export const issueWatchersActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

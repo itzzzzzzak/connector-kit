@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const enrichmentSchemasActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const enrichmentSchemasActions: Record<string, ActionDefinition> = {
   "enrichmentSchemas.queryEnrichmentData": {
     description: "Query enrichment data. Part of: Enrichment Schemas. Calls POST /enrichment/query on PagerDuty.",
     method: "POST",
@@ -72,4 +73,4 @@ export const enrichmentSchemasActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

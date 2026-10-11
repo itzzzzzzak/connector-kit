@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const databasesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const databasesActions: Record<string, ActionDefinition> = {
   "databases.listOptions": {
     description: "List Database Options. To list all of the options available for the offered database engines, send a GET request to /v2/databases/options. The result will be a JSON object with an options key.",
     method: "GET",
@@ -573,4 +574,4 @@ export const databasesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const rateLimitActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const rateLimitActions: Record<string, ActionDefinition> = {
   "rateLimit.get": {
     description: "Get rate limit status for the authenticated user. [!NOTE] Accessing this endpoint does not count against your REST API rate limit.",
     method: "GET",
@@ -13,4 +14,4 @@ export const rateLimitActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

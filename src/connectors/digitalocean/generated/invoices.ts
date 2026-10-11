@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const invoicesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const invoicesActions: Record<string, ActionDefinition> = {
   "invoices.list": {
     description: "List All Invoices. To retrieve a list of all invoices, send a GET request to /v2/customers/my/invoices.",
     method: "GET",
@@ -48,4 +49,4 @@ export const invoicesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

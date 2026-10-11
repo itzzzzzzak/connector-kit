@@ -1,0 +1,71 @@
+{
+ "name": "zoom",
+ "title": "Zoom",
+ "descriptions": "derived",
+ "license": "none declared in the specifications; descriptions are written by this project",
+ "specs": [
+  {
+   "url": "https://developers.zoom.us/api-hub/meetings/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/users/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/accounts/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/phone/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/contact-center/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/scheduler/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/rooms/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/marketplace/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/mail/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/calendar/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/clips/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/events/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/video-sdk/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/whiteboard/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/quality-management/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/number-management/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/virtual-agent/methods/endpoints.json"
+  },
+  {
+   "url": "https://developers.zoom.us/api-hub/chatbot/methods/endpoints.json"
+  }
+ ],
+ "pagination": [
+  {
+   "size": "page_size",
+   "cursor": "next_page_token",
+   "itemsKey": "auto",
+   "import": "bodyCursorPagination",
+   "call": "bodyCursorPagination({ itemsKey: \"{items}\", cursorPath: [\"next_page_token\"], cursorParam: \"next_page_token\", pageSizeParam: \"page_size\", defaultPageSize: 30, maxPageSize: 300 })"
+  }
+ ]
+}

@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const skillBasedRoutingActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const skillBasedRoutingActions: Record<string, ActionDefinition> = {
   "skillBasedRouting.listAgentAttributeValues": {
     description: "List agent attribute values. Part of: Skill Based Routing. Calls GET /routing/agents/{userid}/instancevalues on Zendesk.",
     method: "GET",
@@ -161,4 +162,4 @@ export const skillBasedRoutingActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

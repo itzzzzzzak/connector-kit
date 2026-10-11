@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const billingInsightsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const billingInsightsActions: Record<string, ActionDefinition> = {
   "billingInsights.list": {
     description: "List Billing Insights. This endpoint returns day-over-day changes in billing resource usage based on nightly invoice items, including total amount, region, SKU, and description for a specified date range. It is important to note that the daily resource usage may not reflect month-end billing totals when totaled for a given month as nightly invoice ite",
     method: "GET",
@@ -15,4 +16,4 @@ export const billingInsightsActions = {
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "data_points", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

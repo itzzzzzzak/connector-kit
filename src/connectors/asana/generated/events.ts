@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const eventsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const eventsActions: Record<string, ActionDefinition> = {
   "events.getEvents": {
     description: "Get events on a resource. Returns the full record for all events that have occurred since the sync token was created.",
     method: "GET",
@@ -13,4 +14,4 @@ export const eventsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

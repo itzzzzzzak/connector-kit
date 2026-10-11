@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const databaseDictionaryActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const databaseDictionaryActions: Record<string, ActionDefinition> = {
   "databaseDictionary.getNameDictionaryTablesTableName": {
     description: "Get admin databases database name dictionary tables table name. Part of: databasedictionary. Calls GET /admin/databases/{databasename}/dictionary/tables/{tablename} on GitLab.",
     method: "GET",
@@ -21,4 +22,4 @@ export const databaseDictionaryActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

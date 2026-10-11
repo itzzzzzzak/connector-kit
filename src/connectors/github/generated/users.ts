@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const usersActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const usersActions: Record<string, ActionDefinition> = {
   "users.getAuthenticated": {
     description: "Get the authenticated user. OAuth app tokens and personal access tokens (classic) need the read:user scope, or the broader user scope, for this endpoint to return the private user response. The private user response includes additional fields such as privategists, totalprivaterepos, ownedprivaterepos, diskusage, collaborators, and twofactorauthentication.",
     method: "GET",
@@ -404,4 +405,4 @@ export const usersActions = {
     effect: "read",
     paginate: linkHeaderPagination(),
   },
-} satisfies Record<string, ActionDefinition>
+}

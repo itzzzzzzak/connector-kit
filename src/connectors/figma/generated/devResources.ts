@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const devResourcesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const devResourcesActions: Record<string, ActionDefinition> = {
   "devResources.getDevResources": {
     description: "Get dev resources Calls GET /v1/files/{filekey}/devresources on Figma.",
     method: "GET",
@@ -37,4 +38,4 @@ export const devResourcesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

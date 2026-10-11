@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const groupAndUserPickerActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const groupAndUserPickerActions: Record<string, ActionDefinition> = {
   "groupAndUserPicker.findUsersAndGroups": {
     description: "Find users and groups. Returns a list of users and groups matching a string. The string is used:",
     method: "GET",
@@ -13,4 +14,4 @@ export const groupAndUserPickerActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

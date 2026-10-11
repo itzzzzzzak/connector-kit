@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const oidcActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const oidcActions: Record<string, ActionDefinition> = {
   "oidc.listOidcCustomPropertyInclusionsForEnterprise": {
     description: "List OIDC custom property inclusions for an enterprise. Lists the repository custom properties that are included in the OIDC token for repository actions in an enterprise.",
     method: "GET",
@@ -69,4 +70,4 @@ export const oidcActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

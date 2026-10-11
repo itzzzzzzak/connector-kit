@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const devServerActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const devServerActions: Record<string, ActionDefinition> = {
   "devServer.listSiteDevServers": {
     description: "List site dev servers Calls GET /sites/{siteid}/devservers on Netlify.",
     method: "GET",
@@ -57,4 +58,4 @@ export const devServerActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

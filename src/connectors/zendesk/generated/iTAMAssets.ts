@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const iTAMAssetsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const iTAMAssetsActions: Record<string, ActionDefinition> = {
   "iTAMAssets.listItamAssets": {
     description: "List itam assets. Part of: ITAM Assets. Calls GET /itassetmanagement/assets on Zendesk.",
     method: "GET",
@@ -76,4 +77,4 @@ export const iTAMAssetsActions = {
     buildQuery: (i) => pickAs(i, { query: "query", sort: "sort", page_before_: "page[before]", page_after_: "page[after]", page_size_: "page[size]" }),
     buildBody: (i) => i.body,
   },
-} satisfies Record<string, ActionDefinition>
+}

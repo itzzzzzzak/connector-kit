@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const loadBalancersActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const loadBalancersActions: Record<string, ActionDefinition> = {
   "loadBalancers.list": {
     description: "List All Load Balancers. To list all of the load balancer instances on your account, send a GET request to /v2/loadbalancers.",
     method: "GET",
@@ -92,4 +93,4 @@ export const loadBalancersActions = {
     effect: "destructive",
     buildBody: (i) => pick(i, ["forwarding_rules"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

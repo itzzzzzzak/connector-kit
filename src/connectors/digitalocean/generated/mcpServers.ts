@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const mcpServersActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const mcpServersActions: Record<string, ActionDefinition> = {
   "mcpServers.list": {
     description: "List MCP Servers. Returns every MCP server your team has registered, sorted by serverRef.",
     method: "GET",
@@ -69,4 +70,4 @@ export const mcpServersActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

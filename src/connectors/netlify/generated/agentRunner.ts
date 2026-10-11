@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const agentRunnerActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const agentRunnerActions: Record<string, ActionDefinition> = {
   "agentRunner.listAgentRunners": {
     description: "List agent runners Calls GET /agentrunners on Netlify.",
     method: "GET",
@@ -83,4 +84,4 @@ export const agentRunnerActions = {
     effect: "write",
     buildQuery: (i) => pick(i, ["target_branch"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const siteActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const siteActions: Record<string, ActionDefinition> = {
   "site.createSite": {
     description: "Note: Environment variable keys and values have moved from buildsettings.env and repo.env to a new endpoint. Please use createEnvVars to create environment…",
     method: "POST",
@@ -77,4 +78,4 @@ export const siteActions = {
     buildQuery: (i) => pick(i, ["configure_dns"]),
     buildBody: (i) => i.body,
   },
-} satisfies Record<string, ActionDefinition>
+}

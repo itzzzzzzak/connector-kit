@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const tagsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const tagsActions: Record<string, ActionDefinition> = {
   "tags.attachTagToContact": {
     description: "Add tag to a contact. You can tag a specific contact. This will return a tag object for the tag that was added to the contact.",
     method: "POST",
@@ -89,4 +90,4 @@ export const tagsActions = {
     effect: "destructive",
     buildBody: (i) => pick(i, ["admin_id"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

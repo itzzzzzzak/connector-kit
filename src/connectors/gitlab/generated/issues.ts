@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
-export const issuesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issuesActions: Record<string, ActionDefinition> = {
   "issues.getProjectsIdIssuesIssueIidLinks": {
     description: "Get projects id issues issue iid links. Part of: issues. Calls GET /projects/{id}/issues/{issueiid}/links on GitLab.",
     method: "GET",
@@ -128,4 +129,4 @@ export const issuesActions = {
     effect: "read",
     buildQuery: (i) => pickAs(i, { labels: "labels", milestone: "milestone", milestone_id: "milestone_id", iids: "iids", search: "search", in: "in", author_id: "author_id", author_username: "author_username", assignee_id: "assignee_id", assignee_username: "assignee_username", created_after: "created_after", created_before: "created_before", updated_after: "updated_after", updated_before: "updated_before", not_labels_: "not[labels]", not_milestone_: "not[milestone]", not_milestone_id_: "not[milestone_id]", not_iids_: "not[iids]", not_author_id_: "not[author_id]", not_author_username_: "not[author_username]", not_assignee_id_: "not[assignee_id]", not_assignee_username_: "not[assignee_username]", not_weight_: "not[weight]", not_iteration_id_: "not[iteration_id]", not_iteration_title_: "not[iteration_title]", scope: "scope", my_reaction_emoji: "my_reaction_emoji", confidential: "confidential", weight: "weight", epic_id: "epic_id", health_status: "health_status", iteration_id: "iteration_id", iteration_title: "iteration_title" }),
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const appsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const appsActions: Record<string, ActionDefinition> = {
   "apps.getAuthenticated": {
     description: "Get the authenticated app. Returns the GitHub App associated with the authentication credentials used. To see how many app installations are associated with this GitHub App, see the installationscount in the response. For more details about your app's installations, see the \"List installations for the authenticated app\" endpoint.",
     method: "GET",
@@ -313,4 +314,4 @@ export const appsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const workflowProjectAssociationsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const workflowProjectAssociationsActions: Record<string, ActionDefinition> = {
   "workflowProjectAssociations.getSchemeProjectAssociations": {
     description: "Get workflow scheme project associations. Returns a list of the workflow schemes associated with a list of projects. Each returned workflow scheme includes a list of the requested projects associated with it. Any team-managed or non-existent projects in the request are ignored and no errors are returned.",
     method: "GET",
@@ -21,4 +22,4 @@ export const workflowProjectAssociationsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

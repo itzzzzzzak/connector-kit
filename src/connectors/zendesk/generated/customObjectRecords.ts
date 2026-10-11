@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const customObjectRecordsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const customObjectRecordsActions: Record<string, ActionDefinition> = {
   "customObjectRecords.customObjectRecordBulkJobs": {
     description: "Custom object record bulk jobs. Part of: Custom Object Records. Calls POST /customobjects/{customobjectkey}/jobs on Zendesk.",
     method: "POST",
@@ -130,4 +131,4 @@ export const customObjectRecordsActions = {
     effect: "read",
     buildQuery: (i) => pickAs(i, { start_time: "start_time", cursor: "cursor", per_page: "per_page", filter_exclude_deleted_: "filter[exclude_deleted]" }),
   },
-} satisfies Record<string, ActionDefinition>
+}

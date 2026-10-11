@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const domainsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const domainsActions: Record<string, ActionDefinition> = {
   "domains.replaceDomainsByDomainRecords": {
     description: "Replace domains by domain records. Calls PUT /domains/{domain}/records on Vercel.",
     method: "PUT",
@@ -102,4 +103,4 @@ export const domainsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

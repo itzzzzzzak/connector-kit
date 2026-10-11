@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const usersActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const usersActions: Record<string, ActionDefinition> = {
   "users.list": {
     description: "List Users. Returns the user IDs known for your team: session actorid values, the userid of connections that are not revoked, and actors with limit overrides. Only sessions and connections you can see count. Offset-paged with page and perpage.",
     method: "GET",
@@ -23,4 +24,4 @@ export const usersActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

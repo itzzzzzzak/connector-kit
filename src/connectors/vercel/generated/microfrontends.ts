@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const microfrontendsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const microfrontendsActions: Record<string, ActionDefinition> = {
   "microfrontends.getMicrofrontendsGroups": {
     description: "Get microfrontends groups. Part of: microfrontends. Calls GET /v1/microfrontends/groups on Vercel.",
     method: "GET",
@@ -48,4 +49,4 @@ export const microfrontendsActions = {
     buildQuery: (i) => pick(i, ["teamId","slug"]),
     buildBody: (i) => pick(i, ["groupName","defaultApp","otherApplications"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

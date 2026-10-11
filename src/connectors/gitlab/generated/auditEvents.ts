@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const auditEventsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const auditEventsActions: Record<string, ActionDefinition> = {
   "auditEvents.getGroupsIdAuditEvents": {
     description: "Get groups id audit events. Part of: auditevents. Calls GET /groups/{id}/auditevents on GitLab.",
     method: "GET",
@@ -15,4 +16,4 @@ export const auditEventsActions = {
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

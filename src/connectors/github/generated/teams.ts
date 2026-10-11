@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const teamsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const teamsActions: Record<string, ActionDefinition> = {
   "teams.list": {
     description: "List teams. Lists all teams in an organization that are visible to the authenticated user.",
     method: "GET",
@@ -140,4 +141,4 @@ export const teamsActions = {
     effect: "read",
     paginate: linkHeaderPagination(),
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const imageActionsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const imageActionsActions: Record<string, ActionDefinition> = {
   "imageActions.list": {
     description: "List All Actions for an Image. To retrieve all actions that have been executed on an image, send a GET request to /v2/images/$IMAGEID/actions.",
     method: "GET",
@@ -30,4 +31,4 @@ export const imageActionsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

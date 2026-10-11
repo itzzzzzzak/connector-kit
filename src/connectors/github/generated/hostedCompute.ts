@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const hostedComputeActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const hostedComputeActions: Record<string, ActionDefinition> = {
   "hostedCompute.listNetworkConfigurationsForOrg": {
     description: "List hosted compute network configurations for an organization. Lists all hosted compute network configurations configured in an organization.",
     method: "GET",
@@ -53,4 +54,4 @@ export const hostedComputeActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

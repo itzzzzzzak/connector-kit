@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const dependencyGraphActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const dependencyGraphActions: Record<string, ActionDefinition> = {
   "dependencyGraph.diffRange": {
     description: "Get a diff of the dependencies between commits. Gets the diff of the dependency changes between two commits of a repository, based on the changes to the dependency manifests made in those commits.",
     method: "GET",
@@ -37,4 +38,4 @@ export const dependencyGraphActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

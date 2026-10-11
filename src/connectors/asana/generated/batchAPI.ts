@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const batchAPIActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const batchAPIActions: Record<string, ActionDefinition> = {
   "batchAPI.createBatchRequest": {
     description: "Submit parallel requests. Make multiple requests in parallel to Asana's API.",
     method: "POST",
@@ -16,4 +17,4 @@ export const batchAPIActions = {
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
     buildBody: (i) => pick(i, ["data"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const screensActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const screensActions: Record<string, ActionDefinition> = {
   "screens.getScreensForField": {
     description: "Get screens for a field. Returns a paginated list of the screens a field is used in.",
     method: "GET",
@@ -64,4 +65,4 @@ export const screensActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

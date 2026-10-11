@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const workflowSchemeDraftsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const workflowSchemeDraftsActions: Record<string, ActionDefinition> = {
   "workflowSchemeDrafts.createWorkflowSchemeDraftFromParent": {
     description: "Create draft workflow scheme. Create a draft workflow scheme from an active workflow scheme, by copying the active workflow scheme. Note that an active workflow scheme can only have one draft workflow scheme.",
     method: "POST",
@@ -124,4 +125,4 @@ export const workflowSchemeDraftsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const vpcSubnetsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const vpcSubnetsActions: Record<string, ActionDefinition> = {
   "vpcSubnets.list": {
     description: "List VPC Subnets. To list all subnets within a VPC, send a GET request to /v2/vpcs/$VPCUUID/subnets.",
     method: "GET",
@@ -56,4 +57,4 @@ export const vpcSubnetsActions = {
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "members", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const issueTypeScreenSchemesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueTypeScreenSchemesActions: Record<string, ActionDefinition> = {
   "issueTypeScreenSchemes.getIssueTypeScreenSchemes": {
     description: "Get issue type screen schemes. Returns a paginated list of issue type screen schemes.",
     method: "GET",
@@ -98,4 +99,4 @@ export const issueTypeScreenSchemesActions = {
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

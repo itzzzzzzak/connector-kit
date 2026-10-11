@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const projectPortfolioSettingsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const projectPortfolioSettingsActions: Record<string, ActionDefinition> = {
   "projectPortfolioSettings.getProjectPortfolioSetting": {
     description: "Get a project portfolio setting. Required scope: projectportfoliosettings:read",
     method: "GET",
@@ -43,4 +44,4 @@ export const projectPortfolioSettingsActions = {
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

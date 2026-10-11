@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const tagsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const tagsActions: Record<string, ActionDefinition> = {
   "tags.getTags": {
     description: "Get multiple tags. Required scope: tags:read Calls GET /tags on Asana.",
     method: "GET",
@@ -80,4 +81,4 @@ export const tagsActions = {
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
     buildBody: (i) => pick(i, ["data"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

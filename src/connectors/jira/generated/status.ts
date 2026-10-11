@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const statusActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const statusActions: Record<string, ActionDefinition> = {
   "status.getStatusesById": {
     description: "Bulk get statuses. Returns a list of the statuses specified by one or more status IDs.",
     method: "GET",
@@ -79,4 +80,4 @@ export const statusActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

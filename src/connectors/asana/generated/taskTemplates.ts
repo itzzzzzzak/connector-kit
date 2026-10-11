@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const taskTemplatesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const taskTemplatesActions: Record<string, ActionDefinition> = {
   "taskTemplates.getTaskTemplates": {
     description: "Get multiple task templates. Required scope: tasktemplates:read",
     method: "GET",
@@ -42,4 +43,4 @@ export const taskTemplatesActions = {
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
     buildBody: (i) => pick(i, ["data"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

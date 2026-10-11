@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const checksActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const checksActions: Record<string, ActionDefinition> = {
   "checks.create": {
     description: "Create a check run. Creates a new check run for a specific commit in a repository.",
     method: "POST",
@@ -105,4 +106,4 @@ export const checksActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

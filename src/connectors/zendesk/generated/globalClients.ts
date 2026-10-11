@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const globalClientsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const globalClientsActions: Record<string, ActionDefinition> = {
   "globalClients.listGlobalOAuthClients": {
     description: "List global oauth clients. Part of: Global Clients. Calls GET /oauth/globalclients on Zendesk.",
     method: "GET",
@@ -29,4 +30,4 @@ export const globalClientsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

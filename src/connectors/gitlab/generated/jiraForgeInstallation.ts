@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const jiraForgeInstallationActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const jiraForgeInstallationActions: Record<string, ActionDefinition> = {
   "jiraForgeInstallation.putIntegsJiraForgeInstall": {
     description: "Put integrations jira forge installation. Part of: jiraforgeinstallation. Calls PUT /integrations/jiraforge/installation on GitLab.",
     method: "PUT",
@@ -21,4 +22,4 @@ export const jiraForgeInstallationActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

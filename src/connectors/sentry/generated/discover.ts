@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { linkHeaderCursorPagination } from "../../../index.js"
 
-export const discoverActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const discoverActions: Record<string, ActionDefinition> = {
   "discover.listOrganizationDiscoverSavedQueries": {
     description: "List organization discover saved queries. Part of: Discover. Calls GET /organizations/{organizationidorslug}/discover/saved/ on Sentry.",
     method: "GET",
@@ -79,4 +80,4 @@ export const discoverActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const mergeRequestsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const mergeRequestsActions: Record<string, ActionDefinition> = {
   "mergeRequests.getGroupsIdMergeRequests": {
     description: "Get groups id merge requests. Part of: mergerequests. Calls GET /groups/{id}/mergerequests on GitLab.",
     method: "GET",
@@ -255,4 +256,4 @@ export const mergeRequestsActions = {
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
     buildQuery: (i) => pickAs(i, { author_id: "author_id", author_username: "author_username", assignee_id: "assignee_id", assignee_username: "assignee_username", reviewer_username: "reviewer_username", labels: "labels", milestone: "milestone", my_reaction_emoji: "my_reaction_emoji", reviewer_id: "reviewer_id", state: "state", order_by: "order_by", sort: "sort", with_labels_details: "with_labels_details", with_merge_status_recheck: "with_merge_status_recheck", created_after: "created_after", created_before: "created_before", updated_after: "updated_after", updated_before: "updated_before", merged_after: "merged_after", merged_before: "merged_before", view: "view", scope: "scope", source_branch: "source_branch", source_project_id: "source_project_id", target_branch: "target_branch", search: "search", in: "in", wip: "wip", draft: "draft", not_author_id_: "not[author_id]", not_author_username_: "not[author_username]", not_assignee_id_: "not[assignee_id]", not_assignee_username_: "not[assignee_username]", not_reviewer_username_: "not[reviewer_username]", not_labels_: "not[labels]", not_milestone_: "not[milestone]", not_my_reaction_emoji_: "not[my_reaction_emoji]", not_reviewer_id_: "not[reviewer_id]", deployed_before: "deployed_before", deployed_after: "deployed_after", environment: "environment", merge_user_id: "merge_user_id", merge_user_username: "merge_user_username", approver_ids: "approver_ids", approved_by_ids: "approved_by_ids", approved_by_usernames: "approved_by_usernames", non_archived: "non_archived" }),
   },
-} satisfies Record<string, ActionDefinition>
+}

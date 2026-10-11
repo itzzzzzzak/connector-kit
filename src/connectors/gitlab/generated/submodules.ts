@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const submodulesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const submodulesActions: Record<string, ActionDefinition> = {
   "submodules.putProjectsIdRepositorySubmodulesSubmodule": {
     description: "Put projects id repository submodules submodule. Part of: submodules. Calls PUT /projects/{id}/repository/submodules/{submodule} on GitLab.",
     method: "PUT",
@@ -13,4 +14,4 @@ export const submodulesActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

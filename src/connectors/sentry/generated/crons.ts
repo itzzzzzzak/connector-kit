@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const cronsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const cronsActions: Record<string, ActionDefinition> = {
   "crons.listOrganizationMonitors": {
     description: "List organization monitors. Part of: Crons. Calls GET /organizations/{organizationidorslug}/monitors/ on Sentry.",
     method: "GET",
@@ -85,4 +86,4 @@ export const cronsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

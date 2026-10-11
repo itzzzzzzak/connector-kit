@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const dropletActionsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const dropletActionsActions: Record<string, ActionDefinition> = {
   "dropletActions.list": {
     description: "List Actions for a Droplet. To retrieve a list of all actions that have been executed for a Droplet, send a GET request to /v2/droplets/$DROPLETID/actions.",
     method: "GET",
@@ -43,4 +44,4 @@ export const dropletActionsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

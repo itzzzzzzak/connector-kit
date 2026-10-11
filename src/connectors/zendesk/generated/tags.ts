@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const tagsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const tagsActions: Record<string, ActionDefinition> = {
   "tags.autocompleteTags": {
     description: "Autocomplete tags. Part of: Tags. Calls GET /autocomplete/tags on Zendesk.",
     method: "GET",
@@ -136,4 +137,4 @@ export const tagsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

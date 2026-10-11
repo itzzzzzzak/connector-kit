@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const volumeActionsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const volumeActionsActions: Record<string, ActionDefinition> = {
   "volumeActions.post": {
     description: "Initiate A Block Storage Action By Volume Name. To initiate an action on a block storage volume by Name, send a POST request to ~/v2/volumes/actions. The body should contain the appropriate attributes for the respective action.",
     method: "POST",
@@ -44,4 +45,4 @@ export const volumeActionsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

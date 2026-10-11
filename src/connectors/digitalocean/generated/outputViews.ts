@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const outputViewsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const outputViewsActions: Record<string, ActionDefinition> = {
   "outputViews.list": {
     description: "List Output Views. Returns the output views your team can use: views DigitalOcean publishes to every team, plus your team's own. Cursor-paged with pagesize and pagetoken; no total is reported.",
     method: "GET",
@@ -45,4 +46,4 @@ export const outputViewsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

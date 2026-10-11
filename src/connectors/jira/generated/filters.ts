@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const filtersActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const filtersActions: Record<string, ActionDefinition> = {
   "filters.createFilter": {
     description: "Create filter. Creates a filter. The filter is shared according to the default share scope. The filter is not selected as a favorite.",
     method: "POST",
@@ -117,4 +118,4 @@ export const filtersActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

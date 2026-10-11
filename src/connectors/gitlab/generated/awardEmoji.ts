@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const awardEmojiActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const awardEmojiActions: Record<string, ActionDefinition> = {
   "awardEmoji.getGroupsIdEpicsEpicIidAwardEmoji": {
     description: "Get groups id epics epic iid award emoji. Part of: awardemoji. Calls GET /groups/{id}/epics/{epiciid}/awardemoji on GitLab.",
     method: "GET",
@@ -270,4 +271,4 @@ export const awardEmojiActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

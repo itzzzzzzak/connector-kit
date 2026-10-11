@@ -1,5 +1,6 @@
 import { bodyCursorPagination, defineConnector } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from Pipedrive's official API v2 OpenAPI spec (developers.pipedrive.com/docs/api/v2/openapi.yaml): base URL
 // https://api.pipedrive.com/api/v2, the `x-api-token` header, `cursor`/`limit` pagination with the next cursor in
@@ -69,7 +70,7 @@ const pagination = () => bodyCursorPagination({ itemsKey: "data", cursorPath: ["
 
 export const pipedrive = defineConnector({
   name: "pipedrive",
-  baseUrl: "https://api.pipedrive.com/api/v2",
+  baseUrl: "https://api.pipedrive.com",
   auth: { type: "apiKey", header: "x-api-token" },
   meta: {
     title: "Pipedrive",
@@ -79,10 +80,13 @@ export const pipedrive = defineConnector({
     credentialEnv: "PIPEDRIVE_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "deals.list": {
       description: "List deals (sales opportunities), filtered by owner, person, organization, pipeline, stage or status. Use when the user asks about the pipeline or open deals. Returns one bounded page; pass nextCursor for more.",
       method: "GET",
-      path: "/deals",
+      path: "/api/v2/deals",
       input: z.object({
         owner_id: id.optional(),
         person_id: id.optional(),
@@ -101,7 +105,7 @@ export const pipedrive = defineConnector({
     "deals.get": {
       description: "Get one deal by id: title, value, stage, status, and the linked person and organization ids.",
       method: "GET",
-      path: "/deals/{id}",
+      path: "/api/v2/deals/{id}",
       input: z.object({ id }),
       output: envelope(deal),
       effect: "read",
@@ -109,7 +113,7 @@ export const pipedrive = defineConnector({
     "deals.create": {
       description: "Create a deal. This ADDS A RECORD to the user's Pipedrive: only use when they clearly asked. Needs a title; link it with person_id, org_id, pipeline_id and stage_id.",
       method: "POST",
-      path: "/deals",
+      path: "/api/v2/deals",
       input: z.object({
         title: z.string().min(1).max(500),
         value: z.number().optional(),
@@ -127,7 +131,7 @@ export const pipedrive = defineConnector({
     "deals.update": {
       description: "Update a deal: rename it, change its value, move its stage, or mark it won or lost. This CHANGES the user's Pipedrive: only use when they clearly asked.",
       method: "PATCH",
-      path: "/deals/{id}",
+      path: "/api/v2/deals/{id}",
       input: z.object({
         id,
         title: z.string().min(1).max(500).optional(),
@@ -146,7 +150,7 @@ export const pipedrive = defineConnector({
     "persons.list": {
       description: "List people (contacts), filtered by owner, organization or deal. Returns one bounded page; pass nextCursor for more.",
       method: "GET",
-      path: "/persons",
+      path: "/api/v2/persons",
       input: z.object({ owner_id: id.optional(), org_id: id.optional(), deal_id: id.optional(), updated_since: z.string().optional(), ...sort, ...paging }),
       output: z.array(person),
       effect: "read",
@@ -155,7 +159,7 @@ export const pipedrive = defineConnector({
     "persons.get": {
       description: "Get one person by id, with their emails, phone numbers and organization.",
       method: "GET",
-      path: "/persons/{id}",
+      path: "/api/v2/persons/{id}",
       input: z.object({ id }),
       output: envelope(person),
       effect: "read",
@@ -163,7 +167,7 @@ export const pipedrive = defineConnector({
     "persons.create": {
       description: "Create a person (contact). This ADDS A RECORD to the user's Pipedrive: only use when they clearly asked. Needs a name.",
       method: "POST",
-      path: "/persons",
+      path: "/api/v2/persons",
       input: z.object({
         name: z.string().min(1).max(500),
         emails: z.array(contactMethod).optional().describe('e.g. [{ "value": "ada@x.dev", "primary": true, "label": "work" }]'),
@@ -179,7 +183,7 @@ export const pipedrive = defineConnector({
     "organizations.list": {
       description: "List organizations (companies), filtered by owner. Returns one bounded page; pass nextCursor for more.",
       method: "GET",
-      path: "/organizations",
+      path: "/api/v2/organizations",
       input: z.object({ owner_id: id.optional(), updated_since: z.string().optional(), ...sort, ...paging }),
       output: z.array(organization),
       effect: "read",
@@ -188,7 +192,7 @@ export const pipedrive = defineConnector({
     "organizations.get": {
       description: "Get one organization by id: name, website, industry, size and address.",
       method: "GET",
-      path: "/organizations/{id}",
+      path: "/api/v2/organizations/{id}",
       input: z.object({ id }),
       output: envelope(organization),
       effect: "read",
@@ -196,7 +200,7 @@ export const pipedrive = defineConnector({
     "pipelines.list": {
       description: "List the sales pipelines. Use to find the pipeline_id (and then stages) for deals.",
       method: "GET",
-      path: "/pipelines",
+      path: "/api/v2/pipelines",
       input: z.object({ sort_by: sort.sort_by, sort_direction: sort.sort_direction, ...paging }),
       output: z.array(pipeline),
       effect: "read",

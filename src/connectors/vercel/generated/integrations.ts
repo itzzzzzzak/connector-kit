@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const integrationsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const integrationsActions: Record<string, ActionDefinition> = {
   "integrations.gitNamespaces": {
     description: "Git namespaces. Part of: integrations. Calls GET /v1/integrations/git-namespaces on Vercel.",
     method: "GET",
@@ -82,4 +83,4 @@ export const integrationsActions = {
     buildQuery: (i) => pick(i, ["teamId","slug"]),
     buildBody: (i) => pick(i, ["name","integrationConfigurationId","integrationProductIdOrSlug","metadata","externalId","protocolSettings","source","billingPlanId","paymentMethodId","prepaymentAmountCents"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

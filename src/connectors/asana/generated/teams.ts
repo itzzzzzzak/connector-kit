@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const teamsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const teamsActions: Record<string, ActionDefinition> = {
   "teams.createTeam": {
     description: "Create a team. Creates a team within the current workspace.",
     method: "POST",
@@ -73,4 +74,4 @@ export const teamsActions = {
     buildQuery: (i) => pick(i, ["opt_pretty"]),
     buildBody: (i) => pick(i, ["data"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

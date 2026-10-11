@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const edgeCacheActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const edgeCacheActions: Record<string, ActionDefinition> = {
   "edgeCache.invalidateByTags": {
     description: "Invalidate by tags. Part of: edge-cache. Calls POST /v1/edge-cache/invalidate-by-tags on Vercel.",
     method: "POST",
@@ -46,4 +47,4 @@ export const edgeCacheActions = {
     buildQuery: (i) => pick(i, ["projectIdOrName","teamId","slug"]),
     buildBody: (i) => pick(i, ["revalidationDeadlineSeconds","srcImages"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

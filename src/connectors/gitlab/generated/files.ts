@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
-export const filesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const filesActions: Record<string, ActionDefinition> = {
   "files.getProjectsIdRepositoryFilesFilePathBlame": {
     description: "Get projects id repository files file path blame. Part of: files. Calls GET /projects/{id}/repository/files/{filepath}/blame on GitLab.",
     method: "GET",
@@ -55,4 +56,4 @@ export const filesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

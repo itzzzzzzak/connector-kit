@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const byoipPrefixesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const byoipPrefixesActions: Record<string, ActionDefinition> = {
   "byoipPrefixes.list": {
     description: "List BYOIP Prefixes. To list all BYOIP prefixes, send a GET request to /v2/byoipprefixes. A successful response will return a list of all BYOIP prefixes associated with the account.",
     method: "GET",
@@ -56,4 +57,4 @@ export const byoipPrefixesActions = {
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "ips", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

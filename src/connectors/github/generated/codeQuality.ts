@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const codeQualityActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const codeQualityActions: Record<string, ActionDefinition> = {
   "codeQuality.listFindingsForRepo": {
     description: "List code quality findings for a repository. Lists code quality findings for a repository.",
     method: "GET",
@@ -38,4 +39,4 @@ export const codeQualityActions = {
     effect: "write",
     buildBody: (i) => i.body,
   },
-} satisfies Record<string, ActionDefinition>
+}

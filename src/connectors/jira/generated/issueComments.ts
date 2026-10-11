@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const issueCommentsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueCommentsActions: Record<string, ActionDefinition> = {
   "issueComments.getCommentsByIds": {
     description: "Get comments by IDs. Returns a paginated list of comments specified by a list of comment IDs.",
     method: "POST",
@@ -52,4 +53,4 @@ export const issueCommentsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const myselfActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const myselfActions: Record<string, ActionDefinition> = {
   "myself.getPreference": {
     description: "Get preference. Returns the value of a preference of the current user.",
     method: "GET",
@@ -40,4 +41,4 @@ export const myselfActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

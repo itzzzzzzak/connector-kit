@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const dedicatedInferencesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const dedicatedInferencesActions: Record<string, ActionDefinition> = {
   "dedicatedInferences.get": {
     description: "Get a Dedicated Inference. Retrieve an existing Dedicated Inference by ID. Send a GET request to /v2/dedicated-inferences/{dedicatedinferenceid}. The status in the response is one of active, new, provisioning, updating, deleting, or error.",
     method: "GET",
@@ -113,4 +114,4 @@ export const dedicatedInferencesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

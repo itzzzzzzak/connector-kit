@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const copilotActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const copilotActions: Record<string, ActionDefinition> = {
   "copilot.copilotEnterpriseOneDayUsageMetrics": {
     description: "Get Copilot enterprise usage metrics for a specific day. Use this endpoint to retrieve download links for the Copilot enterprise usage metrics report for a specific day. The report provides comprehensive usage data for Copilot features across the enterprise.",
     method: "GET",
@@ -258,4 +259,4 @@ export const copilotActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

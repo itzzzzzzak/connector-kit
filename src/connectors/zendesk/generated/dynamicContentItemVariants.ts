@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const dynamicContentItemVariantsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const dynamicContentItemVariantsActions: Record<string, ActionDefinition> = {
   "dynamicContentItemVariants.dynamicContentListVariants": {
     description: "Dynamic content list variants. Part of: Dynamic Content Item Variants. Calls GET /dynamiccontent/items/{dynamiccontentitemid}/variants on Zendesk.",
     method: "GET",
@@ -61,4 +62,4 @@ export const dynamicContentItemVariantsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

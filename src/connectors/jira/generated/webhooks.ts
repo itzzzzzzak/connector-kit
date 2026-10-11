@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const webhooksActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const webhooksActions: Record<string, ActionDefinition> = {
   "webhooks.getDynamicWebhooksForApp": {
     description: "Get dynamic webhooks for app. Returns a paginated list of the webhooks registered by the calling app.",
     method: "GET",
@@ -49,4 +50,4 @@ export const webhooksActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

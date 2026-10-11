@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const userActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const userActions: Record<string, ActionDefinition> = {
   "user.listUserEvents": {
     description: "List user events. Part of: user. Calls GET /v3/events on Vercel.",
     method: "GET",
@@ -33,4 +34,4 @@ export const userActions = {
     effect: "destructive",
     buildBody: (i) => pick(i, ["reasons"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

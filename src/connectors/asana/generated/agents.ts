@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const agentsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const agentsActions: Record<string, ActionDefinition> = {
   "agents.getAgentsForWorkspace": {
     description: "Get a list of agents in a workspace. Returns the compact records of agents (AI Teammates) configured. Use optfields to request additional fields in the workspace.",
     method: "GET",
@@ -23,4 +24,4 @@ export const agentsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

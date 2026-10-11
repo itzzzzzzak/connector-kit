@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const spikeProtectionActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const spikeProtectionActions: Record<string, ActionDefinition> = {
   "spikeProtection.listOrganizationNotificationsActions": {
     description: "List organization notifications actions. Part of: Spike Protection. Calls GET /organizations/{organizationidorslug}/notifications/actions/ on Sentry.",
     method: "GET",
@@ -45,4 +46,4 @@ export const spikeProtectionActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

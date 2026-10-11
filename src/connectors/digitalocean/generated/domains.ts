@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const domainsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const domainsActions: Record<string, ActionDefinition> = {
   "domains.create": {
     description: "Create a New Domain. To create a new domain, send a POST request to /v2/domains. Set the \"name\" attribute to the domain name you are adding. Optionally, you may set the \"ipaddress\" attribute, and an A record will be automatically created pointing to the apex domain.",
     method: "POST",
@@ -70,4 +71,4 @@ export const domainsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

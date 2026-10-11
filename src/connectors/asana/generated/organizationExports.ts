@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const organizationExportsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const organizationExportsActions: Record<string, ActionDefinition> = {
   "organizationExports.createOrganizationExport": {
     description: "Create an organization export request. This method creates a request to export an Organization. Asana will complete the export at some point after you create the request.",
     method: "POST",
@@ -24,4 +25,4 @@ export const organizationExportsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const apiKeysActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const apiKeysActions: Record<string, ActionDefinition> = {
   "apiKeys.createApiKeys": {
     description: "Create api keys. Calls POST /api-keys on Vercel.",
     method: "POST",
@@ -13,4 +14,4 @@ export const apiKeysActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

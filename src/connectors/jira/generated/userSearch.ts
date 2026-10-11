@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const userSearchActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const userSearchActions: Record<string, ActionDefinition> = {
   "userSearch.findBulkAssignableUsers": {
     description: "Find users assignable to projects. Returns a list of users who can be assigned issues in one or more projects. The list may be restricted to users whose attributes match a string.",
     method: "GET",
@@ -71,4 +72,4 @@ export const userSearchActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

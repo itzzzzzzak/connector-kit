@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const extensionSchemasActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const extensionSchemasActions: Record<string, ActionDefinition> = {
   "extensionSchemas.listExtensionSchemas": {
     description: "List extension schemas. Part of: Extension Schemas. Calls GET /extensionschemas on PagerDuty.",
     method: "GET",
@@ -23,4 +24,4 @@ export const extensionSchemasActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

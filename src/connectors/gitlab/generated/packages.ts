@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const packagesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const packagesActions: Record<string, ActionDefinition> = {
   "packages.getGroupsIdPackages": {
     description: "Get groups id packages. Part of: packages. Calls GET /groups/{id}/packages on GitLab.",
     method: "GET",
@@ -169,4 +170,4 @@ export const packagesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

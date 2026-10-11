@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const chatActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const chatActions: Record<string, ActionDefinition> = {
   "chat.delete": {
     description: "Deletes a message. Calls POST /chat.delete on Slack.",
     method: "POST",
@@ -79,4 +80,4 @@ export const chatActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

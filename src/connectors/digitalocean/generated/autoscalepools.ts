@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const autoscalepoolsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const autoscalepoolsActions: Record<string, ActionDefinition> = {
   "autoscalepools.list": {
     description: "List All Autoscale Pools. To list all autoscale pools in your team, send a GET request to /v2/droplets/autoscale. The response body will be a JSON object with a key of autoscalepools containing an array of autoscale pool objects. These each contain the standard autoscale pool attributes.",
     method: "GET",
@@ -65,4 +66,4 @@ export const autoscalepoolsActions = {
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "history", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

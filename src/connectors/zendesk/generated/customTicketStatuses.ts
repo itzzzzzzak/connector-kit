@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const customTicketStatusesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const customTicketStatusesActions: Record<string, ActionDefinition> = {
   "customTicketStatuses.bulkUpdateDefaultCustomStatus": {
     description: "Bulk update default custom status. Part of: Custom Ticket Statuses. Calls PUT /customstatus/default on Zendesk.",
     method: "PUT",
@@ -61,4 +62,4 @@ export const customTicketStatusesActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

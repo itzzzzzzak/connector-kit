@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { linkHeaderCursorPagination } from "../../../index.js"
 
-export const monitorsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const monitorsActions: Record<string, ActionDefinition> = {
   "monitors.listOrganizationDetectors": {
     description: "List organization detectors. Part of: Monitors. Calls GET /organizations/{organizationidorslug}/detectors/ on Sentry.",
     method: "GET",
@@ -125,4 +126,4 @@ export const monitorsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

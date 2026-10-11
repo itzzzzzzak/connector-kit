@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const cdnActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const cdnActions: Record<string, ActionDefinition> = {
   "cdn.listEndpoints": {
     description: "List All CDN Endpoints. To list all of the CDN endpoints available on your account, send a GET request to /v2/cdn/endpoints.",
     method: "GET",
@@ -57,4 +58,4 @@ export const cdnActions = {
     effect: "destructive",
     buildBody: (i) => pick(i, ["files"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

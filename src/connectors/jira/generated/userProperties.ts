@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const userPropertiesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const userPropertiesActions: Record<string, ActionDefinition> = {
   "userProperties.getUserPropertyKeys": {
     description: "Get user property keys. Returns the keys of all properties for a user.",
     method: "GET",
@@ -40,4 +41,4 @@ export const userPropertiesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

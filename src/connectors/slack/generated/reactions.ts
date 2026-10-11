@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const reactionsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const reactionsActions: Record<string, ActionDefinition> = {
   "reactions.add": {
     description: "Adds a reaction to an item. Calls POST /reactions.add on Slack.",
     method: "POST",
@@ -39,4 +40,4 @@ export const reactionsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

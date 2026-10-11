@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const auditLogAPIActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const auditLogAPIActions: Record<string, ActionDefinition> = {
   "auditLogAPI.getAuditLogEvents": {
     description: "Get audit log events. Retrieve the audit log events that have been captured in your domain.",
     method: "GET",
@@ -15,4 +16,4 @@ export const auditLogAPIActions = {
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

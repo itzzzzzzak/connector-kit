@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const environmentsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const environmentsActions: Record<string, ActionDefinition> = {
   "environments.listOrganizationEnvironments": {
     description: "List organization environments. Part of: Environments. Calls GET /organizations/{organizationidorslug}/environments/ on Sentry.",
     method: "GET",
@@ -45,4 +46,4 @@ export const environmentsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

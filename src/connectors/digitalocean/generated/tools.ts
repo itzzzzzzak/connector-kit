@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const toolsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const toolsActions: Record<string, ActionDefinition> = {
   "tools.list": {
     description: "List Tools. Returns one page of the tools your team can use: released catalog tools plus the enabled tools of your team's MCP servers. definitions[i] describes tools[i]. Offset-paged with page and perpage; an unknown toolkitId returns an empty page.",
     method: "GET",
@@ -72,4 +73,4 @@ export const toolsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

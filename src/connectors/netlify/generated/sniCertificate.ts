@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const sniCertificateActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const sniCertificateActions: Record<string, ActionDefinition> = {
   "sniCertificate.showSiteTLSCertificate": {
     description: "Show site tlscertificate Calls GET /sites/{siteid}/ssl on Netlify.",
     method: "GET",
@@ -31,4 +32,4 @@ export const sniCertificateActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

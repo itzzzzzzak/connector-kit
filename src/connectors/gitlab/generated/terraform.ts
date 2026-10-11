@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
-export const terraformActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const terraformActions: Record<string, ActionDefinition> = {
   "terraform.getTerraformModulesModuleNameModuleSystem": {
     description: "Get projects id packages terraform modules module name module system. Part of: terraform. Calls GET /projects/{id}/packages/terraform/modules/{modulename}/{modulesystem} on GitLab.",
     method: "GET",
@@ -144,4 +145,4 @@ export const terraformActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

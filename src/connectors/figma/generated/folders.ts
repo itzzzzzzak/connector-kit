@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const foldersActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const foldersActions: Record<string, ActionDefinition> = {
   "folders.getTeamFolders": {
     description: "Get top-level folders in a team. Get a list of the top-level folders (previously called \"projects\") within the specified team. Subfolders can be traversed with the GET /v2/folders/{folderid}/folders endpoint. It is not possible to programmatically obtain team IDs. To obtain a team ID, navigate to the team page in the Figma file browser. The team ID is present i",
     method: "GET",
@@ -37,4 +38,4 @@ export const foldersActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

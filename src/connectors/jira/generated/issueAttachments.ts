@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const issueAttachmentsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueAttachmentsActions: Record<string, ActionDefinition> = {
   "issueAttachments.getAttachmentContent": {
     description: "Get attachment content. Returns the contents of an attachment. A Range header can be set to define a range of bytes within the attachment to download. See the HTTP Range header standard for details.",
     method: "GET",
@@ -61,4 +62,4 @@ export const issueAttachmentsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

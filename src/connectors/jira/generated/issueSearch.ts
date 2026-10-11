@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const issueSearchActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueSearchActions: Record<string, ActionDefinition> = {
   "issueSearch.getIssuePickerResource": {
     description: "Get issue picker suggestions. Returns lists of issues matching a query string. Use this resource to provide auto-completion suggestions when the user is looking for an issue using a word or string.",
     method: "GET",
@@ -37,4 +38,4 @@ export const issueSearchActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

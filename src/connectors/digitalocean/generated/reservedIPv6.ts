@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const reservedIPv6Actions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const reservedIPv6Actions: Record<string, ActionDefinition> = {
   "reservedIPv6.list": {
     description: "List All Reserved IPv6s. To list all of the reserved IPv6s available on your account, send a GET request to /v2/reservedipv6.",
     method: "GET",
@@ -39,4 +40,4 @@ export const reservedIPv6Actions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const monitoringActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const monitoringActions: Record<string, ActionDefinition> = {
   "monitoring.listAlertPolicy": {
     description: "List Alert Policies. Returns all alert policies that are configured for the given account. To List all alert policies, send a GET request to /v2/monitoring/alerts.",
     method: "GET",
@@ -583,4 +584,4 @@ export const monitoringActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

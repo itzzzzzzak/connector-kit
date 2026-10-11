@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const regionsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const regionsActions: Record<string, ActionDefinition> = {
   "regions.list": {
     description: "List All Data Center Regions. To list all of the regions that are available, send a GET request to /v2/regions. The response will be a JSON object with a key called regions. The value of this will be an array of region objects, each of which will contain the standard region attributes.",
     method: "GET",
@@ -15,4 +16,4 @@ export const regionsActions = {
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "regions", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

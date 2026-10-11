@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const issueRemoteLinksActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueRemoteLinksActions: Record<string, ActionDefinition> = {
   "issueRemoteLinks.getRemoteIssueLinks": {
     description: "Get remote issue links. Returns the remote issue links for an issue. When a remote issue link global ID is provided the record with that global ID is returned, otherwise all remote issue links are returned. Where a global ID includes reserved URL characters these must be escaped in the request. For example, pass system=http://www.mycompany.com/support&",
     method: "GET",
@@ -53,4 +54,4 @@ export const issueRemoteLinksActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

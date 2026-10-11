@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const channelFrameworkActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const channelFrameworkActions: Record<string, ActionDefinition> = {
   "channelFramework.reportChannelbackError": {
     description: "Report channelback error. Part of: Channel Framework. Calls POST /anychannel/channelback/reporterror on Zendesk.",
     method: "POST",
@@ -29,4 +30,4 @@ export const channelFrameworkActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

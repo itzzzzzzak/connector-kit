@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const libraryAnalyticsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const libraryAnalyticsActions: Record<string, ActionDefinition> = {
   "libraryAnalytics.getLibraryAnalyticsComponentActions": {
     description: "Get library analytics component action data. Returns a list of library analytics component actions data broken down by the requested dimension.",
     method: "GET",
@@ -53,4 +54,4 @@ export const libraryAnalyticsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

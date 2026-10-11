@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const oEmbedActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const oEmbedActions: Record<string, ActionDefinition> = {
   "oEmbed.getOEmbed": {
     description: "Get oEmbed data. Returns oEmbed data for a Figma file or published Make site URL, following the oEmbed specification.",
     method: "GET",
@@ -13,4 +14,4 @@ export const oEmbedActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

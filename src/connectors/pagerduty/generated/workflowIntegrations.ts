@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const workflowIntegrationsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const workflowIntegrationsActions: Record<string, ActionDefinition> = {
   "workflowIntegrations.listWorkflowIntegrations": {
     description: "List workflow integrations. Part of: Workflow Integrations. Calls GET /workflows/integrations on PagerDuty.",
     method: "GET",
@@ -71,4 +72,4 @@ export const workflowIntegrationsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

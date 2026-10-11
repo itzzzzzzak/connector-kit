@@ -1,5 +1,6 @@
 import { bodyCursorPagination, defineConnector } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from Zoom's official Meetings OpenAPI spec (developers.zoom.us) and Zoom's OAuth page: base URL
 // https://api.zoom.us/v2, `userId` may be "me", `next_page_token` / `page_size` pagination, OAuth endpoints,
@@ -55,6 +56,9 @@ export const zoom = defineConnector({
     credentialEnv: "ZOOM_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "meetings.list": {
       description: "List a user's meetings. Use when the user asks what meetings they have scheduled, are live, or had. Returns one bounded page; pass nextCursor for more.",
       method: "GET",

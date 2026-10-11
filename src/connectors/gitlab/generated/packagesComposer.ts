@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const packagesComposerActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const packagesComposerActions: Record<string, ActionDefinition> = {
   "packagesComposer.postProjectsIdPackagesComposer": {
     description: "Post projects id packages composer. Part of: packagescomposer. Calls POST /projects/{id}/packages/composer on GitLab.",
     method: "POST",
@@ -53,4 +54,4 @@ export const packagesComposerActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const maintenanceWindowsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const maintenanceWindowsActions: Record<string, ActionDefinition> = {
   "maintenanceWindows.listMaintenanceWindows": {
     description: "List maintenance windows. Part of: Maintenance Windows. Calls GET /maintenancewindows on PagerDuty.",
     method: "GET",
@@ -42,4 +43,4 @@ export const maintenanceWindowsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

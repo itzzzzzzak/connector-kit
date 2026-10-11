@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const reservedIPv6ActionsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const reservedIPv6ActionsActions: Record<string, ActionDefinition> = {
   "reservedIPv6Actions.post": {
     description: "Initiate a Reserved IPv6 Action. To initiate an action on a reserved IPv6 send a POST request to /v2/reservedipv6/$RESERVEDIPV6/actions. In the JSON body to the request, set the type attribute to on of the supported action types:",
     method: "POST",
@@ -14,4 +15,4 @@ export const reservedIPv6ActionsActions = {
     effect: "write",
     buildBody: (i) => i.body,
   },
-} satisfies Record<string, ActionDefinition>
+}

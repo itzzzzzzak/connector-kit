@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const issueWorklogPropertiesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueWorklogPropertiesActions: Record<string, ActionDefinition> = {
   "issueWorklogProperties.getWorklogPropertyKeys": {
     description: "Get worklog property keys. Returns the keys of all properties for a worklog.",
     method: "GET",
@@ -38,4 +39,4 @@ export const issueWorklogPropertiesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

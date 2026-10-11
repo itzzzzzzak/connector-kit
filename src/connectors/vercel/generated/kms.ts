@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const kmsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const kmsActions: Record<string, ActionDefinition> = {
   "kms.signKmsMessage": {
     description: "Sign kms message. Part of: kms. Calls POST /v1/kms/issuers/{issuerId}/sign/message on Vercel.",
     method: "POST",
@@ -123,4 +124,4 @@ export const kmsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

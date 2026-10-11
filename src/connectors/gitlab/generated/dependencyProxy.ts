@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const dependencyProxyActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const dependencyProxyActions: Record<string, ActionDefinition> = {
   "dependencyProxy.deleteGroupsIdDependencyProxyCache": {
     description: "Delete groups id dependency proxy cache. Part of: dependencyproxy. Calls DELETE /groups/{id}/dependencyproxy/cache on GitLab.",
     method: "DELETE",
@@ -13,4 +14,4 @@ export const dependencyProxyActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

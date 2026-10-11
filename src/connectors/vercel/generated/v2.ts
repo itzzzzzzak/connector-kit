@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const v2Actions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const v2Actions: Record<string, ActionDefinition> = {
   "v2.createObservabilityQuery": {
     description: "Create observability query. Calls POST /v2/observability/query on Vercel.",
     method: "POST",
@@ -29,4 +30,4 @@ export const v2Actions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

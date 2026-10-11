@@ -1,5 +1,6 @@
 import { bodyCursorPagination, defineConnector } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from HubSpot's official public API spec collection (CRM Contacts / Companies / Deals, v3):
 // base URL, paths, `paging.next.after` pagination, `{ properties }` bodies, OAuth endpoints.
@@ -35,6 +36,9 @@ export const hubspot = defineConnector({
     credentialEnv: "HUBSPOT_TOKEN",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "contacts.list": {
       description: "List CRM contacts (people). Use when the user asks who is in the CRM. Returns one bounded page; pass nextCursor for more. To find a specific person by email use contacts.get with idProperty \"email\".",
       method: "GET",

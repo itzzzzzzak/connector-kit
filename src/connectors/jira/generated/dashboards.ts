@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const dashboardsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const dashboardsActions: Record<string, ActionDefinition> = {
   "dashboards.getAllDashboards": {
     description: "Get all dashboards. Returns a list of dashboards owned by or shared with the user. The list may be filtered to include only favorite or owned dashboards.",
     method: "GET",
@@ -152,4 +153,4 @@ export const dashboardsActions = {
     buildQuery: (i) => pick(i, ["extendAdminPermissions"]),
     buildBody: (i) => pick(i, ["description","editPermissions","name","sharePermissions"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

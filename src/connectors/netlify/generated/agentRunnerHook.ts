@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const agentRunnerHookActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const agentRunnerHookActions: Record<string, ActionDefinition> = {
   "agentRunnerHook.listSiteAgentRunnerHooks": {
     description: "List site agent runner hooks Calls GET /sites/{siteid}/agentrunnerhooks on Netlify.",
     method: "GET",
@@ -45,4 +46,4 @@ export const agentRunnerHookActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

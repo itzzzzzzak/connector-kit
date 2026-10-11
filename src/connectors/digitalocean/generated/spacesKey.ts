@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const spacesKeyActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const spacesKeyActions: Record<string, ActionDefinition> = {
   "spacesKey.list": {
     description: "List Spaces Access Keys. To list Spaces Access Key, send a GET request to /v2/spaces/keys. Sort parameter must be used with Sort Direction.",
     method: "GET",
@@ -57,4 +58,4 @@ export const spacesKeyActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const purgeActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const purgeActions: Record<string, ActionDefinition> = {
   "purge.purgeCache": {
     description: "Purges cached content from Netlify's CDN. Supports purging by Cache-Tag.",
     method: "POST",
@@ -13,4 +14,4 @@ export const purgeActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const issuePrioritiesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issuePrioritiesActions: Record<string, ActionDefinition> = {
   "issuePriorities.createPriority": {
     description: "Create priority. Creates an issue priority. Calls POST /priority on Jira.",
     method: "POST",
@@ -63,4 +64,4 @@ export const issuePrioritiesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

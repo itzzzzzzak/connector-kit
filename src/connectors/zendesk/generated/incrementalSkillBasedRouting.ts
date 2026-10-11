@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const incrementalSkillBasedRoutingActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const incrementalSkillBasedRoutingActions: Record<string, ActionDefinition> = {
   "incrementalSkillBasedRouting.incrementalValuesExport": {
     description: "Incremental skil based routing attribute values export. Part of: Incremental Skill Based Routing. Calls GET /incremental/routing/attributevalues on Zendesk.",
     method: "GET",
@@ -29,4 +30,4 @@ export const incrementalSkillBasedRoutingActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const screenTabsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const screenTabsActions: Record<string, ActionDefinition> = {
   "screenTabs.getBulkScreenTabs": {
     description: "Get bulk screen tabs. Returns the list of tabs for a bulk of screens.",
     method: "GET",
@@ -53,4 +54,4 @@ export const screenTabsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

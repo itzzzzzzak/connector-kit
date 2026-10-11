@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const organizationSubscriptionsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const organizationSubscriptionsActions: Record<string, ActionDefinition> = {
   "organizationSubscriptions.listOrganizationSubscriptions": {
     description: "List organization subscriptions. Part of: Organization Subscriptions. Calls GET /organizationsubscriptions on Zendesk.",
     method: "GET",
@@ -53,4 +54,4 @@ export const organizationSubscriptionsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

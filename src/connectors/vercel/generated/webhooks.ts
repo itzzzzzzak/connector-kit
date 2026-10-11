@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const webhooksActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const webhooksActions: Record<string, ActionDefinition> = {
   "webhooks.getWebhooks": {
     description: "Get webhooks. Part of: webhooks. Calls GET /v1/webhooks on Vercel.",
     method: "GET",
@@ -40,4 +41,4 @@ export const webhooksActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

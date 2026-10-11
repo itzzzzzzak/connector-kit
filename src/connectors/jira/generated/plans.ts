@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const plansActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const plansActions: Record<string, ActionDefinition> = {
   "plans.getPlans": {
     description: "Get plans paginated. Returns a paginated list of plans.",
     method: "GET",
@@ -56,4 +57,4 @@ export const plansActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

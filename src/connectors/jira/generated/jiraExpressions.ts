@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const jiraExpressionsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const jiraExpressionsActions: Record<string, ActionDefinition> = {
   "jiraExpressions.analyseExpression": {
     description: "Analyse Jira expression. Analyses and validates Jira expressions.",
     method: "POST",
@@ -26,4 +27,4 @@ export const jiraExpressionsActions = {
     buildQuery: (i) => pick(i, ["expand"]),
     buildBody: (i) => pick(i, ["context","expression"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

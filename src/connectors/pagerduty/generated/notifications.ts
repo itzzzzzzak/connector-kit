@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const notificationsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const notificationsActions: Record<string, ActionDefinition> = {
   "notifications.listNotifications": {
     description: "List notifications. Part of: Notifications. Calls GET /notifications on PagerDuty.",
     method: "GET",
@@ -17,4 +18,4 @@ export const notificationsActions = {
     paginate: offsetPagination({ itemsKey: "notifications", hasMorePath: ["more"], pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
     buildQuery: (i) => pickAs(i, { total: "total", time_zone: "time_zone", since: "since", until: "until", filter: "filter", include__: "include[]" }),
   },
-} satisfies Record<string, ActionDefinition>
+}

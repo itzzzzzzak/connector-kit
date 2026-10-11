@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const issuesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issuesActions: Record<string, ActionDefinition> = {
   "issues.getBulkChangelogs": {
     description: "Bulk fetch changelogs Calls POST /changelog/bulkfetch on Jira.",
     method: "POST",
@@ -162,4 +163,4 @@ export const issuesActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

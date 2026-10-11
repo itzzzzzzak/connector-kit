@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const groupsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const groupsActions: Record<string, ActionDefinition> = {
   "groups.createGroup": {
     description: "Create group. Creates a group. Calls POST /group on Jira.",
     method: "POST",
@@ -67,4 +68,4 @@ export const groupsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

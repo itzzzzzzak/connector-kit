@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const issueCustomFieldValuesAppsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueCustomFieldValuesAppsActions: Record<string, ActionDefinition> = {
   "issueCustomFieldValuesApps.updateMultipleCustomFieldValues": {
     description: "Update custom fields. Updates the value of one or more custom fields on one or more issues. Combinations of custom field and issue should be unique within the request.",
     method: "POST",
@@ -26,4 +27,4 @@ export const issueCustomFieldValuesAppsActions = {
     buildQuery: (i) => pick(i, ["generateChangelog","generateAppEvents"]),
     buildBody: (i) => pick(i, ["updates"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

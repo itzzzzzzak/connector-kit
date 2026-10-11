@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const sCIMActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const sCIMActions: Record<string, ActionDefinition> = {
   "sCIM.listOrganizationScimV2Groups": {
     description: "List organization scim v2 groups. Part of: SCIM. Calls GET /organizations/{organizationidorslug}/scim/v2/Groups on Sentry.",
     method: "GET",
@@ -117,4 +118,4 @@ export const sCIMActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

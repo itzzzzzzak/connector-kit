@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const uIModificationsAppsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const uIModificationsAppsActions: Record<string, ActionDefinition> = {
   "uIModificationsApps.getUiModifications": {
     description: "Get UI modifications. Gets UI modifications. UI modifications can only be retrieved by Forge apps.",
     method: "GET",
@@ -39,4 +40,4 @@ export const uIModificationsAppsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

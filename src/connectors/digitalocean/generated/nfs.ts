@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const nfsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const nfsActions: Record<string, ActionDefinition> = {
   "nfs.list": {
     description: "List NFS shares per region. To list NFS shares, send a GET request to /v2/nfs?region=${region}.",
     method: "GET",
@@ -102,4 +103,4 @@ export const nfsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

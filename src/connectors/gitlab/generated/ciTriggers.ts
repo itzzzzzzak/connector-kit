@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const ciTriggersActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const ciTriggersActions: Record<string, ActionDefinition> = {
   "ciTriggers.postProjectsIdRefRefTriggerPipeline": {
     description: "Post projects id ref ref trigger pipeline. Part of: citriggers. Calls POST /projects/{id}/(ref/{ref}/)trigger/pipeline on GitLab.",
     method: "POST",
@@ -55,4 +56,4 @@ export const ciTriggersActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

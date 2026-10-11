@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const snippetActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const snippetActions: Record<string, ActionDefinition> = {
   "snippet.listSiteSnippets": {
     description: "List site snippets Calls GET /sites/{siteid}/snippets on Netlify.",
     method: "GET",
@@ -47,4 +48,4 @@ export const snippetActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

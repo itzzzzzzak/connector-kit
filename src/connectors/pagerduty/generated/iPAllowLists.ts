@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const iPAllowListsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const iPAllowListsActions: Record<string, ActionDefinition> = {
   "iPAllowLists.listIpAllowLists": {
     description: "List ip allow lists. Part of: IP Allow Lists. Calls GET /ipallowlists on PagerDuty.",
     method: "GET",
@@ -53,4 +54,4 @@ export const iPAllowListsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

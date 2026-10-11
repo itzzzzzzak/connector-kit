@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const timeTrackingActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const timeTrackingActions: Record<string, ActionDefinition> = {
   "timeTracking.gettimeentrieswithinadaterange": {
     description: "Gettimeentrieswithinadaterange. Part of: Time Tracking. Calls GET /team/{teamId}/timeentries on ClickUp.",
     method: "GET",
@@ -117,4 +118,4 @@ export const timeTrackingActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

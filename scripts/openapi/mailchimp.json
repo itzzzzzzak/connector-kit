@@ -1,0 +1,27 @@
+{
+ "name": "mailchimp",
+ "title": "Mailchimp",
+ "descriptions": "derived",
+ "license": "none declared in the specification; descriptions are written by this project",
+ "specs": [
+  {
+   "url": "https://api.mailchimp.com/schema/3.0/Swagger.json",
+   "bundleRemoteRefs": true
+  }
+ ],
+ "pagination": [
+  {
+   "size": "count",
+   "position": "offset",
+   "itemsKey": "auto",
+   "import": "offsetPagination",
+   "call": "offsetPagination({ itemsKey: \"{items}\", pageSizeParam: \"count\", totalPath: [\"total_items\"], defaultPageSize: 30, maxPageSize: 100 })"
+  }
+ ],
+ "rewriteRemote": [
+  [
+   "^https://[a-z]+\\d+\\.api\\.mailchimp\\.com",
+   "https://api.mailchimp.com"
+  ]
+ ]
+}

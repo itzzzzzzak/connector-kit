@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const rolesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const rolesActions: Record<string, ActionDefinition> = {
   "roles.getRoles": {
     description: "Get multiple roles. Required scope: roles:read",
     method: "GET",
@@ -52,4 +53,4 @@ export const rolesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

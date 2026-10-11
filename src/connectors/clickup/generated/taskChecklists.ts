@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const taskChecklistsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const taskChecklistsActions: Record<string, ActionDefinition> = {
   "taskChecklists.createChecklist": {
     description: "Create checklist. Part of: Task Checklists. Calls POST /task/{taskid}/checklist on ClickUp.",
     method: "POST",
@@ -56,4 +57,4 @@ export const taskChecklistsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

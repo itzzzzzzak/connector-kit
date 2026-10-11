@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const licensesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const licensesActions: Record<string, ActionDefinition> = {
   "licenses.listLicenseAllocations": {
     description: "List license allocations. Part of: Licenses. Calls GET /licenseallocations on PagerDuty.",
     method: "GET",
@@ -23,4 +24,4 @@ export const licensesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

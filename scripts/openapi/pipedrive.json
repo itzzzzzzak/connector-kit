@@ -1,0 +1,9 @@
+{ "name": "pipedrive", "title": "Pipedrive", "descriptions": "derived", "license": "none declared in the specification; descriptions are written by this project",
+  "specs": [
+    { "url": "https://developers.pipedrive.com/docs/api/v2/openapi.json" },
+    { "url": "https://developers.pipedrive.com/docs/api/v1/openapi.json", "verbSuffix": "V1" }
+  ],
+  "pagination": [
+    { "size": "limit", "cursor": "cursor", "itemsKey": "data", "import": "bodyCursorPagination", "call": "bodyCursorPagination({ itemsKey: \"data\", cursorPath: [\"additional_data\", \"next_cursor\"], cursorParam: \"cursor\", pageSizeParam: \"limit\", defaultPageSize: 30, maxPageSize: 500 })" },
+    { "size": "limit", "position": "start", "itemsKey": "data", "import": "offsetPagination", "call": "offsetPagination({ itemsKey: \"data\", positionParam: \"start\", pageSizeParam: \"limit\", hasMorePath: [\"additional_data\", \"pagination\", \"more_items_in_collection\"], defaultPageSize: 30, maxPageSize: 500 })" }
+  ] }

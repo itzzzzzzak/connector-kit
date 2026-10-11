@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const oneClicksActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const oneClicksActions: Record<string, ActionDefinition> = {
   "oneClicks.list": {
     description: "List 1-Click Applications. To list all available 1-Click applications, send a GET request to /v2/1-clicks. The type may be provided as query paramater in order to restrict results to a certain type of 1-Click, for example: /v2/1-clicks?type=droplet. Current supported types are kubernetes and droplet.",
     method: "GET",
@@ -21,4 +22,4 @@ export const oneClicksActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

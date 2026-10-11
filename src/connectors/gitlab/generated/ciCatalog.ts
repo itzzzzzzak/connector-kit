@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const ciCatalogActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const ciCatalogActions: Record<string, ActionDefinition> = {
   "ciCatalog.postProjectsIdCatalogPublish": {
     description: "Post projects id catalog publish. Part of: cicatalog. Calls POST /projects/{id}/catalog/publish on GitLab.",
     method: "POST",
@@ -13,4 +14,4 @@ export const ciCatalogActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

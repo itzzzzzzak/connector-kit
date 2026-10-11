@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const timePeriodsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const timePeriodsActions: Record<string, ActionDefinition> = {
   "timePeriods.getTimePeriod": {
     description: "Get a time period. Returns the full record for a single time period.",
     method: "GET",
@@ -23,4 +24,4 @@ export const timePeriodsActions = {
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

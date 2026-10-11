@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const hookTypeActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const hookTypeActions: Record<string, ActionDefinition> = {
   "hookType.listHookTypes": {
     description: "List hook types Calls GET /hooks/types on Netlify.",
     method: "GET",
@@ -13,4 +14,4 @@ export const hookTypeActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

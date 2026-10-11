@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const variablesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const variablesActions: Record<string, ActionDefinition> = {
   "variables.getLocalVariables": {
     description: "Get local variables. This API is available to full members of Enterprise orgs.",
     method: "GET",
@@ -29,4 +30,4 @@ export const variablesActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

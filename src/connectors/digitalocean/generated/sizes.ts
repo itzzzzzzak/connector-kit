@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const sizesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const sizesActions: Record<string, ActionDefinition> = {
   "sizes.list": {
     description: "List All Droplet Sizes. To list all of available Droplet sizes, send a GET request to /v2/sizes. The response will be a JSON object with a key called sizes. The value of this will be an array of size objects each of which contain the standard size attributes.",
     method: "GET",
@@ -15,4 +16,4 @@ export const sizesActions = {
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "sizes", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
   },
-} satisfies Record<string, ActionDefinition>
+}

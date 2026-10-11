@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const classificationLevelsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const classificationLevelsActions: Record<string, ActionDefinition> = {
   "classificationLevels.getAllUserDataClassificationLevels": {
     description: "Get all classification levels. Returns all classification levels.",
     method: "GET",
@@ -13,4 +14,4 @@ export const classificationLevelsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const omnichannelRoutingQueuesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const omnichannelRoutingQueuesActions: Record<string, ActionDefinition> = {
   "omnichannelRoutingQueues.listQueues": {
     description: "List queues. Part of: Omnichannel Routing Queues. Calls GET /queues on Zendesk.",
     method: "GET",
@@ -61,4 +62,4 @@ export const omnichannelRoutingQueuesActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const workflowSchemesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const workflowSchemesActions: Record<string, ActionDefinition> = {
   "workflowSchemes.getAllWorkflowSchemes": {
     description: "Get all workflow schemes. Returns a paginated list of all workflow schemes, not including draft workflow schemes.",
     method: "GET",
@@ -164,4 +165,4 @@ export const workflowSchemesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

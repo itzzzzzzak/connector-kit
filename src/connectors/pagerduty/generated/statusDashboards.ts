@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
-export const statusDashboardsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const statusDashboardsActions: Record<string, ActionDefinition> = {
   "statusDashboards.listStatusDashboards": {
     description: "List status dashboards. Part of: Status Dashboards. Calls GET /statusdashboards on PagerDuty.",
     method: "GET",
@@ -48,4 +49,4 @@ export const statusDashboardsActions = {
     effect: "read",
     buildQuery: (i) => pickAs(i, { additional_fields__: "additional_fields[]" }),
   },
-} satisfies Record<string, ActionDefinition>
+}

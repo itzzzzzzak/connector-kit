@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
-export const eventEnrichmentsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const eventEnrichmentsActions: Record<string, ActionDefinition> = {
   "eventEnrichments.listEventEnrichments": {
     description: "List event enrichments. Part of: Event Enrichments. Calls GET /enrichment/eventenrichments on PagerDuty.",
     method: "GET",
@@ -108,4 +109,4 @@ export const eventEnrichmentsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

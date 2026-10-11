@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const accessGroupsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const accessGroupsActions: Record<string, ActionDefinition> = {
   "accessGroups.readAccessGroup": {
     description: "Read access group. Part of: access-groups. Calls GET /v1/access-groups/{idOrName} on Vercel.",
     method: "GET",
@@ -102,4 +103,4 @@ export const accessGroupsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

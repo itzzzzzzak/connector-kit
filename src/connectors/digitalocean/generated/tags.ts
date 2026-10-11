@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const tagsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const tagsActions: Record<string, ActionDefinition> = {
   "tags.list": {
     description: "List All Tags. To list all of your tags, you can send a GET request to /v2/tags.",
     method: "GET",
@@ -57,4 +58,4 @@ export const tagsActions = {
     effect: "destructive",
     buildBody: (i) => pick(i, ["resources"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

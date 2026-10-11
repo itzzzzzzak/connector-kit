@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const conversationsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const conversationsActions: Record<string, ActionDefinition> = {
   "conversations.createConversation": {
     description: "Creates a conversation. You can create a conversation that has been initiated by a contact (ie. user or lead). The conversation can be an in-app message only.",
     method: "POST",
@@ -92,4 +93,4 @@ export const conversationsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const kubernetesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const kubernetesActions: Record<string, ActionDefinition> = {
   "kubernetes.listClusters": {
     description: "List All Kubernetes Clusters. To list all of the Kubernetes clusters on your account, send a GET request to /v2/kubernetes/clusters.",
     method: "GET",
@@ -227,4 +228,4 @@ export const kubernetesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -1,5 +1,6 @@
 import { defineConnector, offsetPagination } from "../../index.js"
 import { z } from "zod"
+import { generatedActions } from "./generated/index.js"
 
 // Facts from Mailchimp's official Marketing API schema (api.mailchimp.com/schema/3.0) and quick start: base URL
 // https://{dc}.api.mailchimp.com/3.0 where {dc} is the data center that ends your API key (us19 in "...-us19"), HTTP
@@ -70,6 +71,9 @@ export const mailchimp = defineConnector({
     credentialEnv: "MAILCHIMP_CREDENTIALS",
   },
   actions: {
+    // The rest of the API, generated from the provider's official description (scripts/gen-openapi.mjs, ADR-018).
+    ...generatedActions,
+    // Hand-written actions come after, so they win over a generated action with the same name.
     "ping.get": {
       description: "Check that the Mailchimp credentials and data center work. Returns a health status.",
       method: "GET",

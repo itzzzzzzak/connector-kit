@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const timeTrackingCategoriesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const timeTrackingCategoriesActions: Record<string, ActionDefinition> = {
   "timeTrackingCategories.getTimeTrackingCategory": {
     description: "Get a time tracking category. Required scope: timetrackingcategories:read",
     method: "GET",
@@ -61,4 +62,4 @@ export const timeTrackingCategoriesActions = {
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
     buildBody: (i) => pick(i, ["data"]),
   },
-} satisfies Record<string, ActionDefinition>
+}

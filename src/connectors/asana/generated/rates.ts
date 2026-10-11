@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
-export const ratesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const ratesActions: Record<string, ActionDefinition> = {
   "rates.getRates": {
     description: "Get multiple rates. Returns a list of rate records. The possible types for parent in this request are project. An additional resource (user GID or placeholder GID) can be passed in to filter to a specific rate.",
     method: "GET",
@@ -52,4 +53,4 @@ export const ratesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

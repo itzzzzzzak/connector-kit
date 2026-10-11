@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const unleashActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const unleashActions: Record<string, ActionDefinition> = {
   "unleash.getFeatureFlagsUnleashProjectId": {
     description: "Get feature flags unleash project id. Part of: unleash. Calls GET /featureflags/unleash/{projectid} on GitLab.",
     method: "GET",
@@ -37,4 +38,4 @@ export const unleashActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

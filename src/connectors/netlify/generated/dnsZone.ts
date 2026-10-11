@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const dnsZoneActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const dnsZoneActions: Record<string, ActionDefinition> = {
   "dnsZone.getDNSForSite": {
     description: "Get dnsfor site Calls GET /sites/{siteid}/dns on Netlify.",
     method: "GET",
@@ -95,4 +96,4 @@ export const dnsZoneActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

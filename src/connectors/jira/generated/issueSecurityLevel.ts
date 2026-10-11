@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { offsetPagination } from "../../../index.js"
 
-export const issueSecurityLevelActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const issueSecurityLevelActions: Record<string, ActionDefinition> = {
   "issueSecurityLevel.getIssueSecurityLevelMembers": {
     description: "Get issue security level members by issue security scheme. Returns issue security level members.",
     method: "GET",
@@ -23,4 +24,4 @@ export const issueSecurityLevelActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

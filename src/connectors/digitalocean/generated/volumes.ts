@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const volumesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const volumesActions: Record<string, ActionDefinition> = {
   "volumes.list": {
     description: "List All Block Storage Volumes. To list all of the block storage volumes available on your account, send a GET request to /v2/volumes. Filtering Results By Region The region may be provided as query parameter in order to restrict results to volumes available in a specific region. For example: /v2/volumes?region=nyc1 By Name It is also possible to list volumes",
     method: "GET",
@@ -48,4 +49,4 @@ export const volumesActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}

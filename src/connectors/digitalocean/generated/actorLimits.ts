@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const actorLimitsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const actorLimitsActions: Record<string, ActionDefinition> = {
   "actorLimits.get": {
     description: "Get an Actor's Limits. Returns the per-minute limits set for the actor and the limits in effect, each the lower of your team's limit and the actor's override. Returns 404 when the actor has no sessions, connections, or limit overrides.",
     method: "GET",
@@ -29,4 +30,4 @@ export const actorLimitsActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const aiGatewayActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const aiGatewayActions: Record<string, ActionDefinition> = {
   "aiGateway.getAIGatewayProviders": {
     description: "Get aigateway providers Calls GET /ai-gateway/providers on Netlify.",
     method: "GET",
@@ -29,4 +30,4 @@ export const aiGatewayActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

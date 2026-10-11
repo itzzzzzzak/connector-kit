@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const webAnalyticsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const webAnalyticsActions: Record<string, ActionDefinition> = {
   "webAnalytics.aggregatePageviews": {
     description: "Aggregate pageviews. Part of: web-analytics. Calls GET /v1/query/web-analytics/visits/aggregate on Vercel.",
     method: "GET",
@@ -37,4 +38,4 @@ export const webAnalyticsActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

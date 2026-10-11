@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const xInternalActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const xInternalActions: Record<string, ActionDefinition> = {
   "xInternal.updatePlugin": {
     description: "This is an internal-only endpoint. Calls PUT /sites/{siteid}/plugins/{package} on Netlify.",
     method: "PUT",
@@ -29,4 +30,4 @@ export const xInternalActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

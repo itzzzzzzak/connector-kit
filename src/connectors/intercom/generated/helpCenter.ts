@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const helpCenterActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const helpCenterActions: Record<string, ActionDefinition> = {
   "helpCenter.listAllCollections": {
     description: "List all collections. You can fetch a list of all collections by making a GET request to https://api.intercom.io/helpcenter/collections.",
     method: "GET",
@@ -61,4 +62,4 @@ export const helpCenterActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

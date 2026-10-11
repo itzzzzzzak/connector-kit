@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const workspacesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const workspacesActions: Record<string, ActionDefinition> = {
   "workspaces.getWorkspace": {
     description: "Get a workspace. Required scope: workspaces:read",
     method: "GET",
@@ -52,4 +53,4 @@ export const workspacesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

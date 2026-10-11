@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const licensesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const licensesActions: Record<string, ActionDefinition> = {
   "licenses.getAllCommonlyUsed": {
     description: "Get all commonly used licenses. Lists the most commonly used licenses on GitHub. For more information, see \"Licensing a repository .\"",
     method: "GET",
@@ -31,4 +32,4 @@ export const licensesActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

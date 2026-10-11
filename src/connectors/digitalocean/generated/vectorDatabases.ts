@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const vectorDatabasesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const vectorDatabasesActions: Record<string, ActionDefinition> = {
   "vectorDatabases.list": {
     description: "List All Vector Databases. To list all of the vector databases on your account, send a GET request to /v2/vector-databases. Use the page and perpage query parameters to paginate the results. The response body contains a vectordbs array of vector database objects and a total field with the overall count.",
     method: "GET",
@@ -99,4 +100,4 @@ export const vectorDatabasesActions = {
     effect: "write",
     buildBody: (i) => i.body,
   },
-} satisfies Record<string, ActionDefinition>
+}

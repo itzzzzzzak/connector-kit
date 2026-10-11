@@ -14,18 +14,18 @@
 | **Figma** | `connector-kit/figma` | docs-based | API key | - | 50 | [API docs](https://www.figma.com/developers/api) |
 | **GitHub** | `connector-kit/github` | live-tested | OAuth 2.0 or token | - | 1192 | [API docs](https://docs.github.com/en/rest) |
 | **GitLab** | `connector-kit/gitlab` | docs-based | API key | - | 1131 | [API docs](https://docs.gitlab.com/api/rest/) |
-| **HubSpot** | `connector-kit/hubspot` | docs-based | OAuth 2.0 or token | - | 10 | [API docs](https://developers.hubspot.com/docs/api/crm/contacts) |
+| **HubSpot** | `connector-kit/hubspot` | docs-based | OAuth 2.0 or token | - | 1079 | [API docs](https://developers.hubspot.com/docs/api/crm/contacts) |
 | **Intercom** | `connector-kit/intercom` | docs-based | API token | - | 107 | [API docs](https://developers.intercom.com/docs/references/rest-api/api.intercom.io/introduction) |
 | **Jira** | `connector-kit/jira` | docs-based | Basic (username:password) | `site` | 564 | [API docs](https://developer.atlassian.com/cloud/jira/platform/rest/v3/intro/) |
-| **Mailchimp** | `connector-kit/mailchimp` | docs-based | Basic (username:password) | `dc` | 8 | [API docs](https://mailchimp.com/developer/marketing/api/) |
+| **Mailchimp** | `connector-kit/mailchimp` | docs-based | Basic (username:password) | `dc` | 303 | [API docs](https://mailchimp.com/developer/marketing/api/) |
 | **Netlify** | `connector-kit/netlify` | docs-based | API token | - | 177 | [API docs](https://docs.netlify.com/api-and-cli-guides/api-guides/get-started-with-api/) |
 | **PagerDuty** | `connector-kit/pagerduty` | docs-based | API key | - | 438 | [API docs](https://developer.pagerduty.com/api-reference/) |
-| **Pipedrive** | `connector-kit/pipedrive` | docs-based | API key | - | 10 | [API docs](https://developers.pipedrive.com/docs/api/v1) |
+| **Pipedrive** | `connector-kit/pipedrive` | docs-based | API key | - | 351 | [API docs](https://developers.pipedrive.com/docs/api/v1) |
 | **Sentry** | `connector-kit/sentry` | docs-based | API token | `region` | 248 | [API docs](https://docs.sentry.io/api/) |
 | **Slack** | `connector-kit/slack` | docs-based | OAuth 2.0 or token | - | 174 | [API docs](https://api.slack.com/methods) |
 | **Vercel** | `connector-kit/vercel` | docs-based | API token | - | 438 | [API docs](https://vercel.com/docs/rest-api) |
 | **Zendesk** | `connector-kit/zendesk` | docs-based | Basic (username:password) | `subdomain` | 654 | [API docs](https://developer.zendesk.com/api-reference/ticketing/introduction/) |
-| **Zoom** | `connector-kit/zoom` | docs-based | OAuth 2.0 or token | - | 4 | [API docs](https://developers.zoom.us/docs/api/meetings/) |
+| **Zoom** | `connector-kit/zoom` | docs-based | OAuth 2.0 or token | - | 1509 | [API docs](https://developers.zoom.us/docs/api/meetings/) |
 
 ## What the status means
 
@@ -428,16 +428,128 @@ Read GitLab.com projects, issues, merge requests and pipelines, and create issue
 
 Read CRM contacts, companies and deals, and create or update them.
 
-- `contacts.list` (read): List CRM contacts (people).
-- `contacts.get` (read): Get one contact by id, or by email: set idProperty to "email" and contactId to the address.
-- `contacts.create` (write): Create a contact.
-- `contacts.update` (write): Update properties of an existing contact.
-- `companies.list` (read): List CRM companies (organizations).
-- `companies.get` (read): Get one company by id, optionally choosing which properties to return.
-- `companies.create` (write): Create a company.
-- `deals.list` (read): List CRM deals (sales opportunities).
-- `deals.get` (read): Get one deal by id, optionally choosing which properties to return (for example dealname, amount, dealstage).
-- `deals.create` (write): Create a deal.
+1079 actions: too many to list. Expose a group with `connector-kit-mcp hubspot --group <group>` (or `toTools(connection, { groups: [...] })`).
+
+| Group | Actions | Reads | Writes | Destructive |
+|---|---|---|---|---|
+| `accountInfoActivity` | 3 | 3 | 0 | 0 |
+| `accountInfoApiUsage` | 1 | 1 | 0 | 0 |
+| `accountInfoDetails` | 1 | 1 | 0 | 0 |
+| `automationActions` | 16 | 8 | 5 | 3 |
+| `automationEmailTemplates` | 5 | 3 | 2 | 0 |
+| `automationFlows` | 8 | 4 | 3 | 1 |
+| `automationSequences` | 4 | 3 | 1 | 0 |
+| `automationWorkflowIdMappings` | 1 | 0 | 1 | 0 |
+| `businessUnitsBusinessUnits` | 1 | 1 | 0 | 0 |
+| `cmsAuditLogs` | 1 | 1 | 0 | 0 |
+| `cmsBlogs` | 52 | 9 | 40 | 3 |
+| `cmsBlogSettings` | 9 | 4 | 5 | 0 |
+| `cmsDomains` | 2 | 2 | 0 | 0 |
+| `cmsHubdb` | 30 | 10 | 17 | 3 |
+| `cmsPages` | 72 | 20 | 49 | 3 |
+| `cmsSiteSearch` | 2 | 2 | 0 | 0 |
+| `cmsSourceCode` | 5 | 3 | 1 | 1 |
+| `cmsUrlRedirects` | 9 | 4 | 3 | 2 |
+| `commercePaymentAccounts` | 1 | 1 | 0 | 0 |
+| `commercePaymentLinks` | 5 | 2 | 2 | 1 |
+| `commercePriceBooks` | 16 | 4 | 10 | 2 |
+| `communicationDefinitions` | 1 | 1 | 0 | 0 |
+| `communicationPreferencesLinks` | 1 | 0 | 1 | 0 |
+| `communicationStatuses` | 8 | 2 | 6 | 0 |
+| `companies` | 3 | 2 | 1 | 0 |
+| `contacts` | 4 | 2 | 2 | 0 |
+| `conversationsConversations` | 18 | 12 | 4 | 2 |
+| `conversationsCustomChannels` | 13 | 5 | 7 | 1 |
+| `crm0162` | 11 | 2 | 8 | 1 |
+| `crm03` | 12 | 2 | 9 | 1 |
+| `crm0410` | 11 | 2 | 8 | 1 |
+| `crm0420` | 11 | 2 | 8 | 1 |
+| `crmAssociations` | 16 | 3 | 10 | 3 |
+| `crmBatch` | 11 | 0 | 11 | 0 |
+| `crmCalls` | 11 | 2 | 8 | 1 |
+| `crmCarts` | 11 | 2 | 8 | 1 |
+| `crmCommercePayments` | 11 | 2 | 8 | 1 |
+| `crmCommunications` | 11 | 2 | 8 | 1 |
+| `crmCompanies` | 9 | 0 | 8 | 1 |
+| `crmContacts` | 9 | 0 | 8 | 1 |
+| `crmContracts` | 3 | 2 | 1 | 0 |
+| `crmDeals` | 2 | 0 | 2 | 0 |
+| `crmDiscounts` | 11 | 2 | 8 | 1 |
+| `crmEmails` | 11 | 2 | 8 | 1 |
+| `crmExports` | 3 | 2 | 1 | 0 |
+| `crmExtensions` | 29 | 10 | 14 | 5 |
+| `crmFeedbackSubmissions` | 4 | 2 | 2 | 0 |
+| `crmFees` | 11 | 2 | 8 | 1 |
+| `crmGdprDelete` | 1 | 0 | 1 | 0 |
+| `crmGoalTargets` | 11 | 2 | 8 | 1 |
+| `crmImports` | 4 | 3 | 1 | 0 |
+| `crmInvoices` | 11 | 2 | 8 | 1 |
+| `crmLeads` | 11 | 2 | 8 | 1 |
+| `crmLimits` | 9 | 9 | 0 | 0 |
+| `crmLineItems` | 11 | 2 | 8 | 1 |
+| `crmLists` | 30 | 10 | 16 | 4 |
+| `crmMeetings` | 11 | 2 | 8 | 1 |
+| `crmMerge` | 2 | 0 | 2 | 0 |
+| `crmNotes` | 11 | 2 | 8 | 1 |
+| `crmObjectLibrary` | 2 | 2 | 0 | 0 |
+| `crmObjects` | 12 | 6 | 4 | 2 |
+| `crmObjectSchemasSchemas` | 8 | 2 | 4 | 2 |
+| `crmObjectTags` | 6 | 2 | 3 | 1 |
+| `crmOrders` | 11 | 2 | 8 | 1 |
+| `crmOwners` | 2 | 2 | 0 | 0 |
+| `crmPartnerClients` | 9 | 3 | 5 | 1 |
+| `crmPartnerServices` | 9 | 3 | 5 | 1 |
+| `crmPayments` | 4 | 2 | 2 | 0 |
+| `crmPipelines` | 14 | 6 | 6 | 2 |
+| `crmPipelinesRules` | 8 | 3 | 4 | 1 |
+| `crmPostalMail` | 11 | 2 | 8 | 1 |
+| `crmProducts` | 11 | 2 | 8 | 1 |
+| `crmProjects` | 12 | 2 | 9 | 1 |
+| `crmProperties` | 13 | 4 | 7 | 2 |
+| `crmPropertyValidations` | 4 | 3 | 1 | 0 |
+| `crmQuotes` | 11 | 2 | 8 | 1 |
+| `crmSearch` | 2 | 0 | 2 | 0 |
+| `crmSubscriptions` | 11 | 2 | 8 | 1 |
+| `crmTasks` | 11 | 2 | 8 | 1 |
+| `crmTaskSeries` | 4 | 1 | 2 | 1 |
+| `crmTaxes` | 11 | 2 | 8 | 1 |
+| `crmTickets` | 12 | 2 | 9 | 1 |
+| `crmUsers` | 11 | 2 | 8 | 1 |
+| `dataStudioDataSource` | 6 | 1 | 4 | 1 |
+| `deals` | 3 | 2 | 1 | 0 |
+| `eventsEventDefinitions` | 8 | 2 | 4 | 2 |
+| `eventsEvents` | 2 | 2 | 0 | 0 |
+| `eventsSend` | 2 | 0 | 2 | 0 |
+| `featureFlagsFlags` | 10 | 4 | 4 | 2 |
+| `filesFiles` | 10 | 6 | 2 | 2 |
+| `filesFolders` | 7 | 3 | 3 | 1 |
+| `forecastSettingsForecastTypes` | 2 | 2 | 0 | 0 |
+| `forecastSubmissionsEvents` | 1 | 1 | 0 | 0 |
+| `marketingCampaigns` | 24 | 9 | 11 | 4 |
+| `marketingEmail` | 1 | 0 | 1 | 0 |
+| `marketingEmails` | 21 | 9 | 11 | 1 |
+| `marketingForms` | 6 | 2 | 3 | 1 |
+| `marketingMarketingEvents` | 36 | 13 | 19 | 4 |
+| `marketingTransactional` | 6 | 2 | 3 | 1 |
+| `mediaBridgeEvents` | 3 | 0 | 3 | 0 |
+| `mediaBridgeProperties` | 13 | 4 | 7 | 2 |
+| `mediaBridgeSchemas` | 5 | 2 | 2 | 1 |
+| `mediaBridgeSettings` | 11 | 4 | 6 | 1 |
+| `metaNetworkOrigins` | 4 | 4 | 0 | 0 |
+| `notetakerConversation` | 1 | 1 | 0 | 0 |
+| `paymentsSubsSubs` | 3 | 0 | 3 | 0 |
+| `settingsCurrencies` | 15 | 7 | 8 | 0 |
+| `settingsTeams` | 9 | 3 | 4 | 2 |
+| `settingsUsers` | 7 | 4 | 2 | 1 |
+| `taxRatesTaxRates` | 2 | 2 | 0 | 0 |
+| `urlMappingsUrlMappings` | 4 | 2 | 1 | 1 |
+| `visitorIdentificationTokens` | 1 | 0 | 1 | 0 |
+| `webhooksJournalJournal` | 8 | 7 | 1 | 0 |
+| `webhooksJournalJournalLocal` | 8 | 7 | 1 | 0 |
+| `webhooksJournalSnapshots` | 1 | 0 | 1 | 0 |
+| `webhooksJournalSubscriptions` | 9 | 4 | 2 | 3 |
+| `webhooksSettings` | 3 | 1 | 1 | 1 |
+| `webhooksSubscriptions` | 6 | 2 | 3 | 1 |
 
 ### Intercom (`intercom`)
 
@@ -577,14 +689,41 @@ Search and read Jira Cloud issues and projects; create issues, comment, and move
 
 Read audiences, subscribers and campaigns; add or update a subscriber.
 
-- `ping.get` (read): Check that the Mailchimp credentials and data center work.
-- `lists.list` (read): List audiences (Mailchimp calls them lists), with subscriber counts.
-- `lists.get` (read): Get one audience by id: name, subscriber, unsubscribe and cleaned counts, and open and click rates.
-- `members.list` (read): List the subscribers of an audience.
-- `members.get` (read): Get one subscriber of an audience by email address: their status, merge fields (name, phone...) and tags.
-- `members.upsert` (write): Add a person to an audience, or update them if they are already there.
-- `campaigns.list` (read): List email campaigns with status, send time, recipient count and subject line.
-- `campaigns.get` (read): Get one campaign by id: subject, status, recipients and the open and click summary.
+303 actions: too many to list. Expose a group with `connector-kit-mcp mailchimp --group <group>` (or `toTools(connection, { groups: [...] })`).
+
+| Group | Actions | Reads | Writes | Destructive |
+|---|---|---|---|---|
+| `accountExport` | 1 | 1 | 0 | 0 |
+| `accountExports` | 2 | 1 | 1 | 0 |
+| `activityFeed` | 1 | 1 | 0 | 0 |
+| `audiences` | 4 | 2 | 2 | 0 |
+| `authorizedApps` | 2 | 2 | 0 | 0 |
+| `automations` | 18 | 8 | 9 | 1 |
+| `batches` | 4 | 2 | 1 | 1 |
+| `batchWebhooks` | 5 | 2 | 2 | 1 |
+| `campaignFolders` | 5 | 2 | 2 | 1 |
+| `campaigns` | 22 | 6 | 14 | 2 |
+| `connectedSites` | 7 | 2 | 4 | 1 |
+| `contacts` | 4 | 2 | 2 | 0 |
+| `customerJourneys` | 1 | 0 | 1 | 0 |
+| `ecommerce` | 60 | 23 | 26 | 11 |
+| `facebookAds` | 2 | 2 | 0 | 0 |
+| `fileManager` | 11 | 5 | 4 | 2 |
+| `landingPages` | 8 | 3 | 4 | 1 |
+| `lists` | 67 | 31 | 26 | 10 |
+| `members` | 3 | 2 | 1 | 0 |
+| `ping` | 1 | 1 | 0 | 0 |
+| `reporting` | 12 | 12 | 0 | 0 |
+| `reports` | 22 | 22 | 0 | 0 |
+| `root` | 1 | 1 | 0 | 0 |
+| `searchCampaigns` | 1 | 1 | 0 | 0 |
+| `searchMembers` | 1 | 1 | 0 | 0 |
+| `segments` | 9 | 5 | 3 | 1 |
+| `smsCampaigns` | 10 | 3 | 6 | 1 |
+| `surveys` | 3 | 0 | 3 | 0 |
+| `templateFolders` | 5 | 2 | 2 | 1 |
+| `templates` | 6 | 3 | 2 | 1 |
+| `verifiedDomains` | 5 | 2 | 2 | 1 |
 
 ### Netlify (`netlify`)
 
@@ -696,16 +835,56 @@ Read incidents, services, on-call shifts, schedules and escalation policies (rea
 
 Read deals, people, organizations and pipelines, and create or update deals and people (API v2).
 
-- `deals.list` (read): List deals (sales opportunities), filtered by owner, person, organization, pipeline, stage or status.
-- `deals.get` (read): Get one deal by id: title, value, stage, status, and the linked person and organization ids.
-- `deals.create` (write): Create a deal.
-- `deals.update` (write): Update a deal: rename it, change its value, move its stage, or mark it won or lost.
-- `persons.list` (read): List people (contacts), filtered by owner, organization or deal.
-- `persons.get` (read): Get one person by id, with their emails, phone numbers and organization.
-- `persons.create` (write): Create a person (contact).
-- `organizations.list` (read): List organizations (companies), filtered by owner.
-- `organizations.get` (read): Get one organization by id: name, website, industry, size and address.
-- `pipelines.list` (read): List the sales pipelines.
+351 actions: too many to list. Expose a group with `connector-kit-mcp pipedrive --group <group>` (or `toTools(connection, { groups: [...] })`).
+
+| Group | Actions | Reads | Writes | Destructive |
+|---|---|---|---|---|
+| `activities` | 5 | 2 | 2 | 1 |
+| `activityFields` | 3 | 3 | 0 | 0 |
+| `activityTypes` | 4 | 1 | 2 | 1 |
+| `billing` | 1 | 1 | 0 | 0 |
+| `callLogs` | 4 | 2 | 1 | 1 |
+| `currencies` | 1 | 1 | 0 | 0 |
+| `dealFields` | 14 | 4 | 6 | 4 |
+| `dealInstallments` | 4 | 1 | 2 | 1 |
+| `dealProducts` | 7 | 2 | 3 | 2 |
+| `deals` | 33 | 18 | 10 | 5 |
+| `files` | 4 | 3 | 0 | 1 |
+| `filters` | 7 | 3 | 2 | 2 |
+| `goals` | 5 | 2 | 2 | 1 |
+| `itemSearch` | 2 | 2 | 0 | 0 |
+| `leadFields` | 1 | 1 | 0 | 0 |
+| `leadLabels` | 4 | 1 | 2 | 1 |
+| `leads` | 11 | 7 | 3 | 1 |
+| `leadSources` | 1 | 1 | 0 | 0 |
+| `legacyTeams` | 8 | 4 | 3 | 1 |
+| `mailbox` | 5 | 4 | 0 | 1 |
+| `meetings` | 2 | 0 | 1 | 1 |
+| `noteFields` | 1 | 1 | 0 | 0 |
+| `notes` | 10 | 4 | 4 | 2 |
+| `oauth` | 1 | 1 | 0 | 0 |
+| `organizationFields` | 14 | 4 | 6 | 4 |
+| `organizationRelationships` | 5 | 2 | 2 | 1 |
+| `organizations` | 19 | 11 | 5 | 3 |
+| `permissionSets` | 3 | 3 | 0 | 0 |
+| `personFields` | 14 | 4 | 6 | 4 |
+| `persons` | 22 | 13 | 5 | 4 |
+| `pipelines` | 7 | 4 | 2 | 1 |
+| `productFields` | 14 | 4 | 6 | 4 |
+| `products` | 23 | 11 | 7 | 5 |
+| `projectBoards` | 7 | 4 | 2 | 1 |
+| `projectFields` | 8 | 2 | 4 | 2 |
+| `projectPhases` | 7 | 4 | 2 | 1 |
+| `projects` | 22 | 12 | 8 | 2 |
+| `projectTemplates` | 4 | 4 | 0 | 0 |
+| `recents` | 1 | 1 | 0 | 0 |
+| `roles` | 12 | 5 | 5 | 2 |
+| `stages` | 5 | 2 | 2 | 1 |
+| `tasks` | 10 | 4 | 4 | 2 |
+| `userConnections` | 1 | 1 | 0 | 0 |
+| `users` | 11 | 9 | 2 | 0 |
+| `userSettings` | 1 | 1 | 0 | 0 |
+| `webhooks` | 3 | 1 | 1 | 1 |
 
 ### Sentry (`sentry`)
 
@@ -927,7 +1106,185 @@ Read and search support tickets, comments and users; create tickets and add inte
 
 List and read the user's meetings, create meetings, and list cloud recordings (no passcodes or download links are exposed).
 
-- `meetings.list` (read): List a user's meetings.
-- `meetings.get` (read): Get one meeting by its numeric id: topic, time, duration, agenda and join link.
-- `meetings.create` (write): Create a Zoom meeting.
-- `recordings.list` (read): List a user's cloud recordings in a date range (default: the last day).
+1509 actions: too many to list. Expose a group with `connector-kit-mcp zoom --group <group>` (or `toTools(connection, { groups: [...] })`).
+
+| Group | Actions | Reads | Writes | Destructive |
+|---|---|---|---|---|
+| `accounts` | 15 | 8 | 5 | 2 |
+| `acl` | 5 | 2 | 2 | 1 |
+| `addressBooks` | 27 | 10 | 11 | 6 |
+| `agentStatuses` | 5 | 2 | 2 | 1 |
+| `alerts` | 5 | 2 | 2 | 1 |
+| `analytics` | 2 | 2 | 0 | 0 |
+| `app` | 23 | 10 | 10 | 3 |
+| `apps` | 1 | 0 | 1 | 0 |
+| `archiving` | 10 | 8 | 1 | 1 |
+| `assetLibrary` | 11 | 4 | 4 | 3 |
+| `assigndevicetoauser` | 1 | 0 | 1 | 0 |
+| `attendeeActions` | 4 | 2 | 2 | 0 |
+| `audioLibrary` | 6 | 2 | 3 | 1 |
+| `autoReceptionists` | 19 | 5 | 9 | 5 |
+| `batch` | 2 | 0 | 2 | 0 |
+| `billingAccount` | 2 | 2 | 0 | 0 |
+| `blockedList` | 5 | 2 | 2 | 1 |
+| `blockListRules` | 8 | 4 | 2 | 2 |
+| `byosStorage` | 6 | 2 | 3 | 1 |
+| `calendarList` | 5 | 2 | 2 | 1 |
+| `calendars` | 4 | 1 | 2 | 1 |
+| `calibrations` | 2 | 2 | 0 | 0 |
+| `callControl` | 3 | 1 | 2 | 0 |
+| `callHandling` | 1 | 0 | 0 | 1 |
+| `callLogs` | 8 | 6 | 1 | 1 |
+| `callQueues` | 32 | 10 | 13 | 9 |
+| `campaigns` | 29 | 10 | 14 | 5 |
+| `cases` | 1 | 1 | 0 | 0 |
+| `chatbotMessages` | 4 | 0 | 3 | 1 |
+| `classificationLabels` | 7 | 2 | 3 | 2 |
+| `cloudPeeringProviderExchange` | 5 | 2 | 2 | 1 |
+| `cloudRecording` | 18 | 6 | 8 | 4 |
+| `coEditors` | 2 | 1 | 1 | 0 |
+| `collaborator` | 4 | 1 | 2 | 1 |
+| `colors` | 1 | 1 | 0 | 0 |
+| `commonAreas` | 19 | 5 | 10 | 4 |
+| `contactGroups` | 8 | 3 | 3 | 2 |
+| `content` | 3 | 1 | 1 | 1 |
+| `create` | 6 | 0 | 6 | 0 |
+| `dashboard` | 11 | 11 | 0 | 0 |
+| `dashboards` | 32 | 32 | 0 | 0 |
+| `dataRequests` | 5 | 3 | 1 | 1 |
+| `delete` | 8 | 0 | 0 | 8 |
+| `deviceLineKeys` | 2 | 1 | 1 | 0 |
+| `devices` | 11 | 5 | 4 | 2 |
+| `dialByNameDirectory` | 6 | 2 | 2 | 2 |
+| `dispositions` | 10 | 4 | 4 | 2 |
+| `divisions` | 7 | 3 | 3 | 1 |
+| `document` | 5 | 2 | 2 | 1 |
+| `emails` | 2 | 2 | 0 | 0 |
+| `emergencyAddresses` | 5 | 2 | 2 | 1 |
+| `emergencyServiceLocations` | 6 | 2 | 3 | 1 |
+| `emergencyServiceRouting` | 8 | 2 | 4 | 2 |
+| `emergencyServices` | 2 | 1 | 1 | 0 |
+| `enable` | 1 | 0 | 1 | 0 |
+| `engagements` | 12 | 10 | 2 | 0 |
+| `evaluations` | 3 | 3 | 0 | 0 |
+| `eventAccess` | 5 | 2 | 2 | 1 |
+| `events` | 14 | 5 | 7 | 2 |
+| `exhibitors` | 6 | 3 | 2 | 1 |
+| `export` | 3 | 2 | 1 | 0 |
+| `externalContacts` | 5 | 2 | 2 | 1 |
+| `fax` | 9 | 6 | 2 | 1 |
+| `file` | 1 | 1 | 0 | 0 |
+| `files` | 1 | 0 | 1 | 0 |
+| `firmwareUpdateRules` | 6 | 3 | 2 | 1 |
+| `flows` | 10 | 5 | 3 | 2 |
+| `followUpTasks` | 3 | 2 | 1 | 0 |
+| `freebusy` | 1 | 0 | 1 | 0 |
+| `get` | 15 | 15 | 0 | 0 |
+| `getWorkspaceCalendarFree` | 1 | 1 | 0 | 0 |
+| `grant` | 1 | 0 | 1 | 0 |
+| `groupCallPickup` | 8 | 3 | 3 | 2 |
+| `groups` | 23 | 10 | 9 | 4 |
+| `h323Devices` | 4 | 1 | 2 | 1 |
+| `hubs` | 5 | 3 | 1 | 1 |
+| `import` | 2 | 1 | 1 | 0 |
+| `inboundBlockedList` | 10 | 3 | 4 | 3 |
+| `inboxes` | 18 | 7 | 5 | 6 |
+| `informationBarriers` | 5 | 2 | 2 | 1 |
+| `inMeetingApps` | 2 | 0 | 1 | 1 |
+| `inMeetingFeatures` | 5 | 2 | 2 | 1 |
+| `insert` | 2 | 0 | 2 | 0 |
+| `insights` | 1 | 1 | 0 | 0 |
+| `interactions` | 3 | 2 | 1 | 0 |
+| `invitationRegistration` | 10 | 4 | 5 | 1 |
+| `iVR` | 2 | 1 | 1 | 0 |
+| `knowledgeManagement` | 7 | 3 | 3 | 1 |
+| `lineKeys` | 3 | 1 | 1 | 1 |
+| `list` | 12 | 12 | 0 | 0 |
+| `liveStreaming` | 4 | 2 | 2 | 0 |
+| `logs` | 7 | 7 | 0 | 0 |
+| `manifest` | 3 | 1 | 2 | 0 |
+| `meetings` | 13 | 7 | 5 | 1 |
+| `meetingTranscript` | 2 | 1 | 0 | 1 |
+| `messaging` | 1 | 0 | 1 | 0 |
+| `monitoringGroups` | 9 | 3 | 3 | 3 |
+| `notes` | 4 | 3 | 1 | 0 |
+| `operatingHours` | 14 | 8 | 4 | 2 |
+| `outboundCalling` | 24 | 8 | 12 | 4 |
+| `pAC` | 1 | 1 | 0 | 0 |
+| `patch` | 4 | 0 | 4 | 0 |
+| `phoneDevices` | 11 | 3 | 6 | 2 |
+| `phoneNumbers` | 13 | 4 | 6 | 3 |
+| `phonePlan` | 1 | 1 | 0 | 0 |
+| `phonePlans` | 1 | 1 | 0 | 0 |
+| `phoneRoles` | 11 | 4 | 4 | 3 |
+| `polls` | 7 | 3 | 3 | 1 |
+| `privateDirectory` | 4 | 1 | 2 | 1 |
+| `project` | 13 | 4 | 6 | 3 |
+| `provisionTemplates` | 5 | 2 | 2 | 1 |
+| `pushToTalk` | 8 | 3 | 3 | 2 |
+| `queues` | 41 | 13 | 15 | 13 |
+| `queueWaitingExperiences` | 2 | 0 | 1 | 1 |
+| `recordings` | 13 | 8 | 2 | 3 |
+| `regions` | 7 | 3 | 3 | 1 |
+| `registrants` | 2 | 2 | 0 | 0 |
+| `report` | 6 | 6 | 0 | 0 |
+| `reports` | 35 | 35 | 0 | 0 |
+| `reportsV1Legacy` | 7 | 7 | 0 | 0 |
+| `reportsV2CXAnalytics` | 18 | 18 | 0 | 0 |
+| `revoke` | 1 | 0 | 0 | 1 |
+| `roles` | 18 | 6 | 7 | 5 |
+| `roomApps` | 1 | 0 | 1 | 0 |
+| `routingForms` | 1 | 1 | 0 | 0 |
+| `routingProfiles` | 10 | 4 | 4 | 2 |
+| `routingRules` | 5 | 2 | 2 | 1 |
+| `rTMS` | 1 | 0 | 1 | 0 |
+| `send` | 2 | 0 | 2 | 0 |
+| `sessions` | 36 | 17 | 15 | 4 |
+| `setCalendarFree` | 1 | 0 | 1 | 0 |
+| `setting` | 4 | 4 | 0 | 0 |
+| `settings` | 8 | 4 | 4 | 0 |
+| `settingTemplates` | 4 | 2 | 2 | 0 |
+| `sharedLineAppearance` | 1 | 1 | 0 | 0 |
+| `sharedLineGroup` | 22 | 5 | 10 | 7 |
+| `single` | 1 | 0 | 1 | 0 |
+| `singleSignOn` | 19 | 9 | 8 | 2 |
+| `sIPPhone` | 4 | 1 | 2 | 1 |
+| `sites` | 12 | 4 | 5 | 3 |
+| `skills` | 11 | 5 | 4 | 2 |
+| `sMS` | 8 | 6 | 2 | 0 |
+| `sMSCampaign` | 3 | 2 | 1 | 0 |
+| `sMSCampaigns` | 4 | 2 | 1 | 1 |
+| `sMSConsent` | 9 | 4 | 3 | 2 |
+| `speakers` | 5 | 2 | 2 | 1 |
+| `summaries` | 4 | 3 | 0 | 1 |
+| `surveyManagement` | 5 | 5 | 0 | 0 |
+| `surveys` | 3 | 1 | 1 | 1 |
+| `team` | 1 | 1 | 0 | 0 |
+| `teams` | 14 | 6 | 5 | 3 |
+| `templates` | 2 | 1 | 1 | 0 |
+| `tickets` | 5 | 2 | 2 | 1 |
+| `ticketTypes` | 8 | 3 | 4 | 1 |
+| `trackingField` | 5 | 2 | 2 | 1 |
+| `trash` | 2 | 0 | 2 | 0 |
+| `tSP` | 8 | 3 | 4 | 1 |
+| `untrash` | 2 | 0 | 2 | 0 |
+| `update` | 5 | 0 | 5 | 0 |
+| `upgradeZpas` | 1 | 0 | 1 | 0 |
+| `users` | 80 | 30 | 32 | 18 |
+| `variables` | 13 | 6 | 4 | 3 |
+| `videoOnDemand` | 9 | 3 | 4 | 2 |
+| `videoOnDemandRegistrations` | 4 | 2 | 2 | 0 |
+| `videos` | 2 | 1 | 1 | 0 |
+| `videoSDKReports` | 5 | 5 | 0 | 0 |
+| `visitorManagement` | 6 | 2 | 3 | 1 |
+| `voicemails` | 7 | 5 | 1 | 1 |
+| `webinars` | 51 | 22 | 19 | 10 |
+| `whatsAppMessages` | 5 | 4 | 1 | 0 |
+| `workspaces` | 34 | 18 | 9 | 7 |
+| `zoomRooms` | 31 | 13 | 13 | 5 |
+| `zoomRoomsAccount` | 4 | 2 | 2 | 0 |
+| `zoomRoomsCalendar` | 7 | 3 | 2 | 2 |
+| `zoomRoomsContent` | 27 | 12 | 10 | 5 |
+| `zoomRoomsDevices` | 2 | 0 | 1 | 1 |
+| `zoomRoomsLocation` | 10 | 4 | 5 | 1 |
+| `zoomRoomsTags` | 7 | 1 | 4 | 2 |

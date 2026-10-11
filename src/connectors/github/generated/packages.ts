@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
-export const packagesActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const packagesActions: Record<string, ActionDefinition> = {
   "packages.listDockerMigrationConflictingPackagesForOrg": {
     description: "Get list of conflicting packages during Docker migration for organization. Lists all packages that are in a specific organization, are readable by the requesting user, and that encountered a conflict during a Docker migration.",
     method: "GET",
@@ -231,4 +232,4 @@ export const packagesActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

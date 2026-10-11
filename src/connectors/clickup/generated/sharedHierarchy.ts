@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const sharedHierarchyActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const sharedHierarchyActions: Record<string, ActionDefinition> = {
   "sharedHierarchy.sharedHierarchy": {
     description: "Shared hierarchy. Part of: Shared Hierarchy. Calls GET /team/{teamid}/shared on ClickUp.",
     method: "GET",
@@ -13,4 +14,4 @@ export const sharedHierarchyActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

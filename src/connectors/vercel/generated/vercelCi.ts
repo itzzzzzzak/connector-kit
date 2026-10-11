@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const vercelCiActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const vercelCiActions: Record<string, ActionDefinition> = {
   "vercelCi.getVercelCiRepositorySettings": {
     description: "Get vercel ci repository settings. Part of: vercel-ci. Calls GET /v1/vercel-ci/repository-settings on Vercel.",
     method: "GET",
@@ -161,4 +162,4 @@ export const vercelCiActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

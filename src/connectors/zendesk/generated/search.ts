@@ -6,7 +6,8 @@ import type { ActionDefinition } from "../../../define.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
-export const searchActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const searchActions: Record<string, ActionDefinition> = {
   "search.listSearchResults": {
     description: "List search results. Part of: Search. Calls GET /search on Zendesk.",
     method: "GET",
@@ -33,4 +34,4 @@ export const searchActions = {
     paginate: bodyLinkPagination({ itemsKey: "results", nextUrlPath: ["links", "next"], hasMorePath: ["meta", "has_more"], pageSizeParam: "page[size]", defaultPageSize: 30, maxPageSize: 100 }),
     buildQuery: (i) => pickAs(i, { query: "query", filter_type_: "filter[type]", include: "include" }),
   },
-} satisfies Record<string, ActionDefinition>
+}

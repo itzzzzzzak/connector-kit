@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const mlModelRegistryActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const mlModelRegistryActions: Record<string, ActionDefinition> = {
   "mlModelRegistry.putVersionIdFilesPathFileNameAuthorize": {
     description: "Put projects id packages ml models model version id files path file name authorize. Part of: mlmodelregistry. Calls PUT /projects/{id}/packages/mlmodels/{modelversionid}/files/(path/){filename}/authorize on GitLab.",
     method: "PUT",
@@ -29,4 +30,4 @@ export const mlModelRegistryActions = {
     output: z.unknown(),
     effect: "write",
   },
-} satisfies Record<string, ActionDefinition>
+}

@@ -4,7 +4,8 @@
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 
-export const xChannelActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const xChannelActions: Record<string, ActionDefinition> = {
   "xChannel.listMonitoredTwitterHandles": {
     description: "List monitored twitter handles. Part of: X Channel. Calls GET /channels/twitter/monitoredtwitterhandles on Zendesk.",
     method: "GET",
@@ -37,4 +38,4 @@ export const xChannelActions = {
     output: z.unknown(),
     effect: "read",
   },
-} satisfies Record<string, ActionDefinition>
+}

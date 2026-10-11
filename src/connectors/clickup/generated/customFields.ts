@@ -5,7 +5,8 @@ import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
 import { pick } from "../../../openapi-helpers.js"
 
-export const customFieldsActions = {
+// Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
+export const customFieldsActions: Record<string, ActionDefinition> = {
   "customFields.getAccessibleCustomFields": {
     description: "Get accessible custom fields. Part of: Custom Fields. Calls GET /list/{listid}/field on ClickUp.",
     method: "GET",
@@ -56,4 +57,4 @@ export const customFieldsActions = {
     output: z.unknown(),
     effect: "destructive",
   },
-} satisfies Record<string, ActionDefinition>
+}
