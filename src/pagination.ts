@@ -16,7 +16,7 @@ export interface PaginationStrategy {
   /** Where the list is inside the response body. Omit when the body IS the list (GitHub). */
   items?(body: unknown): unknown
   /** Read the next cursor from a successful response. Null means "no more pages". */
-  nextCursor(response: { headers: Headers; body: unknown }): string | null
+  nextCursor(response: { headers: Headers; body: unknown; /** The request URL this response answers (carries the current offset/page and page size). */ url: URL }): string | null
   /**
    * Turn the request for the FIRST page (path filled, filters and page size set) into the request
    * for the page a cursor points to. A Link-header API replaces the whole URL (the cursor IS the
@@ -119,6 +119,105 @@ export function bodyLinkPagination(options: {
     },
     applyCursor(_url, cursor) {
       return new URL(cursor)
+    },
+  }
+}
+
+/**
+ * Offset or page-number paging (Jira-style `startAt`, PagerDuty `offset`, Mailchimp `offset`+`count`, ClickUp `page`).
+ * The cursor is the NEXT offset (or page number), as an opaque string. The current position and page size are read from
+ * the request URL, so the strategy needs nothing but a rule for "is there more?". The first rule that applies wins:
+ *   hasMorePath (a boolean that is true when more exist)  ->  lastPagePath (a boolean true on the last page)
+ *   ->  totalPath (a total count)  ->  otherwise "the page came back full". An EMPTY page always ends paging.
+ */
+export function offsetPagination(options: {
+  /** Key of the list in the body; omit when the body IS the list. */
+  itemsKey?: string
+  /** "offset" (default): the cursor counts items. "page": it counts pages. */
+  unit?: "offset" | "page"
+  /** Query parameter carrying the position. Default "offset" (or "page" for unit "page"). */
+  positionParam?: string
+  /** Query parameter for the page size. Default "limit". `null` for an endpoint with a fixed page size. */
+  pageSizeParam?: string | null
+  /** First page number when unit is "page". Default 1 (ClickUp uses 0). */
+  firstPage?: number
+  hasMorePath?: string[]
+  lastPagePath?: string[]
+  totalPath?: string[]
+  defaultPageSize?: number
+  maxPageSize?: number
+}): PaginationStrategy {
+  const unit = options.unit ?? "offset"
+  const positionParam = options.positionParam ?? (unit === "page" ? "page" : "offset")
+  const firstPage = options.firstPage ?? 1
+  const sizeParam = options.pageSizeParam === null ? undefined : (options.pageSizeParam ?? "limit")
+
+  return {
+    ...(sizeParam !== undefined && { pageSizeParam: sizeParam }),
+    defaultPageSize: options.defaultPageSize ?? 30,
+    maxPageSize: options.maxPageSize ?? 100,
+    ...(options.itemsKey !== undefined && { items: (body) => dig(body, [options.itemsKey!]) }),
+    nextCursor({ body, url }) {
+      const items = options.itemsKey !== undefined ? dig(body, [options.itemsKey]) : body
+      if (!Array.isArray(items) || items.length === 0) return null // an empty page always ends paging
+
+      const requested = sizeParam !== undefined ? Number(url.searchParams.get(sizeParam)) : Number.NaN
+      const size = Number.isFinite(requested) && requested > 0 ? requested : items.length
+      const raw = url.searchParams.get(positionParam)
+      const position = raw === null ? (unit === "page" ? firstPage : 0) : Number(raw)
+      if (!Number.isFinite(position) || position < 0) return null
+
+      let more: boolean
+      const hasMore = options.hasMorePath ? dig(body, options.hasMorePath) : undefined
+      const lastPage = options.lastPagePath ? dig(body, options.lastPagePath) : undefined
+      const total = options.totalPath ? dig(body, options.totalPath) : undefined
+      if (typeof hasMore === "boolean") more = hasMore
+      else if (typeof lastPage === "boolean") more = !lastPage
+      else if (typeof total === "number" && Number.isFinite(total)) more = unit === "page" ? (position - firstPage + 1) * size < total : position + size < total
+      else more = items.length >= size
+
+      if (!more) return null
+      return String(unit === "page" ? position + 1 : position + size)
+    },
+    applyCursor(url, cursor) {
+      const next = new URL(url)
+      next.searchParams.set(positionParam, cursor)
+      return next
+    },
+  }
+}
+
+/**
+ * Sentry-style: the next cursor travels in the Link header, as an attribute of the rel="next" entry
+ * (`<url>; rel="next"; results="true"; cursor="0:100:0"`), and `results="false"` marks the last page.
+ * The cursor is sent back as a query parameter on OUR request; the URL inside the header is never followed.
+ */
+export function linkHeaderCursorPagination(options: {
+  cursorParam?: string
+  pageSizeParam?: string | null
+  defaultPageSize?: number
+  maxPageSize?: number
+} = {}): PaginationStrategy {
+  const cursorParam = options.cursorParam ?? "cursor"
+  return {
+    ...(options.pageSizeParam === null ? {} : { pageSizeParam: options.pageSizeParam ?? "per_page" }),
+    defaultPageSize: options.defaultPageSize ?? 30,
+    maxPageSize: options.maxPageSize ?? 100,
+    nextCursor({ headers }) {
+      const link = headers.get("link")
+      if (!link) return null
+      for (const entry of link.split(/,\s*(?=<)/)) {
+        const attributes = Object.fromEntries([...entry.matchAll(/(\w+)="([^"]*)"/g)].map((m) => [m[1]!, m[2]!]))
+        if (attributes.rel !== "next") continue
+        if (attributes.results === "false") return null
+        return attributes.cursor !== undefined && attributes.cursor !== "" ? attributes.cursor : null
+      }
+      return null
+    },
+    applyCursor(url, cursor) {
+      const next = new URL(url)
+      next.searchParams.set(cursorParam, cursor)
+      return next
     },
   }
 }

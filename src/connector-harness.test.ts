@@ -59,6 +59,8 @@ interface StandardCase {
   badInput?: Record<string, unknown>
   /** HTTP status the provider uses for "bad credentials" (almost always 401). */
   unauthorizedStatus?: number
+  /** For connectors that need base-URL variables or a non-default credential (e.g. Basic 'user:pass'). */
+  connect?: { variables?: Record<string, string>; credentials?: { token: string } }
 }
 
 /**
@@ -72,48 +74,54 @@ export function standardTests<A extends Record<string, ActionDefinition>>(connec
   const effect = connector.actions[c.action]!.effect
 
   test(`${label}: a good response is parsed`, async () => {
-    const { conn } = harness(connector, () => json(c.ok))
+    const { conn } = harness(connector, () => json(c.ok), c.connect)
     await run(conn as never)
   })
   test(`${label}: 404 is not_found`, async () => {
-    const { conn } = harness(connector, () => json({ message: "nope" }, 404))
+    const { conn } = harness(connector, () => json({ message: "nope" }, 404), c.connect)
     await assert.rejects(() => run(conn as never), isError("not_found"))
   })
   test(`${label}: bad credentials are auth_expired`, async () => {
-    const { conn } = harness(connector, () => json({ message: "bad" }, c.unauthorizedStatus ?? 401))
+    const { conn } = harness(connector, () => json({ message: "bad" }, c.unauthorizedStatus ?? 401), c.connect)
     await assert.rejects(() => run(conn as never), isError("auth_expired"))
   })
   test(`${label}: 429 is rate_limited and carries Retry-After`, async () => {
-    const { conn } = harness(connector, () => json({}, 429, { "retry-after": "7" }))
+    const { conn } = harness(connector, () => json({}, 429, { "retry-after": "7" }), c.connect)
     await assert.rejects(() => run(conn as never), isError("rate_limited", (e) => e.retryable && e.retryAfter === 7))
   })
   test(`${label}: a malformed response is upstream_error, not a crash`, async () => {
-    const { conn } = harness(connector, () => new Response("<html>not json</html>", { status: 200 }))
+    const { conn } = harness(connector, () => new Response("<html>not json</html>", { status: 200 }), c.connect)
     await assert.rejects(() => run(conn as never), isError("upstream_error"))
   })
   if (c.badInput) {
     const badInput = c.badInput
     test(`${label}: bad input is rejected and NOTHING is sent`, async () => {
-      const { conn, calls } = harness(connector, () => json(c.ok))
+      const { conn, calls } = harness(connector, () => json(c.ok), c.connect)
       await assert.rejects(() => conn.execute(c.action as never, badInput as never), isError("invalid_input"))
       assert.equal(calls.length, 0)
     })
   }
   test(`${label}: the credential is sent and never appears in an error`, async () => {
-    const { conn, calls } = harness(connector, () => json({ message: "bad" }, 401), { credentials: { token: "SECRET-TOKEN-123" } })
-    await assert.rejects(() => run(conn as never), (e: unknown) => !JSON.stringify(e).includes("SECRET-TOKEN-123") && !(e as Error).message.includes("SECRET-TOKEN-123"))
-    assert.ok(JSON.stringify([...(calls[0]?.init.headers instanceof Headers ? calls[0].init.headers : new Headers(calls[0]?.init.headers))]).includes("SECRET-TOKEN-123"))
+    const secret = c.connect?.credentials?.token ?? "SECRET-TOKEN-123"
+    const encoded = Buffer.from(secret).toString("base64") // what HTTP Basic puts on the wire
+    const { conn, calls } = harness(connector, () => json({ message: "bad" }, 401), { ...c.connect, credentials: { token: secret } })
+    await assert.rejects(() => run(conn as never), (e: unknown) => {
+      const text = JSON.stringify(e) + (e as Error).message
+      return !text.includes(secret) && !text.includes(encoded)
+    })
+    const sent = JSON.stringify([...new Headers(calls[0]?.init.headers)])
+    assert.ok(sent.includes(secret) || sent.includes(encoded), "the credential should be sent to the provider")
   })
   if (effect === "read") {
     test(`${label}: a read is retried after a 5xx`, async () => {
       let n = 0
-      const { conn, calls } = harness(connector, () => (++n === 1 ? json({}, 503) : json(c.ok)), { retry })
+      const { conn, calls } = harness(connector, () => (++n === 1 ? json({}, 503) : json(c.ok)), { ...c.connect, retry })
       await run(conn as never)
       assert.equal(calls.length, 2)
     })
   } else if (!connector.actions[c.action]!.safeToRetry) {
     test(`${label}: a write is NOT retried after a 5xx (it may already have happened)`, async () => {
-      const { conn, calls } = harness(connector, () => json({}, 503), { retry })
+      const { conn, calls } = harness(connector, () => json({}, 503), { ...c.connect, retry })
       await assert.rejects(() => run(conn as never), isError("upstream_error"))
       assert.equal(calls.length, 1)
     })

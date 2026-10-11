@@ -177,3 +177,4 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 - `Retry-After` may be seconds or an HTTP date; some providers signal limits via `x-ratelimit-*` headers and 403.
 - Non-enumerable properties to keep sensitive detail out of `JSON.stringify` and naive logging.
 - Mutation-checking a test: remove the fix, confirm the test goes red.
+- Offset vs page-number vs cursor paging; why 'empty page ends' is the loop guard, and why a provider's `Link` URL is never followed (SSRF), only its cursor.

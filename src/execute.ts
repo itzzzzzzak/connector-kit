@@ -300,7 +300,7 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
     }
 
     if (action.paginate) {
-      const nextCursor = action.paginate.nextCursor({ headers: response.headers, body })
+      const nextCursor = action.paginate.nextCursor({ headers: response.headers, body, url })
       if (nextCursor !== null) {
         // The provider told us where to go next; verify where that cursor would lead before we hand it to a caller.
         assertWithinBase(action.paginate.applyCursor(new URL(params.baseUrl), nextCursor), base, basePath, "next-page cursor")

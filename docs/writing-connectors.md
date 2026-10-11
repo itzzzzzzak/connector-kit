@@ -82,7 +82,7 @@ Rules (enforced by the checker, and explained in [ADR-017](adr/0017-base-url-var
 
 ## 8. Pagination
 
-Use a strategy from the core (`linkHeaderPagination`, `bodyCursorPagination`) rather than looping by hand. A paginated action has optional `cursor` and `pageSize` inputs, is a `GET`, and its `output` is `z.array(item)`. If no strategy fits (offset paging, last-item cursors), say so in the PR: adding a reusable strategy to the core is better than a one-off.
+Use a strategy from the core (`linkHeaderPagination`, `bodyCursorPagination`, `bodyLinkPagination`, `offsetPagination` for offset or page-number paging, `linkHeaderCursorPagination` for a cursor carried in the `Link` header) rather than looping by hand. A paginated action has optional `cursor` and `pageSize` inputs, is a `GET`, and its `output` is `z.array(item)`. If no strategy fits (last-item cursors, cursors inside a POST body), say so in the PR: adding a reusable strategy to the core is better than a one-off.
 
 ## 9. Errors reported inside a 200
 
