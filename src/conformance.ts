@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { fixedHostSuffix, hostPartOf, placeholdersOf, variableMatches } from "./base-url.js"
 import type { ActionDefinition, ConnectorDefinition } from "./define.js"
 
 /**
@@ -23,12 +24,48 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
   if (!/^https:\/\//.test(connector.baseUrl)) fail(`baseUrl must be https (got "${connector.baseUrl}")`)
   if (/example\.(com|org)/.test(connector.baseUrl)) fail("baseUrl is still a placeholder")
 
+  // ---- base URL variables (ADR-017)
+  const used = placeholdersOf(connector.baseUrl)
+  const declared = connector.variables ?? {}
+  const pathPart = connector.baseUrl.replace(/^https:\/\//, "").slice(hostPartOf(connector.baseUrl).length)
+  if (placeholdersOf(pathPart).length > 0) fail("baseUrl placeholders are only allowed in the host (a value in the path could escape it)")
+  for (const name of used) if (!(name in declared)) fail(`baseUrl uses {${name}} but "variables" does not declare it`)
+  for (const [name, spec] of Object.entries(declared)) {
+    if (!used.includes(name)) fail(`variable "${name}" is declared but not used in baseUrl`)
+    if (!spec.description.trim() || /\bTODO\b/.test(spec.description)) fail(`variable "${name}" needs a real description`)
+    if (spec.values !== undefined && spec.values.length === 0) fail(`variable "${name}": "values" must not be empty`)
+    if (spec.pattern !== undefined) {
+      try {
+        new RegExp(spec.pattern)
+      } catch {
+        fail(`variable "${name}": pattern is not a valid regular expression`)
+      }
+    }
+    let exampleOk = false
+    try {
+      exampleOk = variableMatches(spec, spec.example)
+    } catch {
+      exampleOk = true // an invalid pattern is already reported above; do not crash on it
+    }
+    if (!exampleOk) fail(`variable "${name}": the example "${spec.example}" does not satisfy its own pattern or values`)
+  }
+  if (used.length > 0) {
+    const suffix = fixedHostSuffix(connector.baseUrl)
+    if (suffix === "") {
+      const last = used[used.length - 1]!
+      if (!declared[last]?.values) fail(`baseUrl ends its host with {${last}}: that variable must declare a closed list of "values" (otherwise it could name any server)`)
+    } else if (!suffix.includes(".")) {
+      fail(`baseUrl must keep a fixed domain after the last placeholder (got "${suffix}")`)
+    }
+  }
+
   // ---- auth
   const auth = connector.auth
   if (auth.type === "apiKey" && !auth.header) fail("auth.apiKey needs a header name")
   if (auth.type === "oauth2") {
     for (const field of ["authorizeUrl", "tokenUrl"] as const) {
       if (!auth[field].startsWith("https://")) fail(`auth.${field} must be https`)
+      if (placeholdersOf(auth[field]).length > 0) fail(`auth.${field} cannot contain {placeholders} yet`)
     }
   }
 

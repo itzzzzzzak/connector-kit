@@ -12,7 +12,7 @@ if (!existsSync(root)) {
 }
 
 const authLabel = (auth) =>
-  ({ oauth2: "OAuth 2.0 or token", bearer: "API token", apiKey: "API key", basic: "Username and password / API key" })[auth.type] ?? auth.type
+  ({ oauth2: "OAuth 2.0 or token", bearer: "API token", apiKey: "API key", basic: "Basic (username:password)" })[auth.type] ?? auth.type
 
 const connectors = []
 for (const name of readdirSync(root, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name).sort()) {
@@ -28,9 +28,9 @@ const lines = [
   "",
   `**${connectors.length} connectors** · ${live} live-tested · ${connectors.length - live} docs-based`,
   "",
-  "| Connector | Import | Status | Auth | Actions | Docs |",
-  "|---|---|---|---|---|---|",
-  ...connectors.map(({ name, c }) => `| **${c.meta.title}** | \`connector-kit/${name}\` | ${c.meta.status} | ${authLabel(c.auth)} | ${Object.keys(c.actions).length} | [API docs](${c.meta.docsUrl}) |`),
+  "| Connector | Import | Status | Auth | Needs | Actions | Docs |",
+  "|---|---|---|---|---|---|---|",
+  ...connectors.map(({ name, c }) => `| **${c.meta.title}** | \`connector-kit/${name}\` | ${c.meta.status} | ${authLabel(c.auth)} | ${Object.keys(c.variables ?? {}).map((v) => `\`${v}\``).join(", ") || "-"} | ${Object.keys(c.actions).length} | [API docs](${c.meta.docsUrl}) |`),
   "",
   "## What the status means",
   "",

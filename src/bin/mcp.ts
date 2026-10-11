@@ -30,7 +30,8 @@ if ("error" in args) fail(`${args.error}\n\n${USAGE}`)
 else if (args.list) {
   for (const name of available) {
     const c = await load(name)
-    console.error(`${name.padEnd(16)} ${(c.meta?.credentialEnv ?? "?").padEnd(24)} ${c.meta?.status ?? ""}`)
+    const needs = Object.keys(c.variables ?? {}).map((v) => `--var ${v}=...`).join(" ")
+    console.error(`${name.padEnd(16)} ${(c.meta?.credentialEnv ?? "?").padEnd(24)} ${(c.meta?.status ?? "").padEnd(12)} ${needs}`.trimEnd())
   }
 } else {
   const name = args.connector!
@@ -44,7 +45,14 @@ else if (args.list) {
   else {
     // Safe by default: only reads run unless writes are opted into.
     const kit = createConnectorKit({ beforeExecute: mcpPolicy(args.allowWrites) })
-    const connection = kit.connect(connector, { connectionId: "mcp", credentials: { token } })
+    const connection = (() => {
+      try {
+        return kit.connect(connector, { connectionId: "mcp", credentials: { token }, ...(args.variables && { variables: args.variables }) })
+      } catch (error) {
+        // Configuration problems (a missing --var, an invalid value) are explained; the message never contains the credential.
+        return fail(error instanceof Error ? error.message : "could not connect")
+      }
+    })()
     const tools = kit.toTools(connection, args.only ? { only: args.only } : {})
     console.error(`connector-kit-mcp: serving ${name} (${tools.length} tools, ${args.allowWrites ? "writes allowed" : "read-only"})`)
     await serveMcp(tools, { name: `connector-kit-${name}`, onError: (e) => console.error("connector-kit-mcp: internal error:", e instanceof Error ? e.message : "unknown") })

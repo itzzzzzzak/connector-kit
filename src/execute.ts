@@ -11,9 +11,10 @@ const RAW_BODY_LIMIT_CHARS = 2_000
 /** Error bodies are read with this small cap so a huge error page cannot hurt us. */
 const ERROR_BODY_READ_BYTES = 8_192
 
-export interface Credentials {
-  token: string
-}
+/** A token, or a username and password (for HTTP Basic connectors). */
+export type Credentials = { token: string } | { username: string; password: string }
+
+export const credentialToToken = (credentials: Credentials): string => ("token" in credentials ? credentials.token : `${credentials.username}:${credentials.password}`)
 
 /**
  * Where an access token comes from. Static credentials return the same token forever; an OAuth
@@ -32,6 +33,8 @@ export interface ExecuteParams {
   actionName: string
   input: unknown
   connectionId: string
+  /** The connector's base URL with any {variables} already filled in (see base-url.ts). */
+  baseUrl: string
   beforeExecute?: BeforeExecute
   tokens: TokenSource
   fetch: typeof fetch
@@ -46,6 +49,8 @@ const invalid = (message: string): ConnectorKitError =>
 function applyAuth(headers: Headers, auth: AuthConfig, token: string): void {
   if (auth.type === "apiKey") {
     headers.set(auth.header, `${auth.prefix ?? ""}${token}`)
+  } else if (auth.type === "basic") {
+    headers.set("Authorization", `Basic ${Buffer.from(token, "utf8").toString("base64")}`)
   } else {
     headers.set("Authorization", `Bearer ${token}`)
   }
@@ -194,7 +199,7 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
 
   const { path, rest } = fillPath(action.path, parsed.data as Record<string, unknown>)
 
-  const base = new URL(connector.baseUrl)
+  const base = new URL(params.baseUrl)
   const basePath = base.pathname.replace(/\/$/, "")
 
   // 2. Build the request. Non-body methods send leftovers as the query string.
@@ -298,7 +303,7 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
       const nextCursor = action.paginate.nextCursor({ headers: response.headers, body })
       if (nextCursor !== null) {
         // The provider told us where to go next; verify where that cursor would lead before we hand it to a caller.
-        assertWithinBase(action.paginate.applyCursor(new URL(connector.baseUrl), nextCursor), base, basePath, "next-page cursor")
+        assertWithinBase(action.paginate.applyCursor(new URL(params.baseUrl), nextCursor), base, basePath, "next-page cursor")
       }
       // action.output is declared z.array(...) for a paginated action (see define.ts); safe to widen here.
       return { items: output.data as unknown[], nextCursor } satisfies PageEnvelope<unknown>

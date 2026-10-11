@@ -141,7 +141,7 @@ Claude Desktop (`claude_desktop_config.json`) and Cursor (`.cursor/mcp.json`) us
 }
 ```
 
-If you installed the release tarball, the command is `node_modules/.bin/connector-kit-mcp github`. Options: `--only repos.get,issues.list` (expose fewer tools, which saves model context) and `--allow-writes`.
+If you installed the release tarball, the command is `node_modules/.bin/connector-kit-mcp github`. Options: `--only repos.get,issues.list` (expose fewer tools, which saves model context), `--allow-writes`, and `--var name=value` for connectors whose address depends on your account (for example `claude mcp add zendesk -e ZENDESK_CREDENTIALS='you@co.com/token:API_TOKEN' -- node .../mcp.js zendesk --var subdomain=acme`). `--list` shows which connectors need which.
 
 To embed it in your own program instead, with your own policy, use `connector-kit/mcp`:
 
@@ -223,7 +223,7 @@ Have an idea or a connector you need? [Open an issue](https://github.com/itzzzzz
 
 ## Connectors
 
-The catalog is in [docs/connectors.md](docs/connectors.md) (14 connectors so far: GitHub, Slack, Asana, HubSpot, Airtable, Calendly, Zoom, GitLab, Netlify, DigitalOcean, Vercel, Pipedrive, Intercom, Figma), generated from each connector's own metadata. Every connector is marked **`live-tested`** (run against the real API) or **`docs-based`** (written from the provider's official docs and tested against a fake server, **not** run live). We do not blur the two. See ADR-016 for the plan and [docs/writing-connectors.md](docs/writing-connectors.md) to add one: `pnpm new:connector <name>` scaffolds it, and an automatic check over every connector keeps them consistent.
+The catalog is in [docs/connectors.md](docs/connectors.md) (16 connectors so far: GitHub, Slack, Asana, HubSpot, Airtable, Calendly, Zoom, GitLab, Netlify, DigitalOcean, Vercel, Pipedrive, Intercom, Figma, Zendesk, Jira), generated from each connector's own metadata. Every connector is marked **`live-tested`** (run against the real API) or **`docs-based`** (written from the provider's official docs and tested against a fake server, **not** run live). We do not blur the two. See ADR-016 for the plan and [docs/writing-connectors.md](docs/writing-connectors.md) to add one: `pnpm new:connector <name>` scaffolds it, and an automatic check over every connector keeps them consistent.
 
 List what you can serve over MCP with `connector-kit-mcp --list`.
 

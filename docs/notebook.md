@@ -100,7 +100,7 @@ Operating cost is essentially one Postgres table.
 
 ## Decisions
 
-See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination · 011 agent tools + policy hook · 012 GitHub distribution, single package · 013 MCP server · 014 OAuth + token store · 015 second connector · 016 connector program.
+See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 003 TokenStore interface · 004 declarative connectors + escape hatches · 005 actions before sync · 006 app hosts OAuth callback · 007 effect labels + optional hook · 008 bounded wait, safe retries · 009 error taxonomy · 010 pagination · 011 agent tools + policy hook · 012 GitHub distribution, single package · 013 MCP server · 014 OAuth + token store · 015 second connector · 016 connector program · 017 base-URL variables + Basic auth.
 
 ## Failures
 
@@ -109,6 +109,10 @@ See [docs/adr](adr). Index: 001 TypeScript + Zod · 002 library not server · 00
 - **GitHub signals rate limits with 403.** Treating every 403 as "permission denied" would tell an agent not to retry. Fix: 403 with `x-ratelimit-remaining: 0` maps to `rate_limited`; other 403s map to the new `forbidden` code.
 
 ## Mistakes / misunderstandings
+
+- **I almost marked a retry-unsafe update as retry-safe.** `tickets.update` was written with `safeToRetry: true` ("a PUT is idempotent") while the same action can add a comment; a retried timeout would post it twice, publicly if the comment is public. A PUT being idempotent is a property of the HTTP verb, not of what this particular call does. I caught it while writing a comment that said "see below" and found nothing below. The test now asserts a failed update is sent exactly once.
+- **A security layer that no test exercises is not a layer.** Disabling the fixed-domain check changed no test result, because the strict default pattern already blocked every hostile value; the second line of defence was untested. It only protects against a connector author's sloppy pattern, so I added a test with a deliberately permissive one (`.+`) and re-ran the mutation.
+- **Equivalent mutants.** Flipping `=== true` to `!== false` in a body builder showed "no test failed", but the input schema's `default(false)` already made the difference unreachable. The property that matters is the schema default; mutating that failed the right test. Before calling something a test gap, check the mutation actually changes behaviour.
 
 - **Memory of an API is stale the moment the provider ships v2.** I would have written Pipedrive from memory as `/v1/deals`; the official v1 spec no longer contains deals at all. Across 12 connectors, reading the vendor's own description changed the plan more than once (a deprecated endpoint, a renamed path parameter, a missing pagination parameter, an ambiguous write body). The method works: facts from the official spec, an honest `docs-based` label, and a read-only first version when a write cannot be verified.
 

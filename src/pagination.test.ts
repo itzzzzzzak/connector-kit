@@ -194,3 +194,11 @@ function setup2(handler: (url: URL) => Response) {
   const kit = createConnectorKit({ retry: { maxRetries: 0 }, fetch: (async (input: URL | string) => (calls.push(new URL(String(input))), handler(new URL(String(input))))) as typeof fetch })
   return { kit, calls, conn: kit.connect(linked, { connectionId: "c", credentials: { token: "t" } }) }
 }
+
+test("body link: with hasMorePath, a next link on the LAST page is ignored (Zendesk keeps sending one)", async () => {
+  const strategy = bodyLinkPagination({ itemsKey: "items", nextUrlPath: ["links", "next"], hasMorePath: ["meta", "has_more"] })
+  const ctx = (body: unknown) => ({ headers: new Headers(), body })
+  assert.equal(strategy.nextCursor(ctx({ items: [], meta: { has_more: true }, links: { next: "https://x.test/p2" } })), "https://x.test/p2")
+  assert.equal(strategy.nextCursor(ctx({ items: [], meta: { has_more: false }, links: { next: "https://x.test/p2" } })), null)
+  assert.equal(strategy.nextCursor(ctx({ items: [], links: { next: "https://x.test/p2" } })), null, "a missing flag means no more")
+})

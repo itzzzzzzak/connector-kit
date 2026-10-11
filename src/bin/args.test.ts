@@ -31,3 +31,11 @@ test("policy: read-only by default, writes only when opted in, destructive never
 test("--list needs no connector name", () => {
   assert.deepEqual(parseMcpArgs(["--list"]), { allowWrites: false, list: true })
 })
+
+test("--var collects name=value pairs, keeps '=' inside values, and works with other flags", () => {
+  assert.deepEqual(parseMcpArgs(["zendesk", "--var", "subdomain=acme", "--var", "token=a=b=c", "--allow-writes"]), { connector: "zendesk", allowWrites: true, list: false, variables: { subdomain: "acme", token: "a=b=c" } })
+})
+
+test("--var without a name or an '=' is an error, not a silent skip", () => {
+  for (const argv of [["zendesk", "--var"], ["zendesk", "--var", "acme"], ["zendesk", "--var", "=x"]]) assert.ok("error" in parseMcpArgs(argv), JSON.stringify(argv))
+})

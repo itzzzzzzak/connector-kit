@@ -1,6 +1,7 @@
 import type { z } from "zod"
 import type { ActionDefinition, ConnectorDefinition } from "./define.js"
-import { DEFAULT_MAX_RESPONSE_BYTES, DEFAULT_TIMEOUT_MS, execute, staticTokenSource, type Credentials, type TokenSource } from "./execute.js"
+import { resolveBaseUrl } from "./base-url.js"
+import { credentialToToken, DEFAULT_MAX_RESPONSE_BYTES, DEFAULT_TIMEOUT_MS, execute, staticTokenSource, type Credentials, type TokenSource } from "./execute.js"
 import { credentialKey, finishAuth, oauthConfigOf, oauthTokenSource, startAuth, type OAuthClientConfig, type OAuthDeps } from "./oauth.js"
 import type { PageEnvelope, PaginationStrategy } from "./pagination.js"
 import type { BeforeExecute } from "./policy.js"
@@ -34,10 +35,15 @@ export interface ConnectOptions {
   /** One connection = one end user's account (multi-tenant from day one). */
   connectionId: string
   /**
-   * A fixed token (e.g. a personal access token). Omit it for an OAuth connector to use the token
-   * stored for this `connectionId` by `finishAuth()`, refreshed automatically.
+   * A fixed token (e.g. a personal access token), or { username, password } for a Basic-auth connector. Omit it for an
+   * OAuth connector to use the token stored for this `connectionId` by `finishAuth()`, refreshed automatically.
    */
   credentials?: Credentials
+  /**
+   * Values for the {placeholders} in the connector's base URL, e.g. { subdomain: "acme" } for Zendesk. They come from YOU
+   * (host configuration), never from a model, and are validated strictly because they decide which server receives the credential.
+   */
+  variables?: Record<string, string>
 }
 
 export interface StartAuthOptions {
@@ -96,11 +102,16 @@ export function createConnectorKit(options: KitOptions = {}) {
   return {
     connect<A extends Record<string, ActionDefinition>>(
       connector: ConnectorDefinition<A>,
-      { connectionId, credentials }: ConnectOptions,
+      { connectionId, credentials, variables }: ConnectOptions,
     ): Connection<A> {
+      const baseUrl = resolveBaseUrl(connector.name, connector.baseUrl, connector.variables, variables)
       let tokens: TokenSource
       if (credentials) {
-        tokens = staticTokenSource(credentials.token)
+        const secret = credentialToToken(credentials)
+        if (connector.auth.type === "basic" && !secret.includes(":")) {
+          throw new Error(`Connector "${connector.name}" uses Basic auth: pass credentials as { username, password } or a token written "username:password".`)
+        }
+        tokens = staticTokenSource(secret)
       } else if (connector.auth.type === "oauth2") {
         tokens = oauthTokenSource(oauthDeps(connector as unknown as AnyConnector), connector as unknown as AnyConnector, connectionId)
       } else {
@@ -113,6 +124,7 @@ export function createConnectorKit(options: KitOptions = {}) {
           actionName: action,
           input,
           connectionId,
+          baseUrl,
           ...(options.beforeExecute && { beforeExecute: options.beforeExecute }),
           tokens,
           fetch: fetchImpl,

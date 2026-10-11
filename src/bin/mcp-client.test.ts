@@ -78,3 +78,30 @@ test("slack over MCP: four tools, reads are hinted read-only, and posting is DEN
 test("without the slack token the slack server refuses to start", async () => {
   await assert.rejects(() => connect(["slack"], { GITHUB_TOKEN: "ghp_only" }))
 })
+
+const ZEN = { ZENDESK_CREDENTIALS: "me@acme.dev/token:FAKE" }
+
+test("a connector with a base-URL variable serves its tools when given --var (real MCP client)", async () => {
+  const client = await connect(["zendesk", "--var", "subdomain=acme"], ZEN)
+  try {
+    const { tools } = await client.listTools()
+    assert.equal(tools.length, 7)
+    assert.ok(tools.some((t) => t.name === "zendesk_tickets_create" && t.annotations?.readOnlyHint === false))
+    // Writes are denied by default over MCP, before any request
+    const denied = await client.callTool({ name: "zendesk_tickets_create", arguments: { subject: "s", comment: "c" } })
+    assert.equal(denied.isError, true)
+    assert.equal(JSON.parse((denied.content as Array<{ text: string }>)[0]!.text).code, "denied")
+  } finally {
+    await client.close()
+  }
+})
+
+test("a missing or hostile --var stops the server from starting", async () => {
+  await assert.rejects(() => connect(["zendesk"], ZEN))
+  await assert.rejects(() => connect(["zendesk", "--var", "subdomain=evil.com/x"], ZEN))
+  await assert.rejects(() => connect(["zendesk", "--var", "subdomain=acme", "--var", "typo=1"], ZEN))
+})
+
+test("a Basic-auth connector without a colon in its credential does not start", async () => {
+  await assert.rejects(() => connect(["jira", "--var", "site=acme"], { JIRA_CREDENTIALS: "no-colon-here" }))
+})

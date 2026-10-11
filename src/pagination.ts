@@ -98,6 +98,11 @@ export function bodyLinkPagination(options: {
   itemsKey: string
   /** Path to the next-page URL in the response body, e.g. ["links", "pages", "next"]. */
   nextUrlPath: string[]
+  /**
+   * Path to a boolean in the body (e.g. ["meta", "has_more"]). When given, there is a next page ONLY if it is `true`,
+   * for providers that keep sending a next link on the last page.
+   */
+  hasMorePath?: string[]
   pageSizeParam?: string
   defaultPageSize?: number
   maxPageSize?: number
@@ -108,6 +113,7 @@ export function bodyLinkPagination(options: {
     maxPageSize: options.maxPageSize ?? 100,
     items: (body) => dig(body, [options.itemsKey]),
     nextCursor({ body }) {
+      if (options.hasMorePath && dig(body, options.hasMorePath) !== true) return null
       const next = dig(body, options.nextUrlPath)
       return typeof next === "string" && next !== "" ? next : null
     },

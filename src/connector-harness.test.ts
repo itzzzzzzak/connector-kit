@@ -21,10 +21,10 @@ export interface Call {
 export function harness<A extends Record<string, ActionDefinition>>(
   connector: ConnectorDefinition<A>,
   respond: (call: Call) => Response | Promise<Response>,
-  options: KitOptions & { credentials?: { token: string } } = {},
+  options: KitOptions & { credentials?: { token: string }; variables?: Record<string, string> } = {},
 ) {
   const calls: Call[] = []
-  const { credentials = { token: "test-token" }, ...kitOptions } = options
+  const { credentials = { token: "test-token" }, variables, ...kitOptions } = options
   const kit = createConnectorKit({
     retry: { maxRetries: 0 },
     ...kitOptions,
@@ -43,7 +43,7 @@ export function harness<A extends Record<string, ActionDefinition>>(
       return respond(call)
     }) as typeof fetch,
   })
-  return { kit, calls, conn: kit.connect(connector, { connectionId: "test", credentials }) }
+  return { kit, calls, conn: kit.connect(connector, { connectionId: "test", credentials, ...(variables && { variables }) }) }
 }
 
 const isError = (code: string, extra?: (e: ConnectorKitError) => boolean) => (e: unknown) => e instanceof ConnectorKitError && e.code === code && (extra?.(e) ?? true)

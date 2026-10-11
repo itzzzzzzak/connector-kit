@@ -9,6 +9,11 @@ export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
 
 export type AuthConfig =
   | { type: "bearer" }
+  /**
+   * HTTP Basic. The credential is "username:password" (or pass { username, password }). Many APIs call the pair
+   * something else: Jira "email:api_token", Zendesk "email/token:api_token", Twilio "AccountSid:AuthToken".
+   */
+  | { type: "basic" }
   | { type: "apiKey"; header: string; prefix?: string }
   /**
    * OAuth 2.0 authorization-code flow (ADR-014). Calls are sent as `Authorization: Bearer <token>`,
@@ -89,9 +94,26 @@ export interface ConnectorMeta {
   credentialEnv: string
 }
 
+/**
+ * A value the HOST supplies when connecting, for a base URL such as https://{subdomain}.zendesk.com (ADR-017).
+ * Never model input: it decides which server receives the credential, so it is validated strictly.
+ */
+export interface ConnectorVariable {
+  /** What to put here, e.g. "Your Zendesk subdomain". */
+  description: string
+  /** An example value, e.g. "acme". It must itself be valid. */
+  example: string
+  /** Regular expression the whole value must match. Default: one DNS label (letters, digits, inner hyphens). */
+  pattern?: string
+  /** A closed list of allowed values (e.g. regions). Required when the host ends with the placeholder. */
+  values?: string[]
+}
+
 export interface ConnectorDefinition<A extends Record<string, ActionDefinition>> {
   name: string
+  /** May contain {placeholders} in the HOST part, declared in `variables`. */
   baseUrl: string
+  variables?: Record<string, ConnectorVariable>
   auth: AuthConfig
   meta?: ConnectorMeta
   defaultHeaders?: Record<string, string>

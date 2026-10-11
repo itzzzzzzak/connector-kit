@@ -65,6 +65,21 @@ If the content can come from other people (messages, tickets, comments), say it 
 
 Pick what the provider documents: `bearer`, `apiKey` (a named header, optional prefix: `Authorization: Bot <token>`), or `oauth2`. Set `meta.credentialEnv` to the environment variable `connector-kit-mcp` should read (`ACME_TOKEN`). For OAuth, give `authorizeUrl`, `tokenUrl`, minimal default `scopes`, and set `pkce: false` if the provider does not document PKCE.
 
+### Account-specific hosts (subdomains, regions)
+
+If the API address depends on the account (`https://acme.zendesk.com`), write the `baseUrl` as a template and declare each placeholder:
+
+```ts
+baseUrl: "https://{subdomain}.zendesk.com/api/v2",
+variables: { subdomain: { description: "Your Zendesk subdomain", example: "acme" } },
+```
+
+Rules (enforced by the checker, and explained in [ADR-017](adr/0017-base-url-variables-and-basic-auth.md)): placeholders go in the **host only**; keep a **fixed domain after the last placeholder** (`.zendesk.com`); a host that *ends* with a placeholder (`api.{site}`) must give a closed list of `values`; the `example` must satisfy your own `pattern`/`values`. The host application supplies the values when it connects; they decide which server gets the credential, so never accept one from a model. For the MCP command they are `--var subdomain=acme`.
+
+### HTTP Basic
+
+`auth: { type: "basic" }`. The credential is `username:password`; document the exact format in a comment (Jira `email:api_token`, Zendesk `email/token:api_token`) and put an example in your live test's header.
+
 ## 8. Pagination
 
 Use a strategy from the core (`linkHeaderPagination`, `bodyCursorPagination`) rather than looping by hand. A paginated action has optional `cursor` and `pageSize` inputs, is a `GET`, and its `output` is `z.array(item)`. If no strategy fits (offset paging, last-item cursors), say so in the PR: adding a reusable strategy to the core is better than a one-off.

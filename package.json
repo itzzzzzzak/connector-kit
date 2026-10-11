@@ -48,6 +48,10 @@
       "types": "./dist/connectors/intercom/index.d.ts",
       "default": "./dist/connectors/intercom/index.js"
     },
+    "./jira": {
+      "types": "./dist/connectors/jira/index.d.ts",
+      "default": "./dist/connectors/jira/index.js"
+    },
     "./netlify": {
       "types": "./dist/connectors/netlify/index.d.ts",
       "default": "./dist/connectors/netlify/index.js"
@@ -63,6 +67,10 @@
     "./vercel": {
       "types": "./dist/connectors/vercel/index.d.ts",
       "default": "./dist/connectors/vercel/index.js"
+    },
+    "./zendesk": {
+      "types": "./dist/connectors/zendesk/index.d.ts",
+      "default": "./dist/connectors/zendesk/index.js"
     },
     "./zoom": {
       "types": "./dist/connectors/zoom/index.d.ts",
