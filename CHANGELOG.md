@@ -2,6 +2,15 @@
 
 All notable changes are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims to follow [Semantic Versioning](https://semver.org/) from 0.1.
 
+## [0.4.0](https://github.com/itzzzzzzak/connector-kit/compare/v0.3.0...v0.4.0) (2026-10-11)
+
+
+### Features
+
+* full API coverage by group; OpenAPI generator; GitHub REST API (1,190 actions) ([#29](https://github.com/itzzzzzzak/connector-kit/issues/29)) ([00a0a03](https://github.com/itzzzzzzak/connector-kit/commit/00a0a031bb2756f1251415be7e6e1b45994ae5d9))
+* full API coverage for GitLab, Jira, DigitalOcean, Zendesk, Vercel, PagerDuty, Sentry, Slack, Asana, ClickUp, Netlify, Intercom, Figma ([#31](https://github.com/itzzzzzzak/connector-kit/issues/31)) ([5507bb4](https://github.com/itzzzzzzak/connector-kit/commit/5507bb463a373dbbdf035f73cfdaa0733f98636a))
+* full API coverage for HubSpot, Zoom, Pipedrive, Mailchimp; multi-spec generator ([#32](https://github.com/itzzzzzzak/connector-kit/issues/32)) ([999e742](https://github.com/itzzzzzzak/connector-kit/commit/999e742d9a97919a781c342cfcd5790978e48cb3))
+
 ## [0.3.0](https://github.com/itzzzzzzak/connector-kit/compare/v0.2.0...v0.3.0) (2026-10-11)
 
 
