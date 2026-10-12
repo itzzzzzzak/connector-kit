@@ -12,13 +12,13 @@ connector-kit is an open-source TypeScript library for building and running conn
 
 It is designed **agent-first**. Every action is a typed, validated, LLM-readable tool, and the same definition also gives you a normal developer SDK.
 
-> **Status: pre-1.0.** The core (validation, OAuth, token storage, retries, pagination, MCP server) is tested end to end, and **20 connectors cover about 9,500 API actions**. Only GitHub has been run against its real API so far; the rest are built from official API descriptions and tested against fake servers (see [Connectors](#connectors)). Expect breaking changes until 1.0. Distributed from GitHub Releases, not npm.
+> **Status: pre-1.0.** The core (validation, OAuth, token storage, retries, pagination, MCP server) is tested end to end, and **21 connectors cover about 10,100 API actions**. Only GitHub has been run against its real API so far; the rest are built from official API descriptions and tested against fake servers (see [Connectors](#connectors)). Expect breaking changes until 1.0. Distributed from GitHub Releases, not npm.
 
 ## Why
 
 Every product that talks to third-party APIs re-implements the same plumbing, and every AI agent that calls tools needs it to be *safe*: a model can invent arguments, repeat a call in a loop, or be steered by text inside an API response. connector-kit puts that plumbing, and those guardrails, in one small, permissively licensed (MIT) library instead of in every integration.
 
-It is a **library, not a platform**: no server to run, no dashboard, no hosted service. It covers a lot of ground (20 providers, whole APIs) but stays small to adopt: you import only the connector you use, and nothing runs until you call it. It competes on being embeddable and safe by default.
+It is a **library, not a platform**: no server to run, no dashboard, no hosted service. It covers a lot of ground (21 providers, whole APIs) but stays small to adopt: you import only the connector you use, and nothing runs until you call it. It competes on being embeddable and safe by default.
 
 ## Install
 
@@ -126,6 +126,7 @@ connector-kit includes an [MCP](https://modelcontextprotocol.io) server, so any 
 # Claude Code (use an absolute path; prefer a fine-grained, read-only GitHub token)
 claude mcp add github -e GITHUB_TOKEN=<token> -- node /abs/path/to/connector-kit/dist/bin/mcp.js github
 claude mcp add slack -e SLACK_BOT_TOKEN=<xoxb-token> -- node /abs/path/to/connector-kit/dist/bin/mcp.js slack
+claude mcp add stripe -e STRIPE_API_KEY=<rk_test_...> -- node /abs/path/to/connector-kit/dist/bin/mcp.js stripe --group customers,invoices,balance
 ```
 
 Claude Desktop (`claude_desktop_config.json`) and Cursor (`.cursor/mcp.json`) use the same shape:
@@ -213,9 +214,10 @@ The reasoning behind each decision is in [docs/adr](docs/adr), and the design ov
 - [x] OAuth 2.0 with PKCE, refresh with locking, encrypted token storage (memory and Postgres)
 - [x] MCP server (`connector-kit/mcp` and the `connector-kit-mcp` command), with `--group` filtering
 - [x] HTTP Basic auth and per-account base URLs (Zendesk, Jira, Mailchimp, Sentry)
-- [x] 20 connectors with full API coverage, generated from official API descriptions ([ADR-018](docs/adr/0018-full-api-coverage-and-groups.md))
+- [x] 21 connectors with full API coverage, generated from official API descriptions ([ADR-018](docs/adr/0018-full-api-coverage-and-groups.md))
+- [x] Form-encoded requests, idempotency keys and last-item paging, for Stripe ([ADR-019](docs/adr/0019-form-bodies-idempotency-and-last-item-paging.md))
 - [ ] Full coverage for Airtable and Calendly (no official machine-readable description; hand-written)
-- [ ] Stripe, Twilio, Discord, Salesforce, Datadog, Notion, Linear, Shopify (each needs one core feature first)
+- [ ] Notion, Linear, Google Workspace, Salesforce, Twilio, Shopify, Discord, Datadog (each needs one core feature first)
 - [ ] Promote connectors to `live-tested` as they are run against real accounts
 - [ ] Webhook verification and delivery de-duplication
 
@@ -223,7 +225,7 @@ Have an idea or a connector you need? [Open an issue](https://github.com/itzzzzz
 
 ## Connectors
 
-The catalog is in [docs/connectors.md](docs/connectors.md) (20 connectors, about 9,500 actions: GitHub, Slack, Asana, HubSpot, Airtable, Calendly, Zoom, GitLab, Netlify, DigitalOcean, Vercel, Pipedrive, Intercom, Figma, Zendesk, Jira, PagerDuty, Mailchimp, ClickUp, Sentry), generated from each connector's own metadata. Every connector is marked **`live-tested`** (run against the real API) or **`docs-based`** (written from the provider's official docs and tested against a fake server, **not** run live). We do not blur the two. See ADR-016 for the plan and [docs/writing-connectors.md](docs/writing-connectors.md) to add one: `pnpm new:connector <name>` scaffolds it, and an automatic check over every connector keeps them consistent.
+The catalog is in [docs/connectors.md](docs/connectors.md) (21 connectors, about 10,100 actions: GitHub, Stripe, Slack, Asana, HubSpot, Airtable, Calendly, Zoom, GitLab, Netlify, DigitalOcean, Vercel, Pipedrive, Intercom, Figma, Zendesk, Jira, PagerDuty, Mailchimp, ClickUp, Sentry), generated from each connector's own metadata. Every connector is marked **`live-tested`** (run against the real API) or **`docs-based`** (written from the provider's official docs and tested against a fake server, **not** run live). We do not blur the two. See ADR-016 for the plan and [docs/writing-connectors.md](docs/writing-connectors.md) to add one: `pnpm new:connector <name>` scaffolds it, and an automatic check over every connector keeps them consistent.
 
 **Big connectors are used by group.** GitHub alone has about 1,190 actions, far too many to give a model at once. Actions are named `group.verb` (for example `issues.create`); expose a group with `--group issues,repos` (MCP) or `kit.toTools(connection, { groups: ["issues"] })`, or single actions with `only`. The MCP command refuses to start a connector with more than 40 actions unless you choose. Most actions are generated from the provider's official API description; the important ones are hand-written with typed results and take precedence by name. Generated actions are never marked safe to retry, and writes are blocked over MCP unless you pass `--allow-writes`.
 

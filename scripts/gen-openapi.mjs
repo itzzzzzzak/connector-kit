@@ -145,7 +145,7 @@ function zodOf(schema, depth = 0) {
   // Form-encoded APIs that describe a field as "a JSON string" accept the real structure when we send JSON.
   if (schema.jsonish) return "z.union([z.string(), z.array(z.unknown()), z.record(z.string(), z.unknown())])"
   let base
-  if (schema.enum && schema.enum.every((v) => typeof v === "string") && schema.enum.length > 0) base = `z.enum([${schema.enum.map(q).join(", ")}])`
+  if (schema.enum && schema.enum.every((v) => typeof v === "string") && schema.enum.length > 0 && schema.enum.length <= 30) base = `z.enum([${schema.enum.map(q).join(", ")}])`
   else if (schema.type === "string" || (Array.isArray(schema.type) && schema.type.includes("string") && schema.type.length <= 2)) base = "z.string()"
   else if (schema.type === "integer" || schema.type === "number") base = "z.number()"
   else if (schema.type === "boolean") base = "z.boolean()"
@@ -186,6 +186,7 @@ spec = await loadSpec(def)
 swagger2 = typeof spec.swagger === "string"
 serverPath = computeServerPath(def)
 const ops = []
+const allRel = new Set(Object.keys(spec.paths).map(relativePath).filter((x) => x !== null))
 for (const [path, item] of Object.entries(spec.paths)) {
   for (const method of METHODS) {
     const op = item[method]
@@ -217,7 +218,7 @@ for (const [path, item] of Object.entries(spec.paths)) {
     } else {
       const requestBody = resolveRef(op.requestBody)
       const content = requestBody?.content
-      if (content && !content["application/json"] && !(config.formAsJson && (content["application/x-www-form-urlencoded"]))) { skipped.nonJsonBody++; continue }
+      if (content && !content["application/json"] && !((config.formAsJson || config.formEncoded) && (content["application/x-www-form-urlencoded"]))) { skipped.nonJsonBody++; continue }
       const media = content?.["application/json"] ?? content?.["application/x-www-form-urlencoded"]
       bodySchema = media?.schema
       bodyRequired = requestBody?.required === true
@@ -243,8 +244,33 @@ for (const { path, rel, method, op, params: allParams, bodySchema, bodyRequired,
     const prefix = { get: trailingParam ? "get" : "list", post: "create", put: "replace", patch: "update", delete: "delete" }[method]
     verbWords = `${prefix} ${tail.join(" ")}${trailingParam && !tail.length ? "" : ""}`
   }
-  const sep = config.naming === "path" ? null : /^([A-Za-z0-9-]+)[/_](.+)$/.exec(id)
-  if (config.naming === "path") { /* names set above */ }
+  if (config.naming === "rest") {
+    // Resource-style names for REST APIs whose operation ids are no help (Stripe): the group is the resource, the verb is
+    // list/get/create/update/delete, a nested resource adds its name (customers.listBankAccounts), and a POST that does
+    // something to an object (/payment_intents/{id}/confirm) is named for what it does (paymentIntents.confirm).
+    const segs = rel.split("/").filter(Boolean)
+    const isParam = (x) => x.startsWith("{")
+    const stat = segs.filter((x) => !isParam(x))
+    const namespaces = config.namespaces ?? []
+    let take = namespaces.includes(stat[0]) ? 2 : 1
+    if (stat[0] === "test_helpers") take = namespaces.includes(stat[1]) ? 3 : 2
+    const tail = stat.slice(take)
+    const trailingParam = isParam(segs[segs.length - 1])
+    const sing = (w) => (/ies$/.test(w) ? w.slice(0, -3) + "y" : /sses$/.test(w) ? w.slice(0, -2) : /[^su]s$/.test(w) ? w.slice(0, -1) : w)
+    const hasItemChild = [...allRel].some((x) => x.startsWith(rel + "/{") && !x.slice(rel.length + 1).includes("/"))
+    const hasGet = Boolean(spec.paths[path].get)
+    let verb0, tailWords = tail
+    if (tail.length === 0) verb0 = { get: trailingParam ? "get" : "list", post: trailingParam ? "update" : "create", put: "replace", patch: "update", delete: "delete" }[method]
+    else if (tail.length === 1 && tail[0] === "search" && method === "get") { verb0 = "search"; tailWords = [] }
+    else if (trailingParam) { verb0 = { get: "get", post: "update", put: "replace", patch: "update", delete: "delete" }[method]; tailWords = [...tail.slice(0, -1), sing(tail[tail.length - 1])] }
+    else if (hasItemChild) { verb0 = { get: "list", post: "create", put: "replace", patch: "update", delete: "delete" }[method]; tailWords = [...tail.slice(0, -1), method === "get" ? tail[tail.length - 1] : sing(tail[tail.length - 1])] }
+    else if (method === "post" && !hasGet) { verb0 = ""; tailWords = tail } // an action: confirm, cancel, capture
+    else { verb0 = { get: "get", post: "update", put: "replace", patch: "update", delete: "delete" }[method]; tailWords = tail }
+    groupWords = stat.slice(0, take).join(" ")
+    verbWords = `${verb0} ${tailWords.join(" ")}`.trim()
+  }
+  const sep = config.naming === "path" || config.naming === "rest" ? null : /^([A-Za-z0-9-]+)[/_](.+)$/.exec(id)
+  if (config.naming === "path" || config.naming === "rest") { /* names set above */ }
   else if (sep && !/\s/.test(id)) { groupWords = sep[1]; verbWords = sep[2] }
   else {
     groupWords = op.tags?.[0] ?? rel.split("/").filter((s) => s && !s.startsWith("{"))[0] ?? "misc"
@@ -301,7 +327,8 @@ for (const { path, rel, method, op, params: allParams, bodySchema, bodyRequired,
   }
 
   let wholeBody = false
-  const body = mergeAllOf(bodySchema)
+  let body = mergeAllOf(bodySchema)
+  if (config.formEncoded && body && Object.keys(body.properties ?? {}).length === 0 && !body.oneOf && !body.anyOf) body = undefined
   const bodyProps = [...Object.entries(body?.properties ?? {}).map(([k, v]) => [k, v, (body.required ?? []).includes(k)]), ...formFields.filter((f) => !dropParams.has(f.name)).map((f) => [f.name, { jsonish: config.formAsJson && /json/i.test(f.description ?? ""), type: f.type, enum: f.enum, items: f.items, description: f.description }, f.required === true])]
   if (body || formFields.length > 0) {
     const clash = bodyProps.some(([k]) => fields.has(k.replace(/[^A-Za-z0-9_]/g, "_")))
@@ -336,7 +363,8 @@ for (const { path, rel, method, op, params: allParams, bodySchema, bodyRequired,
     return clean(d, 480)
   })()
 
-  const effect = method === "get" ? "read" : method === "delete" ? "destructive" : "write"
+  const destructiveVerb = config.destructiveVerbs && method !== "get" && new RegExp(config.destructiveVerbs, "i").test(verbWords)
+  const effect = method === "get" ? "read" : method === "delete" || destructiveVerb ? "destructive" : "write"
   const bodyKeys = entries.filter(([, f]) => f.where === "body")
   const queryKeys = entries.filter(([, f]) => f.where === "query")
   const lines = [

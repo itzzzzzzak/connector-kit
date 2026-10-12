@@ -2,6 +2,7 @@ import { ConnectorKitError, errorFromStatus } from "./errors.js"
 import type { ActionDefinition, AuthConfig, ConnectorDefinition } from "./define.js"
 import type { PageEnvelope } from "./pagination.js"
 import type { BeforeExecute } from "./policy.js"
+import { encodeForm, formPairs, type FormArrays } from "./form.js"
 import { retryDelayMs, type RetryOptions } from "./retry.js"
 
 export const DEFAULT_TIMEOUT_MS = 30_000
@@ -98,10 +99,23 @@ function fillPath(template: string, input: Record<string, unknown>): { path: str
   return { path, rest }
 }
 
-/** Scalars become one param, arrays of scalars become repeated params, anything else is a caller bug. */
-function appendQuery(url: URL, rest: Record<string, unknown>): void {
+/**
+ * Scalars become one param, arrays of scalars become repeated params, anything else is a caller bug.
+ * With `form` (a form-encoded connector) objects and arrays use the connector's bracket notation: `created[gt]=5`.
+ */
+function appendQuery(url: URL, rest: Record<string, unknown>, form?: FormArrays): void {
   for (const [key, value] of Object.entries(rest)) {
     if (value === undefined) continue
+    if (form && typeof value === "object" && value !== null && !(value instanceof Date)) {
+      let pairs: [string, string][]
+      try {
+        pairs = formPairs({ [key]: value }, form)
+      } catch {
+        throw invalid(`Parameter "${key}" cannot be sent as a query parameter.`)
+      }
+      for (const [name, text] of pairs) url.searchParams.append(name, text)
+      continue
+    }
     const values = Array.isArray(value) ? value : [value]
     for (const item of values) {
       if (item instanceof Date) {
@@ -198,6 +212,8 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
   }
 
   const { path, rest } = fillPath(action.path, parsed.data as Record<string, unknown>)
+  const format = connector.bodyFormat ?? "json"
+  const formArrays: FormArrays | undefined = format === "form" ? "indices" : format === "form-repeat" ? "repeat" : undefined
 
   const base = new URL(params.baseUrl)
   const basePath = base.pathname.replace(/\/$/, "")
@@ -208,7 +224,7 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
   assertWithinBase(url, base, basePath, "request path")
   if (action.paginate) {
     const { cursor, pageSize, ...queryRest } = rest as { cursor?: unknown; pageSize?: unknown } & Record<string, unknown>
-    appendQuery(url, action.buildQuery ? action.buildQuery(queryRest) : queryRest)
+    appendQuery(url, action.buildQuery ? action.buildQuery(queryRest) : queryRest, formArrays)
     if (pageSize !== undefined && typeof pageSize !== "number") throw invalid('"pageSize" must be a number.')
     if (action.paginate.pageSizeParam) {
       const size = clamp(pageSize ?? action.paginate.defaultPageSize, 1, action.paginate.maxPageSize)
@@ -225,7 +241,11 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
   const hasBody = action.method !== "GET" && (action.method !== "DELETE" || action.buildBody !== undefined)
   // A POST/PUT/PATCH that declares buildQuery but no buildBody takes its parameters in the query string and sends no body.
   const queryOnly = hasBody && action.buildQuery !== undefined && action.buildBody === undefined
-  if ((!hasBody || action.buildQuery) && !action.paginate) appendQuery(url, action.buildQuery ? action.buildQuery(rest) : rest)
+  if ((!hasBody || action.buildQuery) && !action.paginate) appendQuery(url, action.buildQuery ? action.buildQuery(rest) : rest, formArrays)
+
+  // A provider with an idempotency header (Stripe) drops a repeated POST that carries the same key, so one key per call,
+  // sent again on every retry, makes retrying a POST safe.
+  const idempotencyKey = connector.idempotencyKeyHeader !== undefined && action.method === "POST" ? globalThis.crypto.randomUUID() : undefined
 
   // One attempt = one HTTP request. Everything below can throw a ConnectorKitError.
   let lastToken: string | undefined // the token the most recent attempt sent
@@ -235,9 +255,21 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
     lastToken = await params.tokens.get(rejectedToken === undefined ? undefined : { rejected: rejectedToken })
     applyAuth(headers, connector.auth, lastToken)
     const init: RequestInit = { method: action.method, headers, signal: AbortSignal.timeout(params.timeoutMs) }  // fresh deadline per attempt
+    if (idempotencyKey !== undefined) headers.set(connector.idempotencyKeyHeader!, idempotencyKey)
     if (hasBody && !queryOnly) {
-      headers.set("Content-Type", "application/json")
-      init.body = JSON.stringify(action.buildBody ? action.buildBody(rest) : rest)
+      const payload = action.buildBody ? action.buildBody(rest) : rest
+      if (formArrays) {
+        if (typeof payload !== "object" || payload === null || Array.isArray(payload)) throw invalid(`"${actionName}" must send an object as its form body.`)
+        headers.set("Content-Type", "application/x-www-form-urlencoded")
+        try {
+          init.body = encodeForm(payload as Record<string, unknown>, formArrays)
+        } catch {
+          throw invalid(`The input for "${actionName}" cannot be form-encoded.`)
+        }
+      } else {
+        headers.set("Content-Type", "application/json")
+        init.body = JSON.stringify(payload)
+      }
     }
 
     // 3. Call and read, both under the same timeout signal.
@@ -328,7 +360,7 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
         rejectedToken = lastToken
         continue
       }
-      const delay = retryDelayMs(error, action, retriesDone, waitedMs, params.retry)
+      const delay = retryDelayMs(error, idempotencyKey !== undefined ? { ...action, safeToRetry: true } : action, retriesDone, waitedMs, params.retry)
       if (delay === null) throw error
       await params.retry.sleep(delay)
       waitedMs += delay

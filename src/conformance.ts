@@ -109,7 +109,7 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
     // effect must agree with the HTTP method (RPC-style providers that POST reads may declare effect "read")
     if (action.method === "GET" && action.effect !== "read") fail(`${at}: a GET must have effect "read"`)
     if (action.method === "DELETE" && action.effect !== "destructive") fail(`${at}: a DELETE must have effect "destructive"`)
-    if (action.effect === "destructive" && action.method !== "DELETE" && !/\b(delete|remov|revok|cancel|destroy|archiv|void|refund|terminat)/i.test(`${name} ${description}`)) {
+    if (action.effect === "destructive" && action.method !== "DELETE" && !/\b(delete|remov|revok|cancel|destroy|archiv|void|refund|terminat|reject|deactivat|expire|close)/i.test(`${name} ${description}`)) {
       fail(`${at}: effect "destructive" on a ${action.method} should say in the description what is destroyed`)
     }
 

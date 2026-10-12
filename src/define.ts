@@ -118,6 +118,19 @@ export interface ConnectorDefinition<A extends Record<string, ActionDefinition>>
   meta?: ConnectorMeta
   defaultHeaders?: Record<string, string>
   /**
+   * How request bodies are encoded. Default "json". "form" is `application/x-www-form-urlencoded` with nested
+   * objects as `a[b]=c` and arrays indexed (`a[0]=x`, Stripe); "form-repeat" repeats the key for arrays (`a=x&a=y`,
+   * Twilio). A null value is sent empty (how these APIs clear a field). Object and array query values of a form
+   * connector use the same notation. See ADR-019.
+   */
+  bodyFormat?: "json" | "form" | "form-repeat"
+  /**
+   * Header that carries an idempotency key (Stripe: "Idempotency-Key"). When set, every POST gets one random key,
+   * the SAME key on each retry of that call, so the provider can drop a duplicate. That makes retrying a POST after
+   * a timeout or a 5xx safe, so the kit does it. Only set this for a provider that documents the header.
+   */
+  idempotencyKeyHeader?: string
+  /**
    * For providers that answer HTTP 200 even when the call failed (Slack: `{ "ok": false, "error": "..." }`).
    * Called with the parsed body of every 2xx response; return a ConnectorKitError to fail the call with the
    * right code, or undefined when the body is fine. Retries and token refresh then work as for any other error

@@ -17,12 +17,18 @@ const dummy = (s: Schema | undefined): unknown => {
   if (t === "number" || t === "integer") return 1
   if (t === "boolean") return true
   if (t === "array") return [dummy(s.items)]
-  if (t === "object") return Object.fromEntries(Object.entries(s.properties ?? {}).map(([k, v]) => [k, dummy(v)]))
+  if (t === "object") {
+    const entries = Object.entries(s.properties ?? {}).map(([k, v]) => [k, dummy(v)] as const)
+    return entries.length > 0 ? Object.fromEntries(entries) : { x: "x" } // an open object (a record) gets one key, so a form body has something to carry
+  }
   if (t === "string") return "x"
   if (s.anyOf?.[0]) return dummy(s.anyOf[0])
   if (s.oneOf?.[0]) return dummy(s.oneOf[0])
   return "x"
 }
+
+// `expand[0]` and `created[gte]` of a form-encoded request count as the field `expand` and `created`.
+const topNames = (names: Iterable<string>): Set<string> => new Set([...names].map((n) => n.replace(/\[.*$/, "")))
 
 const folders = readdirSync(new URL("./connectors/", import.meta.url), { withFileTypes: true }).filter((d) => d.isDirectory() && existsSync(new URL(`./connectors/${d.name}/generated/index.js`, import.meta.url)))
 
@@ -52,10 +58,12 @@ for (const folder of folders) {
       const expectedPath = action.path.replace(/\{(\w+)\}/g, (_, k: string) => encodeURIComponent(String(input[k])))
       if (!call.url.pathname.endsWith(expectedPath)) problems.push(`${name}: path ${call.url.pathname} does not end with ${expectedPath}`)
       const body = call.body && typeof call.body === "object" && !Array.isArray(call.body) ? (call.body as Record<string, unknown>) : {}
+      const queryNames = topNames(call.url.searchParams.keys())
+      const formNames = typeof call.body === "string" ? topNames(new URLSearchParams(call.body).keys()) : new Set<string>()
       for (const key of Object.keys(input)) {
         if (pathKeys.includes(key)) continue
-        const inQuery = call.url.searchParams.has(key)
-        const inBody = key in body || (key === "body" && call.body !== undefined)
+        const inQuery = queryNames.has(key)
+        const inBody = key in body || formNames.has(key) || (key === "body" && call.body !== undefined)
         // A few fields are renamed on the wire (e.g. a name with a character that is not valid in a TS identifier); those are skipped here.
         const renamed = action.buildQuery?.toString().includes("pickAs") || action.buildBody?.toString().includes("pickAs")
         if (!renamed && inQuery === inBody) problems.push(`${name}: field "${key}" arrived ${inQuery && inBody ? "twice" : "nowhere"}`)

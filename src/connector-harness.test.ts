@@ -120,7 +120,16 @@ export function standardTests<A extends Record<string, ActionDefinition>>(connec
       assert.equal(calls.length, 2)
     })
   } else if (!connector.actions[c.action]!.safeToRetry) {
-    test(`${label}: a write is NOT retried after a 5xx (it may already have happened)`, async () => {
+    const keyed = connector.idempotencyKeyHeader !== undefined && connector.actions[c.action]!.method === "POST"
+    test(keyed ? `${label}: a POST is retried after a 5xx with the same idempotency key` : `${label}: a write is NOT retried after a 5xx (it may already have happened)`, async () => {
+      if (keyed) {
+        let n = 0
+        const { conn, calls } = harness(connector, () => (++n === 1 ? json({}, 503) : json(c.ok)), { ...c.connect, retry })
+        await run(conn as never)
+        assert.equal(calls.length, 2)
+        assert.equal(calls[0]!.header(connector.idempotencyKeyHeader!), calls[1]!.header(connector.idempotencyKeyHeader!))
+        return
+      }
       const { conn, calls } = harness(connector, () => json({}, 503), { ...c.connect, retry })
       await assert.rejects(() => run(conn as never), isError("upstream_error"))
       assert.equal(calls.length, 1)

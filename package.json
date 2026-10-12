@@ -80,6 +80,10 @@
       "types": "./dist/connectors/slack/index.d.ts",
       "default": "./dist/connectors/slack/index.js"
     },
+    "./stripe": {
+      "types": "./dist/connectors/stripe/index.d.ts",
+      "default": "./dist/connectors/stripe/index.js"
+    },
     "./vercel": {
       "types": "./dist/connectors/vercel/index.d.ts",
       "default": "./dist/connectors/vercel/index.js"

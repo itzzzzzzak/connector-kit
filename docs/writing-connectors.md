@@ -80,9 +80,13 @@ Rules (enforced by the checker, and explained in [ADR-017](adr/0017-base-url-var
 
 `auth: { type: "basic" }`. The credential is `username:password`; document the exact format in a comment (Jira `email:api_token`, Zendesk `email/token:api_token`) and put an example in your live test's header.
 
+### Form-encoded APIs
+
+If the provider takes `application/x-www-form-urlencoded` (Stripe, Twilio), set `bodyFormat: "form"` (arrays as `a[0]=x`) or `"form-repeat"` (arrays as repeated keys). Nested objects use `a[b]=c`, and `null` clears a field. If the provider documents an idempotency header (Stripe: `Idempotency-Key`), set `idempotencyKeyHeader` and the kit sends one key per call and retries POSTs safely. See [ADR-019](adr/0019-form-bodies-idempotency-and-last-item-paging.md).
+
 ## 8. Pagination
 
-Use a strategy from the core (`linkHeaderPagination`, `bodyCursorPagination`, `bodyLinkPagination`, `offsetPagination` for offset or page-number paging, `linkHeaderCursorPagination` for a cursor carried in the `Link` header) rather than looping by hand. A paginated action has optional `cursor` and `pageSize` inputs, is a `GET`, and its `output` is `z.array(item)`. If no strategy fits (last-item cursors, cursors inside a POST body), say so in the PR: adding a reusable strategy to the core is better than a one-off.
+Use a strategy from the core (`linkHeaderPagination`, `bodyCursorPagination`, `bodyLinkPagination`, `offsetPagination` for offset or page-number paging, `linkHeaderCursorPagination` for a cursor carried in the `Link` header, `lastItemPagination` when the next page starts after the last item's id) rather than looping by hand. A paginated action has optional `cursor` and `pageSize` inputs, is a `GET`, and its `output` is `z.array(item)`. If no strategy fits (last-item cursors, cursors inside a POST body), say so in the PR: adding a reusable strategy to the core is better than a one-off.
 
 ## 9. Errors reported inside a 200
 

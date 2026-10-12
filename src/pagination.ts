@@ -225,3 +225,45 @@ export function linkHeaderCursorPagination(options: {
     },
   }
 }
+
+/**
+ * Stripe-style: the list is a field of the body (`data`), the body says whether more exist (`has_more`), and the next
+ * page starts after the LAST item's id, sent back as `starting_after`. There is no cursor in the response itself.
+ */
+export function lastItemPagination(options: {
+  /** Key of the list in the response body. Default "data". */
+  itemsKey?: string
+  /** Key of the id inside each item. Default "id". */
+  idKey?: string
+  /** Path to the boolean that is true when more pages exist. Default ["has_more"]. */
+  hasMorePath?: string[]
+  /** Query parameter that carries the cursor back. Default "starting_after". */
+  cursorParam?: string
+  pageSizeParam?: string
+  defaultPageSize?: number
+  maxPageSize?: number
+} = {}): PaginationStrategy {
+  const itemsKey = options.itemsKey ?? "data"
+  const idKey = options.idKey ?? "id"
+  const hasMorePath = options.hasMorePath ?? ["has_more"]
+  const cursorParam = options.cursorParam ?? "starting_after"
+  return {
+    pageSizeParam: options.pageSizeParam ?? "limit",
+    defaultPageSize: options.defaultPageSize ?? 25,
+    maxPageSize: options.maxPageSize ?? 100,
+    itemsKey,
+    items: (body) => dig(body, [itemsKey]),
+    nextCursor({ body }) {
+      if (dig(body, hasMorePath) !== true) return null
+      const items = dig(body, [itemsKey])
+      if (!Array.isArray(items) || items.length === 0) return null
+      const id = dig(items[items.length - 1], [idKey])
+      return typeof id === "string" && id !== "" ? id : null
+    },
+    applyCursor(url, cursor) {
+      const next = new URL(url)
+      next.searchParams.set(cursorParam, cursor)
+      return next
+    },
+  }
+}

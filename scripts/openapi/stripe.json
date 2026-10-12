@@ -1,0 +1,7 @@
+{ "name": "stripe", "title": "Stripe", "naming": "rest", "formEncoded": true, "spec": "https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.json", "license": "MIT (github.com/stripe/openapi)",
+  "namespaces": ["apps", "billing", "billing_portal", "checkout", "climate", "entitlements", "financial_connections", "forwarding", "identity", "issuing", "radar", "reporting", "sigma", "tax", "terminal", "test_helpers", "treasury"],
+  "destructiveVerbs": "^(cancel|void|expire|close|reject|decline|deactivate|archive|revoke|refund|delete)",
+  "pagination": [
+    { "size": "limit", "cursor": "page", "itemsKey": "data", "import": "bodyCursorPagination", "call": "bodyCursorPagination({ itemsKey: \"data\", cursorPath: [\"next_page\"], cursorParam: \"page\", pageSizeParam: \"limit\", defaultPageSize: 25, maxPageSize: 100 })" },
+    { "size": "limit", "cursor": "starting_after", "itemsKey": "data", "import": "lastItemPagination", "call": "lastItemPagination()" }
+  ] }
