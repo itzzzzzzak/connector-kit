@@ -64,6 +64,10 @@
       "types": "./dist/connectors/netlify/index.d.ts",
       "default": "./dist/connectors/netlify/index.js"
     },
+    "./notion": {
+      "types": "./dist/connectors/notion/index.d.ts",
+      "default": "./dist/connectors/notion/index.js"
+    },
     "./pagerduty": {
       "types": "./dist/connectors/pagerduty/index.d.ts",
       "default": "./dist/connectors/pagerduty/index.js"

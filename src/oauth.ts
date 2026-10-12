@@ -114,8 +114,8 @@ class RefreshRejected extends ConnectorKitError {}
 async function tokenRequest(deps: OAuthDeps, auth: OAuthAuth, form: Record<string, string>, kind: "exchange" | "refresh"): Promise<TokenResponse> {
   const { client } = deps
   const fields: Record<string, string> = { ...form }
-  const json = auth.tokenRequestFormat === "json"
-  const headers = new Headers({ "Content-Type": json ? "application/json" : "application/x-www-form-urlencoded", Accept: "application/json" })
+  const jsonRequest = auth.tokenRequestFormat === "json"
+  const headers = new Headers({ "Content-Type": jsonRequest ? "application/json" : "application/x-www-form-urlencoded", Accept: "application/json" })
   if (auth.clientAuth === "basic") {
     const credential = `${encodeURIComponent(client.clientId)}:${encodeURIComponent(client.clientSecret ?? "")}`
     headers.set("Authorization", `Basic ${Buffer.from(credential).toString("base64")}`)
@@ -123,7 +123,7 @@ async function tokenRequest(deps: OAuthDeps, auth: OAuthAuth, form: Record<strin
     fields.client_id = client.clientId
     if (client.clientSecret) fields.client_secret = client.clientSecret
   }
-  const body = json ? JSON.stringify(fields) : new URLSearchParams(fields)
+  const body = jsonRequest ? JSON.stringify(fields) : new URLSearchParams(fields)
 
   let response: Response
   try {

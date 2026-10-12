@@ -86,7 +86,7 @@ If the provider takes `application/x-www-form-urlencoded` (Stripe, Twilio), set 
 
 ## 8. Pagination
 
-Use a strategy from the core (`linkHeaderPagination`, `bodyCursorPagination`, `bodyLinkPagination`, `offsetPagination` for offset or page-number paging, `linkHeaderCursorPagination` for a cursor carried in the `Link` header, `lastItemPagination` when the next page starts after the last item's id) rather than looping by hand. A paginated action has optional `cursor` and `pageSize` inputs, is a `GET`, and its `output` is `z.array(item)`. If no strategy fits (last-item cursors, cursors inside a POST body), say so in the PR: adding a reusable strategy to the core is better than a one-off.
+Use a strategy from the core (`linkHeaderPagination`, `bodyCursorPagination`, `bodyLinkPagination`, `offsetPagination` for offset or page-number paging, `linkHeaderCursorPagination` for a cursor carried in the `Link` header, `lastItemPagination` when the next page starts after the last item's id; `bodyCursorPagination({ cursorIn: "body" })` for a POST that takes its cursor and page size in the JSON body) rather than looping by hand. A paginated action has optional `cursor` and `pageSize` inputs, is a `GET`, and its `output` is `z.array(item)`. If no strategy fits (last-item cursors, cursors inside a POST body), say so in the PR: adding a reusable strategy to the core is better than a one-off.
 
 ## 9. Errors reported inside a 200
 
