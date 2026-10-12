@@ -222,19 +222,33 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
   //    A paginated action's `cursor`/`pageSize` are kit-managed, not arbitrary query params.
   let url = new URL(base.origin + basePath + path)
   assertWithinBase(url, base, basePath, "request path")
+  // For a POST whose cursor and page size travel in the JSON body (Notion search), these hold what the body needs.
+  let bodyRest: Record<string, unknown> | undefined
+  const pageBody: Record<string, unknown> = {}
   if (action.paginate) {
     const { cursor, pageSize, ...queryRest } = rest as { cursor?: unknown; pageSize?: unknown } & Record<string, unknown>
-    appendQuery(url, action.buildQuery ? action.buildQuery(queryRest) : queryRest, formArrays)
+    const inBody = action.paginate.cursorIn === "body"
+    if (inBody) {
+      bodyRest = queryRest
+      if (action.buildQuery) appendQuery(url, action.buildQuery(queryRest), formArrays)
+    } else {
+      appendQuery(url, action.buildQuery ? action.buildQuery(queryRest) : queryRest, formArrays)
+    }
     if (pageSize !== undefined && typeof pageSize !== "number") throw invalid('"pageSize" must be a number.')
     if (action.paginate.pageSizeParam) {
       const size = clamp(pageSize ?? action.paginate.defaultPageSize, 1, action.paginate.maxPageSize)
-      url.searchParams.set(action.paginate.pageSizeParam, String(size))
+      if (inBody) pageBody[action.paginate.pageSizeParam] = size
+      else url.searchParams.set(action.paginate.pageSizeParam, String(size))
     }
     if (cursor !== undefined) {
       if (typeof cursor !== "string") throw invalid('"cursor" must be a string.')
-      // The cursor came from OUR previous nextCursor, but never trust it blindly: the final URL must still be ours.
-      url = action.paginate.applyCursor(url, cursor)
-      assertWithinBase(url, base, basePath, "pagination cursor")
+      if (inBody) {
+        pageBody[action.paginate.cursorField ?? "cursor"] = cursor
+      } else {
+        // The cursor came from OUR previous nextCursor, but never trust it blindly: the final URL must still be ours.
+        url = action.paginate.applyCursor(url, cursor)
+        assertWithinBase(url, base, basePath, "pagination cursor")
+      }
     }
   }
   // A DELETE has no body unless the action says how to build one (a few APIs take a list of items to remove in the body).
@@ -257,7 +271,9 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
     const init: RequestInit = { method: action.method, headers, signal: AbortSignal.timeout(params.timeoutMs) }  // fresh deadline per attempt
     if (idempotencyKey !== undefined) headers.set(connector.idempotencyKeyHeader!, idempotencyKey)
     if (hasBody && !queryOnly) {
-      const payload = action.buildBody ? action.buildBody(rest) : rest
+      const source = bodyRest ?? rest
+      const built = action.buildBody ? action.buildBody(source) : source
+      const payload = Object.keys(pageBody).length > 0 && typeof built === "object" && built !== null && !Array.isArray(built) ? { ...built, ...pageBody } : built
       if (formArrays) {
         if (typeof payload !== "object" || payload === null || Array.isArray(payload)) throw invalid(`"${actionName}" must send an object as its form body.`)
         headers.set("Content-Type", "application/x-www-form-urlencoded")

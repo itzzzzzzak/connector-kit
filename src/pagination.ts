@@ -17,6 +17,13 @@ export interface PaginationStrategy {
   items?(body: unknown): unknown
   /** The key holding the list in the body, when there is one (informational: used by tests and tooling). */
   itemsKey?: string
+  /**
+   * Where the cursor and page size travel on a request. Default "query". "body" is for a POST that takes them in its
+   * JSON body (Notion search); the kit then sets `cursorField` and `pageSizeParam` there and leaves the URL alone.
+   */
+  cursorIn?: "query" | "body"
+  /** The body field that carries the cursor when `cursorIn` is "body". */
+  cursorField?: string
   /** Read the next cursor from a successful response. Null means "no more pages". */
   nextCursor(response: { headers: Headers; body: unknown; /** The request URL this response answers (carries the current offset/page and page size). */ url: URL }): string | null
   /**
@@ -70,9 +77,12 @@ export function bodyCursorPagination(options: {
   pageSizeParam?: string | null
   defaultPageSize?: number
   maxPageSize?: number
+  /** "body" for a POST whose cursor and page size are fields of its JSON body (Notion search). Default "query". */
+  cursorIn?: "query" | "body"
 }): PaginationStrategy {
   const cursorParam = options.cursorParam ?? "cursor"
   return {
+    ...(options.cursorIn === "body" && { cursorIn: "body" as const, cursorField: cursorParam }),
     ...(options.pageSizeParam === null ? {} : { pageSizeParam: options.pageSizeParam ?? "limit" }),
     defaultPageSize: options.defaultPageSize ?? 30,
     maxPageSize: options.maxPageSize ?? 200,

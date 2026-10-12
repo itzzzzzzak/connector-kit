@@ -138,7 +138,7 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
         if (properties.cursor?.type !== "string") fail(`${at}: a paginated action needs an optional string "cursor" input`)
         if (action.paginate.pageSizeParam && !["number", "integer"].includes(String(properties.pageSize?.type))) fail(`${at}: a paginated action needs an optional number "pageSize" input`)
         if (required.has("cursor") || required.has("pageSize")) fail(`${at}: "cursor" and "pageSize" must be optional`)
-        if (action.method !== "GET") fail(`${at}: paginated actions are expected to be GET`)
+        if (action.method !== "GET" && action.paginate.cursorIn !== "body") fail(`${at}: paginated actions are expected to be GET (unless the cursor travels in the body)`)
         let outputType: unknown
         try {
           outputType = (z.toJSONSchema(action.output) as { type?: unknown }).type

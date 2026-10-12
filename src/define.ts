@@ -32,6 +32,8 @@ export type AuthConfig =
       pkce?: boolean
       /** How the client authenticates at the token endpoint. Default "body". */
       clientAuth?: "body" | "basic"
+      /** How the token request is encoded: "form" (the OAuth standard, default) or "json" (Notion). */
+      tokenRequestFormat?: "form" | "json"
       /** Extra query params for the authorize URL (e.g. { access_type: "offline" }). */
       authorizeParams?: Record<string, string>
     }
