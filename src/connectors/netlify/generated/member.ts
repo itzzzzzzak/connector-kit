@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const memberActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const memberActions: Record<string, ActionDefinition> = {
     description: "List members for account Calls GET /{accountslug}/members on Netlify.",
     method: "GET",
     path: "/{account_slug}/members",
-    input: z.object({ account_slug: z.string() }),
+    input: obj({ account_slug: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const memberActions: Record<string, ActionDefinition> = {
     description: "Add member to account Calls POST /{accountslug}/members on Netlify.",
     method: "POST",
     path: "/{account_slug}/members",
-    input: z.object({ account_slug: z.string(), role: z.enum(["Owner", "Developer", "Billing Admin", "Reviewer"]).optional(), email: z.string().optional() }),
+    input: obj({ account_slug: z.string(), role: z.enum(["Owner", "Developer", "Billing Admin", "Reviewer"]).optional(), email: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const memberActions: Record<string, ActionDefinition> = {
     description: "Get account member Calls GET /{accountslug}/members/{memberid} on Netlify.",
     method: "GET",
     path: "/{account_slug}/members/{member_id}",
-    input: z.object({ account_slug: z.string(), member_id: z.string() }),
+    input: obj({ account_slug: z.string(), member_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const memberActions: Record<string, ActionDefinition> = {
     description: "Update account member Calls PUT /{accountslug}/members/{memberid} on Netlify.",
     method: "PUT",
     path: "/{account_slug}/members/{member_id}",
-    input: z.object({ account_slug: z.string(), member_id: z.string(), role: z.enum(["Owner", "Developer", "Billing Admin", "Reviewer"]).optional(), site_access: z.enum(["all", "none", "selected"]).optional(), site_ids: z.array(z.string()).optional() }),
+    input: obj({ account_slug: z.string(), member_id: z.string(), role: z.enum(["Owner", "Developer", "Billing Admin", "Reviewer"]).optional(), site_access: z.enum(["all", "none", "selected"]).optional(), site_ids: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const memberActions: Record<string, ActionDefinition> = {
     description: "Remove account member Calls DELETE /{accountslug}/members/{memberid} on Netlify.",
     method: "DELETE",
     path: "/{account_slug}/members/{member_id}",
-    input: z.object({ account_slug: z.string(), member_id: z.string() }),
+    input: obj({ account_slug: z.string(), member_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

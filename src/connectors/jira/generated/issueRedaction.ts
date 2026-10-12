@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const issueRedactionActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const issueRedactionActions: Record<string, ActionDefinition> = {
     description: "Redact. Submit a job to redact issue field data. This will trigger the redaction of the data in the specified fields asynchronously.",
     method: "POST",
     path: "/redact",
-    input: z.object({ redactions: z.array(z.object({ contentItem: z.record(z.string(), z.unknown()), externalId: z.string(), reason: z.string(), redactionPosition: z.record(z.string(), z.unknown()) })).optional() }),
+    input: obj({ redactions: z.array(obj({ contentItem: z.record(z.string(), z.unknown()), externalId: z.string(), reason: z.string(), redactionPosition: z.record(z.string(), z.unknown()) })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const issueRedactionActions: Record<string, ActionDefinition> = {
     description: "Get redaction status. Retrieves the current status of a redaction job ID.",
     method: "GET",
     path: "/redact/status/{jobId}",
-    input: z.object({ jobId: z.string().describe("Redaction job id") }),
+    input: obj({ jobId: z.string().describe("Redaction job id") }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/sentry.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const environmentsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "List organization environments. Part of: Environments. Calls GET /organizations/{organizationidorslug}/environments/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/environments/",
-    input: z.object({ organization_id_or_slug: z.string(), visibility: z.enum(["all", "hidden", "visible"]).optional() }),
+    input: obj({ organization_id_or_slug: z.string(), visibility: z.enum(["all", "hidden", "visible"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "List project environments. Part of: Environments. Calls GET /projects/{organizationidorslug}/{projectidorslug}/environments/ on Sentry.",
     method: "GET",
     path: "/projects/{organization_id_or_slug}/{project_id_or_slug}/environments/",
-    input: z.object({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), visibility: z.enum(["all", "hidden", "visible"]).optional() }),
+    input: obj({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), visibility: z.enum(["all", "hidden", "visible"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "Bulk update project environments. Part of: Environments. Calls PUT /projects/{organizationidorslug}/{projectidorslug}/environments/ on Sentry.",
     method: "PUT",
     path: "/projects/{organization_id_or_slug}/{project_id_or_slug}/environments/",
-    input: z.object({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), environmentNames: z.array(z.string()), isHidden: z.boolean() }),
+    input: obj({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), environmentNames: z.array(z.string()), isHidden: z.boolean() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "Get project environment. Part of: Environments. Calls GET /projects/{organizationidorslug}/{projectidorslug}/environments/{environment}/ on Sentry.",
     method: "GET",
     path: "/projects/{organization_id_or_slug}/{project_id_or_slug}/environments/{environment}/",
-    input: z.object({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), environment: z.string() }),
+    input: obj({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), environment: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "Update project environment. Part of: Environments. Calls PUT /projects/{organizationidorslug}/{projectidorslug}/environments/{environment}/ on Sentry.",
     method: "PUT",
     path: "/projects/{organization_id_or_slug}/{project_id_or_slug}/environments/{environment}/",
-    input: z.object({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), environment: z.string(), isHidden: z.boolean() }),
+    input: obj({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), environment: z.string(), isHidden: z.boolean() }),
     output: z.unknown(),
     effect: "write",
   },

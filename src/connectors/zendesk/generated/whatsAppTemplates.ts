@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const whatsAppTemplatesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const whatsAppTemplatesActions: Record<string, ActionDefinition> = {
     description: "List whatsapp templates. Part of: WhatsApp Templates. Calls GET /channels/whatsapptemplates on Zendesk.",
     method: "GET",
     path: "/channels/whatsapp_templates",
-    input: z.object({ page: z.unknown().optional(), per_page: z.number().optional(), integration_id: z.string().optional(), is_active: z.boolean().optional(), category: z.string().optional(), language: z.string().optional(), name: z.string().optional() }),
+    input: obj({ page: z.unknown().optional(), per_page: z.number().optional(), integration_id: z.string().optional(), is_active: z.boolean().optional(), category: z.string().optional(), language: z.string().optional(), name: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const whatsAppTemplatesActions: Record<string, ActionDefinition> = {
     description: "Toggle whatsapp template. Part of: WhatsApp Templates. Calls PUT /channels/whatsapptemplates/{templateid}/toggle on Zendesk.",
     method: "PUT",
     path: "/channels/whatsapp_templates/{template_id}/toggle",
-    input: z.object({ template_id: z.string(), is_active: z.boolean() }),
+    input: obj({ template_id: z.string(), is_active: z.boolean() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const whatsAppTemplatesActions: Record<string, ActionDefinition> = {
     description: "List whatsapp template languages. Part of: WhatsApp Templates. Calls GET /channels/whatsapptemplates/languages on Zendesk.",
     method: "GET",
     path: "/channels/whatsapp_templates/languages",
-    input: z.object({ integration_id: z.string().optional() }),
+    input: obj({ integration_id: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const whatsAppTemplatesActions: Record<string, ActionDefinition> = {
     description: "Toggle many whatsapp templates. Part of: WhatsApp Templates. Calls PUT /channels/whatsapptemplates/togglemany on Zendesk.",
     method: "PUT",
     path: "/channels/whatsapp_templates/toggle_many",
-    input: z.object({ is_active: z.boolean(), template_ids: z.array(z.string()) }),
+    input: obj({ is_active: z.boolean(), template_ids: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
   },

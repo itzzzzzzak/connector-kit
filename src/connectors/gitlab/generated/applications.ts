@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const applicationsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const applicationsActions: Record<string, ActionDefinition> = {
     description: "Get applications. Part of: applications. Calls GET /applications on GitLab.",
     method: "GET",
     path: "/applications",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const applicationsActions: Record<string, ActionDefinition> = {
     description: "Post applications. Part of: applications. Calls POST /applications on GitLab.",
     method: "POST",
     path: "/applications",
-    input: z.object({ name: z.string(), redirect_uri: z.string(), scopes: z.string(), confidential: z.boolean().optional() }),
+    input: obj({ name: z.string(), redirect_uri: z.string(), scopes: z.string(), confidential: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const applicationsActions: Record<string, ActionDefinition> = {
     description: "Delete applications id. Part of: applications. Calls DELETE /applications/{id} on GitLab.",
     method: "DELETE",
     path: "/applications/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const applicationsActions: Record<string, ActionDefinition> = {
     description: "Post applications id renew secret. Part of: applications. Calls POST /applications/{id}/renew-secret on GitLab.",
     method: "POST",
     path: "/applications/{id}/renew-secret",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },

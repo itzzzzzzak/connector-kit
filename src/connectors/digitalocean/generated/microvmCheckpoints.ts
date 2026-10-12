@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const microvmCheckpointsActions: Record<string, ActionDefinition> = {
     description: "List checkpoints. To list your team's checkpoints, newest first, send a GET request to /v2/microvms/checkpoints. To list one MicroVM's checkpoints, add the microvmid query parameter.",
     method: "GET",
     path: "/microvms/checkpoints",
-    input: z.object({ microvm_id: z.string().describe("Only return checkpoints taken from this MicroVM.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ microvm_id: z.string().describe("Only return checkpoints taken from this MicroVM.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "checkpoints", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const microvmCheckpointsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a checkpoint. To show information about a checkpoint, send a GET request to /v2/microvms/checkpoints/{checkpointid}.",
     method: "GET",
     path: "/microvms/checkpoints/{checkpoint_id}",
-    input: z.object({ checkpoint_id: z.string().describe("The unique ID of the checkpoint.") }),
+    input: obj({ checkpoint_id: z.string().describe("The unique ID of the checkpoint.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const microvmCheckpointsActions: Record<string, ActionDefinition> = {
     description: "Delete a checkpoint. To delete a checkpoint, send a DELETE request to /v2/microvms/checkpoints/{checkpointid}. You can no longer create MicroVMs from a deleted checkpoint.",
     method: "DELETE",
     path: "/microvms/checkpoints/{checkpoint_id}",
-    input: z.object({ checkpoint_id: z.string().describe("The unique ID of the checkpoint.") }),
+    input: obj({ checkpoint_id: z.string().describe("The unique ID of the checkpoint.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -36,7 +37,7 @@ export const microvmCheckpointsActions: Record<string, ActionDefinition> = {
     description: "Create a checkpoint of a MicroVM. To create a checkpoint of a running or paused MicroVM, send a POST request to /v2/microvms/{microvmid}/checkpoints.",
     method: "POST",
     path: "/microvms/{microvm_id}/checkpoints",
-    input: z.object({ microvm_id: z.string().describe("The unique ID of the MicroVM."), name: z.string().describe("A name for the checkpoint. If you omit it, a name such as checkpoint-20260929-143559 is generated.").optional() }),
+    input: obj({ microvm_id: z.string().describe("The unique ID of the MicroVM."), name: z.string().describe("A name for the checkpoint. If you omit it, a name such as checkpoint-20260929-143559 is generated.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

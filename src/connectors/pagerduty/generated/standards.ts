@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const standardsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const standardsActions: Record<string, ActionDefinition> = {
     description: "List standards. Part of: Standards. Calls GET /standards on PagerDuty.",
     method: "GET",
     path: "/standards",
-    input: z.object({ active: z.boolean().optional(), resource_type: z.enum(["technical_service"]).optional() }),
+    input: obj({ active: z.boolean().optional(), resource_type: z.enum(["technical_service"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const standardsActions: Record<string, ActionDefinition> = {
     description: "Update standard. Part of: Standards. Calls PUT /standards/{id} on PagerDuty.",
     method: "PUT",
     path: "/standards/{id}",
-    input: z.object({ id: z.string(), active: z.boolean().optional(), values: z.object({ regex: z.string().optional() }).optional(), description: z.string().optional(), inclusions: z.array(z.object({ type: z.enum(["technical_service_reference"]).optional(), id: z.string().optional() })).optional(), exclusions: z.array(z.object({ type: z.enum(["technical_service_reference"]).optional(), id: z.string().optional() })).optional() }),
+    input: obj({ id: z.string(), active: z.boolean().optional(), values: obj({ regex: z.string().optional() }).optional(), description: z.string().optional(), inclusions: z.array(obj({ type: z.enum(["technical_service_reference"]).optional(), id: z.string().optional() })).optional(), exclusions: z.array(obj({ type: z.enum(["technical_service_reference"]).optional(), id: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const standardsActions: Record<string, ActionDefinition> = {
     description: "List resource standards many services. Part of: Standards. Calls GET /standards/scores/{resourcetype} on PagerDuty.",
     method: "GET",
     path: "/standards/scores/{resource_type}",
-    input: z.object({ ids: z.array(z.string()), resource_type: z.enum(["technical_services"]) }),
+    input: obj({ ids: z.array(z.string()), resource_type: z.enum(["technical_services"]) }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const standardsActions: Record<string, ActionDefinition> = {
     description: "List resource standards. Part of: Standards. Calls GET /standards/scores/{resourcetype}/{id} on PagerDuty.",
     method: "GET",
     path: "/standards/scores/{resource_type}/{id}",
-    input: z.object({ id: z.string(), resource_type: z.enum(["technical_services"]) }),
+    input: obj({ id: z.string(), resource_type: z.enum(["technical_services"]) }),
     output: z.unknown(),
     effect: "read",
   },

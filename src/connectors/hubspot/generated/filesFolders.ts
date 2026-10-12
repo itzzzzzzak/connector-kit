@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const filesFoldersActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Files. Calls POST /files/v3/folders on HubSpot.",
     method: "POST",
     path: "/files/v3/folders",
-    input: z.object({ name: z.string(), parentFolderId: z.string().optional(), parentPath: z.string().optional() }),
+    input: obj({ name: z.string(), parentFolderId: z.string().optional(), parentPath: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const filesFoldersActions: Record<string, ActionDefinition> = {
     description: "List search. Part of: Folders. Calls GET /files/v3/folders/search on HubSpot.",
     method: "GET",
     path: "/files/v3/folders/search",
-    input: z.object({ before: z.string().optional(), createdAt: z.string().optional(), createdAtGte: z.string().optional(), createdAtLte: z.string().optional(), idGte: z.number().optional(), idLte: z.number().optional(), ids: z.array(z.number()).optional(), name: z.string().optional(), parentFolderIds: z.array(z.number()).optional(), path: z.string().optional(), properties: z.array(z.string()).optional(), sort: z.array(z.string()).optional(), updatedAt: z.string().optional(), updatedAtGte: z.string().optional(), updatedAtLte: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ before: z.string().optional(), createdAt: z.string().optional(), createdAtGte: z.string().optional(), createdAtLte: z.string().optional(), idGte: z.number().optional(), idLte: z.number().optional(), ids: z.array(z.number()).optional(), name: z.string().optional(), parentFolderIds: z.array(z.number()).optional(), path: z.string().optional(), properties: z.array(z.string()).optional(), sort: z.array(z.string()).optional(), updatedAt: z.string().optional(), updatedAtGte: z.string().optional(), updatedAtLte: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -28,7 +29,7 @@ export const filesFoldersActions: Record<string, ActionDefinition> = {
     description: "Create update async. Part of: Folders. Calls POST /files/v3/folders/update/async on HubSpot.",
     method: "POST",
     path: "/files/v3/folders/update/async",
-    input: z.object({ id: z.string(), name: z.string().optional(), parentFolderId: z.number().optional() }),
+    input: obj({ id: z.string(), name: z.string().optional(), parentFolderId: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const filesFoldersActions: Record<string, ActionDefinition> = {
     description: "List update async tasks status. Part of: Folders. Calls GET /files/v3/folders/update/async/tasks/{taskId}/status on HubSpot.",
     method: "GET",
     path: "/files/v3/folders/update/async/tasks/{taskId}/status",
-    input: z.object({ taskId: z.string() }),
+    input: obj({ taskId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -44,7 +45,7 @@ export const filesFoldersActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Folders. Calls GET /files/v3/folders/{folderId} on HubSpot.",
     method: "GET",
     path: "/files/v3/folders/{folderId}",
-    input: z.object({ folderId: z.string(), properties: z.array(z.string()).optional() }),
+    input: obj({ folderId: z.string(), properties: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -52,7 +53,7 @@ export const filesFoldersActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Folders. Calls PATCH /files/v3/folders/{folderId} on HubSpot.",
     method: "PATCH",
     path: "/files/v3/folders/{folderId}",
-    input: z.object({ folderId: z.string(), name: z.string().optional(), parentFolderId: z.number().optional() }),
+    input: obj({ folderId: z.string(), name: z.string().optional(), parentFolderId: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -60,7 +61,7 @@ export const filesFoldersActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Folders. Calls DELETE /files/v3/folders/{folderId} on HubSpot.",
     method: "DELETE",
     path: "/files/v3/folders/{folderId}",
-    input: z.object({ folderId: z.string() }),
+    input: obj({ folderId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const voicemailsActions: Record<string, ActionDefinition> = {
     description: "Get voicemail details by call element id. Part of: Voicemails. Calls GET /phone/callelement/{callElementId}/voicemail on Zoom.",
     method: "GET",
     path: "/phone/call_element/{callElementId}/voice_mail",
-    input: z.object({ callElementId: z.string() }),
+    input: obj({ callElementId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -20,7 +21,7 @@ export const voicemailsActions: Record<string, ActionDefinition> = {
     description: "Phone user voice mails. Part of: Voicemails. Calls GET /phone/users/{userId}/voicemails on Zoom.",
     method: "GET",
     path: "/phone/users/{userId}/voice_mails",
-    input: z.object({ userId: z.string(), status: z.enum(["all", "read", "unread"]).optional(), from: z.string().optional(), to: z.string().optional(), trash: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ userId: z.string(), status: z.enum(["all", "read", "unread"]).optional(), from: z.string().optional(), to: z.string().optional(), trash: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "voice_mails", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -29,7 +30,7 @@ export const voicemailsActions: Record<string, ActionDefinition> = {
     description: "Account voice mails. Part of: Voicemails. Calls GET /phone/voicemails on Zoom.",
     method: "GET",
     path: "/phone/voice_mails",
-    input: z.object({ status: z.enum(["all", "read", "unread"]).optional(), site_id: z.string().optional(), owner_type: z.enum(["user", "callQueue", "sharedLineGroup", "autoReceptionist", "commonArea"]).optional(), voicemail_type: z.enum(["normal", "spam", "maybeSpam"]).optional(), from: z.string().optional(), to: z.string().optional(), trashed: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ status: z.enum(["all", "read", "unread"]).optional(), site_id: z.string().optional(), owner_type: z.enum(["user", "callQueue", "sharedLineGroup", "autoReceptionist", "commonArea"]).optional(), voicemail_type: z.enum(["normal", "spam", "maybeSpam"]).optional(), from: z.string().optional(), to: z.string().optional(), trashed: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "voice_mails", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -38,7 +39,7 @@ export const voicemailsActions: Record<string, ActionDefinition> = {
     description: "Phone download voicemail file. Part of: Voicemails. Calls GET /phone/voicemails/download/{fileId} on Zoom.",
     method: "GET",
     path: "/phone/voice_mails/download/{fileId}",
-    input: z.object({ fileId: z.string() }),
+    input: obj({ fileId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -46,7 +47,7 @@ export const voicemailsActions: Record<string, ActionDefinition> = {
     description: "Get voicemail details. Part of: Voicemails. Calls GET /phone/voicemails/{voicemailId} on Zoom.",
     method: "GET",
     path: "/phone/voice_mails/{voicemailId}",
-    input: z.object({ voicemailId: z.string() }),
+    input: obj({ voicemailId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -54,7 +55,7 @@ export const voicemailsActions: Record<string, ActionDefinition> = {
     description: "Update voicemail read status. Part of: Voicemails. Calls PATCH /phone/voicemails/{voicemailId} on Zoom.",
     method: "PATCH",
     path: "/phone/voice_mails/{voicemailId}",
-    input: z.object({ voicemailId: z.string(), read_status: z.enum(["Read", "Unread"]) }),
+    input: obj({ voicemailId: z.string(), read_status: z.enum(["Read", "Unread"]) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["read_status"]),
@@ -63,7 +64,7 @@ export const voicemailsActions: Record<string, ActionDefinition> = {
     description: "Delete voicemail. Part of: Voicemails. Calls DELETE /phone/voicemails/{voicemailId} on Zoom.",
     method: "DELETE",
     path: "/phone/voice_mails/{voicemailId}",
-    input: z.object({ voicemailId: z.string() }),
+    input: obj({ voicemailId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

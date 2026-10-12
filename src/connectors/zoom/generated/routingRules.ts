@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const routingRulesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const routingRulesActions: Record<string, ActionDefinition> = {
     description: "List routing rule. Part of: Routing Rules. Calls GET /phone/routingrules on Zoom.",
     method: "GET",
     path: "/phone/routing_rules",
-    input: z.object({ site_id: z.string().optional() }),
+    input: obj({ site_id: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const routingRulesActions: Record<string, ActionDefinition> = {
     description: "Add routing rule. Part of: Routing Rules. Calls POST /phone/routingrules on Zoom.",
     method: "POST",
     path: "/phone/routing_rules",
-    input: z.object({ name: z.string().optional(), number_pattern: z.string().optional(), sip_group_id: z.string().optional(), site_id: z.string().optional(), translation: z.string().optional(), type: z.enum(["other_sites", "pstn", "sip_group"]).optional() }),
+    input: obj({ name: z.string().optional(), number_pattern: z.string().optional(), sip_group_id: z.string().optional(), site_id: z.string().optional(), translation: z.string().optional(), type: z.enum(["other_sites", "pstn", "sip_group"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const routingRulesActions: Record<string, ActionDefinition> = {
     description: "Get routing rule. Part of: Routing Rules. Calls GET /phone/routingrules/{routingRuleId} on Zoom.",
     method: "GET",
     path: "/phone/routing_rules/{routingRuleId}",
-    input: z.object({ routingRuleId: z.string() }),
+    input: obj({ routingRuleId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const routingRulesActions: Record<string, ActionDefinition> = {
     description: "Update routing rule. Part of: Routing Rules. Calls PATCH /phone/routingrules/{routingRuleId} on Zoom.",
     method: "PATCH",
     path: "/phone/routing_rules/{routingRuleId}",
-    input: z.object({ routingRuleId: z.string(), name: z.string().optional(), number_pattern: z.string().optional(), order: z.number().optional(), sip_group_id: z.string().optional(), translation: z.string().optional(), type: z.enum(["other_sites", "pstn", "sip_group"]).optional() }),
+    input: obj({ routingRuleId: z.string(), name: z.string().optional(), number_pattern: z.string().optional(), order: z.number().optional(), sip_group_id: z.string().optional(), translation: z.string().optional(), type: z.enum(["other_sites", "pstn", "sip_group"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const routingRulesActions: Record<string, ActionDefinition> = {
     description: "Delete routing rule. Part of: Routing Rules. Calls DELETE /phone/routingrules/{routingRuleId} on Zoom.",
     method: "DELETE",
     path: "/phone/routing_rules/{routingRuleId}",
-    input: z.object({ routingRuleId: z.string() }),
+    input: obj({ routingRuleId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

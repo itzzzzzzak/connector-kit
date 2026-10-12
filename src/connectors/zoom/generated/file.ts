@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const fileActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const fileActions: Record<string, ActionDefinition> = {
     description: "Downloadembeddedwhiteboardfile. Part of: File. Calls GET /whiteboards/{whiteboardId}/files/{fileId} on Zoom.",
     method: "GET",
     path: "/whiteboards/{whiteboardId}/files/{fileId}",
-    input: z.object({ whiteboardId: z.string(), fileId: z.string() }),
+    input: obj({ whiteboardId: z.string(), fileId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

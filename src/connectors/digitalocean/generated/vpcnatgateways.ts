@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const vpcnatgatewaysActions: Record<string, ActionDefinition> = {
     description: "List All VPC NAT Gateways. To list all VPC NAT gateways in your team, send a GET request to /v2/vpcnatgateways. The response body will be a JSON object with a key of vpcnatgateways containing an array of VPC NAT gateway objects. These each contain the standard VPC NAT gateway attributes.",
     method: "GET",
     path: "/vpc_nat_gateways",
-    input: z.object({ state: z.enum(["new", "provisioning", "active", "deleting", "error", "invalid"]).describe("The current state of the VPC NAT gateway.").optional(), region: z.enum(["nyc1", "nyc2", "nyc3", "ams2", "ams3", "sfo1", "sfo2", "sfo3", "sgp1", "lon1", "fra1", "tor1", "blr1", "syd1", "atl1"]).describe("The region where the VPC NAT gateway is located.").optional(), type: z.enum(["public"]).describe("The type of the VPC NAT gateway.").optional(), name: z.string().describe("The name of the VPC NAT gateway.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ state: z.enum(["new", "provisioning", "active", "deleting", "error", "invalid"]).describe("The current state of the VPC NAT gateway.").optional(), region: z.enum(["nyc1", "nyc2", "nyc3", "ams2", "ams3", "sfo1", "sfo2", "sfo3", "sgp1", "lon1", "fra1", "tor1", "blr1", "syd1", "atl1"]).describe("The region where the VPC NAT gateway is located.").optional(), type: z.enum(["public"]).describe("The type of the VPC NAT gateway.").optional(), name: z.string().describe("The name of the VPC NAT gateway.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "vpc_nat_gateways", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const vpcnatgatewaysActions: Record<string, ActionDefinition> = {
     description: "Create a New VPC NAT Gateway. To create a new VPC NAT gateway, send a POST request to /v2/vpcnatgateways setting the required attributes.",
     method: "POST",
     path: "/vpc_nat_gateways",
-    input: z.object({ name: z.string().describe("The human-readable name of the VPC NAT gateway."), type: z.enum(["PUBLIC"]).describe("The type of the VPC NAT gateway."), region: z.enum(["nyc1", "nyc2", "nyc3", "ams2", "ams3", "sfo1", "sfo2", "sfo3", "sgp1", "lon1", "fra1", "tor1", "blr1", "syd1", "atl1"]).describe("The region in which the VPC NAT gateway is created."), size: z.number().describe("The size of the VPC NAT gateway."), vpcs: z.array(z.object({ vpc_uuid: z.string(), subnet_uuid: z.string().optional(), default_gateway: z.boolean().optional() })).describe("An array of VPCs associated with the VPC NAT gateway."), udp_timeout_seconds: z.number().describe("The UDP timeout in seconds for the VPC NAT gateway.").optional(), icmp_timeout_seconds: z.number().describe("The ICMP timeout in seconds for the VPC NAT gateway.").optional(), tcp_timeout_seconds: z.number().describe("The TCP timeout in seconds for the VPC NAT gateway.").optional(), egresses: z.object({ public_gateways: z.array(z.record(z.string(), z.unknown())).optional() }).describe("An optional object specifying the public egress IP address to assign to the VPC NAT gateway. Provide this only to use a specific address. If omitted,…").optional() }),
+    input: obj({ name: z.string().describe("The human-readable name of the VPC NAT gateway."), type: z.enum(["PUBLIC"]).describe("The type of the VPC NAT gateway."), region: z.enum(["nyc1", "nyc2", "nyc3", "ams2", "ams3", "sfo1", "sfo2", "sfo3", "sgp1", "lon1", "fra1", "tor1", "blr1", "syd1", "atl1"]).describe("The region in which the VPC NAT gateway is created."), size: z.number().describe("The size of the VPC NAT gateway."), vpcs: z.array(obj({ vpc_uuid: z.string(), subnet_uuid: z.string().optional(), default_gateway: z.boolean().optional() })).describe("An array of VPCs associated with the VPC NAT gateway."), udp_timeout_seconds: z.number().describe("The UDP timeout in seconds for the VPC NAT gateway.").optional(), icmp_timeout_seconds: z.number().describe("The ICMP timeout in seconds for the VPC NAT gateway.").optional(), tcp_timeout_seconds: z.number().describe("The TCP timeout in seconds for the VPC NAT gateway.").optional(), egresses: obj({ public_gateways: z.array(z.record(z.string(), z.unknown())).optional() }).describe("An optional object specifying the public egress IP address to assign to the VPC NAT gateway. Provide this only to use a specific address. If omitted,…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const vpcnatgatewaysActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing VPC NAT Gateway. To show information about an individual VPC NAT gateway, send a GET request to /v2/vpcnatgateways/$VPCNATGATEWAYID.",
     method: "GET",
     path: "/vpc_nat_gateways/{id}",
-    input: z.object({ id: z.string().describe("The unique identifier of the VPC NAT gateway.") }),
+    input: obj({ id: z.string().describe("The unique identifier of the VPC NAT gateway.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const vpcnatgatewaysActions: Record<string, ActionDefinition> = {
     description: "Update VPC NAT Gateway. To update the configuration of an existing VPC NAT Gateway, send a PUT request to /v2/vpcnatgateways/$VPCNATGATEWAYID. The request must contain a full representation of the VPC NAT Gateway including existing attributes.",
     method: "PUT",
     path: "/vpc_nat_gateways/{id}",
-    input: z.object({ id: z.string().describe("The unique identifier of the VPC NAT gateway."), name: z.string().describe("The human-readable name of the VPC NAT gateway."), size: z.number().describe("The size of the VPC NAT gateway."), vpcs: z.array(z.object({ vpc_uuid: z.string().optional(), subnet_uuid: z.string().optional(), default_gateway: z.boolean().optional() })).describe("An array of VPCs associated with the VPC NAT gateway.").optional(), udp_timeout_seconds: z.number().describe("The UDP timeout in seconds for the VPC NAT gateway.").optional(), icmp_timeout_seconds: z.number().describe("The ICMP timeout in seconds for the VPC NAT gateway.").optional(), tcp_timeout_seconds: z.number().describe("The TCP timeout in seconds for the VPC NAT gateway.").optional() }),
+    input: obj({ id: z.string().describe("The unique identifier of the VPC NAT gateway."), name: z.string().describe("The human-readable name of the VPC NAT gateway."), size: z.number().describe("The size of the VPC NAT gateway."), vpcs: z.array(obj({ vpc_uuid: z.string().optional(), subnet_uuid: z.string().optional(), default_gateway: z.boolean().optional() })).describe("An array of VPCs associated with the VPC NAT gateway.").optional(), udp_timeout_seconds: z.number().describe("The UDP timeout in seconds for the VPC NAT gateway.").optional(), icmp_timeout_seconds: z.number().describe("The ICMP timeout in seconds for the VPC NAT gateway.").optional(), tcp_timeout_seconds: z.number().describe("The TCP timeout in seconds for the VPC NAT gateway.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const vpcnatgatewaysActions: Record<string, ActionDefinition> = {
     description: "Delete VPC NAT Gateway. To destroy a VPC NAT Gateway, send a DELETE request to the /v2/vpcnatgateways/$VPCNATGATEWAYID endpoint.",
     method: "DELETE",
     path: "/vpc_nat_gateways/{id}",
-    input: z.object({ id: z.string().describe("The unique identifier of the VPC NAT gateway.") }),
+    input: obj({ id: z.string().describe("The unique identifier of the VPC NAT gateway.") }),
     output: z.unknown(),
     effect: "destructive",
   },

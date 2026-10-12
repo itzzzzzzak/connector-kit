@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const taskChecklistsActions: Record<string, ActionDefinition> = {
     description: "Create checklist. Part of: Task Checklists. Calls POST /task/{taskid}/checklist on ClickUp.",
     method: "POST",
     path: "/task/{task_id}/checklist",
-    input: z.object({ task_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional(), name: z.string() }),
+    input: obj({ task_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional(), name: z.string() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["custom_task_ids","team_id"]),
@@ -21,7 +22,7 @@ export const taskChecklistsActions: Record<string, ActionDefinition> = {
     description: "Edit checklist. Part of: Task Checklists. Calls PUT /checklist/{checklistid} on ClickUp.",
     method: "PUT",
     path: "/checklist/{checklist_id}",
-    input: z.object({ checklist_id: z.string(), name: z.string().optional(), position: z.number().optional() }),
+    input: obj({ checklist_id: z.string(), name: z.string().optional(), position: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -29,7 +30,7 @@ export const taskChecklistsActions: Record<string, ActionDefinition> = {
     description: "Delete checklist. Part of: Task Checklists. Calls DELETE /checklist/{checklistid} on ClickUp.",
     method: "DELETE",
     path: "/checklist/{checklist_id}",
-    input: z.object({ checklist_id: z.string() }),
+    input: obj({ checklist_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -37,7 +38,7 @@ export const taskChecklistsActions: Record<string, ActionDefinition> = {
     description: "Create checklist item. Part of: Task Checklists. Calls POST /checklist/{checklistid}/checklistitem on ClickUp.",
     method: "POST",
     path: "/checklist/{checklist_id}/checklist_item",
-    input: z.object({ checklist_id: z.string(), name: z.string().optional(), assignee: z.number().optional() }),
+    input: obj({ checklist_id: z.string(), name: z.string().optional(), assignee: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -45,7 +46,7 @@ export const taskChecklistsActions: Record<string, ActionDefinition> = {
     description: "Edit checklist item. Part of: Task Checklists. Calls PUT /checklist/{checklistid}/checklistitem/{checklistitemid} on ClickUp.",
     method: "PUT",
     path: "/checklist/{checklist_id}/checklist_item/{checklist_item_id}",
-    input: z.object({ checklist_id: z.string(), checklist_item_id: z.string(), name: z.string().optional(), assignee: z.string().nullable().optional(), resolved: z.boolean().optional(), parent: z.string().nullable().optional() }),
+    input: obj({ checklist_id: z.string(), checklist_item_id: z.string(), name: z.string().optional(), assignee: z.string().nullable().optional(), resolved: z.boolean().optional(), parent: z.string().nullable().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -53,7 +54,7 @@ export const taskChecklistsActions: Record<string, ActionDefinition> = {
     description: "Delete checklist item. Part of: Task Checklists. Calls DELETE /checklist/{checklistid}/checklistitem/{checklistitemid} on ClickUp.",
     method: "DELETE",
     path: "/checklist/{checklist_id}/checklist_item/{checklist_item_id}",
-    input: z.object({ checklist_id: z.string(), checklist_item_id: z.string() }),
+    input: obj({ checklist_id: z.string(), checklist_item_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

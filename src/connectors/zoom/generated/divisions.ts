@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const divisionsActions: Record<string, ActionDefinition> = {
     description: "List divisions. Part of: Divisions. Calls GET /divisions on Zoom.",
     method: "GET",
     path: "/divisions",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "divisions", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const divisionsActions: Record<string, ActionDefinition> = {
     description: "Createadivision. Part of: Divisions. Calls POST /divisions on Zoom.",
     method: "POST",
     path: "/divisions",
-    input: z.object({ division_name: z.string(), division_description: z.string().optional() }),
+    input: obj({ division_name: z.string(), division_description: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const divisionsActions: Record<string, ActionDefinition> = {
     description: "Getdivision. Part of: Divisions. Calls GET /divisions/{divisionId} on Zoom.",
     method: "GET",
     path: "/divisions/{divisionId}",
-    input: z.object({ divisionId: z.string() }),
+    input: obj({ divisionId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const divisionsActions: Record<string, ActionDefinition> = {
     description: "Updateadivision. Part of: Divisions. Calls PATCH /divisions/{divisionId} on Zoom.",
     method: "PATCH",
     path: "/divisions/{divisionId}",
-    input: z.object({ divisionId: z.string(), division_name: z.string().optional(), division_description: z.string().optional() }),
+    input: obj({ divisionId: z.string(), division_name: z.string().optional(), division_description: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const divisionsActions: Record<string, ActionDefinition> = {
     description: "Deletedivision. Part of: Divisions. Calls DELETE /divisions/{divisionId} on Zoom.",
     method: "DELETE",
     path: "/divisions/{divisionId}",
-    input: z.object({ divisionId: z.string() }),
+    input: obj({ divisionId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const divisionsActions: Record<string, ActionDefinition> = {
     description: "List division members. Part of: Divisions. Calls GET /divisions/{divisionId}/users on Zoom.",
     method: "GET",
     path: "/divisions/{divisionId}/users",
-    input: z.object({ divisionId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ divisionId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "users", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -61,7 +62,7 @@ export const divisionsActions: Record<string, ActionDefinition> = {
     description: "Assigndivision member. Part of: Divisions. Calls POST /divisions/{divisionId}/users on Zoom.",
     method: "POST",
     path: "/divisions/{divisionId}/users",
-    input: z.object({ divisionId: z.string(), users: z.array(z.object({ user_email: z.string().optional(), user_id: z.string().optional() })).optional() }),
+    input: obj({ divisionId: z.string(), users: z.array(obj({ user_email: z.string().optional(), user_id: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },

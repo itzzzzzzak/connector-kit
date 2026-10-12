@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const userGroupsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const userGroupsActions: Record<string, ActionDefinition> = {
     description: "Create user group. Part of: User Groups. Calls POST /team/{teamid}/group on ClickUp.",
     method: "POST",
     path: "/team/{team_id}/group",
-    input: z.object({ team_id: z.number(), name: z.string(), handle: z.string().optional(), members: z.array(z.number()) }),
+    input: obj({ team_id: z.number(), name: z.string(), handle: z.string().optional(), members: z.array(z.number()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const userGroupsActions: Record<string, ActionDefinition> = {
     description: "Update team. Part of: User Groups. Calls PUT /group/{groupid} on ClickUp.",
     method: "PUT",
     path: "/group/{group_id}",
-    input: z.object({ group_id: z.string(), name: z.string().optional(), handle: z.string().optional(), members: z.object({ add: z.array(z.number()), rem: z.array(z.number()) }).optional() }),
+    input: obj({ group_id: z.string(), name: z.string().optional(), handle: z.string().optional(), members: obj({ add: z.array(z.number()), rem: z.array(z.number()) }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const userGroupsActions: Record<string, ActionDefinition> = {
     description: "Delete team. Part of: User Groups. Calls DELETE /group/{groupid} on ClickUp.",
     method: "DELETE",
     path: "/group/{group_id}",
-    input: z.object({ group_id: z.string() }),
+    input: obj({ group_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const userGroupsActions: Record<string, ActionDefinition> = {
     description: "Get teams1. Part of: User Groups. Calls GET /group on ClickUp.",
     method: "GET",
     path: "/group",
-    input: z.object({ team_id: z.number(), group_ids: z.array(z.string()).optional() }),
+    input: obj({ team_id: z.number(), group_ids: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const metaActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const metaActions: Record<string, ActionDefinition> = {
     description: "GitHub API Root. Get Hypermedia links to resources accessible in GitHub's REST API",
     method: "GET",
     path: "/",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const metaActions: Record<string, ActionDefinition> = {
     description: "Get GitHub meta information. Returns meta information about GitHub, including a list of GitHub's IP addresses. For more information, see \"About GitHub's IP addresses.\"",
     method: "GET",
     path: "/meta",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const metaActions: Record<string, ActionDefinition> = {
     description: "Get Octocat. Get the octocat as ASCII art Calls GET /octocat on github.",
     method: "GET",
     path: "/octocat",
-    input: z.object({ s: z.string().describe("The words to show in Octocat's speech bubble").optional() }),
+    input: obj({ s: z.string().describe("The words to show in Octocat's speech bubble").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const metaActions: Record<string, ActionDefinition> = {
     description: "Get all API versions. Get all supported GitHub API versions.",
     method: "GET",
     path: "/versions",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const metaActions: Record<string, ActionDefinition> = {
     description: "Get the Zen of GitHub. Get a random sentence from the Zen of GitHub",
     method: "GET",
     path: "/zen",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

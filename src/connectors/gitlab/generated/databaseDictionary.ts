@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const databaseDictionaryActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const databaseDictionaryActions: Record<string, ActionDefinition> = {
     description: "Get admin databases database name dictionary tables table name. Part of: databasedictionary. Calls GET /admin/databases/{databasename}/dictionary/tables/{tablename} on GitLab.",
     method: "GET",
     path: "/admin/databases/{database_name}/dictionary/tables/{table_name}",
-    input: z.object({ database_name: z.enum(["main", "ci"]), table_name: z.string() }),
+    input: obj({ database_name: z.enum(["main", "ci"]), table_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const databaseDictionaryActions: Record<string, ActionDefinition> = {
     description: "Get databases database name dictionary tables. Part of: databasedictionary. Calls GET /databases/{databasename}/dictionary/tables on GitLab.",
     method: "GET",
     path: "/databases/{database_name}/dictionary/tables",
-    input: z.object({ database_name: z.enum(["main", "ci", "sec", "embedding", "geo"]), table_size: z.enum(["small", "medium", "large", "over_limit"]).optional() }),
+    input: obj({ database_name: z.enum(["main", "ci", "sec", "embedding", "geo"]), table_size: z.enum(["small", "medium", "large", "over_limit"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },

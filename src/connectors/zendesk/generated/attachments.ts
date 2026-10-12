@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const attachmentsActions: Record<string, ActionDefinition> = {
     description: "Show attachment. Part of: Attachments. Calls GET /attachments/{attachmentid} on Zendesk.",
     method: "GET",
     path: "/attachments/{attachment_id}",
-    input: z.object({ attachment_id: z.number() }),
+    input: obj({ attachment_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const attachmentsActions: Record<string, ActionDefinition> = {
     description: "Update attachment. Part of: Attachments. Calls PUT /attachments/{attachmentid} on Zendesk.",
     method: "PUT",
     path: "/attachments/{attachment_id}",
-    input: z.object({ attachment_id: z.number(), attachment: z.object({ malware_access_override: z.boolean().optional() }).optional() }),
+    input: obj({ attachment_id: z.number(), attachment: obj({ malware_access_override: z.boolean().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const attachmentsActions: Record<string, ActionDefinition> = {
     description: "Delete attachment. Part of: Attachments. Calls DELETE /attachments/{attachmentid} on Zendesk.",
     method: "DELETE",
     path: "/attachments/{attachment_id}",
-    input: z.object({ attachment_id: z.number() }),
+    input: obj({ attachment_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -35,7 +36,7 @@ export const attachmentsActions: Record<string, ActionDefinition> = {
     description: "Redact comment attachment. Part of: Attachments. Calls PUT /tickets/{ticketid}/comments/{commentid}/attachments/{attachmentid}/redact on Zendesk.",
     method: "PUT",
     path: "/tickets/{ticket_id}/comments/{comment_id}/attachments/{attachment_id}/redact",
-    input: z.object({ ticket_id: z.number(), comment_id: z.number(), attachment_id: z.number() }),
+    input: obj({ ticket_id: z.number(), comment_id: z.number(), attachment_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -43,7 +44,7 @@ export const attachmentsActions: Record<string, ActionDefinition> = {
     description: "Upload files. Part of: Attachments. Calls POST /uploads on Zendesk.",
     method: "POST",
     path: "/uploads",
-    input: z.object({ filename: z.string() }),
+    input: obj({ filename: z.string() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["filename"]),
@@ -52,7 +53,7 @@ export const attachmentsActions: Record<string, ActionDefinition> = {
     description: "Delete upload. Part of: Attachments. Calls DELETE /uploads/{token} on Zendesk.",
     method: "DELETE",
     path: "/uploads/{token}",
-    input: z.object({ token: z.string() }),
+    input: obj({ token: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

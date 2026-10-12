@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const instanceActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const instanceActions: Record<string, ActionDefinition> = {
     description: "Get application appearance. Part of: instance. Calls GET /application/appearance on GitLab.",
     method: "GET",
     path: "/application/appearance",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const instanceActions: Record<string, ActionDefinition> = {
     description: "Get application statistics. Part of: instance. Calls GET /application/statistics on GitLab.",
     method: "GET",
     path: "/application/statistics",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const crmObjectTagsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const crmObjectTagsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /crm/object-tags/2026-09/{objectTypeId} on HubSpot.",
     method: "GET",
     path: "/crm/object-tags/2026-09/{objectTypeId}",
-    input: z.object({ objectTypeId: z.string() }),
+    input: obj({ objectTypeId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const crmObjectTagsActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Basic. Calls POST /crm/object-tags/2026-09/{objectTypeId} on HubSpot.",
     method: "POST",
     path: "/crm/object-tags/2026-09/{objectTypeId}",
-    input: z.object({ objectTypeId: z.string(), color: z.string(), description: z.string().optional(), displayOrder: z.number(), filterBranch: z.unknown(), filterPipelineIds: z.array(z.string()), name: z.string() }),
+    input: obj({ objectTypeId: z.string(), color: z.string(), description: z.string().optional(), displayOrder: z.number(), filterBranch: z.unknown(), filterPipelineIds: z.array(z.string()), name: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const crmObjectTagsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /crm/object-tags/2026-09/{objectTypeId}/{tagId} on HubSpot.",
     method: "GET",
     path: "/crm/object-tags/2026-09/{objectTypeId}/{tagId}",
-    input: z.object({ objectTypeId: z.string(), tagId: z.number() }),
+    input: obj({ objectTypeId: z.string(), tagId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const crmObjectTagsActions: Record<string, ActionDefinition> = {
     description: "Replace. Part of: Basic. Calls PUT /crm/object-tags/2026-09/{objectTypeId}/{tagId} on HubSpot.",
     method: "PUT",
     path: "/crm/object-tags/2026-09/{objectTypeId}/{tagId}",
-    input: z.object({ objectTypeId: z.string(), tagId: z.number(), color: z.string(), description: z.string().optional(), filterBranch: z.unknown(), filterPipelineIds: z.array(z.string()), name: z.string() }),
+    input: obj({ objectTypeId: z.string(), tagId: z.number(), color: z.string(), description: z.string().optional(), filterBranch: z.unknown(), filterPipelineIds: z.array(z.string()), name: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const crmObjectTagsActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Basic. Calls PATCH /crm/object-tags/2026-09/{objectTypeId}/{tagId} on HubSpot.",
     method: "PATCH",
     path: "/crm/object-tags/2026-09/{objectTypeId}/{tagId}",
-    input: z.object({ objectTypeId: z.string(), tagId: z.number(), color: z.record(z.string(), z.unknown()), description: z.record(z.string(), z.unknown()), filterBranch: z.record(z.string(), z.unknown()), filterPipelineIds: z.record(z.string(), z.unknown()), name: z.record(z.string(), z.unknown()) }),
+    input: obj({ objectTypeId: z.string(), tagId: z.number(), color: z.record(z.string(), z.unknown()), description: z.record(z.string(), z.unknown()), filterBranch: z.record(z.string(), z.unknown()), filterPipelineIds: z.record(z.string(), z.unknown()), name: z.record(z.string(), z.unknown()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const crmObjectTagsActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /crm/object-tags/2026-09/{objectTypeId}/{tagId} on HubSpot.",
     method: "DELETE",
     path: "/crm/object-tags/2026-09/{objectTypeId}/{tagId}",
-    input: z.object({ objectTypeId: z.string(), tagId: z.number() }),
+    input: obj({ objectTypeId: z.string(), tagId: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

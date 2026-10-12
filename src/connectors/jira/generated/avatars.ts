@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const avatarsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const avatarsActions: Record<string, ActionDefinition> = {
     description: "Get system avatars by type. Returns a list of system avatar details by owner type, where the owner types are issue type, project, user or priority.",
     method: "GET",
     path: "/avatar/{type}/system",
-    input: z.object({ type: z.enum(["issuetype", "project", "user", "priority"]).describe("The avatar type.") }),
+    input: obj({ type: z.enum(["issuetype", "project", "user", "priority"]).describe("The avatar type.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const avatarsActions: Record<string, ActionDefinition> = {
     description: "Get avatars. Returns the system and custom avatars for a project, issue type or priority.",
     method: "GET",
     path: "/universal_avatar/type/{type}/owner/{entityId}",
-    input: z.object({ type: z.enum(["project", "issuetype", "priority"]).describe("The avatar type."), entityId: z.string().describe("The ID of the item the avatar is associated with.") }),
+    input: obj({ type: z.enum(["project", "issuetype", "priority"]).describe("The avatar type."), entityId: z.string().describe("The ID of the item the avatar is associated with.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const avatarsActions: Record<string, ActionDefinition> = {
     description: "Delete avatar. Deletes an avatar from a project, issue type or priority.",
     method: "DELETE",
     path: "/universal_avatar/type/{type}/owner/{owningObjectId}/avatar/{id}",
-    input: z.object({ type: z.enum(["project", "issuetype", "priority"]).describe("The avatar type."), owningObjectId: z.string().describe("The ID of the item the avatar is associated with."), id: z.number().describe("The ID of the avatar.") }),
+    input: obj({ type: z.enum(["project", "issuetype", "priority"]).describe("The avatar type."), owningObjectId: z.string().describe("The ID of the item the avatar is associated with."), id: z.number().describe("The ID of the avatar.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const avatarsActions: Record<string, ActionDefinition> = {
     description: "Get avatar image by type. Returns the default project, issue type or priority avatar image.",
     method: "GET",
     path: "/universal_avatar/view/type/{type}",
-    input: z.object({ type: z.enum(["issuetype", "project", "priority"]).describe("The icon type of the avatar."), size: z.enum(["xsmall", "small", "medium", "large", "xlarge"]).describe("The size of the avatar image. If not provided the default size is returned.").optional(), format: z.enum(["png", "svg"]).describe("The format to return the avatar image in. If not provided the original content format is returned.").optional() }),
+    input: obj({ type: z.enum(["issuetype", "project", "priority"]).describe("The icon type of the avatar."), size: z.enum(["xsmall", "small", "medium", "large", "xlarge"]).describe("The size of the avatar image. If not provided the default size is returned.").optional(), format: z.enum(["png", "svg"]).describe("The format to return the avatar image in. If not provided the original content format is returned.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const avatarsActions: Record<string, ActionDefinition> = {
     description: "Get avatar image by ID. Returns a project, issue type or priority avatar image by ID.",
     method: "GET",
     path: "/universal_avatar/view/type/{type}/avatar/{id}",
-    input: z.object({ type: z.enum(["issuetype", "project", "priority"]).describe("The icon type of the avatar."), id: z.number().describe("The ID of the avatar."), size: z.enum(["xsmall", "small", "medium", "large", "xlarge"]).describe("The size of the avatar image. If not provided the default size is returned.").optional(), format: z.enum(["png", "svg"]).describe("The format to return the avatar image in. If not provided the original content format is returned.").optional() }),
+    input: obj({ type: z.enum(["issuetype", "project", "priority"]).describe("The icon type of the avatar."), id: z.number().describe("The ID of the avatar."), size: z.enum(["xsmall", "small", "medium", "large", "xlarge"]).describe("The size of the avatar image. If not provided the default size is returned.").optional(), format: z.enum(["png", "svg"]).describe("The format to return the avatar image in. If not provided the original content format is returned.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const avatarsActions: Record<string, ActionDefinition> = {
     description: "Get avatar image by owner. Returns the avatar image for a project, issue type or priority.",
     method: "GET",
     path: "/universal_avatar/view/type/{type}/owner/{entityId}",
-    input: z.object({ type: z.enum(["issuetype", "project", "priority"]).describe("The icon type of the avatar."), entityId: z.string().describe("The ID of the project or issue type the avatar belongs to."), size: z.enum(["xsmall", "small", "medium", "large", "xlarge"]).describe("The size of the avatar image. If not provided the default size is returned.").optional(), format: z.enum(["png", "svg"]).describe("The format to return the avatar image in. If not provided the original content format is returned.").optional() }),
+    input: obj({ type: z.enum(["issuetype", "project", "priority"]).describe("The icon type of the avatar."), entityId: z.string().describe("The ID of the project or issue type the avatar belongs to."), size: z.enum(["xsmall", "small", "medium", "large", "xlarge"]).describe("The size of the avatar image. If not provided the default size is returned.").optional(), format: z.enum(["png", "svg"]).describe("The format to return the avatar image in. If not provided the original content format is returned.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

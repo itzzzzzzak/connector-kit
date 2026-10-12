@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const invitationsActions: Record<string, ActionDefinition> = {
     description: "Get groups id invitations. Part of: invitations. Calls GET /groups/{id}/invitations on GitLab.",
     method: "GET",
     path: "/groups/{id}/invitations",
-    input: z.object({ id: z.string(), query: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), query: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const invitationsActions: Record<string, ActionDefinition> = {
     description: "Post groups id invitations. Part of: invitations. Calls POST /groups/{id}/invitations on GitLab.",
     method: "POST",
     path: "/groups/{id}/invitations",
-    input: z.object({ id: z.string(), access_level: z.number(), email: z.array(z.string()).optional(), user_id: z.array(z.string()).optional(), expires_at: z.string().optional(), invite_source: z.string().optional(), member_role_id: z.number().optional() }),
+    input: obj({ id: z.string(), access_level: z.number(), email: z.array(z.string()).optional(), user_id: z.array(z.string()).optional(), expires_at: z.string().optional(), invite_source: z.string().optional(), member_role_id: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const invitationsActions: Record<string, ActionDefinition> = {
     description: "Put groups id invitations email. Part of: invitations. Calls PUT /groups/{id}/invitations/{email} on GitLab.",
     method: "PUT",
     path: "/groups/{id}/invitations/{email}",
-    input: z.object({ id: z.string(), email: z.string(), access_level: z.number().optional(), expires_at: z.string().optional(), member_role_id: z.number().optional() }),
+    input: obj({ id: z.string(), email: z.string(), access_level: z.number().optional(), expires_at: z.string().optional(), member_role_id: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const invitationsActions: Record<string, ActionDefinition> = {
     description: "Delete groups id invitations email. Part of: invitations. Calls DELETE /groups/{id}/invitations/{email} on GitLab.",
     method: "DELETE",
     path: "/groups/{id}/invitations/{email}",
-    input: z.object({ id: z.string(), email: z.string() }),
+    input: obj({ id: z.string(), email: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -44,7 +45,7 @@ export const invitationsActions: Record<string, ActionDefinition> = {
     description: "Get projects id invitations. Part of: invitations. Calls GET /projects/{id}/invitations on GitLab.",
     method: "GET",
     path: "/projects/{id}/invitations",
-    input: z.object({ id: z.string(), query: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), query: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -53,7 +54,7 @@ export const invitationsActions: Record<string, ActionDefinition> = {
     description: "Post projects id invitations. Part of: invitations. Calls POST /projects/{id}/invitations on GitLab.",
     method: "POST",
     path: "/projects/{id}/invitations",
-    input: z.object({ id: z.string(), access_level: z.number(), email: z.array(z.string()).optional(), user_id: z.array(z.string()).optional(), expires_at: z.string().optional(), invite_source: z.string().optional(), member_role_id: z.number().optional() }),
+    input: obj({ id: z.string(), access_level: z.number(), email: z.array(z.string()).optional(), user_id: z.array(z.string()).optional(), expires_at: z.string().optional(), invite_source: z.string().optional(), member_role_id: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -61,7 +62,7 @@ export const invitationsActions: Record<string, ActionDefinition> = {
     description: "Put projects id invitations email. Part of: invitations. Calls PUT /projects/{id}/invitations/{email} on GitLab.",
     method: "PUT",
     path: "/projects/{id}/invitations/{email}",
-    input: z.object({ id: z.string(), email: z.string(), access_level: z.number().optional(), expires_at: z.string().optional(), member_role_id: z.number().optional() }),
+    input: obj({ id: z.string(), email: z.string(), access_level: z.number().optional(), expires_at: z.string().optional(), member_role_id: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -69,7 +70,7 @@ export const invitationsActions: Record<string, ActionDefinition> = {
     description: "Delete projects id invitations email. Part of: invitations. Calls DELETE /projects/{id}/invitations/{email} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/invitations/{email}",
-    input: z.object({ id: z.string(), email: z.string() }),
+    input: obj({ id: z.string(), email: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

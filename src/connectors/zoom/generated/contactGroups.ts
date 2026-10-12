@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const contactGroupsActions: Record<string, ActionDefinition> = {
     description: "Contact groups. Part of: Contact Groups. Calls GET /contacts/groups on Zoom.",
     method: "GET",
     path: "/contacts/groups",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "groups", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const contactGroupsActions: Record<string, ActionDefinition> = {
     description: "Contact group create. Part of: Contact Groups. Calls POST /contacts/groups on Zoom.",
     method: "POST",
     path: "/contacts/groups",
-    input: z.object({ group_name: z.string().optional(), group_privacy: z.number().optional(), description: z.string().optional(), group_members: z.array(z.object({ type: z.number().optional(), id: z.string().optional() })).optional() }),
+    input: obj({ group_name: z.string().optional(), group_privacy: z.number().optional(), description: z.string().optional(), group_members: z.array(obj({ type: z.number().optional(), id: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const contactGroupsActions: Record<string, ActionDefinition> = {
     description: "Contact group. Part of: Contact Groups. Calls GET /contacts/groups/{groupId} on Zoom.",
     method: "GET",
     path: "/contacts/groups/{groupId}",
-    input: z.object({ groupId: z.string() }),
+    input: obj({ groupId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const contactGroupsActions: Record<string, ActionDefinition> = {
     description: "Contact group update. Part of: Contact Groups. Calls PATCH /contacts/groups/{groupId} on Zoom.",
     method: "PATCH",
     path: "/contacts/groups/{groupId}",
-    input: z.object({ groupId: z.string(), name: z.string().optional(), privacy: z.number().optional(), description: z.string().optional() }),
+    input: obj({ groupId: z.string(), name: z.string().optional(), privacy: z.number().optional(), description: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const contactGroupsActions: Record<string, ActionDefinition> = {
     description: "Contact group delete. Part of: Contact Groups. Calls DELETE /contacts/groups/{groupId} on Zoom.",
     method: "DELETE",
     path: "/contacts/groups/{groupId}",
-    input: z.object({ groupId: z.string() }),
+    input: obj({ groupId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const contactGroupsActions: Record<string, ActionDefinition> = {
     description: "Contact group members. Part of: Contact Groups. Calls GET /contacts/groups/{groupId}/members on Zoom.",
     method: "GET",
     path: "/contacts/groups/{groupId}/members",
-    input: z.object({ groupId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ groupId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "group_members", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -61,7 +62,7 @@ export const contactGroupsActions: Record<string, ActionDefinition> = {
     description: "Contact group member add. Part of: Contact Groups. Calls POST /contacts/groups/{groupId}/members on Zoom.",
     method: "POST",
     path: "/contacts/groups/{groupId}/members",
-    input: z.object({ groupId: z.string(), group_members: z.array(z.object({ type: z.number().optional(), id: z.string().optional() })).optional() }),
+    input: obj({ groupId: z.string(), group_members: z.array(obj({ type: z.number().optional(), id: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -69,7 +70,7 @@ export const contactGroupsActions: Record<string, ActionDefinition> = {
     description: "Contact group member remove. Part of: Contact Groups. Calls DELETE /contacts/groups/{groupId}/members on Zoom.",
     method: "DELETE",
     path: "/contacts/groups/{groupId}/members",
-    input: z.object({ groupId: z.string(), member_ids: z.string() }),
+    input: obj({ groupId: z.string(), member_ids: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

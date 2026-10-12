@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const campaignsActions: Record<string, ActionDefinition> = {
     description: "List campaigns for an organization. Lists campaigns in an organization.",
     method: "GET",
     path: "/orgs/{org}/campaigns",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), direction: z.enum(["asc", "desc"]).describe("The direction to sort the results by.").optional(), state: z.enum(["open", "closed"]).describe("If specified, only campaigns with this state will be returned.").optional(), sort: z.enum(["created", "updated", "ends_at", "published"]).describe("The property by which to sort the results.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), direction: z.enum(["asc", "desc"]).describe("The direction to sort the results by.").optional(), state: z.enum(["open", "closed"]).describe("If specified, only campaigns with this state will be returned.").optional(), sort: z.enum(["created", "updated", "ends_at", "published"]).describe("The property by which to sort the results.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination(),
@@ -20,7 +21,7 @@ export const campaignsActions: Record<string, ActionDefinition> = {
     description: "Create a campaign for an organization Calls POST /orgs/{org}/campaigns on github.",
     method: "POST",
     path: "/orgs/{org}/campaigns",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -29,7 +30,7 @@ export const campaignsActions: Record<string, ActionDefinition> = {
     description: "Get a campaign for an organization. Gets a campaign for an organization.",
     method: "GET",
     path: "/orgs/{org}/campaigns/{campaign_number}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), campaign_number: z.number().describe("The campaign number.") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), campaign_number: z.number().describe("The campaign number.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const campaignsActions: Record<string, ActionDefinition> = {
     description: "Update a campaign. Updates a campaign in an organization.",
     method: "PATCH",
     path: "/orgs/{org}/campaigns/{campaign_number}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), campaign_number: z.number().describe("The campaign number."), name: z.string().describe("The name of the campaign").optional(), description: z.string().describe("A description for the campaign").optional(), managers: z.array(z.string()).describe("The logins of the users to set as the campaign managers. At this time, only a single manager can be supplied.").optional(), team_managers: z.array(z.string()).describe("The slugs of the teams to set as the campaign managers.").optional(), ends_at: z.string().describe("The end date and time of the campaign, in ISO 8601 format':' YYYY-MM-DDTHH:MM:SSZ.").optional(), contact_link: z.string().nullable().describe("The contact link of the campaign. Must be a URI.").optional(), state: z.enum(["open", "closed"]).describe("Indicates whether a campaign is open or closed").optional() }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), campaign_number: z.number().describe("The campaign number."), name: z.string().describe("The name of the campaign").optional(), description: z.string().describe("A description for the campaign").optional(), managers: z.array(z.string()).describe("The logins of the users to set as the campaign managers. At this time, only a single manager can be supplied.").optional(), team_managers: z.array(z.string()).describe("The slugs of the teams to set as the campaign managers.").optional(), ends_at: z.string().describe("The end date and time of the campaign, in ISO 8601 format':' YYYY-MM-DDTHH:MM:SSZ.").optional(), contact_link: z.string().nullable().describe("The contact link of the campaign. Must be a URI.").optional(), state: z.enum(["open", "closed"]).describe("Indicates whether a campaign is open or closed").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -45,7 +46,7 @@ export const campaignsActions: Record<string, ActionDefinition> = {
     description: "Delete a campaign for an organization. Deletes a campaign in an organization.",
     method: "DELETE",
     path: "/orgs/{org}/campaigns/{campaign_number}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), campaign_number: z.number().describe("The campaign number.") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), campaign_number: z.number().describe("The campaign number.") }),
     output: z.unknown(),
     effect: "destructive",
   },

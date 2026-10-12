@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const screenSchemesActions: Record<string, ActionDefinition> = {
     description: "Get screen schemes. Returns a paginated list of screen schemes.",
     method: "GET",
     path: "/screenscheme",
-    input: z.object({ id: z.array(z.number()).describe("The list of screen scheme IDs. To include multiple IDs, provide an ampersand-separated list. For example, id=10000&id=10001.").optional(), expand: z.string().describe("Use expand include additional information in the response. This parameter accepts issueTypeScreenSchemes that, for each screen schemes, returns information…").optional(), queryString: z.string().describe("String used to perform a case-insensitive partial match with screen scheme name.").optional(), orderBy: z.enum(["name", "-name", "+name", "id", "-id", "+id"]).describe("Order the results by a field: id Sorts by screen scheme ID. name Sorts by screen scheme name.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.array(z.number()).describe("The list of screen scheme IDs. To include multiple IDs, provide an ampersand-separated list. For example, id=10000&id=10001.").optional(), expand: z.string().describe("Use expand include additional information in the response. This parameter accepts issueTypeScreenSchemes that, for each screen schemes, returns information…").optional(), queryString: z.string().describe("String used to perform a case-insensitive partial match with screen scheme name.").optional(), orderBy: z.enum(["name", "-name", "+name", "id", "-id", "+id"]).describe("Order the results by a field: id Sorts by screen scheme ID. name Sorts by screen scheme name.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const screenSchemesActions: Record<string, ActionDefinition> = {
     description: "Create screen scheme. Creates a screen scheme.",
     method: "POST",
     path: "/screenscheme",
-    input: z.object({ description: z.string().describe("The description of the screen scheme. The maximum length is 255 characters.").optional(), name: z.string().describe("The name of the screen scheme. The name must be unique. The maximum length is 255 characters."), screens: z.object({ create: z.number().optional(), default: z.number(), edit: z.number().optional(), view: z.number().optional() }).describe("The IDs of the screens for the screen types of the screen scheme. Only screens used in classic projects are accepted.") }),
+    input: obj({ description: z.string().describe("The description of the screen scheme. The maximum length is 255 characters.").optional(), name: z.string().describe("The name of the screen scheme. The name must be unique. The maximum length is 255 characters."), screens: obj({ create: z.number().optional(), default: z.number(), edit: z.number().optional(), view: z.number().optional() }).describe("The IDs of the screens for the screen types of the screen scheme. Only screens used in classic projects are accepted.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const screenSchemesActions: Record<string, ActionDefinition> = {
     description: "Update screen scheme. Updates a screen scheme. Only screen schemes used in classic projects can be updated.",
     method: "PUT",
     path: "/screenscheme/{screenSchemeId}",
-    input: z.object({ screenSchemeId: z.string().describe("The ID of the screen scheme."), description: z.string().describe("The description of the screen scheme. The maximum length is 255 characters.").optional(), name: z.string().describe("The name of the screen scheme. The name must be unique. The maximum length is 255 characters.").optional(), screens: z.object({ create: z.string().optional(), default: z.string().optional(), edit: z.string().optional(), view: z.string().optional() }).describe("The IDs of the screens for the screen types of the screen scheme. Only screens used in classic projects are accepted.").optional() }),
+    input: obj({ screenSchemeId: z.string().describe("The ID of the screen scheme."), description: z.string().describe("The description of the screen scheme. The maximum length is 255 characters.").optional(), name: z.string().describe("The name of the screen scheme. The name must be unique. The maximum length is 255 characters.").optional(), screens: obj({ create: z.string().optional(), default: z.string().optional(), edit: z.string().optional(), view: z.string().optional() }).describe("The IDs of the screens for the screen types of the screen scheme. Only screens used in classic projects are accepted.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const screenSchemesActions: Record<string, ActionDefinition> = {
     description: "Delete screen scheme. Deletes a screen scheme. A screen scheme cannot be deleted if it is used in an issue type screen scheme.",
     method: "DELETE",
     path: "/screenscheme/{screenSchemeId}",
-    input: z.object({ screenSchemeId: z.string().describe("The ID of the screen scheme.") }),
+    input: obj({ screenSchemeId: z.string().describe("The ID of the screen scheme.") }),
     output: z.unknown(),
     effect: "destructive",
   },

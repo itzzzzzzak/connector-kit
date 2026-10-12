@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const ratesActions: Record<string, ActionDefinition> = {
     description: "Get multiple rates. Returns a list of rate records. The possible types for parent in this request are project. An additional resource (user GID or placeholder GID) can be passed in to filter to a specific rate.",
     method: "GET",
     path: "/rates",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), parent: z.string().describe("Globally unique identifier for project.").optional(), resource: z.string().describe("Globally unique identifier for user or placeholder.").optional(), opt_fields: z.array(z.enum(["offset", "path", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), parent: z.string().describe("Globally unique identifier for project.").optional(), resource: z.string().describe("Globally unique identifier for user or placeholder.").optional(), opt_fields: z.array(z.enum(["offset", "path", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const ratesActions: Record<string, ActionDefinition> = {
     description: "Create a rate. Creates a new rate for a parent + resource combination.",
     method: "POST",
     path: "/rates",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "currency_code", "parent", "parent.name", "parent.resource_subtype", "rate", "resource", "resource.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ gid: z.string().optional(), resource_type: z.string().optional(), parent: z.string(), resource: z.string(), rate: z.number() }).describe("A generic Asana Resource, containing a globally unique identifier.").optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "currency_code", "parent", "parent.name", "parent.resource_subtype", "rate", "resource", "resource.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ gid: z.string().optional(), resource_type: z.string().optional(), parent: z.string(), resource: z.string(), rate: z.number() }).describe("A generic Asana Resource, containing a globally unique identifier.").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -31,7 +32,7 @@ export const ratesActions: Record<string, ActionDefinition> = {
     description: "Get a rate. Returns the complete rate record for a single rate.",
     method: "GET",
     path: "/rates/{rate_gid}",
-    input: z.object({ rate_gid: z.string().describe("Globally unique identifier for the rate."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "currency_code", "parent", "parent.name", "parent.resource_subtype", "rate", "resource", "resource.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ rate_gid: z.string().describe("Globally unique identifier for the rate."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "currency_code", "parent", "parent.name", "parent.resource_subtype", "rate", "resource", "resource.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -39,7 +40,7 @@ export const ratesActions: Record<string, ActionDefinition> = {
     description: "Update a rate. An existing rate can be updated by making a PUT request on the URL for that rate. Only the fields provided in the data block will be updated; any unspecified fields will remain unchanged. (note that at this time, the only field that can be updated is the rate field.)",
     method: "PUT",
     path: "/rates/{rate_gid}",
-    input: z.object({ rate_gid: z.string().describe("Globally unique identifier for the rate."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "currency_code", "parent", "parent.name", "parent.resource_subtype", "rate", "resource", "resource.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ gid: z.string().optional(), resource_type: z.string().optional(), rate: z.number().optional() }).describe("A generic Asana Resource, containing a globally unique identifier.").optional() }),
+    input: obj({ rate_gid: z.string().describe("Globally unique identifier for the rate."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "currency_code", "parent", "parent.name", "parent.resource_subtype", "rate", "resource", "resource.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ gid: z.string().optional(), resource_type: z.string().optional(), rate: z.number().optional() }).describe("A generic Asana Resource, containing a globally unique identifier.").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -49,7 +50,7 @@ export const ratesActions: Record<string, ActionDefinition> = {
     description: "Delete a rate. Deletes a rate. Calls DELETE /rates/{rategid} on Asana.",
     method: "DELETE",
     path: "/rates/{rate_gid}",
-    input: z.object({ rate_gid: z.string().describe("Globally unique identifier for the rate."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
+    input: obj({ rate_gid: z.string().describe("Globally unique identifier for the rate."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

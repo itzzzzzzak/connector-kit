@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const callLogsActions: Record<string, ActionDefinition> = {
     description: "Get user call logs. Part of: CallLogs. Calls GET /v1/callLogs on Pipedrive.",
     method: "GET",
     path: "/v1/callLogs",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "data", positionParam: "start", pageSizeParam: "limit", hasMorePath: ["additional_data", "pagination", "more_items_in_collection"], defaultPageSize: 30, maxPageSize: 500 }),
@@ -20,7 +21,7 @@ export const callLogsActions: Record<string, ActionDefinition> = {
     description: "Add call log. Part of: CallLogs. Calls POST /v1/callLogs on Pipedrive.",
     method: "POST",
     path: "/v1/callLogs",
-    input: z.object({ user_id: z.number().optional(), activity_id: z.number().optional(), subject: z.string().optional(), duration: z.string().optional(), outcome: z.enum(["connected", "no_answer", "left_message", "left_voicemail", "wrong_number", "busy"]), from_phone_number: z.string().optional(), to_phone_number: z.string(), start_time: z.string(), end_time: z.string(), person_id: z.number().optional(), org_id: z.number().optional(), deal_id: z.number().optional(), lead_id: z.string().optional(), note: z.string().optional() }),
+    input: obj({ user_id: z.number().optional(), activity_id: z.number().optional(), subject: z.string().optional(), duration: z.string().optional(), outcome: z.enum(["connected", "no_answer", "left_message", "left_voicemail", "wrong_number", "busy"]), from_phone_number: z.string().optional(), to_phone_number: z.string(), start_time: z.string(), end_time: z.string(), person_id: z.number().optional(), org_id: z.number().optional(), deal_id: z.number().optional(), lead_id: z.string().optional(), note: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const callLogsActions: Record<string, ActionDefinition> = {
     description: "Get call log. Part of: CallLogs. Calls GET /v1/callLogs/{id} on Pipedrive.",
     method: "GET",
     path: "/v1/callLogs/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const callLogsActions: Record<string, ActionDefinition> = {
     description: "Delete call log. Part of: CallLogs. Calls DELETE /v1/callLogs/{id} on Pipedrive.",
     method: "DELETE",
     path: "/v1/callLogs/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

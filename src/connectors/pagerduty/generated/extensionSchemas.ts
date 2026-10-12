@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const extensionSchemasActions: Record<string, ActionDefinition> = {
     description: "List extension schemas. Part of: Extension Schemas. Calls GET /extensionschemas on PagerDuty.",
     method: "GET",
     path: "/extension_schemas",
-    input: z.object({ total: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ total: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "extension_schemas", hasMorePath: ["more"], pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const extensionSchemasActions: Record<string, ActionDefinition> = {
     description: "Get extension schema. Part of: Extension Schemas. Calls GET /extensionschemas/{id} on PagerDuty.",
     method: "GET",
     path: "/extension_schemas/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

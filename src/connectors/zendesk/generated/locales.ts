@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const localesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const localesActions: Record<string, ActionDefinition> = {
     description: "List locales. Part of: Locales. Calls GET /locales on Zendesk.",
     method: "GET",
     path: "/locales",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const localesActions: Record<string, ActionDefinition> = {
     description: "Show locale by id. Part of: Locales. Calls GET /locales/{localeid} on Zendesk.",
     method: "GET",
     path: "/locales/{locale_id}",
-    input: z.object({ locale_id: z.string() }),
+    input: obj({ locale_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const localesActions: Record<string, ActionDefinition> = {
     description: "List locales for agent. Part of: Locales. Calls GET /locales/agent on Zendesk.",
     method: "GET",
     path: "/locales/agent",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const localesActions: Record<string, ActionDefinition> = {
     description: "Show current locale. Part of: Locales. Calls GET /locales/current on Zendesk.",
     method: "GET",
     path: "/locales/current",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const localesActions: Record<string, ActionDefinition> = {
     description: "Detect best locale. Part of: Locales. Calls GET /locales/detectbestlocale on Zendesk.",
     method: "GET",
     path: "/locales/detect_best_locale",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const localesActions: Record<string, ActionDefinition> = {
     description: "List available public locales. Part of: Locales. Calls GET /locales/public on Zendesk.",
     method: "GET",
     path: "/locales/public",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

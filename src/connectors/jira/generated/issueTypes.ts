@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const issueTypesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const issueTypesActions: Record<string, ActionDefinition> = {
     description: "Get all issue types for user. Returns all issue types.",
     method: "GET",
     path: "/issuetype",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const issueTypesActions: Record<string, ActionDefinition> = {
     description: "Create issue type. Creates an issue type. Calls POST /issuetype on Jira.",
     method: "POST",
     path: "/issuetype",
-    input: z.object({ description: z.string().describe("The description of the issue type.").optional(), hierarchyLevel: z.number().describe("The hierarchy level of the issue type. Use: -1 for Subtask. 0 for Base. Defaults to 0.").optional(), name: z.string().describe("The unique name for the issue type. The maximum length is 60 characters."), type: z.enum(["subtask", "standard"]).describe("Deprecated. Use hierarchyLevel instead. See the deprecation notice for details. Whether the issue type is subtype or standard. Defaults to standard.").optional() }),
+    input: obj({ description: z.string().describe("The description of the issue type.").optional(), hierarchyLevel: z.number().describe("The hierarchy level of the issue type. Use: -1 for Subtask. 0 for Base. Defaults to 0.").optional(), name: z.string().describe("The unique name for the issue type. The maximum length is 60 characters."), type: z.enum(["subtask", "standard"]).describe("Deprecated. Use hierarchyLevel instead. See the deprecation notice for details. Whether the issue type is subtype or standard. Defaults to standard.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const issueTypesActions: Record<string, ActionDefinition> = {
     description: "Get issue types for project. Returns issue types for a project.",
     method: "GET",
     path: "/issuetype/project",
-    input: z.object({ projectId: z.number().describe("The ID of the project."), level: z.number().describe("The level of the issue type to filter by. Use: -1 for Subtask. 0 for Base. 1 for Epic.").optional() }),
+    input: obj({ projectId: z.number().describe("The ID of the project."), level: z.number().describe("The level of the issue type to filter by. Use: -1 for Subtask. 0 for Base. 1 for Epic.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const issueTypesActions: Record<string, ActionDefinition> = {
     description: "Get issue type. Returns an issue type. Calls GET /issuetype/{id} on Jira.",
     method: "GET",
     path: "/issuetype/{id}",
-    input: z.object({ id: z.string().describe("The ID of the issue type.") }),
+    input: obj({ id: z.string().describe("The ID of the issue type.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const issueTypesActions: Record<string, ActionDefinition> = {
     description: "Update issue type. Updates the issue type. Calls PUT /issuetype/{id} on Jira.",
     method: "PUT",
     path: "/issuetype/{id}",
-    input: z.object({ id: z.string().describe("The ID of the issue type."), avatarId: z.number().describe("The ID of an issue type avatar. This can be obtained be obtained from the following endpoints: System issue type avatar IDs only System and custom issue type…").optional(), description: z.string().describe("The description of the issue type.").optional(), name: z.string().describe("The unique name for the issue type. The maximum length is 60 characters.").optional() }),
+    input: obj({ id: z.string().describe("The ID of the issue type."), avatarId: z.number().describe("The ID of an issue type avatar. This can be obtained be obtained from the following endpoints: System issue type avatar IDs only System and custom issue type…").optional(), description: z.string().describe("The description of the issue type.").optional(), name: z.string().describe("The unique name for the issue type. The maximum length is 60 characters.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const issueTypesActions: Record<string, ActionDefinition> = {
     description: "Delete issue type. Deletes the issue type. If the issue type is in use, all uses are updated with the alternative issue type (alternativeIssueTypeId). A list of alternative issue types are obtained from the Get alternative issue types resource.",
     method: "DELETE",
     path: "/issuetype/{id}",
-    input: z.object({ id: z.string().describe("The ID of the issue type."), alternativeIssueTypeId: z.string().describe("The ID of the replacement issue type.").optional() }),
+    input: obj({ id: z.string().describe("The ID of the issue type."), alternativeIssueTypeId: z.string().describe("The ID of the replacement issue type.").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -58,7 +59,7 @@ export const issueTypesActions: Record<string, ActionDefinition> = {
     description: "Get alternative issue types. Returns a list of issue types that can be used to replace the issue type. The alternative issue types are those assigned to the same workflow scheme, field configuration scheme, and screen scheme.",
     method: "GET",
     path: "/issuetype/{id}/alternatives",
-    input: z.object({ id: z.string().describe("The ID of the issue type.") }),
+    input: obj({ id: z.string().describe("The ID of the issue type.") }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const videoOnDemandRegistrationsActions: Record<string, ActionDefinition>
     description: "Get registration questions for vodchannel. Part of: Video On-Demand Registrations. Calls GET /zoomevents/hubs/{hubId}/vodchannels/{channelId}/registrationquestions on Zoom.",
     method: "GET",
     path: "/zoom_events/hubs/{hubId}/vod_channels/{channelId}/registration_questions",
-    input: z.object({ hubId: z.string(), channelId: z.string() }),
+    input: obj({ hubId: z.string(), channelId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const videoOnDemandRegistrationsActions: Record<string, ActionDefinition>
     description: "Update registration questions for vodchannel. Part of: Video On-Demand Registrations. Calls PUT /zoomevents/hubs/{hubId}/vodchannels/{channelId}/registrationquestions on Zoom.",
     method: "PUT",
     path: "/zoom_events/hubs/{hubId}/vod_channels/{channelId}/registration_questions",
-    input: z.object({ hubId: z.string(), channelId: z.string(), questions: z.array(z.object({ field_name: z.enum(["first_name", "last_name", "address", "city", "state", "zip", "country", "phone", "industry", "job_title", "organization", "organization_size"]).optional(), required: z.boolean().optional(), title: z.string().optional() })).optional(), custom_questions: z.array(z.object({ answers: z.array(z.string()).optional(), required: z.boolean().optional(), title: z.string().optional(), type: z.enum(["short_answer", "long_answer", "single_radio", "single_dropdown", "multiple_choice"]).optional(), min_length: z.number().optional(), max_length: z.number().optional() })).optional() }),
+    input: obj({ hubId: z.string(), channelId: z.string(), questions: z.array(obj({ field_name: z.enum(["first_name", "last_name", "address", "city", "state", "zip", "country", "phone", "industry", "job_title", "organization", "organization_size"]).optional(), required: z.boolean().optional(), title: z.string().optional() })).optional(), custom_questions: z.array(obj({ answers: z.array(z.string()).optional(), required: z.boolean().optional(), title: z.string().optional(), type: z.enum(["short_answer", "long_answer", "single_radio", "single_dropdown", "multiple_choice"]).optional(), min_length: z.number().optional(), max_length: z.number().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const videoOnDemandRegistrationsActions: Record<string, ActionDefinition>
     description: "List vodregistration. Part of: Video On-Demand Registrations. Calls GET /zoomevents/hubs/{hubId}/vodchannels/{channelId}/registrations on Zoom.",
     method: "GET",
     path: "/zoom_events/hubs/{hubId}/vod_channels/{channelId}/registrations",
-    input: z.object({ hubId: z.string(), channelId: z.string(), email: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ hubId: z.string(), channelId: z.string(), email: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "registrations", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -36,7 +37,7 @@ export const videoOnDemandRegistrationsActions: Record<string, ActionDefinition>
     description: "Vodticket registration. Part of: Video On-Demand Registrations. Calls POST /zoomevents/hubs/{hubId}/vodchannels/{channelId}/registrations on Zoom.",
     method: "POST",
     path: "/zoom_events/hubs/{hubId}/vod_channels/{channelId}/registrations",
-    input: z.object({ hubId: z.string(), channelId: z.string(), registrations: z.array(z.object({ email: z.string(), first_name: z.string().optional(), last_name: z.string().optional(), address: z.string().optional(), city: z.string().optional(), state: z.string().optional(), zip: z.string().optional(), country: z.string().optional(), phone: z.string().optional(), industry: z.string().optional(), job_title: z.string().optional(), organization: z.string().optional(), organization_size: z.string().optional(), custom_questions: z.array(z.record(z.string(), z.unknown())).optional() })).optional() }),
+    input: obj({ hubId: z.string(), channelId: z.string(), registrations: z.array(obj({ email: z.string(), first_name: z.string().optional(), last_name: z.string().optional(), address: z.string().optional(), city: z.string().optional(), state: z.string().optional(), zip: z.string().optional(), country: z.string().optional(), phone: z.string().optional(), industry: z.string().optional(), job_title: z.string().optional(), organization: z.string().optional(), organization_size: z.string().optional(), custom_questions: z.array(z.record(z.string(), z.unknown())).optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },

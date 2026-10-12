@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const taxRatesTaxRatesActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /tax-rates/v1/tax-rates on HubSpot.",
     method: "GET",
     path: "/tax-rates/v1/tax-rates",
-    input: z.object({ active: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ active: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const taxRatesTaxRatesActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /tax-rates/v1/tax-rates/{taxRateGroupId} on HubSpot.",
     method: "GET",
     path: "/tax-rates/v1/tax-rates/{taxRateGroupId}",
-    input: z.object({ taxRateGroupId: z.string() }),
+    input: obj({ taxRateGroupId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

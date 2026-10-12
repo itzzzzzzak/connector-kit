@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const addOnsActions: Record<string, ActionDefinition> = {
     description: "List addon. Part of: Add-ons. Calls GET /addons on PagerDuty.",
     method: "GET",
     path: "/addons",
-    input: z.object({ total: z.boolean().optional(), include__: z.enum(["services"]).optional(), service_ids__: z.array(z.string()).optional(), filter: z.enum(["full_page_addon", "incident_show_addon"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ total: z.boolean().optional(), include__: z.enum(["services"]).optional(), service_ids__: z.array(z.string()).optional(), filter: z.enum(["full_page_addon", "incident_show_addon"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "addons", hasMorePath: ["more"], pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -22,7 +23,7 @@ export const addOnsActions: Record<string, ActionDefinition> = {
     description: "Create addon. Part of: Add-ons. Calls POST /addons on PagerDuty.",
     method: "POST",
     path: "/addons",
-    input: z.object({ addon: z.object({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["full_page_addon", "incident_show_addon"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), name: z.string(), src: z.string() }) }),
+    input: obj({ addon: obj({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["full_page_addon", "incident_show_addon"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), name: z.string(), src: z.string() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -30,7 +31,7 @@ export const addOnsActions: Record<string, ActionDefinition> = {
     description: "Get addon. Part of: Add-ons. Calls GET /addons/{id} on PagerDuty.",
     method: "GET",
     path: "/addons/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -38,7 +39,7 @@ export const addOnsActions: Record<string, ActionDefinition> = {
     description: "Update addon. Part of: Add-ons. Calls PUT /addons/{id} on PagerDuty.",
     method: "PUT",
     path: "/addons/{id}",
-    input: z.object({ id: z.string(), addon: z.object({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["full_page_addon", "incident_show_addon"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), name: z.string(), src: z.string() }) }),
+    input: obj({ id: z.string(), addon: obj({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["full_page_addon", "incident_show_addon"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), name: z.string(), src: z.string() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -46,7 +47,7 @@ export const addOnsActions: Record<string, ActionDefinition> = {
     description: "Delete addon. Part of: Add-ons. Calls DELETE /addons/{id} on PagerDuty.",
     method: "DELETE",
     path: "/addons/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

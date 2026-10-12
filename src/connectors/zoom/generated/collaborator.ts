@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const collaboratorActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const collaboratorActions: Record<string, ActionDefinition> = {
     description: "Get awhiteboard collaborator. Part of: Collaborator. Calls GET /whiteboards/{whiteboardId}/collaborator on Zoom.",
     method: "GET",
     path: "/whiteboards/{whiteboardId}/collaborator",
-    input: z.object({ whiteboardId: z.string() }),
+    input: obj({ whiteboardId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const collaboratorActions: Record<string, ActionDefinition> = {
     description: "Add awhiteboard collaborator. Part of: Collaborator. Calls POST /whiteboards/{whiteboardId}/collaborator on Zoom.",
     method: "POST",
     path: "/whiteboards/{whiteboardId}/collaborator",
-    input: z.object({ whiteboardId: z.string(), skip_notifications: z.boolean().optional(), invite_message: z.string().optional(), collaborators: z.array(z.object({ email: z.string().optional(), channel_id: z.string().optional(), role: z.number().optional() })).optional() }),
+    input: obj({ whiteboardId: z.string(), skip_notifications: z.boolean().optional(), invite_message: z.string().optional(), collaborators: z.array(obj({ email: z.string().optional(), channel_id: z.string().optional(), role: z.number().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const collaboratorActions: Record<string, ActionDefinition> = {
     description: "Update awhiteboard collaborator. Part of: Collaborator. Calls PATCH /whiteboards/{whiteboardId}/collaborator on Zoom.",
     method: "PATCH",
     path: "/whiteboards/{whiteboardId}/collaborator",
-    input: z.object({ whiteboardId: z.string(), collaborators: z.array(z.object({ collaborator_id: z.string().optional(), role: z.number().optional() })).optional() }),
+    input: obj({ whiteboardId: z.string(), collaborators: z.array(obj({ collaborator_id: z.string().optional(), role: z.number().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const collaboratorActions: Record<string, ActionDefinition> = {
     description: "Delete awhiteboard collaborator. Part of: Collaborator. Calls DELETE /whiteboards/{whiteboardId}/collaborator/{collaboratorId} on Zoom.",
     method: "DELETE",
     path: "/whiteboards/{whiteboardId}/collaborator/{collaboratorId}",
-    input: z.object({ whiteboardId: z.string(), collaboratorId: z.string() }),
+    input: obj({ whiteboardId: z.string(), collaboratorId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

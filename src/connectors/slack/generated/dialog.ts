@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const dialogActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const dialogActions: Record<string, ActionDefinition> = {
     description: "Open a dialog with a user Calls GET /dialog.open on Slack.",
     method: "GET",
     path: "/dialog.open",
-    input: z.object({ dialog: z.string().describe("The dialog definition. This must be a JSON-encoded string."), trigger_id: z.string().describe("Exchange a trigger to post to the user.") }),
+    input: obj({ dialog: z.string().describe("The dialog definition. This must be a JSON-encoded string."), trigger_id: z.string().describe("Exchange a trigger to post to the user.") }),
     output: z.unknown(),
     effect: "read",
   },

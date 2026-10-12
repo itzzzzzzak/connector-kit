@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const timePeriodsActions: Record<string, ActionDefinition> = {
     description: "Get a time period. Returns the full record for a single time period.",
     method: "GET",
     path: "/time_periods/{time_period_gid}",
-    input: z.object({ time_period_gid: z.string().describe("Globally unique identifier for the time period."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["display_name", "end_on", "parent", "parent.display_name", "parent.end_on", "parent.period", "parent.start_on", "period", "start_on"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ time_period_gid: z.string().describe("Globally unique identifier for the time period."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["display_name", "end_on", "parent", "parent.display_name", "parent.end_on", "parent.period", "parent.start_on", "period", "start_on"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const timePeriodsActions: Record<string, ActionDefinition> = {
     description: "Get time periods. Returns compact time period records.",
     method: "GET",
     path: "/time_periods",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), start_on: z.string().describe("ISO 8601 date string").optional(), end_on: z.string().describe("ISO 8601 date string").optional(), workspace: z.string().describe("Globally unique identifier for the workspace."), opt_fields: z.array(z.enum(["display_name", "end_on", "offset", "parent", "parent.display_name", "parent.end_on", "parent.period", "parent.start_on", "path", "period", "start_on", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), start_on: z.string().describe("ISO 8601 date string").optional(), end_on: z.string().describe("ISO 8601 date string").optional(), workspace: z.string().describe("Globally unique identifier for the workspace."), opt_fields: z.array(z.enum(["display_name", "end_on", "offset", "parent", "parent.display_name", "parent.end_on", "parent.period", "parent.start_on", "path", "period", "start_on", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),

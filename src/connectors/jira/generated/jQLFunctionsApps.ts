@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const jQLFunctionsAppsActions: Record<string, ActionDefinition> = {
     description: "Get precomputations (apps). Returns the list of a function's precomputations along with information about when they were created, updated, and last used. Each precomputation has a value \\- the JQL fragment to replace the custom function clause with.",
     method: "GET",
     path: "/jql/function/computation",
-    input: z.object({ functionKey: z.array(z.string()).describe("The function key in format: Forge: ari:cloud:ecosystem::extension/[App ID]/[Environment ID]/static/[Function key from manifest] Connect: [App key][Module key]").optional(), orderBy: z.string().describe("Order the results by a field: functionKey Sorts by the functionKey. used Sorts by the used timestamp. created Sorts by the created timestamp. updated Sorts by…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ functionKey: z.array(z.string()).describe("The function key in format: Forge: ari:cloud:ecosystem::extension/[App ID]/[Environment ID]/static/[Function key from manifest] Connect: [App key][Module key]").optional(), orderBy: z.string().describe("Order the results by a field: functionKey Sorts by the functionKey. used Sorts by the used timestamp. created Sorts by the created timestamp. updated Sorts by…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const jQLFunctionsAppsActions: Record<string, ActionDefinition> = {
     description: "Update precomputations (apps). Update the precomputation value of a function created by a Forge/Connect app.",
     method: "POST",
     path: "/jql/function/computation",
-    input: z.object({ skipNotFoundPrecomputations: z.boolean().optional(), values: z.array(z.object({ error: z.string().optional(), id: z.string(), value: z.string().optional() })).optional() }),
+    input: obj({ skipNotFoundPrecomputations: z.boolean().optional(), values: z.array(obj({ error: z.string().optional(), id: z.string(), value: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["skipNotFoundPrecomputations"]),
@@ -31,7 +32,7 @@ export const jQLFunctionsAppsActions: Record<string, ActionDefinition> = {
     description: "Get precomputations by ID (apps). Returns function precomputations by IDs, along with information about when they were created, updated, and last used. Each precomputation has a value \\- the JQL fragment to replace the custom function clause with.",
     method: "POST",
     path: "/jql/function/computation/search",
-    input: z.object({ orderBy: z.string().describe("Order the results by a field: functionKey Sorts by the functionKey. used Sorts by the used timestamp. created Sorts by the created timestamp. updated Sorts by…").optional(), precomputationIDs: z.array(z.string()).optional() }),
+    input: obj({ orderBy: z.string().describe("Order the results by a field: functionKey Sorts by the functionKey. used Sorts by the used timestamp. created Sorts by the created timestamp. updated Sorts by…").optional(), precomputationIDs: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["orderBy"]),

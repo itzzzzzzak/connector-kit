@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const offlineTransfersActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const offlineTransfersActions: Record<string, ActionDefinition> = {
     description: "Get offline exports. Part of: offlinetransfers. Calls GET /offlineexports on GitLab.",
     method: "GET",
     path: "/offline_exports",
-    input: z.object({ page: z.number().optional(), per_page: z.number().optional(), sort: z.enum(["asc", "desc"]).optional(), status: z.enum(["created", "started", "finished", "failed"]).optional() }),
+    input: obj({ page: z.number().optional(), per_page: z.number().optional(), sort: z.enum(["asc", "desc"]).optional(), status: z.enum(["created", "started", "finished", "failed"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const offlineTransfersActions: Record<string, ActionDefinition> = {
     description: "Post offline exports. Part of: offlinetransfers. Calls POST /offlineexports on GitLab.",
     method: "POST",
     path: "/offline_exports",
-    input: z.object({ bucket: z.string(), aws_s3_configuration: z.object({ aws_access_key_id: z.string(), aws_secret_access_key: z.string(), region: z.string(), path_style: z.boolean().optional() }).optional(), s3_compatible_configuration: z.object({ aws_access_key_id: z.string(), aws_secret_access_key: z.string(), region: z.string(), endpoint: z.string(), path_style: z.boolean().optional() }).optional(), gcs_configuration: z.object({ google_project: z.string(), google_json_key_string: z.string() }).optional(), gcs_hmac_configuration: z.object({ google_storage_access_key_id: z.string(), google_storage_secret_access_key: z.string(), region: z.string(), path_style: z.boolean().optional() }).optional(), gcs_adc_configuration: z.object({ google_project: z.string() }).optional(), entities: z.array(z.object({ full_path: z.string() })) }),
+    input: obj({ bucket: z.string(), aws_s3_configuration: obj({ aws_access_key_id: z.string(), aws_secret_access_key: z.string(), region: z.string(), path_style: z.boolean().optional() }).optional(), s3_compatible_configuration: obj({ aws_access_key_id: z.string(), aws_secret_access_key: z.string(), region: z.string(), endpoint: z.string(), path_style: z.boolean().optional() }).optional(), gcs_configuration: obj({ google_project: z.string(), google_json_key_string: z.string() }).optional(), gcs_hmac_configuration: obj({ google_storage_access_key_id: z.string(), google_storage_secret_access_key: z.string(), region: z.string(), path_style: z.boolean().optional() }).optional(), gcs_adc_configuration: obj({ google_project: z.string() }).optional(), entities: z.array(obj({ full_path: z.string() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const offlineTransfersActions: Record<string, ActionDefinition> = {
     description: "Get offline exports id. Part of: offlinetransfers. Calls GET /offlineexports/{id} on GitLab.",
     method: "GET",
     path: "/offline_exports/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const offlineTransfersActions: Record<string, ActionDefinition> = {
     description: "Post offline imports. Part of: offlinetransfers. Calls POST /offlineimports on GitLab.",
     method: "POST",
     path: "/offline_imports",
-    input: z.object({ bucket: z.string(), aws_s3_configuration: z.object({ aws_access_key_id: z.string(), aws_secret_access_key: z.string(), region: z.string(), path_style: z.boolean().optional() }).optional(), s3_compatible_configuration: z.object({ aws_access_key_id: z.string(), aws_secret_access_key: z.string(), region: z.string(), endpoint: z.string(), path_style: z.boolean().optional() }).optional(), gcs_configuration: z.object({ google_project: z.string(), google_json_key_string: z.string() }).optional(), gcs_hmac_configuration: z.object({ google_storage_access_key_id: z.string(), google_storage_secret_access_key: z.string(), region: z.string(), path_style: z.boolean().optional() }).optional(), gcs_adc_configuration: z.object({ google_project: z.string() }).optional(), export_prefix: z.string(), entities: z.array(z.object({ source_type: z.enum(["group_entity", "project_entity"]), source_full_path: z.string(), destination_namespace: z.string(), destination_slug: z.string().optional() })) }),
+    input: obj({ bucket: z.string(), aws_s3_configuration: obj({ aws_access_key_id: z.string(), aws_secret_access_key: z.string(), region: z.string(), path_style: z.boolean().optional() }).optional(), s3_compatible_configuration: obj({ aws_access_key_id: z.string(), aws_secret_access_key: z.string(), region: z.string(), endpoint: z.string(), path_style: z.boolean().optional() }).optional(), gcs_configuration: obj({ google_project: z.string(), google_json_key_string: z.string() }).optional(), gcs_hmac_configuration: obj({ google_storage_access_key_id: z.string(), google_storage_secret_access_key: z.string(), region: z.string(), path_style: z.boolean().optional() }).optional(), gcs_adc_configuration: obj({ google_project: z.string() }).optional(), export_prefix: z.string(), entities: z.array(obj({ source_type: z.enum(["group_entity", "project_entity"]), source_full_path: z.string(), destination_namespace: z.string(), destination_slug: z.string().optional() })) }),
     output: z.unknown(),
     effect: "write",
   },

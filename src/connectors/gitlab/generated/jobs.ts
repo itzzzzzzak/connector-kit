@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const jobsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const jobsActions: Record<string, ActionDefinition> = {
     description: "Post jobs request. Part of: jobs. Calls POST /jobs/request on GitLab.",
     method: "POST",
     path: "/jobs/request",
-    input: z.object({ token: z.string(), system_id: z.string().optional(), last_update: z.string().optional(), info: z.object({ name: z.string().optional(), version: z.string().optional(), revision: z.string().optional(), platform: z.string().optional(), architecture: z.string().optional(), executor: z.string().optional(), features: z.record(z.string(), z.unknown()).optional(), config: z.object({ gpus: z.string().optional() }).optional(), labels: z.record(z.string(), z.unknown()).optional() }).optional(), session: z.object({ url: z.string().optional(), certificate: z.string().optional(), authorization: z.string().optional() }).optional() }),
+    input: obj({ token: z.string(), system_id: z.string().optional(), last_update: z.string().optional(), info: obj({ name: z.string().optional(), version: z.string().optional(), revision: z.string().optional(), platform: z.string().optional(), architecture: z.string().optional(), executor: z.string().optional(), features: z.record(z.string(), z.unknown()).optional(), config: obj({ gpus: z.string().optional() }).optional(), labels: z.record(z.string(), z.unknown()).optional() }).optional(), session: obj({ url: z.string().optional(), certificate: z.string().optional(), authorization: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const jobsActions: Record<string, ActionDefinition> = {
     description: "Put jobs id. Part of: jobs. Calls PUT /jobs/{id} on GitLab.",
     method: "PUT",
     path: "/jobs/{id}",
-    input: z.object({ id: z.number(), token: z.string(), state: z.string().optional(), checksum: z.string().optional(), failure_reason: z.string().optional(), output: z.object({ checksum: z.string().optional(), bytesize: z.number().optional() }).optional(), exit_code: z.number().optional(), runtime_environment_key: z.string().optional() }),
+    input: obj({ id: z.number(), token: z.string(), state: z.string().optional(), checksum: z.string().optional(), failure_reason: z.string().optional(), output: obj({ checksum: z.string().optional(), bytesize: z.number().optional() }).optional(), exit_code: z.number().optional(), runtime_environment_key: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const jobsActions: Record<string, ActionDefinition> = {
     description: "Get jobs id runtime environment key. Part of: jobs. Calls GET /jobs/{id}/runtimeenvironmentkey on GitLab.",
     method: "GET",
     path: "/jobs/{id}/runtime_environment_key",
-    input: z.object({ id: z.number(), token: z.string().optional() }),
+    input: obj({ id: z.number(), token: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const jobsActions: Record<string, ActionDefinition> = {
     description: "Patch jobs id trace. Part of: jobs. Calls PATCH /jobs/{id}/trace on GitLab.",
     method: "PATCH",
     path: "/jobs/{id}/trace",
-    input: z.object({ id: z.number(), token: z.string().optional(), debug_trace: z.boolean().optional() }),
+    input: obj({ id: z.number(), token: z.string().optional(), debug_trace: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const jobsActions: Record<string, ActionDefinition> = {
     description: "Post jobs id artifacts authorize. Part of: jobs. Calls POST /jobs/{id}/artifacts/authorize on GitLab.",
     method: "POST",
     path: "/jobs/{id}/artifacts/authorize",
-    input: z.object({ id: z.number(), token: z.string().optional(), filesize: z.number().optional(), artifact_type: z.enum(["archive", "metadata", "trace", "junit", "sast", "dependency_scanning", "container_scanning", "dast", "codequality", "license_scanning", "performance", "metrics", "metrics_referee", "network_referee", "lsif", "dotenv", "cobertura", "terraform", "accessibility", "cluster_applications", "secret_detection", "requirements", "coverage_fuzzing", "browser_performance", "load_performance", "api_fuzzing", "cluster_image_scanning", "cyclonedx", "requirements_v2", "annotations", "repository_xray", "jacoco", "sarif"]).optional() }),
+    input: obj({ id: z.number(), token: z.string().optional(), filesize: z.number().optional(), artifact_type: z.enum(["archive", "metadata", "trace", "junit", "sast", "dependency_scanning", "container_scanning", "dast", "codequality", "license_scanning", "performance", "metrics", "metrics_referee", "network_referee", "lsif", "dotenv", "cobertura", "terraform", "accessibility", "cluster_applications", "secret_detection", "requirements", "coverage_fuzzing", "browser_performance", "load_performance", "api_fuzzing", "cluster_image_scanning", "cyclonedx", "requirements_v2", "annotations", "repository_xray", "jacoco", "sarif"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const jobsActions: Record<string, ActionDefinition> = {
     description: "Get jobs id artifacts. Part of: jobs. Calls GET /jobs/{id}/artifacts on GitLab.",
     method: "GET",
     path: "/jobs/{id}/artifacts",
-    input: z.object({ id: z.number(), token: z.string().optional(), direct_download: z.boolean().optional() }),
+    input: obj({ id: z.number(), token: z.string().optional(), direct_download: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const jobsActions: Record<string, ActionDefinition> = {
     description: "Post jobs id artifacts. Part of: jobs. Calls POST /jobs/{id}/artifacts on GitLab.",
     method: "POST",
     path: "/jobs/{id}/artifacts",
-    input: z.object({ id: z.number(), file: z.unknown(), token: z.string().optional(), expire_in: z.string().optional(), artifact_type: z.enum(["archive", "metadata", "trace", "junit", "sast", "dependency_scanning", "container_scanning", "dast", "codequality", "license_scanning", "performance", "metrics", "metrics_referee", "network_referee", "lsif", "dotenv", "cobertura", "terraform", "accessibility", "cluster_applications", "secret_detection", "requirements", "coverage_fuzzing", "browser_performance", "load_performance", "api_fuzzing", "cluster_image_scanning", "cyclonedx", "requirements_v2", "annotations", "repository_xray", "jacoco", "sarif"]).optional(), artifact_format: z.enum(["raw", "zip", "gzip"]).optional(), metadata: z.unknown().optional(), accessibility: z.string().optional() }),
+    input: obj({ id: z.number(), file: z.unknown(), token: z.string().optional(), expire_in: z.string().optional(), artifact_type: z.enum(["archive", "metadata", "trace", "junit", "sast", "dependency_scanning", "container_scanning", "dast", "codequality", "license_scanning", "performance", "metrics", "metrics_referee", "network_referee", "lsif", "dotenv", "cobertura", "terraform", "accessibility", "cluster_applications", "secret_detection", "requirements", "coverage_fuzzing", "browser_performance", "load_performance", "api_fuzzing", "cluster_image_scanning", "cyclonedx", "requirements_v2", "annotations", "repository_xray", "jacoco", "sarif"]).optional(), artifact_format: z.enum(["raw", "zip", "gzip"]).optional(), metadata: z.unknown().optional(), accessibility: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

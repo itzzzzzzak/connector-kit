@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const incrementalSkillBasedRoutingActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const incrementalSkillBasedRoutingActions: Record<string, ActionDefinitio
     description: "Incremental skil based routing attribute values export. Part of: Incremental Skill Based Routing. Calls GET /incremental/routing/attributevalues on Zendesk.",
     method: "GET",
     path: "/incremental/routing/attribute_values",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const incrementalSkillBasedRoutingActions: Record<string, ActionDefinitio
     description: "Incremental skil based routing attributes export. Part of: Incremental Skill Based Routing. Calls GET /incremental/routing/attributes on Zendesk.",
     method: "GET",
     path: "/incremental/routing/attributes",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const incrementalSkillBasedRoutingActions: Record<string, ActionDefinitio
     description: "Incremental skil based routing instance values export. Part of: Incremental Skill Based Routing. Calls GET /incremental/routing/instancevalues on Zendesk.",
     method: "GET",
     path: "/incremental/routing/instance_values",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

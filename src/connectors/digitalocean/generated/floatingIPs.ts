@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const floatingIPsActions: Record<string, ActionDefinition> = {
     description: "List All Floating IPs. To list all of the floating IPs available on your account, send a GET request to /v2/floatingips.",
     method: "GET",
     path: "/floating_ips",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "floating_ips", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const floatingIPsActions: Record<string, ActionDefinition> = {
     description: "Create a New Floating IP. On creation, a floating IP must be either assigned to a Droplet or reserved to a region. To create a new floating IP assigned to a Droplet, send a POST request to /v2/floatingips with the dropletid attribute.",
     method: "POST",
     path: "/floating_ips",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -29,7 +30,7 @@ export const floatingIPsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing Floating IP. To show information about a floating IP, send a GET request to /v2/floatingips/$FLOATINGIPADDR.",
     method: "GET",
     path: "/floating_ips/{floating_ip}",
-    input: z.object({ floating_ip: z.string().describe("A floating IP address.") }),
+    input: obj({ floating_ip: z.string().describe("A floating IP address.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const floatingIPsActions: Record<string, ActionDefinition> = {
     description: "Delete a Floating IP. To delete a floating IP and remove it from your account, send a DELETE request to /v2/floatingips/$FLOATINGIPADDR.",
     method: "DELETE",
     path: "/floating_ips/{floating_ip}",
-    input: z.object({ floating_ip: z.string().describe("A floating IP address.") }),
+    input: obj({ floating_ip: z.string().describe("A floating IP address.") }),
     output: z.unknown(),
     effect: "destructive",
   },

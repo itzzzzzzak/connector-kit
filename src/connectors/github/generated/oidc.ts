@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const oidcActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const oidcActions: Record<string, ActionDefinition> = {
     description: "List OIDC custom property inclusions for an enterprise. Lists the repository custom properties that are included in the OIDC token for repository actions in an enterprise.",
     method: "GET",
     path: "/enterprises/{enterprise}/actions/oidc/customization/properties/repo",
-    input: z.object({ enterprise: z.string().describe("The slug version of the enterprise name.") }),
+    input: obj({ enterprise: z.string().describe("The slug version of the enterprise name.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const oidcActions: Record<string, ActionDefinition> = {
     description: "Create an OIDC custom property inclusion for an enterprise. Adds a repository custom property to be included in the OIDC token for repository actions in an enterprise.",
     method: "POST",
     path: "/enterprises/{enterprise}/actions/oidc/customization/properties/repo",
-    input: z.object({ enterprise: z.string().describe("The slug version of the enterprise name."), custom_property_name: z.string().describe("The name of the custom property to include in the OIDC token") }),
+    input: obj({ enterprise: z.string().describe("The slug version of the enterprise name."), custom_property_name: z.string().describe("The name of the custom property to include in the OIDC token") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const oidcActions: Record<string, ActionDefinition> = {
     description: "Delete an OIDC custom property inclusion for an enterprise. Removes a repository custom property from being included in the OIDC token for repository actions in an enterprise.",
     method: "DELETE",
     path: "/enterprises/{enterprise}/actions/oidc/customization/properties/repo/{custom_property_name}",
-    input: z.object({ enterprise: z.string().describe("The slug version of the enterprise name."), custom_property_name: z.string().describe("The name of the custom property to remove from OIDC token inclusion") }),
+    input: obj({ enterprise: z.string().describe("The slug version of the enterprise name."), custom_property_name: z.string().describe("The name of the custom property to remove from OIDC token inclusion") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const oidcActions: Record<string, ActionDefinition> = {
     description: "List OIDC custom property inclusions for an organization. Lists the repository custom properties that are included in the OIDC token for repository actions in an organization.",
     method: "GET",
     path: "/orgs/{org}/actions/oidc/customization/properties/repo",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive.") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const oidcActions: Record<string, ActionDefinition> = {
     description: "Create an OIDC custom property inclusion for an organization. Adds a repository custom property to be included in the OIDC token for repository actions in an organization.",
     method: "POST",
     path: "/orgs/{org}/actions/oidc/customization/properties/repo",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), custom_property_name: z.string().describe("The name of the custom property to include in the OIDC token") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), custom_property_name: z.string().describe("The name of the custom property to include in the OIDC token") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const oidcActions: Record<string, ActionDefinition> = {
     description: "Delete an OIDC custom property inclusion for an organization. Removes a repository custom property from being included in the OIDC token for repository actions in an organization.",
     method: "DELETE",
     path: "/orgs/{org}/actions/oidc/customization/properties/repo/{custom_property_name}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), custom_property_name: z.string().describe("The name of the custom property to remove from OIDC token inclusion") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), custom_property_name: z.string().describe("The name of the custom property to remove from OIDC token inclusion") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -58,7 +59,7 @@ export const oidcActions: Record<string, ActionDefinition> = {
     description: "Get the customization template for an OIDC subject claim for an organization. Gets the customization template for an OpenID Connect (OIDC) subject claim.",
     method: "GET",
     path: "/orgs/{org}/actions/oidc/customization/sub",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive.") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -66,7 +67,7 @@ export const oidcActions: Record<string, ActionDefinition> = {
     description: "Set the customization template for an OIDC subject claim for an organization. Creates or updates the customization template for an OpenID Connect (OIDC) subject claim.",
     method: "PUT",
     path: "/orgs/{org}/actions/oidc/customization/sub",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), include_claim_keys: z.array(z.string()).describe("Array of unique strings. Each claim key can only contain alphanumeric characters and underscores.").optional(), use_immutable_subject: z.boolean().describe("Whether to opt in to the immutable OIDC subject claim format for the organization. When true, new OIDC tokens will use a stable, repository-ID-based sub claim…").optional() }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), include_claim_keys: z.array(z.string()).describe("Array of unique strings. Each claim key can only contain alphanumeric characters and underscores.").optional(), use_immutable_subject: z.boolean().describe("Whether to opt in to the immutable OIDC subject claim format for the organization. When true, new OIDC tokens will use a stable, repository-ID-based sub claim…").optional() }),
     output: z.unknown(),
     effect: "write",
   },

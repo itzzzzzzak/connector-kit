@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const casesActions: Record<string, ActionDefinition> = {
     description: "List cases. Part of: Cases. Calls GET /qm/cases on Zoom.",
     method: "GET",
     path: "/qm/cases",
-    input: z.object({ filter: z.enum(["myCases", "allCases"]).optional(), from: z.string().optional(), to: z.string().optional(), agent_id: z.string().optional(), status: z.string().optional(), priority: z.string().optional(), source_case_id: z.string().optional(), connection_id: z.string().optional(), sort_by: z.enum(["created_at", "creating_time", "last_source_updated_at", "status", "priority", "assignee", "updated_at"]).optional(), sort_order: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ filter: z.enum(["myCases", "allCases"]).optional(), from: z.string().optional(), to: z.string().optional(), agent_id: z.string().optional(), status: z.string().optional(), priority: z.string().optional(), source_case_id: z.string().optional(), connection_id: z.string().optional(), sort_by: z.enum(["created_at", "creating_time", "last_source_updated_at", "status", "priority", "assignee", "updated_at"]).optional(), sort_order: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

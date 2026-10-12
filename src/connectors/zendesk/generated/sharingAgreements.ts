@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const sharingAgreementsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const sharingAgreementsActions: Record<string, ActionDefinition> = {
     description: "List sharing agreements. Part of: Sharing Agreements. Calls GET /sharingagreements on Zendesk.",
     method: "GET",
     path: "/sharing_agreements",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const sharingAgreementsActions: Record<string, ActionDefinition> = {
     description: "Create sharing agreement. Part of: Sharing Agreements. Calls POST /sharingagreements on Zendesk.",
     method: "POST",
     path: "/sharing_agreements",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const sharingAgreementsActions: Record<string, ActionDefinition> = {
     description: "Show sharing agreement. Part of: Sharing Agreements. Calls GET /sharingagreements/{sharingagreementid} on Zendesk.",
     method: "GET",
     path: "/sharing_agreements/{sharing_agreement_id}",
-    input: z.object({ sharing_agreement_id: z.number() }),
+    input: obj({ sharing_agreement_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const sharingAgreementsActions: Record<string, ActionDefinition> = {
     description: "Update sharing agreement. Part of: Sharing Agreements. Calls PUT /sharingagreements/{sharingagreementid} on Zendesk.",
     method: "PUT",
     path: "/sharing_agreements/{sharing_agreement_id}",
-    input: z.object({ sharing_agreement_id: z.number() }),
+    input: obj({ sharing_agreement_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const sharingAgreementsActions: Record<string, ActionDefinition> = {
     description: "Delete sharing agreement. Part of: Sharing Agreements. Calls DELETE /sharingagreements/{sharingagreementid} on Zendesk.",
     method: "DELETE",
     path: "/sharing_agreements/{sharing_agreement_id}",
-    input: z.object({ sharing_agreement_id: z.number() }),
+    input: obj({ sharing_agreement_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

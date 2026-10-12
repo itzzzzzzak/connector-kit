@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const authorizationActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const authorizationActions: Record<string, ActionDefinition> = {
     description: "Get access token. Part of: Authorization. Calls POST /oauth/token on ClickUp.",
     method: "POST",
     path: "/oauth/token",
-    input: z.object({ client_id: z.string(), client_secret: z.string(), code: z.string() }),
+    input: obj({ client_id: z.string(), client_secret: z.string(), code: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const authorizationActions: Record<string, ActionDefinition> = {
     description: "Get authorized user. Part of: Authorization. Calls GET /user on ClickUp.",
     method: "GET",
     path: "/user",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

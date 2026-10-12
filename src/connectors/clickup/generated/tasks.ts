@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const tasksActions: Record<string, ActionDefinition> = {
     description: "Delete task. Part of: Tasks. Calls DELETE /task/{taskid} on ClickUp.",
     method: "DELETE",
     path: "/task/{task_id}",
-    input: z.object({ task_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
+    input: obj({ task_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -19,7 +20,7 @@ export const tasksActions: Record<string, ActionDefinition> = {
     description: "Get filtered team tasks. Part of: Tasks. Calls GET /team/{teamId}/task on ClickUp.",
     method: "GET",
     path: "/team/{team_Id}/task",
-    input: z.object({ team_Id: z.number(), page: z.number().optional(), order_by: z.string().optional(), reverse: z.boolean().optional(), subtasks: z.boolean().optional(), space_ids__: z.array(z.string()).optional(), project_ids__: z.array(z.string()).optional(), list_ids__: z.array(z.string()).optional(), statuses__: z.array(z.string()).optional(), include_closed: z.boolean().optional(), assignees__: z.array(z.string()).optional(), tags__: z.array(z.string()).optional(), due_date_gt: z.number().optional(), due_date_lt: z.number().optional(), date_created_gt: z.number().optional(), date_created_lt: z.number().optional(), date_updated_gt: z.number().optional(), date_updated_lt: z.number().optional(), date_done_gt: z.number().optional(), date_done_lt: z.number().optional(), custom_fields: z.array(z.string()).optional(), parent: z.string().optional(), include_markdown_description: z.boolean().optional(), custom_items__: z.array(z.number()).optional() }),
+    input: obj({ team_Id: z.number(), page: z.number().optional(), order_by: z.string().optional(), reverse: z.boolean().optional(), subtasks: z.boolean().optional(), space_ids__: z.array(z.string()).optional(), project_ids__: z.array(z.string()).optional(), list_ids__: z.array(z.string()).optional(), statuses__: z.array(z.string()).optional(), include_closed: z.boolean().optional(), assignees__: z.array(z.string()).optional(), tags__: z.array(z.string()).optional(), due_date_gt: z.number().optional(), due_date_lt: z.number().optional(), date_created_gt: z.number().optional(), date_created_lt: z.number().optional(), date_updated_gt: z.number().optional(), date_updated_lt: z.number().optional(), date_done_gt: z.number().optional(), date_done_lt: z.number().optional(), custom_fields: z.array(z.string()).optional(), parent: z.string().optional(), include_markdown_description: z.boolean().optional(), custom_items__: z.array(z.number()).optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { page: "page", order_by: "order_by", reverse: "reverse", subtasks: "subtasks", space_ids__: "space_ids[]", project_ids__: "project_ids[]", list_ids__: "list_ids[]", statuses__: "statuses[]", include_closed: "include_closed", assignees__: "assignees[]", tags__: "tags[]", due_date_gt: "due_date_gt", due_date_lt: "due_date_lt", date_created_gt: "date_created_gt", date_created_lt: "date_created_lt", date_updated_gt: "date_updated_gt", date_updated_lt: "date_updated_lt", date_done_gt: "date_done_gt", date_done_lt: "date_done_lt", custom_fields: "custom_fields", parent: "parent", include_markdown_description: "include_markdown_description", custom_items__: "custom_items[]" }),
@@ -28,7 +29,7 @@ export const tasksActions: Record<string, ActionDefinition> = {
     description: "Merge tasks. Part of: Tasks. Calls POST /task/{taskid}/merge on ClickUp.",
     method: "POST",
     path: "/task/{task_id}/merge",
-    input: z.object({ task_id: z.string(), source_task_ids: z.array(z.string()) }),
+    input: obj({ task_id: z.string(), source_task_ids: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const tasksActions: Record<string, ActionDefinition> = {
     description: "Get task s timein status. Part of: Tasks. Calls GET /task/{taskid}/timeinstatus on ClickUp.",
     method: "GET",
     path: "/task/{task_id}/time_in_status",
-    input: z.object({ task_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
+    input: obj({ task_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -44,7 +45,7 @@ export const tasksActions: Record<string, ActionDefinition> = {
     description: "Get bulk tasks timein status. Part of: Tasks. Calls GET /task/bulktimeinstatus/taskids on ClickUp.",
     method: "GET",
     path: "/task/bulk_time_in_status/task_ids",
-    input: z.object({ task_ids: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
+    input: obj({ task_ids: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -52,7 +53,7 @@ export const tasksActions: Record<string, ActionDefinition> = {
     description: "Create task from template. Part of: Tasks. Calls POST /list/{listid}/taskTemplate/{templateid} on ClickUp.",
     method: "POST",
     path: "/list/{list_id}/taskTemplate/{template_id}",
-    input: z.object({ list_id: z.number(), template_id: z.string(), name: z.string() }),
+    input: obj({ list_id: z.number(), template_id: z.string(), name: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const dealProductsActions: Record<string, ActionDefinition> = {
     description: "Get deals products. Part of: DealProducts. Calls GET /api/v2/deals/products on Pipedrive.",
     method: "GET",
     path: "/api/v2/deals/products",
-    input: z.object({ deal_ids: z.array(z.number()), sort_by: z.enum(["id", "deal_id", "add_time", "update_time", "order_nr"]).optional(), sort_direction: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ deal_ids: z.array(z.number()), sort_by: z.enum(["id", "deal_id", "add_time", "update_time", "order_nr"]).optional(), sort_direction: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["additional_data", "next_cursor"], cursorParam: "cursor", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 500 }),
@@ -20,7 +21,7 @@ export const dealProductsActions: Record<string, ActionDefinition> = {
     description: "Get deal products. Part of: DealProducts. Calls GET /api/v2/deals/{id}/products on Pipedrive.",
     method: "GET",
     path: "/api/v2/deals/{id}/products",
-    input: z.object({ id: z.number(), sort_by: z.enum(["id", "add_time", "update_time", "order_nr"]).optional(), sort_direction: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.number(), sort_by: z.enum(["id", "add_time", "update_time", "order_nr"]).optional(), sort_direction: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["additional_data", "next_cursor"], cursorParam: "cursor", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 500 }),
@@ -29,7 +30,7 @@ export const dealProductsActions: Record<string, ActionDefinition> = {
     description: "Add deal product. Part of: DealProducts. Calls POST /api/v2/deals/{id}/products on Pipedrive.",
     method: "POST",
     path: "/api/v2/deals/{id}/products",
-    input: z.object({ id: z.number(), product_id: z.number(), item_price: z.number(), quantity: z.number(), tax: z.number().optional(), comments: z.string().optional(), discount: z.number().optional(), is_enabled: z.boolean().optional(), tax_method: z.enum(["exclusive", "inclusive", "none"]).optional(), discount_type: z.enum(["percentage", "amount"]).optional(), product_variation_id: z.number().nullable().optional(), billing_frequency: z.enum(["one-time", "annually", "semi-annually", "quarterly", "monthly", "weekly"]).optional(), billing_frequency_cycles: z.number().nullable().optional(), billing_start_date: z.string().nullable().optional() }),
+    input: obj({ id: z.number(), product_id: z.number(), item_price: z.number(), quantity: z.number(), tax: z.number().optional(), comments: z.string().optional(), discount: z.number().optional(), is_enabled: z.boolean().optional(), tax_method: z.enum(["exclusive", "inclusive", "none"]).optional(), discount_type: z.enum(["percentage", "amount"]).optional(), product_variation_id: z.number().nullable().optional(), billing_frequency: z.enum(["one-time", "annually", "semi-annually", "quarterly", "monthly", "weekly"]).optional(), billing_frequency_cycles: z.number().nullable().optional(), billing_start_date: z.string().nullable().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -37,7 +38,7 @@ export const dealProductsActions: Record<string, ActionDefinition> = {
     description: "Delete many deal products. Part of: DealProducts. Calls DELETE /api/v2/deals/{id}/products on Pipedrive.",
     method: "DELETE",
     path: "/api/v2/deals/{id}/products",
-    input: z.object({ id: z.number(), ids: z.array(z.number()).optional() }),
+    input: obj({ id: z.number(), ids: z.array(z.number()).optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -45,7 +46,7 @@ export const dealProductsActions: Record<string, ActionDefinition> = {
     description: "Update deal product. Part of: DealProducts. Calls PATCH /api/v2/deals/{id}/products/{productattachmentid} on Pipedrive.",
     method: "PATCH",
     path: "/api/v2/deals/{id}/products/{product_attachment_id}",
-    input: z.object({ id: z.number(), product_attachment_id: z.number(), product_id: z.number().optional(), item_price: z.number().optional(), quantity: z.number().optional(), tax: z.number().optional(), comments: z.string().optional(), discount: z.number().optional(), is_enabled: z.boolean().optional(), tax_method: z.enum(["exclusive", "inclusive", "none"]).optional(), discount_type: z.enum(["percentage", "amount"]).optional(), product_variation_id: z.number().nullable().optional(), billing_frequency: z.enum(["one-time", "annually", "semi-annually", "quarterly", "monthly", "weekly"]).optional(), billing_frequency_cycles: z.number().nullable().optional(), billing_start_date: z.string().nullable().optional() }),
+    input: obj({ id: z.number(), product_attachment_id: z.number(), product_id: z.number().optional(), item_price: z.number().optional(), quantity: z.number().optional(), tax: z.number().optional(), comments: z.string().optional(), discount: z.number().optional(), is_enabled: z.boolean().optional(), tax_method: z.enum(["exclusive", "inclusive", "none"]).optional(), discount_type: z.enum(["percentage", "amount"]).optional(), product_variation_id: z.number().nullable().optional(), billing_frequency: z.enum(["one-time", "annually", "semi-annually", "quarterly", "monthly", "weekly"]).optional(), billing_frequency_cycles: z.number().nullable().optional(), billing_start_date: z.string().nullable().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -53,7 +54,7 @@ export const dealProductsActions: Record<string, ActionDefinition> = {
     description: "Delete deal product. Part of: DealProducts. Calls DELETE /api/v2/deals/{id}/products/{productattachmentid} on Pipedrive.",
     method: "DELETE",
     path: "/api/v2/deals/{id}/products/{product_attachment_id}",
-    input: z.object({ id: z.number(), product_attachment_id: z.number() }),
+    input: obj({ id: z.number(), product_attachment_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -61,7 +62,7 @@ export const dealProductsActions: Record<string, ActionDefinition> = {
     description: "Add many deal products. Part of: DealProducts. Calls POST /api/v2/deals/{id}/products/bulk on Pipedrive.",
     method: "POST",
     path: "/api/v2/deals/{id}/products/bulk",
-    input: z.object({ id: z.number(), data: z.array(z.object({ product_id: z.number(), item_price: z.number(), quantity: z.number(), tax: z.number().optional(), comments: z.string().optional(), discount: z.number().optional(), is_enabled: z.boolean().optional(), tax_method: z.enum(["exclusive", "inclusive", "none"]).optional(), discount_type: z.enum(["percentage", "amount"]).optional(), product_variation_id: z.number().nullable().optional(), billing_frequency: z.enum(["one-time", "annually", "semi-annually", "quarterly", "monthly", "weekly"]).optional(), billing_frequency_cycles: z.number().nullable().optional(), billing_start_date: z.string().nullable().optional() })) }),
+    input: obj({ id: z.number(), data: z.array(obj({ product_id: z.number(), item_price: z.number(), quantity: z.number(), tax: z.number().optional(), comments: z.string().optional(), discount: z.number().optional(), is_enabled: z.boolean().optional(), tax_method: z.enum(["exclusive", "inclusive", "none"]).optional(), discount_type: z.enum(["percentage", "amount"]).optional(), product_variation_id: z.number().nullable().optional(), billing_frequency: z.enum(["one-time", "annually", "semi-annually", "quarterly", "monthly", "weekly"]).optional(), billing_frequency_cycles: z.number().nullable().optional(), billing_start_date: z.string().nullable().optional() })) }),
     output: z.unknown(),
     effect: "write",
   },

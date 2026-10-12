@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const blockedListActions: Record<string, ActionDefinition> = {
     description: "List blocked list. Part of: Blocked List. Calls GET /phone/blockedlist on Zoom.",
     method: "GET",
     path: "/phone/blocked_list",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "blocked_list", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const blockedListActions: Record<string, ActionDefinition> = {
     description: "Add anumber to blocked list. Part of: Blocked List. Calls POST /phone/blockedlist on Zoom.",
     method: "POST",
     path: "/phone/blocked_list",
-    input: z.object({ block_type: z.enum(["inbound", "outbound", "threat"]).optional(), comment: z.string().optional(), country: z.string().optional(), match_type: z.enum(["phoneNumber", "prefix"]).optional(), phone_number: z.string().optional(), status: z.enum(["active", "inactive"]).optional() }),
+    input: obj({ block_type: z.enum(["inbound", "outbound", "threat"]).optional(), comment: z.string().optional(), country: z.string().optional(), match_type: z.enum(["phoneNumber", "prefix"]).optional(), phone_number: z.string().optional(), status: z.enum(["active", "inactive"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const blockedListActions: Record<string, ActionDefinition> = {
     description: "Get ablocked list. Part of: Blocked List. Calls GET /phone/blockedlist/{blockedListId} on Zoom.",
     method: "GET",
     path: "/phone/blocked_list/{blockedListId}",
-    input: z.object({ blockedListId: z.string() }),
+    input: obj({ blockedListId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const blockedListActions: Record<string, ActionDefinition> = {
     description: "Update blocked list. Part of: Blocked List. Calls PATCH /phone/blockedlist/{blockedListId} on Zoom.",
     method: "PATCH",
     path: "/phone/blocked_list/{blockedListId}",
-    input: z.object({ blockedListId: z.string(), block_type: z.enum(["inbound", "outbound"]).optional(), comment: z.string().optional(), country: z.string().optional(), match_type: z.enum(["phoneNumber", "prefix"]).optional(), phone_number: z.string().optional(), status: z.enum(["active", "inactive"]).optional() }),
+    input: obj({ blockedListId: z.string(), block_type: z.enum(["inbound", "outbound"]).optional(), comment: z.string().optional(), country: z.string().optional(), match_type: z.enum(["phoneNumber", "prefix"]).optional(), phone_number: z.string().optional(), status: z.enum(["active", "inactive"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const blockedListActions: Record<string, ActionDefinition> = {
     description: "Delete ablocked list. Part of: Blocked List. Calls DELETE /phone/blockedlist/{blockedListId} on Zoom.",
     method: "DELETE",
     path: "/phone/blocked_list/{blockedListId}",
-    input: z.object({ blockedListId: z.string() }),
+    input: obj({ blockedListId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

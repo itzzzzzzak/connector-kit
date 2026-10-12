@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const permissionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const permissionsActions: Record<string, ActionDefinition> = {
     description: "Get my permissions. Returns a list of permissions indicating which permissions the user has. Details of the user's permissions can be obtained in a global, project, issue or comment context.",
     method: "GET",
     path: "/mypermissions",
-    input: z.object({ projectKey: z.string().describe("The key of project. Ignored if projectId is provided.").optional(), projectId: z.string().describe("The ID of project.").optional(), issueKey: z.string().describe("The key of the issue. Ignored if issueId is provided.").optional(), issueId: z.string().describe("The ID of the issue.").optional(), permissions: z.string().describe("A list of permission keys. (Required) This parameter accepts a comma-separated list. To get the list of available permissions, use Get all permissions.").optional(), projectUuid: z.string().optional(), projectConfigurationUuid: z.string().optional(), commentId: z.string().describe("The ID of the comment.").optional() }),
+    input: obj({ projectKey: z.string().describe("The key of project. Ignored if projectId is provided.").optional(), projectId: z.string().describe("The ID of project.").optional(), issueKey: z.string().describe("The key of the issue. Ignored if issueId is provided.").optional(), issueId: z.string().describe("The ID of the issue.").optional(), permissions: z.string().describe("A list of permission keys. (Required) This parameter accepts a comma-separated list. To get the list of available permissions, use Get all permissions.").optional(), projectUuid: z.string().optional(), projectConfigurationUuid: z.string().optional(), commentId: z.string().describe("The ID of the comment.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const permissionsActions: Record<string, ActionDefinition> = {
     description: "Get all permissions. Returns all permissions, including:",
     method: "GET",
     path: "/permissions",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const permissionsActions: Record<string, ActionDefinition> = {
     description: "Get bulk permissions. Returns: Calls POST /permissions/check on Jira.",
     method: "POST",
     path: "/permissions/check",
-    input: z.object({ accountId: z.string().describe("The account ID of a user.").optional(), globalPermissions: z.array(z.string()).describe("Global permissions to look up.").optional(), projectPermissions: z.array(z.object({ issues: z.array(z.number()).optional(), permissions: z.array(z.string()), projects: z.array(z.number()).optional() })).describe("Project permissions with associated projects and issues to look up.").optional() }),
+    input: obj({ accountId: z.string().describe("The account ID of a user.").optional(), globalPermissions: z.array(z.string()).describe("Global permissions to look up.").optional(), projectPermissions: z.array(obj({ issues: z.array(z.number()).optional(), permissions: z.array(z.string()), projects: z.array(z.number()).optional() })).describe("Project permissions with associated projects and issues to look up.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const permissionsActions: Record<string, ActionDefinition> = {
     description: "Get permitted projects. Returns all the projects where the user is granted a list of project permissions.",
     method: "POST",
     path: "/permissions/project",
-    input: z.object({ permissions: z.array(z.string()).describe("A list of permission keys.") }),
+    input: obj({ permissions: z.array(z.string()).describe("A list of permission keys.") }),
     output: z.unknown(),
     effect: "write",
   },

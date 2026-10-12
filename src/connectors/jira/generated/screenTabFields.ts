@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const screenTabFieldsActions: Record<string, ActionDefinition> = {
     description: "Get all screen tab fields. Returns all fields for a screen tab.",
     method: "GET",
     path: "/screens/{screenId}/tabs/{tabId}/fields",
-    input: z.object({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab."), projectKey: z.string().describe("The key of the project.").optional() }),
+    input: obj({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab."), projectKey: z.string().describe("The key of the project.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const screenTabFieldsActions: Record<string, ActionDefinition> = {
     description: "Add screen tab field. Adds a field to a screen tab.",
     method: "POST",
     path: "/screens/{screenId}/tabs/{tabId}/fields",
-    input: z.object({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab."), skipFieldAssociation: z.boolean().optional(), fieldId: z.string().describe("The ID of the field to add.") }),
+    input: obj({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab."), skipFieldAssociation: z.boolean().optional(), fieldId: z.string().describe("The ID of the field to add.") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["skipFieldAssociation"]),
@@ -29,7 +30,7 @@ export const screenTabFieldsActions: Record<string, ActionDefinition> = {
     description: "Remove screen tab field. Removes a field from a screen tab.",
     method: "DELETE",
     path: "/screens/{screenId}/tabs/{tabId}/fields/{id}",
-    input: z.object({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab."), id: z.string().describe("The ID of the field.") }),
+    input: obj({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab."), id: z.string().describe("The ID of the field.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -37,7 +38,7 @@ export const screenTabFieldsActions: Record<string, ActionDefinition> = {
     description: "Move screen tab field. Moves a screen tab field.",
     method: "POST",
     path: "/screens/{screenId}/tabs/{tabId}/fields/{id}/move",
-    input: z.object({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab."), id: z.string().describe("The ID of the field."), after: z.string().describe("The ID of the screen tab field after which to place the moved screen tab field. Required if position isn't provided.").optional(), position: z.enum(["Earlier", "Later", "First", "Last"]).describe("The named position to which the screen tab field should be moved. Required if after isn't provided.").optional() }),
+    input: obj({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab."), id: z.string().describe("The ID of the field."), after: z.string().describe("The ID of the screen tab field after which to place the moved screen tab field. Required if position isn't provided.").optional(), position: z.enum(["Earlier", "Later", "First", "Last"]).describe("The named position to which the screen tab field should be moved. Required if after isn't provided.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

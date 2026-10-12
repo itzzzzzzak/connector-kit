@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const filterSharingActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const filterSharingActions: Record<string, ActionDefinition> = {
     description: "Get default share scope. Returns the default sharing settings for new filters and dashboards for a user.",
     method: "GET",
     path: "/filter/defaultShareScope",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const filterSharingActions: Record<string, ActionDefinition> = {
     description: "Set default share scope. Sets the default sharing for new filters and dashboards for a user.",
     method: "PUT",
     path: "/filter/defaultShareScope",
-    input: z.object({ scope: z.enum(["GLOBAL", "AUTHENTICATED", "PRIVATE"]).describe("The scope of the default sharing for new filters and dashboards: AUTHENTICATED Shared with all logged-in users. GLOBAL Shared with all logged-in users. This…") }),
+    input: obj({ scope: z.enum(["GLOBAL", "AUTHENTICATED", "PRIVATE"]).describe("The scope of the default sharing for new filters and dashboards: AUTHENTICATED Shared with all logged-in users. GLOBAL Shared with all logged-in users. This…") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const filterSharingActions: Record<string, ActionDefinition> = {
     description: "Get share permissions. Returns the share permissions for a filter. A filter can be shared with groups, projects, all logged-in users, or the public. Sharing with all logged-in users or the public is known as a global share permission.",
     method: "GET",
     path: "/filter/{id}/permission",
-    input: z.object({ id: z.number().describe("The ID of the filter.") }),
+    input: obj({ id: z.number().describe("The ID of the filter.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const filterSharingActions: Record<string, ActionDefinition> = {
     description: "Add share permission. Add a share permissions to a filter. If you add a global share permission (one for all logged-in users or the public) it will overwrite all share permissions for the filter.",
     method: "POST",
     path: "/filter/{id}/permission",
-    input: z.object({ id: z.number().describe("The ID of the filter."), accountId: z.string().describe("The user account ID that the filter is shared with. For a request, specify the accountId property for the user.").optional(), groupId: z.string().describe("The ID of the group, which uniquely identifies the group across all Atlassian products.For example, 952d12c3-5b5b-4d04-bb32-44d383afc4b2. Cannot be provided…").optional(), groupname: z.string().describe("The name of the group to share the filter with. Set type to group. Please note that the name of a group is mutable, to reliably identify a group use groupId.").optional(), projectId: z.string().describe("The ID of the project to share the filter with. Set type to project.").optional(), projectRoleId: z.string().describe("The ID of the project role to share the filter with. Set type to projectRole and the projectId for the project that the role is in.").optional(), rights: z.number().describe("The rights for the share permission.").optional(), type: z.enum(["user", "project", "group", "projectRole", "global", "authenticated"]).describe("The type of the share permission.Specify the type as follows: user Share with a user. group Share with a group. Specify groupname as well. project Share with…") }),
+    input: obj({ id: z.number().describe("The ID of the filter."), accountId: z.string().describe("The user account ID that the filter is shared with. For a request, specify the accountId property for the user.").optional(), groupId: z.string().describe("The ID of the group, which uniquely identifies the group across all Atlassian products.For example, 952d12c3-5b5b-4d04-bb32-44d383afc4b2. Cannot be provided…").optional(), groupname: z.string().describe("The name of the group to share the filter with. Set type to group. Please note that the name of a group is mutable, to reliably identify a group use groupId.").optional(), projectId: z.string().describe("The ID of the project to share the filter with. Set type to project.").optional(), projectRoleId: z.string().describe("The ID of the project role to share the filter with. Set type to projectRole and the projectId for the project that the role is in.").optional(), rights: z.number().describe("The rights for the share permission.").optional(), type: z.enum(["user", "project", "group", "projectRole", "global", "authenticated"]).describe("The type of the share permission.Specify the type as follows: user Share with a user. group Share with a group. Specify groupname as well. project Share with…") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const filterSharingActions: Record<string, ActionDefinition> = {
     description: "Get share permission. Returns a share permission for a filter. A filter can be shared with groups, projects, all logged-in users, or the public. Sharing with all logged-in users or the public is known as a global share permission.",
     method: "GET",
     path: "/filter/{id}/permission/{permissionId}",
-    input: z.object({ id: z.number().describe("The ID of the filter."), permissionId: z.number().describe("The ID of the share permission.") }),
+    input: obj({ id: z.number().describe("The ID of the filter."), permissionId: z.number().describe("The ID of the share permission.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const filterSharingActions: Record<string, ActionDefinition> = {
     description: "Delete share permission. Deletes a share permission from a filter.",
     method: "DELETE",
     path: "/filter/{id}/permission/{permissionId}",
-    input: z.object({ id: z.number().describe("The ID of the filter."), permissionId: z.number().describe("The ID of the share permission.") }),
+    input: obj({ id: z.number().describe("The ID of the filter."), permissionId: z.number().describe("The ID of the share permission.") }),
     output: z.unknown(),
     effect: "destructive",
   },

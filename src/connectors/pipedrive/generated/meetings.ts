@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const meetingsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const meetingsActions: Record<string, ActionDefinition> = {
     description: "Save user provider link. Part of: Meetings. Calls POST /v1/meetings/userProviderLinks on Pipedrive.",
     method: "POST",
     path: "/v1/meetings/userProviderLinks",
-    input: z.object({ user_provider_id: z.string(), user_id: z.number(), company_id: z.number(), marketplace_client_id: z.string() }),
+    input: obj({ user_provider_id: z.string(), user_id: z.number(), company_id: z.number(), marketplace_client_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const meetingsActions: Record<string, ActionDefinition> = {
     description: "Delete user provider link. Part of: Meetings. Calls DELETE /v1/meetings/userProviderLinks/{id} on Pipedrive.",
     method: "DELETE",
     path: "/v1/meetings/userProviderLinks/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

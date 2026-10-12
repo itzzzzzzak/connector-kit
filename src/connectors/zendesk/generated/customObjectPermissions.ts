@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const customObjectPermissionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const customObjectPermissionsActions: Record<string, ActionDefinition> = 
     description: "List access rules. Part of: Custom Object Permissions. Calls GET /customobjects/{customobjectkey}/accessrules on Zendesk.",
     method: "GET",
     path: "/custom_objects/{custom_object_key}/access_rules",
-    input: z.object({ custom_object_key: z.string() }),
+    input: obj({ custom_object_key: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const customObjectPermissionsActions: Record<string, ActionDefinition> = 
     description: "Create access rule. Part of: Custom Object Permissions. Calls POST /customobjects/{customobjectkey}/accessrules on Zendesk.",
     method: "POST",
     path: "/custom_objects/{custom_object_key}/access_rules",
-    input: z.object({ custom_object_key: z.string(), access_rule: z.object({ conditions: z.object({ all: z.array(z.record(z.string(), z.unknown())).optional(), any: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), description: z.string().optional(), title: z.string().optional() }).optional() }),
+    input: obj({ custom_object_key: z.string(), access_rule: obj({ conditions: obj({ all: z.array(z.record(z.string(), z.unknown())).optional(), any: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), description: z.string().optional(), title: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const customObjectPermissionsActions: Record<string, ActionDefinition> = 
     description: "Show access rule. Part of: Custom Object Permissions. Calls GET /customobjects/{customobjectkey}/accessrules/{id} on Zendesk.",
     method: "GET",
     path: "/custom_objects/{custom_object_key}/access_rules/{id}",
-    input: z.object({ custom_object_key: z.string(), id: z.string() }),
+    input: obj({ custom_object_key: z.string(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const customObjectPermissionsActions: Record<string, ActionDefinition> = 
     description: "Update access rule. Part of: Custom Object Permissions. Calls PATCH /customobjects/{customobjectkey}/accessrules/{id} on Zendesk.",
     method: "PATCH",
     path: "/custom_objects/{custom_object_key}/access_rules/{id}",
-    input: z.object({ custom_object_key: z.string(), id: z.string(), access_rule: z.object({ conditions: z.object({ all: z.array(z.record(z.string(), z.unknown())).optional(), any: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), description: z.string().optional(), title: z.string().optional() }).optional() }),
+    input: obj({ custom_object_key: z.string(), id: z.string(), access_rule: obj({ conditions: obj({ all: z.array(z.record(z.string(), z.unknown())).optional(), any: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), description: z.string().optional(), title: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const customObjectPermissionsActions: Record<string, ActionDefinition> = 
     description: "Delete access rule. Part of: Custom Object Permissions. Calls DELETE /customobjects/{customobjectkey}/accessrules/{id} on Zendesk.",
     method: "DELETE",
     path: "/custom_objects/{custom_object_key}/access_rules/{id}",
-    input: z.object({ custom_object_key: z.string(), id: z.string() }),
+    input: obj({ custom_object_key: z.string(), id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const customObjectPermissionsActions: Record<string, ActionDefinition> = 
     description: "List access rule definitions. Part of: Custom Object Permissions. Calls GET /customobjects/{customobjectkey}/accessrules/definitions on Zendesk.",
     method: "GET",
     path: "/custom_objects/{custom_object_key}/access_rules/definitions",
-    input: z.object({ custom_object_key: z.string() }),
+    input: obj({ custom_object_key: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const customObjectPermissionsActions: Record<string, ActionDefinition> = 
     description: "List permission policies. Part of: Custom Object Permissions. Calls GET /customobjects/{customobjectkey}/permissionpolicies on Zendesk.",
     method: "GET",
     path: "/custom_objects/{custom_object_key}/permission_policies",
-    input: z.object({ custom_object_key: z.string() }),
+    input: obj({ custom_object_key: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -66,7 +67,7 @@ export const customObjectPermissionsActions: Record<string, ActionDefinition> = 
     description: "Show permission policy. Part of: Custom Object Permissions. Calls GET /customobjects/{customobjectkey}/permissionpolicies/{id} on Zendesk.",
     method: "GET",
     path: "/custom_objects/{custom_object_key}/permission_policies/{id}",
-    input: z.object({ custom_object_key: z.string(), id: z.string() }),
+    input: obj({ custom_object_key: z.string(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -74,7 +75,7 @@ export const customObjectPermissionsActions: Record<string, ActionDefinition> = 
     description: "Update permission policy. Part of: Custom Object Permissions. Calls PATCH /customobjects/{customobjectkey}/permissionpolicies/{id} on Zendesk.",
     method: "PATCH",
     path: "/custom_objects/{custom_object_key}/permission_policies/{id}",
-    input: z.object({ custom_object_key: z.string(), id: z.string(), policy: z.object({ records: z.object({ create: z.record(z.string(), z.unknown()).optional(), delete: z.record(z.string(), z.unknown()).optional(), read: z.record(z.string(), z.unknown()).optional(), update: z.record(z.string(), z.unknown()).optional() }).optional() }).optional() }),
+    input: obj({ custom_object_key: z.string(), id: z.string(), policy: obj({ records: obj({ create: z.record(z.string(), z.unknown()).optional(), delete: z.record(z.string(), z.unknown()).optional(), read: z.record(z.string(), z.unknown()).optional(), update: z.record(z.string(), z.unknown()).optional() }).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },

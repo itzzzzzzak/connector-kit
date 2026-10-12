@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const statusDashboardsActions: Record<string, ActionDefinition> = {
     description: "List status dashboards. Part of: Status Dashboards. Calls GET /statusdashboards on PagerDuty.",
     method: "GET",
     path: "/status_dashboards",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const statusDashboardsActions: Record<string, ActionDefinition> = {
     description: "Get status dashboard by id. Part of: Status Dashboards. Calls GET /statusdashboards/{id} on PagerDuty.",
     method: "GET",
     path: "/status_dashboards/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const statusDashboardsActions: Record<string, ActionDefinition> = {
     description: "Get status dashboard service impacts by id. Part of: Status Dashboards. Calls GET /statusdashboards/{id}/serviceimpacts on PagerDuty.",
     method: "GET",
     path: "/status_dashboards/{id}/service_impacts",
-    input: z.object({ id: z.string(), additional_fields__: z.enum(["services.highest_impacting_priority", "total_impacted_count"]).optional() }),
+    input: obj({ id: z.string(), additional_fields__: z.enum(["services.highest_impacting_priority", "total_impacted_count"]).optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { additional_fields__: "additional_fields[]" }),
@@ -36,7 +37,7 @@ export const statusDashboardsActions: Record<string, ActionDefinition> = {
     description: "Get status dashboard by url slug. Part of: Status Dashboards. Calls GET /statusdashboards/urlslugs/{urlslug} on PagerDuty.",
     method: "GET",
     path: "/status_dashboards/url_slugs/{url_slug}",
-    input: z.object({ url_slug: z.string() }),
+    input: obj({ url_slug: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -44,7 +45,7 @@ export const statusDashboardsActions: Record<string, ActionDefinition> = {
     description: "Get status dashboard service impacts by url slug. Part of: Status Dashboards. Calls GET /statusdashboards/urlslugs/{urlslug}/serviceimpacts on PagerDuty.",
     method: "GET",
     path: "/status_dashboards/url_slugs/{url_slug}/service_impacts",
-    input: z.object({ url_slug: z.string(), additional_fields__: z.enum(["services.highest_impacting_priority", "total_impacted_count"]).optional() }),
+    input: obj({ url_slug: z.string(), additional_fields__: z.enum(["services.highest_impacting_priority", "total_impacted_count"]).optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { additional_fields__: "additional_fields[]" }),

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Get projects id repository tags. Part of: tags. Calls GET /projects/{id}/repository/tags on GitLab.",
     method: "GET",
     path: "/projects/{id}/repository/tags",
-    input: z.object({ id: z.string(), sort: z.enum(["asc", "desc"]).optional(), order_by: z.enum(["name", "updated", "version"]).optional(), search: z.string().optional(), page_token: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), sort: z.enum(["asc", "desc"]).optional(), order_by: z.enum(["name", "updated", "version"]).optional(), search: z.string().optional(), page_token: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Post projects id repository tags. Part of: tags. Calls POST /projects/{id}/repository/tags on GitLab.",
     method: "POST",
     path: "/projects/{id}/repository/tags",
-    input: z.object({ id: z.string(), tag_name: z.string(), ref: z.string(), message: z.string().optional() }),
+    input: obj({ id: z.string(), tag_name: z.string(), ref: z.string(), message: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Get projects id repository tags tag name. Part of: tags. Calls GET /projects/{id}/repository/tags/{tagname} on GitLab.",
     method: "GET",
     path: "/projects/{id}/repository/tags/{tag_name}",
-    input: z.object({ id: z.string(), tag_name: z.string() }),
+    input: obj({ id: z.string(), tag_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Delete projects id repository tags tag name. Part of: tags. Calls DELETE /projects/{id}/repository/tags/{tagname} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/repository/tags/{tag_name}",
-    input: z.object({ id: z.string(), tag_name: z.string() }),
+    input: obj({ id: z.string(), tag_name: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -44,7 +45,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Get projects id repository tags tag name signature. Part of: tags. Calls GET /projects/{id}/repository/tags/{tagname}/signature on GitLab.",
     method: "GET",
     path: "/projects/{id}/repository/tags/{tag_name}/signature",
-    input: z.object({ id: z.string(), tag_name: z.string() }),
+    input: obj({ id: z.string(), tag_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

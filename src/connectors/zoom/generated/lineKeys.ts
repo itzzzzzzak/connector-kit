@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const lineKeysActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const lineKeysActions: Record<string, ActionDefinition> = {
     description: "List line key setting. Part of: Line Keys. Calls GET /phone/extension/{extensionId}/linekeys on Zoom.",
     method: "GET",
     path: "/phone/extension/{extensionId}/line_keys",
-    input: z.object({ extensionId: z.string() }),
+    input: obj({ extensionId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const lineKeysActions: Record<string, ActionDefinition> = {
     description: "Batch update line key setting. Part of: Line Keys. Calls PATCH /phone/extension/{extensionId}/linekeys on Zoom.",
     method: "PATCH",
     path: "/phone/extension/{extensionId}/line_keys",
-    input: z.object({ extensionId: z.string(), line_keys: z.array(z.object({ line_key_id: z.string().optional(), index: z.number().optional(), type: z.enum(["line", "blf", "speed_dial", "zoom_meeting", "call_park", "group_call_pickup"]).optional(), key_assignment: z.record(z.string(), z.unknown()).optional(), alias: z.string().optional(), outbound_caller_id: z.string().optional() })).optional() }),
+    input: obj({ extensionId: z.string(), line_keys: z.array(obj({ line_key_id: z.string().optional(), index: z.number().optional(), type: z.enum(["line", "blf", "speed_dial", "zoom_meeting", "call_park", "group_call_pickup"]).optional(), key_assignment: z.record(z.string(), z.unknown()).optional(), alias: z.string().optional(), outbound_caller_id: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const lineKeysActions: Record<string, ActionDefinition> = {
     description: "Delete line key. Part of: Line Keys. Calls DELETE /phone/extension/{extensionId}/linekeys/{lineKeyId} on Zoom.",
     method: "DELETE",
     path: "/phone/extension/{extensionId}/line_keys/{lineKeyId}",
-    input: z.object({ extensionId: z.string(), lineKeyId: z.string() }),
+    input: obj({ extensionId: z.string(), lineKeyId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const provisionTemplatesActions: Record<string, ActionDefinition> = {
     description: "List account provision template. Part of: Provision Templates. Calls GET /phone/provisiontemplates on Zoom.",
     method: "GET",
     path: "/phone/provision_templates",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "provision_templates", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const provisionTemplatesActions: Record<string, ActionDefinition> = {
     description: "Add provision template. Part of: Provision Templates. Calls POST /phone/provisiontemplates on Zoom.",
     method: "POST",
     path: "/phone/provision_templates",
-    input: z.object({ name: z.string(), description: z.string().optional(), content: z.string().optional() }),
+    input: obj({ name: z.string(), description: z.string().optional(), content: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const provisionTemplatesActions: Record<string, ActionDefinition> = {
     description: "Get provision template. Part of: Provision Templates. Calls GET /phone/provisiontemplates/{templateId} on Zoom.",
     method: "GET",
     path: "/phone/provision_templates/{templateId}",
-    input: z.object({ templateId: z.string() }),
+    input: obj({ templateId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const provisionTemplatesActions: Record<string, ActionDefinition> = {
     description: "Update provision template. Part of: Provision Templates. Calls PATCH /phone/provisiontemplates/{templateId} on Zoom.",
     method: "PATCH",
     path: "/phone/provision_templates/{templateId}",
-    input: z.object({ templateId: z.string(), name: z.string().optional(), description: z.string().optional(), content: z.string().optional() }),
+    input: obj({ templateId: z.string(), name: z.string().optional(), description: z.string().optional(), content: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const provisionTemplatesActions: Record<string, ActionDefinition> = {
     description: "Delete provision template. Part of: Provision Templates. Calls DELETE /phone/provisiontemplates/{templateId} on Zoom.",
     method: "DELETE",
     path: "/phone/provision_templates/{templateId}",
-    input: z.object({ templateId: z.string() }),
+    input: obj({ templateId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

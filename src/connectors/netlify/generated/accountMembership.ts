@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const accountMembershipActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const accountMembershipActions: Record<string, ActionDefinition> = {
     description: "List accounts for user Calls GET /accounts on Netlify.",
     method: "GET",
     path: "/accounts",
-    input: z.object({ minimal: z.boolean().optional() }),
+    input: obj({ minimal: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const accountMembershipActions: Record<string, ActionDefinition> = {
     description: "Create account Calls POST /accounts on Netlify.",
     method: "POST",
     path: "/accounts",
-    input: z.object({ name: z.string(), type_id: z.string(), payment_method_id: z.string().optional(), period: z.enum(["monthly", "yearly"]).optional(), extra_seats_block: z.number().optional() }),
+    input: obj({ name: z.string(), type_id: z.string(), payment_method_id: z.string().optional(), period: z.enum(["monthly", "yearly"]).optional(), extra_seats_block: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const accountMembershipActions: Record<string, ActionDefinition> = {
     description: "Get account Calls GET /accounts/{accountid} on Netlify.",
     method: "GET",
     path: "/accounts/{account_id}",
-    input: z.object({ account_id: z.string() }),
+    input: obj({ account_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const accountMembershipActions: Record<string, ActionDefinition> = {
     description: "Update account Calls PUT /accounts/{accountid} on Netlify.",
     method: "PUT",
     path: "/accounts/{account_id}",
-    input: z.object({ account_id: z.string(), name: z.string().optional(), slug: z.string().optional(), type_id: z.string().optional(), extra_seats_block: z.number().optional(), billing_name: z.string().optional(), billing_email: z.string().optional(), billing_details: z.string().optional() }),
+    input: obj({ account_id: z.string(), name: z.string().optional(), slug: z.string().optional(), type_id: z.string().optional(), extra_seats_block: z.number().optional(), billing_name: z.string().optional(), billing_email: z.string().optional(), billing_details: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const accountMembershipActions: Record<string, ActionDefinition> = {
     description: "Cancel account Calls DELETE /accounts/{accountid} on Netlify.",
     method: "DELETE",
     path: "/accounts/{account_id}",
-    input: z.object({ account_id: z.string() }),
+    input: obj({ account_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

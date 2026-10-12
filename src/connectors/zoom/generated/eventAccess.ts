@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const eventAccessActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const eventAccessActions: Record<string, ActionDefinition> = {
     description: "Get event access links. Part of: Event Access. Calls GET /zoomevents/events/{eventId}/accesslinks on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/access_links",
-    input: z.object({ eventId: z.string() }),
+    input: obj({ eventId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const eventAccessActions: Record<string, ActionDefinition> = {
     description: "Create event access link. Part of: Event Access. Calls POST /zoomevents/events/{eventId}/accesslinks on Zoom.",
     method: "POST",
     path: "/zoom_events/events/{eventId}/access_links",
-    input: z.object({ eventId: z.string(), name: z.string(), type: z.enum(["registration", "group-join"]), is_default: z.boolean().optional(), authentication_method: z.enum(["zoom_account", "zoom_account_otp", "corporate_idp", "bypass_auth", "accelerated_auth"]), idp_name: z.string().optional(), allow_domain_list: z.array(z.string()).optional(), email_restrict_list: z.array(z.string()).optional(), security_at_join: z.object({ email_authentication: z.boolean().optional(), security_code_verification: z.boolean().optional() }).optional(), ticket_type_id: z.string().optional(), recurring_registration_option: z.enum(["all_sessions", "single_session", "multiple_sessions"]).optional() }),
+    input: obj({ eventId: z.string(), name: z.string(), type: z.enum(["registration", "group-join"]), is_default: z.boolean().optional(), authentication_method: z.enum(["zoom_account", "zoom_account_otp", "corporate_idp", "bypass_auth", "accelerated_auth"]), idp_name: z.string().optional(), allow_domain_list: z.array(z.string()).optional(), email_restrict_list: z.array(z.string()).optional(), security_at_join: obj({ email_authentication: z.boolean().optional(), security_code_verification: z.boolean().optional() }).optional(), ticket_type_id: z.string().optional(), recurring_registration_option: z.enum(["all_sessions", "single_session", "multiple_sessions"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const eventAccessActions: Record<string, ActionDefinition> = {
     description: "Get event access link. Part of: Event Access. Calls GET /zoomevents/events/{eventId}/accesslinks/{accessLinkId} on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/access_links/{accessLinkId}",
-    input: z.object({ eventId: z.string(), accessLinkId: z.string() }),
+    input: obj({ eventId: z.string(), accessLinkId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const eventAccessActions: Record<string, ActionDefinition> = {
     description: "Update event access. Part of: Event Access. Calls PATCH /zoomevents/events/{eventId}/accesslinks/{accessLinkId} on Zoom.",
     method: "PATCH",
     path: "/zoom_events/events/{eventId}/access_links/{accessLinkId}",
-    input: z.object({ eventId: z.string(), accessLinkId: z.string(), name: z.string().optional(), is_default: z.boolean().optional(), authentication_method: z.enum(["zoom_account", "zoom_account_otp", "corporate_idp", "bypass_auth", "accelerated_auth"]).optional(), idp_name: z.string().optional(), allow_domain_list: z.array(z.string()).optional(), email_restrict_list: z.array(z.string()).optional(), security_at_join: z.object({ email_authentication: z.boolean().optional(), security_code_verification: z.boolean().optional() }).optional(), ticket_type_id: z.string().optional(), recurring_registration_option: z.enum(["all_sessions", "single_session", "multiple_sessions"]).optional() }),
+    input: obj({ eventId: z.string(), accessLinkId: z.string(), name: z.string().optional(), is_default: z.boolean().optional(), authentication_method: z.enum(["zoom_account", "zoom_account_otp", "corporate_idp", "bypass_auth", "accelerated_auth"]).optional(), idp_name: z.string().optional(), allow_domain_list: z.array(z.string()).optional(), email_restrict_list: z.array(z.string()).optional(), security_at_join: obj({ email_authentication: z.boolean().optional(), security_code_verification: z.boolean().optional() }).optional(), ticket_type_id: z.string().optional(), recurring_registration_option: z.enum(["all_sessions", "single_session", "multiple_sessions"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const eventAccessActions: Record<string, ActionDefinition> = {
     description: "Delete event access link. Part of: Event Access. Calls DELETE /zoomevents/events/{eventId}/accesslinks/{accessLinkId} on Zoom.",
     method: "DELETE",
     path: "/zoom_events/events/{eventId}/access_links/{accessLinkId}",
-    input: z.object({ eventId: z.string(), accessLinkId: z.string() }),
+    input: obj({ eventId: z.string(), accessLinkId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const escalationPoliciesActions: Record<string, ActionDefinition> = {
     description: "Create escalation policy. Part of: Escalation Policies. Calls POST /escalationpolicies on PagerDuty.",
     method: "POST",
     path: "/escalation_policies",
-    input: z.object({ escalation_policy: z.object({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["escalation_policy"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), name: z.string(), description: z.string().optional(), num_loops: z.number().optional(), on_call_handoff_notifications: z.enum(["if_has_services", "always"]).optional(), escalation_rules: z.array(z.record(z.string(), z.unknown())), services: z.array(z.record(z.string(), z.unknown())).optional(), teams: z.array(z.record(z.string(), z.unknown())).optional() }) }),
+    input: obj({ escalation_policy: obj({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["escalation_policy"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), name: z.string(), description: z.string().optional(), num_loops: z.number().optional(), on_call_handoff_notifications: z.enum(["if_has_services", "always"]).optional(), escalation_rules: z.array(z.record(z.string(), z.unknown())), services: z.array(z.record(z.string(), z.unknown())).optional(), teams: z.array(z.record(z.string(), z.unknown())).optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const escalationPoliciesActions: Record<string, ActionDefinition> = {
     description: "Get escalation policy. Part of: Escalation Policies. Calls GET /escalationpolicies/{id} on PagerDuty.",
     method: "GET",
     path: "/escalation_policies/{id}",
-    input: z.object({ id: z.string(), include__: z.enum(["services", "teams", "targets", "escalation_rule_assignment_strategies"]).optional() }),
+    input: obj({ id: z.string(), include__: z.enum(["services", "teams", "targets", "escalation_rule_assignment_strategies"]).optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { include__: "include[]" }),
@@ -28,7 +29,7 @@ export const escalationPoliciesActions: Record<string, ActionDefinition> = {
     description: "Update escalation policy. Part of: Escalation Policies. Calls PUT /escalationpolicies/{id} on PagerDuty.",
     method: "PUT",
     path: "/escalation_policies/{id}",
-    input: z.object({ id: z.string(), escalation_policy: z.object({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["escalation_policy"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), name: z.string(), description: z.string().optional(), num_loops: z.number().optional(), on_call_handoff_notifications: z.enum(["if_has_services", "always"]).optional(), escalation_rules: z.array(z.record(z.string(), z.unknown())), services: z.array(z.record(z.string(), z.unknown())).optional(), teams: z.array(z.record(z.string(), z.unknown())).optional() }) }),
+    input: obj({ id: z.string(), escalation_policy: obj({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["escalation_policy"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), name: z.string(), description: z.string().optional(), num_loops: z.number().optional(), on_call_handoff_notifications: z.enum(["if_has_services", "always"]).optional(), escalation_rules: z.array(z.record(z.string(), z.unknown())), services: z.array(z.record(z.string(), z.unknown())).optional(), teams: z.array(z.record(z.string(), z.unknown())).optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const escalationPoliciesActions: Record<string, ActionDefinition> = {
     description: "Delete escalation policy. Part of: Escalation Policies. Calls DELETE /escalationpolicies/{id} on PagerDuty.",
     method: "DELETE",
     path: "/escalation_policies/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -44,7 +45,7 @@ export const escalationPoliciesActions: Record<string, ActionDefinition> = {
     description: "List escalation policy audit records. Part of: Escalation Policies. Calls GET /escalationpolicies/{id}/audit/records on PagerDuty.",
     method: "GET",
     path: "/escalation_policies/{id}/audit/records",
-    input: z.object({ id: z.string(), limit: z.number().optional(), cursor: z.string().optional(), since: z.string().optional(), until: z.string().optional() }),
+    input: obj({ id: z.string(), limit: z.number().optional(), cursor: z.string().optional(), since: z.string().optional(), until: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

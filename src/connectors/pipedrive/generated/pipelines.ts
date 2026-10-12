@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const pipelinesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const pipelinesActions: Record<string, ActionDefinition> = {
     description: "Add pipeline. Part of: Pipelines. Calls POST /api/v2/pipelines on Pipedrive.",
     method: "POST",
     path: "/api/v2/pipelines",
-    input: z.object({ name: z.string(), is_deal_probability_enabled: z.boolean().optional() }),
+    input: obj({ name: z.string(), is_deal_probability_enabled: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const pipelinesActions: Record<string, ActionDefinition> = {
     description: "Get pipeline. Part of: Pipelines. Calls GET /api/v2/pipelines/{id} on Pipedrive.",
     method: "GET",
     path: "/api/v2/pipelines/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const pipelinesActions: Record<string, ActionDefinition> = {
     description: "Update pipeline. Part of: Pipelines. Calls PATCH /api/v2/pipelines/{id} on Pipedrive.",
     method: "PATCH",
     path: "/api/v2/pipelines/{id}",
-    input: z.object({ id: z.number(), name: z.string().optional(), is_deal_probability_enabled: z.boolean().optional() }),
+    input: obj({ id: z.number(), name: z.string().optional(), is_deal_probability_enabled: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const pipelinesActions: Record<string, ActionDefinition> = {
     description: "Delete pipeline. Part of: Pipelines. Calls DELETE /api/v2/pipelines/{id} on Pipedrive.",
     method: "DELETE",
     path: "/api/v2/pipelines/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const pipelinesActions: Record<string, ActionDefinition> = {
     description: "Get pipeline conversion statistics. Part of: Pipelines. Calls GET /v1/pipelines/{id}/conversionstatistics on Pipedrive.",
     method: "GET",
     path: "/v1/pipelines/{id}/conversion_statistics",
-    input: z.object({ id: z.number(), start_date: z.string(), end_date: z.string(), user_id: z.number().optional() }),
+    input: obj({ id: z.number(), start_date: z.string(), end_date: z.string(), user_id: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const pipelinesActions: Record<string, ActionDefinition> = {
     description: "Get pipeline movement statistics. Part of: Pipelines. Calls GET /v1/pipelines/{id}/movementstatistics on Pipedrive.",
     method: "GET",
     path: "/v1/pipelines/{id}/movement_statistics",
-    input: z.object({ id: z.number(), start_date: z.string(), end_date: z.string(), user_id: z.number().optional() }),
+    input: obj({ id: z.number(), start_date: z.string(), end_date: z.string(), user_id: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },

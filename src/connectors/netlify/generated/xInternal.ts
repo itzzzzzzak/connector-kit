@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const xInternalActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const xInternalActions: Record<string, ActionDefinition> = {
     description: "This is an internal-only endpoint. Calls PUT /sites/{siteid}/plugins/{package} on Netlify.",
     method: "PUT",
     path: "/sites/{site_id}/plugins/{package}",
-    input: z.object({ site_id: z.string(), package: z.string(), pinned_version: z.string().optional() }),
+    input: obj({ site_id: z.string(), package: z.string(), pinned_version: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const xInternalActions: Record<string, ActionDefinition> = {
     description: "This is an internal-only endpoint. Calls GET /sites/{siteid}/pluginruns/latest on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/plugin_runs/latest",
-    input: z.object({ site_id: z.string(), packages: z.array(z.string()), state: z.string().optional() }),
+    input: obj({ site_id: z.string(), packages: z.array(z.string()), state: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const xInternalActions: Record<string, ActionDefinition> = {
     description: "This is an internal-only endpoint. Calls POST /deploys/{deployid}/pluginruns on Netlify.",
     method: "POST",
     path: "/deploys/{deploy_id}/plugin_runs",
-    input: z.object({ deploy_id: z.string(), package: z.string().optional(), version: z.string().optional(), state: z.string().optional(), reporting_event: z.string().optional(), title: z.string().optional(), summary: z.string().optional(), text: z.string().optional() }),
+    input: obj({ deploy_id: z.string(), package: z.string().optional(), version: z.string().optional(), state: z.string().optional(), reporting_event: z.string().optional(), title: z.string().optional(), summary: z.string().optional(), text: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

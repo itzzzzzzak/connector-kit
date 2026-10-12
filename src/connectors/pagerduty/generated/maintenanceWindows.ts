@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const maintenanceWindowsActions: Record<string, ActionDefinition> = {
     description: "List maintenance windows. Part of: Maintenance Windows. Calls GET /maintenancewindows on PagerDuty.",
     method: "GET",
     path: "/maintenance_windows",
-    input: z.object({ query: z.string().optional(), total: z.boolean().optional(), team_ids__: z.array(z.string()).optional(), service_ids__: z.array(z.string()).optional(), include__: z.enum(["teams", "services", "users"]).optional(), filter: z.enum(["past", "future", "ongoing", "open", "all"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ query: z.string().optional(), total: z.boolean().optional(), team_ids__: z.array(z.string()).optional(), service_ids__: z.array(z.string()).optional(), include__: z.enum(["teams", "services", "users"]).optional(), filter: z.enum(["past", "future", "ongoing", "open", "all"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "maintenance_windows", hasMorePath: ["more"], pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -22,7 +23,7 @@ export const maintenanceWindowsActions: Record<string, ActionDefinition> = {
     description: "Get maintenance window. Part of: Maintenance Windows. Calls GET /maintenancewindows/{id} on PagerDuty.",
     method: "GET",
     path: "/maintenance_windows/{id}",
-    input: z.object({ id: z.string(), include__: z.enum(["teams", "services", "users"]).optional() }),
+    input: obj({ id: z.string(), include__: z.enum(["teams", "services", "users"]).optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { include__: "include[]" }),
@@ -31,7 +32,7 @@ export const maintenanceWindowsActions: Record<string, ActionDefinition> = {
     description: "Update maintenance window. Part of: Maintenance Windows. Calls PUT /maintenancewindows/{id} on PagerDuty.",
     method: "PUT",
     path: "/maintenance_windows/{id}",
-    input: z.object({ id: z.string(), maintenance_window: z.object({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["maintenance_window"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), sequence_number: z.number().optional(), start_time: z.string(), end_time: z.string(), description: z.string().optional(), created_by: z.object({ id: z.string(), summary: z.string().nullable().optional(), type: z.enum(["user_reference"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional() }).optional(), services: z.array(z.record(z.string(), z.unknown())), teams: z.array(z.record(z.string(), z.unknown())).optional() }) }),
+    input: obj({ id: z.string(), maintenance_window: obj({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["maintenance_window"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), sequence_number: z.number().optional(), start_time: z.string(), end_time: z.string(), description: z.string().optional(), created_by: obj({ id: z.string(), summary: z.string().nullable().optional(), type: z.enum(["user_reference"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional() }).optional(), services: z.array(z.record(z.string(), z.unknown())), teams: z.array(z.record(z.string(), z.unknown())).optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -39,7 +40,7 @@ export const maintenanceWindowsActions: Record<string, ActionDefinition> = {
     description: "Delete maintenance window. Part of: Maintenance Windows. Calls DELETE /maintenancewindows/{id} on PagerDuty.",
     method: "DELETE",
     path: "/maintenance_windows/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

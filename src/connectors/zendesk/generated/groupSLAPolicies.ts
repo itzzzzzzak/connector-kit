@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const groupSLAPoliciesActions: Record<string, ActionDefinition> = {
     description: "List group slapolicies. Part of: Group SLA Policies. Calls GET /groupslas/policies on Zendesk.",
     method: "GET",
     path: "/group_slas/policies",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const groupSLAPoliciesActions: Record<string, ActionDefinition> = {
     description: "Create group slapolicy. Part of: Group SLA Policies. Calls POST /groupslas/policies on Zendesk.",
     method: "POST",
     path: "/group_slas/policies",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const groupSLAPoliciesActions: Record<string, ActionDefinition> = {
     description: "Show group slapolicy. Part of: Group SLA Policies. Calls GET /groupslas/policies/{groupslapolicyid} on Zendesk.",
     method: "GET",
     path: "/group_slas/policies/{group_sla_policy_id}",
-    input: z.object({ group_sla_policy_id: z.number() }),
+    input: obj({ group_sla_policy_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const groupSLAPoliciesActions: Record<string, ActionDefinition> = {
     description: "Update group slapolicy. Part of: Group SLA Policies. Calls PUT /groupslas/policies/{groupslapolicyid} on Zendesk.",
     method: "PUT",
     path: "/group_slas/policies/{group_sla_policy_id}",
-    input: z.object({ group_sla_policy_id: z.number() }),
+    input: obj({ group_sla_policy_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -43,7 +44,7 @@ export const groupSLAPoliciesActions: Record<string, ActionDefinition> = {
     description: "Delete group slapolicy. Part of: Group SLA Policies. Calls DELETE /groupslas/policies/{groupslapolicyid} on Zendesk.",
     method: "DELETE",
     path: "/group_slas/policies/{group_sla_policy_id}",
-    input: z.object({ group_sla_policy_id: z.number() }),
+    input: obj({ group_sla_policy_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -51,7 +52,7 @@ export const groupSLAPoliciesActions: Record<string, ActionDefinition> = {
     description: "Retrieve group slapolicy filter definition items. Part of: Group SLA Policies. Calls GET /groupslas/policies/definitions on Zendesk.",
     method: "GET",
     path: "/group_slas/policies/definitions",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -59,7 +60,7 @@ export const groupSLAPoliciesActions: Record<string, ActionDefinition> = {
     description: "Reorder group slapolicies. Part of: Group SLA Policies. Calls PUT /groupslas/policies/reorder on Zendesk.",
     method: "PUT",
     path: "/group_slas/policies/reorder",
-    input: z.object({ group_sla_policy_ids: z.array(z.string()).optional() }),
+    input: obj({ group_sla_policy_ids: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["group_sla_policy_ids"]),
@@ -68,7 +69,7 @@ export const groupSLAPoliciesActions: Record<string, ActionDefinition> = {
     description: "List ticket group sla policy metrics. Part of: Group SLA Policies. Calls GET /tickets/{ticketid}/groupslas/policymetrics on Zendesk.",
     method: "GET",
     path: "/tickets/{ticket_id}/group_slas/policy_metrics",
-    input: z.object({ ticket_id: z.number() }),
+    input: obj({ ticket_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

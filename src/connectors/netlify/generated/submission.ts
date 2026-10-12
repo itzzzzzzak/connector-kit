@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const submissionActions: Record<string, ActionDefinition> = {
     description: "List site submissions Calls GET /sites/{siteid}/submissions on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/submissions",
-    input: z.object({ site_id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ site_id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const submissionActions: Record<string, ActionDefinition> = {
     description: "List form submissions Calls GET /forms/{formid}/submissions on Netlify.",
     method: "GET",
     path: "/forms/{form_id}/submissions",
-    input: z.object({ form_id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ form_id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -29,7 +30,7 @@ export const submissionActions: Record<string, ActionDefinition> = {
     description: "List form submission Calls GET /submissions/{submissionid} on Netlify.",
     method: "GET",
     path: "/submissions/{submission_id}",
-    input: z.object({ submission_id: z.string(), query: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ submission_id: z.string(), query: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -38,7 +39,7 @@ export const submissionActions: Record<string, ActionDefinition> = {
     description: "Delete submission Calls DELETE /submissions/{submissionid} on Netlify.",
     method: "DELETE",
     path: "/submissions/{submission_id}",
-    input: z.object({ submission_id: z.string() }),
+    input: obj({ submission_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

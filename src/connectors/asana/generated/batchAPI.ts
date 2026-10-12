@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const batchAPIActions: Record<string, ActionDefinition> = {
     description: "Submit parallel requests. Make multiple requests in parallel to Asana's API.",
     method: "POST",
     path: "/batch",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["body", "headers", "status_code"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ actions: z.array(z.record(z.string(), z.unknown())).optional() }).describe("A request object for use in a batch request.").optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["body", "headers", "status_code"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ actions: z.array(z.record(z.string(), z.unknown())).optional() }).describe("A request object for use in a batch request.").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),

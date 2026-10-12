@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectRolesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectRolesActions: Record<string, ActionDefinition> = {
     description: "Get project roles for project. Returns a list of project roles for the project returning the name and self URL for each role.",
     method: "GET",
     path: "/project/{projectIdOrKey}/role",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive).") }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive).") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const projectRolesActions: Record<string, ActionDefinition> = {
     description: "Get project role for project. Returns a project role's details and actors associated with the project. The list of actors is sorted by display name.",
     method: "GET",
     path: "/project/{projectIdOrKey}/role/{id}",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), excludeInactiveUsers: z.boolean().describe("Exclude inactive users.").optional() }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), excludeInactiveUsers: z.boolean().describe("Exclude inactive users.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const projectRolesActions: Record<string, ActionDefinition> = {
     description: "Get project role details. Returns all project roles and the details for each role. Note that the list of project roles is common to all projects.",
     method: "GET",
     path: "/project/{projectIdOrKey}/roledetails",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), currentMember: z.boolean().describe("Whether the roles should be filtered to include only those the user is assigned to.").optional(), excludeConnectAddons: z.boolean().optional(), excludeOtherServiceRoles: z.boolean().describe("Do not return the default JSM company-managed space from CSM spaces, or the default CSM roles from JSM spaces.").optional() }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), currentMember: z.boolean().describe("Whether the roles should be filtered to include only those the user is assigned to.").optional(), excludeConnectAddons: z.boolean().optional(), excludeOtherServiceRoles: z.boolean().describe("Do not return the default JSM company-managed space from CSM spaces, or the default CSM roles from JSM spaces.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const projectRolesActions: Record<string, ActionDefinition> = {
     description: "Get all project roles. Gets a list of all project roles, complete with project role details and default actors.",
     method: "GET",
     path: "/role",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const projectRolesActions: Record<string, ActionDefinition> = {
     description: "Create project role. Creates a new project role with no default actors. You can use the Add default actors to project role operation to add default actors to the project role after creating it.",
     method: "POST",
     path: "/role",
-    input: z.object({ description: z.string().describe("A description of the project role. Required when fully updating a project role. Optional when creating or partially updating a project role.").optional(), name: z.string().describe("The name of the project role. Must be unique. Cannot begin or end with whitespace. The maximum length is 255 characters. Required when creating a project…").optional() }),
+    input: obj({ description: z.string().describe("A description of the project role. Required when fully updating a project role. Optional when creating or partially updating a project role.").optional(), name: z.string().describe("The name of the project role. Must be unique. Cannot begin or end with whitespace. The maximum length is 255 characters. Required when creating a project…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const projectRolesActions: Record<string, ActionDefinition> = {
     description: "Get project role by ID. Gets the project role details and the default actors associated with the role. The list of default actors is sorted by display name.",
     method: "GET",
     path: "/role/{id}",
-    input: z.object({ id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs.") }),
+    input: obj({ id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const projectRolesActions: Record<string, ActionDefinition> = {
     description: "Partial update project role. Updates either the project role's name or its description.",
     method: "POST",
     path: "/role/{id}",
-    input: z.object({ id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), description: z.string().describe("A description of the project role. Required when fully updating a project role. Optional when creating or partially updating a project role.").optional(), name: z.string().describe("The name of the project role. Must be unique. Cannot begin or end with whitespace. The maximum length is 255 characters. Required when creating a project…").optional() }),
+    input: obj({ id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), description: z.string().describe("A description of the project role. Required when fully updating a project role. Optional when creating or partially updating a project role.").optional(), name: z.string().describe("The name of the project role. Must be unique. Cannot begin or end with whitespace. The maximum length is 255 characters. Required when creating a project…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -66,7 +67,7 @@ export const projectRolesActions: Record<string, ActionDefinition> = {
     description: "Fully update project role. Updates the project role's name and description. You must include both a name and a description in the request.",
     method: "PUT",
     path: "/role/{id}",
-    input: z.object({ id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), description: z.string().describe("A description of the project role. Required when fully updating a project role. Optional when creating or partially updating a project role.").optional(), name: z.string().describe("The name of the project role. Must be unique. Cannot begin or end with whitespace. The maximum length is 255 characters. Required when creating a project…").optional() }),
+    input: obj({ id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), description: z.string().describe("A description of the project role. Required when fully updating a project role. Optional when creating or partially updating a project role.").optional(), name: z.string().describe("The name of the project role. Must be unique. Cannot begin or end with whitespace. The maximum length is 255 characters. Required when creating a project…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -74,7 +75,7 @@ export const projectRolesActions: Record<string, ActionDefinition> = {
     description: "Delete project role. Deletes a project role. You must specify a replacement project role if you wish to delete a project role that is in use.",
     method: "DELETE",
     path: "/role/{id}",
-    input: z.object({ id: z.number().describe("The ID of the project role to delete. Use Get all project roles to get a list of project role IDs."), swap: z.number().describe("The ID of the project role that will replace the one being deleted. The swap will attempt to swap the role in schemes (notifications, permissions, issue…").optional() }),
+    input: obj({ id: z.number().describe("The ID of the project role to delete. Use Get all project roles to get a list of project role IDs."), swap: z.number().describe("The ID of the project role that will replace the one being deleted. The swap will attempt to swap the role in schemes (notifications, permissions, issue…").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

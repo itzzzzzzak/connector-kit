@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Get multiple webhooks. Required scope: webhooks:read",
     method: "GET",
     path: "/webhooks",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), workspace: z.string().describe("The workspace to query for webhooks in."), resource: z.string().describe("Only return webhooks for the given resource.").optional(), opt_fields: z.array(z.enum(["active", "created_at", "delivery_retry_count", "failure_deletion_timestamp", "filters", "filters.action", "filters.fields", "filters.resource_subtype", "last_failure_at", "last_failure_content", "last_success_at", "next_attempt_after", "offset", "path", "resource", "resource.name", "target", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), workspace: z.string().describe("The workspace to query for webhooks in."), resource: z.string().describe("Only return webhooks for the given resource.").optional(), opt_fields: z.array(z.enum(["active", "created_at", "delivery_retry_count", "failure_deletion_timestamp", "filters", "filters.action", "filters.fields", "filters.resource_subtype", "last_failure_at", "last_failure_content", "last_success_at", "next_attempt_after", "offset", "path", "resource", "resource.name", "target", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Establish a webhook. Required scope: webhooks:write",
     method: "POST",
     path: "/webhooks",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["active", "created_at", "delivery_retry_count", "failure_deletion_timestamp", "filters", "filters.action", "filters.fields", "filters.resource_subtype", "last_failure_at", "last_failure_content", "last_success_at", "next_attempt_after", "resource", "resource.name", "target"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ resource: z.string(), target: z.string(), filters: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["active", "created_at", "delivery_retry_count", "failure_deletion_timestamp", "filters", "filters.action", "filters.fields", "filters.resource_subtype", "last_failure_at", "last_failure_content", "last_success_at", "next_attempt_after", "resource", "resource.name", "target"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ resource: z.string(), target: z.string(), filters: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -31,7 +32,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Get a webhook. Required scope: webhooks:read Calls GET /webhooks/{webhookgid} on Asana.",
     method: "GET",
     path: "/webhooks/{webhook_gid}",
-    input: z.object({ webhook_gid: z.string().describe("Globally unique identifier for the webhook."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["active", "created_at", "delivery_retry_count", "failure_deletion_timestamp", "filters", "filters.action", "filters.fields", "filters.resource_subtype", "last_failure_at", "last_failure_content", "last_success_at", "next_attempt_after", "resource", "resource.name", "target"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ webhook_gid: z.string().describe("Globally unique identifier for the webhook."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["active", "created_at", "delivery_retry_count", "failure_deletion_timestamp", "filters", "filters.action", "filters.fields", "filters.resource_subtype", "last_failure_at", "last_failure_content", "last_success_at", "next_attempt_after", "resource", "resource.name", "target"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -39,7 +40,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Update a webhook. Required scope: webhooks:write",
     method: "PUT",
     path: "/webhooks/{webhook_gid}",
-    input: z.object({ webhook_gid: z.string().describe("Globally unique identifier for the webhook."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["active", "created_at", "delivery_retry_count", "failure_deletion_timestamp", "filters", "filters.action", "filters.fields", "filters.resource_subtype", "last_failure_at", "last_failure_content", "last_success_at", "next_attempt_after", "resource", "resource.name", "target"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ filters: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }),
+    input: obj({ webhook_gid: z.string().describe("Globally unique identifier for the webhook."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["active", "created_at", "delivery_retry_count", "failure_deletion_timestamp", "filters", "filters.action", "filters.fields", "filters.resource_subtype", "last_failure_at", "last_failure_content", "last_success_at", "next_attempt_after", "resource", "resource.name", "target"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ filters: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -49,7 +50,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Delete a webhook. Required scope: webhooks:delete",
     method: "DELETE",
     path: "/webhooks/{webhook_gid}",
-    input: z.object({ webhook_gid: z.string().describe("Globally unique identifier for the webhook."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
+    input: obj({ webhook_gid: z.string().describe("Globally unique identifier for the webhook."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

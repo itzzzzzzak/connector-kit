@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const recommendationsActions: Record<string, ActionDefinition> = {
     description: "List recommended rules. Part of: Recommendations. Calls GET /recommendations/eventorchestrations/rules on PagerDuty.",
     method: "GET",
     path: "/recommendations/event_orchestrations/rules",
-    input: z.object({ service_id: z.string().optional(), service_ids__: z.array(z.string()).optional(), team_ids__: z.array(z.string()).optional(), actions__: z.array(z.enum(["suppress", "severity", "priority"])).optional(), limit: z.number().optional(), cursor: z.string().optional() }),
+    input: obj({ service_id: z.string().optional(), service_ids__: z.array(z.string()).optional(), team_ids__: z.array(z.string()).optional(), actions__: z.array(z.enum(["suppress", "severity", "priority"])).optional(), limit: z.number().optional(), cursor: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { service_id: "service_id", service_ids__: "service_ids[]", team_ids__: "team_ids[]", actions__: "actions[]", limit: "limit", cursor: "cursor" }),
@@ -20,7 +21,7 @@ export const recommendationsActions: Record<string, ActionDefinition> = {
     description: "Dismiss recommended rule. Part of: Recommendations. Calls POST /recommendations/eventorchestrations/services/{serviceid}/rules/{recommendationid}/dismiss on PagerDuty.",
     method: "POST",
     path: "/recommendations/event_orchestrations/services/{service_id}/rules/{recommendation_id}/dismiss",
-    input: z.object({ service_id: z.string(), recommendation_id: z.string(), decision: z.object({ feedback: z.enum(["positive", "negative"]) }) }),
+    input: obj({ service_id: z.string(), recommendation_id: z.string(), decision: obj({ feedback: z.enum(["positive", "negative"]) }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const recommendationsActions: Record<string, ActionDefinition> = {
     description: "Accept recommended rule. Part of: Recommendations. Calls POST /recommendations/eventorchestrations/services/{serviceid}/rules/{recommendationid}/accept on PagerDuty.",
     method: "POST",
     path: "/recommendations/event_orchestrations/services/{service_id}/rules/{recommendation_id}/accept",
-    input: z.object({ service_id: z.string(), recommendation_id: z.string() }),
+    input: obj({ service_id: z.string(), recommendation_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const recommendationsActions: Record<string, ActionDefinition> = {
     description: "Delete accepted recommended rule. Part of: Recommendations. Calls DELETE /recommendations/eventorchestrations/services/{serviceid}/acceptedrules/{ruleid} on PagerDuty.",
     method: "DELETE",
     path: "/recommendations/event_orchestrations/services/{service_id}/accepted_rules/{rule_id}",
-    input: z.object({ service_id: z.string(), rule_id: z.string() }),
+    input: obj({ service_id: z.string(), rule_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

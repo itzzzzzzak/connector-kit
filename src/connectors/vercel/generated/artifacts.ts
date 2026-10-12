@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const artifactsActions: Record<string, ActionDefinition> = {
     description: "Record events. Part of: artifacts. Calls POST /v8/artifacts/events on Vercel.",
     method: "POST",
     path: "/v8/artifacts/events",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional(), body: z.array(z.object({ sessionId: z.string(), source: z.enum(["LOCAL", "REMOTE"]), event: z.enum(["HIT", "MISS"]), hash: z.string(), duration: z.number().optional() })).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional(), body: z.array(obj({ sessionId: z.string(), source: z.enum(["LOCAL", "REMOTE"]), event: z.enum(["HIT", "MISS"]), hash: z.string(), duration: z.number().optional() })).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -21,7 +22,7 @@ export const artifactsActions: Record<string, ActionDefinition> = {
     description: "Status. Part of: artifacts. Calls GET /v8/artifacts/status on Vercel.",
     method: "GET",
     path: "/v8/artifacts/status",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -29,7 +30,7 @@ export const artifactsActions: Record<string, ActionDefinition> = {
     description: "Download artifact. Part of: artifacts. Calls GET /v8/artifacts/{hash} on Vercel.",
     method: "GET",
     path: "/v8/artifacts/{hash}",
-    input: z.object({ hash: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ hash: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const artifactsActions: Record<string, ActionDefinition> = {
     description: "Artifact query. Part of: artifacts. Calls POST /v8/artifacts on Vercel.",
     method: "POST",
     path: "/v8/artifacts",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional(), hashes: z.array(z.string()) }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional(), hashes: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -47,7 +48,7 @@ export const artifactsActions: Record<string, ActionDefinition> = {
     description: "Delete all artifacts. Part of: artifacts. Calls DELETE /v8/artifacts on Vercel.",
     method: "DELETE",
     path: "/v8/artifacts",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

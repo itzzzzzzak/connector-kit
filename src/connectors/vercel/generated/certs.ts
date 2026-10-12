@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const certsActions: Record<string, ActionDefinition> = {
     description: "Get cert by id. Part of: certs. Calls GET /v8/certs/{id} on Vercel.",
     method: "GET",
     path: "/v8/certs/{id}",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const certsActions: Record<string, ActionDefinition> = {
     description: "Remove cert. Part of: certs. Calls DELETE /v8/certs/{id} on Vercel.",
     method: "DELETE",
     path: "/v8/certs/{id}",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -27,7 +28,7 @@ export const certsActions: Record<string, ActionDefinition> = {
     description: "Get certs. Part of: certs. Calls GET /v8/certs on Vercel.",
     method: "GET",
     path: "/v8/certs",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const certsActions: Record<string, ActionDefinition> = {
     description: "Issue cert. Part of: certs. Calls POST /v8/certs on Vercel.",
     method: "POST",
     path: "/v8/certs",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional(), cns: z.array(z.string()).optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional(), cns: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -45,7 +46,7 @@ export const certsActions: Record<string, ActionDefinition> = {
     description: "Upload cert. Part of: certs. Calls PUT /v8/certs on Vercel.",
     method: "PUT",
     path: "/v8/certs",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional(), ca: z.string(), key: z.string(), cert: z.string(), skipValidation: z.boolean().optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional(), ca: z.string(), key: z.string(), cert: z.string(), skipValidation: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),

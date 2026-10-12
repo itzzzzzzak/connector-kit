@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectPhasesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectPhasesActions: Record<string, ActionDefinition> = {
     description: "Get projects phases. Part of: ProjectPhases. Calls GET /api/v2/phases on Pipedrive.",
     method: "GET",
     path: "/api/v2/phases",
-    input: z.object({ board_id: z.number() }),
+    input: obj({ board_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const projectPhasesActions: Record<string, ActionDefinition> = {
     description: "Add project phase. Part of: ProjectPhases. Calls POST /api/v2/phases on Pipedrive.",
     method: "POST",
     path: "/api/v2/phases",
-    input: z.object({ name: z.string(), board_id: z.number(), order_nr: z.number().optional() }),
+    input: obj({ name: z.string(), board_id: z.number(), order_nr: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const projectPhasesActions: Record<string, ActionDefinition> = {
     description: "Get projects phase. Part of: ProjectPhases. Calls GET /api/v2/phases/{id} on Pipedrive.",
     method: "GET",
     path: "/api/v2/phases/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const projectPhasesActions: Record<string, ActionDefinition> = {
     description: "Update project phase. Part of: ProjectPhases. Calls PATCH /api/v2/phases/{id} on Pipedrive.",
     method: "PATCH",
     path: "/api/v2/phases/{id}",
-    input: z.object({ id: z.number(), name: z.string().optional(), board_id: z.number().optional(), order_nr: z.number().optional() }),
+    input: obj({ id: z.number(), name: z.string().optional(), board_id: z.number().optional(), order_nr: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const projectPhasesActions: Record<string, ActionDefinition> = {
     description: "Delete project phase. Part of: ProjectPhases. Calls DELETE /api/v2/phases/{id} on Pipedrive.",
     method: "DELETE",
     path: "/api/v2/phases/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const projectPhasesActions: Record<string, ActionDefinition> = {
     description: "Get projects phases. Part of: ProjectPhases. Calls GET /v1/projects/phases on Pipedrive.",
     method: "GET",
     path: "/v1/projects/phases",
-    input: z.object({ board_id: z.number() }),
+    input: obj({ board_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const projectPhasesActions: Record<string, ActionDefinition> = {
     description: "Get projects phase. Part of: ProjectPhases. Calls GET /v1/projects/phases/{id} on Pipedrive.",
     method: "GET",
     path: "/v1/projects/phases/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

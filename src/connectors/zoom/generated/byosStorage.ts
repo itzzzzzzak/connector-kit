@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const byosStorageActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const byosStorageActions: Record<string, ActionDefinition> = {
     description: "Byos storage switch patch. Part of: Byos Storage. Calls PATCH /videosdk/settings/storage on Zoom.",
     method: "PATCH",
     path: "/videosdk/settings/storage",
-    input: z.object({ bring_our_own_storage: z.boolean(), storage_location_id: z.string().optional() }),
+    input: obj({ bring_our_own_storage: z.boolean(), storage_location_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const byosStorageActions: Record<string, ActionDefinition> = {
     description: "Byos storage get. Part of: Byos Storage. Calls GET /videosdk/settings/storage/location on Zoom.",
     method: "GET",
     path: "/videosdk/settings/storage/location",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const byosStorageActions: Record<string, ActionDefinition> = {
     description: "Byos storage post. Part of: Byos Storage. Calls POST /videosdk/settings/storage/location on Zoom.",
     method: "POST",
     path: "/videosdk/settings/storage/location",
-    input: z.object({ name: z.string(), provider: z.enum(["aws_s3"]), s3: z.object({ region: z.string(), bucket: z.string(), authentication_mechanism: z.enum(["aws_access_key"]), access_key: z.object({ id: z.string(), key: z.string() }) }) }),
+    input: obj({ name: z.string(), provider: z.enum(["aws_s3"]), s3: obj({ region: z.string(), bucket: z.string(), authentication_mechanism: z.enum(["aws_access_key"]), access_key: obj({ id: z.string(), key: z.string() }) }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const byosStorageActions: Record<string, ActionDefinition> = {
     description: "Byos storage detail get. Part of: Byos Storage. Calls GET /videosdk/settings/storage/location/{storageLocationId} on Zoom.",
     method: "GET",
     path: "/videosdk/settings/storage/location/{storageLocationId}",
-    input: z.object({ storageLocationId: z.string() }),
+    input: obj({ storageLocationId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const byosStorageActions: Record<string, ActionDefinition> = {
     description: "Byos storage detail patch. Part of: Byos Storage. Calls PATCH /videosdk/settings/storage/location/{storageLocationId} on Zoom.",
     method: "PATCH",
     path: "/videosdk/settings/storage/location/{storageLocationId}",
-    input: z.object({ storageLocationId: z.string(), name: z.string().optional(), provider: z.enum(["aws_s3"]).optional(), s3: z.object({ region: z.string().optional(), bucket: z.string().optional(), authentication_mechanism: z.enum(["aws_access_key"]).optional(), access_key: z.object({ id: z.string().optional(), key: z.string().optional() }).optional() }).optional() }),
+    input: obj({ storageLocationId: z.string(), name: z.string().optional(), provider: z.enum(["aws_s3"]).optional(), s3: obj({ region: z.string().optional(), bucket: z.string().optional(), authentication_mechanism: z.enum(["aws_access_key"]).optional(), access_key: obj({ id: z.string().optional(), key: z.string().optional() }).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const byosStorageActions: Record<string, ActionDefinition> = {
     description: "Byos storage detail delete. Part of: Byos Storage. Calls DELETE /videosdk/settings/storage/location/{storageLocationId} on Zoom.",
     method: "DELETE",
     path: "/videosdk/settings/storage/location/{storageLocationId}",
-    input: z.object({ storageLocationId: z.string() }),
+    input: obj({ storageLocationId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const permissionSchemesActions: Record<string, ActionDefinition> = {
     description: "Get all permission schemes. Returns all permission schemes.",
     method: "GET",
     path: "/permissionscheme",
-    input: z.object({ expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are included when you…").optional() }),
+    input: obj({ expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are included when you…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const permissionSchemesActions: Record<string, ActionDefinition> = {
     description: "Create permission scheme. Creates a new permission scheme. You can create a permission scheme with or without defining a set of permission grants.",
     method: "POST",
     path: "/permissionscheme",
-    input: z.object({ expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are always included when…").optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are always included when…").optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["expand"]),
@@ -29,7 +30,7 @@ export const permissionSchemesActions: Record<string, ActionDefinition> = {
     description: "Get permission scheme. Returns a permission scheme.",
     method: "GET",
     path: "/permissionscheme/{schemeId}",
-    input: z.object({ schemeId: z.number().describe("The ID of the permission scheme to return."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are included when you…").optional() }),
+    input: obj({ schemeId: z.number().describe("The ID of the permission scheme to return."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are included when you…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const permissionSchemesActions: Record<string, ActionDefinition> = {
     description: "Update permission scheme. Updates a permission scheme. Below are some important things to note when using this resource:",
     method: "PUT",
     path: "/permissionscheme/{schemeId}",
-    input: z.object({ schemeId: z.number().describe("The ID of the permission scheme to update."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are always included when…").optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ schemeId: z.number().describe("The ID of the permission scheme to update."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are always included when…").optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["expand"]),
@@ -47,7 +48,7 @@ export const permissionSchemesActions: Record<string, ActionDefinition> = {
     description: "Delete permission scheme. Deletes a permission scheme.",
     method: "DELETE",
     path: "/permissionscheme/{schemeId}",
-    input: z.object({ schemeId: z.number().describe("The ID of the permission scheme being deleted.") }),
+    input: obj({ schemeId: z.number().describe("The ID of the permission scheme being deleted.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -55,7 +56,7 @@ export const permissionSchemesActions: Record<string, ActionDefinition> = {
     description: "Get permission scheme grants. Returns all permission grants for a permission scheme.",
     method: "GET",
     path: "/permissionscheme/{schemeId}/permission",
-    input: z.object({ schemeId: z.number().describe("The ID of the permission scheme."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are always included when…").optional() }),
+    input: obj({ schemeId: z.number().describe("The ID of the permission scheme."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are always included when…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -63,7 +64,7 @@ export const permissionSchemesActions: Record<string, ActionDefinition> = {
     description: "Create permission grant. Creates a permission grant in a permission scheme.",
     method: "POST",
     path: "/permissionscheme/{schemeId}/permission",
-    input: z.object({ schemeId: z.number().describe("The ID of the permission scheme in which to create a new permission grant."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are always included when…").optional(), holder: z.object({ expand: z.string().optional(), parameter: z.string().optional(), type: z.string(), value: z.string().optional() }).describe("The user or group being granted the permission. It consists of a type, a type-dependent parameter and a type-dependent value. See Holder object in Get all…").optional(), id: z.number().describe("The ID of the permission granted details.").optional(), permission: z.string().describe("The permission to grant. This permission can be one of the built-in permissions or a custom permission added by an app. See Built-in permissions in Get all…").optional(), self: z.string().describe("The URL of the permission granted details.").optional() }),
+    input: obj({ schemeId: z.number().describe("The ID of the permission scheme in which to create a new permission grant."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are always included when…").optional(), holder: obj({ expand: z.string().optional(), parameter: z.string().optional(), type: z.string(), value: z.string().optional() }).describe("The user or group being granted the permission. It consists of a type, a type-dependent parameter and a type-dependent value. See Holder object in Get all…").optional(), id: z.number().describe("The ID of the permission granted details.").optional(), permission: z.string().describe("The permission to grant. This permission can be one of the built-in permissions or a custom permission added by an app. See Built-in permissions in Get all…").optional(), self: z.string().describe("The URL of the permission granted details.").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["expand"]),
@@ -73,7 +74,7 @@ export const permissionSchemesActions: Record<string, ActionDefinition> = {
     description: "Get permission scheme grant. Returns a permission grant.",
     method: "GET",
     path: "/permissionscheme/{schemeId}/permission/{permissionId}",
-    input: z.object({ schemeId: z.number().describe("The ID of the permission scheme."), permissionId: z.number().describe("The ID of the permission grant."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are always included when…").optional() }),
+    input: obj({ schemeId: z.number().describe("The ID of the permission scheme."), permissionId: z.number().describe("The ID of the permission grant."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are always included when…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -81,7 +82,7 @@ export const permissionSchemesActions: Record<string, ActionDefinition> = {
     description: "Delete permission scheme grant. Deletes a permission grant from a permission scheme. See About permission schemes and grants for more details.",
     method: "DELETE",
     path: "/permissionscheme/{schemeId}/permission/{permissionId}",
-    input: z.object({ schemeId: z.number().describe("The ID of the permission scheme to delete the permission grant from."), permissionId: z.number().describe("The ID of the permission grant to delete.") }),
+    input: obj({ schemeId: z.number().describe("The ID of the permission scheme to delete the permission grant from."), permissionId: z.number().describe("The ID of the permission grant to delete.") }),
     output: z.unknown(),
     effect: "destructive",
   },

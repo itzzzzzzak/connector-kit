@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const lookupRelationshipsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const lookupRelationshipsActions: Record<string, ActionDefinition> = {
     description: "Get sources by target. Part of: Lookup Relationships. Calls GET /{targettype}/{targetid}/relationshipfields/{fieldid}/{sourcetype} on Zendesk.",
     method: "GET",
     path: "/{target_type}/{target_id}/relationship_fields/{field_id}/{source_type}",
-    input: z.object({ target_type: z.string(), target_id: z.number(), field_id: z.number(), source_type: z.string() }),
+    input: obj({ target_type: z.string(), target_id: z.number(), field_id: z.number(), source_type: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const lookupRelationshipsActions: Record<string, ActionDefinition> = {
     description: "Get relationship filter definitions. Part of: Lookup Relationships. Calls GET /relationships/definitions/{targettype} on Zendesk.",
     method: "GET",
     path: "/relationships/definitions/{target_type}",
-    input: z.object({ target_type: z.string(), source_type: z.string().optional() }),
+    input: obj({ target_type: z.string(), source_type: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

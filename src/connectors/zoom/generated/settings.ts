@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const settingsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const settingsActions: Record<string, ActionDefinition> = {
     description: "Get account policy details. Part of: Settings. Calls GET /phone/policies/{policyType} on Zoom.",
     method: "GET",
     path: "/phone/policies/{policyType}",
-    input: z.object({ policyType: z.enum(["allow_emergency_calls"]) }),
+    input: obj({ policyType: z.enum(["allow_emergency_calls"]) }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const settingsActions: Record<string, ActionDefinition> = {
     description: "Update account policy. Part of: Settings. Calls PATCH /phone/policies/{policyType} on Zoom.",
     method: "PATCH",
     path: "/phone/policies/{policyType}",
-    input: z.object({ policyType: z.enum(["allow_emergency_calls"]), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ policyType: z.enum(["allow_emergency_calls"]), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -27,7 +28,7 @@ export const settingsActions: Record<string, ActionDefinition> = {
     description: "Phone setting. Part of: Settings. Calls GET /phone/settings on Zoom.",
     method: "GET",
     path: "/phone/settings",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const settingsActions: Record<string, ActionDefinition> = {
     description: "Update phone settings. Part of: Settings. Calls PATCH /phone/settings on Zoom.",
     method: "PATCH",
     path: "/phone/settings",
-    input: z.object({ byoc: z.object({ enable: z.boolean().optional() }).optional(), multiple_sites: z.object({ enabled: z.boolean().optional(), site_code: z.object({ enable: z.boolean().optional(), short_extension_length: z.number().optional() }).optional() }).optional(), show_device_ip_for_call_log: z.object({ enable: z.boolean().optional() }).optional(), billing_account: z.object({ id: z.string().optional() }).optional(), policy: z.object({ voicemail_tasks: z.object({ enable: z.boolean().optional(), locked: z.boolean().optional() }).optional(), team_sms_thread_summary: z.object({ enable: z.boolean().optional(), locked: z.boolean().optional() }).optional(), voicemail_intent_based_prioritization: z.object({ enable: z.boolean().optional(), locked: z.boolean().optional() }).optional(), call_summary: z.object({ enable: z.boolean().optional(), locked: z.boolean().optional(), auto_call_summary: z.boolean().optional(), call_summary_access_from_client_and_web: z.boolean().optional(), call_summary_access_from_email: z.boolean().optional(), call_summary_view_only: z.boolean().optional(), call_summary_start_prompt: z.record(z.string(), z.unknown()).optional() }).optional() }).optional() }),
+    input: obj({ byoc: obj({ enable: z.boolean().optional() }).optional(), multiple_sites: obj({ enabled: z.boolean().optional(), site_code: obj({ enable: z.boolean().optional(), short_extension_length: z.number().optional() }).optional() }).optional(), show_device_ip_for_call_log: obj({ enable: z.boolean().optional() }).optional(), billing_account: obj({ id: z.string().optional() }).optional(), policy: obj({ voicemail_tasks: obj({ enable: z.boolean().optional(), locked: z.boolean().optional() }).optional(), team_sms_thread_summary: obj({ enable: z.boolean().optional(), locked: z.boolean().optional() }).optional(), voicemail_intent_based_prioritization: obj({ enable: z.boolean().optional(), locked: z.boolean().optional() }).optional(), call_summary: obj({ enable: z.boolean().optional(), locked: z.boolean().optional(), auto_call_summary: z.boolean().optional(), call_summary_access_from_client_and_web: z.boolean().optional(), call_summary_access_from_email: z.boolean().optional(), call_summary_view_only: z.boolean().optional(), call_summary_start_prompt: z.record(z.string(), z.unknown()).optional() }).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -43,7 +44,7 @@ export const settingsActions: Record<string, ActionDefinition> = {
     description: "Listsettings. Part of: settings. Calls GET /calendars/users/{userIdentifier}/settings on Zoom.",
     method: "GET",
     path: "/calendars/users/{userIdentifier}/settings",
-    input: z.object({ userIdentifier: z.string(), maxResults: z.number().optional(), pageToken: z.string().optional() }),
+    input: obj({ userIdentifier: z.string(), maxResults: z.number().optional(), pageToken: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -51,7 +52,7 @@ export const settingsActions: Record<string, ActionDefinition> = {
     description: "Getsetting. Part of: settings. Calls GET /calendars/users/{userIdentifier}/settings/{settingId} on Zoom.",
     method: "GET",
     path: "/calendars/users/{userIdentifier}/settings/{settingId}",
-    input: z.object({ userIdentifier: z.string(), settingId: z.string() }),
+    input: obj({ userIdentifier: z.string(), settingId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -59,7 +60,7 @@ export const settingsActions: Record<string, ActionDefinition> = {
     description: "Patchsetting. Part of: settings. Calls PATCH /calendars/users/{userIdentifier}/settings/{settingId} on Zoom.",
     method: "PATCH",
     path: "/calendars/users/{userIdentifier}/settings/{settingId}",
-    input: z.object({ userIdentifier: z.string(), settingId: z.string(), id: z.string(), value: z.string() }),
+    input: obj({ userIdentifier: z.string(), settingId: z.string(), id: z.string(), value: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -67,7 +68,7 @@ export const settingsActions: Record<string, ActionDefinition> = {
     description: "Update awhiteboard share setting. Part of: Settings. Calls PATCH /whiteboards/{whiteboardId}/sharesetting on Zoom.",
     method: "PATCH",
     path: "/whiteboards/{whiteboardId}/share_setting",
-    input: z.object({ whiteboardId: z.string(), share_link_setting: z.object({ share_scope: z.number().optional(), share_role: z.number().optional() }).optional() }),
+    input: obj({ whiteboardId: z.string(), share_link_setting: obj({ share_scope: z.number().optional(), share_role: z.number().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/figma.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const commentsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const commentsActions: Record<string, ActionDefinition> = {
     description: "Delete a comment. Deletes a specific comment. Only the person who made the comment is allowed to delete it.",
     method: "DELETE",
     path: "/v1/files/{file_key}/comments/{comment_id}",
-    input: z.object({ file_key: z.string().describe("File to delete comment from. This can be a file key or branch key. Use GET /v1/files/:key with the branchdata query param to get the branch key."), comment_id: z.string().describe("Comment id of comment to delete") }),
+    input: obj({ file_key: z.string().describe("File to delete comment from. This can be a file key or branch key. Use GET /v1/files/:key with the branchdata query param to get the branch key."), comment_id: z.string().describe("Comment id of comment to delete") }),
     output: z.unknown(),
     effect: "destructive",
   },

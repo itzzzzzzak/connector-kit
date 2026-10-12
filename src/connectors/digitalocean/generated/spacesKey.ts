@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const spacesKeyActions: Record<string, ActionDefinition> = {
     description: "List Spaces Access Keys. To list Spaces Access Key, send a GET request to /v2/spaces/keys. Sort parameter must be used with Sort Direction.",
     method: "GET",
     path: "/spaces/keys",
-    input: z.object({ sort: z.string().describe("The field to sort by.").optional(), sort_direction: z.string().describe("The direction to sort by. Possible values are asc or desc.").optional(), name: z.string().describe("The access key's name.").optional(), bucket: z.string().describe("The bucket's name.").optional(), permission: z.string().describe("The permission of the access key. Possible values are read, readwrite, fullaccess, or an empty string.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ sort: z.string().describe("The field to sort by.").optional(), sort_direction: z.string().describe("The direction to sort by. Possible values are asc or desc.").optional(), name: z.string().describe("The access key's name.").optional(), bucket: z.string().describe("The bucket's name.").optional(), permission: z.string().describe("The permission of the access key. Possible values are read, readwrite, fullaccess, or an empty string.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "keys", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const spacesKeyActions: Record<string, ActionDefinition> = {
     description: "Create a New Spaces Access Key. To create a new Spaces Access Key, send a POST request to /v2/spaces/keys. At the moment, you cannot mix a fullaccess permission with scoped permissions. A fullaccess permission will be prioritized if fullaccess and scoped permissions are both added.",
     method: "POST",
     path: "/spaces/keys",
-    input: z.object({ name: z.string().describe("The access key's name.").optional(), grants: z.array(z.object({ bucket: z.string(), permission: z.string() })).describe("The list of permissions for the access key.").optional(), access_key: z.string().describe("The Access Key ID used to access a bucket.").optional(), created_at: z.string().describe("The date and time the key was created.").optional() }),
+    input: obj({ name: z.string().describe("The access key's name.").optional(), grants: z.array(obj({ bucket: z.string(), permission: z.string() })).describe("The list of permissions for the access key.").optional(), access_key: z.string().describe("The Access Key ID used to access a bucket.").optional(), created_at: z.string().describe("The date and time the key was created.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const spacesKeyActions: Record<string, ActionDefinition> = {
     description: "Get a Spaces Access Key. To get a Spaces Access Key, send a GET request to /v2/spaces/keys/$ACCESSKEY.",
     method: "GET",
     path: "/spaces/keys/{access_key}",
-    input: z.object({ access_key: z.string().describe("The access key's ID.") }),
+    input: obj({ access_key: z.string().describe("The access key's ID.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const spacesKeyActions: Record<string, ActionDefinition> = {
     description: "Update Spaces Access Keys. To update Spaces Access Key, send a PUT or PATCH request to /v2/spaces/keys/$ACCESSKEY. At the moment, you cannot convert a fullaccess key to a scoped key or vice versa. You can only update the name of the key.",
     method: "PUT",
     path: "/spaces/keys/{access_key}",
-    input: z.object({ access_key: z.string().describe("The access key's ID."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ access_key: z.string().describe("The access key's ID."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -45,7 +46,7 @@ export const spacesKeyActions: Record<string, ActionDefinition> = {
     description: "Update Spaces Access Keys. To update Spaces Access Key, send a PUT or PATCH request to /v2/spaces/keys/$ACCESSKEY. At the moment, you cannot convert a fullaccess key to a scoped key or vice versa. You can only update the name of the key.",
     method: "PATCH",
     path: "/spaces/keys/{access_key}",
-    input: z.object({ access_key: z.string().describe("The access key's ID."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ access_key: z.string().describe("The access key's ID."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -54,7 +55,7 @@ export const spacesKeyActions: Record<string, ActionDefinition> = {
     description: "Delete a Spaces Access Key. To delete a Spaces Access Key, send a DELETE request to /v2/spaces/keys/$ACCESSKEY.",
     method: "DELETE",
     path: "/spaces/keys/{access_key}",
-    input: z.object({ access_key: z.string().describe("The access key's ID.") }),
+    input: obj({ access_key: z.string().describe("The access key's ID.") }),
     output: z.unknown(),
     effect: "destructive",
   },

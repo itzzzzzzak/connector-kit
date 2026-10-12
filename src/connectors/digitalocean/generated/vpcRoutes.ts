@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const vpcRoutesActions: Record<string, ActionDefinition> = {
     description: "List VPC Routes. To list the read-only VPC-scoped routes for a VPC, send a GET request to /v2/vpcs/$VPCUUID/routes. VPC-scoped routes cannot be created, updated, or deleted through the public API.",
     method: "GET",
     path: "/vpcs/{vpc_uuid}/routes",
-    input: z.object({ vpc_uuid: z.string().describe("The unique identifier of the VPC."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ vpc_uuid: z.string().describe("The unique identifier of the VPC."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "routes", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),

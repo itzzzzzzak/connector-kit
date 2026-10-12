@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const assetActions: Record<string, ActionDefinition> = {
     description: "List site assets Calls GET /sites/{siteid}/assets on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/assets",
-    input: z.object({ site_id: z.string() }),
+    input: obj({ site_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const assetActions: Record<string, ActionDefinition> = {
     description: "Create site asset Calls POST /sites/{siteid}/assets on Netlify.",
     method: "POST",
     path: "/sites/{site_id}/assets",
-    input: z.object({ site_id: z.string(), name: z.string(), size: z.number(), content_type: z.string(), visibility: z.string().optional() }),
+    input: obj({ site_id: z.string(), name: z.string(), size: z.number(), content_type: z.string(), visibility: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["name","size","content_type","visibility"]),
@@ -28,7 +29,7 @@ export const assetActions: Record<string, ActionDefinition> = {
     description: "Get site asset info Calls GET /sites/{siteid}/assets/{assetid} on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/assets/{asset_id}",
-    input: z.object({ site_id: z.string(), asset_id: z.string() }),
+    input: obj({ site_id: z.string(), asset_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const assetActions: Record<string, ActionDefinition> = {
     description: "Update site asset Calls PUT /sites/{siteid}/assets/{assetid} on Netlify.",
     method: "PUT",
     path: "/sites/{site_id}/assets/{asset_id}",
-    input: z.object({ site_id: z.string(), asset_id: z.string(), state: z.string() }),
+    input: obj({ site_id: z.string(), asset_id: z.string(), state: z.string() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["state"]),
@@ -45,7 +46,7 @@ export const assetActions: Record<string, ActionDefinition> = {
     description: "Delete site asset Calls DELETE /sites/{siteid}/assets/{assetid} on Netlify.",
     method: "DELETE",
     path: "/sites/{site_id}/assets/{asset_id}",
-    input: z.object({ site_id: z.string(), asset_id: z.string() }),
+    input: obj({ site_id: z.string(), asset_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

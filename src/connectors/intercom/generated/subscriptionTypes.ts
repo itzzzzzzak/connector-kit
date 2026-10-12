@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const subscriptionTypesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const subscriptionTypesActions: Record<string, ActionDefinition> = {
     description: "Add subscription to a contact. You can add a specific subscription to a contact. In Intercom, we have two different subscription types based on user consent - opt-out and opt-in:",
     method: "POST",
     path: "/contacts/{contact_id}/subscriptions",
-    input: z.object({ contact_id: z.string().describe("The unique identifier for the contact which is given by Intercom"), id: z.string().describe("The unique identifier for the subscription which is given by Intercom"), consent_type: z.string().describe("The consenttype of a subscription, optout or optin.") }),
+    input: obj({ contact_id: z.string().describe("The unique identifier for the contact which is given by Intercom"), id: z.string().describe("The unique identifier for the subscription which is given by Intercom"), consent_type: z.string().describe("The consenttype of a subscription, optout or optin.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const subscriptionTypesActions: Record<string, ActionDefinition> = {
     description: "Remove subscription from a contact. You can remove a specific subscription from a contact. This will return a subscription type model for the subscription type that was removed from the contact.",
     method: "DELETE",
     path: "/contacts/{contact_id}/subscriptions/{subscription_id}",
-    input: z.object({ contact_id: z.string().describe("The unique identifier for the contact which is given by Intercom"), subscription_id: z.string().describe("The unique identifier for the subscription type which is given by Intercom") }),
+    input: obj({ contact_id: z.string().describe("The unique identifier for the contact which is given by Intercom"), subscription_id: z.string().describe("The unique identifier for the subscription type which is given by Intercom") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -26,7 +27,7 @@ export const subscriptionTypesActions: Record<string, ActionDefinition> = {
     description: "List subscription types. You can list all subscription types. A list of subscription type objects will be returned.",
     method: "GET",
     path: "/subscription_types",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

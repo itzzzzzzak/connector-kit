@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const createActions: Record<string, ActionDefinition> = {
     description: "Booking. Part of: scheduled events. Calls POST /scheduler/attendee on Zoom.",
     method: "POST",
     path: "/scheduler/attendee",
-    input: z.object({ user: z.string().optional(), schedule_id: z.string(), duration: z.number(), booker: z.object({ email: z.string(), first_name: z.string(), last_name: z.string(), time_format: z.enum(["12h", "24h"]).optional(), phone_number: z.string().optional() }), tracking: z.object({ utm_campaign: z.string().optional(), utm_source: z.string().optional(), utm_medium: z.string().optional(), utm_content: z.string().optional(), utm_term: z.string().optional(), salesforce_person: z.string().optional(), salesforce_related: z.string().optional() }).optional(), location_configuration: z.object({ kind: z.string().optional(), location: z.string().optional(), phone_number: z.string().optional(), additonal_info: z.string().optional() }).optional(), questions_and_answers: z.array(z.object({ question: z.string().optional(), answer: z.string().optional(), position: z.string().optional() })).optional(), start_date_time: z.string(), time_zone: z.string().optional() }),
+    input: obj({ user: z.string().optional(), schedule_id: z.string(), duration: z.number(), booker: obj({ email: z.string(), first_name: z.string(), last_name: z.string(), time_format: z.enum(["12h", "24h"]).optional(), phone_number: z.string().optional() }), tracking: obj({ utm_campaign: z.string().optional(), utm_source: z.string().optional(), utm_medium: z.string().optional(), utm_content: z.string().optional(), utm_term: z.string().optional(), salesforce_person: z.string().optional(), salesforce_related: z.string().optional() }).optional(), location_configuration: obj({ kind: z.string().optional(), location: z.string().optional(), phone_number: z.string().optional(), additonal_info: z.string().optional() }).optional(), questions_and_answers: z.array(obj({ question: z.string().optional(), answer: z.string().optional(), position: z.string().optional() })).optional(), start_date_time: z.string(), time_zone: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["user"]),
@@ -21,7 +22,7 @@ export const createActions: Record<string, ActionDefinition> = {
     description: "Shares. Part of: shares. Calls POST /scheduler/shares on Zoom.",
     method: "POST",
     path: "/scheduler/shares",
-    input: z.object({ schedule_id: z.string(), start_date: z.string().optional(), end_date: z.string().optional(), interval_type: z.enum(["unlimited", "fixed"]).optional(), time_zone: z.string().optional(), duration: z.number().optional(), segments_recurrence: z.object({ sun: z.array(z.record(z.string(), z.unknown())).optional(), mon: z.array(z.record(z.string(), z.unknown())).optional(), tue: z.array(z.record(z.string(), z.unknown())).optional(), wed: z.array(z.record(z.string(), z.unknown())).optional(), thu: z.array(z.record(z.string(), z.unknown())).optional(), fri: z.array(z.record(z.string(), z.unknown())).optional(), sat: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), segments: z.array(z.object({ start: z.string().optional(), end: z.string().optional() })).optional() }),
+    input: obj({ schedule_id: z.string(), start_date: z.string().optional(), end_date: z.string().optional(), interval_type: z.enum(["unlimited", "fixed"]).optional(), time_zone: z.string().optional(), duration: z.number().optional(), segments_recurrence: obj({ sun: z.array(z.record(z.string(), z.unknown())).optional(), mon: z.array(z.record(z.string(), z.unknown())).optional(), tue: z.array(z.record(z.string(), z.unknown())).optional(), wed: z.array(z.record(z.string(), z.unknown())).optional(), thu: z.array(z.record(z.string(), z.unknown())).optional(), fri: z.array(z.record(z.string(), z.unknown())).optional(), sat: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), segments: z.array(obj({ start: z.string().optional(), end: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -29,7 +30,7 @@ export const createActions: Record<string, ActionDefinition> = {
     description: "Draft email. Part of: Drafts. Calls POST /emails/mailboxes/{email}/drafts on Zoom.",
     method: "POST",
     path: "/emails/mailboxes/{email}/drafts",
-    input: z.object({ email: z.string(), message: z.object({ raw: z.string().optional() }).optional() }),
+    input: obj({ email: z.string(), message: obj({ raw: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -37,7 +38,7 @@ export const createActions: Record<string, ActionDefinition> = {
     description: "Label in mailbox. Part of: Labels. Calls POST /emails/mailboxes/{email}/labels on Zoom.",
     method: "POST",
     path: "/emails/mailboxes/{email}/labels",
-    input: z.object({ email: z.string(), name: z.string(), parentId: z.string(), messageListVisibilitystring: z.enum(["show", "hide"]).optional(), labelListVisibility: z.enum(["labelShow", "labelHide", "labelShowIfUnread"]).optional(), color: z.object({ textColor: z.string().optional(), backgroundColor: z.string().optional() }).optional() }),
+    input: obj({ email: z.string(), name: z.string(), parentId: z.string(), messageListVisibilitystring: z.enum(["show", "hide"]).optional(), labelListVisibility: z.enum(["labelShow", "labelHide", "labelShowIfUnread"]).optional(), color: obj({ textColor: z.string().optional(), backgroundColor: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -45,7 +46,7 @@ export const createActions: Record<string, ActionDefinition> = {
     description: "Email. Part of: Messages. Calls POST /emails/mailboxes/{email}/messages on Zoom.",
     method: "POST",
     path: "/emails/mailboxes/{email}/messages",
-    input: z.object({ email: z.string(), deleted: z.boolean().optional(), labelIds: z.array(z.string()).optional(), raw: z.string() }),
+    input: obj({ email: z.string(), deleted: z.boolean().optional(), labelIds: z.array(z.string()).optional(), raw: z.string() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["deleted"]),
@@ -55,7 +56,7 @@ export const createActions: Record<string, ActionDefinition> = {
     description: "Email filter. Part of: Settings.Filters. Calls POST /emails/mailboxes/{email}/settings/filters on Zoom.",
     method: "POST",
     path: "/emails/mailboxes/{email}/settings/filters",
-    input: z.object({ email: z.string(), criteria: z.object({ from: z.string().optional(), to: z.string().optional(), subject: z.string().optional(), query: z.string().optional(), negatedQuery: z.string().optional(), hasAttachment: z.boolean().optional(), size: z.number().optional(), sizeComparison: z.enum(["unspecifield", "smaller", "larger"]).optional() }), action: z.object({ addLabelIds: z.array(z.string()).optional(), removeLabelIds: z.array(z.string()).optional(), forward: z.string().optional() }) }),
+    input: obj({ email: z.string(), criteria: obj({ from: z.string().optional(), to: z.string().optional(), subject: z.string().optional(), query: z.string().optional(), negatedQuery: z.string().optional(), hasAttachment: z.boolean().optional(), size: z.number().optional(), sizeComparison: z.enum(["unspecifield", "smaller", "larger"]).optional() }), action: obj({ addLabelIds: z.array(z.string()).optional(), removeLabelIds: z.array(z.string()).optional(), forward: z.string().optional() }) }),
     output: z.unknown(),
     effect: "write",
   },

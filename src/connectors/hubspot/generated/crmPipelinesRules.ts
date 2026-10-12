@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const crmPipelinesRulesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const crmPipelinesRulesActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId} on HubSpot.",
     method: "GET",
     path: "/crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId}",
-    input: z.object({ objectTypeId: z.string(), pipelineId: z.string() }),
+    input: obj({ objectTypeId: z.string(), pipelineId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const crmPipelinesRulesActions: Record<string, ActionDefinition> = {
     description: "Replace. Part of: Basic. Calls PUT /crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId} on HubSpot.",
     method: "PUT",
     path: "/crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId}",
-    input: z.object({ objectTypeId: z.string(), pipelineId: z.string(), approvalStage: z.object({ approvalComment: z.string().optional(), approvalMode: z.enum(["ALL", "ANY"]), approverUserIds: z.array(z.string()), conditionalApprovalFilterBranch: z.unknown().optional(), pipelineStageId: z.string() }).optional(), governanceValidationRules: z.object({ noBackwardsMovementRule: z.object({ enabledForAllStages: z.boolean(), pipelineStageIds: z.array(z.string()) }), noSkippingStagesRule: z.object({ enabledForAllStages: z.boolean(), pipelineStageIds: z.array(z.string()) }), objectCreationRule: z.object({ pipelineStageIds: z.array(z.string()) }) }) }),
+    input: obj({ objectTypeId: z.string(), pipelineId: z.string(), approvalStage: obj({ approvalComment: z.string().optional(), approvalMode: z.enum(["ALL", "ANY"]), approverUserIds: z.array(z.string()), conditionalApprovalFilterBranch: z.unknown().optional(), pipelineStageId: z.string() }).optional(), governanceValidationRules: obj({ noBackwardsMovementRule: obj({ enabledForAllStages: z.boolean(), pipelineStageIds: z.array(z.string()) }), noSkippingStagesRule: obj({ enabledForAllStages: z.boolean(), pipelineStageIds: z.array(z.string()) }), objectCreationRule: obj({ pipelineStageIds: z.array(z.string()) }) }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const crmPipelinesRulesActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Basic. Calls PATCH /crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId} on HubSpot.",
     method: "PATCH",
     path: "/crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId}",
-    input: z.object({ objectTypeId: z.string(), pipelineId: z.string(), approvalStage: z.record(z.string(), z.unknown()).optional(), noBackwardsMovementRule: z.record(z.string(), z.unknown()).optional(), noSkippingStagesRule: z.record(z.string(), z.unknown()).optional(), objectCreationRule: z.record(z.string(), z.unknown()).optional() }),
+    input: obj({ objectTypeId: z.string(), pipelineId: z.string(), approvalStage: z.record(z.string(), z.unknown()).optional(), noBackwardsMovementRule: z.record(z.string(), z.unknown()).optional(), noSkippingStagesRule: z.record(z.string(), z.unknown()).optional(), objectCreationRule: z.record(z.string(), z.unknown()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const crmPipelinesRulesActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId} on HubSpot.",
     method: "DELETE",
     path: "/crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId}",
-    input: z.object({ objectTypeId: z.string(), pipelineId: z.string() }),
+    input: obj({ objectTypeId: z.string(), pipelineId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const crmPipelinesRulesActions: Record<string, ActionDefinition> = {
     description: "Create approvals start. Part of: Advanced. Calls POST /crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId}/approvals/start on HubSpot.",
     method: "POST",
     path: "/crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId}/approvals/start",
-    input: z.object({ objectTypeId: z.string(), pipelineId: z.string(), objectId: z.number() }),
+    input: obj({ objectTypeId: z.string(), pipelineId: z.string(), objectId: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const crmPipelinesRulesActions: Record<string, ActionDefinition> = {
     description: "Get approvals. Part of: Basic. Calls GET /crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId}/approvals/{objectId} on HubSpot.",
     method: "GET",
     path: "/crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId}/approvals/{objectId}",
-    input: z.object({ objectId: z.number(), objectTypeId: z.string(), pipelineId: z.string() }),
+    input: obj({ objectId: z.number(), objectTypeId: z.string(), pipelineId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const crmPipelinesRulesActions: Record<string, ActionDefinition> = {
     description: "List stage edit permissions. Part of: Basic. Calls GET /crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId}/stage-edit-permissions on HubSpot.",
     method: "GET",
     path: "/crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId}/stage-edit-permissions",
-    input: z.object({ objectTypeId: z.string(), pipelineId: z.string() }),
+    input: obj({ objectTypeId: z.string(), pipelineId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -66,7 +67,7 @@ export const crmPipelinesRulesActions: Record<string, ActionDefinition> = {
     description: "Replace stage edit permissions. Part of: Basic. Calls PUT /crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId}/stage-edit-permissions on HubSpot.",
     method: "PUT",
     path: "/crm/pipelines-rules/2026-09/{objectTypeId}/{pipelineId}/stage-edit-permissions",
-    input: z.object({ objectTypeId: z.string(), pipelineId: z.string(), stages: z.array(z.object({ permissionMode: z.enum(["OPEN", "RESTRICTED"]), pipelineStageId: z.string(), superAdmin: z.boolean(), teamIds: z.array(z.string()), userIds: z.array(z.string()) })) }),
+    input: obj({ objectTypeId: z.string(), pipelineId: z.string(), stages: z.array(obj({ permissionMode: z.enum(["OPEN", "RESTRICTED"]), pipelineStageId: z.string(), superAdmin: z.boolean(), teamIds: z.array(z.string()), userIds: z.array(z.string()) })) }),
     output: z.unknown(),
     effect: "write",
   },

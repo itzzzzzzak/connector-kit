@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const microfrontendsActions: Record<string, ActionDefinition> = {
     description: "Get microfrontends groups. Part of: microfrontends. Calls GET /v1/microfrontends/groups on Vercel.",
     method: "GET",
     path: "/v1/microfrontends/groups",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const microfrontendsActions: Record<string, ActionDefinition> = {
     description: "Get microfrontends in group. Part of: microfrontends. Calls GET /v1/microfrontends/groups/{groupId}/projects on Vercel.",
     method: "GET",
     path: "/v1/microfrontends/groups/{groupId}/projects",
-    input: z.object({ groupId: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ groupId: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const microfrontendsActions: Record<string, ActionDefinition> = {
     description: "Get microfrontends config. Part of: microfrontends. Calls GET /v1/microfrontends/{deploymentId}/config on Vercel.",
     method: "GET",
     path: "/v1/microfrontends/{deploymentId}/config",
-    input: z.object({ deploymentId: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ deploymentId: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const microfrontendsActions: Record<string, ActionDefinition> = {
     description: "Get microfrontends config for project. Part of: microfrontends. Calls GET /v1/microfrontends/projects/{projectIdOrName}/production-mfe-config on Vercel.",
     method: "GET",
     path: "/v1/microfrontends/projects/{projectIdOrName}/production-mfe-config",
-    input: z.object({ projectIdOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ projectIdOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -43,7 +44,7 @@ export const microfrontendsActions: Record<string, ActionDefinition> = {
     description: "Create microfrontends group with applications. Part of: microfrontends. Calls POST /v1/microfrontends/group on Vercel.",
     method: "POST",
     path: "/v1/microfrontends/group",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional(), groupName: z.string(), defaultApp: z.object({ projectId: z.string(), defaultRoute: z.string().optional() }), otherApplications: z.array(z.object({ projectId: z.string(), defaultRoute: z.string().optional() })) }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional(), groupName: z.string(), defaultApp: obj({ projectId: z.string(), defaultRoute: z.string().optional() }), otherApplications: z.array(obj({ projectId: z.string(), defaultRoute: z.string().optional() })) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const appsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const appsActions: Record<string, ActionDefinition> = {
     description: "Generate app deeplink. Part of: Apps. Calls POST /zoomapp/deeplink on Zoom.",
     method: "POST",
     path: "/zoomapp/deeplink",
-    input: z.object({ type: z.number().optional(), user_id: z.string().optional(), action: z.string().optional() }),
+    input: obj({ type: z.number().optional(), user_id: z.string().optional(), action: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

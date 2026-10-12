@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const filtersActions: Record<string, ActionDefinition> = {
     description: "Get filters. Part of: Filters. Calls GET /v1/filters on Pipedrive.",
     method: "GET",
     path: "/v1/filters",
-    input: z.object({ type: z.enum(["deals", "leads", "org", "people", "products", "activity", "projects"]).optional() }),
+    input: obj({ type: z.enum(["deals", "leads", "org", "people", "products", "activity", "projects"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const filtersActions: Record<string, ActionDefinition> = {
     description: "Add filter. Part of: Filters. Calls POST /v1/filters on Pipedrive.",
     method: "POST",
     path: "/v1/filters",
-    input: z.object({ include_field_code: z.boolean().optional(), name: z.string(), conditions: z.record(z.string(), z.unknown()), type: z.enum(["deals", "leads", "org", "people", "products", "activity", "projects"]) }),
+    input: obj({ include_field_code: z.boolean().optional(), name: z.string(), conditions: z.record(z.string(), z.unknown()), type: z.enum(["deals", "leads", "org", "people", "products", "activity", "projects"]) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["include_field_code"]),
@@ -29,7 +30,7 @@ export const filtersActions: Record<string, ActionDefinition> = {
     description: "Delete filters. Part of: Filters. Calls DELETE /v1/filters on Pipedrive.",
     method: "DELETE",
     path: "/v1/filters",
-    input: z.object({ ids: z.array(z.number()) }),
+    input: obj({ ids: z.array(z.number()) }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -37,7 +38,7 @@ export const filtersActions: Record<string, ActionDefinition> = {
     description: "Get filter helpers. Part of: Filters. Calls GET /v1/filters/helpers on Pipedrive.",
     method: "GET",
     path: "/v1/filters/helpers",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -45,7 +46,7 @@ export const filtersActions: Record<string, ActionDefinition> = {
     description: "Get filter. Part of: Filters. Calls GET /v1/filters/{id} on Pipedrive.",
     method: "GET",
     path: "/v1/filters/{id}",
-    input: z.object({ id: z.number(), include_field_code: z.boolean().optional() }),
+    input: obj({ id: z.number(), include_field_code: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -53,7 +54,7 @@ export const filtersActions: Record<string, ActionDefinition> = {
     description: "Update filter. Part of: Filters. Calls PUT /v1/filters/{id} on Pipedrive.",
     method: "PUT",
     path: "/v1/filters/{id}",
-    input: z.object({ id: z.number(), include_field_code: z.boolean().optional(), name: z.string().optional(), conditions: z.record(z.string(), z.unknown()) }),
+    input: obj({ id: z.number(), include_field_code: z.boolean().optional(), name: z.string().optional(), conditions: z.record(z.string(), z.unknown()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["include_field_code"]),
@@ -63,7 +64,7 @@ export const filtersActions: Record<string, ActionDefinition> = {
     description: "Delete filter. Part of: Filters. Calls DELETE /v1/filters/{id} on Pipedrive.",
     method: "DELETE",
     path: "/v1/filters/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

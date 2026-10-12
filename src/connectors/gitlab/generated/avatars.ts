@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const avatarsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const avatarsActions: Record<string, ActionDefinition> = {
     description: "Get groups id avatar. Part of: avatars. Calls GET /groups/{id}/avatar on GitLab.",
     method: "GET",
     path: "/groups/{id}/avatar",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const avatarsActions: Record<string, ActionDefinition> = {
     description: "Get projects id avatar. Part of: avatars. Calls GET /projects/{id}/avatar on GitLab.",
     method: "GET",
     path: "/projects/{id}/avatar",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const avatarsActions: Record<string, ActionDefinition> = {
     description: "Get avatar. Part of: avatars. Calls GET /avatar on GitLab.",
     method: "GET",
     path: "/avatar",
-    input: z.object({ email: z.string(), size: z.number().optional() }),
+    input: obj({ email: z.string(), size: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },

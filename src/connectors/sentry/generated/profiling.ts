@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/sentry.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const profilingActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const profilingActions: Record<string, ActionDefinition> = {
     description: "List organization profiling chunks. Part of: Profiling. Calls GET /organizations/{organizationidorslug}/profiling/chunks/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/profiling/chunks/",
-    input: z.object({ organization_id_or_slug: z.string(), project: z.string(), profiler_id: z.string(), statsPeriod: z.string().optional(), start: z.string().optional(), end: z.string().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), project: z.string(), profiler_id: z.string(), statsPeriod: z.string().optional(), start: z.string().optional(), end: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const profilingActions: Record<string, ActionDefinition> = {
     description: "Get organization profiling flamegraph. Part of: Profiling. Calls GET /organizations/{organizationidorslug}/profiling/flamegraph/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/profiling/flamegraph/",
-    input: z.object({ organization_id_or_slug: z.string(), project: z.array(z.unknown()).optional(), environment: z.array(z.string()).optional(), statsPeriod: z.string().optional(), start: z.string().optional(), end: z.string().optional(), dataSource: z.enum(["functions", "profiles", "spans", "transactions"]).optional(), fingerprint: z.number().optional(), query: z.string().optional(), expand: z.array(z.enum(["metrics"])).optional() }),
+    input: obj({ organization_id_or_slug: z.string(), project: z.array(z.unknown()).optional(), environment: z.array(z.string()).optional(), statsPeriod: z.string().optional(), start: z.string().optional(), end: z.string().optional(), dataSource: z.enum(["functions", "profiles", "spans", "transactions"]).optional(), fingerprint: z.number().optional(), query: z.string().optional(), expand: z.array(z.enum(["metrics"])).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const profilingActions: Record<string, ActionDefinition> = {
     description: "Get project profiling profile. Part of: Profiling. Calls GET /projects/{organizationidorslug}/{projectidorslug}/profiling/profiles/{profileid}/ on Sentry.",
     method: "GET",
     path: "/projects/{organization_id_or_slug}/{project_id_or_slug}/profiling/profiles/{profile_id}/",
-    input: z.object({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), profile_id: z.string() }),
+    input: obj({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), profile_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

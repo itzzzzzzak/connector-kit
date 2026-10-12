@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const surveysActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const surveysActions: Record<string, ActionDefinition> = {
     description: "Post lists id surveys id actions publish. Part of: Surveys. Calls POST /lists/{listid}/surveys/{surveyid}/actions/publish on Mailchimp.",
     method: "POST",
     path: "/lists/{list_id}/surveys/{survey_id}/actions/publish",
-    input: z.object({ list_id: z.string(), survey_id: z.string() }),
+    input: obj({ list_id: z.string(), survey_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const surveysActions: Record<string, ActionDefinition> = {
     description: "Post lists id surveys id actions unpublish. Part of: Surveys. Calls POST /lists/{listid}/surveys/{surveyid}/actions/unpublish on Mailchimp.",
     method: "POST",
     path: "/lists/{list_id}/surveys/{survey_id}/actions/unpublish",
-    input: z.object({ list_id: z.string(), survey_id: z.string() }),
+    input: obj({ list_id: z.string(), survey_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const surveysActions: Record<string, ActionDefinition> = {
     description: "Post lists id surveys id actions create email. Part of: Surveys. Calls POST /lists/{listid}/surveys/{surveyid}/actions/create-email on Mailchimp.",
     method: "POST",
     path: "/lists/{list_id}/surveys/{survey_id}/actions/create-email",
-    input: z.object({ list_id: z.string(), survey_id: z.string() }),
+    input: obj({ list_id: z.string(), survey_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

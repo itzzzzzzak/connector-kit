@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const licenseMetricsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const licenseMetricsActions: Record<string, ActionDefinition> = {
     description: "Get license. Returns licensing information about the Jira instance.",
     method: "GET",
     path: "/instance/license",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const licenseMetricsActions: Record<string, ActionDefinition> = {
     description: "Get approximate license count. Returns the approximate number of user accounts across all Jira licenses. Note that this information is cached with a 7-day lifecycle and could be stale at the time of call.",
     method: "GET",
     path: "/license/approximateLicenseCount",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const licenseMetricsActions: Record<string, ActionDefinition> = {
     description: "Get approximate application license count. Returns the total approximate number of user accounts for a single Jira license. Note that this information is cached with a 7-day lifecycle and could be stale at the time of call.",
     method: "GET",
     path: "/license/approximateLicenseCount/product/{applicationKey}",
-    input: z.object({ applicationKey: z.enum(["jira-core", "jira-product-discovery", "jira-software", "jira-servicedesk"]).describe("The ID of the application, represents a specific version of Jira.") }),
+    input: obj({ applicationKey: z.enum(["jira-core", "jira-product-discovery", "jira-software", "jira-servicedesk"]).describe("The ID of the application, represents a specific version of Jira.") }),
     output: z.unknown(),
     effect: "read",
   },

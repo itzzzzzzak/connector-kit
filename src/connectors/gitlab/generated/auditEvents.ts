@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const auditEventsActions: Record<string, ActionDefinition> = {
     description: "Get groups id audit events. Part of: auditevents. Calls GET /groups/{id}/auditevents on GitLab.",
     method: "GET",
     path: "/groups/{id}/audit_events",
-    input: z.object({ created_after: z.string().optional(), created_before: z.string().optional(), id: z.number(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ created_after: z.string().optional(), created_before: z.string().optional(), id: z.number(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),

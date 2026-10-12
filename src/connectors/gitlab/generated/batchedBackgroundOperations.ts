@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const batchedBackgroundOperationsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const batchedBackgroundOperationsActions: Record<string, ActionDefinition
     description: "Get admin batched background operations. Part of: batchedbackgroundoperations. Calls GET /admin/batchedbackgroundoperations on GitLab.",
     method: "GET",
     path: "/admin/batched_background_operations",
-    input: z.object({ database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional(), job_class_name: z.string().optional() }),
+    input: obj({ database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional(), job_class_name: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const batchedBackgroundOperationsActions: Record<string, ActionDefinition
     description: "Get admin batched background operations id. Part of: batchedbackgroundoperations. Calls GET /admin/batchedbackgroundoperations/{id} on GitLab.",
     method: "GET",
     path: "/admin/batched_background_operations/{id}",
-    input: z.object({ id: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
+    input: obj({ id: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const batchedBackgroundOperationsActions: Record<string, ActionDefinition
     description: "Put admin batched background operations id stop. Part of: batchedbackgroundoperations. Calls PUT /admin/batchedbackgroundoperations/{id}/stop on GitLab.",
     method: "PUT",
     path: "/admin/batched_background_operations/{id}/stop",
-    input: z.object({ id: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
+    input: obj({ id: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const batchedBackgroundOperationsActions: Record<string, ActionDefinition
     description: "Put admin batched background operations id restart. Part of: batchedbackgroundoperations. Calls PUT /admin/batchedbackgroundoperations/{id}/restart on GitLab.",
     method: "PUT",
     path: "/admin/batched_background_operations/{id}/restart",
-    input: z.object({ id: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
+    input: obj({ id: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },

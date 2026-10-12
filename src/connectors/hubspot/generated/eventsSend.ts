@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const eventsSendActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const eventsSendActions: Record<string, ActionDefinition> = {
     description: "Create batch. Part of: Batch. Calls POST /events/v3/send/batch on HubSpot.",
     method: "POST",
     path: "/events/v3/send/batch",
-    input: z.object({ inputs: z.array(z.object({ email: z.string().optional(), eventName: z.string(), objectId: z.string().optional(), occurredAt: z.string().optional(), properties: z.record(z.string(), z.unknown()), utk: z.string().optional(), uuid: z.string().optional() })) }),
+    input: obj({ inputs: z.array(obj({ email: z.string().optional(), eventName: z.string(), objectId: z.string().optional(), occurredAt: z.string().optional(), properties: z.record(z.string(), z.unknown()), utk: z.string().optional(), uuid: z.string().optional() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const eventsSendActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Basic. Calls POST /events/v3/send on HubSpot.",
     method: "POST",
     path: "/events/v3/send",
-    input: z.object({ email: z.string().optional(), eventName: z.string(), objectId: z.string().optional(), occurredAt: z.string().optional(), properties: z.record(z.string(), z.unknown()), utk: z.string().optional(), uuid: z.string().optional() }),
+    input: obj({ email: z.string().optional(), eventName: z.string(), objectId: z.string().optional(), occurredAt: z.string().optional(), properties: z.record(z.string(), z.unknown()), utk: z.string().optional(), uuid: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

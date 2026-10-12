@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const issueResolutionsActions: Record<string, ActionDefinition> = {
     description: "Create resolution. Creates an issue resolution.",
     method: "POST",
     path: "/resolution",
-    input: z.object({ description: z.string().describe("The description of the resolution.").optional(), name: z.string().describe("The name of the resolution. Must be unique (case-insensitive).") }),
+    input: obj({ description: z.string().describe("The description of the resolution.").optional(), name: z.string().describe("The name of the resolution. Must be unique (case-insensitive).") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const issueResolutionsActions: Record<string, ActionDefinition> = {
     description: "Set default resolution. Sets default issue resolution.",
     method: "PUT",
     path: "/resolution/default",
-    input: z.object({ id: z.string().describe("The ID of the new default issue resolution. Must be an existing ID or null. Setting this to null erases the default resolution setting.") }),
+    input: obj({ id: z.string().describe("The ID of the new default issue resolution. Must be an existing ID or null. Setting this to null erases the default resolution setting.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const issueResolutionsActions: Record<string, ActionDefinition> = {
     description: "Move resolutions. Changes the order of issue resolutions.",
     method: "PUT",
     path: "/resolution/move",
-    input: z.object({ after: z.string().describe("The ID of the resolution. Required if position isn't provided.").optional(), ids: z.array(z.string()).describe("The list of resolution IDs to be reordered. Cannot contain duplicates nor after ID."), position: z.string().describe("The position for issue resolutions to be moved to. Required if after isn't provided.").optional() }),
+    input: obj({ after: z.string().describe("The ID of the resolution. Required if position isn't provided.").optional(), ids: z.array(z.string()).describe("The list of resolution IDs to be reordered. Cannot contain duplicates nor after ID."), position: z.string().describe("The position for issue resolutions to be moved to. Required if after isn't provided.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -35,7 +36,7 @@ export const issueResolutionsActions: Record<string, ActionDefinition> = {
     description: "Search resolutions. Returns a paginated list of resolutions. The list can contain all resolutions or a subset determined by any combination of these criteria:",
     method: "GET",
     path: "/resolution/search",
-    input: z.object({ id: z.array(z.string()).describe("The list of resolutions IDs to be filtered out").optional(), onlyDefault: z.boolean().describe("When set to true, return default only, when IDs provided, if none of them is default, return empty page. Default value is false").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.array(z.string()).describe("The list of resolutions IDs to be filtered out").optional(), onlyDefault: z.boolean().describe("When set to true, return default only, when IDs provided, if none of them is default, return empty page. Default value is false").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -44,7 +45,7 @@ export const issueResolutionsActions: Record<string, ActionDefinition> = {
     description: "Get resolution. Returns an issue resolution value.",
     method: "GET",
     path: "/resolution/{id}",
-    input: z.object({ id: z.string().describe("The ID of the issue resolution value.") }),
+    input: obj({ id: z.string().describe("The ID of the issue resolution value.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -52,7 +53,7 @@ export const issueResolutionsActions: Record<string, ActionDefinition> = {
     description: "Update resolution. Updates an issue resolution.",
     method: "PUT",
     path: "/resolution/{id}",
-    input: z.object({ id: z.string().describe("The ID of the issue resolution."), description: z.string().describe("The description of the resolution.").optional(), name: z.string().describe("The name of the resolution. Must be unique.") }),
+    input: obj({ id: z.string().describe("The ID of the issue resolution."), description: z.string().describe("The description of the resolution.").optional(), name: z.string().describe("The name of the resolution. Must be unique.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -60,7 +61,7 @@ export const issueResolutionsActions: Record<string, ActionDefinition> = {
     description: "Delete resolution. Deletes an issue resolution.",
     method: "DELETE",
     path: "/resolution/{id}",
-    input: z.object({ id: z.string().describe("The ID of the issue resolution."), replaceWith: z.string().describe("The ID of the issue resolution that will replace the currently selected resolution.") }),
+    input: obj({ id: z.string().describe("The ID of the issue resolution."), replaceWith: z.string().describe("The ID of the issue resolution that will replace the currently selected resolution.") }),
     output: z.unknown(),
     effect: "destructive",
   },

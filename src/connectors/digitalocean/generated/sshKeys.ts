@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const sshKeysActions: Record<string, ActionDefinition> = {
     description: "List All SSH Keys. To list all of the keys in your account, send a GET request to /v2/account/keys. The response will be a JSON object with a key set to sshkeys. The value of this will be an array of sshkey objects, each of which contains the standard sshkey attributes.",
     method: "GET",
     path: "/account/keys",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "ssh_keys", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const sshKeysActions: Record<string, ActionDefinition> = {
     description: "Create a New SSH Key. To add a new SSH public key to your DigitalOcean account, send a POST request to /v2/account/keys. Set the name attribute to the name you wish to use and the publickey attribute to the full public key you are adding.",
     method: "POST",
     path: "/account/keys",
-    input: z.object({ id: z.number().describe("A unique identification number for this key. Can be used to embed a specific SSH key into a Droplet.").optional(), fingerprint: z.string().describe("A unique identifier that differentiates this key from other keys using a format that SSH recognizes. The fingerprint is created when the key is added to your…").optional(), public_key: z.string().describe("The entire public key string that was uploaded. Embedded into the root user's authorizedkeys file if you include this key during Droplet creation."), name: z.string().describe("A human-readable display name for this key, used to easily identify the SSH keys when they are displayed.") }),
+    input: obj({ id: z.number().describe("A unique identification number for this key. Can be used to embed a specific SSH key into a Droplet.").optional(), fingerprint: z.string().describe("A unique identifier that differentiates this key from other keys using a format that SSH recognizes. The fingerprint is created when the key is added to your…").optional(), public_key: z.string().describe("The entire public key string that was uploaded. Embedded into the root user's authorizedkeys file if you include this key during Droplet creation."), name: z.string().describe("A human-readable display name for this key, used to easily identify the SSH keys when they are displayed.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const sshKeysActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing SSH Key. To get information about a key, send a GET request to /v2/account/keys/$KEYID or /v2/account/keys/$KEYFINGERPRINT. The response will be a JSON object with the key sshkey and value an sshkey object which contains the standard sshkey attributes.",
     method: "GET",
     path: "/account/keys/{ssh_key_identifier}",
-    input: z.object({ ssh_key_identifier: z.unknown().describe("Either the ID or the fingerprint of an existing SSH key.") }),
+    input: obj({ ssh_key_identifier: z.unknown().describe("Either the ID or the fingerprint of an existing SSH key.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const sshKeysActions: Record<string, ActionDefinition> = {
     description: "Update an SSH Key's Name. To update the name of an SSH key, send a PUT request to either /v2/account/keys/$SSHKEYID or /v2/account/keys/$SSHKEYFINGERPRINT. Set the name attribute to the new name you want to use.",
     method: "PUT",
     path: "/account/keys/{ssh_key_identifier}",
-    input: z.object({ ssh_key_identifier: z.unknown().describe("Either the ID or the fingerprint of an existing SSH key."), name: z.string().describe("A human-readable display name for this key, used to easily identify the SSH keys when they are displayed.").optional() }),
+    input: obj({ ssh_key_identifier: z.unknown().describe("Either the ID or the fingerprint of an existing SSH key."), name: z.string().describe("A human-readable display name for this key, used to easily identify the SSH keys when they are displayed.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const sshKeysActions: Record<string, ActionDefinition> = {
     description: "Delete an SSH Key. To destroy a public SSH key that you have in your account, send a DELETE request to /v2/account/keys/$KEYID or /v2/account/keys/$KEYFINGERPRINT. A 204 status will be returned, indicating that the action was successful and that the response body is empty.",
     method: "DELETE",
     path: "/account/keys/{ssh_key_identifier}",
-    input: z.object({ ssh_key_identifier: z.unknown().describe("Either the ID or the fingerprint of an existing SSH key.") }),
+    input: obj({ ssh_key_identifier: z.unknown().describe("Either the ID or the fingerprint of an existing SSH key.") }),
     output: z.unknown(),
     effect: "destructive",
   },

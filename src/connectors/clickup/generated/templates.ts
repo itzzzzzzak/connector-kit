@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const templatesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Get task templates. Part of: Templates. Calls GET /team/{teamid}/taskTemplate on ClickUp.",
     method: "GET",
     path: "/team/{team_id}/taskTemplate",
-    input: z.object({ team_id: z.number(), page: z.number() }),
+    input: obj({ team_id: z.number(), page: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Get list templates. Part of: Templates. Calls GET /team/{teamid}/listtemplate on ClickUp.",
     method: "GET",
     path: "/team/{team_id}/list_template",
-    input: z.object({ team_id: z.number() }),
+    input: obj({ team_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Get folder templates. Part of: Templates. Calls GET /team/{teamid}/foldertemplate on ClickUp.",
     method: "GET",
     path: "/team/{team_id}/folder_template",
-    input: z.object({ team_id: z.number() }),
+    input: obj({ team_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

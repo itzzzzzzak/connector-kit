@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const abilitiesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const abilitiesActions: Record<string, ActionDefinition> = {
     description: "List abilities. Part of: Abilities. Calls GET /abilities on PagerDuty.",
     method: "GET",
     path: "/abilities",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const abilitiesActions: Record<string, ActionDefinition> = {
     description: "Get ability. Part of: Abilities. Calls GET /abilities/{id} on PagerDuty.",
     method: "GET",
     path: "/abilities/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const secureFilesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const secureFilesActions: Record<string, ActionDefinition> = {
     description: "Get projects id secure files. Part of: securefiles. Calls GET /projects/{id}/securefiles on GitLab.",
     method: "GET",
     path: "/projects/{id}/secure_files",
-    input: z.object({ id: z.string(), page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ id: z.string(), page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const secureFilesActions: Record<string, ActionDefinition> = {
     description: "Post projects id secure files. Part of: securefiles. Calls POST /projects/{id}/securefiles on GitLab.",
     method: "POST",
     path: "/projects/{id}/secure_files",
-    input: z.object({ id: z.string(), name: z.string(), file: z.unknown() }),
+    input: obj({ id: z.string(), name: z.string(), file: z.unknown() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const secureFilesActions: Record<string, ActionDefinition> = {
     description: "Get projects id secure files secure file id. Part of: securefiles. Calls GET /projects/{id}/securefiles/{securefileid} on GitLab.",
     method: "GET",
     path: "/projects/{id}/secure_files/{secure_file_id}",
-    input: z.object({ id: z.string(), secure_file_id: z.number() }),
+    input: obj({ id: z.string(), secure_file_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const secureFilesActions: Record<string, ActionDefinition> = {
     description: "Delete projects id secure files secure file id. Part of: securefiles. Calls DELETE /projects/{id}/securefiles/{securefileid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/secure_files/{secure_file_id}",
-    input: z.object({ id: z.string(), secure_file_id: z.number() }),
+    input: obj({ id: z.string(), secure_file_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const secureFilesActions: Record<string, ActionDefinition> = {
     description: "Get projects id secure files secure file id download. Part of: securefiles. Calls GET /projects/{id}/securefiles/{securefileid}/download on GitLab.",
     method: "GET",
     path: "/projects/{id}/secure_files/{secure_file_id}/download",
-    input: z.object({ id: z.string(), secure_file_id: z.number() }),
+    input: obj({ id: z.string(), secure_file_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

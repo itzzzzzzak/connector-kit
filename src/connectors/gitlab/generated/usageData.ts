@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const usageDataActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const usageDataActions: Record<string, ActionDefinition> = {
     description: "Post usage data increment counter. Part of: usagedata. Calls POST /usagedata/incrementcounter on GitLab.",
     method: "POST",
     path: "/usage_data/increment_counter",
-    input: z.object({ event: z.string() }),
+    input: obj({ event: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const usageDataActions: Record<string, ActionDefinition> = {
     description: "Post usage data increment unique users. Part of: usagedata. Calls POST /usagedata/incrementuniqueusers on GitLab.",
     method: "POST",
     path: "/usage_data/increment_unique_users",
-    input: z.object({ event: z.string() }),
+    input: obj({ event: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const usageDataActions: Record<string, ActionDefinition> = {
     description: "Post usage data track events. Part of: usagedata. Calls POST /usagedata/trackevents on GitLab.",
     method: "POST",
     path: "/usage_data/track_events",
-    input: z.object({ events: z.array(z.object({ event: z.string(), namespace_id: z.number().optional(), project_id: z.number().optional(), project_path: z.string().optional(), additional_properties: z.record(z.string(), z.unknown()).optional(), send_to_snowplow: z.boolean().optional() })) }),
+    input: obj({ events: z.array(obj({ event: z.string(), namespace_id: z.number().optional(), project_id: z.number().optional(), project_path: z.string().optional(), additional_properties: z.record(z.string(), z.unknown()).optional(), send_to_snowplow: z.boolean().optional() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const usageDataActions: Record<string, ActionDefinition> = {
     description: "Get usage data service ping. Part of: usagedata. Calls GET /usagedata/serviceping on GitLab.",
     method: "GET",
     path: "/usage_data/service_ping",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const usageDataActions: Record<string, ActionDefinition> = {
     description: "Post usage data track event. Part of: usagedata. Calls POST /usagedata/trackevent on GitLab.",
     method: "POST",
     path: "/usage_data/track_event",
-    input: z.object({ event: z.string(), namespace_id: z.number().optional(), project_id: z.number().optional(), project_path: z.string().optional(), additional_properties: z.record(z.string(), z.unknown()).optional(), send_to_snowplow: z.boolean().optional() }),
+    input: obj({ event: z.string(), namespace_id: z.number().optional(), project_id: z.number().optional(), project_path: z.string().optional(), additional_properties: z.record(z.string(), z.unknown()).optional(), send_to_snowplow: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const usageDataActions: Record<string, ActionDefinition> = {
     description: "Get usage data non sql metrics. Part of: usagedata. Calls GET /usagedata/nonsqlmetrics on GitLab.",
     method: "GET",
     path: "/usage_data/non_sql_metrics",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const usageDataActions: Record<string, ActionDefinition> = {
     description: "Get usage data queries. Part of: usagedata. Calls GET /usagedata/queries on GitLab.",
     method: "GET",
     path: "/usage_data/queries",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

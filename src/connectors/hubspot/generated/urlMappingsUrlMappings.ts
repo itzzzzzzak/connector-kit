@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const urlMappingsUrlMappingsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const urlMappingsUrlMappingsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /url-mappings/v3/url-mappings on HubSpot.",
     method: "GET",
     path: "/url-mappings/v3/url-mappings",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const urlMappingsUrlMappingsActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Basic. Calls POST /url-mappings/v3/url-mappings on HubSpot.",
     method: "POST",
     path: "/url-mappings/v3/url-mappings",
-    input: z.object({ cdnPurgeEmbargoTime: z.number(), contentGroupId: z.number(), cosObjectType: z.enum(["ACCESS_GROUP_MEMBERSHIP", "APP_PAGE", "BLOCK", "BLOG", "BLOG_AUTHOR", "BRAND_BUSINESS_UNIT", "BRAND_SETTINGS", "CONTACT_MEMBERSHIP", "CONTENT", "CONTENT_EMBED", "CONTENT_FOLDER", "CONTENT_GROUP", "CRM_OBJECT", "CRM_OBJECT_TYPE", "CUSTOM_WIDGET", "CUSTOMER_PORTAL", "DATA_QUERY", "DESIGN_FOLDER", "DOMAIN", "DOMAIN_SETTINGS", "EMAIL_ADDRESS", "EXTENSION_RESOURCE", "FILE", "FOLDER", "FOLLOW_ME", "FORM", "GLOBAL_CONTENT", "GLOBAL_STYLES_THEME", "HUBDB_TABLE", "HUBDB_TABLE_ROW", "IMAGE", "JS_PROJECT_COMPONENT", "KNOWLEDGE_BASE", "KNOWLEDGE_CATEGORY", "KNOWLEDGE_CATEGORY_TRANSLATION", "KNOWLEDGE_HOMEPAGE_CATEGORY", "LAYOUT", "LAYOUT_SECTION", "LIST_MEMBERSHIP", "MARKETPLACE_LISTING", "PASSWORD_PROTECTED", "PAYMENT", "PERSONALIZATION_TOKEN", "PLACEMENT", "PROJECT", "QUOTE_TEMPLATE", "RAW_ASSET", "REDIRECT_URL", "SECTION", "SERVERLESS_FUNCTION", "SITE_MAP", "SITE_MENU", "SITE_SETTINGS", "SUBSCRIPTIONS_SETTINGS", "TAG", "THEME", "THEME_SETTINGS", "UNRESTRICTED_ACCESS", "URL_MAPPING", "VIDEO_PLAYER", "WIDGET", "WORKFLOW"]), created: z.number(), createdById: z.number(), deletedAt: z.number(), destination: z.string(), id: z.number(), internallyCreated: z.boolean(), isActive: z.boolean(), isMatchFullUrl: z.boolean(), isMatchQueryString: z.boolean(), isOnlyAfterNotFound: z.boolean(), isPattern: z.boolean(), isProtocolAgnostic: z.boolean(), isRegex: z.boolean(), isTrailingSlashOptional: z.boolean(), label: z.string(), lastUsedAt: z.number(), name: z.string(), note: z.string(), portalId: z.number(), precedence: z.number(), redirectStyle: z.number(), routePrefix: z.string(), updated: z.number(), updatedById: z.number() }),
+    input: obj({ cdnPurgeEmbargoTime: z.number(), contentGroupId: z.number(), cosObjectType: z.enum(["ACCESS_GROUP_MEMBERSHIP", "APP_PAGE", "BLOCK", "BLOG", "BLOG_AUTHOR", "BRAND_BUSINESS_UNIT", "BRAND_SETTINGS", "CONTACT_MEMBERSHIP", "CONTENT", "CONTENT_EMBED", "CONTENT_FOLDER", "CONTENT_GROUP", "CRM_OBJECT", "CRM_OBJECT_TYPE", "CUSTOM_WIDGET", "CUSTOMER_PORTAL", "DATA_QUERY", "DESIGN_FOLDER", "DOMAIN", "DOMAIN_SETTINGS", "EMAIL_ADDRESS", "EXTENSION_RESOURCE", "FILE", "FOLDER", "FOLLOW_ME", "FORM", "GLOBAL_CONTENT", "GLOBAL_STYLES_THEME", "HUBDB_TABLE", "HUBDB_TABLE_ROW", "IMAGE", "JS_PROJECT_COMPONENT", "KNOWLEDGE_BASE", "KNOWLEDGE_CATEGORY", "KNOWLEDGE_CATEGORY_TRANSLATION", "KNOWLEDGE_HOMEPAGE_CATEGORY", "LAYOUT", "LAYOUT_SECTION", "LIST_MEMBERSHIP", "MARKETPLACE_LISTING", "PASSWORD_PROTECTED", "PAYMENT", "PERSONALIZATION_TOKEN", "PLACEMENT", "PROJECT", "QUOTE_TEMPLATE", "RAW_ASSET", "REDIRECT_URL", "SECTION", "SERVERLESS_FUNCTION", "SITE_MAP", "SITE_MENU", "SITE_SETTINGS", "SUBSCRIPTIONS_SETTINGS", "TAG", "THEME", "THEME_SETTINGS", "UNRESTRICTED_ACCESS", "URL_MAPPING", "VIDEO_PLAYER", "WIDGET", "WORKFLOW"]), created: z.number(), createdById: z.number(), deletedAt: z.number(), destination: z.string(), id: z.number(), internallyCreated: z.boolean(), isActive: z.boolean(), isMatchFullUrl: z.boolean(), isMatchQueryString: z.boolean(), isOnlyAfterNotFound: z.boolean(), isPattern: z.boolean(), isProtocolAgnostic: z.boolean(), isRegex: z.boolean(), isTrailingSlashOptional: z.boolean(), label: z.string(), lastUsedAt: z.number(), name: z.string(), note: z.string(), portalId: z.number(), precedence: z.number(), redirectStyle: z.number(), routePrefix: z.string(), updated: z.number(), updatedById: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const urlMappingsUrlMappingsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /url-mappings/v3/url-mappings/{id} on HubSpot.",
     method: "GET",
     path: "/url-mappings/v3/url-mappings/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const urlMappingsUrlMappingsActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /url-mappings/v3/url-mappings/{id} on HubSpot.",
     method: "DELETE",
     path: "/url-mappings/v3/url-mappings/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

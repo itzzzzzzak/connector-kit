@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/sentry.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const seerActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const seerActions: Record<string, ActionDefinition> = {
     description: "List seer models. Part of: Seer. Calls GET /seer/models/ on Sentry.",
     method: "GET",
     path: "/seer/models/",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const seerActions: Record<string, ActionDefinition> = {
     description: "Get organization issue autofix state. Part of: Seer. Calls GET /organizations/{organizationidorslug}/issues/{issueid}/autofix/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/issues/{issue_id}/autofix/",
-    input: z.object({ organization_id_or_slug: z.string(), issue_id: z.string(), llmFormat: z.enum(["json", "markdown", "xml"]).optional() }),
+    input: obj({ organization_id_or_slug: z.string(), issue_id: z.string(), llmFormat: z.enum(["json", "markdown", "xml"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const seerActions: Record<string, ActionDefinition> = {
     description: "Start organization issue autofix. Part of: Seer. Calls POST /organizations/{organizationidorslug}/issues/{issueid}/autofix/ on Sentry.",
     method: "POST",
     path: "/organizations/{organization_id_or_slug}/issues/{issue_id}/autofix/",
-    input: z.object({ organization_id_or_slug: z.string(), issue_id: z.string(), step: z.enum(["root_cause", "solution", "code_changes", "pr_iteration", "open_pr", "coding_agent_handoff"]).optional(), stopping_point: z.enum(["root_cause", "solution", "code_changes", "open_pr"]).optional(), run_id: z.number().optional(), sentry_run_id: z.string().optional(), integration_id: z.number().optional(), provider: z.string().optional(), user_context: z.string().optional(), repo_name: z.string().optional(), insert_index: z.number().optional(), referrer: z.string().optional(), enable_bash_mode: z.boolean().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), issue_id: z.string(), step: z.enum(["root_cause", "solution", "code_changes", "pr_iteration", "open_pr", "coding_agent_handoff"]).optional(), stopping_point: z.enum(["root_cause", "solution", "code_changes", "open_pr"]).optional(), run_id: z.number().optional(), sentry_run_id: z.string().optional(), integration_id: z.number().optional(), provider: z.string().optional(), user_context: z.string().optional(), repo_name: z.string().optional(), insert_index: z.number().optional(), referrer: z.string().optional(), enable_bash_mode: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },

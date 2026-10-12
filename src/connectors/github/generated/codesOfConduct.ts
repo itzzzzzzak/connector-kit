@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const codesOfConductActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const codesOfConductActions: Record<string, ActionDefinition> = {
     description: "Get all codes of conduct. Returns array of all GitHub's codes of conduct.",
     method: "GET",
     path: "/codes_of_conduct",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const codesOfConductActions: Record<string, ActionDefinition> = {
     description: "Get a code of conduct. Returns information about the specified GitHub code of conduct.",
     method: "GET",
     path: "/codes_of_conduct/{key}",
-    input: z.object({ key: z.string() }),
+    input: obj({ key: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

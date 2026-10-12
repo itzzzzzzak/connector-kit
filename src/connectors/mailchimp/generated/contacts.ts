@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const contactsActions: Record<string, ActionDefinition> = {
     description: "Get audience id. Part of: contacts. Calls GET /audiences/{audienceid} on Mailchimp.",
     method: "GET",
     path: "/audiences/{audience_id}",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), audience_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), audience_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const contactsActions: Record<string, ActionDefinition> = {
     description: "Get audience contacts. Part of: contacts. Calls GET /audiences on Mailchimp.",
     method: "GET",
     path: "/audiences",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "audiences", pageSizeParam: "count", totalPath: ["total_items"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -28,7 +29,7 @@ export const contactsActions: Record<string, ActionDefinition> = {
     description: "Post audiences contacts actions archive. Part of: contacts. Calls POST /audiences/{audienceid}/contacts/{contactid}/actions/archive on Mailchimp.",
     method: "POST",
     path: "/audiences/{audience_id}/contacts/{contact_id}/actions/archive",
-    input: z.object({ audience_id: z.string(), contact_id: z.string() }),
+    input: obj({ audience_id: z.string(), contact_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const contactsActions: Record<string, ActionDefinition> = {
     description: "Post audiences contacts actions forget. Part of: contacts. Calls POST /audiences/{audienceid}/contacts/{contactid}/actions/forget on Mailchimp.",
     method: "POST",
     path: "/audiences/{audience_id}/contacts/{contact_id}/actions/forget",
-    input: z.object({ audience_id: z.string(), contact_id: z.string() }),
+    input: obj({ audience_id: z.string(), contact_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

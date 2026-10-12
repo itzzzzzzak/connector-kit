@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const crmPaymentsActions: Record<string, ActionDefinition> = {
     description: "Create batch read. Part of: Batch. Calls POST /crm/v3/objects/payments/batch/read on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/payments/batch/read",
-    input: z.object({ archived: z.boolean().optional(), propertiesWithHistory: z.array(z.string()), idProperty: z.string().optional(), inputs: z.array(z.object({ id: z.string() })), properties: z.array(z.string()) }),
+    input: obj({ archived: z.boolean().optional(), propertiesWithHistory: z.array(z.string()), idProperty: z.string().optional(), inputs: z.array(obj({ id: z.string() })), properties: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["archived"]),
@@ -22,7 +23,7 @@ export const crmPaymentsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /crm/v3/objects/payments/{paymentsId} on HubSpot.",
     method: "GET",
     path: "/crm/v3/objects/payments/{paymentsId}",
-    input: z.object({ paymentsId: z.string(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional(), associations: z.array(z.string()).optional(), archived: z.boolean().optional(), idProperty: z.string().optional() }),
+    input: obj({ paymentsId: z.string(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional(), associations: z.array(z.string()).optional(), archived: z.boolean().optional(), idProperty: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -30,7 +31,7 @@ export const crmPaymentsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /crm/v3/objects/payments on HubSpot.",
     method: "GET",
     path: "/crm/v3/objects/payments",
-    input: z.object({ properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional(), associations: z.array(z.string()).optional(), archived: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional(), associations: z.array(z.string()).optional(), archived: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -39,7 +40,7 @@ export const crmPaymentsActions: Record<string, ActionDefinition> = {
     description: "Create search. Part of: Search. Calls POST /crm/v3/objects/payments/search on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/payments/search",
-    input: z.object({ query: z.string().optional(), limit: z.number(), after: z.string(), sorts: z.array(z.string()), properties: z.array(z.string()), filterGroups: z.array(z.object({ filters: z.array(z.record(z.string(), z.unknown())) })) }),
+    input: obj({ query: z.string().optional(), limit: z.number(), after: z.string(), sorts: z.array(z.string()), properties: z.array(z.string()), filterGroups: z.array(obj({ filters: z.array(z.record(z.string(), z.unknown())) })) }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/sentry.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const mobileBuildsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const mobileBuildsActions: Record<string, ActionDefinition> = {
     description: "Get organization preprod artifact install details. Part of: Mobile Builds. Calls GET /organizations/{organizationidorslug}/preprodartifacts/{artifactid}/install-details/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/preprodartifacts/{artifact_id}/install-details/",
-    input: z.object({ organization_id_or_slug: z.string(), artifact_id: z.string() }),
+    input: obj({ organization_id_or_slug: z.string(), artifact_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const mobileBuildsActions: Record<string, ActionDefinition> = {
     description: "Get organization preprod artifact size analysis. Part of: Mobile Builds. Calls GET /organizations/{organizationidorslug}/preprodartifacts/{artifactid}/size-analysis/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/preprodartifacts/{artifact_id}/size-analysis/",
-    input: z.object({ organization_id_or_slug: z.string(), artifact_id: z.string(), baseArtifactId: z.string().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), artifact_id: z.string(), baseArtifactId: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const mobileBuildsActions: Record<string, ActionDefinition> = {
     description: "Get project preprod size analysis status check rules. Part of: Mobile Builds. Calls GET /projects/{organizationidorslug}/{projectidorslug}/preprod/size-analysis/status-check-rules/ on Sentry.",
     method: "GET",
     path: "/projects/{organization_id_or_slug}/{project_id_or_slug}/preprod/size-analysis/status-check-rules/",
-    input: z.object({ organization_id_or_slug: z.string(), project_id_or_slug: z.string() }),
+    input: obj({ organization_id_or_slug: z.string(), project_id_or_slug: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const mobileBuildsActions: Record<string, ActionDefinition> = {
     description: "Create project preprod size analysis skipped status check. Part of: Mobile Builds. Calls POST /projects/{organizationidorslug}/{projectidorslug}/preprod/size-analysis/status-checks/skip/ on Sentry.",
     method: "POST",
     path: "/projects/{organization_id_or_slug}/{project_id_or_slug}/preprod/size-analysis/status-checks/skip/",
-    input: z.object({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), sha: z.string(), repository: z.string(), provider: z.enum(["github", "github_enterprise"]) }),
+    input: obj({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), sha: z.string(), repository: z.string(), provider: z.enum(["github", "github_enterprise"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const mobileBuildsActions: Record<string, ActionDefinition> = {
     description: "Get project installable build latest. Part of: Mobile Builds. Calls GET /projects/{organizationidorslug}/{projectidorslug}/preprodartifacts/build-distribution/latest/ on Sentry.",
     method: "GET",
     path: "/projects/{organization_id_or_slug}/{project_id_or_slug}/preprodartifacts/build-distribution/latest/",
-    input: z.object({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), appId: z.string(), platform: z.string(), buildVersion: z.string().optional(), buildNumber: z.unknown().optional(), mainBinaryIdentifier: z.string().optional(), buildConfiguration: z.string().optional(), codesigningType: z.string().optional(), installGroups: z.array(z.string()).optional() }),
+    input: obj({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), appId: z.string(), platform: z.string(), buildVersion: z.string().optional(), buildNumber: z.unknown().optional(), mainBinaryIdentifier: z.string().optional(), buildConfiguration: z.string().optional(), codesigningType: z.string().optional(), installGroups: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "read",
   },

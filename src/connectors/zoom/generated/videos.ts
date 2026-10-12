@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const videosActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const videosActions: Record<string, ActionDefinition> = {
     description: "Get video metadata. Part of: Videos. Calls GET /zoomevents/videos/{videoId}/metadata on Zoom.",
     method: "GET",
     path: "/zoom_events/videos/{videoId}/metadata",
-    input: z.object({ videoId: z.string() }),
+    input: obj({ videoId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const videosActions: Record<string, ActionDefinition> = {
     description: "Update video metadata. Part of: Videos. Calls PATCH /zoomevents/videos/{videoId}/metadata on Zoom.",
     method: "PATCH",
     path: "/zoom_events/videos/{videoId}/metadata",
-    input: z.object({ videoId: z.string(), title: z.string().optional(), description: z.string().optional(), tags: z.array(z.string()).optional(), categories: z.array(z.object({ name: z.string(), sub_categories: z.array(z.string()).optional() })).optional(), external_media_id: z.string().optional(), external_source_name: z.string().optional(), thumbnails: z.array(z.object({ file_id: z.string(), is_default: z.boolean().optional() })).optional(), transcripts: z.array(z.object({ file_id: z.string(), language: z.string(), is_default: z.boolean().optional() })).optional(), speakers: z.array(z.object({ name: z.string(), email: z.string().optional(), job_title: z.string().optional(), biography: z.string().optional(), company_name: z.string().optional(), company_website: z.string().optional() })).optional(), scheduling: z.object({ start_time: z.string().optional(), end_time: z.string().optional() }).optional(), resources: z.array(z.object({ file_id: z.string() })).optional(), custom_fields: z.record(z.string(), z.unknown()).optional() }),
+    input: obj({ videoId: z.string(), title: z.string().optional(), description: z.string().optional(), tags: z.array(z.string()).optional(), categories: z.array(obj({ name: z.string(), sub_categories: z.array(z.string()).optional() })).optional(), external_media_id: z.string().optional(), external_source_name: z.string().optional(), thumbnails: z.array(obj({ file_id: z.string(), is_default: z.boolean().optional() })).optional(), transcripts: z.array(obj({ file_id: z.string(), language: z.string(), is_default: z.boolean().optional() })).optional(), speakers: z.array(obj({ name: z.string(), email: z.string().optional(), job_title: z.string().optional(), biography: z.string().optional(), company_name: z.string().optional(), company_website: z.string().optional() })).optional(), scheduling: obj({ start_time: z.string().optional(), end_time: z.string().optional() }).optional(), resources: z.array(obj({ file_id: z.string() })).optional(), custom_fields: z.record(z.string(), z.unknown()).optional() }),
     output: z.unknown(),
     effect: "write",
   },

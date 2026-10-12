@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const taskListTemplatesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const taskListTemplatesActions: Record<string, ActionDefinition> = {
     description: "List task list templates. Part of: Task List Templates. Calls GET /tasklisttemplates on Zendesk.",
     method: "GET",
     path: "/task_list_templates",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const taskListTemplatesActions: Record<string, ActionDefinition> = {
     description: "Create task list template. Part of: Task List Templates. Calls POST /tasklisttemplates on Zendesk.",
     method: "POST",
     path: "/task_list_templates",
-    input: z.object({ task_list_template: z.object({ created_at: z.string().optional(), description: z.string().optional(), id: z.string().optional(), is_active: z.boolean().optional(), is_required: z.boolean().optional(), name: z.string(), task_count: z.number().optional(), tasks: z.array(z.record(z.string(), z.unknown())).optional(), updated_at: z.string().optional(), url: z.string().optional() }).optional() }),
+    input: obj({ task_list_template: obj({ created_at: z.string().optional(), description: z.string().optional(), id: z.string().optional(), is_active: z.boolean().optional(), is_required: z.boolean().optional(), name: z.string(), task_count: z.number().optional(), tasks: z.array(z.record(z.string(), z.unknown())).optional(), updated_at: z.string().optional(), url: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const taskListTemplatesActions: Record<string, ActionDefinition> = {
     description: "Show task list template. Part of: Task List Templates. Calls GET /tasklisttemplates/{tasklisttemplateid} on Zendesk.",
     method: "GET",
     path: "/task_list_templates/{task_list_template_id}",
-    input: z.object({ task_list_template_id: z.string() }),
+    input: obj({ task_list_template_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const taskListTemplatesActions: Record<string, ActionDefinition> = {
     description: "Update task list template. Part of: Task List Templates. Calls PUT /tasklisttemplates/{tasklisttemplateid} on Zendesk.",
     method: "PUT",
     path: "/task_list_templates/{task_list_template_id}",
-    input: z.object({ task_list_template_id: z.string(), task_list_template: z.object({ description: z.string().optional(), is_active: z.boolean().optional(), is_required: z.boolean().optional(), name: z.string().optional(), tasks: z.array(z.unknown()).optional() }) }),
+    input: obj({ task_list_template_id: z.string(), task_list_template: obj({ description: z.string().optional(), is_active: z.boolean().optional(), is_required: z.boolean().optional(), name: z.string().optional(), tasks: z.array(z.unknown()).optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const taskListTemplatesActions: Record<string, ActionDefinition> = {
     description: "Delete task list template. Part of: Task List Templates. Calls DELETE /tasklisttemplates/{tasklisttemplateid} on Zendesk.",
     method: "DELETE",
     path: "/task_list_templates/{task_list_template_id}",
-    input: z.object({ task_list_template_id: z.string() }),
+    input: obj({ task_list_template_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const taskListTemplatesActions: Record<string, ActionDefinition> = {
     description: "Get tasks by task list template id. Part of: Task List Templates. Calls GET /tasklisttemplates/{tasklisttemplateid}/tasks on Zendesk.",
     method: "GET",
     path: "/task_list_templates/{task_list_template_id}/tasks",
-    input: z.object({ task_list_template_id: z.string() }),
+    input: obj({ task_list_template_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

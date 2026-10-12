@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const serviceActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const serviceActions: Record<string, ActionDefinition> = {
     description: "Get services Calls GET /services/ on Netlify.",
     method: "GET",
     path: "/services/",
-    input: z.object({ search: z.string().optional() }),
+    input: obj({ search: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const serviceActions: Record<string, ActionDefinition> = {
     description: "Show service Calls GET /services/{addonName} on Netlify.",
     method: "GET",
     path: "/services/{addonName}",
-    input: z.object({ addonName: z.string() }),
+    input: obj({ addonName: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const serviceActions: Record<string, ActionDefinition> = {
     description: "Show service manifest Calls GET /services/{addonName}/manifest on Netlify.",
     method: "GET",
     path: "/services/{addonName}/manifest",
-    input: z.object({ addonName: z.string() }),
+    input: obj({ addonName: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

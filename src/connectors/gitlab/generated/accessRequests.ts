@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const accessRequestsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const accessRequestsActions: Record<string, ActionDefinition> = {
     description: "Get groups id access requests. Part of: accessrequests. Calls GET /groups/{id}/accessrequests on GitLab.",
     method: "GET",
     path: "/groups/{id}/access_requests",
-    input: z.object({ id: z.string(), page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ id: z.string(), page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const accessRequestsActions: Record<string, ActionDefinition> = {
     description: "Post groups id access requests. Part of: accessrequests. Calls POST /groups/{id}/accessrequests on GitLab.",
     method: "POST",
     path: "/groups/{id}/access_requests",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const accessRequestsActions: Record<string, ActionDefinition> = {
     description: "Put groups id access requests user id approve. Part of: accessrequests. Calls PUT /groups/{id}/accessrequests/{userid}/approve on GitLab.",
     method: "PUT",
     path: "/groups/{id}/access_requests/{user_id}/approve",
-    input: z.object({ id: z.string(), user_id: z.number(), access_level: z.number().optional() }),
+    input: obj({ id: z.string(), user_id: z.number(), access_level: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const accessRequestsActions: Record<string, ActionDefinition> = {
     description: "Delete groups id access requests user id. Part of: accessrequests. Calls DELETE /groups/{id}/accessrequests/{userid} on GitLab.",
     method: "DELETE",
     path: "/groups/{id}/access_requests/{user_id}",
-    input: z.object({ id: z.string(), user_id: z.number() }),
+    input: obj({ id: z.string(), user_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const accessRequestsActions: Record<string, ActionDefinition> = {
     description: "Get projects id access requests. Part of: accessrequests. Calls GET /projects/{id}/accessrequests on GitLab.",
     method: "GET",
     path: "/projects/{id}/access_requests",
-    input: z.object({ id: z.string(), page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ id: z.string(), page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const accessRequestsActions: Record<string, ActionDefinition> = {
     description: "Post projects id access requests. Part of: accessrequests. Calls POST /projects/{id}/accessrequests on GitLab.",
     method: "POST",
     path: "/projects/{id}/access_requests",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const accessRequestsActions: Record<string, ActionDefinition> = {
     description: "Put projects id access requests user id approve. Part of: accessrequests. Calls PUT /projects/{id}/accessrequests/{userid}/approve on GitLab.",
     method: "PUT",
     path: "/projects/{id}/access_requests/{user_id}/approve",
-    input: z.object({ id: z.string(), user_id: z.number(), access_level: z.number().optional() }),
+    input: obj({ id: z.string(), user_id: z.number(), access_level: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -66,7 +67,7 @@ export const accessRequestsActions: Record<string, ActionDefinition> = {
     description: "Delete projects id access requests user id. Part of: accessrequests. Calls DELETE /projects/{id}/accessrequests/{userid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/access_requests/{user_id}",
-    input: z.object({ id: z.string(), user_id: z.number() }),
+    input: obj({ id: z.string(), user_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

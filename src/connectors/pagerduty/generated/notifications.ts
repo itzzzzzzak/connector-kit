@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const notificationsActions: Record<string, ActionDefinition> = {
     description: "List notifications. Part of: Notifications. Calls GET /notifications on PagerDuty.",
     method: "GET",
     path: "/notifications",
-    input: z.object({ total: z.boolean().optional(), time_zone: z.string().optional(), since: z.string(), until: z.string(), filter: z.enum(["sms_notification", "email_notification", "phone_notification", "push_notification"]).optional(), include__: z.enum(["users"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ total: z.boolean().optional(), time_zone: z.string().optional(), since: z.string(), until: z.string(), filter: z.enum(["sms_notification", "email_notification", "phone_notification", "push_notification"]).optional(), include__: z.enum(["users"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "notifications", hasMorePath: ["more"], pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),

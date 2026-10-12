@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const videoSDKReportsActions: Record<string, ActionDefinition> = {
     description: "Vsdk report cloud recording. Part of: Video SDK Reports. Calls GET /videosdk/report/cloudrecording on Zoom.",
     method: "GET",
     path: "/videosdk/report/cloud_recording",
-    input: z.object({ from: z.string(), to: z.string() }),
+    input: obj({ from: z.string(), to: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const videoSDKReportsActions: Record<string, ActionDefinition> = {
     description: "Vsdk report daily. Part of: Video SDK Reports. Calls GET /videosdk/report/daily on Zoom.",
     method: "GET",
     path: "/videosdk/report/daily",
-    input: z.object({ year: z.number().optional(), month: z.number().optional() }),
+    input: obj({ year: z.number().optional(), month: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const videoSDKReportsActions: Record<string, ActionDefinition> = {
     description: "Vsdk report operation logs. Part of: Video SDK Reports. Calls GET /videosdk/report/operationlogs on Zoom.",
     method: "GET",
     path: "/videosdk/report/operationlogs",
-    input: z.object({ from: z.string(), to: z.string(), category_type: z.enum(["all", "user", "user_settings", "account", "billing", "im", "recording", "phone_contacts", "webinar", "sub_account", "role", "zoom_rooms"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string(), to: z.string(), category_type: z.enum(["all", "user", "user_settings", "account", "billing", "im", "recording", "phone_contacts", "webinar", "sub_account", "role", "zoom_rooms"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "operation_logs", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -36,7 +37,7 @@ export const videoSDKReportsActions: Record<string, ActionDefinition> = {
     description: "Vsdk report telephone. Part of: Video SDK Reports. Calls GET /videosdk/report/telephone on Zoom.",
     method: "GET",
     path: "/videosdk/report/telephone",
-    input: z.object({ from: z.string(), to: z.string(), type: z.enum(["1", "2", "3"]).optional(), query_date_type: z.enum(["start_time", "end_time", "session_start_time", "session_end_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string(), to: z.string(), type: z.enum(["1", "2", "3"]).optional(), query_date_type: z.enum(["start_time", "end_time", "session_start_time", "session_end_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "telephony_usage", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -45,7 +46,7 @@ export const videoSDKReportsActions: Record<string, ActionDefinition> = {
     description: "Get webhook logs. Part of: Video SDK Reports. Calls GET /videosdk/report/webhooklogs on Zoom.",
     method: "GET",
     path: "/videosdk/report/webhook_logs",
-    input: z.object({ from: z.string().optional(), to: z.string().optional(), event: z.string().optional(), type: z.number().optional(), retry_num: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string().optional(), to: z.string().optional(), event: z.string().optional(), type: z.number().optional(), retry_num: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "webhook_logs", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

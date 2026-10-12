@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const issueCustomFieldValuesAppsActions: Record<string, ActionDefinition>
     description: "Update custom fields. Updates the value of one or more custom fields on one or more issues. Combinations of custom field and issue should be unique within the request.",
     method: "POST",
     path: "/app/field/value",
-    input: z.object({ generateChangelog: z.boolean().describe("Whether to generate a changelog for this update.").optional(), generateAppEvents: z.boolean().describe("Whether to generate app events for this update. Suppresses Forge, Connect, OAuth 2.0, and admin-configured webhooks (registered via the Jira admin UI). Note:…").optional(), updates: z.array(z.object({ customField: z.string(), issueIds: z.array(z.number()), value: z.unknown() })).optional() }),
+    input: obj({ generateChangelog: z.boolean().describe("Whether to generate a changelog for this update.").optional(), generateAppEvents: z.boolean().describe("Whether to generate app events for this update. Suppresses Forge, Connect, OAuth 2.0, and admin-configured webhooks (registered via the Jira admin UI). Note:…").optional(), updates: z.array(obj({ customField: z.string(), issueIds: z.array(z.number()), value: z.unknown() })).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["generateChangelog","generateAppEvents"]),
@@ -21,7 +22,7 @@ export const issueCustomFieldValuesAppsActions: Record<string, ActionDefinition>
     description: "Update custom field value. Updates the value of a custom field on one or more issues.",
     method: "PUT",
     path: "/app/field/{fieldIdOrKey}/value",
-    input: z.object({ fieldIdOrKey: z.string().describe("The ID or key of the custom field. For example, customfield10010."), generateChangelog: z.boolean().describe("Whether to generate a changelog for this update.").optional(), generateAppEvents: z.boolean().describe("Whether to generate app events for this update. Suppresses Forge, Connect, OAuth 2.0, and admin-configured webhooks (registered via the Jira admin UI). Note:…").optional(), updates: z.array(z.object({ issueIds: z.array(z.number()), value: z.unknown() })).describe("The list of custom field update details.").optional() }),
+    input: obj({ fieldIdOrKey: z.string().describe("The ID or key of the custom field. For example, customfield10010."), generateChangelog: z.boolean().describe("Whether to generate a changelog for this update.").optional(), generateAppEvents: z.boolean().describe("Whether to generate app events for this update. Suppresses Forge, Connect, OAuth 2.0, and admin-configured webhooks (registered via the Jira admin UI). Note:…").optional(), updates: z.array(obj({ issueIds: z.array(z.number()), value: z.unknown() })).describe("The list of custom field update details.").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["generateChangelog","generateAppEvents"]),

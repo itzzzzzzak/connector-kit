@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const reservedIPsActions: Record<string, ActionDefinition> = {
     description: "List All Reserved IPs. To list all of the reserved IPs available on your account, send a GET request to /v2/reservedips.",
     method: "GET",
     path: "/reserved_ips",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "reserved_ips", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const reservedIPsActions: Record<string, ActionDefinition> = {
     description: "Create a New Reserved IP. On creation, a reserved IP must be either assigned to a Droplet or reserved to a region. To create a new reserved IP assigned to a Droplet, send a POST request to /v2/reservedips with the dropletid attribute.",
     method: "POST",
     path: "/reserved_ips",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -29,7 +30,7 @@ export const reservedIPsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing Reserved IP. To show information about a reserved IP, send a GET request to /v2/reservedips/$RESERVEDIPADDR.",
     method: "GET",
     path: "/reserved_ips/{reserved_ip}",
-    input: z.object({ reserved_ip: z.string().describe("A reserved IP address.") }),
+    input: obj({ reserved_ip: z.string().describe("A reserved IP address.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const reservedIPsActions: Record<string, ActionDefinition> = {
     description: "Delete a Reserved IP. To delete a reserved IP and remove it from your account, send a DELETE request to /v2/reservedips/$RESERVEDIPADDR.",
     method: "DELETE",
     path: "/reserved_ips/{reserved_ip}",
-    input: z.object({ reserved_ip: z.string().describe("A reserved IP address.") }),
+    input: obj({ reserved_ip: z.string().describe("A reserved IP address.") }),
     output: z.unknown(),
     effect: "destructive",
   },

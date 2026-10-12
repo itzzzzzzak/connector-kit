@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const projectMembersActions: Record<string, ActionDefinition> = {
     description: "Get project members. Part of: projectMembers. Calls GET /v1/projects/{idOrName}/members on Vercel.",
     method: "GET",
     path: "/v1/projects/{idOrName}/members",
-    input: z.object({ idOrName: z.string(), limit: z.number().optional(), since: z.number().optional(), until: z.number().optional(), search: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ idOrName: z.string(), limit: z.number().optional(), since: z.number().optional(), until: z.number().optional(), search: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const projectMembersActions: Record<string, ActionDefinition> = {
     description: "Add project member. Part of: projectMembers. Calls POST /v1/projects/{idOrName}/members on Vercel.",
     method: "POST",
     path: "/v1/projects/{idOrName}/members",
-    input: z.object({ idOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ idOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -29,7 +30,7 @@ export const projectMembersActions: Record<string, ActionDefinition> = {
     description: "Remove project member. Part of: projectMembers. Calls DELETE /v1/projects/{idOrName}/members/{uid} on Vercel.",
     method: "DELETE",
     path: "/v1/projects/{idOrName}/members/{uid}",
-    input: z.object({ idOrName: z.string(), uid: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ idOrName: z.string(), uid: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

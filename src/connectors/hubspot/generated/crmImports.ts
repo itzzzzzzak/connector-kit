@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const crmImportsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /crm/v3/imports on HubSpot.",
     method: "GET",
     path: "/crm/v3/imports",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const crmImportsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /crm/v3/imports/{importId} on HubSpot.",
     method: "GET",
     path: "/crm/v3/imports/{importId}",
-    input: z.object({ importId: z.number() }),
+    input: obj({ importId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const crmImportsActions: Record<string, ActionDefinition> = {
     description: "Create cancel. Part of: Advanced. Calls POST /crm/v3/imports/{importId}/cancel on HubSpot.",
     method: "POST",
     path: "/crm/v3/imports/{importId}/cancel",
-    input: z.object({ importId: z.number() }),
+    input: obj({ importId: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const crmImportsActions: Record<string, ActionDefinition> = {
     description: "List errors. Part of: Basic. Calls GET /crm/v3/imports/{importId}/errors on HubSpot.",
     method: "GET",
     path: "/crm/v3/imports/{importId}/errors",
-    input: z.object({ importId: z.number(), includeErrorMessage: z.boolean().optional(), includeRowData: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ importId: z.number(), includeErrorMessage: z.boolean().optional(), includeRowData: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),

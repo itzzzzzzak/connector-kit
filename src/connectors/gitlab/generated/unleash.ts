@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const unleashActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const unleashActions: Record<string, ActionDefinition> = {
     description: "Get feature flags unleash project id. Part of: unleash. Calls GET /featureflags/unleash/{projectid} on GitLab.",
     method: "GET",
     path: "/feature_flags/unleash/{project_id}",
-    input: z.object({ project_id: z.string(), instance_id: z.string().optional(), app_name: z.string().optional() }),
+    input: obj({ project_id: z.string(), instance_id: z.string().optional(), app_name: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const unleashActions: Record<string, ActionDefinition> = {
     description: "Get feature flags unleash project id client features. Part of: unleash. Calls GET /featureflags/unleash/{projectid}/client/features on GitLab.",
     method: "GET",
     path: "/feature_flags/unleash/{project_id}/client/features",
-    input: z.object({ project_id: z.string(), instance_id: z.string().optional(), app_name: z.string().optional() }),
+    input: obj({ project_id: z.string(), instance_id: z.string().optional(), app_name: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const unleashActions: Record<string, ActionDefinition> = {
     description: "Post feature flags unleash project id client register. Part of: unleash. Calls POST /featureflags/unleash/{projectid}/client/register on GitLab.",
     method: "POST",
     path: "/feature_flags/unleash/{project_id}/client/register",
-    input: z.object({ project_id: z.string(), instance_id: z.string().optional(), app_name: z.string().optional() }),
+    input: obj({ project_id: z.string(), instance_id: z.string().optional(), app_name: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const unleashActions: Record<string, ActionDefinition> = {
     description: "Post feature flags unleash project id client metrics. Part of: unleash. Calls POST /featureflags/unleash/{projectid}/client/metrics on GitLab.",
     method: "POST",
     path: "/feature_flags/unleash/{project_id}/client/metrics",
-    input: z.object({ project_id: z.string(), instance_id: z.string().optional(), app_name: z.string().optional() }),
+    input: obj({ project_id: z.string(), instance_id: z.string().optional(), app_name: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

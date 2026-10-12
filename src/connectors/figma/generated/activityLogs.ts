@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/figma.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const activityLogsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const activityLogsActions: Record<string, ActionDefinition> = {
     description: "Get activity logs. Returns a list of activity log events",
     method: "GET",
     path: "/v1/activity_logs",
-    input: z.object({ events: z.string().describe("Event type(s) to include in the response. Can have multiple values separated by comma. All events are returned by default.").optional(), start_time: z.number().describe("Unix timestamp of the least recent event to include. This param defaults to one year ago if unspecified.").optional(), end_time: z.number().describe("Unix timestamp of the most recent event to include. This param defaults to the current timestamp if unspecified.").optional(), limit: z.number().describe("Maximum number of events to return. This param defaults to 1000 if unspecified.").optional(), order: z.enum(["asc", "desc"]).describe("Event order by timestamp. This param can be either \"asc\" (default) or \"desc\".").optional() }),
+    input: obj({ events: z.string().describe("Event type(s) to include in the response. Can have multiple values separated by comma. All events are returned by default.").optional(), start_time: z.number().describe("Unix timestamp of the least recent event to include. This param defaults to one year ago if unspecified.").optional(), end_time: z.number().describe("Unix timestamp of the most recent event to include. This param defaults to the current timestamp if unspecified.").optional(), limit: z.number().describe("Maximum number of events to return. This param defaults to 1000 if unspecified.").optional(), order: z.enum(["asc", "desc"]).describe("Event order by timestamp. This param can be either \"asc\" (default) or \"desc\".").optional() }),
     output: z.unknown(),
     effect: "read",
   },

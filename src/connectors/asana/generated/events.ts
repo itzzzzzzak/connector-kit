@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const eventsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const eventsActions: Record<string, ActionDefinition> = {
     description: "Get events on a resource. Returns the full record for all events that have occurred since the sync token was created.",
     method: "GET",
     path: "/events",
-    input: z.object({ resource: z.string().describe("A resource ID to subscribe to. The resource can be a task, project, or goal."), sync: z.string().describe("A sync token received from the last request, or none on first sync. Events will be returned from the point in time that the sync token was generated. Note: On…").optional(), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["action", "change", "change.action", "change.added_value", "change.field", "change.new_value", "change.removed_value", "created_at", "parent", "parent.name", "resource", "resource.name", "type", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ resource: z.string().describe("A resource ID to subscribe to. The resource can be a task, project, or goal."), sync: z.string().describe("A sync token received from the last request, or none on first sync. Events will be returned from the point in time that the sync token was generated. Note: On…").optional(), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["action", "change", "change.action", "change.added_value", "change.field", "change.new_value", "change.removed_value", "created_at", "parent", "parent.name", "resource", "resource.name", "type", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const ciRunnersActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const ciRunnersActions: Record<string, ActionDefinition> = {
     description: "Post runners. Part of: cirunners. Calls POST /runners on GitLab.",
     method: "POST",
     path: "/runners",
-    input: z.object({ token: z.string(), description: z.string().optional(), maintainer_note: z.string().optional(), maintenance_note: z.string().optional(), info: z.object({ name: z.string().optional(), version: z.string().optional(), revision: z.string().optional(), platform: z.string().optional(), architecture: z.string().optional() }).optional(), active: z.boolean().optional(), paused: z.boolean().optional(), locked: z.boolean().optional(), access_level: z.enum(["not_protected", "ref_protected"]).optional(), run_untagged: z.boolean().optional(), tag_list: z.array(z.string()).optional(), maximum_timeout: z.number().optional() }),
+    input: obj({ token: z.string(), description: z.string().optional(), maintainer_note: z.string().optional(), maintenance_note: z.string().optional(), info: obj({ name: z.string().optional(), version: z.string().optional(), revision: z.string().optional(), platform: z.string().optional(), architecture: z.string().optional() }).optional(), active: z.boolean().optional(), paused: z.boolean().optional(), locked: z.boolean().optional(), access_level: z.enum(["not_protected", "ref_protected"]).optional(), run_untagged: z.boolean().optional(), tag_list: z.array(z.string()).optional(), maximum_timeout: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const ciRunnersActions: Record<string, ActionDefinition> = {
     description: "Delete runners. Part of: cirunners. Calls DELETE /runners on GitLab.",
     method: "DELETE",
     path: "/runners",
-    input: z.object({ token: z.string() }),
+    input: obj({ token: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -26,7 +27,7 @@ export const ciRunnersActions: Record<string, ActionDefinition> = {
     description: "Delete runners managers. Part of: cirunners. Calls DELETE /runners/managers on GitLab.",
     method: "DELETE",
     path: "/runners/managers",
-    input: z.object({ token: z.string(), system_id: z.string() }),
+    input: obj({ token: z.string(), system_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const ciRunnersActions: Record<string, ActionDefinition> = {
     description: "Post runners verify. Part of: cirunners. Calls POST /runners/verify on GitLab.",
     method: "POST",
     path: "/runners/verify",
-    input: z.object({ token: z.string(), system_id: z.string().optional() }),
+    input: obj({ token: z.string(), system_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const ciRunnersActions: Record<string, ActionDefinition> = {
     description: "Post runners reset authentication token. Part of: cirunners. Calls POST /runners/resetauthenticationtoken on GitLab.",
     method: "POST",
     path: "/runners/reset_authentication_token",
-    input: z.object({ token: z.string() }),
+    input: obj({ token: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const ciRunnersActions: Record<string, ActionDefinition> = {
     description: "Get runners router discovery. Part of: cirunners. Calls GET /runners/router/discovery on GitLab.",
     method: "GET",
     path: "/runners/router/discovery",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

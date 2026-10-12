@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const issueTypePropertiesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const issueTypePropertiesActions: Record<string, ActionDefinition> = {
     description: "Get issue type property keys. Returns all the issue type property keys of the issue type.",
     method: "GET",
     path: "/issuetype/{issueTypeId}/properties",
-    input: z.object({ issueTypeId: z.string().describe("The ID of the issue type.") }),
+    input: obj({ issueTypeId: z.string().describe("The ID of the issue type.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const issueTypePropertiesActions: Record<string, ActionDefinition> = {
     description: "Get issue type property. Returns the key and value of the issue type property.",
     method: "GET",
     path: "/issuetype/{issueTypeId}/properties/{propertyKey}",
-    input: z.object({ issueTypeId: z.string().describe("The ID of the issue type."), propertyKey: z.string().describe("The key of the property. Use Get issue type property keys to get a list of all issue type property keys.") }),
+    input: obj({ issueTypeId: z.string().describe("The ID of the issue type."), propertyKey: z.string().describe("The key of the property. Use Get issue type property keys to get a list of all issue type property keys.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const issueTypePropertiesActions: Record<string, ActionDefinition> = {
     description: "Set issue type property. Creates or updates the value of the issue type property. Use this resource to store and update data against an issue type.",
     method: "PUT",
     path: "/issuetype/{issueTypeId}/properties/{propertyKey}",
-    input: z.object({ issueTypeId: z.string().describe("The ID of the issue type."), propertyKey: z.string().describe("The key of the issue type property. The maximum length is 255 characters."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ issueTypeId: z.string().describe("The ID of the issue type."), propertyKey: z.string().describe("The key of the issue type property. The maximum length is 255 characters."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -35,7 +36,7 @@ export const issueTypePropertiesActions: Record<string, ActionDefinition> = {
     description: "Delete issue type property. Deletes the issue type property.",
     method: "DELETE",
     path: "/issuetype/{issueTypeId}/properties/{propertyKey}",
-    input: z.object({ issueTypeId: z.string().describe("The ID of the issue type."), propertyKey: z.string().describe("The key of the property. Use Get issue type property keys to get a list of all issue type property keys.") }),
+    input: obj({ issueTypeId: z.string().describe("The ID of the issue type."), propertyKey: z.string().describe("The key of the property. Use Get issue type property keys to get a list of all issue type property keys.") }),
     output: z.unknown(),
     effect: "destructive",
   },

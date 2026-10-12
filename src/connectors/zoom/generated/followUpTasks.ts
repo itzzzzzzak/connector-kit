@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const followUpTasksActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const followUpTasksActions: Record<string, ActionDefinition> = {
     description: "Engagement follow up tasks batch list. Part of: Follow-up Tasks. Calls GET /contactcenter/engagements/{engagementId}/followuptasks on Zoom.",
     method: "GET",
     path: "/contact_center/engagements/{engagementId}/follow_up_tasks",
-    input: z.object({ engagementId: z.string() }),
+    input: obj({ engagementId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const followUpTasksActions: Record<string, ActionDefinition> = {
     description: "Engagement follow up task get. Part of: Follow-up Tasks. Calls GET /contactcenter/engagements/{engagementId}/followuptasks/{taskId} on Zoom.",
     method: "GET",
     path: "/contact_center/engagements/{engagementId}/follow_up_tasks/{taskId}",
-    input: z.object({ engagementId: z.string(), taskId: z.string() }),
+    input: obj({ engagementId: z.string(), taskId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const followUpTasksActions: Record<string, ActionDefinition> = {
     description: "Engagement follow up task patch. Part of: Follow-up Tasks. Calls PATCH /contactcenter/engagements/{engagementId}/followuptasks/{taskId} on Zoom.",
     method: "PATCH",
     path: "/contact_center/engagements/{engagementId}/follow_up_tasks/{taskId}",
-    input: z.object({ engagementId: z.string(), taskId: z.string(), content: z.string() }),
+    input: obj({ engagementId: z.string(), taskId: z.string(), content: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

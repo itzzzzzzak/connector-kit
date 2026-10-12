@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const connectionsActions: Record<string, ActionDefinition> = {
     description: "List Connections. Returns the connections you can see, excluding revoked ones. Offset-paged with page and perpage; filter by provider, userid, and status.",
     method: "GET",
     path: "/action-gateway/connections",
-    input: z.object({ provider: z.string().describe("Optional provider slug, matched exactly.").optional(), user_id: z.string().describe("Optional substring of userid. It must use the userid alphabet, [A-Za-z0-9.-].").optional(), status: z.enum(["pending", "active", "expired"]).describe("pending|active|revoked|expired. List results always omit revoked connections, including when this filter is revoked.").optional(), sort: z.enum(["created_at", "provider", "user_id", "status"]).describe("createdat, provider, userid, or status. Defaults to provider, then userid.").optional(), sort_direction: z.enum(["asc", "desc"]).describe("asc (the default) or desc.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ provider: z.string().describe("Optional provider slug, matched exactly.").optional(), user_id: z.string().describe("Optional substring of userid. It must use the userid alphabet, [A-Za-z0-9.-].").optional(), status: z.enum(["pending", "active", "expired"]).describe("pending|active|revoked|expired. List results always omit revoked connections, including when this filter is revoked.").optional(), sort: z.enum(["created_at", "provider", "user_id", "status"]).describe("createdat, provider, userid, or status. Defaults to provider, then userid.").optional(), sort_direction: z.enum(["asc", "desc"]).describe("asc (the default) or desc.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "connections", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const connectionsActions: Record<string, ActionDefinition> = {
     description: "Create a Connection. Connects one of your users, identified by userid, to a provider so tools can act on their account. An OAuth connection starts pending, and authorization carries the URL to send the user to; read the connection until it is active or expired. A connection through a team API-key credential is active immediately.",
     method: "POST",
     path: "/action-gateway/connections",
-    input: z.object({ provider: z.string().describe("Required provider slug, from the provider list."), user_id: z.string().describe("Required. Your identifier for the user the connection acts for: 1 to 64 characters from [A-Za-z0-9.-]. A session whose actorid equals it uses this connection."), scopes: z.array(z.string()).describe("Optional OAuth scopes to request. Defaults to every scope the provider offers; scopes outside that set are rejected. Ignored for API-key credentials.").optional(), connection_parameters: z.record(z.string(), z.unknown()).describe("Values for the provider's connectionparameters, validated against their specifications.").optional(), credential: z.object({ digitalocean_oauth: z.record(z.string(), z.unknown()).optional(), team_credential: z.object({ credential_id: z.string().optional() }).optional() }).describe("Optional credential to connect through. Omitted uses DigitalOcean's shared OAuth application.").optional(), network: z.object({ vpc: z.object({ vpc_uuid: z.string().optional(), destinations: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }).describe("Optional private network for the connection's calls. Requires VPC networking to be enabled for your account (403 otherwise).").optional() }),
+    input: obj({ provider: z.string().describe("Required provider slug, from the provider list."), user_id: z.string().describe("Required. Your identifier for the user the connection acts for: 1 to 64 characters from [A-Za-z0-9.-]. A session whose actorid equals it uses this connection."), scopes: z.array(z.string()).describe("Optional OAuth scopes to request. Defaults to every scope the provider offers; scopes outside that set are rejected. Ignored for API-key credentials.").optional(), connection_parameters: z.record(z.string(), z.unknown()).describe("Values for the provider's connectionparameters, validated against their specifications.").optional(), credential: obj({ digitalocean_oauth: z.record(z.string(), z.unknown()).optional(), team_credential: obj({ credential_id: z.string().optional() }).optional() }).describe("Optional credential to connect through. Omitted uses DigitalOcean's shared OAuth application.").optional(), network: obj({ vpc: obj({ vpc_uuid: z.string().optional(), destinations: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }).describe("Optional private network for the connection's calls. Requires VPC networking to be enabled for your account (403 otherwise).").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const connectionsActions: Record<string, ActionDefinition> = {
     description: "Get a Connection. Returns the connection and, while it is pending, the authorization the user still has to complete. Reading a pending connection picks up a completed authorization, and marks the connection expired once its link has lapsed. Returns 404 for an unknown connection or one you cannot see.",
     method: "GET",
     path: "/action-gateway/connections/{id}",
-    input: z.object({ id: z.string().describe("Connection ID.") }),
+    input: obj({ id: z.string().describe("Connection ID.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const connectionsActions: Record<string, ActionDefinition> = {
     description: "Delete a Connection. Marks the connection revoked and returns it; for an OAuth connection, its stored tokens are deleted first. Creating a connection for the same provider and userid later reuses the same ID. Only the user who created the connection can delete it; for anyone else it is 404.",
     method: "DELETE",
     path: "/action-gateway/connections/{id}",
-    input: z.object({ id: z.string().describe("Connection ID.") }),
+    input: obj({ id: z.string().describe("Connection ID.") }),
     output: z.unknown(),
     effect: "destructive",
   },

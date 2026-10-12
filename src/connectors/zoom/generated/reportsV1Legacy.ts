@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const reportsV1LegacyActions: Record<string, ActionDefinition> = {
     description: "List agent leg metric. Part of: Reports V1 (Legacy). Calls GET /contactcenter/analytics/agents/legmetrics on Zoom.",
     method: "GET",
     path: "/contact_center/analytics/agents/leg_metrics",
-    input: z.object({ from: z.string().optional(), to: z.string().optional(), timezone: z.string().optional(), engagement_id: z.string().optional(), user_id: z.string().optional(), display_name: z.string().optional(), user_email: z.string().optional(), cc_queue_id: z.array(z.string()).optional(), channel: z.enum(["voice", "video", "messaging", "email"]), channel_source: z.enum(["in_app_chat", "web_chat", "sms", "facebook_messenger", "whatsapp", "instagram"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string().optional(), to: z.string().optional(), timezone: z.string().optional(), engagement_id: z.string().optional(), user_id: z.string().optional(), display_name: z.string().optional(), user_email: z.string().optional(), cc_queue_id: z.array(z.string()).optional(), channel: z.enum(["voice", "video", "messaging", "email"]), channel_source: z.enum(["in_app_chat", "web_chat", "sms", "facebook_messenger", "whatsapp", "instagram"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "users", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const reportsV1LegacyActions: Record<string, ActionDefinition> = {
     description: "List agent status history. Part of: Reports V1 (Legacy). Calls GET /contactcenter/analytics/agents/statushistory on Zoom.",
     method: "GET",
     path: "/contact_center/analytics/agents/status_history",
-    input: z.object({ timezone: z.string().optional(), from: z.string().optional(), to: z.string().optional(), queue_id: z.string().optional(), cc_queue_id: z.string().optional(), user_id: z.string().optional(), status_id: z.string().optional(), sub_status_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ timezone: z.string().optional(), from: z.string().optional(), to: z.string().optional(), queue_id: z.string().optional(), cc_queue_id: z.string().optional(), user_id: z.string().optional(), status_id: z.string().optional(), sub_status_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "statuses", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -29,7 +30,7 @@ export const reportsV1LegacyActions: Record<string, ActionDefinition> = {
     description: "List agent time sheet. Part of: Reports V1 (Legacy). Calls GET /contactcenter/analytics/agents/timesheets on Zoom.",
     method: "GET",
     path: "/contact_center/analytics/agents/time_sheets",
-    input: z.object({ timezone: z.string().optional(), from: z.string().optional(), to: z.string().optional(), queue_id: z.string().optional(), user_id: z.string().optional(), interval: z.enum(["15_minutes", "30_minutes", "1_hour", "1_day", "1_week", "1_month"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ timezone: z.string().optional(), from: z.string().optional(), to: z.string().optional(), queue_id: z.string().optional(), user_id: z.string().optional(), interval: z.enum(["15_minutes", "30_minutes", "1_hour", "1_day", "1_week", "1_month"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "agents", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -38,7 +39,7 @@ export const reportsV1LegacyActions: Record<string, ActionDefinition> = {
     description: "List historical detail metric. Part of: Reports V1 (Legacy). Calls GET /contactcenter/analytics/historical/details/metrics on Zoom.",
     method: "GET",
     path: "/contact_center/analytics/historical/details/metrics",
-    input: z.object({ timezone: z.string().optional(), from: z.string().optional(), to: z.string().optional(), queue_ids: z.array(z.string()).optional(), cc_queue_ids: z.array(z.string()).optional(), user_id: z.string().optional(), consumer_number: z.string().optional(), consumer_id: z.string().optional(), direction: z.enum(["inbound", "outbound"]).optional(), results: z.array(z.string()).optional(), channel_types: z.array(z.enum(["voice", "video", "chat", "sms"])).optional(), channel: z.enum(["voice", "video", "messaging", "email"]), channel_sources: z.array(z.enum(["web_chat", "in_app_chat", "sms", "facebook_messenger", "whatsapp", "email_address"])).optional(), queue_wait_type: z.enum(["live_waiting", "callback"]).optional(), required_skill_ids: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ timezone: z.string().optional(), from: z.string().optional(), to: z.string().optional(), queue_ids: z.array(z.string()).optional(), cc_queue_ids: z.array(z.string()).optional(), user_id: z.string().optional(), consumer_number: z.string().optional(), consumer_id: z.string().optional(), direction: z.enum(["inbound", "outbound"]).optional(), results: z.array(z.string()).optional(), channel_types: z.array(z.enum(["voice", "video", "chat", "sms"])).optional(), channel: z.enum(["voice", "video", "messaging", "email"]), channel_sources: z.array(z.enum(["web_chat", "in_app_chat", "sms", "facebook_messenger", "whatsapp", "email_address"])).optional(), queue_wait_type: z.enum(["live_waiting", "callback"]).optional(), required_skill_ids: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "details", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -47,7 +48,7 @@ export const reportsV1LegacyActions: Record<string, ActionDefinition> = {
     description: "List queue agents metrics. Part of: Reports V1 (Legacy). Calls GET /contactcenter/analytics/historical/queues/agents/metrics on Zoom.",
     method: "GET",
     path: "/contact_center/analytics/historical/queues/agents/metrics",
-    input: z.object({ timezone: z.string().optional(), from: z.string().optional(), to: z.string().optional(), cc_queue_id: z.string(), channel: z.enum(["voice"]).optional(), interval: z.enum(["15_minutes", "30_minutes", "1_hour", "1_day", "1_week", "1_month"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ timezone: z.string().optional(), from: z.string().optional(), to: z.string().optional(), cc_queue_id: z.string(), channel: z.enum(["voice"]).optional(), interval: z.enum(["15_minutes", "30_minutes", "1_hour", "1_day", "1_week", "1_month"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "agents", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -56,7 +57,7 @@ export const reportsV1LegacyActions: Record<string, ActionDefinition> = {
     description: "List historical queue metric. Part of: Reports V1 (Legacy). Calls GET /contactcenter/analytics/historical/queues/metrics on Zoom.",
     method: "GET",
     path: "/contact_center/analytics/historical/queues/metrics",
-    input: z.object({ timezone: z.string().optional(), from: z.string().optional(), to: z.string().optional(), queue_ids: z.array(z.string()).optional(), cc_queue_ids: z.array(z.string()).optional(), channel_types: z.array(z.enum(["voice", "video", "chat", "sms"])).optional(), channel: z.enum(["voice", "video", "messaging", "email"]), channel_sources: z.array(z.enum(["web_chat", "in_app_chat", "sms", "facebook_messenger", "whatsapp", "email_address"])).optional(), interval: z.enum(["15_minutes", "30_minutes", "1_hour", "1_day", "1_week", "1_month"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ timezone: z.string().optional(), from: z.string().optional(), to: z.string().optional(), queue_ids: z.array(z.string()).optional(), cc_queue_ids: z.array(z.string()).optional(), channel_types: z.array(z.enum(["voice", "video", "chat", "sms"])).optional(), channel: z.enum(["voice", "video", "messaging", "email"]), channel_sources: z.array(z.enum(["web_chat", "in_app_chat", "sms", "facebook_messenger", "whatsapp", "email_address"])).optional(), interval: z.enum(["15_minutes", "30_minutes", "1_hour", "1_day", "1_week", "1_month"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "queues", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -65,7 +66,7 @@ export const reportsV1LegacyActions: Record<string, ActionDefinition> = {
     description: "List queue agent metric. Part of: Reports V1 (Legacy). Calls GET /contactcenter/analytics/historical/queues/{queueId}/agents/metrics on Zoom.",
     method: "GET",
     path: "/contact_center/analytics/historical/queues/{queueId}/agents/metrics",
-    input: z.object({ queueId: z.string(), timezone: z.string().optional(), from: z.string().optional(), to: z.string().optional(), channel_types: z.array(z.enum(["voice", "video", "chat", "sms"])).optional(), channel: z.enum(["voice", "video", "messaging", "email"]), channel_sources: z.array(z.enum(["web_chat", "in_app_chat", "sms", "facebook_messenger", "whatsapp", "email_address"])).optional(), interval: z.enum(["15_minutes", "30_minutes", "1_hour", "1_day", "1_week", "1_month"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ queueId: z.string(), timezone: z.string().optional(), from: z.string().optional(), to: z.string().optional(), channel_types: z.array(z.enum(["voice", "video", "chat", "sms"])).optional(), channel: z.enum(["voice", "video", "messaging", "email"]), channel_sources: z.array(z.enum(["web_chat", "in_app_chat", "sms", "facebook_messenger", "whatsapp", "email_address"])).optional(), interval: z.enum(["15_minutes", "30_minutes", "1_hour", "1_day", "1_week", "1_month"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "agents", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

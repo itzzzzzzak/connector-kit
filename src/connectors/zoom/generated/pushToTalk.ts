@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const pushToTalkActions: Record<string, ActionDefinition> = {
     description: "List push to talk channels. Part of: Push To Talk. Calls GET /phone/pushtotalk/channels on Zoom.",
     method: "GET",
     path: "/phone/push_to_talk/channels",
-    input: z.object({ site_id: z.string().optional(), keyword: z.string().optional(), filter_level: z.enum(["channel", "member"]).optional(), auto_connect: z.boolean().optional(), channel_type: z.enum(["private", "hidden", "public"]).optional(), channel_category: z.enum(["normal", "broadcast"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ site_id: z.string().optional(), keyword: z.string().optional(), filter_level: z.enum(["channel", "member"]).optional(), auto_connect: z.boolean().optional(), channel_type: z.enum(["private", "hidden", "public"]).optional(), channel_category: z.enum(["normal", "broadcast"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "channels", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const pushToTalkActions: Record<string, ActionDefinition> = {
     description: "Create apush to talk channel. Part of: Push To Talk. Calls POST /phone/pushtotalk/channels on Zoom.",
     method: "POST",
     path: "/phone/push_to_talk/channels",
-    input: z.object({ channel_name: z.string(), channel_description: z.string().optional(), site_id: z.string().optional(), channel_members: z.array(z.object({ extension_id: z.string().optional() })).optional(), auto_connect: z.boolean().optional(), force_execution: z.boolean().optional(), channel_type: z.enum(["private", "hidden", "public"]).optional(), channel_category: z.enum(["normal", "broadcast"]).optional() }),
+    input: obj({ channel_name: z.string(), channel_description: z.string().optional(), site_id: z.string().optional(), channel_members: z.array(obj({ extension_id: z.string().optional() })).optional(), auto_connect: z.boolean().optional(), force_execution: z.boolean().optional(), channel_type: z.enum(["private", "hidden", "public"]).optional(), channel_category: z.enum(["normal", "broadcast"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const pushToTalkActions: Record<string, ActionDefinition> = {
     description: "Get push to talk channel details. Part of: Push To Talk. Calls GET /phone/pushtotalk/channels/{channelId} on Zoom.",
     method: "GET",
     path: "/phone/push_to_talk/channels/{channelId}",
-    input: z.object({ channelId: z.string() }),
+    input: obj({ channelId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const pushToTalkActions: Record<string, ActionDefinition> = {
     description: "Update push to talk channel details. Part of: Push To Talk. Calls PATCH /phone/pushtotalk/channels/{channelId} on Zoom.",
     method: "PATCH",
     path: "/phone/push_to_talk/channels/{channelId}",
-    input: z.object({ channelId: z.string(), channel_name: z.string().optional(), channel_description: z.string().optional(), auto_connect: z.boolean().optional(), force_execution: z.boolean().optional(), channel_type: z.enum(["private", "hidden", "public"]).optional() }),
+    input: obj({ channelId: z.string(), channel_name: z.string().optional(), channel_description: z.string().optional(), auto_connect: z.boolean().optional(), force_execution: z.boolean().optional(), channel_type: z.enum(["private", "hidden", "public"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const pushToTalkActions: Record<string, ActionDefinition> = {
     description: "Remove apush to talk channel. Part of: Push To Talk. Calls DELETE /phone/pushtotalk/channels/{channelId} on Zoom.",
     method: "DELETE",
     path: "/phone/push_to_talk/channels/{channelId}",
-    input: z.object({ channelId: z.string() }),
+    input: obj({ channelId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const pushToTalkActions: Record<string, ActionDefinition> = {
     description: "List push to talk channel members. Part of: Push To Talk. Calls GET /phone/pushtotalk/channels/{channelId}/members on Zoom.",
     method: "GET",
     path: "/phone/push_to_talk/channels/{channelId}/members",
-    input: z.object({ channelId: z.string(), keyword: z.string().optional(), member_site_id: z.string().optional(), filter_level: z.enum(["user", "common_area"]).optional(), broadcast_member_type: z.enum(["receiver", "broadcaster"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ channelId: z.string(), keyword: z.string().optional(), member_site_id: z.string().optional(), filter_level: z.enum(["user", "common_area"]).optional(), broadcast_member_type: z.enum(["receiver", "broadcaster"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "channel_members", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -61,7 +62,7 @@ export const pushToTalkActions: Record<string, ActionDefinition> = {
     description: "Add members to apush to talk channel. Part of: Push To Talk. Calls POST /phone/pushtotalk/channels/{channelId}/members on Zoom.",
     method: "POST",
     path: "/phone/push_to_talk/channels/{channelId}/members",
-    input: z.object({ channelId: z.string(), channel_members: z.array(z.object({ extension_id: z.string().optional() })).optional() }),
+    input: obj({ channelId: z.string(), channel_members: z.array(obj({ extension_id: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -69,7 +70,7 @@ export const pushToTalkActions: Record<string, ActionDefinition> = {
     description: "Remove amember from apush to talk channel. Part of: Push To Talk. Calls DELETE /phone/pushtotalk/channels/{channelId}/members/{extensionId} on Zoom.",
     method: "DELETE",
     path: "/phone/push_to_talk/channels/{channelId}/members/{extensionId}",
-    input: z.object({ channelId: z.string(), extensionId: z.string() }),
+    input: obj({ channelId: z.string(), extensionId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

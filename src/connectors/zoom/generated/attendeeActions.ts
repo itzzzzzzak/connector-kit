@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const attendeeActionsActions: Record<string, ActionDefinition> = {
     description: "List event attendee actions. Part of: Attendee Actions. Calls GET /zoomevents/events/{eventId}/attendeeaction on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/attendee_action",
-    input: z.object({ eventId: z.string(), email: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ eventId: z.string(), email: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "attendees", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const attendeeActionsActions: Record<string, ActionDefinition> = {
     description: "Update event attendee actions. Part of: Attendee Actions. Calls PATCH /zoomevents/events/{eventId}/attendeeaction on Zoom.",
     method: "PATCH",
     path: "/zoom_events/events/{eventId}/attendee_action",
-    input: z.object({ eventId: z.string(), attendees: z.array(z.object({ email: z.string(), action: z.enum(["check-in"]) })).optional(), source: z.string().optional() }),
+    input: obj({ eventId: z.string(), attendees: z.array(obj({ email: z.string(), action: z.enum(["check-in"]) })).optional(), source: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const attendeeActionsActions: Record<string, ActionDefinition> = {
     description: "List session attendee actions. Part of: Attendee Actions. Calls GET /zoomevents/events/{eventId}/sessions/{sessionId}/attendeeaction on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/sessions/{sessionId}/attendee_action",
-    input: z.object({ eventId: z.string(), sessionId: z.string(), email: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ eventId: z.string(), sessionId: z.string(), email: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "attendees", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -37,7 +38,7 @@ export const attendeeActionsActions: Record<string, ActionDefinition> = {
     description: "Update session attendee actions. Part of: Attendee Actions. Calls PATCH /zoomevents/events/{eventId}/sessions/{sessionId}/attendeeaction on Zoom.",
     method: "PATCH",
     path: "/zoom_events/events/{eventId}/sessions/{sessionId}/attendee_action",
-    input: z.object({ eventId: z.string(), sessionId: z.string(), attendees: z.array(z.object({ email: z.string(), action: z.enum(["check-in"]) })).optional(), source: z.string().optional() }),
+    input: obj({ eventId: z.string(), sessionId: z.string(), attendees: z.array(obj({ email: z.string(), action: z.enum(["check-in"]) })).optional(), source: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

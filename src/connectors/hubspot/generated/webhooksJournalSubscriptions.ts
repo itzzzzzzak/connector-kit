@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const webhooksJournalSubscriptionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const webhooksJournalSubscriptionsActions: Record<string, ActionDefinitio
     description: "List. Part of: Basic. Calls GET /webhooks-journal/subscriptions/2026-09 on HubSpot.",
     method: "GET",
     path: "/webhooks-journal/subscriptions/2026-09",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const webhooksJournalSubscriptionsActions: Record<string, ActionDefinitio
     description: "Create. Part of: Basic. Calls POST /webhooks-journal/subscriptions/2026-09 on HubSpot.",
     method: "POST",
     path: "/webhooks-journal/subscriptions/2026-09",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -27,7 +28,7 @@ export const webhooksJournalSubscriptionsActions: Record<string, ActionDefinitio
     description: "Create filters. Part of: Advanced. Calls POST /webhooks-journal/subscriptions/2026-09/filters on HubSpot.",
     method: "POST",
     path: "/webhooks-journal/subscriptions/2026-09/filters",
-    input: z.object({ filter: z.object({ conditions: z.array(z.record(z.string(), z.unknown())) }), subscriptionId: z.number() }),
+    input: obj({ filter: obj({ conditions: z.array(z.record(z.string(), z.unknown())) }), subscriptionId: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -35,7 +36,7 @@ export const webhooksJournalSubscriptionsActions: Record<string, ActionDefinitio
     description: "Get filters subscription. Part of: Basic. Calls GET /webhooks-journal/subscriptions/2026-09/filters/subscription/{subscriptionId} on HubSpot.",
     method: "GET",
     path: "/webhooks-journal/subscriptions/2026-09/filters/subscription/{subscriptionId}",
-    input: z.object({ subscriptionId: z.number() }),
+    input: obj({ subscriptionId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -43,7 +44,7 @@ export const webhooksJournalSubscriptionsActions: Record<string, ActionDefinitio
     description: "Get filters. Part of: Basic. Calls GET /webhooks-journal/subscriptions/2026-09/filters/{filterId} on HubSpot.",
     method: "GET",
     path: "/webhooks-journal/subscriptions/2026-09/filters/{filterId}",
-    input: z.object({ filterId: z.number() }),
+    input: obj({ filterId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -51,7 +52,7 @@ export const webhooksJournalSubscriptionsActions: Record<string, ActionDefinitio
     description: "Delete filters. Part of: Basic. Calls DELETE /webhooks-journal/subscriptions/2026-09/filters/{filterId} on HubSpot.",
     method: "DELETE",
     path: "/webhooks-journal/subscriptions/2026-09/filters/{filterId}",
-    input: z.object({ filterId: z.number() }),
+    input: obj({ filterId: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -59,7 +60,7 @@ export const webhooksJournalSubscriptionsActions: Record<string, ActionDefinitio
     description: "Delete portals. Part of: Basic. Calls DELETE /webhooks-journal/subscriptions/2026-09/portals/{portalId} on HubSpot.",
     method: "DELETE",
     path: "/webhooks-journal/subscriptions/2026-09/portals/{portalId}",
-    input: z.object({ portalId: z.number() }),
+    input: obj({ portalId: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -67,7 +68,7 @@ export const webhooksJournalSubscriptionsActions: Record<string, ActionDefinitio
     description: "Get. Part of: Basic. Calls GET /webhooks-journal/subscriptions/2026-09/{subscriptionId} on HubSpot.",
     method: "GET",
     path: "/webhooks-journal/subscriptions/2026-09/{subscriptionId}",
-    input: z.object({ subscriptionId: z.number() }),
+    input: obj({ subscriptionId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -75,7 +76,7 @@ export const webhooksJournalSubscriptionsActions: Record<string, ActionDefinitio
     description: "Delete. Part of: Basic. Calls DELETE /webhooks-journal/subscriptions/2026-09/{subscriptionId} on HubSpot.",
     method: "DELETE",
     path: "/webhooks-journal/subscriptions/2026-09/{subscriptionId}",
-    input: z.object({ subscriptionId: z.number() }),
+    input: obj({ subscriptionId: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

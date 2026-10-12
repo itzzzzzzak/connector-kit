@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const ticketSkipsActions: Record<string, ActionDefinition> = {
     description: "List skips. Part of: Ticket Skips. Calls GET /skips on Zendesk.",
     method: "GET",
     path: "/skips",
-    input: z.object({ sort_order: z.enum(["asc", "desc"]).optional() }),
+    input: obj({ sort_order: z.enum(["asc", "desc"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const ticketSkipsActions: Record<string, ActionDefinition> = {
     description: "Record new skip. Part of: Ticket Skips. Calls POST /skips on Zendesk.",
     method: "POST",
     path: "/skips",
-    input: z.object({ sort_order: z.enum(["asc", "desc"]).optional(), skip: z.object({ reason: z.string().optional(), ticket_id: z.number() }) }),
+    input: obj({ sort_order: z.enum(["asc", "desc"]).optional(), skip: obj({ reason: z.string().optional(), ticket_id: z.number() }) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["sort_order"]),
@@ -29,7 +30,7 @@ export const ticketSkipsActions: Record<string, ActionDefinition> = {
     description: "List ticket skips by ticket. Part of: Ticket Skips. Calls GET /tickets/{ticketid}/skips on Zendesk.",
     method: "GET",
     path: "/tickets/{ticket_id}/skips",
-    input: z.object({ ticket_id: z.number(), sort_order: z.enum(["asc", "desc"]).optional() }),
+    input: obj({ ticket_id: z.number(), sort_order: z.enum(["asc", "desc"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const ticketSkipsActions: Record<string, ActionDefinition> = {
     description: "List ticket skips. Part of: Ticket Skips. Calls GET /users/{userid}/skips on Zendesk.",
     method: "GET",
     path: "/users/{user_id}/skips",
-    input: z.object({ user_id: z.number(), sort_order: z.enum(["asc", "desc"]).optional() }),
+    input: obj({ user_id: z.number(), sort_order: z.enum(["asc", "desc"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },

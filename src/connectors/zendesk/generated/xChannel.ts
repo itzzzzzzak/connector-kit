@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const xChannelActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const xChannelActions: Record<string, ActionDefinition> = {
     description: "List monitored twitter handles. Part of: X Channel. Calls GET /channels/twitter/monitoredtwitterhandles on Zendesk.",
     method: "GET",
     path: "/channels/twitter/monitored_twitter_handles",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const xChannelActions: Record<string, ActionDefinition> = {
     description: "Show monitored twitter handle. Part of: X Channel. Calls GET /channels/twitter/monitoredtwitterhandles/{monitoredtwitterhandleid} on Zendesk.",
     method: "GET",
     path: "/channels/twitter/monitored_twitter_handles/{monitored_twitter_handle_id}",
-    input: z.object({ monitored_twitter_handle_id: z.number() }),
+    input: obj({ monitored_twitter_handle_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const xChannelActions: Record<string, ActionDefinition> = {
     description: "Create ticket from tweet. Part of: X Channel. Calls POST /channels/twitter/tickets on Zendesk.",
     method: "POST",
     path: "/channels/twitter/tickets",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const xChannelActions: Record<string, ActionDefinition> = {
     description: "Getting twicket status. Part of: X Channel. Calls GET /channels/twitter/tickets/{commentid}/statuses on Zendesk.",
     method: "GET",
     path: "/channels/twitter/tickets/{comment_id}/statuses",
-    input: z.object({ comment_id: z.number(), ids: z.string().optional() }),
+    input: obj({ comment_id: z.number(), ids: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

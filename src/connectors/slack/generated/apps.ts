@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const appsActions: Record<string, ActionDefinition> = {
     description: "Get a list of authorizations for the given event context. Each authorization represents an app installation that the event is visible to.",
     method: "GET",
     path: "/apps.event.authorizations.list",
-    input: z.object({ event_context: z.string(), cursor: z.string().optional(), limit: z.number().optional() }),
+    input: obj({ event_context: z.string(), cursor: z.string().optional(), limit: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const appsActions: Record<string, ActionDefinition> = {
     description: "Returns list of permissions this app has on a team.",
     method: "GET",
     path: "/apps.permissions.info",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const appsActions: Record<string, ActionDefinition> = {
     description: "Allows an app to request additional scopes Calls GET /apps.permissions.request on Slack.",
     method: "GET",
     path: "/apps.permissions.request",
-    input: z.object({ scopes: z.string().describe("A comma separated list of scopes to request for"), trigger_id: z.string().describe("Token used to trigger the permissions API") }),
+    input: obj({ scopes: z.string().describe("A comma separated list of scopes to request for"), trigger_id: z.string().describe("Token used to trigger the permissions API") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const appsActions: Record<string, ActionDefinition> = {
     description: "Returns list of resource grants this app has on a team.",
     method: "GET",
     path: "/apps.permissions.resources.list",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "resources", cursorPath: ["response_metadata", "next_cursor"] }),
@@ -44,7 +45,7 @@ export const appsActions: Record<string, ActionDefinition> = {
     description: "Returns list of scopes this app has on a team.",
     method: "GET",
     path: "/apps.permissions.scopes.list",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -52,7 +53,7 @@ export const appsActions: Record<string, ActionDefinition> = {
     description: "Returns list of user grants and corresponding scopes this app has on a team.",
     method: "GET",
     path: "/apps.permissions.users.list",
-    input: z.object({ cursor: z.string().describe("Paginate through collections of data by setting the cursor parameter to a nextcursor attribute returned by a previous request's responsemetadata. Default…").optional(), limit: z.number().describe("The maximum number of items to return.").optional() }),
+    input: obj({ cursor: z.string().describe("Paginate through collections of data by setting the cursor parameter to a nextcursor attribute returned by a previous request's responsemetadata. Default…").optional(), limit: z.number().describe("The maximum number of items to return.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -60,7 +61,7 @@ export const appsActions: Record<string, ActionDefinition> = {
     description: "Enables an app to trigger a permissions modal to grant an app access to a user access scope.",
     method: "GET",
     path: "/apps.permissions.users.request",
-    input: z.object({ scopes: z.string().describe("A comma separated list of user scopes to request for"), trigger_id: z.string().describe("Token used to trigger the request"), user: z.string().describe("The user this scope is being requested for") }),
+    input: obj({ scopes: z.string().describe("A comma separated list of user scopes to request for"), trigger_id: z.string().describe("Token used to trigger the request"), user: z.string().describe("The user this scope is being requested for") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -68,7 +69,7 @@ export const appsActions: Record<string, ActionDefinition> = {
     description: "Uninstalls your app from a workspace. Calls GET /apps.uninstall on Slack.",
     method: "GET",
     path: "/apps.uninstall",
-    input: z.object({ client_id: z.string().describe("Issued when you created your application.").optional(), client_secret: z.string().describe("Issued when you created your application.").optional() }),
+    input: obj({ client_id: z.string().describe("Issued when you created your application.").optional(), client_secret: z.string().describe("Issued when you created your application.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

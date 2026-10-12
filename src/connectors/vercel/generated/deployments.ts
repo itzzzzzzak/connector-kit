@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const deploymentsActions: Record<string, ActionDefinition> = {
     description: "Get deployment events. Part of: deployments. Calls GET /v3/deployments/{idOrUrl}/events on Vercel.",
     method: "GET",
     path: "/v3/deployments/{idOrUrl}/events",
-    input: z.object({ idOrUrl: z.string(), direction: z.enum(["backward", "forward"]).optional(), follow: z.number().optional(), limit: z.number().optional(), name: z.string().optional(), since: z.number().optional(), until: z.number().optional(), statusCode: z.unknown().optional(), delimiter: z.number().optional(), builds: z.number().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ idOrUrl: z.string(), direction: z.enum(["backward", "forward"]).optional(), follow: z.number().optional(), limit: z.number().optional(), name: z.string().optional(), since: z.number().optional(), until: z.number().optional(), statusCode: z.unknown().optional(), delimiter: z.number().optional(), builds: z.number().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const deploymentsActions: Record<string, ActionDefinition> = {
     description: "Update integration deployment action. Part of: deployments. Calls PATCH /v1/deployments/{deploymentId}/integrations/{integrationConfigurationId}/resources/{resourceId}/actions/{action} on Vercel.",
     method: "PATCH",
     path: "/v1/deployments/{deploymentId}/integrations/{integrationConfigurationId}/resources/{resourceId}/actions/{action}",
-    input: z.object({ deploymentId: z.string(), integrationConfigurationId: z.string(), resourceId: z.string(), action: z.string(), status: z.enum(["running", "succeeded", "failed"]).optional(), statusText: z.string().optional(), statusUrl: z.string().optional(), outcomes: z.array(z.unknown()).optional() }),
+    input: obj({ deploymentId: z.string(), integrationConfigurationId: z.string(), resourceId: z.string(), action: z.string(), status: z.enum(["running", "succeeded", "failed"]).optional(), statusText: z.string().optional(), statusUrl: z.string().optional(), outcomes: z.array(z.unknown()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const deploymentsActions: Record<string, ActionDefinition> = {
     description: "Create deployment. Part of: deployments. Calls POST /v13/deployments on Vercel.",
     method: "POST",
     path: "/v13/deployments",
-    input: z.object({ forceNew: z.enum(["0", "1"]).optional(), skipAutoDetectionConfirmation: z.enum(["0", "1"]).optional(), teamId: z.string().optional(), slug: z.string().optional(), buildMachine: z.enum(["turbo"]).optional(), customEnvironmentSlugOrId: z.string().optional(), deploymentId: z.string().optional(), files: z.array(z.unknown()).optional(), gitAccessToken: z.string().optional(), gitMetadata: z.object({ remoteUrl: z.string().optional(), commitAuthorName: z.string().optional(), commitAuthorEmail: z.string().optional(), commitMessage: z.string().optional(), commitRef: z.string().optional(), commitSha: z.string().optional(), dirty: z.boolean().optional(), ci: z.boolean().optional(), ciType: z.string().optional(), ciGitProviderUsername: z.string().optional(), ciGitRepoVisibility: z.string().optional(), rootDirectory: z.string().optional() }).optional(), gitSource: z.unknown().optional(), meta: z.record(z.string(), z.unknown()).optional(), monorepoManager: z.string().nullable().optional(), name: z.string(), project: z.string().optional(), projectSettings: z.object({ buildCommand: z.string().nullable().optional(), commandForIgnoringBuildStep: z.string().nullable().optional(), devCommand: z.string().nullable().optional(), framework: z.string().nullable().optional(), installCommand: z.string().nullable().optional(), nodeVersion: z.enum(["24.x", "22.x", "20.x", "18.x", "16.x", "14.x", "12.x", "10.x", "8.10.x"]).optional(), outputDirectory: z.string().nullable().optional(), rootDirectory: z.string().nullable().optional(), serverlessFunctionRegion: z.string().nullable().optional(), skipGitConnectDuringLink: z.boolean().optional(), sourceFilesOutsideRootDirectory: z.boolean().optional() }).optional(), target: z.string().optional(), withLatestCommit: z.boolean().optional() }),
+    input: obj({ forceNew: z.enum(["0", "1"]).optional(), skipAutoDetectionConfirmation: z.enum(["0", "1"]).optional(), teamId: z.string().optional(), slug: z.string().optional(), buildMachine: z.enum(["turbo"]).optional(), customEnvironmentSlugOrId: z.string().optional(), deploymentId: z.string().optional(), files: z.array(z.unknown()).optional(), gitAccessToken: z.string().optional(), gitMetadata: obj({ remoteUrl: z.string().optional(), commitAuthorName: z.string().optional(), commitAuthorEmail: z.string().optional(), commitMessage: z.string().optional(), commitRef: z.string().optional(), commitSha: z.string().optional(), dirty: z.boolean().optional(), ci: z.boolean().optional(), ciType: z.string().optional(), ciGitProviderUsername: z.string().optional(), ciGitRepoVisibility: z.string().optional(), rootDirectory: z.string().optional() }).optional(), gitSource: z.unknown().optional(), meta: z.record(z.string(), z.unknown()).optional(), monorepoManager: z.string().nullable().optional(), name: z.string(), project: z.string().optional(), projectSettings: obj({ buildCommand: z.string().nullable().optional(), commandForIgnoringBuildStep: z.string().nullable().optional(), devCommand: z.string().nullable().optional(), framework: z.string().nullable().optional(), installCommand: z.string().nullable().optional(), nodeVersion: z.enum(["24.x", "22.x", "20.x", "18.x", "16.x", "14.x", "12.x", "10.x", "8.10.x"]).optional(), outputDirectory: z.string().nullable().optional(), rootDirectory: z.string().nullable().optional(), serverlessFunctionRegion: z.string().nullable().optional(), skipGitConnectDuringLink: z.boolean().optional(), sourceFilesOutsideRootDirectory: z.boolean().optional() }).optional(), target: z.string().optional(), withLatestCommit: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["forceNew","skipAutoDetectionConfirmation","teamId","slug"]),
@@ -37,7 +38,7 @@ export const deploymentsActions: Record<string, ActionDefinition> = {
     description: "Cancel deployment. Part of: deployments. Calls PATCH /v12/deployments/{id}/cancel on Vercel.",
     method: "PATCH",
     path: "/v12/deployments/{id}/cancel",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -46,7 +47,7 @@ export const deploymentsActions: Record<string, ActionDefinition> = {
     description: "List deployment files. Part of: deployments. Calls GET /v6/deployments/{id}/files on Vercel.",
     method: "GET",
     path: "/v6/deployments/{id}/files",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -54,7 +55,7 @@ export const deploymentsActions: Record<string, ActionDefinition> = {
     description: "Get deployment file contents. Part of: deployments. Calls GET /v8/deployments/{id}/files/{fileId} on Vercel.",
     method: "GET",
     path: "/v8/deployments/{id}/files/{fileId}",
-    input: z.object({ id: z.string(), fileId: z.string(), path: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), fileId: z.string(), path: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -62,7 +63,7 @@ export const deploymentsActions: Record<string, ActionDefinition> = {
     description: "Delete deployment. Part of: deployments. Calls DELETE /v13/deployments/{id} on Vercel.",
     method: "DELETE",
     path: "/v13/deployments/{id}",
-    input: z.object({ id: z.string(), url: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), url: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

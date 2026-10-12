@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const videoOnDemandActions: Record<string, ActionDefinition> = {
     description: "Get vodchannels. Part of: Video On-Demand. Calls GET /zoomevents/hubs/{hubId}/vodchannels on Zoom.",
     method: "GET",
     path: "/zoom_events/hubs/{hubId}/vod_channels",
-    input: z.object({ hubId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ hubId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "vod_channels", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const videoOnDemandActions: Record<string, ActionDefinition> = {
     description: "Create vod channel. Part of: Video On-Demand. Calls POST /zoomevents/hubs/{hubId}/vodchannels on Zoom.",
     method: "POST",
     path: "/zoom_events/hubs/{hubId}/vod_channels",
-    input: z.object({ hubId: z.string(), name: z.string(), description: z.string().optional(), type: z.enum(["VIDEO_LIST_HUB", "MULTI_VIDEO_EMBEDDED", "SINGLE_VIDEO_EMBEDDED"]) }),
+    input: obj({ hubId: z.string(), name: z.string(), description: z.string().optional(), type: z.enum(["VIDEO_LIST_HUB", "MULTI_VIDEO_EMBEDDED", "SINGLE_VIDEO_EMBEDDED"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const videoOnDemandActions: Record<string, ActionDefinition> = {
     description: "Get vodchannel detail. Part of: Video On-Demand. Calls GET /zoomevents/hubs/{hubId}/vodchannels/{channelId} on Zoom.",
     method: "GET",
     path: "/zoom_events/hubs/{hubId}/vod_channels/{channelId}",
-    input: z.object({ hubId: z.string(), channelId: z.string() }),
+    input: obj({ hubId: z.string(), channelId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const videoOnDemandActions: Record<string, ActionDefinition> = {
     description: "Update video channel. Part of: Video On-Demand. Calls PATCH /zoomevents/hubs/{hubId}/vodchannels/{channelId} on Zoom.",
     method: "PATCH",
     path: "/zoom_events/hubs/{hubId}/vod_channels/{channelId}",
-    input: z.object({ hubId: z.string(), channelId: z.string(), name: z.string().optional(), description: z.string().optional(), settings: z.object({ authentication_method: z.enum(["zoom_account", "email_otp", "bypass_auth"]).optional(), allow_domain_list: z.array(z.string()).optional(), allow_email_list: z.array(z.string()).optional() }).optional() }),
+    input: obj({ hubId: z.string(), channelId: z.string(), name: z.string().optional(), description: z.string().optional(), settings: obj({ authentication_method: z.enum(["zoom_account", "email_otp", "bypass_auth"]).optional(), allow_domain_list: z.array(z.string()).optional(), allow_email_list: z.array(z.string()).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const videoOnDemandActions: Record<string, ActionDefinition> = {
     description: "Delete vodchannel. Part of: Video On-Demand. Calls DELETE /zoomevents/hubs/{hubId}/vodchannels/{channelId} on Zoom.",
     method: "DELETE",
     path: "/zoom_events/hubs/{hubId}/vod_channels/{channelId}",
-    input: z.object({ hubId: z.string(), channelId: z.string() }),
+    input: obj({ hubId: z.string(), channelId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const videoOnDemandActions: Record<string, ActionDefinition> = {
     description: "Vod channel actions. Part of: Video On-Demand. Calls POST /zoomevents/hubs/{hubId}/vodchannels/{channelId}/actions on Zoom.",
     method: "POST",
     path: "/zoom_events/hubs/{hubId}/vod_channels/{channelId}/actions",
-    input: z.object({ hubId: z.string(), channelId: z.string(), operation: z.enum(["publish"]).optional() }),
+    input: obj({ hubId: z.string(), channelId: z.string(), operation: z.enum(["publish"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -60,7 +61,7 @@ export const videoOnDemandActions: Record<string, ActionDefinition> = {
     description: "List vodchannel videos. Part of: Video On-Demand. Calls GET /zoomevents/hubs/{hubId}/vodchannels/{channelId}/videos on Zoom.",
     method: "GET",
     path: "/zoom_events/hubs/{hubId}/vod_channels/{channelId}/videos",
-    input: z.object({ hubId: z.string(), channelId: z.string() }),
+    input: obj({ hubId: z.string(), channelId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -68,7 +69,7 @@ export const videoOnDemandActions: Record<string, ActionDefinition> = {
     description: "Add vodchannel videos. Part of: Video On-Demand. Calls POST /zoomevents/hubs/{hubId}/vodchannels/{channelId}/videos on Zoom.",
     method: "POST",
     path: "/zoom_events/hubs/{hubId}/vod_channels/{channelId}/videos",
-    input: z.object({ hubId: z.string(), channelId: z.string(), video_ids: z.array(z.string()).optional() }),
+    input: obj({ hubId: z.string(), channelId: z.string(), video_ids: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -76,7 +77,7 @@ export const videoOnDemandActions: Record<string, ActionDefinition> = {
     description: "Delete vodchannel video. Part of: Video On-Demand. Calls DELETE /zoomevents/hubs/{hubId}/vodchannels/{channelId}/videos/{videoId} on Zoom.",
     method: "DELETE",
     path: "/zoom_events/hubs/{hubId}/vod_channels/{channelId}/videos/{videoId}",
-    input: z.object({ hubId: z.string(), channelId: z.string(), videoId: z.string() }),
+    input: obj({ hubId: z.string(), channelId: z.string(), videoId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

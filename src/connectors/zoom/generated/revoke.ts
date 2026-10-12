@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const revokeActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const revokeActions: Record<string, ActionDefinition> = {
     description: "Mailbox delegate. Part of: Settings.Delegates. Calls DELETE /emails/mailboxes/{email}/settings/delegates/{delegateEmail} on Zoom.",
     method: "DELETE",
     path: "/emails/mailboxes/{email}/settings/delegates/{delegateEmail}",
-    input: z.object({ email: z.string(), delegateEmail: z.string() }),
+    input: obj({ email: z.string(), delegateEmail: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

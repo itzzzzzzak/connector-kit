@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const reactionsActions: Record<string, ActionDefinition> = {
     description: "Get reactions with an emoji base on an object. Returns the reactions with a specified emoji base character on the object.",
     method: "GET",
     path: "/reactions",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), target: z.string().describe("Globally unique identifier for object to fetch reactions from. Must be a GID for a status update or story."), emoji_base: z.string().describe("Only return reactions with this emoji base character."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), target: z.string().describe("Globally unique identifier for object to fetch reactions from. Must be a GID for a status update or story."), emoji_base: z.string().describe("Only return reactions with this emoji base character."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),

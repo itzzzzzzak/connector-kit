@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const partnerAttachmentsActions: Record<string, ActionDefinition> = {
     description: "List all partner attachments. To list all of the Partner Attachments on your account, send a GET request to /v2/partnernetworkconnect/attachments.",
     method: "GET",
     path: "/partner_network_connect/attachments",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "partner_attachments", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const partnerAttachmentsActions: Record<string, ActionDefinition> = {
     description: "Create a new partner attachment. To create a new partner attachment, send a POST request to /v2/partnernetworkconnect/attachments with a JSON object containing the required configuration details.",
     method: "POST",
     path: "/partner_network_connect/attachments",
-    input: z.object({ name: z.string().describe("The name of the partner attachment. Must be unique and may only contain alphanumeric characters, dashes, and periods."), connection_bandwidth_in_mbps: z.number().describe("Bandwidth (in Mbps) of the connection."), region: z.enum(["nyc", "sfo", "fra", "ams", "sgp"]).describe("The region to create the partner attachment."), naas_provider: z.string(), vpc_ids: z.array(z.string()).describe("An array of VPCs IDs."), parent_uuid: z.string().describe("Optional associated partner attachment UUID").optional(), bgp: z.object({ local_router_ip: z.string(), peer_router_ip: z.string(), peer_router_asn: z.number(), auth_key: z.string() }).describe("Optional BGP configurations").optional(), redundancy_zone: z.enum(["MEGAPORT_BLUE", "MEGAPORT_RED"]).describe("Optional redundancy zone for the partner attachment.").optional() }),
+    input: obj({ name: z.string().describe("The name of the partner attachment. Must be unique and may only contain alphanumeric characters, dashes, and periods."), connection_bandwidth_in_mbps: z.number().describe("Bandwidth (in Mbps) of the connection."), region: z.enum(["nyc", "sfo", "fra", "ams", "sgp"]).describe("The region to create the partner attachment."), naas_provider: z.string(), vpc_ids: z.array(z.string()).describe("An array of VPCs IDs."), parent_uuid: z.string().describe("Optional associated partner attachment UUID").optional(), bgp: obj({ local_router_ip: z.string(), peer_router_ip: z.string(), peer_router_asn: z.number(), auth_key: z.string() }).describe("Optional BGP configurations").optional(), redundancy_zone: z.enum(["MEGAPORT_BLUE", "MEGAPORT_RED"]).describe("Optional redundancy zone for the partner attachment.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const partnerAttachmentsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an existing partner attachment. To get the details of a partner attachment, send a GET request to /v2/partnernetworkconnect/attachments/{paid}.",
     method: "GET",
     path: "/partner_network_connect/attachments/{pa_id}",
-    input: z.object({ pa_id: z.string().describe("A unique identifier for a partner attachment.") }),
+    input: obj({ pa_id: z.string().describe("A unique identifier for a partner attachment.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const partnerAttachmentsActions: Record<string, ActionDefinition> = {
     description: "Update an existing partner attachment. To update an existing partner attachment, send a PATCH request to /v2/partnernetworkconnect/attachments/{paid} with a JSON object containing the fields to be updated.",
     method: "PATCH",
     path: "/partner_network_connect/attachments/{pa_id}",
-    input: z.object({ pa_id: z.string().describe("A unique identifier for a partner attachment."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ pa_id: z.string().describe("A unique identifier for a partner attachment."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -45,7 +46,7 @@ export const partnerAttachmentsActions: Record<string, ActionDefinition> = {
     description: "Delete an existing partner attachment. To delete an existing partner attachment, send a DELETE request to /v2/partnernetworkconnect/attachments/{paid}.",
     method: "DELETE",
     path: "/partner_network_connect/attachments/{pa_id}",
-    input: z.object({ pa_id: z.string().describe("A unique identifier for a partner attachment.") }),
+    input: obj({ pa_id: z.string().describe("A unique identifier for a partner attachment.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -53,7 +54,7 @@ export const partnerAttachmentsActions: Record<string, ActionDefinition> = {
     description: "Get current BGP auth key for the partner attachment. To get the current BGP auth key for a partner attachment, send a GET request to /v2/partnernetworkconnect/attachments/{paid}/bgpauthkey.",
     method: "GET",
     path: "/partner_network_connect/attachments/{pa_id}/bgp_auth_key",
-    input: z.object({ pa_id: z.string().describe("A unique identifier for a partner attachment.") }),
+    input: obj({ pa_id: z.string().describe("A unique identifier for a partner attachment.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -61,7 +62,7 @@ export const partnerAttachmentsActions: Record<string, ActionDefinition> = {
     description: "List remote routes for a partner attachment. To list all remote routes associated with a partner attachment, send a GET request to /v2/partnernetworkconnect/attachments/{paid}/remoteroutes.",
     method: "GET",
     path: "/partner_network_connect/attachments/{pa_id}/remote_routes",
-    input: z.object({ pa_id: z.string().describe("A unique identifier for a partner attachment."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ pa_id: z.string().describe("A unique identifier for a partner attachment."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "remote_routes", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -70,7 +71,7 @@ export const partnerAttachmentsActions: Record<string, ActionDefinition> = {
     description: "Get the current service key for the partner attachment. To get the current service key for a partner attachment, send a GET request to /v2/partnernetworkconnect/attachments/{paid}/servicekey.",
     method: "GET",
     path: "/partner_network_connect/attachments/{pa_id}/service_key",
-    input: z.object({ pa_id: z.string().describe("A unique identifier for a partner attachment.") }),
+    input: obj({ pa_id: z.string().describe("A unique identifier for a partner attachment.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -78,7 +79,7 @@ export const partnerAttachmentsActions: Record<string, ActionDefinition> = {
     description: "Regenerate the service key for the partner attachment. This operation generates a new service key for the specified partner attachment. The operation is asynchronous, and the response is an empty JSON object returned with a 202 status code. To poll for the new service key, send a GET request to /v2/partnernetworkconnect/attachments/{paid}/servicekey.",
     method: "POST",
     path: "/partner_network_connect/attachments/{pa_id}/service_key",
-    input: z.object({ pa_id: z.string().describe("A unique identifier for a partner attachment.") }),
+    input: obj({ pa_id: z.string().describe("A unique identifier for a partner attachment.") }),
     output: z.unknown(),
     effect: "write",
   },

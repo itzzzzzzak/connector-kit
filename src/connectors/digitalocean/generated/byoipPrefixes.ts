@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const byoipPrefixesActions: Record<string, ActionDefinition> = {
     description: "List BYOIP Prefixes. To list all BYOIP prefixes, send a GET request to /v2/byoipprefixes. A successful response will return a list of all BYOIP prefixes associated with the account.",
     method: "GET",
     path: "/byoip_prefixes",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "byoip_prefixes", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const byoipPrefixesActions: Record<string, ActionDefinition> = {
     description: "Create a BYOIP Prefix. To create a BYOIP prefix, send a POST request to /v2/byoipprefixes.",
     method: "POST",
     path: "/byoip_prefixes",
-    input: z.object({ prefix: z.string().describe("The IP prefix in CIDR notation to bring"), region: z.string().describe("The region where the prefix will be created"), signature: z.string().describe("The signature hash for the prefix creation request") }),
+    input: obj({ prefix: z.string().describe("The IP prefix in CIDR notation to bring"), region: z.string().describe("The region where the prefix will be created"), signature: z.string().describe("The signature hash for the prefix creation request") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const byoipPrefixesActions: Record<string, ActionDefinition> = {
     description: "Get a BYOIP Prefix. To get a BYOIP prefix, send a GET request to /v2/byoipprefixes/$byoipprefixuuid.",
     method: "GET",
     path: "/byoip_prefixes/{byoip_prefix_uuid}",
-    input: z.object({ byoip_prefix_uuid: z.string().describe("The unique identifier for the BYOIP Prefix.") }),
+    input: obj({ byoip_prefix_uuid: z.string().describe("The unique identifier for the BYOIP Prefix.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const byoipPrefixesActions: Record<string, ActionDefinition> = {
     description: "Update a BYOIP Prefix. To update a BYOIP prefix, send a PATCH request to /v2/byoipprefixes/$byoipprefixuuid.",
     method: "PATCH",
     path: "/byoip_prefixes/{byoip_prefix_uuid}",
-    input: z.object({ byoip_prefix_uuid: z.string().describe("A unique identifier for a BYOIP prefix."), advertise: z.boolean().describe("Whether the BYOIP prefix should be advertised").optional() }),
+    input: obj({ byoip_prefix_uuid: z.string().describe("A unique identifier for a BYOIP prefix."), advertise: z.boolean().describe("Whether the BYOIP prefix should be advertised").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const byoipPrefixesActions: Record<string, ActionDefinition> = {
     description: "Delete a BYOIP Prefix. To delete a BYOIP prefix and remove it from your account, send a DELETE request to /v2/byoipprefixes/$byoipprefixuuid.",
     method: "DELETE",
     path: "/byoip_prefixes/{byoip_prefix_uuid}",
-    input: z.object({ byoip_prefix_uuid: z.string().describe("The unique identifier for the BYOIP Prefix.") }),
+    input: obj({ byoip_prefix_uuid: z.string().describe("The unique identifier for the BYOIP Prefix.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const byoipPrefixesActions: Record<string, ActionDefinition> = {
     description: "List BYOIP Prefix Resources. To list resources associated with BYOIP prefixes, send a GET request to /v2/byoipprefixes/{byoipprefixuuid}/ips.",
     method: "GET",
     path: "/byoip_prefixes/{byoip_prefix_uuid}/ips",
-    input: z.object({ byoip_prefix_uuid: z.string().describe("The unique identifier for the BYOIP Prefix."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ byoip_prefix_uuid: z.string().describe("The unique identifier for the BYOIP Prefix."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "ips", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),

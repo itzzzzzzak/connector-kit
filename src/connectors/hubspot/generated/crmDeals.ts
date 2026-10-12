@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const crmDealsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const crmDealsActions: Record<string, ActionDefinition> = {
     description: "Create splits batch read. Part of: Batch. Calls POST /crm/objects/v3/deals/splits/batch/read on HubSpot.",
     method: "POST",
     path: "/crm/objects/v3/deals/splits/batch/read",
-    input: z.object({ inputs: z.array(z.object({ id: z.string() })) }),
+    input: obj({ inputs: z.array(obj({ id: z.string() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const crmDealsActions: Record<string, ActionDefinition> = {
     description: "Create splits batch upsert. Part of: Batch. Calls POST /crm/objects/v3/deals/splits/batch/upsert on HubSpot.",
     method: "POST",
     path: "/crm/objects/v3/deals/splits/batch/upsert",
-    input: z.object({ inputs: z.array(z.object({ id: z.number(), splits: z.array(z.record(z.string(), z.unknown())) })) }),
+    input: obj({ inputs: z.array(obj({ id: z.number(), splits: z.array(z.record(z.string(), z.unknown())) })) }),
     output: z.unknown(),
     effect: "write",
   },

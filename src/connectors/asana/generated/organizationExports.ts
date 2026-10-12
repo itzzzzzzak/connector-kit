@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const organizationExportsActions: Record<string, ActionDefinition> = {
     description: "Create an organization export request. This method creates a request to export an Organization. Asana will complete the export at some point after you create the request.",
     method: "POST",
     path: "/organization_exports",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "download_url", "organization", "organization.name", "state"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ organization: z.string().optional() }).describe("An organizationexport request starts a job to export the complete data of the given Organization.").optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "download_url", "organization", "organization.name", "state"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ organization: z.string().optional() }).describe("An organizationexport request starts a job to export the complete data of the given Organization.").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -21,7 +22,7 @@ export const organizationExportsActions: Record<string, ActionDefinition> = {
     description: "Get details on an org export request. Returns details of a previously-requested Organization export.",
     method: "GET",
     path: "/organization_exports/{organization_export_gid}",
-    input: z.object({ organization_export_gid: z.string().describe("Globally unique identifier for the organization export."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "download_url", "organization", "organization.name", "state"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ organization_export_gid: z.string().describe("Globally unique identifier for the organization export."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "download_url", "organization", "organization.name", "state"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },

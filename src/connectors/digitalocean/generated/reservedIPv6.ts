@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const reservedIPv6Actions: Record<string, ActionDefinition> = {
     description: "List All Reserved IPv6s. To list all of the reserved IPv6s available on your account, send a GET request to /v2/reservedipv6.",
     method: "GET",
     path: "/reserved_ipv6",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "reserved_ipv6s", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const reservedIPv6Actions: Record<string, ActionDefinition> = {
     description: "Create a New Reserved IPv6. On creation, a reserved IPv6 must be reserved to a region. To create a new reserved IPv6 reserved to a region, send a POST request to /v2/reservedipv6 with the regionslug attribute.",
     method: "POST",
     path: "/reserved_ipv6",
-    input: z.object({ region_slug: z.string().describe("The slug identifier for the region the reserved IPv6 will be reserved to.") }),
+    input: obj({ region_slug: z.string().describe("The slug identifier for the region the reserved IPv6 will be reserved to.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const reservedIPv6Actions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing Reserved IPv6. To show information about a reserved IPv6, send a GET request to /v2/reservedipv6/$RESERVEDIPV6.",
     method: "GET",
     path: "/reserved_ipv6/{reserved_ipv6}",
-    input: z.object({ reserved_ipv6: z.string().describe("A reserved IPv6 address.") }),
+    input: obj({ reserved_ipv6: z.string().describe("A reserved IPv6 address.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const reservedIPv6Actions: Record<string, ActionDefinition> = {
     description: "Delete a Reserved IPv6. To delete a reserved IP and remove it from your account, send a DELETE request to /v2/reservedipv6/$RESERVEDIPV6.",
     method: "DELETE",
     path: "/reserved_ipv6/{reserved_ipv6}",
-    input: z.object({ reserved_ipv6: z.string().describe("A reserved IPv6 address.") }),
+    input: obj({ reserved_ipv6: z.string().describe("A reserved IPv6 address.") }),
     output: z.unknown(),
     effect: "destructive",
   },

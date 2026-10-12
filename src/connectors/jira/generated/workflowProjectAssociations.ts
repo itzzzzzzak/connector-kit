@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const workflowProjectAssociationsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const workflowProjectAssociationsActions: Record<string, ActionDefinition
     description: "Get workflow scheme project associations. Returns a list of the workflow schemes associated with a list of projects. Each returned workflow scheme includes a list of the requested projects associated with it. Any team-managed or non-existent projects in the request are ignored and no errors are returned.",
     method: "GET",
     path: "/workflowscheme/project",
-    input: z.object({ projectId: z.array(z.number()).describe("The ID of a project to return the workflow schemes for. To include multiple projects, provide an ampersand-Jim: oneseparated list. For example,…") }),
+    input: obj({ projectId: z.array(z.number()).describe("The ID of a project to return the workflow schemes for. To include multiple projects, provide an ampersand-Jim: oneseparated list. For example,…") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const workflowProjectAssociationsActions: Record<string, ActionDefinition
     description: "Assign workflow scheme to project. Assigns a workflow scheme to a project. This operation is performed only when there are no issues in the project.",
     method: "PUT",
     path: "/workflowscheme/project",
-    input: z.object({ projectId: z.string().describe("The ID of the project."), workflowSchemeId: z.string().describe("The ID of the workflow scheme. If the workflow scheme ID is null, the operation assigns the default workflow scheme.").optional() }),
+    input: obj({ projectId: z.string().describe("The ID of the project."), workflowSchemeId: z.string().describe("The ID of the workflow scheme. If the workflow scheme ID is null, the operation assigns the default workflow scheme.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

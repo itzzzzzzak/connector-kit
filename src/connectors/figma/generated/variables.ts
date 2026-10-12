@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/figma.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const variablesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const variablesActions: Record<string, ActionDefinition> = {
     description: "Get local variables. This API is available to full members of Enterprise orgs.",
     method: "GET",
     path: "/v1/files/{file_key}/variables/local",
-    input: z.object({ file_key: z.string().describe("File to get variables from. This can be a file key or branch key. Use GET /v1/files/:key with the branchdata query param to get the branch key.") }),
+    input: obj({ file_key: z.string().describe("File to get variables from. This can be a file key or branch key. Use GET /v1/files/:key with the branchdata query param to get the branch key.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const variablesActions: Record<string, ActionDefinition> = {
     description: "Get published variables. This API is available to full members of Enterprise orgs.",
     method: "GET",
     path: "/v1/files/{file_key}/variables/published",
-    input: z.object({ file_key: z.string().describe("File to get variables from. This must be a main file key, not a branch key, as it is not possible to publish from branches.") }),
+    input: obj({ file_key: z.string().describe("File to get variables from. This must be a main file key, not a branch key, as it is not possible to publish from branches.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const variablesActions: Record<string, ActionDefinition> = {
     description: "Create/modify/delete variables. This API is available to full members of Enterprise orgs with Editor seats.",
     method: "POST",
     path: "/v1/files/{file_key}/variables",
-    input: z.object({ file_key: z.string().describe("File to modify variables in. This can be a file key or branch key. Use GET /v1/files/:key with the branchdata query param to get the branch key."), variableCollections: z.array(z.unknown()).describe("For creating, updating, and deleting variable collections.").optional(), variableModes: z.array(z.unknown()).describe("For creating, updating, and deleting modes within variable collections.").optional(), variables: z.array(z.unknown()).describe("For creating, updating, and deleting variables.").optional(), variableModeValues: z.array(z.object({ variableId: z.string(), modeId: z.string(), value: z.unknown() })).describe("For setting a specific value, given a variable and a mode.").optional() }),
+    input: obj({ file_key: z.string().describe("File to modify variables in. This can be a file key or branch key. Use GET /v1/files/:key with the branchdata query param to get the branch key."), variableCollections: z.array(z.unknown()).describe("For creating, updating, and deleting variable collections.").optional(), variableModes: z.array(z.unknown()).describe("For creating, updating, and deleting modes within variable collections.").optional(), variables: z.array(z.unknown()).describe("For creating, updating, and deleting variables.").optional(), variableModeValues: z.array(obj({ variableId: z.string(), modeId: z.string(), value: z.unknown() })).describe("For setting a specific value, given a variable and a mode.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

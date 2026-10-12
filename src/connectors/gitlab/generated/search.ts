@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const searchActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const searchActions: Record<string, ActionDefinition> = {
     description: "Get groups id search. Part of: search. Calls GET /groups/{id}/(-/)search on GitLab.",
     method: "GET",
     path: "/groups/{id}/(-/)search",
-    input: z.object({ id: z.string(), search: z.string(), scope: z.enum(["wiki_blobs", "blobs", "commits", "notes", "projects", "issues", "work_items", "merge_requests", "milestones", "users"]), state: z.enum(["all", "opened", "closed", "merged"]).optional(), confidential: z.boolean().optional(), type: z.array(z.string()).optional(), include_archived: z.boolean().optional(), fields: z.array(z.enum(["title"])).optional(), exclude_forks: z.boolean().optional(), num_context_lines: z.number().optional(), regex: z.boolean().optional(), page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ id: z.string(), search: z.string(), scope: z.enum(["wiki_blobs", "blobs", "commits", "notes", "projects", "issues", "work_items", "merge_requests", "milestones", "users"]), state: z.enum(["all", "opened", "closed", "merged"]).optional(), confidential: z.boolean().optional(), type: z.array(z.string()).optional(), include_archived: z.boolean().optional(), fields: z.array(z.enum(["title"])).optional(), exclude_forks: z.boolean().optional(), num_context_lines: z.number().optional(), regex: z.boolean().optional(), page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const searchActions: Record<string, ActionDefinition> = {
     description: "Get projects id search. Part of: search. Calls GET /projects/{id}/(-/)search on GitLab.",
     method: "GET",
     path: "/projects/{id}/(-/)search",
-    input: z.object({ id: z.string(), search: z.string(), scope: z.enum(["issues", "work_items", "merge_requests", "milestones", "notes", "wiki_blobs", "commits", "blobs", "users"]), ref: z.string().optional(), state: z.enum(["all", "opened", "closed", "merged"]).optional(), confidential: z.boolean().optional(), type: z.array(z.string()).optional(), fields: z.array(z.enum(["title"])).optional(), num_context_lines: z.number().optional(), regex: z.boolean().optional(), page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ id: z.string(), search: z.string(), scope: z.enum(["issues", "work_items", "merge_requests", "milestones", "notes", "wiki_blobs", "commits", "blobs", "users"]), ref: z.string().optional(), state: z.enum(["all", "opened", "closed", "merged"]).optional(), confidential: z.boolean().optional(), type: z.array(z.string()).optional(), fields: z.array(z.enum(["title"])).optional(), num_context_lines: z.number().optional(), regex: z.boolean().optional(), page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const searchActions: Record<string, ActionDefinition> = {
     description: "Get search. Part of: search. Calls GET /search on GitLab.",
     method: "GET",
     path: "/search",
-    input: z.object({ search: z.string(), scope: z.enum(["wiki_blobs", "blobs", "commits", "notes", "projects", "issues", "work_items", "merge_requests", "milestones", "snippet_titles", "users"]), state: z.enum(["all", "opened", "closed", "merged"]).optional(), confidential: z.boolean().optional(), type: z.array(z.string()).optional(), include_archived: z.boolean().optional(), fields: z.array(z.enum(["title"])).optional(), exclude_forks: z.boolean().optional(), num_context_lines: z.number().optional(), regex: z.boolean().optional(), page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ search: z.string(), scope: z.enum(["wiki_blobs", "blobs", "commits", "notes", "projects", "issues", "work_items", "merge_requests", "milestones", "snippet_titles", "users"]), state: z.enum(["all", "opened", "closed", "merged"]).optional(), confidential: z.boolean().optional(), type: z.array(z.string()).optional(), include_archived: z.boolean().optional(), fields: z.array(z.enum(["title"])).optional(), exclude_forks: z.boolean().optional(), num_context_lines: z.number().optional(), regex: z.boolean().optional(), page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },

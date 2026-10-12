@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const switchActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const switchActions: Record<string, ActionDefinition> = {
     description: "Create a phone Switch. You can use the API to deflect phone calls to the Intercom Messenger. Calling this endpoint will send an SMS with a link to the Messenger to the phone number specified.",
     method: "POST",
     path: "/phone_call_redirects",
-    input: z.object({ phone: z.string().describe("Phone number in E.164 format, that will receive the SMS to continue the conversation in the Messenger."), custom_attributes: z.unknown().optional() }),
+    input: obj({ phone: z.string().describe("Phone number in E.164 format, that will receive the SMS to continue the conversation in the Messenger."), custom_attributes: z.unknown().optional() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const alertManagementActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const alertManagementActions: Record<string, ActionDefinition> = {
     description: "Post projects id alert management alerts alert iid metric images authorize. Part of: alertmanagement. Calls POST /projects/{id}/alertmanagementalerts/{alertiid}/metricimages/authorize on GitLab.",
     method: "POST",
     path: "/projects/{id}/alert_management_alerts/{alert_iid}/metric_images/authorize",
-    input: z.object({ id: z.string(), alert_iid: z.number() }),
+    input: obj({ id: z.string(), alert_iid: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const alertManagementActions: Record<string, ActionDefinition> = {
     description: "Get projects id alert management alerts alert iid metric images. Part of: alertmanagement. Calls GET /projects/{id}/alertmanagementalerts/{alertiid}/metricimages on GitLab.",
     method: "GET",
     path: "/projects/{id}/alert_management_alerts/{alert_iid}/metric_images",
-    input: z.object({ id: z.string(), alert_iid: z.number() }),
+    input: obj({ id: z.string(), alert_iid: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const alertManagementActions: Record<string, ActionDefinition> = {
     description: "Delete projects id alert management alerts alert iid metric images metric image id. Part of: alertmanagement. Calls DELETE /projects/{id}/alertmanagementalerts/{alertiid}/metricimages/{metricimageid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/alert_management_alerts/{alert_iid}/metric_images/{metric_image_id}",
-    input: z.object({ id: z.string(), alert_iid: z.number(), metric_image_id: z.number() }),
+    input: obj({ id: z.string(), alert_iid: z.number(), metric_image_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

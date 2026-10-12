@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const batchedBackgroundMigrationsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const batchedBackgroundMigrationsActions: Record<string, ActionDefinition
     description: "Get admin batched background migrations id. Part of: batchedbackgroundmigrations. Calls GET /admin/batchedbackgroundmigrations/{id} on GitLab.",
     method: "GET",
     path: "/admin/batched_background_migrations/{id}",
-    input: z.object({ id: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
+    input: obj({ id: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const batchedBackgroundMigrationsActions: Record<string, ActionDefinition
     description: "Put admin batched background migrations id resume. Part of: batchedbackgroundmigrations. Calls PUT /admin/batchedbackgroundmigrations/{id}/resume on GitLab.",
     method: "PUT",
     path: "/admin/batched_background_migrations/{id}/resume",
-    input: z.object({ id: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
+    input: obj({ id: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const batchedBackgroundMigrationsActions: Record<string, ActionDefinition
     description: "Put admin batched background migrations id pause. Part of: batchedbackgroundmigrations. Calls PUT /admin/batchedbackgroundmigrations/{id}/pause on GitLab.",
     method: "PUT",
     path: "/admin/batched_background_migrations/{id}/pause",
-    input: z.object({ id: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
+    input: obj({ id: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const batchedBackgroundMigrationsActions: Record<string, ActionDefinition
     description: "Get admin batched background migrations. Part of: batchedbackgroundmigrations. Calls GET /admin/batchedbackgroundmigrations on GitLab.",
     method: "GET",
     path: "/admin/batched_background_migrations",
-    input: z.object({ database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional(), job_class_name: z.string().optional() }),
+    input: obj({ database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional(), job_class_name: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

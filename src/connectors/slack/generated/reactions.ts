@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const reactionsActions: Record<string, ActionDefinition> = {
     description: "Adds a reaction to an item. Calls POST /reactions.add on Slack.",
     method: "POST",
     path: "/reactions.add",
-    input: z.object({ channel: z.string().describe("Channel where the message to add reaction to was posted."), name: z.string().describe("Reaction (emoji) name."), timestamp: z.string().describe("Timestamp of the message to add reaction to.") }),
+    input: obj({ channel: z.string().describe("Channel where the message to add reaction to was posted."), name: z.string().describe("Reaction (emoji) name."), timestamp: z.string().describe("Timestamp of the message to add reaction to.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const reactionsActions: Record<string, ActionDefinition> = {
     description: "Gets reactions for an item. Calls GET /reactions.get on Slack.",
     method: "GET",
     path: "/reactions.get",
-    input: z.object({ channel: z.string().describe("Channel where the message to get reactions for was posted.").optional(), file: z.string().describe("File to get reactions for.").optional(), file_comment: z.string().describe("File comment to get reactions for.").optional(), full: z.boolean().describe("If true always return the complete reaction list.").optional(), timestamp: z.string().describe("Timestamp of the message to get reactions for.").optional() }),
+    input: obj({ channel: z.string().describe("Channel where the message to get reactions for was posted.").optional(), file: z.string().describe("File to get reactions for.").optional(), file_comment: z.string().describe("File comment to get reactions for.").optional(), full: z.boolean().describe("If true always return the complete reaction list.").optional(), timestamp: z.string().describe("Timestamp of the message to get reactions for.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const reactionsActions: Record<string, ActionDefinition> = {
     description: "Lists reactions made by a user. Calls GET /reactions.list on Slack.",
     method: "GET",
     path: "/reactions.list",
-    input: z.object({ user: z.string().describe("Show reactions made by this user. Defaults to the authed user.").optional(), full: z.boolean().describe("If true always return the complete reaction list.").optional(), count: z.number().optional(), page: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ user: z.string().describe("Show reactions made by this user. Defaults to the authed user.").optional(), full: z.boolean().describe("If true always return the complete reaction list.").optional(), count: z.number().optional(), page: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "items", cursorPath: ["response_metadata", "next_cursor"] }),
@@ -36,7 +37,7 @@ export const reactionsActions: Record<string, ActionDefinition> = {
     description: "Removes a reaction from an item. Calls POST /reactions.remove on Slack.",
     method: "POST",
     path: "/reactions.remove",
-    input: z.object({ name: z.string().describe("Reaction (emoji) name."), file: z.string().describe("File to remove reaction from.").optional(), file_comment: z.string().describe("File comment to remove reaction from.").optional(), channel: z.string().describe("Channel where the message to remove reaction from was posted.").optional(), timestamp: z.string().describe("Timestamp of the message to remove reaction from.").optional() }),
+    input: obj({ name: z.string().describe("Reaction (emoji) name."), file: z.string().describe("File to remove reaction from.").optional(), file_comment: z.string().describe("File comment to remove reaction from.").optional(), channel: z.string().describe("Channel where the message to remove reaction from was posted.").optional(), timestamp: z.string().describe("Timestamp of the message to remove reaction from.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const newsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const newsActions: Record<string, ActionDefinition> = {
     description: "List all news items. You can fetch a list of all news items",
     method: "GET",
     path: "/news/news_items",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const newsActions: Record<string, ActionDefinition> = {
     description: "Create a news item. You can create a news item",
     method: "POST",
     path: "/news/news_items",
-    input: z.object({ title: z.string().describe("The title of the news item."), body: z.string().describe("The news item body, which may contain HTML.").optional(), sender_id: z.number().describe("The id of the sender of the news item. Must be a teammate on the workspace."), state: z.enum(["draft", "live"]).describe("News items will not be visible to your users in the assigned newsfeeds until they are set live.").optional(), deliver_silently: z.boolean().describe("When set to true, the news item will appear in the messenger newsfeed without showing a notification badge.").optional(), labels: z.array(z.string()).describe("Label names displayed to users to categorize the news item.").optional(), reactions: z.array(z.string().nullable()).describe("Ordered list of emoji reactions to the news item. When empty, reactions are disabled.").optional(), newsfeed_assignments: z.array(z.object({ newsfeed_id: z.number(), published_at: z.number() })).describe("A list of newsfeedassignments to assign to the specified newsfeed.").optional() }),
+    input: obj({ title: z.string().describe("The title of the news item."), body: z.string().describe("The news item body, which may contain HTML.").optional(), sender_id: z.number().describe("The id of the sender of the news item. Must be a teammate on the workspace."), state: z.enum(["draft", "live"]).describe("News items will not be visible to your users in the assigned newsfeeds until they are set live.").optional(), deliver_silently: z.boolean().describe("When set to true, the news item will appear in the messenger newsfeed without showing a notification badge.").optional(), labels: z.array(z.string()).describe("Label names displayed to users to categorize the news item.").optional(), reactions: z.array(z.string().nullable()).describe("Ordered list of emoji reactions to the news item. When empty, reactions are disabled.").optional(), newsfeed_assignments: z.array(obj({ newsfeed_id: z.number(), published_at: z.number() })).describe("A list of newsfeedassignments to assign to the specified newsfeed.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const newsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a news item. You can fetch the details of a single news item.",
     method: "GET",
     path: "/news/news_items/{news_item_id}",
-    input: z.object({ news_item_id: z.string().describe("The unique identifier for the news item which is given by Intercom.") }),
+    input: obj({ news_item_id: z.string().describe("The unique identifier for the news item which is given by Intercom.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const newsActions: Record<string, ActionDefinition> = {
     description: "Update a news item Calls PUT /news/newsitems/{newsitemid} on Intercom.",
     method: "PUT",
     path: "/news/news_items/{news_item_id}",
-    input: z.object({ news_item_id: z.string().describe("The unique identifier for the news item which is given by Intercom."), title: z.string().describe("The title of the news item."), body: z.string().describe("The news item body, which may contain HTML.").optional(), sender_id: z.number().describe("The id of the sender of the news item. Must be a teammate on the workspace."), state: z.enum(["draft", "live"]).describe("News items will not be visible to your users in the assigned newsfeeds until they are set live.").optional(), deliver_silently: z.boolean().describe("When set to true, the news item will appear in the messenger newsfeed without showing a notification badge.").optional(), labels: z.array(z.string()).describe("Label names displayed to users to categorize the news item.").optional(), reactions: z.array(z.string().nullable()).describe("Ordered list of emoji reactions to the news item. When empty, reactions are disabled.").optional(), newsfeed_assignments: z.array(z.object({ newsfeed_id: z.number(), published_at: z.number() })).describe("A list of newsfeedassignments to assign to the specified newsfeed.").optional() }),
+    input: obj({ news_item_id: z.string().describe("The unique identifier for the news item which is given by Intercom."), title: z.string().describe("The title of the news item."), body: z.string().describe("The news item body, which may contain HTML.").optional(), sender_id: z.number().describe("The id of the sender of the news item. Must be a teammate on the workspace."), state: z.enum(["draft", "live"]).describe("News items will not be visible to your users in the assigned newsfeeds until they are set live.").optional(), deliver_silently: z.boolean().describe("When set to true, the news item will appear in the messenger newsfeed without showing a notification badge.").optional(), labels: z.array(z.string()).describe("Label names displayed to users to categorize the news item.").optional(), reactions: z.array(z.string().nullable()).describe("Ordered list of emoji reactions to the news item. When empty, reactions are disabled.").optional(), newsfeed_assignments: z.array(obj({ newsfeed_id: z.number(), published_at: z.number() })).describe("A list of newsfeedassignments to assign to the specified newsfeed.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const newsActions: Record<string, ActionDefinition> = {
     description: "Delete a news item. You can delete a single news item.",
     method: "DELETE",
     path: "/news/news_items/{news_item_id}",
-    input: z.object({ news_item_id: z.string().describe("The unique identifier for the news item which is given by Intercom.") }),
+    input: obj({ news_item_id: z.string().describe("The unique identifier for the news item which is given by Intercom.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const newsActions: Record<string, ActionDefinition> = {
     description: "List all live newsfeed items. You can fetch a list of all news items that are live on a given newsfeed",
     method: "GET",
     path: "/news/newsfeeds/{newsfeed_id}/items",
-    input: z.object({ newsfeed_id: z.string().describe("The unique identifier for the news feed item which is given by Intercom.") }),
+    input: obj({ newsfeed_id: z.string().describe("The unique identifier for the news feed item which is given by Intercom.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const newsActions: Record<string, ActionDefinition> = {
     description: "List all newsfeeds. You can fetch a list of all newsfeeds",
     method: "GET",
     path: "/news/newsfeeds",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -66,7 +67,7 @@ export const newsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a newsfeed. You can fetch the details of a single newsfeed",
     method: "GET",
     path: "/news/newsfeeds/{newsfeed_id}",
-    input: z.object({ newsfeed_id: z.string().describe("The unique identifier for the news feed item which is given by Intercom.") }),
+    input: obj({ newsfeed_id: z.string().describe("The unique identifier for the news feed item which is given by Intercom.") }),
     output: z.unknown(),
     effect: "read",
   },

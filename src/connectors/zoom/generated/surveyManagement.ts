@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const surveyManagementActions: Record<string, ActionDefinition> = {
     description: "Get account surveys. Part of: Survey Management. Calls GET /surveys on Zoom.",
     method: "GET",
     path: "/surveys",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "surveys", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const surveyManagementActions: Record<string, ActionDefinition> = {
     description: "Getsurveyinstances. Part of: Survey Management. Calls GET /surveys/channels/{channelId}/instances on Zoom.",
     method: "GET",
     path: "/surveys/channels/{channelId}/instances",
-    input: z.object({ channelId: z.string(), from: z.string().optional(), to: z.string().optional(), survey_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ channelId: z.string(), from: z.string().optional(), to: z.string().optional(), survey_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "survey_instances", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -29,7 +30,7 @@ export const surveyManagementActions: Record<string, ActionDefinition> = {
     description: "Get survey info. Part of: Survey Management. Calls GET /surveys/{surveyId} on Zoom.",
     method: "GET",
     path: "/surveys/{surveyId}",
-    input: z.object({ surveyId: z.string() }),
+    input: obj({ surveyId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const surveyManagementActions: Record<string, ActionDefinition> = {
     description: "Get survey answers. Part of: Survey Management. Calls GET /surveys/{surveyId}/answers on Zoom.",
     method: "GET",
     path: "/surveys/{surveyId}/answers",
-    input: z.object({ surveyId: z.string(), instance_id: z.string().optional(), submit_time_start: z.string().optional(), submit_time_end: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ surveyId: z.string(), instance_id: z.string().optional(), submit_time_start: z.string().optional(), submit_time_end: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "survey_answers", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -46,7 +47,7 @@ export const surveyManagementActions: Record<string, ActionDefinition> = {
     description: "Get survey instances info. Part of: Survey Management. Calls GET /surveys/{surveyId}/instances on Zoom.",
     method: "GET",
     path: "/surveys/{surveyId}/instances",
-    input: z.object({ surveyId: z.string(), instance_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ surveyId: z.string(), instance_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "survey_instances", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const sMSActions: Record<string, ActionDefinition> = {
     description: "Post sms message. Part of: SMS. Calls POST /phone/sms/messages on Zoom.",
     method: "POST",
     path: "/phone/sms/messages",
-    input: z.object({ attachments: z.array(z.object({ base64_encoding: z.string().optional(), type: z.enum(["PNG", "JPEG", "JPG", "GIF", "PDF", "MP4", "3GP", "MP3", "AMR", "VCS", "ICS", "VCF"]).optional() })).optional(), message: z.string().optional(), sender: z.object({ id: z.string().optional(), user_id: z.string().optional(), phone_number: z.string() }), session_id: z.string().optional(), to_members: z.array(z.object({ phone_number: z.string() })) }),
+    input: obj({ attachments: z.array(obj({ base64_encoding: z.string().optional(), type: z.enum(["PNG", "JPEG", "JPG", "GIF", "PDF", "MP4", "3GP", "MP3", "AMR", "VCS", "ICS", "VCF"]).optional() })).optional(), message: z.string().optional(), sender: obj({ id: z.string().optional(), user_id: z.string().optional(), phone_number: z.string() }), session_id: z.string().optional(), to_members: z.array(obj({ phone_number: z.string() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const sMSActions: Record<string, ActionDefinition> = {
     description: "Account sms session. Part of: SMS. Calls GET /phone/sms/sessions on Zoom.",
     method: "GET",
     path: "/phone/sms/sessions",
-    input: z.object({ from: z.string().optional(), to: z.string().optional(), session_type: z.enum(["user", "call_queue", "auto_receptionist", "service_endpoint", "all"]).optional(), phone_number: z.string().optional(), filter_type: z.enum(["sent_message_time", "received_message_time", "last_message_time", "sent_received_message_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string().optional(), to: z.string().optional(), session_type: z.enum(["user", "call_queue", "auto_receptionist", "service_endpoint", "all"]).optional(), phone_number: z.string().optional(), filter_type: z.enum(["sent_message_time", "received_message_time", "last_message_time", "sent_received_message_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "sms_sessions", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -28,7 +29,7 @@ export const sMSActions: Record<string, ActionDefinition> = {
     description: "Sms session details. Part of: SMS. Calls GET /phone/sms/sessions/{sessionId} on Zoom.",
     method: "GET",
     path: "/phone/sms/sessions/{sessionId}",
-    input: z.object({ sessionId: z.string(), from: z.string().optional(), to: z.string().optional(), delivery_status: z.enum(["all", "received", "delivered", "failed_to_send", "sent", "failed_to_deliver", "unknown"]).optional(), sort: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ sessionId: z.string(), from: z.string().optional(), to: z.string().optional(), delivery_status: z.enum(["all", "received", "delivered", "failed_to_send", "sent", "failed_to_deliver", "unknown"]).optional(), sort: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "sms_histories", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -37,7 +38,7 @@ export const sMSActions: Record<string, ActionDefinition> = {
     description: "Sms by message id. Part of: SMS. Calls GET /phone/sms/sessions/{sessionId}/messages/{messageId} on Zoom.",
     method: "GET",
     path: "/phone/sms/sessions/{sessionId}/messages/{messageId}",
-    input: z.object({ sessionId: z.string(), messageId: z.string() }),
+    input: obj({ sessionId: z.string(), messageId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -45,7 +46,7 @@ export const sMSActions: Record<string, ActionDefinition> = {
     description: "Sms session sync. Part of: SMS. Calls GET /phone/sms/sessions/{sessionId}/sync on Zoom.",
     method: "GET",
     path: "/phone/sms/sessions/{sessionId}/sync",
-    input: z.object({ sessionId: z.string(), sync_type: z.enum(["FSync", "ISync", "BSync"]).optional(), count: z.number(), sync_token: z.string().optional() }),
+    input: obj({ sessionId: z.string(), sync_type: z.enum(["FSync", "ISync", "BSync"]).optional(), count: z.number(), sync_token: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -53,7 +54,7 @@ export const sMSActions: Record<string, ActionDefinition> = {
     description: "User sms session. Part of: SMS. Calls GET /phone/users/{userId}/sms/sessions on Zoom.",
     method: "GET",
     path: "/phone/users/{userId}/sms/sessions",
-    input: z.object({ userId: z.string(), session_type: z.string().optional(), from: z.string().optional(), to: z.string().optional(), phone_number: z.string().optional(), filter_type: z.enum(["sent_message_time", "received_message_time", "last_message_time", "sent_received_message_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ userId: z.string(), session_type: z.string().optional(), from: z.string().optional(), to: z.string().optional(), phone_number: z.string().optional(), filter_type: z.enum(["sent_message_time", "received_message_time", "last_message_time", "sent_received_message_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "sms_sessions", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -62,7 +63,7 @@ export const sMSActions: Record<string, ActionDefinition> = {
     description: "Get sms sessions. Part of: SMS. Calls GET /phone/users/{userId}/sms/sessions/sync on Zoom.",
     method: "GET",
     path: "/phone/users/{userId}/sms/sessions/sync",
-    input: z.object({ userId: z.string(), sync_type: z.enum(["FSync", "BSync", "ISync"]), sync_token: z.string().optional(), count: z.number().optional(), session_type: z.string().optional() }),
+    input: obj({ userId: z.string(), sync_type: z.enum(["FSync", "BSync", "ISync"]), sync_token: z.string().optional(), count: z.number().optional(), session_type: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -70,7 +71,7 @@ export const sMSActions: Record<string, ActionDefinition> = {
     description: "Contact center sms. Part of: SMS. Calls POST /contactcenter/sms on Zoom.",
     method: "POST",
     path: "/contact_center/sms",
-    input: z.object({ contact_center_number: z.string(), consumer_numbers: z.array(z.string()), body: z.string() }),
+    input: obj({ contact_center_number: z.string(), consumer_numbers: z.array(z.string()), body: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const iTAMAssetFieldsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const iTAMAssetFieldsActions: Record<string, ActionDefinition> = {
     description: "List itam asset type fields. Part of: ITAM Asset Fields. Calls GET /itassetmanagement/assettypes/{assettypeid}/fields on Zendesk.",
     method: "GET",
     path: "/it_asset_management/asset_types/{asset_type_id}/fields",
-    input: z.object({ asset_type_id: z.string() }),
+    input: obj({ asset_type_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const iTAMAssetFieldsActions: Record<string, ActionDefinition> = {
     description: "Show itam asset type field. Part of: ITAM Asset Fields. Calls GET /itassetmanagement/assettypes/{assettypeid}/fields/{assettypefieldid} on Zendesk.",
     method: "GET",
     path: "/it_asset_management/asset_types/{asset_type_id}/fields/{asset_type_field_id}",
-    input: z.object({ asset_type_id: z.string(), asset_type_field_id: z.number() }),
+    input: obj({ asset_type_id: z.string(), asset_type_field_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const iTAMAssetFieldsActions: Record<string, ActionDefinition> = {
     description: "List itam fields. Part of: ITAM Asset Fields. Calls GET /itassetmanagement/fields on Zendesk.",
     method: "GET",
     path: "/it_asset_management/fields",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const iTAMAssetFieldsActions: Record<string, ActionDefinition> = {
     description: "Create itam field. Part of: ITAM Asset Fields. Calls POST /itassetmanagement/fields on Zendesk.",
     method: "POST",
     path: "/it_asset_management/fields",
-    input: z.object({ asset_type_ids: z.unknown().optional(), field: z.object({ active: z.boolean().optional(), created_at: z.string().optional(), custom_field_options: z.array(z.record(z.string(), z.unknown())).optional(), description: z.string().optional(), id: z.number().optional(), key: z.string(), position: z.number().optional(), raw_description: z.string().optional(), raw_title: z.string().optional(), regexp_for_validation: z.string().nullable().optional(), relationship_filter: z.record(z.string(), z.unknown()).optional(), system: z.boolean().optional(), tag: z.string().optional(), title: z.string(), type: z.string(), updated_at: z.string().optional(), url: z.string().optional(), properties: z.object({ allowed_currencies: z.array(z.string()).optional(), autoincrement_enabled: z.boolean().optional(), autoincrement_next_sequence: z.number().optional(), autoincrement_padding: z.number().optional(), autoincrement_prefix: z.string().optional(), cascade_permissions_enabled: z.boolean().optional(), is_unique: z.boolean().optional(), rollup_aggregated_field: z.string().nullable().optional(), rollup_aggregated_field_title: z.string().optional(), rollup_aggregation_type: z.enum(["COUNT", "SUM", "MIN", "MAX"]).optional(), rollup_child_object: z.string().optional(), rollup_filter_criteria: z.record(z.string(), z.unknown()).nullable().optional() }).optional(), readonly: z.boolean().optional(), relationship_target_type: z.string().optional(), required: z.boolean().optional() }).optional() }),
+    input: obj({ asset_type_ids: z.unknown().optional(), field: obj({ active: z.boolean().optional(), created_at: z.string().optional(), custom_field_options: z.array(z.record(z.string(), z.unknown())).optional(), description: z.string().optional(), id: z.number().optional(), key: z.string(), position: z.number().optional(), raw_description: z.string().optional(), raw_title: z.string().optional(), regexp_for_validation: z.string().nullable().optional(), relationship_filter: z.record(z.string(), z.unknown()).optional(), system: z.boolean().optional(), tag: z.string().optional(), title: z.string(), type: z.string(), updated_at: z.string().optional(), url: z.string().optional(), properties: obj({ allowed_currencies: z.array(z.string()).optional(), autoincrement_enabled: z.boolean().optional(), autoincrement_next_sequence: z.number().optional(), autoincrement_padding: z.number().optional(), autoincrement_prefix: z.string().optional(), cascade_permissions_enabled: z.boolean().optional(), is_unique: z.boolean().optional(), rollup_aggregated_field: z.string().nullable().optional(), rollup_aggregated_field_title: z.string().optional(), rollup_aggregation_type: z.enum(["COUNT", "SUM", "MIN", "MAX"]).optional(), rollup_child_object: z.string().optional(), rollup_filter_criteria: z.record(z.string(), z.unknown()).nullable().optional() }).optional(), readonly: z.boolean().optional(), relationship_target_type: z.string().optional(), required: z.boolean().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const iTAMAssetFieldsActions: Record<string, ActionDefinition> = {
     description: "Show itam field. Part of: ITAM Asset Fields. Calls GET /itassetmanagement/fields/{id} on Zendesk.",
     method: "GET",
     path: "/it_asset_management/fields/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const iTAMAssetFieldsActions: Record<string, ActionDefinition> = {
     description: "Update itam field. Part of: ITAM Asset Fields. Calls PATCH /itassetmanagement/fields/{id} on Zendesk.",
     method: "PATCH",
     path: "/it_asset_management/fields/{id}",
-    input: z.object({ id: z.number(), asset_type_ids: z.unknown().optional(), field: z.object({ active: z.boolean().optional(), created_at: z.string().optional(), custom_field_options: z.array(z.record(z.string(), z.unknown())).optional(), description: z.string().optional(), id: z.number().optional(), key: z.string(), position: z.number().optional(), raw_description: z.string().optional(), raw_title: z.string().optional(), regexp_for_validation: z.string().nullable().optional(), relationship_filter: z.record(z.string(), z.unknown()).optional(), system: z.boolean().optional(), tag: z.string().optional(), title: z.string(), type: z.string(), updated_at: z.string().optional(), url: z.string().optional(), properties: z.object({ allowed_currencies: z.array(z.string()).optional(), autoincrement_enabled: z.boolean().optional(), autoincrement_next_sequence: z.number().optional(), autoincrement_padding: z.number().optional(), autoincrement_prefix: z.string().optional(), cascade_permissions_enabled: z.boolean().optional(), is_unique: z.boolean().optional(), rollup_aggregated_field: z.string().nullable().optional(), rollup_aggregated_field_title: z.string().optional(), rollup_aggregation_type: z.enum(["COUNT", "SUM", "MIN", "MAX"]).optional(), rollup_child_object: z.string().optional(), rollup_filter_criteria: z.record(z.string(), z.unknown()).nullable().optional() }).optional(), readonly: z.boolean().optional(), relationship_target_type: z.string().optional(), required: z.boolean().optional() }).optional() }),
+    input: obj({ id: z.number(), asset_type_ids: z.unknown().optional(), field: obj({ active: z.boolean().optional(), created_at: z.string().optional(), custom_field_options: z.array(z.record(z.string(), z.unknown())).optional(), description: z.string().optional(), id: z.number().optional(), key: z.string(), position: z.number().optional(), raw_description: z.string().optional(), raw_title: z.string().optional(), regexp_for_validation: z.string().nullable().optional(), relationship_filter: z.record(z.string(), z.unknown()).optional(), system: z.boolean().optional(), tag: z.string().optional(), title: z.string(), type: z.string(), updated_at: z.string().optional(), url: z.string().optional(), properties: obj({ allowed_currencies: z.array(z.string()).optional(), autoincrement_enabled: z.boolean().optional(), autoincrement_next_sequence: z.number().optional(), autoincrement_padding: z.number().optional(), autoincrement_prefix: z.string().optional(), cascade_permissions_enabled: z.boolean().optional(), is_unique: z.boolean().optional(), rollup_aggregated_field: z.string().nullable().optional(), rollup_aggregated_field_title: z.string().optional(), rollup_aggregation_type: z.enum(["COUNT", "SUM", "MIN", "MAX"]).optional(), rollup_child_object: z.string().optional(), rollup_filter_criteria: z.record(z.string(), z.unknown()).nullable().optional() }).optional(), readonly: z.boolean().optional(), relationship_target_type: z.string().optional(), required: z.boolean().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const iTAMAssetFieldsActions: Record<string, ActionDefinition> = {
     description: "Delete itam field. Part of: ITAM Asset Fields. Calls DELETE /itassetmanagement/fields/{id} on Zendesk.",
     method: "DELETE",
     path: "/it_asset_management/fields/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

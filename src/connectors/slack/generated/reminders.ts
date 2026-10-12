@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const remindersActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const remindersActions: Record<string, ActionDefinition> = {
     description: "Creates a reminder. Calls POST /reminders.add on Slack.",
     method: "POST",
     path: "/reminders.add",
-    input: z.object({ text: z.string().describe("The content of the reminder"), time: z.string().describe("When this reminder should happen: the Unix timestamp (up to five years from now), the number of seconds until the reminder (if within 24 hours), or a natural…"), user: z.string().describe("The user who will receive the reminder. If no user is specified, the reminder will go to user who created it.").optional() }),
+    input: obj({ text: z.string().describe("The content of the reminder"), time: z.string().describe("When this reminder should happen: the Unix timestamp (up to five years from now), the number of seconds until the reminder (if within 24 hours), or a natural…"), user: z.string().describe("The user who will receive the reminder. If no user is specified, the reminder will go to user who created it.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const remindersActions: Record<string, ActionDefinition> = {
     description: "Marks a reminder as complete. Calls POST /reminders.complete on Slack.",
     method: "POST",
     path: "/reminders.complete",
-    input: z.object({ reminder: z.string().describe("The ID of the reminder to be marked as complete").optional() }),
+    input: obj({ reminder: z.string().describe("The ID of the reminder to be marked as complete").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const remindersActions: Record<string, ActionDefinition> = {
     description: "Deletes a reminder. Calls POST /reminders.delete on Slack.",
     method: "POST",
     path: "/reminders.delete",
-    input: z.object({ reminder: z.string().describe("The ID of the reminder").optional() }),
+    input: obj({ reminder: z.string().describe("The ID of the reminder").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const remindersActions: Record<string, ActionDefinition> = {
     description: "Gets information about a reminder. Calls GET /reminders.info on Slack.",
     method: "GET",
     path: "/reminders.info",
-    input: z.object({ reminder: z.string().describe("The ID of the reminder").optional() }),
+    input: obj({ reminder: z.string().describe("The ID of the reminder").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const remindersActions: Record<string, ActionDefinition> = {
     description: "Lists all reminders created by or for a given user.",
     method: "GET",
     path: "/reminders.list",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

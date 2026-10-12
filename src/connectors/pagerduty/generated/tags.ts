@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Create entity type by id change tags. Part of: Tags. Calls POST /{entitytype}/{id}/changetags on PagerDuty.",
     method: "POST",
     path: "/{entity_type}/{id}/change_tags",
-    input: z.object({ entity_type: z.enum(["users", "teams", "escalation_policies"]), id: z.string(), add: z.array(z.object({ type: z.enum(["tag", "tag_reference"]), label: z.string().optional(), id: z.string().optional() })).optional(), remove: z.array(z.object({ type: z.enum(["tag_reference"]), id: z.string() })).optional() }),
+    input: obj({ entity_type: z.enum(["users", "teams", "escalation_policies"]), id: z.string(), add: z.array(obj({ type: z.enum(["tag", "tag_reference"]), label: z.string().optional(), id: z.string().optional() })).optional(), remove: z.array(obj({ type: z.enum(["tag_reference"]), id: z.string() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Get entity type by id tags. Part of: Tags. Calls GET /{entitytype}/{id}/tags on PagerDuty.",
     method: "GET",
     path: "/{entity_type}/{id}/tags",
-    input: z.object({ total: z.boolean().optional(), entity_type: z.enum(["users", "teams", "escalation_policies"]), id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ total: z.boolean().optional(), entity_type: z.enum(["users", "teams", "escalation_policies"]), id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "tags", hasMorePath: ["more"], pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -28,7 +29,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "List tags. Part of: Tags. Calls GET /tags on PagerDuty.",
     method: "GET",
     path: "/tags",
-    input: z.object({ total: z.boolean().optional(), query: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ total: z.boolean().optional(), query: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "tags", hasMorePath: ["more"], pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -37,7 +38,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Create tags. Part of: Tags. Calls POST /tags on PagerDuty.",
     method: "POST",
     path: "/tags",
-    input: z.object({ tag: z.object({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["tag"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), label: z.string() }) }),
+    input: obj({ tag: obj({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["tag"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), label: z.string() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -45,7 +46,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Get tag. Part of: Tags. Calls GET /tags/{id} on PagerDuty.",
     method: "GET",
     path: "/tags/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -53,7 +54,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Delete tag. Part of: Tags. Calls DELETE /tags/{id} on PagerDuty.",
     method: "DELETE",
     path: "/tags/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -61,7 +62,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Get tags by entity type. Part of: Tags. Calls GET /tags/{id}/{entitytype} on PagerDuty.",
     method: "GET",
     path: "/tags/{id}/{entity_type}",
-    input: z.object({ limit: z.number().optional(), offset: z.number().optional(), total: z.boolean().optional(), id: z.string(), entity_type: z.enum(["users", "teams", "escalation_policies"]) }),
+    input: obj({ limit: z.number().optional(), offset: z.number().optional(), total: z.boolean().optional(), id: z.string(), entity_type: z.enum(["users", "teams", "escalation_policies"]) }),
     output: z.unknown(),
     effect: "read",
   },

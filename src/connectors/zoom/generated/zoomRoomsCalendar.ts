@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const zoomRoomsCalendarActions: Record<string, ActionDefinition> = {
     description: "Get calendar services. Part of: Zoom Rooms Calendar. Calls GET /rooms/calendar/services on Zoom.",
     method: "GET",
     path: "/rooms/calendar/services",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const zoomRoomsCalendarActions: Record<string, ActionDefinition> = {
     description: "Delete acalendar service. Part of: Zoom Rooms Calendar. Calls DELETE /rooms/calendar/services/{serviceId} on Zoom.",
     method: "DELETE",
     path: "/rooms/calendar/services/{serviceId}",
-    input: z.object({ serviceId: z.string() }),
+    input: obj({ serviceId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -27,7 +28,7 @@ export const zoomRoomsCalendarActions: Record<string, ActionDefinition> = {
     description: "Get calendar resources by service id. Part of: Zoom Rooms Calendar. Calls GET /rooms/calendar/services/{serviceId}/resources on Zoom.",
     method: "GET",
     path: "/rooms/calendar/services/{serviceId}/resources",
-    input: z.object({ serviceId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ serviceId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "calendar_resources", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -36,7 +37,7 @@ export const zoomRoomsCalendarActions: Record<string, ActionDefinition> = {
     description: "Add acalendar resource to calendar service. Part of: Zoom Rooms Calendar. Calls POST /rooms/calendar/services/{serviceId}/resources on Zoom.",
     method: "POST",
     path: "/rooms/calendar/services/{serviceId}/resources",
-    input: z.object({ serviceId: z.string(), calendar_resource_email: z.string() }),
+    input: obj({ serviceId: z.string(), calendar_resource_email: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const zoomRoomsCalendarActions: Record<string, ActionDefinition> = {
     description: "Get calendar resource by id. Part of: Zoom Rooms Calendar. Calls GET /rooms/calendar/services/{serviceId}/resources/{resourceId} on Zoom.",
     method: "GET",
     path: "/rooms/calendar/services/{serviceId}/resources/{resourceId}",
-    input: z.object({ serviceId: z.string(), resourceId: z.string() }),
+    input: obj({ serviceId: z.string(), resourceId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -52,7 +53,7 @@ export const zoomRoomsCalendarActions: Record<string, ActionDefinition> = {
     description: "Delete acalendar resource. Part of: Zoom Rooms Calendar. Calls DELETE /rooms/calendar/services/{serviceId}/resources/{resourceId} on Zoom.",
     method: "DELETE",
     path: "/rooms/calendar/services/{serviceId}/resources/{resourceId}",
-    input: z.object({ serviceId: z.string(), resourceId: z.string() }),
+    input: obj({ serviceId: z.string(), resourceId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -60,7 +61,7 @@ export const zoomRoomsCalendarActions: Record<string, ActionDefinition> = {
     description: "Sync acalendar service. Part of: Zoom Rooms Calendar. Calls PUT /rooms/calendar/services/{serviceId}/sync on Zoom.",
     method: "PUT",
     path: "/rooms/calendar/services/{serviceId}/sync",
-    input: z.object({ serviceId: z.string() }),
+    input: obj({ serviceId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

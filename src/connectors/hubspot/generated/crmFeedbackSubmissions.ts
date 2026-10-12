@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const crmFeedbackSubmissionsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /crm/v3/objects/feedbacksubmissions on HubSpot.",
     method: "GET",
     path: "/crm/v3/objects/feedback_submissions",
-    input: z.object({ archived: z.boolean().optional(), associations: z.array(z.string()).optional(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ archived: z.boolean().optional(), associations: z.array(z.string()).optional(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const crmFeedbackSubmissionsActions: Record<string, ActionDefinition> = {
     description: "Create batch read. Part of: Batch. Calls POST /crm/v3/objects/feedbacksubmissions/batch/read on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/feedback_submissions/batch/read",
-    input: z.object({ archived: z.boolean().optional(), idProperty: z.string().optional(), inputs: z.array(z.object({ id: z.string() })), properties: z.array(z.string()), propertiesWithHistory: z.array(z.string()) }),
+    input: obj({ archived: z.boolean().optional(), idProperty: z.string().optional(), inputs: z.array(obj({ id: z.string() })), properties: z.array(z.string()), propertiesWithHistory: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["archived"]),
@@ -31,7 +32,7 @@ export const crmFeedbackSubmissionsActions: Record<string, ActionDefinition> = {
     description: "Create search. Part of: Search. Calls POST /crm/v3/objects/feedbacksubmissions/search on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/feedback_submissions/search",
-    input: z.object({ after: z.string(), filterGroups: z.array(z.object({ filters: z.array(z.record(z.string(), z.unknown())) })), limit: z.number(), properties: z.array(z.string()), query: z.string().optional(), sorts: z.array(z.string()) }),
+    input: obj({ after: z.string(), filterGroups: z.array(obj({ filters: z.array(z.record(z.string(), z.unknown())) })), limit: z.number(), properties: z.array(z.string()), query: z.string().optional(), sorts: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -39,7 +40,7 @@ export const crmFeedbackSubmissionsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /crm/v3/objects/feedbacksubmissions/{feedbackSubmissionId} on HubSpot.",
     method: "GET",
     path: "/crm/v3/objects/feedback_submissions/{feedbackSubmissionId}",
-    input: z.object({ feedbackSubmissionId: z.string(), archived: z.boolean().optional(), associations: z.array(z.string()).optional(), idProperty: z.string().optional(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional() }),
+    input: obj({ feedbackSubmissionId: z.string(), archived: z.boolean().optional(), associations: z.array(z.string()).optional(), idProperty: z.string().optional(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "read",
   },

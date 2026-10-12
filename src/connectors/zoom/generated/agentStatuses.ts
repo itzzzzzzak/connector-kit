@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const agentStatusesActions: Record<string, ActionDefinition> = {
     description: "List system status. Part of: Agent Statuses. Calls GET /contactcenter/systemstatuses on Zoom.",
     method: "GET",
     path: "/contact_center/system_statuses",
-    input: z.object({ status_category: z.enum(["agent_status", "queue_opt_out_and_not_ready_status"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ status_category: z.enum(["agent_status", "queue_opt_out_and_not_ready_status"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "statuses", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -21,7 +22,7 @@ export const agentStatusesActions: Record<string, ActionDefinition> = {
     description: "Create system status. Part of: Agent Statuses. Calls POST /contactcenter/systemstatuses on Zoom.",
     method: "POST",
     path: "/contact_center/system_statuses",
-    input: z.object({ status_name: z.string().optional(), status_category: z.enum(["agent_status", "queue_opt_out_and_not_ready_status"]).optional(), enable: z.boolean().optional(), status_assigned_queues: z.array(z.object({ id: z.string().optional() })).optional() }),
+    input: obj({ status_name: z.string().optional(), status_category: z.enum(["agent_status", "queue_opt_out_and_not_ready_status"]).optional(), enable: z.boolean().optional(), status_assigned_queues: z.array(obj({ id: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -29,7 +30,7 @@ export const agentStatusesActions: Record<string, ActionDefinition> = {
     description: "Get astatus. Part of: Agent Statuses. Calls GET /contactcenter/systemstatuses/{statusId} on Zoom.",
     method: "GET",
     path: "/contact_center/system_statuses/{statusId}",
-    input: z.object({ statusId: z.string(), status_identifier_type: z.enum(["id", "name"]).optional() }),
+    input: obj({ statusId: z.string(), status_identifier_type: z.enum(["id", "name"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const agentStatusesActions: Record<string, ActionDefinition> = {
     description: "Update system status. Part of: Agent Statuses. Calls PATCH /contactcenter/systemstatuses/{statusId} on Zoom.",
     method: "PATCH",
     path: "/contact_center/system_statuses/{statusId}",
-    input: z.object({ statusId: z.string(), status_identifier_type: z.enum(["id", "name"]).optional(), status_name: z.string().optional(), enable: z.boolean().optional(), status_assigned_queues: z.array(z.object({ id: z.string().optional() })).optional() }),
+    input: obj({ statusId: z.string(), status_identifier_type: z.enum(["id", "name"]).optional(), status_name: z.string().optional(), enable: z.boolean().optional(), status_assigned_queues: z.array(obj({ id: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["status_identifier_type"]),
@@ -47,7 +48,7 @@ export const agentStatusesActions: Record<string, ActionDefinition> = {
     description: "Delete system status. Part of: Agent Statuses. Calls DELETE /contactcenter/systemstatuses/{statusId} on Zoom.",
     method: "DELETE",
     path: "/contact_center/system_statuses/{statusId}",
-    input: z.object({ statusId: z.string(), status_identifier_type: z.enum(["id", "name"]).optional() }),
+    input: obj({ statusId: z.string(), status_identifier_type: z.enum(["id", "name"]).optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

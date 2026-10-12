@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const billingHistoryActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const billingHistoryActions: Record<string, ActionDefinition> = {
     description: "List Billing History. To retrieve a list of all billing history entries, send a GET request to /v2/customers/my/billinghistory.",
     method: "GET",
     path: "/customers/my/billing_history",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

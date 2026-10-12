@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const bookmarksActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const bookmarksActions: Record<string, ActionDefinition> = {
     description: "List bookmarks. Part of: Bookmarks. Calls GET /bookmarks on Zendesk.",
     method: "GET",
     path: "/bookmarks",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const bookmarksActions: Record<string, ActionDefinition> = {
     description: "Create bookmark. Part of: Bookmarks. Calls POST /bookmarks on Zendesk.",
     method: "POST",
     path: "/bookmarks",
-    input: z.object({ bookmark: z.object({ ticket_id: z.number().optional() }).optional() }),
+    input: obj({ bookmark: obj({ ticket_id: z.number().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const bookmarksActions: Record<string, ActionDefinition> = {
     description: "Delete bookmark. Part of: Bookmarks. Calls DELETE /bookmarks/{bookmarkid} on Zendesk.",
     method: "DELETE",
     path: "/bookmarks/{bookmark_id}",
-    input: z.object({ bookmark_id: z.number() }),
+    input: obj({ bookmark_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

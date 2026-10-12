@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const documentActions: Record<string, ActionDefinition> = {
     description: "List whiteboards. Part of: Document. Calls GET /whiteboards on Zoom.",
     method: "GET",
     path: "/whiteboards",
-    input: z.object({ search_key: z.string().optional(), user_id: z.string().optional(), date_filter_type: z.enum(["created_date", "modified_date"]).optional(), from: z.string().optional(), to: z.string().optional(), project_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ search_key: z.string().optional(), user_id: z.string().optional(), date_filter_type: z.enum(["created_date", "modified_date"]).optional(), from: z.string().optional(), to: z.string().optional(), project_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "whiteboards", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const documentActions: Record<string, ActionDefinition> = {
     description: "New whiteboard create. Part of: Document. Calls POST /whiteboards on Zoom.",
     method: "POST",
     path: "/whiteboards",
-    input: z.object({ name: z.string().optional() }),
+    input: obj({ name: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const documentActions: Record<string, ActionDefinition> = {
     description: "Get awhiteboard. Part of: Document. Calls GET /whiteboards/{whiteboardId} on Zoom.",
     method: "GET",
     path: "/whiteboards/{whiteboardId}",
-    input: z.object({ whiteboardId: z.string() }),
+    input: obj({ whiteboardId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const documentActions: Record<string, ActionDefinition> = {
     description: "Update awhiteboard metadata. Part of: Document. Calls PUT /whiteboards/{whiteboardId} on Zoom.",
     method: "PUT",
     path: "/whiteboards/{whiteboardId}",
-    input: z.object({ whiteboardId: z.string(), name: z.string().optional(), locked: z.boolean().optional() }),
+    input: obj({ whiteboardId: z.string(), name: z.string().optional(), locked: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const documentActions: Record<string, ActionDefinition> = {
     description: "Delete awhiteboard. Part of: Document. Calls DELETE /whiteboards/{whiteboardId} on Zoom.",
     method: "DELETE",
     path: "/whiteboards/{whiteboardId}",
-    input: z.object({ whiteboardId: z.string() }),
+    input: obj({ whiteboardId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

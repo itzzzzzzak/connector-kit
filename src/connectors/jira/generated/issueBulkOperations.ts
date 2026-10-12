@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const issueBulkOperationsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const issueBulkOperationsActions: Record<string, ActionDefinition> = {
     description: "Bulk delete issues. Use this API to submit a bulk delete request. You can delete up to 1,000 issues in a single operation.",
     method: "POST",
     path: "/bulk/issues/delete",
-    input: z.object({ selectedIssueIdsOrKeys: z.array(z.string()).describe("List of issue IDs or keys which are to be bulk deleted. These IDs or keys can be from different projects and issue types."), sendBulkNotification: z.boolean().nullable().describe("A boolean value that indicates whether to send a bulk change notification when the issues are being deleted. If true, dispatches a bulk notification email to…").optional() }),
+    input: obj({ selectedIssueIdsOrKeys: z.array(z.string()).describe("List of issue IDs or keys which are to be bulk deleted. These IDs or keys can be from different projects and issue types."), sendBulkNotification: z.boolean().nullable().describe("A boolean value that indicates whether to send a bulk change notification when the issues are being deleted. If true, dispatches a bulk notification email to…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const issueBulkOperationsActions: Record<string, ActionDefinition> = {
     description: "Get bulk editable fields. Use this API to get a list of fields visible to the user to perform bulk edit operations. You can pass single or multiple issues in the query to get eligible editable fields. This API uses pagination to return responses, delivering 50 fields at a time.",
     method: "GET",
     path: "/bulk/issues/fields",
-    input: z.object({ issueIdsOrKeys: z.string().describe("The IDs or keys of the issues to get editable fields from."), searchText: z.string().describe("(Optional)The text to search for in the editable fields.").optional(), endingBefore: z.string().describe("(Optional)The end cursor for use in pagination.").optional(), startingAfter: z.string().describe("(Optional)The start cursor for use in pagination.").optional() }),
+    input: obj({ issueIdsOrKeys: z.string().describe("The IDs or keys of the issues to get editable fields from."), searchText: z.string().describe("(Optional)The text to search for in the editable fields.").optional(), endingBefore: z.string().describe("(Optional)The end cursor for use in pagination.").optional(), startingAfter: z.string().describe("(Optional)The start cursor for use in pagination.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const issueBulkOperationsActions: Record<string, ActionDefinition> = {
     description: "Bulk edit issues. Use this API to submit a bulk edit request and simultaneously edit multiple issues. There are limits applied to the number of issues and fields that can be edited. A single request can accommodate a maximum of 1000 issues (including subtasks) and 200 fields.",
     method: "POST",
     path: "/bulk/issues/fields",
-    input: z.object({ editedFieldsInput: z.object({ cascadingSelectFields: z.array(z.record(z.string(), z.unknown())).optional(), clearableNumberFields: z.array(z.record(z.string(), z.unknown())).optional(), colorFields: z.array(z.record(z.string(), z.unknown())).optional(), datePickerFields: z.array(z.record(z.string(), z.unknown())).optional(), dateTimePickerFields: z.array(z.record(z.string(), z.unknown())).optional(), issueType: z.object({ issueTypeId: z.string() }).optional(), labelsFields: z.array(z.record(z.string(), z.unknown())).optional(), multipleGroupPickerFields: z.array(z.record(z.string(), z.unknown())).optional(), multipleSelectClearableUserPickerFields: z.array(z.record(z.string(), z.unknown())).optional(), multipleSelectFields: z.array(z.record(z.string(), z.unknown())).optional(), multipleVersionPickerFields: z.array(z.record(z.string(), z.unknown())).optional(), multiselectComponents: z.object({ bulkEditMultiSelectFieldOption: z.enum(["ADD", "REMOVE", "REPLACE", "REMOVE_ALL"]), components: z.array(z.record(z.string(), z.unknown())), fieldId: z.string() }).optional(), originalEstimateField: z.object({ originalEstimateField: z.string() }).optional(), priority: z.object({ priorityId: z.string() }).optional(), richTextFields: z.array(z.record(z.string(), z.unknown())).optional(), singleGroupPickerFields: z.array(z.record(z.string(), z.unknown())).optional(), singleLineTextFields: z.array(z.record(z.string(), z.unknown())).optional(), singleSelectClearableUserPickerFields: z.array(z.record(z.string(), z.unknown())).optional(), singleSelectFields: z.array(z.record(z.string(), z.unknown())).optional(), singleVersionPickerFields: z.array(z.record(z.string(), z.unknown())).optional(), status: z.object({ statusId: z.string() }).optional(), timeTrackingField: z.object({ timeRemaining: z.string() }).optional(), urlFields: z.array(z.record(z.string(), z.unknown())).optional() }).describe("An object that defines the values to be updated in specified fields of an issue. The structure and content of this parameter vary depending on the type of…"), selectedActions: z.array(z.string()).describe("List of all the field IDs that are to be bulk edited. Each field ID in this list corresponds to a specific attribute of an issue that is set to be modified in…"), selectedIssueIdsOrKeys: z.array(z.string()).describe("List of issue IDs or keys which are to be bulk edited. These IDs or keys can be from different projects and issue types."), sendBulkNotification: z.boolean().nullable().describe("A boolean value that indicates whether to send a bulk change notification when the issues are being edited. If true, dispatches a bulk notification email to…").optional() }),
+    input: obj({ editedFieldsInput: obj({ cascadingSelectFields: z.array(z.record(z.string(), z.unknown())).optional(), clearableNumberFields: z.array(z.record(z.string(), z.unknown())).optional(), colorFields: z.array(z.record(z.string(), z.unknown())).optional(), datePickerFields: z.array(z.record(z.string(), z.unknown())).optional(), dateTimePickerFields: z.array(z.record(z.string(), z.unknown())).optional(), issueType: obj({ issueTypeId: z.string() }).optional(), labelsFields: z.array(z.record(z.string(), z.unknown())).optional(), multipleGroupPickerFields: z.array(z.record(z.string(), z.unknown())).optional(), multipleSelectClearableUserPickerFields: z.array(z.record(z.string(), z.unknown())).optional(), multipleSelectFields: z.array(z.record(z.string(), z.unknown())).optional(), multipleVersionPickerFields: z.array(z.record(z.string(), z.unknown())).optional(), multiselectComponents: obj({ bulkEditMultiSelectFieldOption: z.enum(["ADD", "REMOVE", "REPLACE", "REMOVE_ALL"]), components: z.array(z.record(z.string(), z.unknown())), fieldId: z.string() }).optional(), originalEstimateField: obj({ originalEstimateField: z.string() }).optional(), priority: obj({ priorityId: z.string() }).optional(), richTextFields: z.array(z.record(z.string(), z.unknown())).optional(), singleGroupPickerFields: z.array(z.record(z.string(), z.unknown())).optional(), singleLineTextFields: z.array(z.record(z.string(), z.unknown())).optional(), singleSelectClearableUserPickerFields: z.array(z.record(z.string(), z.unknown())).optional(), singleSelectFields: z.array(z.record(z.string(), z.unknown())).optional(), singleVersionPickerFields: z.array(z.record(z.string(), z.unknown())).optional(), status: obj({ statusId: z.string() }).optional(), timeTrackingField: obj({ timeRemaining: z.string() }).optional(), urlFields: z.array(z.record(z.string(), z.unknown())).optional() }).describe("An object that defines the values to be updated in specified fields of an issue. The structure and content of this parameter vary depending on the type of…"), selectedActions: z.array(z.string()).describe("List of all the field IDs that are to be bulk edited. Each field ID in this list corresponds to a specific attribute of an issue that is set to be modified in…"), selectedIssueIdsOrKeys: z.array(z.string()).describe("List of issue IDs or keys which are to be bulk edited. These IDs or keys can be from different projects and issue types."), sendBulkNotification: z.boolean().nullable().describe("A boolean value that indicates whether to send a bulk change notification when the issues are being edited. If true, dispatches a bulk notification email to…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const issueBulkOperationsActions: Record<string, ActionDefinition> = {
     description: "Bulk move issues. Use this API to submit a bulk issue move request. You can move multiple issues from multiple projects in a single request, but they must all be moved to a single project, issue type, and parent. You can't move more than 1000 issues (including subtasks) at once.",
     method: "POST",
     path: "/bulk/issues/move",
-    input: z.object({ sendBulkNotification: z.boolean().nullable().describe("A boolean value that indicates whether to send a bulk change notification when the issues are being moved. If true, dispatches a bulk notification email to…").optional(), targetToSourcesMapping: z.record(z.string(), z.unknown()).describe("An object representing the mapping of issues and data related to destination entities, like fields and statuses, that are required during a bulk move. The key…").optional() }),
+    input: obj({ sendBulkNotification: z.boolean().nullable().describe("A boolean value that indicates whether to send a bulk change notification when the issues are being moved. If true, dispatches a bulk notification email to…").optional(), targetToSourcesMapping: z.record(z.string(), z.unknown()).describe("An object representing the mapping of issues and data related to destination entities, like fields and statuses, that are required during a bulk move. The key…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const issueBulkOperationsActions: Record<string, ActionDefinition> = {
     description: "Get available transitions. Use this API to retrieve a list of transitions available for the specified issues that can be used or bulk transition operations. You can submit either single or multiple issues in the query to obtain the available transitions.",
     method: "GET",
     path: "/bulk/issues/transition",
-    input: z.object({ issueIdsOrKeys: z.string().describe("Comma (,) separated Ids or keys of the issues to get transitions available for them."), endingBefore: z.string().describe("(Optional)The end cursor for use in pagination.").optional(), startingAfter: z.string().describe("(Optional)The start cursor for use in pagination.").optional() }),
+    input: obj({ issueIdsOrKeys: z.string().describe("Comma (,) separated Ids or keys of the issues to get transitions available for them."), endingBefore: z.string().describe("(Optional)The end cursor for use in pagination.").optional(), startingAfter: z.string().describe("(Optional)The start cursor for use in pagination.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const issueBulkOperationsActions: Record<string, ActionDefinition> = {
     description: "Bulk transition issue statuses. Use this API to submit a bulk issue status transition request. You can transition multiple issues, alongside with their valid transition Ids. You can transition up to 1,000 issues in a single operation.",
     method: "POST",
     path: "/bulk/issues/transition",
-    input: z.object({ bulkTransitionInputs: z.array(z.object({ selectedIssueIdsOrKeys: z.array(z.string()), transitionId: z.string() })).describe("List of objects and each object has two properties: Issues that will be bulk transitioned. TransitionId that corresponds to a specific transition of issues…"), sendBulkNotification: z.boolean().nullable().describe("A boolean value that indicates whether to send a bulk change notification when the issues are being transitioned. If true, dispatches a bulk notification…").optional() }),
+    input: obj({ bulkTransitionInputs: z.array(obj({ selectedIssueIdsOrKeys: z.array(z.string()), transitionId: z.string() })).describe("List of objects and each object has two properties: Issues that will be bulk transitioned. TransitionId that corresponds to a specific transition of issues…"), sendBulkNotification: z.boolean().nullable().describe("A boolean value that indicates whether to send a bulk change notification when the issues are being transitioned. If true, dispatches a bulk notification…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const issueBulkOperationsActions: Record<string, ActionDefinition> = {
     description: "Bulk unwatch issues. Use this API to submit a bulk unwatch request. You can unwatch up to 1,000 issues in a single operation.",
     method: "POST",
     path: "/bulk/issues/unwatch",
-    input: z.object({ selectedIssueIdsOrKeys: z.array(z.string()).describe("List of issue IDs or keys which are to be bulk watched or unwatched. These IDs or keys can be from different projects and issue types.") }),
+    input: obj({ selectedIssueIdsOrKeys: z.array(z.string()).describe("List of issue IDs or keys which are to be bulk watched or unwatched. These IDs or keys can be from different projects and issue types.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -66,7 +67,7 @@ export const issueBulkOperationsActions: Record<string, ActionDefinition> = {
     description: "Bulk watch issues. Use this API to submit a bulk watch request. You can watch up to 1,000 issues in a single operation.",
     method: "POST",
     path: "/bulk/issues/watch",
-    input: z.object({ selectedIssueIdsOrKeys: z.array(z.string()).describe("List of issue IDs or keys which are to be bulk watched or unwatched. These IDs or keys can be from different projects and issue types.") }),
+    input: obj({ selectedIssueIdsOrKeys: z.array(z.string()).describe("List of issue IDs or keys which are to be bulk watched or unwatched. These IDs or keys can be from different projects and issue types.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -74,7 +75,7 @@ export const issueBulkOperationsActions: Record<string, ActionDefinition> = {
     description: "Get bulk issue operation progress. Use this to get the progress state for the specified bulk operation taskId.",
     method: "GET",
     path: "/bulk/queue/{taskId}",
-    input: z.object({ taskId: z.string().describe("The ID of the task.") }),
+    input: obj({ taskId: z.string().describe("The ID of the task.") }),
     output: z.unknown(),
     effect: "read",
   },

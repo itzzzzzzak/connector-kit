@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const customFieldsActions: Record<string, ActionDefinition> = {
     description: "Get accessible custom fields. Part of: Custom Fields. Calls GET /list/{listid}/field on ClickUp.",
     method: "GET",
     path: "/list/{list_id}/field",
-    input: z.object({ list_id: z.number(), include_applied_objects: z.boolean().optional() }),
+    input: obj({ list_id: z.number(), include_applied_objects: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const customFieldsActions: Record<string, ActionDefinition> = {
     description: "Get folder available fields. Part of: Custom Fields. Calls GET /folder/{folderid}/field on ClickUp.",
     method: "GET",
     path: "/folder/{folder_id}/field",
-    input: z.object({ folder_id: z.number(), include_applied_objects: z.boolean().optional() }),
+    input: obj({ folder_id: z.number(), include_applied_objects: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const customFieldsActions: Record<string, ActionDefinition> = {
     description: "Get space available fields. Part of: Custom Fields. Calls GET /space/{spaceid}/field on ClickUp.",
     method: "GET",
     path: "/space/{space_id}/field",
-    input: z.object({ space_id: z.number(), include_applied_objects: z.boolean().optional() }),
+    input: obj({ space_id: z.number(), include_applied_objects: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const customFieldsActions: Record<string, ActionDefinition> = {
     description: "Get team available fields. Part of: Custom Fields. Calls GET /team/{teamid}/field on ClickUp.",
     method: "GET",
     path: "/team/{team_id}/field",
-    input: z.object({ team_id: z.number(), include_applied_objects: z.boolean().optional() }),
+    input: obj({ team_id: z.number(), include_applied_objects: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -43,7 +44,7 @@ export const customFieldsActions: Record<string, ActionDefinition> = {
     description: "Set custom field value. Part of: Custom Fields. Calls POST /task/{taskid}/field/{fieldid} on ClickUp.",
     method: "POST",
     path: "/task/{task_id}/field/{field_id}",
-    input: z.object({ task_id: z.string(), field_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ task_id: z.string(), field_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["custom_task_ids","team_id"]),
@@ -53,7 +54,7 @@ export const customFieldsActions: Record<string, ActionDefinition> = {
     description: "Remove custom field value. Part of: Custom Fields. Calls DELETE /task/{taskid}/field/{fieldid} on ClickUp.",
     method: "DELETE",
     path: "/task/{task_id}/field/{field_id}",
-    input: z.object({ task_id: z.string(), field_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
+    input: obj({ task_id: z.string(), field_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

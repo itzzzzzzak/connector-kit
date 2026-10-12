@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const bulkRedirectsActions: Record<string, ActionDefinition> = {
     description: "Get redirects. Part of: bulk-redirects. Calls GET /v1/bulk-redirects on Vercel.",
     method: "GET",
     path: "/v1/bulk-redirects",
-    input: z.object({ projectId: z.string(), versionId: z.string().optional(), q: z.string().optional(), diff: z.unknown().optional(), page: z.number().optional(), per_page: z.number().optional(), sort_by: z.enum(["source", "destination", "statusCode"]).optional(), sort_order: z.enum(["asc", "desc"]).optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ projectId: z.string(), versionId: z.string().optional(), q: z.string().optional(), diff: z.unknown().optional(), page: z.number().optional(), per_page: z.number().optional(), sort_by: z.enum(["source", "destination", "statusCode"]).optional(), sort_order: z.enum(["asc", "desc"]).optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const bulkRedirectsActions: Record<string, ActionDefinition> = {
     description: "Stage redirects. Part of: bulk-redirects. Calls PUT /v1/bulk-redirects on Vercel.",
     method: "PUT",
     path: "/v1/bulk-redirects",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -29,7 +30,7 @@ export const bulkRedirectsActions: Record<string, ActionDefinition> = {
     description: "Edit redirect. Part of: bulk-redirects. Calls PATCH /v1/bulk-redirects on Vercel.",
     method: "PATCH",
     path: "/v1/bulk-redirects",
-    input: z.object({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), name: z.string().optional(), redirect: z.object({ source: z.string(), destination: z.string().optional(), statusCode: z.number().optional(), permanent: z.boolean().optional(), caseSensitive: z.boolean().optional(), query: z.boolean().optional(), preserveQueryParams: z.boolean().optional() }), restore: z.boolean().optional() }),
+    input: obj({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), name: z.string().optional(), redirect: obj({ source: z.string(), destination: z.string().optional(), statusCode: z.number().optional(), permanent: z.boolean().optional(), caseSensitive: z.boolean().optional(), query: z.boolean().optional(), preserveQueryParams: z.boolean().optional() }), restore: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["projectId","teamId","slug"]),
@@ -39,7 +40,7 @@ export const bulkRedirectsActions: Record<string, ActionDefinition> = {
     description: "Delete redirects. Part of: bulk-redirects. Calls DELETE /v1/bulk-redirects on Vercel.",
     method: "DELETE",
     path: "/v1/bulk-redirects",
-    input: z.object({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), name: z.string().optional(), redirects: z.array(z.string()) }),
+    input: obj({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), name: z.string().optional(), redirects: z.array(z.string()) }),
     output: z.unknown(),
     effect: "destructive",
     buildQuery: (i) => pick(i, ["projectId","teamId","slug"]),
@@ -49,7 +50,7 @@ export const bulkRedirectsActions: Record<string, ActionDefinition> = {
     description: "Restore redirects. Part of: bulk-redirects. Calls POST /v1/bulk-redirects/restore on Vercel.",
     method: "POST",
     path: "/v1/bulk-redirects/restore",
-    input: z.object({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), name: z.string().optional(), redirects: z.array(z.string()) }),
+    input: obj({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), name: z.string().optional(), redirects: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["projectId","teamId","slug"]),
@@ -59,7 +60,7 @@ export const bulkRedirectsActions: Record<string, ActionDefinition> = {
     description: "Get versions. Part of: bulk-redirects. Calls GET /v1/bulk-redirects/versions on Vercel.",
     method: "GET",
     path: "/v1/bulk-redirects/versions",
-    input: z.object({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -67,7 +68,7 @@ export const bulkRedirectsActions: Record<string, ActionDefinition> = {
     description: "Update version. Part of: bulk-redirects. Calls POST /v1/bulk-redirects/versions on Vercel.",
     method: "POST",
     path: "/v1/bulk-redirects/versions",
-    input: z.object({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), id: z.string(), action: z.enum(["promote", "restore", "discard"]), name: z.string().optional() }),
+    input: obj({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), id: z.string(), action: z.enum(["promote", "restore", "discard"]), name: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["projectId","teamId","slug"]),

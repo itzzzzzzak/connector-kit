@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const dynamicContentItemVariantsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const dynamicContentItemVariantsActions: Record<string, ActionDefinition>
     description: "Dynamic content list variants. Part of: Dynamic Content Item Variants. Calls GET /dynamiccontent/items/{dynamiccontentitemid}/variants on Zendesk.",
     method: "GET",
     path: "/dynamic_content/items/{dynamic_content_item_id}/variants",
-    input: z.object({ dynamic_content_item_id: z.number(), page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional() }),
+    input: obj({ dynamic_content_item_id: z.number(), page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const dynamicContentItemVariantsActions: Record<string, ActionDefinition>
     description: "Create dynamic content variant. Part of: Dynamic Content Item Variants. Calls POST /dynamiccontent/items/{dynamiccontentitemid}/variants on Zendesk.",
     method: "POST",
     path: "/dynamic_content/items/{dynamic_content_item_id}/variants",
-    input: z.object({ dynamic_content_item_id: z.number() }),
+    input: obj({ dynamic_content_item_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const dynamicContentItemVariantsActions: Record<string, ActionDefinition>
     description: "Show dynamic content variant. Part of: Dynamic Content Item Variants. Calls GET /dynamiccontent/items/{dynamiccontentitemid}/variants/{dynamiccontentvariantid} on Zendesk.",
     method: "GET",
     path: "/dynamic_content/items/{dynamic_content_item_id}/variants/{dynamic_content_variant_id}",
-    input: z.object({ dynamic_content_item_id: z.number(), dynamic_content_variant_id: z.number() }),
+    input: obj({ dynamic_content_item_id: z.number(), dynamic_content_variant_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const dynamicContentItemVariantsActions: Record<string, ActionDefinition>
     description: "Update dynamic content variant. Part of: Dynamic Content Item Variants. Calls PUT /dynamiccontent/items/{dynamiccontentitemid}/variants/{dynamiccontentvariantid} on Zendesk.",
     method: "PUT",
     path: "/dynamic_content/items/{dynamic_content_item_id}/variants/{dynamic_content_variant_id}",
-    input: z.object({ dynamic_content_item_id: z.number(), dynamic_content_variant_id: z.number() }),
+    input: obj({ dynamic_content_item_id: z.number(), dynamic_content_variant_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const dynamicContentItemVariantsActions: Record<string, ActionDefinition>
     description: "Delete dynamic content variant. Part of: Dynamic Content Item Variants. Calls DELETE /dynamiccontent/items/{dynamiccontentitemid}/variants/{dynamiccontentvariantid} on Zendesk.",
     method: "DELETE",
     path: "/dynamic_content/items/{dynamic_content_item_id}/variants/{dynamic_content_variant_id}",
-    input: z.object({ dynamic_content_item_id: z.number(), dynamic_content_variant_id: z.number() }),
+    input: obj({ dynamic_content_item_id: z.number(), dynamic_content_variant_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const dynamicContentItemVariantsActions: Record<string, ActionDefinition>
     description: "Create many dynamic content variants. Part of: Dynamic Content Item Variants. Calls POST /dynamiccontent/items/{dynamiccontentitemid}/variants/createmany on Zendesk.",
     method: "POST",
     path: "/dynamic_content/items/{dynamic_content_item_id}/variants/create_many",
-    input: z.object({ dynamic_content_item_id: z.number() }),
+    input: obj({ dynamic_content_item_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const dynamicContentItemVariantsActions: Record<string, ActionDefinition>
     description: "Update many dynamic content variants. Part of: Dynamic Content Item Variants. Calls PUT /dynamiccontent/items/{dynamiccontentitemid}/variants/updatemany on Zendesk.",
     method: "PUT",
     path: "/dynamic_content/items/{dynamic_content_item_id}/variants/update_many",
-    input: z.object({ dynamic_content_item_id: z.number() }),
+    input: obj({ dynamic_content_item_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },

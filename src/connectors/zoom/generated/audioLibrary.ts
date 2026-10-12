@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const audioLibraryActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const audioLibraryActions: Record<string, ActionDefinition> = {
     description: "Get audio item. Part of: Audio Library. Calls GET /phone/audios/{audioId} on Zoom.",
     method: "GET",
     path: "/phone/audios/{audioId}",
-    input: z.object({ audioId: z.string() }),
+    input: obj({ audioId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const audioLibraryActions: Record<string, ActionDefinition> = {
     description: "Update audio item. Part of: Audio Library. Calls PATCH /phone/audios/{audioId} on Zoom.",
     method: "PATCH",
     path: "/phone/audios/{audioId}",
-    input: z.object({ audioId: z.string(), name: z.string() }),
+    input: obj({ audioId: z.string(), name: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const audioLibraryActions: Record<string, ActionDefinition> = {
     description: "Delete audio item. Part of: Audio Library. Calls DELETE /phone/audios/{audioId} on Zoom.",
     method: "DELETE",
     path: "/phone/audios/{audioId}",
-    input: z.object({ audioId: z.string() }),
+    input: obj({ audioId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const audioLibraryActions: Record<string, ActionDefinition> = {
     description: "List audio items. Part of: Audio Library. Calls GET /phone/users/{userId}/audios on Zoom.",
     method: "GET",
     path: "/phone/users/{userId}/audios",
-    input: z.object({ userId: z.string() }),
+    input: obj({ userId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const audioLibraryActions: Record<string, ActionDefinition> = {
     description: "Add an audio. Part of: Audio Library. Calls POST /phone/users/{userId}/audios on Zoom.",
     method: "POST",
     path: "/phone/users/{userId}/audios",
-    input: z.object({ userId: z.string(), audio_name: z.string().optional(), text: z.string().optional(), voice_language: z.string().optional(), voice_accent: z.string().optional() }),
+    input: obj({ userId: z.string(), audio_name: z.string().optional(), text: z.string().optional(), voice_language: z.string().optional(), voice_accent: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const audioLibraryActions: Record<string, ActionDefinition> = {
     description: "Add audio item. Part of: Audio Library. Calls POST /phone/users/{userId}/audios/batch on Zoom.",
     method: "POST",
     path: "/phone/users/{userId}/audios/batch",
-    input: z.object({ userId: z.string(), attachments: z.array(z.object({ audio_type: z.string().optional(), base64_encoding: z.string().optional(), name: z.string().optional() })).optional() }),
+    input: obj({ userId: z.string(), attachments: z.array(obj({ audio_type: z.string().optional(), base64_encoding: z.string().optional(), name: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },

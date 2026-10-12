@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const organizationRelationshipsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const organizationRelationshipsActions: Record<string, ActionDefinition> 
     description: "Get organization relationships. Part of: OrganizationRelationships. Calls GET /v1/organizationRelationships on Pipedrive.",
     method: "GET",
     path: "/v1/organizationRelationships",
-    input: z.object({ org_id: z.number() }),
+    input: obj({ org_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const organizationRelationshipsActions: Record<string, ActionDefinition> 
     description: "Add organization relationship. Part of: OrganizationRelationships. Calls POST /v1/organizationRelationships on Pipedrive.",
     method: "POST",
     path: "/v1/organizationRelationships",
-    input: z.object({ org_id: z.number().optional(), type: z.enum(["parent", "related"]), rel_owner_org_id: z.number(), rel_linked_org_id: z.number() }),
+    input: obj({ org_id: z.number().optional(), type: z.enum(["parent", "related"]), rel_owner_org_id: z.number(), rel_linked_org_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const organizationRelationshipsActions: Record<string, ActionDefinition> 
     description: "Get organization relationship. Part of: OrganizationRelationships. Calls GET /v1/organizationRelationships/{id} on Pipedrive.",
     method: "GET",
     path: "/v1/organizationRelationships/{id}",
-    input: z.object({ id: z.number(), org_id: z.number().optional() }),
+    input: obj({ id: z.number(), org_id: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const organizationRelationshipsActions: Record<string, ActionDefinition> 
     description: "Update organization relationship. Part of: OrganizationRelationships. Calls PUT /v1/organizationRelationships/{id} on Pipedrive.",
     method: "PUT",
     path: "/v1/organizationRelationships/{id}",
-    input: z.object({ id: z.number(), org_id: z.number().optional(), type: z.enum(["parent", "related"]).optional(), rel_owner_org_id: z.number().optional(), rel_linked_org_id: z.number().optional() }),
+    input: obj({ id: z.number(), org_id: z.number().optional(), type: z.enum(["parent", "related"]).optional(), rel_owner_org_id: z.number().optional(), rel_linked_org_id: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const organizationRelationshipsActions: Record<string, ActionDefinition> 
     description: "Delete organization relationship. Part of: OrganizationRelationships. Calls DELETE /v1/organizationRelationships/{id} on Pipedrive.",
     method: "DELETE",
     path: "/v1/organizationRelationships/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

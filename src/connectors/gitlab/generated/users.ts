@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const usersActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const usersActions: Record<string, ActionDefinition> = {
     description: "Get user counts. Part of: users. Calls GET /usercounts on GitLab.",
     method: "GET",
     path: "/user_counts",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const usersActions: Record<string, ActionDefinition> = {
     description: "Post user runners. Part of: users. Calls POST /user/runners on GitLab.",
     method: "POST",
     path: "/user/runners",
-    input: z.object({ runner_type: z.enum(["instance_type", "group_type", "project_type"]), group_id: z.number(), project_id: z.number(), description: z.string().optional(), maintenance_note: z.string().optional(), paused: z.boolean().optional(), locked: z.boolean().optional(), access_level: z.enum(["not_protected", "ref_protected"]).optional(), run_untagged: z.boolean().optional(), tag_list: z.array(z.string()).optional(), maximum_timeout: z.number().optional(), token_expires_at: z.string().optional(), token_rotation_deadline: z.string().optional() }),
+    input: obj({ runner_type: z.enum(["instance_type", "group_type", "project_type"]), group_id: z.number(), project_id: z.number(), description: z.string().optional(), maintenance_note: z.string().optional(), paused: z.boolean().optional(), locked: z.boolean().optional(), access_level: z.enum(["not_protected", "ref_protected"]).optional(), run_untagged: z.boolean().optional(), tag_list: z.array(z.string()).optional(), maximum_timeout: z.number().optional(), token_expires_at: z.string().optional(), token_rotation_deadline: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const analyticsActions: Record<string, ActionDefinition> = {
     description: "Details. Part of: Cloud Recording. Calls GET /meetings/{meetingId}/recordings/analyticsdetails on Zoom.",
     method: "GET",
     path: "/meetings/{meetingId}/recordings/analytics_details",
-    input: z.object({ meetingId: z.string(), from: z.string().optional(), to: z.string().optional(), type: z.enum(["by_view", "by_download"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ meetingId: z.string(), from: z.string().optional(), to: z.string().optional(), type: z.enum(["by_view", "by_download"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "analytics_details", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const analyticsActions: Record<string, ActionDefinition> = {
     description: "Summary. Part of: Cloud Recording. Calls GET /meetings/{meetingId}/recordings/analyticssummary on Zoom.",
     method: "GET",
     path: "/meetings/{meetingId}/recordings/analytics_summary",
-    input: z.object({ meetingId: z.string(), from: z.string().optional(), to: z.string().optional() }),
+    input: obj({ meetingId: z.string(), from: z.string().optional(), to: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

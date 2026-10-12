@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const taskTemplatesActions: Record<string, ActionDefinition> = {
     description: "Get multiple task templates. Required scope: tasktemplates:read",
     method: "GET",
     path: "/task_templates",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), project: z.string().describe("The project to filter task templates on.").optional(), opt_fields: z.array(z.enum(["created_at", "created_by", "name", "offset", "path", "project", "template", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), project: z.string().describe("The project to filter task templates on.").optional(), opt_fields: z.array(z.enum(["created_at", "created_by", "name", "offset", "path", "project", "template", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const taskTemplatesActions: Record<string, ActionDefinition> = {
     description: "Get a task template. Required scope: tasktemplates:read",
     method: "GET",
     path: "/task_templates/{task_template_gid}",
-    input: z.object({ task_template_gid: z.string().describe("Globally unique identifier for the task template."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "created_by", "name", "project", "template"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ task_template_gid: z.string().describe("Globally unique identifier for the task template."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "created_by", "name", "project", "template"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -29,7 +30,7 @@ export const taskTemplatesActions: Record<string, ActionDefinition> = {
     description: "Delete a task template. A specific, existing task template can be deleted by making a DELETE request on the URL for that task template. Returns an empty data record.",
     method: "DELETE",
     path: "/task_templates/{task_template_gid}",
-    input: z.object({ task_template_gid: z.string().describe("Globally unique identifier for the task template."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
+    input: obj({ task_template_gid: z.string().describe("Globally unique identifier for the task template."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -37,7 +38,7 @@ export const taskTemplatesActions: Record<string, ActionDefinition> = {
     description: "Instantiate a task from a task template. Creates and returns a job that will asynchronously handle the task instantiation.",
     method: "POST",
     path: "/task_templates/{task_template_gid}/instantiateTask",
-    input: z.object({ task_template_gid: z.string().describe("Globally unique identifier for the task template."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["dates_rollup_progress", "dates_rollup_progress.total_tasks", "dates_rollup_progress.updated_tasks", "new_graph_export", "new_graph_export.completed_at", "new_graph_export.created_at", "new_graph_export.download_url", "new_portfolio", "new_portfolio.name", "new_portfolio.resource_subtype", "new_project", "new_project.name", "new_project.resource_subtype", "new_project_template", "new_project_template.name", "new_resource_export", "new_resource_export.completed_at", "new_resource_export.created_at", "new_resource_export.download_url", "new_task", "new_task.created_by", "new_task.name", "new_task.resource_subtype", "resource_subtype", "status"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ name: z.string().optional() }).optional() }),
+    input: obj({ task_template_gid: z.string().describe("Globally unique identifier for the task template."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["dates_rollup_progress", "dates_rollup_progress.total_tasks", "dates_rollup_progress.updated_tasks", "new_graph_export", "new_graph_export.completed_at", "new_graph_export.created_at", "new_graph_export.download_url", "new_portfolio", "new_portfolio.name", "new_portfolio.resource_subtype", "new_project", "new_project.name", "new_project.resource_subtype", "new_project_template", "new_project_template.name", "new_resource_export", "new_resource_export.completed_at", "new_resource_export.created_at", "new_resource_export.download_url", "new_task", "new_task.created_by", "new_task.name", "new_task.resource_subtype", "resource_subtype", "status"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ name: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),

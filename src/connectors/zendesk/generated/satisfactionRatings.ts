@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const satisfactionRatingsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const satisfactionRatingsActions: Record<string, ActionDefinition> = {
     description: "List satisfaction ratings. Part of: Satisfaction Ratings. Calls GET /satisfactionratings on Zendesk.",
     method: "GET",
     path: "/satisfaction_ratings",
-    input: z.object({ page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional() }),
+    input: obj({ page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const satisfactionRatingsActions: Record<string, ActionDefinition> = {
     description: "Show satisfaction rating. Part of: Satisfaction Ratings. Calls GET /satisfactionratings/{satisfactionratingid} on Zendesk.",
     method: "GET",
     path: "/satisfaction_ratings/{satisfaction_rating_id}",
-    input: z.object({ satisfaction_rating_id: z.number() }),
+    input: obj({ satisfaction_rating_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const satisfactionRatingsActions: Record<string, ActionDefinition> = {
     description: "Count satisfaction ratings. Part of: Satisfaction Ratings. Calls GET /satisfactionratings/count on Zendesk.",
     method: "GET",
     path: "/satisfaction_ratings/count",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const satisfactionRatingsActions: Record<string, ActionDefinition> = {
     description: "Create ticket satisfaction rating. Part of: Satisfaction Ratings. Calls POST /tickets/{ticketid}/satisfactionrating on Zendesk.",
     method: "POST",
     path: "/tickets/{ticket_id}/satisfaction_rating",
-    input: z.object({ ticket_id: z.number() }),
+    input: obj({ ticket_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },

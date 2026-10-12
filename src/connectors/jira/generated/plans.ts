@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const plansActions: Record<string, ActionDefinition> = {
     description: "Get plans paginated. Returns a paginated list of plans.",
     method: "GET",
     path: "/plans/plan",
-    input: z.object({ includeTrashed: z.boolean().describe("Whether to include trashed plans in the results.").optional(), includeArchived: z.boolean().describe("Whether to include archived plans in the results.").optional(), cursor: z.string().describe("The cursor to start from. If not provided, the first page will be returned.").optional(), maxResults: z.number().describe("The maximum number of plans to return per page. The maximum value is 50. The default value is 50.").optional() }),
+    input: obj({ includeTrashed: z.boolean().describe("Whether to include trashed plans in the results.").optional(), includeArchived: z.boolean().describe("Whether to include archived plans in the results.").optional(), cursor: z.string().describe("The cursor to start from. If not provided, the first page will be returned.").optional(), maxResults: z.number().describe("The maximum number of plans to return per page. The maximum value is 50. The default value is 50.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const plansActions: Record<string, ActionDefinition> = {
     description: "Create plan. Creates a plan. Calls POST /plans/plan on Jira.",
     method: "POST",
     path: "/plans/plan",
-    input: z.object({ useGroupId: z.boolean().describe("Whether to accept group IDs instead of group names. Group names are deprecated.").optional(), crossProjectReleases: z.array(z.object({ name: z.string(), releaseIds: z.array(z.number()).optional() })).describe("The cross-project releases to include in the plan.").optional(), customFields: z.array(z.object({ customFieldId: z.number(), filter: z.boolean().optional() })).describe("The custom fields for the plan.").optional(), exclusionRules: z.object({ issueIds: z.array(z.number()).optional(), issueTypeIds: z.array(z.number()).optional(), numberOfDaysToShowCompletedIssues: z.number().optional(), releaseIds: z.array(z.number()).optional(), workStatusCategoryIds: z.array(z.number()).optional(), workStatusIds: z.array(z.number()).optional() }).describe("The exclusion rules for the plan.").optional(), issueSources: z.array(z.object({ type: z.enum(["Board", "Project", "Filter"]), value: z.number() })).describe("The issue sources to include in the plan."), leadAccountId: z.string().describe("The account ID of the plan lead.").optional(), name: z.string().describe("The plan name."), permissions: z.array(z.object({ holder: z.record(z.string(), z.unknown()), type: z.enum(["View", "Edit"]) })).describe("The permissions for the plan.").optional(), scheduling: z.object({ dependencies: z.enum(["Sequential", "Concurrent"]).optional(), endDate: z.object({ dateCustomFieldId: z.number().optional(), type: z.enum(["DueDate", "TargetStartDate", "TargetEndDate", "DateCustomField"]) }).optional(), estimation: z.enum(["StoryPoints", "Days", "Hours"]), inferredDates: z.enum(["None", "SprintDates", "ReleaseDates"]).optional(), startDate: z.object({ dateCustomFieldId: z.number().optional(), type: z.enum(["DueDate", "TargetStartDate", "TargetEndDate", "DateCustomField"]) }).optional() }).describe("The scheduling settings for the plan.") }),
+    input: obj({ useGroupId: z.boolean().describe("Whether to accept group IDs instead of group names. Group names are deprecated.").optional(), crossProjectReleases: z.array(obj({ name: z.string(), releaseIds: z.array(z.number()).optional() })).describe("The cross-project releases to include in the plan.").optional(), customFields: z.array(obj({ customFieldId: z.number(), filter: z.boolean().optional() })).describe("The custom fields for the plan.").optional(), exclusionRules: obj({ issueIds: z.array(z.number()).optional(), issueTypeIds: z.array(z.number()).optional(), numberOfDaysToShowCompletedIssues: z.number().optional(), releaseIds: z.array(z.number()).optional(), workStatusCategoryIds: z.array(z.number()).optional(), workStatusIds: z.array(z.number()).optional() }).describe("The exclusion rules for the plan.").optional(), issueSources: z.array(obj({ type: z.enum(["Board", "Project", "Filter"]), value: z.number() })).describe("The issue sources to include in the plan."), leadAccountId: z.string().describe("The account ID of the plan lead.").optional(), name: z.string().describe("The plan name."), permissions: z.array(obj({ holder: z.record(z.string(), z.unknown()), type: z.enum(["View", "Edit"]) })).describe("The permissions for the plan.").optional(), scheduling: obj({ dependencies: z.enum(["Sequential", "Concurrent"]).optional(), endDate: obj({ dateCustomFieldId: z.number().optional(), type: z.enum(["DueDate", "TargetStartDate", "TargetEndDate", "DateCustomField"]) }).optional(), estimation: z.enum(["StoryPoints", "Days", "Hours"]), inferredDates: z.enum(["None", "SprintDates", "ReleaseDates"]).optional(), startDate: obj({ dateCustomFieldId: z.number().optional(), type: z.enum(["DueDate", "TargetStartDate", "TargetEndDate", "DateCustomField"]) }).optional() }).describe("The scheduling settings for the plan.") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["useGroupId"]),
@@ -29,7 +30,7 @@ export const plansActions: Record<string, ActionDefinition> = {
     description: "Get plan. Returns a plan. Calls GET /plans/plan/{planId} on Jira.",
     method: "GET",
     path: "/plans/plan/{planId}",
-    input: z.object({ planId: z.number().describe("The ID of the plan."), useGroupId: z.boolean().describe("Whether to return group IDs instead of group names. Group names are deprecated.").optional() }),
+    input: obj({ planId: z.number().describe("The ID of the plan."), useGroupId: z.boolean().describe("Whether to return group IDs instead of group names. Group names are deprecated.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const plansActions: Record<string, ActionDefinition> = {
     description: "Archive plan. Archives a plan. Calls PUT /plans/plan/{planId}/archive on Jira.",
     method: "PUT",
     path: "/plans/plan/{planId}/archive",
-    input: z.object({ planId: z.number().describe("The ID of the plan.") }),
+    input: obj({ planId: z.number().describe("The ID of the plan.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -45,7 +46,7 @@ export const plansActions: Record<string, ActionDefinition> = {
     description: "Duplicate plan. Duplicates a plan. Calls POST /plans/plan/{planId}/duplicate on Jira.",
     method: "POST",
     path: "/plans/plan/{planId}/duplicate",
-    input: z.object({ planId: z.number().describe("The ID of the plan."), name: z.string().describe("The plan name.") }),
+    input: obj({ planId: z.number().describe("The ID of the plan."), name: z.string().describe("The plan name.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -53,7 +54,7 @@ export const plansActions: Record<string, ActionDefinition> = {
     description: "Trash plan. Moves a plan to trash. Calls PUT /plans/plan/{planId}/trash on Jira.",
     method: "PUT",
     path: "/plans/plan/{planId}/trash",
-    input: z.object({ planId: z.number().describe("The ID of the plan.") }),
+    input: obj({ planId: z.number().describe("The ID of the plan.") }),
     output: z.unknown(),
     effect: "write",
   },

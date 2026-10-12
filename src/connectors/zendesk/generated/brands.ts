@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const brandsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const brandsActions: Record<string, ActionDefinition> = {
     description: "List brands. Part of: Brands. Calls GET /brands on Zendesk.",
     method: "GET",
     path: "/brands",
-    input: z.object({ page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional(), assignable_from: z.number().optional(), include_deleted: z.boolean().optional() }),
+    input: obj({ page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional(), assignable_from: z.number().optional(), include_deleted: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const brandsActions: Record<string, ActionDefinition> = {
     description: "Create brand. Part of: Brands. Calls POST /brands on Zendesk.",
     method: "POST",
     path: "/brands",
-    input: z.object({ brand: z.object({ active: z.boolean().optional(), brand_url: z.string().optional(), created_at: z.string().optional(), default: z.boolean().optional(), has_help_center: z.boolean().optional(), help_center_state: z.enum(["enabled", "disabled", "restricted"]).optional(), host_mapping: z.string().optional(), id: z.number().optional(), is_deleted: z.boolean().optional(), logo: z.object({ content_type: z.string().optional(), content_url: z.string().optional(), deleted: z.boolean().optional(), file_name: z.string().optional(), height: z.number().optional(), id: z.number().optional(), inline: z.boolean().optional(), malware_access_override: z.boolean().optional(), malware_scan_result: z.string().optional(), mapped_content_url: z.string().optional(), size: z.number().optional(), url: z.string().optional(), width: z.number().optional(), thumbnails: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), name: z.string(), signature_template: z.string().optional(), subdomain: z.string(), ticket_form_ids: z.array(z.number()).optional(), updated_at: z.string().optional(), url: z.string().optional(), user_separation: z.enum(["account", "brand"]).optional() }).optional() }),
+    input: obj({ brand: obj({ active: z.boolean().optional(), brand_url: z.string().optional(), created_at: z.string().optional(), default: z.boolean().optional(), has_help_center: z.boolean().optional(), help_center_state: z.enum(["enabled", "disabled", "restricted"]).optional(), host_mapping: z.string().optional(), id: z.number().optional(), is_deleted: z.boolean().optional(), logo: obj({ content_type: z.string().optional(), content_url: z.string().optional(), deleted: z.boolean().optional(), file_name: z.string().optional(), height: z.number().optional(), id: z.number().optional(), inline: z.boolean().optional(), malware_access_override: z.boolean().optional(), malware_scan_result: z.string().optional(), mapped_content_url: z.string().optional(), size: z.number().optional(), url: z.string().optional(), width: z.number().optional(), thumbnails: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), name: z.string(), signature_template: z.string().optional(), subdomain: z.string(), ticket_form_ids: z.array(z.number()).optional(), updated_at: z.string().optional(), url: z.string().optional(), user_separation: z.enum(["account", "brand"]).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const brandsActions: Record<string, ActionDefinition> = {
     description: "Show brand. Part of: Brands. Calls GET /brands/{brandid} on Zendesk.",
     method: "GET",
     path: "/brands/{brand_id}",
-    input: z.object({ brand_id: z.number() }),
+    input: obj({ brand_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const brandsActions: Record<string, ActionDefinition> = {
     description: "Update brand. Part of: Brands. Calls PUT /brands/{brandid} on Zendesk.",
     method: "PUT",
     path: "/brands/{brand_id}",
-    input: z.object({ brand_id: z.number(), brand: z.object({ active: z.boolean().optional(), brand_url: z.string().optional(), created_at: z.string().optional(), default: z.boolean().optional(), has_help_center: z.boolean().optional(), help_center_state: z.enum(["enabled", "disabled", "restricted"]).optional(), host_mapping: z.string().optional(), id: z.number().optional(), is_deleted: z.boolean().optional(), logo: z.object({ content_type: z.string().optional(), content_url: z.string().optional(), deleted: z.boolean().optional(), file_name: z.string().optional(), height: z.number().optional(), id: z.number().optional(), inline: z.boolean().optional(), malware_access_override: z.boolean().optional(), malware_scan_result: z.string().optional(), mapped_content_url: z.string().optional(), size: z.number().optional(), url: z.string().optional(), width: z.number().optional(), thumbnails: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), name: z.string(), signature_template: z.string().optional(), subdomain: z.string(), ticket_form_ids: z.array(z.number()).optional(), updated_at: z.string().optional(), url: z.string().optional(), user_separation: z.enum(["account", "brand"]).optional() }).optional() }),
+    input: obj({ brand_id: z.number(), brand: obj({ active: z.boolean().optional(), brand_url: z.string().optional(), created_at: z.string().optional(), default: z.boolean().optional(), has_help_center: z.boolean().optional(), help_center_state: z.enum(["enabled", "disabled", "restricted"]).optional(), host_mapping: z.string().optional(), id: z.number().optional(), is_deleted: z.boolean().optional(), logo: obj({ content_type: z.string().optional(), content_url: z.string().optional(), deleted: z.boolean().optional(), file_name: z.string().optional(), height: z.number().optional(), id: z.number().optional(), inline: z.boolean().optional(), malware_access_override: z.boolean().optional(), malware_scan_result: z.string().optional(), mapped_content_url: z.string().optional(), size: z.number().optional(), url: z.string().optional(), width: z.number().optional(), thumbnails: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), name: z.string(), signature_template: z.string().optional(), subdomain: z.string(), ticket_form_ids: z.array(z.number()).optional(), updated_at: z.string().optional(), url: z.string().optional(), user_separation: z.enum(["account", "brand"]).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const brandsActions: Record<string, ActionDefinition> = {
     description: "Delete brand. Part of: Brands. Calls DELETE /brands/{brandid} on Zendesk.",
     method: "DELETE",
     path: "/brands/{brand_id}",
-    input: z.object({ brand_id: z.number() }),
+    input: obj({ brand_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const brandsActions: Record<string, ActionDefinition> = {
     description: "Check host mapping validity for existing brand. Part of: Brands. Calls GET /brands/{brandid}/checkhostmapping on Zendesk.",
     method: "GET",
     path: "/brands/{brand_id}/check_host_mapping",
-    input: z.object({ brand_id: z.number() }),
+    input: obj({ brand_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const brandsActions: Record<string, ActionDefinition> = {
     description: "Delete brand logo. Part of: Brands. Calls DELETE /brands/{brandid}/logo on Zendesk.",
     method: "DELETE",
     path: "/brands/{brand_id}/logo",
-    input: z.object({ brand_id: z.number() }),
+    input: obj({ brand_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -66,7 +67,7 @@ export const brandsActions: Record<string, ActionDefinition> = {
     description: "Check host mapping validity. Part of: Brands. Calls GET /brands/checkhostmapping on Zendesk.",
     method: "GET",
     path: "/brands/check_host_mapping",
-    input: z.object({ host_mapping: z.string(), subdomain: z.string() }),
+    input: obj({ host_mapping: z.string(), subdomain: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

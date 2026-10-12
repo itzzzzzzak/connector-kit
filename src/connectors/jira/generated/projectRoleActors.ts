@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectRoleActorsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectRoleActorsActions: Record<string, ActionDefinition> = {
     description: "Add actors to project role. Adds actors to a project role for the project.",
     method: "POST",
     path: "/project/{projectIdOrKey}/role/{id}",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), group: z.array(z.string()).describe("The name of the group to add. This parameter cannot be used with the groupId parameter. As a group's name can change, use of groupId is recommended.").optional(), groupId: z.array(z.string()).describe("The ID of the group to add. This parameter cannot be used with the group parameter.").optional(), user: z.array(z.string()).describe("The user account ID of the user to add.").optional() }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), group: z.array(z.string()).describe("The name of the group to add. This parameter cannot be used with the groupId parameter. As a group's name can change, use of groupId is recommended.").optional(), groupId: z.array(z.string()).describe("The ID of the group to add. This parameter cannot be used with the group parameter.").optional(), user: z.array(z.string()).describe("The user account ID of the user to add.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const projectRoleActorsActions: Record<string, ActionDefinition> = {
     description: "Set actors for project role. Sets the actors for a project role for a project, replacing all existing actors.",
     method: "PUT",
     path: "/project/{projectIdOrKey}/role/{id}",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -27,7 +28,7 @@ export const projectRoleActorsActions: Record<string, ActionDefinition> = {
     description: "Delete actors from project role. Deletes actors from a project role for the project.",
     method: "DELETE",
     path: "/project/{projectIdOrKey}/role/{id}",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), user: z.string().describe("The user account ID of the user to remove from the project role.").optional(), group: z.string().describe("The name of the group to remove from the project role. This parameter cannot be used with the groupId parameter. As a group's name can change, use of groupId…").optional(), groupId: z.string().describe("The ID of the group to remove from the project role. This parameter cannot be used with the group parameter.").optional() }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), user: z.string().describe("The user account ID of the user to remove from the project role.").optional(), group: z.string().describe("The name of the group to remove from the project role. This parameter cannot be used with the groupId parameter. As a group's name can change, use of groupId…").optional(), groupId: z.string().describe("The ID of the group to remove from the project role. This parameter cannot be used with the group parameter.").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -35,7 +36,7 @@ export const projectRoleActorsActions: Record<string, ActionDefinition> = {
     description: "Get default actors for project role. Returns the default actors for the project role.",
     method: "GET",
     path: "/role/{id}/actors",
-    input: z.object({ id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs.") }),
+    input: obj({ id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -43,7 +44,7 @@ export const projectRoleActorsActions: Record<string, ActionDefinition> = {
     description: "Add default actors to project role. Adds default actors to a role. You may add groups or users, but you cannot add groups and users in the same request.",
     method: "POST",
     path: "/role/{id}/actors",
-    input: z.object({ id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), group: z.array(z.string()).describe("The name of the group to add as a default actor. This parameter cannot be used with the groupId parameter. As a group's name can change,use of groupId is…").optional(), groupId: z.array(z.string()).describe("The ID of the group to add as a default actor. This parameter cannot be used with the group parameter This parameter accepts a comma-separated list. For…").optional(), user: z.array(z.string()).describe("The account IDs of the users to add as default actors. This parameter accepts a comma-separated list. For example, \"user\":[\"5b10a2844c20165700ede21g\",…").optional() }),
+    input: obj({ id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), group: z.array(z.string()).describe("The name of the group to add as a default actor. This parameter cannot be used with the groupId parameter. As a group's name can change,use of groupId is…").optional(), groupId: z.array(z.string()).describe("The ID of the group to add as a default actor. This parameter cannot be used with the group parameter This parameter accepts a comma-separated list. For…").optional(), user: z.array(z.string()).describe("The account IDs of the users to add as default actors. This parameter accepts a comma-separated list. For example, \"user\":[\"5b10a2844c20165700ede21g\",…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -51,7 +52,7 @@ export const projectRoleActorsActions: Record<string, ActionDefinition> = {
     description: "Delete default actors from project role. Deletes the default actors from a project role. You may delete a group or user, but you cannot delete a group and a user in the same request.",
     method: "DELETE",
     path: "/role/{id}/actors",
-    input: z.object({ id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), user: z.string().describe("The user account ID of the user to remove as a default actor.").optional(), groupId: z.string().describe("The group ID of the group to be removed as a default actor. This parameter cannot be used with the group parameter.").optional(), group: z.string().describe("The group name of the group to be removed as a default actor.This parameter cannot be used with the groupId parameter. As a group's name can change, use of…").optional() }),
+    input: obj({ id: z.number().describe("The ID of the project role. Use Get all project roles to get a list of project role IDs."), user: z.string().describe("The user account ID of the user to remove as a default actor.").optional(), groupId: z.string().describe("The group ID of the group to be removed as a default actor. This parameter cannot be used with the group parameter.").optional(), group: z.string().describe("The group name of the group to be removed as a default actor.This parameter cannot be used with the groupId parameter. As a group's name can change, use of…").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

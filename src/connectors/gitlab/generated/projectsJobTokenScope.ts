@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectsJobTokenScopeActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectsJobTokenScopeActions: Record<string, ActionDefinition> = {
     description: "Get projects id job token scope. Part of: projectsjobtokenscope. Calls GET /projects/{id}/jobtokenscope on GitLab.",
     method: "GET",
     path: "/projects/{id}/job_token_scope",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const projectsJobTokenScopeActions: Record<string, ActionDefinition> = {
     description: "Patch projects id job token scope. Part of: projectsjobtokenscope. Calls PATCH /projects/{id}/jobtokenscope on GitLab.",
     method: "PATCH",
     path: "/projects/{id}/job_token_scope",
-    input: z.object({ id: z.string(), enabled: z.boolean() }),
+    input: obj({ id: z.string(), enabled: z.boolean() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const projectsJobTokenScopeActions: Record<string, ActionDefinition> = {
     description: "Get projects id job token scope allowlist. Part of: projectsjobtokenscope. Calls GET /projects/{id}/jobtokenscope/allowlist on GitLab.",
     method: "GET",
     path: "/projects/{id}/job_token_scope/allowlist",
-    input: z.object({ id: z.string(), page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ id: z.string(), page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const projectsJobTokenScopeActions: Record<string, ActionDefinition> = {
     description: "Post projects id job token scope allowlist. Part of: projectsjobtokenscope. Calls POST /projects/{id}/jobtokenscope/allowlist on GitLab.",
     method: "POST",
     path: "/projects/{id}/job_token_scope/allowlist",
-    input: z.object({ id: z.number(), target_project_id: z.number() }),
+    input: obj({ id: z.number(), target_project_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const projectsJobTokenScopeActions: Record<string, ActionDefinition> = {
     description: "Get projects id job token scope groups allowlist. Part of: projectsjobtokenscope. Calls GET /projects/{id}/jobtokenscope/groupsallowlist on GitLab.",
     method: "GET",
     path: "/projects/{id}/job_token_scope/groups_allowlist",
-    input: z.object({ id: z.string(), page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ id: z.string(), page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const projectsJobTokenScopeActions: Record<string, ActionDefinition> = {
     description: "Post projects id job token scope groups allowlist. Part of: projectsjobtokenscope. Calls POST /projects/{id}/jobtokenscope/groupsallowlist on GitLab.",
     method: "POST",
     path: "/projects/{id}/job_token_scope/groups_allowlist",
-    input: z.object({ id: z.number(), target_group_id: z.number() }),
+    input: obj({ id: z.number(), target_group_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const projectsJobTokenScopeActions: Record<string, ActionDefinition> = {
     description: "Delete projects id job token scope groups allowlist target group id. Part of: projectsjobtokenscope. Calls DELETE /projects/{id}/jobtokenscope/groupsallowlist/{targetgroupid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/job_token_scope/groups_allowlist/{target_group_id}",
-    input: z.object({ id: z.number(), target_group_id: z.number() }),
+    input: obj({ id: z.number(), target_group_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -66,7 +67,7 @@ export const projectsJobTokenScopeActions: Record<string, ActionDefinition> = {
     description: "Delete projects id job token scope allowlist target project id. Part of: projectsjobtokenscope. Calls DELETE /projects/{id}/jobtokenscope/allowlist/{targetprojectid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/job_token_scope/allowlist/{target_project_id}",
-    input: z.object({ id: z.number(), target_project_id: z.number() }),
+    input: obj({ id: z.number(), target_project_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

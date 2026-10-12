@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const timeTrackingLegacyActions: Record<string, ActionDefinition> = {
     description: "Gettrackedtime. Part of: Time Tracking (Legacy). Calls GET /task/{taskid}/time on ClickUp.",
     method: "GET",
     path: "/task/{task_id}/time",
-    input: z.object({ task_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
+    input: obj({ task_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const timeTrackingLegacyActions: Record<string, ActionDefinition> = {
     description: "Tracktime. Part of: Time Tracking (Legacy). Calls POST /task/{taskid}/time on ClickUp.",
     method: "POST",
     path: "/task/{task_id}/time",
-    input: z.object({ task_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional(), start: z.number(), end: z.number(), time: z.number() }),
+    input: obj({ task_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional(), start: z.number(), end: z.number(), time: z.number() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["custom_task_ids","team_id"]),
@@ -29,7 +30,7 @@ export const timeTrackingLegacyActions: Record<string, ActionDefinition> = {
     description: "Edittimetracked. Part of: Time Tracking (Legacy). Calls PUT /task/{taskid}/time/{intervalid} on ClickUp.",
     method: "PUT",
     path: "/task/{task_id}/time/{interval_id}",
-    input: z.object({ task_id: z.string(), interval_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional(), start: z.number(), end: z.number(), time: z.number() }),
+    input: obj({ task_id: z.string(), interval_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional(), start: z.number(), end: z.number(), time: z.number() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["custom_task_ids","team_id"]),
@@ -39,7 +40,7 @@ export const timeTrackingLegacyActions: Record<string, ActionDefinition> = {
     description: "Deletetimetracked. Part of: Time Tracking (Legacy). Calls DELETE /task/{taskid}/time/{intervalid} on ClickUp.",
     method: "DELETE",
     path: "/task/{task_id}/time/{interval_id}",
-    input: z.object({ task_id: z.string(), interval_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
+    input: obj({ task_id: z.string(), interval_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

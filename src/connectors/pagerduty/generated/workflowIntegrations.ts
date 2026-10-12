@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const workflowIntegrationsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const workflowIntegrationsActions: Record<string, ActionDefinition> = {
     description: "List workflow integrations. Part of: Workflow Integrations. Calls GET /workflows/integrations on PagerDuty.",
     method: "GET",
     path: "/workflows/integrations",
-    input: z.object({ limit: z.number().optional(), cursor: z.string().optional(), include_deprecated: z.boolean().optional() }),
+    input: obj({ limit: z.number().optional(), cursor: z.string().optional(), include_deprecated: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const workflowIntegrationsActions: Record<string, ActionDefinition> = {
     description: "Get workflow integration. Part of: Workflow Integrations. Calls GET /workflows/integrations/{id} on PagerDuty.",
     method: "GET",
     path: "/workflows/integrations/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const workflowIntegrationsActions: Record<string, ActionDefinition> = {
     description: "List workflow integration connections. Part of: Workflow Integrations. Calls GET /workflows/integrations/connections on PagerDuty.",
     method: "GET",
     path: "/workflows/integrations/connections",
-    input: z.object({ limit: z.number().optional(), cursor: z.string().optional(), name: z.string().optional() }),
+    input: obj({ limit: z.number().optional(), cursor: z.string().optional(), name: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const workflowIntegrationsActions: Record<string, ActionDefinition> = {
     description: "List workflow integration connections by integration. Part of: Workflow Integrations. Calls GET /workflows/integrations/{integrationid}/connections on PagerDuty.",
     method: "GET",
     path: "/workflows/integrations/{integration_id}/connections",
-    input: z.object({ integration_id: z.string(), limit: z.number().optional(), cursor: z.string().optional(), name: z.string().optional() }),
+    input: obj({ integration_id: z.string(), limit: z.number().optional(), cursor: z.string().optional(), name: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const workflowIntegrationsActions: Record<string, ActionDefinition> = {
     description: "Create workflow integration connection. Part of: Workflow Integrations. Calls POST /workflows/integrations/{integrationid}/connections on PagerDuty.",
     method: "POST",
     path: "/workflows/integrations/{integration_id}/connections",
-    input: z.object({ integration_id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ integration_id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -51,7 +52,7 @@ export const workflowIntegrationsActions: Record<string, ActionDefinition> = {
     description: "Get workflow integration connection. Part of: Workflow Integrations. Calls GET /workflows/integrations/{integrationid}/connections/{id} on PagerDuty.",
     method: "GET",
     path: "/workflows/integrations/{integration_id}/connections/{id}",
-    input: z.object({ integration_id: z.string(), id: z.string() }),
+    input: obj({ integration_id: z.string(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -59,7 +60,7 @@ export const workflowIntegrationsActions: Record<string, ActionDefinition> = {
     description: "Update workflow integration connection. Part of: Workflow Integrations. Calls PATCH /workflows/integrations/{integrationid}/connections/{id} on PagerDuty.",
     method: "PATCH",
     path: "/workflows/integrations/{integration_id}/connections/{id}",
-    input: z.object({ integration_id: z.string(), id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ integration_id: z.string(), id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -68,7 +69,7 @@ export const workflowIntegrationsActions: Record<string, ActionDefinition> = {
     description: "Delete workflow integration connection. Part of: Workflow Integrations. Calls DELETE /workflows/integrations/{integrationid}/connections/{id} on PagerDuty.",
     method: "DELETE",
     path: "/workflows/integrations/{integration_id}/connections/{id}",
-    input: z.object({ integration_id: z.string(), id: z.string() }),
+    input: obj({ integration_id: z.string(), id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

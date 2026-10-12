@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const mediaBridgeSchemasActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const mediaBridgeSchemasActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /media-bridge/v1/{appId}/schemas on HubSpot.",
     method: "GET",
     path: "/media-bridge/v1/{appId}/schemas",
-    input: z.object({ appId: z.number(), archived: z.boolean().optional() }),
+    input: obj({ appId: z.number(), archived: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const mediaBridgeSchemasActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /media-bridge/v1/{appId}/schemas/{objectType} on HubSpot.",
     method: "GET",
     path: "/media-bridge/v1/{appId}/schemas/{objectType}",
-    input: z.object({ appId: z.number(), objectType: z.string() }),
+    input: obj({ appId: z.number(), objectType: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const mediaBridgeSchemasActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Basic. Calls PATCH /media-bridge/v1/{appId}/schemas/{objectType} on HubSpot.",
     method: "PATCH",
     path: "/media-bridge/v1/{appId}/schemas/{objectType}",
-    input: z.object({ appId: z.number(), objectType: z.string(), allowsSensitiveProperties: z.boolean().optional(), clearDescription: z.boolean(), description: z.string().optional(), labels: z.object({ plural: z.string().optional(), singular: z.string().optional() }).optional(), primaryDisplayProperty: z.string().optional(), requiredProperties: z.array(z.string()).optional(), restorable: z.boolean().optional(), searchableProperties: z.array(z.string()).optional(), secondaryDisplayProperties: z.array(z.string()).optional() }),
+    input: obj({ appId: z.number(), objectType: z.string(), allowsSensitiveProperties: z.boolean().optional(), clearDescription: z.boolean(), description: z.string().optional(), labels: obj({ plural: z.string().optional(), singular: z.string().optional() }).optional(), primaryDisplayProperty: z.string().optional(), requiredProperties: z.array(z.string()).optional(), restorable: z.boolean().optional(), searchableProperties: z.array(z.string()).optional(), secondaryDisplayProperties: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const mediaBridgeSchemasActions: Record<string, ActionDefinition> = {
     description: "Create associations. Part of: Advanced. Calls POST /media-bridge/v1/{appId}/schemas/{objectType}/associations on HubSpot.",
     method: "POST",
     path: "/media-bridge/v1/{appId}/schemas/{objectType}/associations",
-    input: z.object({ appId: z.number(), objectType: z.string(), fromObjectTypeId: z.string(), name: z.string().optional(), toObjectTypeId: z.string() }),
+    input: obj({ appId: z.number(), objectType: z.string(), fromObjectTypeId: z.string(), name: z.string().optional(), toObjectTypeId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const mediaBridgeSchemasActions: Record<string, ActionDefinition> = {
     description: "Delete associations. Part of: Basic. Calls DELETE /media-bridge/v1/{appId}/schemas/{objectType}/associations/{associationId} on HubSpot.",
     method: "DELETE",
     path: "/media-bridge/v1/{appId}/schemas/{objectType}/associations/{associationId}",
-    input: z.object({ appId: z.number(), associationId: z.string(), objectType: z.string() }),
+    input: obj({ appId: z.number(), associationId: z.string(), objectType: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

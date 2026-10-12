@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectBoardsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectBoardsActions: Record<string, ActionDefinition> = {
     description: "Get projects boards. Part of: ProjectBoards. Calls GET /api/v2/boards on Pipedrive.",
     method: "GET",
     path: "/api/v2/boards",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const projectBoardsActions: Record<string, ActionDefinition> = {
     description: "Add project board. Part of: ProjectBoards. Calls POST /api/v2/boards on Pipedrive.",
     method: "POST",
     path: "/api/v2/boards",
-    input: z.object({ name: z.string(), order_nr: z.number().optional() }),
+    input: obj({ name: z.string(), order_nr: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const projectBoardsActions: Record<string, ActionDefinition> = {
     description: "Get projects board. Part of: ProjectBoards. Calls GET /api/v2/boards/{id} on Pipedrive.",
     method: "GET",
     path: "/api/v2/boards/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const projectBoardsActions: Record<string, ActionDefinition> = {
     description: "Update project board. Part of: ProjectBoards. Calls PATCH /api/v2/boards/{id} on Pipedrive.",
     method: "PATCH",
     path: "/api/v2/boards/{id}",
-    input: z.object({ id: z.number(), name: z.string().optional(), order_nr: z.number().optional() }),
+    input: obj({ id: z.number(), name: z.string().optional(), order_nr: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const projectBoardsActions: Record<string, ActionDefinition> = {
     description: "Delete project board. Part of: ProjectBoards. Calls DELETE /api/v2/boards/{id} on Pipedrive.",
     method: "DELETE",
     path: "/api/v2/boards/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const projectBoardsActions: Record<string, ActionDefinition> = {
     description: "Get projects boards. Part of: ProjectBoards. Calls GET /v1/projects/boards on Pipedrive.",
     method: "GET",
     path: "/v1/projects/boards",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const projectBoardsActions: Record<string, ActionDefinition> = {
     description: "Get projects board. Part of: ProjectBoards. Calls GET /v1/projects/boards/{id} on Pipedrive.",
     method: "GET",
     path: "/v1/projects/boards/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

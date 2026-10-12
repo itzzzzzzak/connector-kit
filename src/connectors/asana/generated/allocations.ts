@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const allocationsActions: Record<string, ActionDefinition> = {
     description: "Get an allocation. Returns the complete allocation record for a single allocation.",
     method: "GET",
     path: "/allocations/{allocation_gid}",
-    input: z.object({ allocation_gid: z.string().describe("Globally unique identifier for the allocation."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["assignee", "assignee.name", "created_by", "created_by.name", "effort", "effort.type", "effort.value", "end_date", "parent", "parent.name", "parent.resource_subtype", "resource_subtype", "start_date"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ allocation_gid: z.string().describe("Globally unique identifier for the allocation."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["assignee", "assignee.name", "created_by", "created_by.name", "effort", "effort.type", "effort.value", "end_date", "parent", "parent.name", "parent.resource_subtype", "resource_subtype", "start_date"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -20,7 +21,7 @@ export const allocationsActions: Record<string, ActionDefinition> = {
     description: "Update an allocation. An existing allocation can be updated by making a PUT request on the URL for that allocation. Only the fields provided in the data block will be updated; any unspecified fields will remain unchanged.",
     method: "PUT",
     path: "/allocations/{allocation_gid}",
-    input: z.object({ allocation_gid: z.string().describe("Globally unique identifier for the allocation."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["assignee", "assignee.name", "created_by", "created_by.name", "effort", "effort.type", "effort.value", "end_date", "parent", "parent.name", "parent.resource_subtype", "resource_subtype", "start_date"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ gid: z.string().optional(), resource_type: z.string().optional(), start_date: z.string().optional(), end_date: z.string().optional(), effort: z.object({ type: z.enum(["hours", "percent"]).optional(), value: z.number().optional() }).nullable().optional(), assignee: z.string().optional(), parent: z.string().optional() }).optional() }),
+    input: obj({ allocation_gid: z.string().describe("Globally unique identifier for the allocation."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["assignee", "assignee.name", "created_by", "created_by.name", "effort", "effort.type", "effort.value", "end_date", "parent", "parent.name", "parent.resource_subtype", "resource_subtype", "start_date"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ gid: z.string().optional(), resource_type: z.string().optional(), start_date: z.string().optional(), end_date: z.string().optional(), effort: obj({ type: z.enum(["hours", "percent"]).optional(), value: z.number().optional() }).nullable().optional(), assignee: z.string().optional(), parent: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -30,7 +31,7 @@ export const allocationsActions: Record<string, ActionDefinition> = {
     description: "Delete an allocation. A specific, existing allocation can be deleted by making a DELETE request on the URL for that allocation.",
     method: "DELETE",
     path: "/allocations/{allocation_gid}",
-    input: z.object({ allocation_gid: z.string().describe("Globally unique identifier for the allocation."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
+    input: obj({ allocation_gid: z.string().describe("Globally unique identifier for the allocation."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -38,7 +39,7 @@ export const allocationsActions: Record<string, ActionDefinition> = {
     description: "Get multiple allocations. Returns a list of allocations filtered to a specific project, user or placeholder.",
     method: "GET",
     path: "/allocations",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), parent: z.string().describe("Globally unique identifier for the project to filter allocations by.").optional(), assignee: z.string().describe("Globally unique identifier for the user or placeholder the allocation is assigned to.").optional(), workspace: z.string().describe("Globally unique identifier for the workspace.").optional(), opt_fields: z.array(z.enum(["assignee", "assignee.name", "created_by", "created_by.name", "effort", "effort.type", "effort.value", "end_date", "offset", "parent", "parent.name", "parent.resource_subtype", "path", "resource_subtype", "start_date", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), parent: z.string().describe("Globally unique identifier for the project to filter allocations by.").optional(), assignee: z.string().describe("Globally unique identifier for the user or placeholder the allocation is assigned to.").optional(), workspace: z.string().describe("Globally unique identifier for the workspace.").optional(), opt_fields: z.array(z.enum(["assignee", "assignee.name", "created_by", "created_by.name", "effort", "effort.type", "effort.value", "end_date", "offset", "parent", "parent.name", "parent.resource_subtype", "path", "resource_subtype", "start_date", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -47,7 +48,7 @@ export const allocationsActions: Record<string, ActionDefinition> = {
     description: "Create an allocation. Creates a new allocation.",
     method: "POST",
     path: "/allocations",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["assignee", "assignee.name", "created_by", "created_by.name", "effort", "effort.type", "effort.value", "end_date", "parent", "parent.name", "parent.resource_subtype", "resource_subtype", "start_date"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ gid: z.string().optional(), resource_type: z.string().optional(), start_date: z.string(), end_date: z.string(), effort: z.object({ type: z.enum(["hours", "percent"]).optional(), value: z.number().optional() }).nullable().optional(), assignee: z.string(), parent: z.string() }).optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["assignee", "assignee.name", "created_by", "created_by.name", "effort", "effort.type", "effort.value", "end_date", "parent", "parent.name", "parent.resource_subtype", "resource_subtype", "start_date"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ gid: z.string().optional(), resource_type: z.string().optional(), start_date: z.string(), end_date: z.string(), effort: obj({ type: z.enum(["hours", "percent"]).optional(), value: z.number().optional() }).nullable().optional(), assignee: z.string(), parent: z.string() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),

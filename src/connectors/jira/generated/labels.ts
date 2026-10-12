@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const labelsActions: Record<string, ActionDefinition> = {
     description: "Get all labels. Returns a paginated list of labels.",
     method: "GET",
     path: "/label",
-    input: z.object({ query: z.string().describe("Case-insensitive prefix used to filter labels before pagination.").optional(), scope: z.string().describe("RECENT\\PROJECTS or ALL\\BROWSEABLE\\PROJECTS. Omitted scope retains the unbounded search. Blank or unrecognised values use ALL\\BROWSEABLE\\PROJECTS.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ query: z.string().describe("Case-insensitive prefix used to filter labels before pagination.").optional(), scope: z.string().describe("RECENT\\PROJECTS or ALL\\BROWSEABLE\\PROJECTS. Omitted scope retains the unbounded search. Blank or unrecognised values use ALL\\BROWSEABLE\\PROJECTS.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const searchActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const searchActions: Record<string, ActionDefinition> = {
     description: "Searches for messages matching a query. Calls GET /search.messages on Slack.",
     method: "GET",
     path: "/search.messages",
-    input: z.object({ count: z.number().describe("Pass the number of results you want per \"page\". Maximum of 100.").optional(), highlight: z.boolean().describe("Pass a value of true to enable query highlight markers (see below).").optional(), page: z.number().optional(), query: z.string().describe("Search query."), sort: z.string().describe("Return matches sorted by either score or timestamp.").optional(), sort_dir: z.string().describe("Change sort direction to ascending (asc) or descending (desc).").optional() }),
+    input: obj({ count: z.number().describe("Pass the number of results you want per \"page\". Maximum of 100.").optional(), highlight: z.boolean().describe("Pass a value of true to enable query highlight markers (see below).").optional(), page: z.number().optional(), query: z.string().describe("Search query."), sort: z.string().describe("Return matches sorted by either score or timestamp.").optional(), sort_dir: z.string().describe("Change sort direction to ascending (asc) or descending (desc).").optional() }),
     output: z.unknown(),
     effect: "read",
   },

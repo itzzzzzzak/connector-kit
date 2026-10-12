@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Add goal. Part of: Goals. Calls POST /v1/goals on Pipedrive.",
     method: "POST",
     path: "/v1/goals",
-    input: z.object({ title: z.string().optional(), assignee: z.record(z.string(), z.unknown()), type: z.record(z.string(), z.unknown()), expected_outcome: z.record(z.string(), z.unknown()), duration: z.record(z.string(), z.unknown()), interval: z.enum(["weekly", "monthly", "quarterly", "yearly"]) }),
+    input: obj({ title: z.string().optional(), assignee: z.record(z.string(), z.unknown()), type: z.record(z.string(), z.unknown()), expected_outcome: z.record(z.string(), z.unknown()), duration: z.record(z.string(), z.unknown()), interval: z.enum(["weekly", "monthly", "quarterly", "yearly"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Get goals. Part of: Goals. Calls GET /v1/goals/find on Pipedrive.",
     method: "GET",
     path: "/v1/goals/find",
-    input: z.object({ type_name: z.enum(["deals_won", "deals_progressed", "activities_completed", "activities_added", "deals_started"]).optional(), title: z.string().optional(), is_active: z.boolean().optional(), assignee_id: z.number().optional(), assignee_type: z.enum(["person", "company", "team"]).optional(), expected_outcome_target: z.number().optional(), expected_outcome_tracking_metric: z.enum(["quantity", "sum"]).optional(), expected_outcome_currency_id: z.number().optional(), type_params_pipeline_id: z.array(z.number()).optional(), type_params_stage_id: z.number().optional(), type_params_activity_type_id: z.array(z.number()).optional(), period_start: z.string().optional(), period_end: z.string().optional() }),
+    input: obj({ type_name: z.enum(["deals_won", "deals_progressed", "activities_completed", "activities_added", "deals_started"]).optional(), title: z.string().optional(), is_active: z.boolean().optional(), assignee_id: z.number().optional(), assignee_type: z.enum(["person", "company", "team"]).optional(), expected_outcome_target: z.number().optional(), expected_outcome_tracking_metric: z.enum(["quantity", "sum"]).optional(), expected_outcome_currency_id: z.number().optional(), type_params_pipeline_id: z.array(z.number()).optional(), type_params_stage_id: z.number().optional(), type_params_activity_type_id: z.array(z.number()).optional(), period_start: z.string().optional(), period_end: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { type_name: "type.name", title: "title", is_active: "is_active", assignee_id: "assignee.id", assignee_type: "assignee.type", expected_outcome_target: "expected_outcome.target", expected_outcome_tracking_metric: "expected_outcome.tracking_metric", expected_outcome_currency_id: "expected_outcome.currency_id", type_params_pipeline_id: "type.params.pipeline_id", type_params_stage_id: "type.params.stage_id", type_params_activity_type_id: "type.params.activity_type_id", period_start: "period.start", period_end: "period.end" }),
@@ -28,7 +29,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Update goal. Part of: Goals. Calls PUT /v1/goals/{id} on Pipedrive.",
     method: "PUT",
     path: "/v1/goals/{id}",
-    input: z.object({ id: z.string(), title: z.string().optional(), assignee: z.record(z.string(), z.unknown()).optional(), type: z.record(z.string(), z.unknown()).optional(), expected_outcome: z.record(z.string(), z.unknown()).optional(), duration: z.record(z.string(), z.unknown()).optional(), interval: z.enum(["weekly", "monthly", "quarterly", "yearly"]).optional() }),
+    input: obj({ id: z.string(), title: z.string().optional(), assignee: z.record(z.string(), z.unknown()).optional(), type: z.record(z.string(), z.unknown()).optional(), expected_outcome: z.record(z.string(), z.unknown()).optional(), duration: z.record(z.string(), z.unknown()).optional(), interval: z.enum(["weekly", "monthly", "quarterly", "yearly"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Delete goal. Part of: Goals. Calls DELETE /v1/goals/{id} on Pipedrive.",
     method: "DELETE",
     path: "/v1/goals/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -44,7 +45,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Get goal result. Part of: Goals. Calls GET /v1/goals/{id}/results on Pipedrive.",
     method: "GET",
     path: "/v1/goals/{id}/results",
-    input: z.object({ id: z.string(), period_start: z.string(), period_end: z.string() }),
+    input: obj({ id: z.string(), period_start: z.string(), period_end: z.string() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { period_start: "period.start", period_end: "period.end" }),

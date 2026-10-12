@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const vpcPeeringsActions: Record<string, ActionDefinition> = {
     description: "List All VPC Peerings. To list all of the VPC peerings on your account, send a GET request to /v2/vpcpeerings.",
     method: "GET",
     path: "/vpc_peerings",
-    input: z.object({ region: z.enum(["ams1", "ams2", "ams3", "blr1", "fra1", "lon1", "nyc1", "nyc2", "nyc3", "sfo1", "sfo2", "sfo3", "sgp1", "tor1", "syd1"]).describe("The slug identifier for the region where the resource is available.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ region: z.enum(["ams1", "ams2", "ams3", "blr1", "fra1", "lon1", "nyc1", "nyc2", "nyc3", "sfo1", "sfo2", "sfo3", "sgp1", "tor1", "syd1"]).describe("The slug identifier for the region where the resource is available.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "vpc_peerings", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const vpcPeeringsActions: Record<string, ActionDefinition> = {
     description: "Create a New VPC Peering. To create a new VPC Peering, send a POST request to /v2/vpcpeerings specifying a name and a list of two VPC IDs to peer. The response code, 202 Accepted, does not indicate the success or failure of the operation, just that the request has been accepted for processing.",
     method: "POST",
     path: "/vpc_peerings",
-    input: z.object({ name: z.string().describe("The name of the VPC peering. Must be unique within the team and may only contain alphanumeric characters and dashes."), vpc_ids: z.array(z.string()).describe("An array of the two peered VPCs IDs.") }),
+    input: obj({ name: z.string().describe("The name of the VPC peering. Must be unique within the team and may only contain alphanumeric characters and dashes."), vpc_ids: z.array(z.string()).describe("An array of the two peered VPCs IDs.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const vpcPeeringsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing VPC Peering. To show information about an existing VPC Peering, send a GET request to /v2/vpcpeerings/$VPCPEERINGID.",
     method: "GET",
     path: "/vpc_peerings/{vpc_peering_id}",
-    input: z.object({ vpc_peering_id: z.string().describe("A unique identifier for a VPC peering.") }),
+    input: obj({ vpc_peering_id: z.string().describe("A unique identifier for a VPC peering.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const vpcPeeringsActions: Record<string, ActionDefinition> = {
     description: "Update a VPC peering. To update the name of a VPC peering, send a PATCH request to /v2/vpcpeerings/$VPCPEERINGID with the new name in the request body.",
     method: "PATCH",
     path: "/vpc_peerings/{vpc_peering_id}",
-    input: z.object({ vpc_peering_id: z.string().describe("A unique identifier for a VPC peering."), name: z.string().describe("The name of the VPC peering. Must be unique within the team and may only contain alphanumeric characters and dashes.") }),
+    input: obj({ vpc_peering_id: z.string().describe("A unique identifier for a VPC peering."), name: z.string().describe("The name of the VPC peering. Must be unique within the team and may only contain alphanumeric characters and dashes.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const vpcPeeringsActions: Record<string, ActionDefinition> = {
     description: "Delete a VPC peering. To delete a VPC peering, send a DELETE request to /v2/vpcpeerings/$VPCPEERINGID.",
     method: "DELETE",
     path: "/vpc_peerings/{vpc_peering_id}",
-    input: z.object({ vpc_peering_id: z.string().describe("A unique identifier for a VPC peering.") }),
+    input: obj({ vpc_peering_id: z.string().describe("A unique identifier for a VPC peering.") }),
     output: z.unknown(),
     effect: "destructive",
   },

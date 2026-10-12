@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const cmsUrlRedirectsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /cms/url-redirects/v3 on HubSpot.",
     method: "GET",
     path: "/cms/url-redirects/v3",
-    input: z.object({ archived: z.boolean().optional(), createdAfter: z.string().optional(), createdAt: z.string().optional(), createdBefore: z.string().optional(), sort: z.array(z.string()).optional(), updatedAfter: z.string().optional(), updatedAt: z.string().optional(), updatedBefore: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ archived: z.boolean().optional(), createdAfter: z.string().optional(), createdAt: z.string().optional(), createdBefore: z.string().optional(), sort: z.array(z.string()).optional(), updatedAfter: z.string().optional(), updatedAt: z.string().optional(), updatedBefore: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const cmsUrlRedirectsActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Basic. Calls POST /cms/url-redirects/v3 on HubSpot.",
     method: "POST",
     path: "/cms/url-redirects/v3",
-    input: z.object({ destination: z.string(), isMatchFullUrl: z.boolean().optional(), isMatchQueryString: z.boolean().optional(), isOnlyAfterNotFound: z.boolean().optional(), isPattern: z.boolean().optional(), isProtocolAgnostic: z.boolean().optional(), isTrailingSlashOptional: z.boolean().optional(), precedence: z.number().optional(), redirectStyle: z.number(), routePrefix: z.string() }),
+    input: obj({ destination: z.string(), isMatchFullUrl: z.boolean().optional(), isMatchQueryString: z.boolean().optional(), isOnlyAfterNotFound: z.boolean().optional(), isPattern: z.boolean().optional(), isProtocolAgnostic: z.boolean().optional(), isTrailingSlashOptional: z.boolean().optional(), precedence: z.number().optional(), redirectStyle: z.number(), routePrefix: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const cmsUrlRedirectsActions: Record<string, ActionDefinition> = {
     description: "List url mappings. Part of: Basic. Calls GET /cms/url-redirects/v3/url-mappings on HubSpot.",
     method: "GET",
     path: "/cms/url-redirects/v3/url-mappings",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const cmsUrlRedirectsActions: Record<string, ActionDefinition> = {
     description: "Create url mappings. Part of: Basic. Calls POST /cms/url-redirects/v3/url-mappings on HubSpot.",
     method: "POST",
     path: "/cms/url-redirects/v3/url-mappings",
-    input: z.object({ created: z.string().optional(), destination: z.string(), id: z.string(), isMatchFullUrl: z.boolean(), isMatchQueryString: z.boolean(), isOnlyAfterNotFound: z.boolean(), isPattern: z.boolean(), isProtocolAgnostic: z.boolean(), isTrailingSlashOptional: z.boolean(), precedence: z.number(), redirectStyle: z.number(), routePrefix: z.string(), updated: z.string().optional() }),
+    input: obj({ created: z.string().optional(), destination: z.string(), id: z.string(), isMatchFullUrl: z.boolean(), isMatchQueryString: z.boolean(), isOnlyAfterNotFound: z.boolean(), isPattern: z.boolean(), isProtocolAgnostic: z.boolean(), isTrailingSlashOptional: z.boolean(), precedence: z.number(), redirectStyle: z.number(), routePrefix: z.string(), updated: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const cmsUrlRedirectsActions: Record<string, ActionDefinition> = {
     description: "Get url mappings. Part of: Basic. Calls GET /cms/url-redirects/v3/url-mappings/{id} on HubSpot.",
     method: "GET",
     path: "/cms/url-redirects/v3/url-mappings/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -52,7 +53,7 @@ export const cmsUrlRedirectsActions: Record<string, ActionDefinition> = {
     description: "Delete url mappings. Part of: Basic. Calls DELETE /cms/url-redirects/v3/url-mappings/{id} on HubSpot.",
     method: "DELETE",
     path: "/cms/url-redirects/v3/url-mappings/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -60,7 +61,7 @@ export const cmsUrlRedirectsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /cms/v3/url-redirects/{urlRedirectId} on HubSpot.",
     method: "GET",
     path: "/cms/v3/url-redirects/{urlRedirectId}",
-    input: z.object({ urlRedirectId: z.string() }),
+    input: obj({ urlRedirectId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -68,7 +69,7 @@ export const cmsUrlRedirectsActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Basic. Calls PATCH /cms/v3/url-redirects/{urlRedirectId} on HubSpot.",
     method: "PATCH",
     path: "/cms/v3/url-redirects/{urlRedirectId}",
-    input: z.object({ urlRedirectId: z.string(), created: z.string().optional(), destination: z.string(), id: z.string(), isMatchFullUrl: z.boolean(), isMatchQueryString: z.boolean(), isOnlyAfterNotFound: z.boolean(), isPattern: z.boolean(), isProtocolAgnostic: z.boolean(), isTrailingSlashOptional: z.boolean(), precedence: z.number(), redirectStyle: z.number(), routePrefix: z.string(), updated: z.string().optional() }),
+    input: obj({ urlRedirectId: z.string(), created: z.string().optional(), destination: z.string(), id: z.string(), isMatchFullUrl: z.boolean(), isMatchQueryString: z.boolean(), isOnlyAfterNotFound: z.boolean(), isPattern: z.boolean(), isProtocolAgnostic: z.boolean(), isTrailingSlashOptional: z.boolean(), precedence: z.number(), redirectStyle: z.number(), routePrefix: z.string(), updated: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -76,7 +77,7 @@ export const cmsUrlRedirectsActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /cms/v3/url-redirects/{urlRedirectId} on HubSpot.",
     method: "DELETE",
     path: "/cms/v3/url-redirects/{urlRedirectId}",
-    input: z.object({ urlRedirectId: z.string() }),
+    input: obj({ urlRedirectId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

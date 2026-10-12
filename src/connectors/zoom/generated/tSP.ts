@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const tSPActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const tSPActions: Record<string, ActionDefinition> = {
     description: "Tsp. Part of: TSP. Calls GET /tsp on Zoom.",
     method: "GET",
     path: "/tsp",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const tSPActions: Record<string, ActionDefinition> = {
     description: "Tsp update. Part of: TSP. Calls PATCH /tsp on Zoom.",
     method: "PATCH",
     path: "/tsp",
-    input: z.object({ dial_in_number_unrestricted: z.boolean().optional(), enable: z.boolean().optional(), master_account_setting_extended: z.boolean().optional(), modify_credential_forbidden: z.boolean().optional(), tsp_bridge: z.enum(["US_TSP_TB", "EU_TSP_TB"]).optional(), tsp_enabled: z.boolean().optional(), tsp_provider: z.string().optional() }),
+    input: obj({ dial_in_number_unrestricted: z.boolean().optional(), enable: z.boolean().optional(), master_account_setting_extended: z.boolean().optional(), modify_credential_forbidden: z.boolean().optional(), tsp_bridge: z.enum(["US_TSP_TB", "EU_TSP_TB"]).optional(), tsp_enabled: z.boolean().optional(), tsp_provider: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const tSPActions: Record<string, ActionDefinition> = {
     description: "User tsps. Part of: TSP. Calls GET /users/{userId}/tsp on Zoom.",
     method: "GET",
     path: "/users/{userId}/tsp",
-    input: z.object({ userId: z.string() }),
+    input: obj({ userId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const tSPActions: Record<string, ActionDefinition> = {
     description: "User tspcreate. Part of: TSP. Calls POST /users/{userId}/tsp on Zoom.",
     method: "POST",
     path: "/users/{userId}/tsp",
-    input: z.object({ userId: z.string(), conference_code: z.string(), dial_in_numbers: z.array(z.object({ code: z.string().optional(), country_label: z.string().optional(), number: z.string().optional(), type: z.enum(["toll", "tollfree", "media_link"]).optional() })).optional(), leader_pin: z.string(), tsp_bridge: z.enum(["US_TSP_TB", "EU_TSP_TB"]).optional() }),
+    input: obj({ userId: z.string(), conference_code: z.string(), dial_in_numbers: z.array(obj({ code: z.string().optional(), country_label: z.string().optional(), number: z.string().optional(), type: z.enum(["toll", "tollfree", "media_link"]).optional() })).optional(), leader_pin: z.string(), tsp_bridge: z.enum(["US_TSP_TB", "EU_TSP_TB"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const tSPActions: Record<string, ActionDefinition> = {
     description: "Tsp url update. Part of: TSP. Calls PATCH /users/{userId}/tsp/settings on Zoom.",
     method: "PATCH",
     path: "/users/{userId}/tsp/settings",
-    input: z.object({ userId: z.string(), audio_url: z.string().optional() }),
+    input: obj({ userId: z.string(), audio_url: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const tSPActions: Record<string, ActionDefinition> = {
     description: "User tsp. Part of: TSP. Calls GET /users/{userId}/tsp/{tspId} on Zoom.",
     method: "GET",
     path: "/users/{userId}/tsp/{tspId}",
-    input: z.object({ userId: z.string(), tspId: z.enum(["1", "2"]) }),
+    input: obj({ userId: z.string(), tspId: z.enum(["1", "2"]) }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const tSPActions: Record<string, ActionDefinition> = {
     description: "User tspupdate. Part of: TSP. Calls PATCH /users/{userId}/tsp/{tspId} on Zoom.",
     method: "PATCH",
     path: "/users/{userId}/tsp/{tspId}",
-    input: z.object({ userId: z.string(), tspId: z.enum(["1", "2"]), conference_code: z.string(), dial_in_numbers: z.array(z.object({ code: z.string().optional(), country_label: z.string().optional(), number: z.string().optional(), type: z.enum(["toll", "tollfree", "media_link"]).optional() })).optional(), leader_pin: z.string(), tsp_bridge: z.enum(["US_TSP_TB", "EU_TSP_TB"]).optional() }),
+    input: obj({ userId: z.string(), tspId: z.enum(["1", "2"]), conference_code: z.string(), dial_in_numbers: z.array(obj({ code: z.string().optional(), country_label: z.string().optional(), number: z.string().optional(), type: z.enum(["toll", "tollfree", "media_link"]).optional() })).optional(), leader_pin: z.string(), tsp_bridge: z.enum(["US_TSP_TB", "EU_TSP_TB"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -66,7 +67,7 @@ export const tSPActions: Record<string, ActionDefinition> = {
     description: "User tspdelete. Part of: TSP. Calls DELETE /users/{userId}/tsp/{tspId} on Zoom.",
     method: "DELETE",
     path: "/users/{userId}/tsp/{tspId}",
-    input: z.object({ userId: z.string(), tspId: z.enum(["1", "2"]) }),
+    input: obj({ userId: z.string(), tspId: z.enum(["1", "2"]) }),
     output: z.unknown(),
     effect: "destructive",
   },

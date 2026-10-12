@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const accessTokenActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const accessTokenActions: Record<string, ActionDefinition> = {
     description: "Exchange ticket Calls POST /oauth/tickets/{ticketid}/exchange on Netlify.",
     method: "POST",
     path: "/oauth/tickets/{ticket_id}/exchange",
-    input: z.object({ ticket_id: z.string() }),
+    input: obj({ ticket_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

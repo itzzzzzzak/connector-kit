@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const mailboxActions: Record<string, ActionDefinition> = {
     description: "Get mail message. Part of: Mailbox. Calls GET /v1/mailbox/mailMessages/{id} on Pipedrive.",
     method: "GET",
     path: "/v1/mailbox/mailMessages/{id}",
-    input: z.object({ id: z.number(), include_body: z.number().optional() }),
+    input: obj({ id: z.number(), include_body: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const mailboxActions: Record<string, ActionDefinition> = {
     description: "Get mail threads. Part of: Mailbox. Calls GET /v1/mailbox/mailThreads on Pipedrive.",
     method: "GET",
     path: "/v1/mailbox/mailThreads",
-    input: z.object({ folder: z.enum(["inbox", "drafts", "sent", "archive"]), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ folder: z.enum(["inbox", "drafts", "sent", "archive"]), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "data", positionParam: "start", pageSizeParam: "limit", hasMorePath: ["additional_data", "pagination", "more_items_in_collection"], defaultPageSize: 30, maxPageSize: 500 }),
@@ -28,7 +29,7 @@ export const mailboxActions: Record<string, ActionDefinition> = {
     description: "Get mail thread. Part of: Mailbox. Calls GET /v1/mailbox/mailThreads/{id} on Pipedrive.",
     method: "GET",
     path: "/v1/mailbox/mailThreads/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const mailboxActions: Record<string, ActionDefinition> = {
     description: "Delete mail thread. Part of: Mailbox. Calls DELETE /v1/mailbox/mailThreads/{id} on Pipedrive.",
     method: "DELETE",
     path: "/v1/mailbox/mailThreads/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -44,7 +45,7 @@ export const mailboxActions: Record<string, ActionDefinition> = {
     description: "Get mail thread messages. Part of: Mailbox. Calls GET /v1/mailbox/mailThreads/{id}/mailMessages on Pipedrive.",
     method: "GET",
     path: "/v1/mailbox/mailThreads/{id}/mailMessages",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const accountSettingsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const accountSettingsActions: Record<string, ActionDefinition> = {
     description: "Get account email settings. Part of: Account Settings. Calls GET /account/emailsettings on Zendesk.",
     method: "GET",
     path: "/account/email_settings",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const accountSettingsActions: Record<string, ActionDefinition> = {
     description: "Update account email settings. Part of: Account Settings. Calls PUT /account/emailsettings on Zendesk.",
     method: "PUT",
     path: "/account/email_settings",
-    input: z.object({ settings: z.object({ email: z.object({ accept_wildcard_emails: z.boolean().optional(), custom_dkim_domain: z.boolean().optional(), email_sender_authentication: z.boolean().optional(), email_sender_authentication_profile: z.enum(["default", "enhanced"]).optional(), email_status: z.boolean().optional(), email_template_photos: z.boolean().optional(), email_template_selection: z.boolean().optional(), gmail_actions: z.boolean().optional(), html_mail_template: z.string().optional(), mail_delimiter: z.string().optional(), modern_email_template: z.boolean().optional(), multi_recipient_email_tickets: z.boolean().optional(), no_mail_delimiter: z.boolean().optional(), personalized_replies: z.boolean().optional(), rich_content_in_emails: z.boolean().optional(), send_gmail_messages_via_gmail: z.boolean().optional(), text_mail_template: z.string().optional() }) }) }),
+    input: obj({ settings: obj({ email: obj({ accept_wildcard_emails: z.boolean().optional(), custom_dkim_domain: z.boolean().optional(), email_sender_authentication: z.boolean().optional(), email_sender_authentication_profile: z.enum(["default", "enhanced"]).optional(), email_status: z.boolean().optional(), email_template_photos: z.boolean().optional(), email_template_selection: z.boolean().optional(), gmail_actions: z.boolean().optional(), html_mail_template: z.string().optional(), mail_delimiter: z.string().optional(), modern_email_template: z.boolean().optional(), multi_recipient_email_tickets: z.boolean().optional(), no_mail_delimiter: z.boolean().optional(), personalized_replies: z.boolean().optional(), rich_content_in_emails: z.boolean().optional(), send_gmail_messages_via_gmail: z.boolean().optional(), text_mail_template: z.string().optional() }) }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const accountSettingsActions: Record<string, ActionDefinition> = {
     description: "Show account settings. Part of: Account Settings. Calls GET /account/settings on Zendesk.",
     method: "GET",
     path: "/account/settings",
-    input: z.object({ authenticity_token: z.string().optional() }),
+    input: obj({ authenticity_token: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const accountSettingsActions: Record<string, ActionDefinition> = {
     description: "Update account settings. Part of: Account Settings. Calls PUT /account/settings on Zendesk.",
     method: "PUT",
     path: "/account/settings",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },

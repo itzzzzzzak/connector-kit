@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const gitignoreActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const gitignoreActions: Record<string, ActionDefinition> = {
     description: "Get all gitignore templates. List all templates available to pass as an option when creating a repository.",
     method: "GET",
     path: "/gitignore/templates",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const gitignoreActions: Record<string, ActionDefinition> = {
     description: "Get a gitignore template. Get the content of a gitignore template.",
     method: "GET",
     path: "/gitignore/templates/{name}",
-    input: z.object({ name: z.string() }),
+    input: obj({ name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

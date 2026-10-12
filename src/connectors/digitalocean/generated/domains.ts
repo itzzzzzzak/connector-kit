@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const domainsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const domainsActions: Record<string, ActionDefinition> = {
     description: "Create a New Domain. To create a new domain, send a POST request to /v2/domains. Set the \"name\" attribute to the domain name you are adding. Optionally, you may set the \"ipaddress\" attribute, and an A record will be automatically created pointing to the apex domain.",
     method: "POST",
     path: "/domains",
-    input: z.object({ name: z.string().describe("The name of the domain itself. This should follow the standard domain format of domain.TLD. For instance, example.com is a valid domain name.").optional(), ip_address: z.string().describe("This optional attribute may contain an IP address. When provided, an A record will be automatically created pointing to the apex domain.").optional(), ttl: z.number().nullable().describe("This value is the time to live for the records on this domain, in seconds. This defines the time frame that clients can cache queried information before a…").optional(), zone_file: z.string().nullable().describe("This attribute contains the complete contents of the zone file for the selected domain. Individual domain record resources should be used to get more granular…").optional() }),
+    input: obj({ name: z.string().describe("The name of the domain itself. This should follow the standard domain format of domain.TLD. For instance, example.com is a valid domain name.").optional(), ip_address: z.string().describe("This optional attribute may contain an IP address. When provided, an A record will be automatically created pointing to the apex domain.").optional(), ttl: z.number().nullable().describe("This value is the time to live for the records on this domain, in seconds. This defines the time frame that clients can cache queried information before a…").optional(), zone_file: z.string().nullable().describe("This attribute contains the complete contents of the zone file for the selected domain. Individual domain record resources should be used to get more granular…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const domainsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing Domain. To get details about a specific domain, send a GET request to /v2/domains/$DOMAINNAME.",
     method: "GET",
     path: "/domains/{domain_name}",
-    input: z.object({ domain_name: z.string().describe("The name of the domain itself.") }),
+    input: obj({ domain_name: z.string().describe("The name of the domain itself.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const domainsActions: Record<string, ActionDefinition> = {
     description: "Delete a Domain. To delete a domain, send a DELETE request to /v2/domains/$DOMAINNAME.",
     method: "DELETE",
     path: "/domains/{domain_name}",
-    input: z.object({ domain_name: z.string().describe("The name of the domain itself.") }),
+    input: obj({ domain_name: z.string().describe("The name of the domain itself.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const domainsActions: Record<string, ActionDefinition> = {
     description: "Create a New Domain Record. To create a new record to a domain, send a POST request to /v2/domains/$DOMAINNAME/records.",
     method: "POST",
     path: "/domains/{domain_name}/records",
-    input: z.object({ domain_name: z.string().describe("The name of the domain itself."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ domain_name: z.string().describe("The name of the domain itself."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -43,7 +44,7 @@ export const domainsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing Domain Record. To retrieve a specific domain record, send a GET request to /v2/domains/$DOMAINNAME/records/$RECORDID.",
     method: "GET",
     path: "/domains/{domain_name}/records/{domain_record_id}",
-    input: z.object({ domain_name: z.string().describe("The name of the domain itself."), domain_record_id: z.number().describe("The unique identifier of the domain record.") }),
+    input: obj({ domain_name: z.string().describe("The name of the domain itself."), domain_record_id: z.number().describe("The unique identifier of the domain record.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -51,7 +52,7 @@ export const domainsActions: Record<string, ActionDefinition> = {
     description: "Update a Domain Record. To update an existing record, send a PUT request to /v2/domains/$DOMAINNAME/records/$DOMAINRECORDID. Any attribute valid for the record type can be set to a new value for the record.",
     method: "PUT",
     path: "/domains/{domain_name}/records/{domain_record_id}",
-    input: z.object({ domain_name: z.string().describe("The name of the domain itself."), domain_record_id: z.number().describe("The unique identifier of the domain record."), id: z.number().describe("A unique identifier for each domain record.").optional(), type: z.string().describe("The type of the DNS record. For example: A, CNAME, TXT, ..."), name: z.string().describe("The host name, alias, or service being defined by the record.").optional(), data: z.string().describe("Variable data depending on record type. For example, the \"data\" value for an A record would be the IPv4 address to which the domain will be mapped. For a CAA…").optional(), priority: z.number().nullable().describe("The priority for SRV and MX records.").optional(), port: z.number().nullable().describe("The port for SRV records.").optional(), ttl: z.number().describe("This value is the time to live for the record, in seconds. This defines the time frame that clients can cache queried information before a refresh should be…").optional(), weight: z.number().nullable().describe("The weight for SRV records.").optional(), flags: z.number().nullable().describe("An unsigned integer between 0-255 used for CAA records.").optional(), tag: z.string().nullable().describe("The parameter tag for CAA records. Valid values are \"issue\", \"issuewild\", or \"iodef\"").optional() }),
+    input: obj({ domain_name: z.string().describe("The name of the domain itself."), domain_record_id: z.number().describe("The unique identifier of the domain record."), id: z.number().describe("A unique identifier for each domain record.").optional(), type: z.string().describe("The type of the DNS record. For example: A, CNAME, TXT, ..."), name: z.string().describe("The host name, alias, or service being defined by the record.").optional(), data: z.string().describe("Variable data depending on record type. For example, the \"data\" value for an A record would be the IPv4 address to which the domain will be mapped. For a CAA…").optional(), priority: z.number().nullable().describe("The priority for SRV and MX records.").optional(), port: z.number().nullable().describe("The port for SRV records.").optional(), ttl: z.number().describe("This value is the time to live for the record, in seconds. This defines the time frame that clients can cache queried information before a refresh should be…").optional(), weight: z.number().nullable().describe("The weight for SRV records.").optional(), flags: z.number().nullable().describe("An unsigned integer between 0-255 used for CAA records.").optional(), tag: z.string().nullable().describe("The parameter tag for CAA records. Valid values are \"issue\", \"issuewild\", or \"iodef\"").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -59,7 +60,7 @@ export const domainsActions: Record<string, ActionDefinition> = {
     description: "Update a Domain Record. To update an existing record, send a PATCH request to /v2/domains/$DOMAINNAME/records/$DOMAINRECORDID. Any attribute valid for the record type can be set to a new value for the record.",
     method: "PATCH",
     path: "/domains/{domain_name}/records/{domain_record_id}",
-    input: z.object({ domain_name: z.string().describe("The name of the domain itself."), domain_record_id: z.number().describe("The unique identifier of the domain record."), id: z.number().describe("A unique identifier for each domain record.").optional(), type: z.string().describe("The type of the DNS record. For example: A, CNAME, TXT, ..."), name: z.string().describe("The host name, alias, or service being defined by the record.").optional(), data: z.string().describe("Variable data depending on record type. For example, the \"data\" value for an A record would be the IPv4 address to which the domain will be mapped. For a CAA…").optional(), priority: z.number().nullable().describe("The priority for SRV and MX records.").optional(), port: z.number().nullable().describe("The port for SRV records.").optional(), ttl: z.number().describe("This value is the time to live for the record, in seconds. This defines the time frame that clients can cache queried information before a refresh should be…").optional(), weight: z.number().nullable().describe("The weight for SRV records.").optional(), flags: z.number().nullable().describe("An unsigned integer between 0-255 used for CAA records.").optional(), tag: z.string().nullable().describe("The parameter tag for CAA records. Valid values are \"issue\", \"issuewild\", or \"iodef\"").optional() }),
+    input: obj({ domain_name: z.string().describe("The name of the domain itself."), domain_record_id: z.number().describe("The unique identifier of the domain record."), id: z.number().describe("A unique identifier for each domain record.").optional(), type: z.string().describe("The type of the DNS record. For example: A, CNAME, TXT, ..."), name: z.string().describe("The host name, alias, or service being defined by the record.").optional(), data: z.string().describe("Variable data depending on record type. For example, the \"data\" value for an A record would be the IPv4 address to which the domain will be mapped. For a CAA…").optional(), priority: z.number().nullable().describe("The priority for SRV and MX records.").optional(), port: z.number().nullable().describe("The port for SRV records.").optional(), ttl: z.number().describe("This value is the time to live for the record, in seconds. This defines the time frame that clients can cache queried information before a refresh should be…").optional(), weight: z.number().nullable().describe("The weight for SRV records.").optional(), flags: z.number().nullable().describe("An unsigned integer between 0-255 used for CAA records.").optional(), tag: z.string().nullable().describe("The parameter tag for CAA records. Valid values are \"issue\", \"issuewild\", or \"iodef\"").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -67,7 +68,7 @@ export const domainsActions: Record<string, ActionDefinition> = {
     description: "Delete a Domain Record. To delete a record for a domain, send a DELETE request to /v2/domains/$DOMAINNAME/records/$DOMAINRECORDID.",
     method: "DELETE",
     path: "/domains/{domain_name}/records/{domain_record_id}",
-    input: z.object({ domain_name: z.string().describe("The name of the domain itself."), domain_record_id: z.number().describe("The unique identifier of the domain record.") }),
+    input: obj({ domain_name: z.string().describe("The name of the domain itself."), domain_record_id: z.number().describe("The unique identifier of the domain record.") }),
     output: z.unknown(),
     effect: "destructive",
   },

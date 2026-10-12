@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const workspacesActions: Record<string, ActionDefinition> = {
     description: "Get a workspace. Required scope: workspaces:read",
     method: "GET",
     path: "/workspaces/{workspace_gid}",
-    input: z.object({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["email_domains", "is_organization", "name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["email_domains", "is_organization", "name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const workspacesActions: Record<string, ActionDefinition> = {
     description: "Update a workspace. A specific, existing workspace can be updated by making a PUT request on the URL for that workspace. Only the fields provided in the data block will be updated; any unspecified fields will remain unchanged. Currently the only field that can be modified for a workspace is its name. Returns the complete, updated workspace record.",
     method: "PUT",
     path: "/workspaces/{workspace_gid}",
-    input: z.object({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["email_domains", "is_organization", "name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ gid: z.string().optional(), resource_type: z.string().optional(), name: z.string().optional() }).describe("A workspace is the highest-level organizational unit in Asana. All projects and tasks have an associated workspace.").optional() }),
+    input: obj({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["email_domains", "is_organization", "name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ gid: z.string().optional(), resource_type: z.string().optional(), name: z.string().optional() }).describe("A workspace is the highest-level organizational unit in Asana. All projects and tasks have an associated workspace.").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -29,7 +30,7 @@ export const workspacesActions: Record<string, ActionDefinition> = {
     description: "Add a user to a workspace or organization Calls POST /workspaces/{workspacegid}/addUser on Asana.",
     method: "POST",
     path: "/workspaces/{workspace_gid}/addUser",
-    input: z.object({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["email", "name", "photo", "photo.image_1024x1024", "photo.image_128x128", "photo.image_21x21", "photo.image_27x27", "photo.image_36x36", "photo.image_60x60"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ user: z.string().optional() }).describe("A user identification object for specification with the addUser/removeUser endpoints.").optional() }),
+    input: obj({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["email", "name", "photo", "photo.image_1024x1024", "photo.image_128x128", "photo.image_21x21", "photo.image_27x27", "photo.image_36x36", "photo.image_60x60"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ user: z.string().optional() }).describe("A user identification object for specification with the addUser/removeUser endpoints.").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -39,7 +40,7 @@ export const workspacesActions: Record<string, ActionDefinition> = {
     description: "Remove a user from a workspace or organization",
     method: "POST",
     path: "/workspaces/{workspace_gid}/removeUser",
-    input: z.object({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), data: z.object({ user: z.string().optional() }).describe("A user identification object for specification with the addUser/removeUser endpoints.").optional() }),
+    input: obj({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), data: obj({ user: z.string().optional() }).describe("A user identification object for specification with the addUser/removeUser endpoints.").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty"]),
@@ -49,7 +50,7 @@ export const workspacesActions: Record<string, ActionDefinition> = {
     description: "Get workspace events. Returns the full record for all events that have occurred since the sync token was created. The response is a list of events and the schema of each event is as described here. Asana limits a single sync token to 1000 events. If more than 1000 events exist for a given domain, hasmore: true will be returned in the response, indica",
     method: "GET",
     path: "/workspaces/{workspace_gid}/events",
-    input: z.object({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), sync: z.string().describe("A sync token received from the last request, or none on first sync. Events will be returned from the point in time that the sync token was generated. Note: On…").optional() }),
+    input: obj({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), sync: z.string().describe("A sync token received from the last request, or none on first sync. Events will be returned from the point in time that the sync token was generated. Note: On…").optional() }),
     output: z.unknown(),
     effect: "read",
   },

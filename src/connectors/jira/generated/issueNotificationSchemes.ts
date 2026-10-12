@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const issueNotificationSchemesActions: Record<string, ActionDefinition> =
     description: "Get notification schemes paginated. Returns a paginated list of notification schemes ordered by the display name.",
     method: "GET",
     path: "/notificationscheme",
-    input: z.object({ id: z.array(z.string()).describe("The list of notification schemes IDs to be filtered by").optional(), projectId: z.array(z.string()).describe("The list of projects IDs to be filtered by").optional(), onlyDefault: z.boolean().describe("When set to true, returns only the default notification scheme. If you provide project IDs not associated with the default, returns an empty page. The default…").optional(), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Expand options include: all Returns all…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.array(z.string()).describe("The list of notification schemes IDs to be filtered by").optional(), projectId: z.array(z.string()).describe("The list of projects IDs to be filtered by").optional(), onlyDefault: z.boolean().describe("When set to true, returns only the default notification scheme. If you provide project IDs not associated with the default, returns an empty page. The default…").optional(), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Expand options include: all Returns all…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const issueNotificationSchemesActions: Record<string, ActionDefinition> =
     description: "Create notification scheme. Creates a notification scheme with notifications. You can create up to 1000 notifications per request.",
     method: "POST",
     path: "/notificationscheme",
-    input: z.object({ description: z.string().describe("The description of the notification scheme.").optional(), name: z.string().describe("The name of the notification scheme. Must be unique (case-insensitive)."), notificationSchemeEvents: z.array(z.object({ event: z.record(z.string(), z.unknown()), notifications: z.array(z.record(z.string(), z.unknown())) })).describe("The list of notifications which should be added to the notification scheme.").optional() }),
+    input: obj({ description: z.string().describe("The description of the notification scheme.").optional(), name: z.string().describe("The name of the notification scheme. Must be unique (case-insensitive)."), notificationSchemeEvents: z.array(obj({ event: z.record(z.string(), z.unknown()), notifications: z.array(z.record(z.string(), z.unknown())) })).describe("The list of notifications which should be added to the notification scheme.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const issueNotificationSchemesActions: Record<string, ActionDefinition> =
     description: "Get projects using notification schemes paginated. Returns a paginated mapping of project that have notification scheme assigned. You can provide either one or multiple notification scheme IDs or project IDs to filter by. If you don't provide any, this will return a list of all mappings. Note that only company-managed (classic) projects are supported. This is because team-manage",
     method: "GET",
     path: "/notificationscheme/project",
-    input: z.object({ notificationSchemeId: z.array(z.string()).describe("The list of notifications scheme IDs to be filtered out").optional(), projectId: z.array(z.string()).describe("The list of project IDs to be filtered out").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ notificationSchemeId: z.array(z.string()).describe("The list of notifications scheme IDs to be filtered out").optional(), projectId: z.array(z.string()).describe("The list of project IDs to be filtered out").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -37,7 +38,7 @@ export const issueNotificationSchemesActions: Record<string, ActionDefinition> =
     description: "Get notification scheme. Returns a notification scheme, including the list of events and the recipients who will receive notifications for those events.",
     method: "GET",
     path: "/notificationscheme/{id}",
-    input: z.object({ id: z.number().describe("The ID of the notification scheme. Use Get notification schemes paginated to get a list of notification scheme IDs."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Expand options include: all Returns all…").optional() }),
+    input: obj({ id: z.number().describe("The ID of the notification scheme. Use Get notification schemes paginated to get a list of notification scheme IDs."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Expand options include: all Returns all…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -45,7 +46,7 @@ export const issueNotificationSchemesActions: Record<string, ActionDefinition> =
     description: "Update notification scheme. Updates a notification scheme.",
     method: "PUT",
     path: "/notificationscheme/{id}",
-    input: z.object({ id: z.string().describe("The ID of the notification scheme."), description: z.string().describe("The description of the notification scheme.").optional(), name: z.string().describe("The name of the notification scheme. Must be unique.").optional() }),
+    input: obj({ id: z.string().describe("The ID of the notification scheme."), description: z.string().describe("The description of the notification scheme.").optional(), name: z.string().describe("The name of the notification scheme. Must be unique.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -53,7 +54,7 @@ export const issueNotificationSchemesActions: Record<string, ActionDefinition> =
     description: "Add notifications to notification scheme. Adds notifications to a notification scheme. You can add up to 1000 notifications per request.",
     method: "PUT",
     path: "/notificationscheme/{id}/notification",
-    input: z.object({ id: z.string().describe("The ID of the notification scheme."), notificationSchemeEvents: z.array(z.object({ event: z.record(z.string(), z.unknown()), notifications: z.array(z.record(z.string(), z.unknown())) })).describe("The list of notifications which should be added to the notification scheme.") }),
+    input: obj({ id: z.string().describe("The ID of the notification scheme."), notificationSchemeEvents: z.array(obj({ event: z.record(z.string(), z.unknown()), notifications: z.array(z.record(z.string(), z.unknown())) })).describe("The list of notifications which should be added to the notification scheme.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -61,7 +62,7 @@ export const issueNotificationSchemesActions: Record<string, ActionDefinition> =
     description: "Delete notification scheme. Deletes a notification scheme.",
     method: "DELETE",
     path: "/notificationscheme/{notificationSchemeId}",
-    input: z.object({ notificationSchemeId: z.string().describe("The ID of the notification scheme.") }),
+    input: obj({ notificationSchemeId: z.string().describe("The ID of the notification scheme.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -69,7 +70,7 @@ export const issueNotificationSchemesActions: Record<string, ActionDefinition> =
     description: "Remove notification from notification scheme. Removes a notification from a notification scheme.",
     method: "DELETE",
     path: "/notificationscheme/{notificationSchemeId}/notification/{notificationId}",
-    input: z.object({ notificationSchemeId: z.string().describe("The ID of the notification scheme."), notificationId: z.string().describe("The ID of the notification.") }),
+    input: obj({ notificationSchemeId: z.string().describe("The ID of the notification scheme."), notificationId: z.string().describe("The ID of the notification.") }),
     output: z.unknown(),
     effect: "destructive",
   },

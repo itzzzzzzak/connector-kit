@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const packagesRpmActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const packagesRpmActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages rpm repodata file name. Part of: packagesrpm. Calls GET /projects/{id}/packages/rpm/repodata/filename on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/rpm/repodata/*file_name",
-    input: z.object({ id: z.string(), file_name: z.string() }),
+    input: obj({ id: z.string(), file_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const packagesRpmActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages rpm package file id file name. Part of: packagesrpm. Calls GET /projects/{id}/packages/rpm/packagefileid/filename on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/rpm/*package_file_id/*file_name",
-    input: z.object({ id: z.string(), package_file_id: z.number(), file_name: z.string() }),
+    input: obj({ id: z.string(), package_file_id: z.number(), file_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const packagesRpmActions: Record<string, ActionDefinition> = {
     description: "Post projects id packages rpm. Part of: packagesrpm. Calls POST /projects/{id}/packages/rpm on GitLab.",
     method: "POST",
     path: "/projects/{id}/packages/rpm",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const packagesRpmActions: Record<string, ActionDefinition> = {
     description: "Post projects id packages rpm authorize. Part of: packagesrpm. Calls POST /projects/{id}/packages/rpm/authorize on GitLab.",
     method: "POST",
     path: "/projects/{id}/packages/rpm/authorize",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

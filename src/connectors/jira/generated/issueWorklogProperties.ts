@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const issueWorklogPropertiesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const issueWorklogPropertiesActions: Record<string, ActionDefinition> = {
     description: "Get worklog property keys. Returns the keys of all properties for a worklog.",
     method: "GET",
     path: "/issue/{issueIdOrKey}/worklog/{worklogId}/properties",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), worklogId: z.string().describe("The ID of the worklog.") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), worklogId: z.string().describe("The ID of the worklog.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const issueWorklogPropertiesActions: Record<string, ActionDefinition> = {
     description: "Get worklog property. Returns the value of a worklog property.",
     method: "GET",
     path: "/issue/{issueIdOrKey}/worklog/{worklogId}/properties/{propertyKey}",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), worklogId: z.string().describe("The ID of the worklog."), propertyKey: z.string().describe("The key of the property.") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), worklogId: z.string().describe("The ID of the worklog."), propertyKey: z.string().describe("The key of the property.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const issueWorklogPropertiesActions: Record<string, ActionDefinition> = {
     description: "Set worklog property. Sets the value of a worklog property. Use this operation to store custom data against the worklog.",
     method: "PUT",
     path: "/issue/{issueIdOrKey}/worklog/{worklogId}/properties/{propertyKey}",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), worklogId: z.string().describe("The ID of the worklog."), propertyKey: z.string().describe("The key of the issue property. The maximum length is 255 characters."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), worklogId: z.string().describe("The ID of the worklog."), propertyKey: z.string().describe("The key of the issue property. The maximum length is 255 characters."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -35,7 +36,7 @@ export const issueWorklogPropertiesActions: Record<string, ActionDefinition> = {
     description: "Delete worklog property. Deletes a worklog property.",
     method: "DELETE",
     path: "/issue/{issueIdOrKey}/worklog/{worklogId}/properties/{propertyKey}",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), worklogId: z.string().describe("The ID of the worklog."), propertyKey: z.string().describe("The key of the property.") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), worklogId: z.string().describe("The ID of the worklog."), propertyKey: z.string().describe("The key of the property.") }),
     output: z.unknown(),
     effect: "destructive",
   },

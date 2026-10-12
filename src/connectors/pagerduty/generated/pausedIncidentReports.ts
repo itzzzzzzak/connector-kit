@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const pausedIncidentReportsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const pausedIncidentReportsActions: Record<string, ActionDefinition> = {
     description: "Get paused incident report alerts. Part of: Paused Incident Reports. Calls GET /pausedincidentreports/alerts on PagerDuty.",
     method: "GET",
     path: "/paused_incident_reports/alerts",
-    input: z.object({ since: z.string().optional(), until: z.string().optional(), service_id: z.string().optional(), suspended_by: z.enum(["auto_pause", "rules"]).optional() }),
+    input: obj({ since: z.string().optional(), until: z.string().optional(), service_id: z.string().optional(), suspended_by: z.enum(["auto_pause", "rules"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const pausedIncidentReportsActions: Record<string, ActionDefinition> = {
     description: "Get paused incident report counts. Part of: Paused Incident Reports. Calls GET /pausedincidentreports/counts on PagerDuty.",
     method: "GET",
     path: "/paused_incident_reports/counts",
-    input: z.object({ since: z.string().optional(), until: z.string().optional(), service_id: z.string().optional(), suspended_by: z.enum(["auto_pause", "rules"]).optional() }),
+    input: obj({ since: z.string().optional(), until: z.string().optional(), service_id: z.string().optional(), suspended_by: z.enum(["auto_pause", "rules"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },

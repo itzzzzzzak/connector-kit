@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const filesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const filesActions: Record<string, ActionDefinition> = {
     description: "Initiate and complete aevent multipart upload. Part of: Files. Calls POST /zoomevents/files/multipart/upload on Zoom.",
     method: "POST",
     path: "/zoom_events/files/multipart/upload",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,

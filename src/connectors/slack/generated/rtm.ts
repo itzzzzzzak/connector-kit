@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const rtmActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const rtmActions: Record<string, ActionDefinition> = {
     description: "Starts a Real Time Messaging session. Calls GET /rtm.connect on Slack.",
     method: "GET",
     path: "/rtm.connect",
-    input: z.object({ batch_presence_aware: z.boolean().describe("Batch presence deliveries via subscription. Enabling changes the shape of presencechange events. See batch presence.").optional(), presence_sub: z.boolean().describe("Only deliver presence events when requested by subscription. See presence subscriptions.").optional() }),
+    input: obj({ batch_presence_aware: z.boolean().describe("Batch presence deliveries via subscription. Enabling changes the shape of presencechange events. See batch presence.").optional(), presence_sub: z.boolean().describe("Only deliver presence events when requested by subscription. See presence subscriptions.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

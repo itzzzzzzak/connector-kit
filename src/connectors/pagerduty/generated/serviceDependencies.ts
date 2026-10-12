@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const serviceDependenciesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const serviceDependenciesActions: Record<string, ActionDefinition> = {
     description: "Create service dependency. Part of: Service Dependencies. Calls POST /servicedependencies/associate on PagerDuty.",
     method: "POST",
     path: "/service_dependencies/associate",
-    input: z.object({ relationships: z.array(z.object({ supporting_service: z.record(z.string(), z.unknown()).optional(), dependent_service: z.record(z.string(), z.unknown()).optional() })).optional() }),
+    input: obj({ relationships: z.array(obj({ supporting_service: z.record(z.string(), z.unknown()).optional(), dependent_service: z.record(z.string(), z.unknown()).optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const serviceDependenciesActions: Record<string, ActionDefinition> = {
     description: "Get business service service dependencies. Part of: Service Dependencies. Calls GET /servicedependencies/businessservices/{id} on PagerDuty.",
     method: "GET",
     path: "/service_dependencies/business_services/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const serviceDependenciesActions: Record<string, ActionDefinition> = {
     description: "Delete service dependency. Part of: Service Dependencies. Calls POST /servicedependencies/disassociate on PagerDuty.",
     method: "POST",
     path: "/service_dependencies/disassociate",
-    input: z.object({ relationships: z.array(z.object({ supporting_service: z.record(z.string(), z.unknown()).optional(), dependent_service: z.record(z.string(), z.unknown()).optional() })).optional() }),
+    input: obj({ relationships: z.array(obj({ supporting_service: z.record(z.string(), z.unknown()).optional(), dependent_service: z.record(z.string(), z.unknown()).optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const serviceDependenciesActions: Record<string, ActionDefinition> = {
     description: "Get technical service service dependencies. Part of: Service Dependencies. Calls GET /servicedependencies/technicalservices/{id} on PagerDuty.",
     method: "GET",
     path: "/service_dependencies/technical_services/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

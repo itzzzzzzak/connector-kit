@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const firmwareUpdateRulesActions: Record<string, ActionDefinition> = {
     description: "List firmware rules. Part of: Firmware Update Rules. Calls GET /phone/firmwareupdaterules on Zoom.",
     method: "GET",
     path: "/phone/firmware_update_rules",
-    input: z.object({ site_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ site_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "rules", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const firmwareUpdateRulesActions: Record<string, ActionDefinition> = {
     description: "Add firmware rule. Part of: Firmware Update Rules. Calls POST /phone/firmwareupdaterules on Zoom.",
     method: "POST",
     path: "/phone/firmware_update_rules",
-    input: z.object({ site_id: z.string().optional(), version: z.string(), device_type: z.string(), device_model: z.string(), restart_type: z.number().optional() }),
+    input: obj({ site_id: z.string().optional(), version: z.string(), device_type: z.string(), device_model: z.string(), restart_type: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const firmwareUpdateRulesActions: Record<string, ActionDefinition> = {
     description: "Get firmware rule detail. Part of: Firmware Update Rules. Calls GET /phone/firmwareupdaterules/{ruleId} on Zoom.",
     method: "GET",
     path: "/phone/firmware_update_rules/{ruleId}",
-    input: z.object({ ruleId: z.string() }),
+    input: obj({ ruleId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const firmwareUpdateRulesActions: Record<string, ActionDefinition> = {
     description: "Update firmware rule. Part of: Firmware Update Rules. Calls PATCH /phone/firmwareupdaterules/{ruleId} on Zoom.",
     method: "PATCH",
     path: "/phone/firmware_update_rules/{ruleId}",
-    input: z.object({ ruleId: z.string(), version: z.string(), device_type: z.string(), device_model: z.string(), restart_type: z.number().optional() }),
+    input: obj({ ruleId: z.string(), version: z.string(), device_type: z.string(), device_model: z.string(), restart_type: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const firmwareUpdateRulesActions: Record<string, ActionDefinition> = {
     description: "Delete firmware update rule. Part of: Firmware Update Rules. Calls DELETE /phone/firmwareupdaterules/{ruleId} on Zoom.",
     method: "DELETE",
     path: "/phone/firmware_update_rules/{ruleId}",
-    input: z.object({ ruleId: z.string(), restart_type: z.number().optional() }),
+    input: obj({ ruleId: z.string(), restart_type: z.number().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const firmwareUpdateRulesActions: Record<string, ActionDefinition> = {
     description: "List firmwares. Part of: Firmware Update Rules. Calls GET /phone/firmwares on Zoom.",
     method: "GET",
     path: "/phone/firmwares",
-    input: z.object({ is_update: z.boolean().optional(), site_id: z.string().optional() }),
+    input: obj({ is_update: z.boolean().optional(), site_id: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const ticketAuditsActions: Record<string, ActionDefinition> = {
     description: "List ticket audits. Part of: Ticket Audits. Calls GET /ticketaudits on Zendesk.",
     method: "GET",
     path: "/ticket_audits",
-    input: z.object({ page_before_: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ page_before_: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "audits", nextUrlPath: ["links", "next"], hasMorePath: ["meta", "has_more"], pageSizeParam: "page[size]", defaultPageSize: 30, maxPageSize: 100 }),
@@ -22,7 +23,7 @@ export const ticketAuditsActions: Record<string, ActionDefinition> = {
     description: "List audits for ticket. Part of: Ticket Audits. Calls GET /tickets/{ticketid}/audits on Zendesk.",
     method: "GET",
     path: "/tickets/{ticket_id}/audits",
-    input: z.object({ ticket_id: z.number(), page: z.unknown().optional(), sort: z.string().optional(), include: z.string().optional(), include_boundary_indicators: z.boolean().optional(), include_item_cursors: z.boolean().optional(), filter_events: z.array(z.string()).optional(), sort_order: z.enum(["asc", "desc"]).optional() }),
+    input: obj({ ticket_id: z.number(), page: z.unknown().optional(), sort: z.string().optional(), include: z.string().optional(), include_boundary_indicators: z.boolean().optional(), include_item_cursors: z.boolean().optional(), filter_events: z.array(z.string()).optional(), sort_order: z.enum(["asc", "desc"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -30,7 +31,7 @@ export const ticketAuditsActions: Record<string, ActionDefinition> = {
     description: "Show ticket audit. Part of: Ticket Audits. Calls GET /tickets/{ticketid}/audits/{ticketauditid} on Zendesk.",
     method: "GET",
     path: "/tickets/{ticket_id}/audits/{ticket_audit_id}",
-    input: z.object({ ticket_id: z.number(), ticket_audit_id: z.number() }),
+    input: obj({ ticket_id: z.number(), ticket_audit_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -38,7 +39,7 @@ export const ticketAuditsActions: Record<string, ActionDefinition> = {
     description: "Make ticket comment private from audits. Part of: Ticket Audits. Calls PUT /tickets/{ticketid}/audits/{ticketauditid}/makeprivate on Zendesk.",
     method: "PUT",
     path: "/tickets/{ticket_id}/audits/{ticket_audit_id}/make_private",
-    input: z.object({ ticket_id: z.number(), ticket_audit_id: z.number() }),
+    input: obj({ ticket_id: z.number(), ticket_audit_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -46,7 +47,7 @@ export const ticketAuditsActions: Record<string, ActionDefinition> = {
     description: "Count audits for ticket. Part of: Ticket Audits. Calls GET /tickets/{ticketid}/audits/count on Zendesk.",
     method: "GET",
     path: "/tickets/{ticket_id}/audits/count",
-    input: z.object({ ticket_id: z.number() }),
+    input: obj({ ticket_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

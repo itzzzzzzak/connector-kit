@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const projectTemplatesActions: Record<string, ActionDefinition> = {
     description: "Get projects id templates type. Part of: projecttemplates. Calls GET /projects/{id}/templates/{type} on GitLab.",
     method: "GET",
     path: "/projects/{id}/templates/{type}",
-    input: z.object({ id: z.string(), type: z.enum(["dockerfiles", "gitignores", "gitlab_ci_ymls", "licenses", "issues", "merge_requests"]), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), type: z.enum(["dockerfiles", "gitignores", "gitlab_ci_ymls", "licenses", "issues", "merge_requests"]), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const projectTemplatesActions: Record<string, ActionDefinition> = {
     description: "Get projects id templates type name. Part of: projecttemplates. Calls GET /projects/{id}/templates/{type}/{name} on GitLab.",
     method: "GET",
     path: "/projects/{id}/templates/{type}/{name}",
-    input: z.object({ id: z.string(), type: z.enum(["dockerfiles", "gitignores", "gitlab_ci_ymls", "licenses", "issues", "merge_requests"]), name: z.string(), source_template_project_id: z.number().optional(), project: z.string().optional(), fullname: z.string().optional() }),
+    input: obj({ id: z.string(), type: z.enum(["dockerfiles", "gitignores", "gitlab_ci_ymls", "licenses", "issues", "merge_requests"]), name: z.string(), source_template_project_id: z.number().optional(), project: z.string().optional(), fullname: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

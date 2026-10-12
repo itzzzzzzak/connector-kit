@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const oAuthClientsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const oAuthClientsActions: Record<string, ActionDefinition> = {
     description: "List oauth clients. Part of: OAuth Clients. Calls GET /oauth/clients on Zendesk.",
     method: "GET",
     path: "/oauth/clients",
-    input: z.object({ sort: z.string().optional() }),
+    input: obj({ sort: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const oAuthClientsActions: Record<string, ActionDefinition> = {
     description: "Create oauth client. Part of: OAuth Clients. Calls POST /oauth/clients on Zendesk.",
     method: "POST",
     path: "/oauth/clients",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const oAuthClientsActions: Record<string, ActionDefinition> = {
     description: "Show client. Part of: OAuth Clients. Calls GET /oauth/clients/{oauthclientid} on Zendesk.",
     method: "GET",
     path: "/oauth/clients/{oauth_client_id}",
-    input: z.object({ oauth_client_id: z.number() }),
+    input: obj({ oauth_client_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const oAuthClientsActions: Record<string, ActionDefinition> = {
     description: "Update client. Part of: OAuth Clients. Calls PUT /oauth/clients/{oauthclientid} on Zendesk.",
     method: "PUT",
     path: "/oauth/clients/{oauth_client_id}",
-    input: z.object({ oauth_client_id: z.number() }),
+    input: obj({ oauth_client_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const oAuthClientsActions: Record<string, ActionDefinition> = {
     description: "Delete client. Part of: OAuth Clients. Calls DELETE /oauth/clients/{oauthclientid} on Zendesk.",
     method: "DELETE",
     path: "/oauth/clients/{oauth_client_id}",
-    input: z.object({ oauth_client_id: z.number() }),
+    input: obj({ oauth_client_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const oAuthClientsActions: Record<string, ActionDefinition> = {
     description: "Client generate secret. Part of: OAuth Clients. Calls PUT /oauth/clients/{oauthclientid}/generatesecret on Zendesk.",
     method: "PUT",
     path: "/oauth/clients/{oauth_client_id}/generate_secret",
-    input: z.object({ oauth_client_id: z.number() }),
+    input: obj({ oauth_client_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const oAuthClientsActions: Record<string, ActionDefinition> = {
     description: "List current user oauth clients. Part of: OAuth Clients. Calls GET /users/me/oauth/clients on Zendesk.",
     method: "GET",
     path: "/users/me/oauth/clients",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

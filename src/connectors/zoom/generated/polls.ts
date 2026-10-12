@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const pollsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const pollsActions: Record<string, ActionDefinition> = {
     description: "Create batch polls. Part of: Polls. Calls POST /meetings/{meetingId}/batchpolls on Zoom.",
     method: "POST",
     path: "/meetings/{meetingId}/batch_polls",
-    input: z.object({ meetingId: z.string(), polls: z.array(z.object({ anonymous: z.boolean().optional(), poll_type: z.number().optional(), questions: z.array(z.record(z.string(), z.unknown())).optional(), title: z.string().optional() })).optional() }),
+    input: obj({ meetingId: z.string(), polls: z.array(obj({ anonymous: z.boolean().optional(), poll_type: z.number().optional(), questions: z.array(z.record(z.string(), z.unknown())).optional(), title: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const pollsActions: Record<string, ActionDefinition> = {
     description: "Meeting polls. Part of: Polls. Calls GET /meetings/{meetingId}/polls on Zoom.",
     method: "GET",
     path: "/meetings/{meetingId}/polls",
-    input: z.object({ meetingId: z.number(), anonymous: z.boolean().optional() }),
+    input: obj({ meetingId: z.number(), anonymous: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const pollsActions: Record<string, ActionDefinition> = {
     description: "Meeting poll create. Part of: Polls. Calls POST /meetings/{meetingId}/polls on Zoom.",
     method: "POST",
     path: "/meetings/{meetingId}/polls",
-    input: z.object({ meetingId: z.number(), anonymous: z.boolean().optional(), poll_type: z.number().optional(), questions: z.array(z.object({ answer_max_character: z.number().optional(), answer_min_character: z.number().optional(), answer_required: z.boolean().optional(), answers: z.array(z.string()).optional(), case_sensitive: z.boolean().optional(), name: z.string().optional(), prompts: z.array(z.record(z.string(), z.unknown())).optional(), rating_max_label: z.string().optional(), rating_max_value: z.number().optional(), rating_min_label: z.string().optional(), rating_min_value: z.number().optional(), right_answers: z.array(z.string()).optional(), show_as_dropdown: z.boolean().optional(), type: z.enum(["single", "multiple", "matching", "rank_order", "short_answer", "long_answer", "fill_in_the_blank", "rating_scale"]).optional() })).optional(), title: z.string().optional() }),
+    input: obj({ meetingId: z.number(), anonymous: z.boolean().optional(), poll_type: z.number().optional(), questions: z.array(obj({ answer_max_character: z.number().optional(), answer_min_character: z.number().optional(), answer_required: z.boolean().optional(), answers: z.array(z.string()).optional(), case_sensitive: z.boolean().optional(), name: z.string().optional(), prompts: z.array(z.record(z.string(), z.unknown())).optional(), rating_max_label: z.string().optional(), rating_max_value: z.number().optional(), rating_min_label: z.string().optional(), rating_min_value: z.number().optional(), right_answers: z.array(z.string()).optional(), show_as_dropdown: z.boolean().optional(), type: z.enum(["single", "multiple", "matching", "rank_order", "short_answer", "long_answer", "fill_in_the_blank", "rating_scale"]).optional() })).optional(), title: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const pollsActions: Record<string, ActionDefinition> = {
     description: "Meeting poll get. Part of: Polls. Calls GET /meetings/{meetingId}/polls/{pollId} on Zoom.",
     method: "GET",
     path: "/meetings/{meetingId}/polls/{pollId}",
-    input: z.object({ meetingId: z.number(), pollId: z.string() }),
+    input: obj({ meetingId: z.number(), pollId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const pollsActions: Record<string, ActionDefinition> = {
     description: "Meeting poll update. Part of: Polls. Calls PUT /meetings/{meetingId}/polls/{pollId} on Zoom.",
     method: "PUT",
     path: "/meetings/{meetingId}/polls/{pollId}",
-    input: z.object({ meetingId: z.number(), pollId: z.string(), anonymous: z.boolean().optional(), poll_type: z.number().optional(), questions: z.array(z.object({ answer_max_character: z.number().optional(), answer_min_character: z.number().optional(), answer_required: z.boolean().optional(), answers: z.array(z.string()).optional(), case_sensitive: z.boolean().optional(), name: z.string().optional(), prompts: z.array(z.record(z.string(), z.unknown())).optional(), rating_max_label: z.string().optional(), rating_max_value: z.number().optional(), rating_min_label: z.string().optional(), rating_min_value: z.number().optional(), right_answers: z.array(z.string()).optional(), show_as_dropdown: z.boolean().optional(), type: z.enum(["single", "multiple", "matching", "rank_order", "short_answer", "long_answer", "fill_in_the_blank", "rating_scale"]).optional() })).optional(), title: z.string().optional() }),
+    input: obj({ meetingId: z.number(), pollId: z.string(), anonymous: z.boolean().optional(), poll_type: z.number().optional(), questions: z.array(obj({ answer_max_character: z.number().optional(), answer_min_character: z.number().optional(), answer_required: z.boolean().optional(), answers: z.array(z.string()).optional(), case_sensitive: z.boolean().optional(), name: z.string().optional(), prompts: z.array(z.record(z.string(), z.unknown())).optional(), rating_max_label: z.string().optional(), rating_max_value: z.number().optional(), rating_min_label: z.string().optional(), rating_min_value: z.number().optional(), right_answers: z.array(z.string()).optional(), show_as_dropdown: z.boolean().optional(), type: z.enum(["single", "multiple", "matching", "rank_order", "short_answer", "long_answer", "fill_in_the_blank", "rating_scale"]).optional() })).optional(), title: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const pollsActions: Record<string, ActionDefinition> = {
     description: "Meeting poll delete. Part of: Polls. Calls DELETE /meetings/{meetingId}/polls/{pollId} on Zoom.",
     method: "DELETE",
     path: "/meetings/{meetingId}/polls/{pollId}",
-    input: z.object({ meetingId: z.number(), pollId: z.string() }),
+    input: obj({ meetingId: z.number(), pollId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -58,7 +59,7 @@ export const pollsActions: Record<string, ActionDefinition> = {
     description: "List past meeting polls. Part of: Polls. Calls GET /pastmeetings/{meetingId}/polls on Zoom.",
     method: "GET",
     path: "/past_meetings/{meetingId}/polls",
-    input: z.object({ meetingId: z.string() }),
+    input: obj({ meetingId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const approvalRequestsActions: Record<string, ActionDefinition> = {
     description: "List approval requests. Part of: Approval Requests. Calls GET /approvalrequests on Zendesk.",
     method: "GET",
     path: "/approval_requests",
-    input: z.object({ filter_status_: z.string().optional(), filter_assignee_user_id_: z.string().optional(), filter_assignee_group_id_: z.string().optional(), before_cursor: z.string().optional(), after_cursor: z.string().optional() }),
+    input: obj({ filter_status_: z.string().optional(), filter_assignee_user_id_: z.string().optional(), filter_assignee_group_id_: z.string().optional(), before_cursor: z.string().optional(), after_cursor: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { filter_status_: "filter[status]", filter_assignee_user_id_: "filter[assignee_user_id]", filter_assignee_group_id_: "filter[assignee_group_id]", before_cursor: "before_cursor", after_cursor: "after_cursor" }),
@@ -20,7 +21,7 @@ export const approvalRequestsActions: Record<string, ActionDefinition> = {
     description: "Create approval request. Part of: Approval Requests. Calls POST /approvalrequests on Zendesk.",
     method: "POST",
     path: "/approval_requests",
-    input: z.object({ approval_requests: z.array(z.object({ assignee_group_id: z.number().nullable().optional(), assignee_user_id: z.number().nullable().optional() })).nullable().optional(), assignee_group_id: z.number().nullable().optional(), assignee_user_id: z.number().nullable().optional(), message: z.string(), subject: z.string(), ticket_id: z.number() }),
+    input: obj({ approval_requests: z.array(obj({ assignee_group_id: z.number().nullable().optional(), assignee_user_id: z.number().nullable().optional() })).nullable().optional(), assignee_group_id: z.number().nullable().optional(), assignee_user_id: z.number().nullable().optional(), message: z.string(), subject: z.string(), ticket_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },

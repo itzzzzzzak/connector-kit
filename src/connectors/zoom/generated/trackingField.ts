@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const trackingFieldActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const trackingFieldActions: Record<string, ActionDefinition> = {
     description: "Trackingfield list. Part of: Tracking Field. Calls GET /trackingfields on Zoom.",
     method: "GET",
     path: "/tracking_fields",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const trackingFieldActions: Record<string, ActionDefinition> = {
     description: "Trackingfield create. Part of: Tracking Field. Calls POST /trackingfields on Zoom.",
     method: "POST",
     path: "/tracking_fields",
-    input: z.object({ field: z.string().optional(), recommended_values: z.array(z.string()).optional(), required: z.boolean().optional(), visible: z.boolean().optional() }),
+    input: obj({ field: z.string().optional(), recommended_values: z.array(z.string()).optional(), required: z.boolean().optional(), visible: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const trackingFieldActions: Record<string, ActionDefinition> = {
     description: "Trackingfield get. Part of: Tracking Field. Calls GET /trackingfields/{fieldId} on Zoom.",
     method: "GET",
     path: "/tracking_fields/{fieldId}",
-    input: z.object({ fieldId: z.string() }),
+    input: obj({ fieldId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const trackingFieldActions: Record<string, ActionDefinition> = {
     description: "Trackingfield update. Part of: Tracking Field. Calls PATCH /trackingfields/{fieldId} on Zoom.",
     method: "PATCH",
     path: "/tracking_fields/{fieldId}",
-    input: z.object({ fieldId: z.string(), field: z.string().optional(), recommended_values: z.array(z.string()).optional(), required: z.boolean().optional(), visible: z.boolean().optional() }),
+    input: obj({ fieldId: z.string(), field: z.string().optional(), recommended_values: z.array(z.string()).optional(), required: z.boolean().optional(), visible: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const trackingFieldActions: Record<string, ActionDefinition> = {
     description: "Trackingfield delete. Part of: Tracking Field. Calls DELETE /trackingfields/{fieldId} on Zoom.",
     method: "DELETE",
     path: "/tracking_fields/{fieldId}",
-    input: z.object({ fieldId: z.string() }),
+    input: obj({ fieldId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

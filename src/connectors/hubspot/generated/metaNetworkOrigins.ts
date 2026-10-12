@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const metaNetworkOriginsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const metaNetworkOriginsActions: Record<string, ActionDefinition> = {
     description: "List ip ranges. Part of: IpRangeSEPTEMBER2025. Calls GET /meta/network-origins/2025-09/ip-ranges on HubSpot.",
     method: "GET",
     path: "/meta/network-origins/2025-09/ip-ranges",
-    input: z.object({ direction: z.array(z.enum(["INGRESS", "EGRESS"])).optional(), service: z.array(z.enum(["EMAIL", "API", "DNS", "WEB_SCRAPING"])).optional() }),
+    input: obj({ direction: z.array(z.enum(["INGRESS", "EGRESS"])).optional(), service: z.array(z.enum(["EMAIL", "API", "DNS", "WEB_SCRAPING"])).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const metaNetworkOriginsActions: Record<string, ActionDefinition> = {
     description: "List ip ranges simple. Part of: IpRangeSEPTEMBER2025. Calls GET /meta/network-origins/2025-09/ip-ranges/simple on HubSpot.",
     method: "GET",
     path: "/meta/network-origins/2025-09/ip-ranges/simple",
-    input: z.object({ direction: z.array(z.enum(["INGRESS", "EGRESS"])).optional(), service: z.array(z.enum(["EMAIL", "API", "DNS", "WEB_SCRAPING"])).optional() }),
+    input: obj({ direction: z.array(z.enum(["INGRESS", "EGRESS"])).optional(), service: z.array(z.enum(["EMAIL", "API", "DNS", "WEB_SCRAPING"])).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const metaNetworkOriginsActions: Record<string, ActionDefinition> = {
     description: "List ip ranges. Part of: IpRangeMARCH2026. Calls GET /meta/network-origins/2026-03/ip-ranges on HubSpot.",
     method: "GET",
     path: "/meta/network-origins/2026-03/ip-ranges",
-    input: z.object({ direction: z.array(z.enum(["INGRESS", "EGRESS"])).optional(), service: z.array(z.enum(["EMAIL", "API", "DNS", "WEB_SCRAPING"])).optional() }),
+    input: obj({ direction: z.array(z.enum(["INGRESS", "EGRESS"])).optional(), service: z.array(z.enum(["EMAIL", "API", "DNS", "WEB_SCRAPING"])).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const metaNetworkOriginsActions: Record<string, ActionDefinition> = {
     description: "List ip ranges simple. Part of: IpRangeMARCH2026. Calls GET /meta/network-origins/2026-03/ip-ranges/simple on HubSpot.",
     method: "GET",
     path: "/meta/network-origins/2026-03/ip-ranges/simple",
-    input: z.object({ direction: z.array(z.enum(["INGRESS", "EGRESS"])).optional(), service: z.array(z.enum(["EMAIL", "API", "DNS", "WEB_SCRAPING"])).optional() }),
+    input: obj({ direction: z.array(z.enum(["INGRESS", "EGRESS"])).optional(), service: z.array(z.enum(["EMAIL", "API", "DNS", "WEB_SCRAPING"])).optional() }),
     output: z.unknown(),
     effect: "read",
   },

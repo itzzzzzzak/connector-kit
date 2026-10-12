@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const crmLimitsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const crmLimitsActions: Record<string, ActionDefinition> = {
     description: "List associations labels. Part of: Basic. Calls GET /crm/v3/limits/associations/labels on HubSpot.",
     method: "GET",
     path: "/crm/v3/limits/associations/labels",
-    input: z.object({ fromObjectTypeId: z.string().optional(), toObjectTypeId: z.string().optional() }),
+    input: obj({ fromObjectTypeId: z.string().optional(), toObjectTypeId: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const crmLimitsActions: Record<string, ActionDefinition> = {
     description: "List associations records from. Part of: Basic. Calls GET /crm/v3/limits/associations/records/from on HubSpot.",
     method: "GET",
     path: "/crm/v3/limits/associations/records/from",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const crmLimitsActions: Record<string, ActionDefinition> = {
     description: "List associations records to. Part of: Basic. Calls GET /crm/v3/limits/associations/records/{fromObjectTypeId}/to on HubSpot.",
     method: "GET",
     path: "/crm/v3/limits/associations/records/{fromObjectTypeId}/to",
-    input: z.object({ fromObjectTypeId: z.string() }),
+    input: obj({ fromObjectTypeId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const crmLimitsActions: Record<string, ActionDefinition> = {
     description: "Get associations records. Part of: Basic. Calls GET /crm/v3/limits/associations/records/{fromObjectTypeId}/{toObjectTypeId} on HubSpot.",
     method: "GET",
     path: "/crm/v3/limits/associations/records/{fromObjectTypeId}/{toObjectTypeId}",
-    input: z.object({ fromObjectTypeId: z.string(), toObjectTypeId: z.string() }),
+    input: obj({ fromObjectTypeId: z.string(), toObjectTypeId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const crmLimitsActions: Record<string, ActionDefinition> = {
     description: "List calculated properties. Part of: Basic. Calls GET /crm/v3/limits/calculated-properties on HubSpot.",
     method: "GET",
     path: "/crm/v3/limits/calculated-properties",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const crmLimitsActions: Record<string, ActionDefinition> = {
     description: "List custom object types. Part of: Basic. Calls GET /crm/v3/limits/custom-object-types on HubSpot.",
     method: "GET",
     path: "/crm/v3/limits/custom-object-types",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const crmLimitsActions: Record<string, ActionDefinition> = {
     description: "List custom properties. Part of: Basic. Calls GET /crm/v3/limits/custom-properties on HubSpot.",
     method: "GET",
     path: "/crm/v3/limits/custom-properties",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -66,7 +67,7 @@ export const crmLimitsActions: Record<string, ActionDefinition> = {
     description: "List pipelines. Part of: Basic. Calls GET /crm/v3/limits/pipelines on HubSpot.",
     method: "GET",
     path: "/crm/v3/limits/pipelines",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -74,7 +75,7 @@ export const crmLimitsActions: Record<string, ActionDefinition> = {
     description: "List records. Part of: Basic. Calls GET /crm/v3/limits/records on HubSpot.",
     method: "GET",
     path: "/crm/v3/limits/records",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

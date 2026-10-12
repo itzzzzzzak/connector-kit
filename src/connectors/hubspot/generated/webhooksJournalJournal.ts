@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const webhooksJournalJournalActions: Record<string, ActionDefinition> = {
     description: "Get batch earliest. Part of: Batch. Calls GET /webhooks-journal/journal/2026-09/batch/earliest/{count} on HubSpot.",
     method: "GET",
     path: "/webhooks-journal/journal/2026-09/batch/earliest/{count}",
-    input: z.object({ count: z.number(), installPortalId: z.number().optional() }),
+    input: obj({ count: z.number(), installPortalId: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const webhooksJournalJournalActions: Record<string, ActionDefinition> = {
     description: "Get batch latest. Part of: Batch. Calls GET /webhooks-journal/journal/2026-09/batch/latest/{count} on HubSpot.",
     method: "GET",
     path: "/webhooks-journal/journal/2026-09/batch/latest/{count}",
-    input: z.object({ count: z.number(), installPortalId: z.number().optional() }),
+    input: obj({ count: z.number(), installPortalId: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const webhooksJournalJournalActions: Record<string, ActionDefinition> = {
     description: "Create batch read. Part of: Batch. Calls POST /webhooks-journal/journal/2026-09/batch/read on HubSpot.",
     method: "POST",
     path: "/webhooks-journal/journal/2026-09/batch/read",
-    input: z.object({ installPortalId: z.number().optional(), inputs: z.array(z.string()) }),
+    input: obj({ installPortalId: z.number().optional(), inputs: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["installPortalId"]),
@@ -37,7 +38,7 @@ export const webhooksJournalJournalActions: Record<string, ActionDefinition> = {
     description: "Get batch next. Part of: Batch. Calls GET /webhooks-journal/journal/2026-09/batch/{offset}/next/{count} on HubSpot.",
     method: "GET",
     path: "/webhooks-journal/journal/2026-09/batch/{offset}/next/{count}",
-    input: z.object({ count: z.number(), offset: z.string(), installPortalId: z.number().optional() }),
+    input: obj({ count: z.number(), offset: z.string(), installPortalId: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -45,7 +46,7 @@ export const webhooksJournalJournalActions: Record<string, ActionDefinition> = {
     description: "List earliest. Part of: Basic. Calls GET /webhooks-journal/journal/2026-09/earliest on HubSpot.",
     method: "GET",
     path: "/webhooks-journal/journal/2026-09/earliest",
-    input: z.object({ installPortalId: z.number().optional() }),
+    input: obj({ installPortalId: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -53,7 +54,7 @@ export const webhooksJournalJournalActions: Record<string, ActionDefinition> = {
     description: "List latest. Part of: Basic. Calls GET /webhooks-journal/journal/2026-09/latest on HubSpot.",
     method: "GET",
     path: "/webhooks-journal/journal/2026-09/latest",
-    input: z.object({ installPortalId: z.number().optional() }),
+    input: obj({ installPortalId: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -61,7 +62,7 @@ export const webhooksJournalJournalActions: Record<string, ActionDefinition> = {
     description: "List offset next. Part of: Basic. Calls GET /webhooks-journal/journal/2026-09/offset/{offset}/next on HubSpot.",
     method: "GET",
     path: "/webhooks-journal/journal/2026-09/offset/{offset}/next",
-    input: z.object({ offset: z.string(), installPortalId: z.number().optional() }),
+    input: obj({ offset: z.string(), installPortalId: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -69,7 +70,7 @@ export const webhooksJournalJournalActions: Record<string, ActionDefinition> = {
     description: "Get status. Part of: Basic. Calls GET /webhooks-journal/journal/2026-09/status/{statusId} on HubSpot.",
     method: "GET",
     path: "/webhooks-journal/journal/2026-09/status/{statusId}",
-    input: z.object({ statusId: z.string() }),
+    input: obj({ statusId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

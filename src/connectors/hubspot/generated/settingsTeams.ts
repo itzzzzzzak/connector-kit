@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const settingsTeamsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /settings/teams/2026-09 on HubSpot.",
     method: "GET",
     path: "/settings/teams/2026-09",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const settingsTeamsActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Basic. Calls POST /settings/teams/2026-09 on HubSpot.",
     method: "POST",
     path: "/settings/teams/2026-09",
-    input: z.object({ members: z.array(z.object({ type: z.enum(["DEFAULT", "EXTRA"]), userId: z.string() })), name: z.string(), parentTeamId: z.string().optional() }),
+    input: obj({ members: z.array(obj({ type: z.enum(["DEFAULT", "EXTRA"]), userId: z.string() })), name: z.string(), parentTeamId: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const settingsTeamsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /settings/teams/2026-09/{teamId} on HubSpot.",
     method: "GET",
     path: "/settings/teams/2026-09/{teamId}",
-    input: z.object({ teamId: z.string() }),
+    input: obj({ teamId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const settingsTeamsActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Basic. Calls PATCH /settings/teams/2026-09/{teamId} on HubSpot.",
     method: "PATCH",
     path: "/settings/teams/2026-09/{teamId}",
-    input: z.object({ teamId: z.string(), name: z.record(z.string(), z.unknown()), parentTeamId: z.record(z.string(), z.unknown()) }),
+    input: obj({ teamId: z.string(), name: z.record(z.string(), z.unknown()), parentTeamId: z.record(z.string(), z.unknown()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const settingsTeamsActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /settings/teams/2026-09/{teamId} on HubSpot.",
     method: "DELETE",
     path: "/settings/teams/2026-09/{teamId}",
-    input: z.object({ teamId: z.string() }),
+    input: obj({ teamId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const settingsTeamsActions: Record<string, ActionDefinition> = {
     description: "List members. Part of: Basic. Calls GET /settings/teams/2026-09/{teamId}/members on HubSpot.",
     method: "GET",
     path: "/settings/teams/2026-09/{teamId}/members",
-    input: z.object({ teamId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ teamId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -61,7 +62,7 @@ export const settingsTeamsActions: Record<string, ActionDefinition> = {
     description: "Create members. Part of: Basic. Calls POST /settings/teams/2026-09/{teamId}/members on HubSpot.",
     method: "POST",
     path: "/settings/teams/2026-09/{teamId}/members",
-    input: z.object({ teamId: z.string(), type: z.enum(["DEFAULT", "EXTRA"]), userId: z.string() }),
+    input: obj({ teamId: z.string(), type: z.enum(["DEFAULT", "EXTRA"]), userId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -69,7 +70,7 @@ export const settingsTeamsActions: Record<string, ActionDefinition> = {
     description: "Create members batch. Part of: Batch. Calls POST /settings/teams/2026-09/{teamId}/members/batch on HubSpot.",
     method: "POST",
     path: "/settings/teams/2026-09/{teamId}/members/batch",
-    input: z.object({ teamId: z.string(), inputs: z.array(z.object({ type: z.enum(["DEFAULT", "EXTRA"]), userId: z.string() })) }),
+    input: obj({ teamId: z.string(), inputs: z.array(obj({ type: z.enum(["DEFAULT", "EXTRA"]), userId: z.string() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -77,7 +78,7 @@ export const settingsTeamsActions: Record<string, ActionDefinition> = {
     description: "Delete members. Part of: Basic. Calls DELETE /settings/teams/2026-09/{teamId}/members/{userId} on HubSpot.",
     method: "DELETE",
     path: "/settings/teams/2026-09/{teamId}/members/{userId}",
-    input: z.object({ teamId: z.string(), userId: z.string(), type: z.enum(["DEFAULT", "EXTRA"]).optional() }),
+    input: obj({ teamId: z.string(), userId: z.string(), type: z.enum(["DEFAULT", "EXTRA"]).optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

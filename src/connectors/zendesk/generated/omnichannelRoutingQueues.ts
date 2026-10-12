@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const omnichannelRoutingQueuesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const omnichannelRoutingQueuesActions: Record<string, ActionDefinition> =
     description: "List queues. Part of: Omnichannel Routing Queues. Calls GET /queues on Zendesk.",
     method: "GET",
     path: "/queues",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const omnichannelRoutingQueuesActions: Record<string, ActionDefinition> =
     description: "Create queue. Part of: Omnichannel Routing Queues. Calls POST /queues on Zendesk.",
     method: "POST",
     path: "/queues",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const omnichannelRoutingQueuesActions: Record<string, ActionDefinition> =
     description: "Show queue by id. Part of: Omnichannel Routing Queues. Calls GET /queues/{queueid} on Zendesk.",
     method: "GET",
     path: "/queues/{queue_id}",
-    input: z.object({ queue_id: z.string() }),
+    input: obj({ queue_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const omnichannelRoutingQueuesActions: Record<string, ActionDefinition> =
     description: "Update queue. Part of: Omnichannel Routing Queues. Calls PUT /queues/{queueid} on Zendesk.",
     method: "PUT",
     path: "/queues/{queue_id}",
-    input: z.object({ queue_id: z.string() }),
+    input: obj({ queue_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const omnichannelRoutingQueuesActions: Record<string, ActionDefinition> =
     description: "Delete queue. Part of: Omnichannel Routing Queues. Calls DELETE /queues/{queueid} on Zendesk.",
     method: "DELETE",
     path: "/queues/{queue_id}",
-    input: z.object({ queue_id: z.string() }),
+    input: obj({ queue_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const omnichannelRoutingQueuesActions: Record<string, ActionDefinition> =
     description: "List queue definitions. Part of: Omnichannel Routing Queues. Calls GET /queues/definitions on Zendesk.",
     method: "GET",
     path: "/queues/definitions",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const omnichannelRoutingQueuesActions: Record<string, ActionDefinition> =
     description: "Reorder queues. Part of: Omnichannel Routing Queues. Calls PATCH /queues/order on Zendesk.",
     method: "PATCH",
     path: "/queues/order",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },

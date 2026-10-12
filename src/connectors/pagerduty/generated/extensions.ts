@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const extensionsActions: Record<string, ActionDefinition> = {
     description: "List extensions. Part of: Extensions. Calls GET /extensions on PagerDuty.",
     method: "GET",
     path: "/extensions",
-    input: z.object({ total: z.boolean().optional(), query: z.string().optional(), extension_object_id: z.string().optional(), extension_schema_id: z.string().optional(), include__: z.enum(["extension_objects", "extension_schemas"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ total: z.boolean().optional(), query: z.string().optional(), extension_object_id: z.string().optional(), extension_schema_id: z.string().optional(), include__: z.enum(["extension_objects", "extension_schemas"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "extensions", hasMorePath: ["more"], pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -22,7 +23,7 @@ export const extensionsActions: Record<string, ActionDefinition> = {
     description: "Create extension. Part of: Extensions. Calls POST /extensions on PagerDuty.",
     method: "POST",
     path: "/extensions",
-    input: z.object({ extension: z.object({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["extension"]).optional(), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), name: z.string(), endpoint_url: z.string().optional(), extension_objects: z.array(z.record(z.string(), z.unknown())), extension_schema: z.object({ id: z.string(), summary: z.string().nullable().optional(), type: z.enum(["extension_schema_reference"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional() }), temporarily_disabled: z.boolean().optional(), config: z.record(z.string(), z.unknown()).optional() }) }),
+    input: obj({ extension: obj({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["extension"]).optional(), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), name: z.string(), endpoint_url: z.string().optional(), extension_objects: z.array(z.record(z.string(), z.unknown())), extension_schema: obj({ id: z.string(), summary: z.string().nullable().optional(), type: z.enum(["extension_schema_reference"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional() }), temporarily_disabled: z.boolean().optional(), config: z.record(z.string(), z.unknown()).optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -30,7 +31,7 @@ export const extensionsActions: Record<string, ActionDefinition> = {
     description: "Get extension. Part of: Extensions. Calls GET /extensions/{id} on PagerDuty.",
     method: "GET",
     path: "/extensions/{id}",
-    input: z.object({ id: z.string(), include__: z.enum(["extension_schemas", "extension_objects", "temporarily_disabled"]).optional() }),
+    input: obj({ id: z.string(), include__: z.enum(["extension_schemas", "extension_objects", "temporarily_disabled"]).optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { include__: "include[]" }),
@@ -39,7 +40,7 @@ export const extensionsActions: Record<string, ActionDefinition> = {
     description: "Update extension. Part of: Extensions. Calls PUT /extensions/{id} on PagerDuty.",
     method: "PUT",
     path: "/extensions/{id}",
-    input: z.object({ id: z.string(), extension: z.object({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["extension"]).optional(), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), name: z.string(), endpoint_url: z.string().optional(), extension_objects: z.array(z.record(z.string(), z.unknown())), extension_schema: z.object({ id: z.string(), summary: z.string().nullable().optional(), type: z.enum(["extension_schema_reference"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional() }), temporarily_disabled: z.boolean().optional(), config: z.record(z.string(), z.unknown()).optional() }) }),
+    input: obj({ id: z.string(), extension: obj({ id: z.string().optional(), summary: z.string().nullable().optional(), type: z.enum(["extension"]).optional(), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), name: z.string(), endpoint_url: z.string().optional(), extension_objects: z.array(z.record(z.string(), z.unknown())), extension_schema: obj({ id: z.string(), summary: z.string().nullable().optional(), type: z.enum(["extension_schema_reference"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional() }), temporarily_disabled: z.boolean().optional(), config: z.record(z.string(), z.unknown()).optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -47,7 +48,7 @@ export const extensionsActions: Record<string, ActionDefinition> = {
     description: "Delete extension. Part of: Extensions. Calls DELETE /extensions/{id} on PagerDuty.",
     method: "DELETE",
     path: "/extensions/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -55,7 +56,7 @@ export const extensionsActions: Record<string, ActionDefinition> = {
     description: "Enable extension. Part of: Extensions. Calls POST /extensions/{id}/enable on PagerDuty.",
     method: "POST",
     path: "/extensions/{id}/enable",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

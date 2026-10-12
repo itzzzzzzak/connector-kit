@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const customTaskTypesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const customTaskTypesActions: Record<string, ActionDefinition> = {
     description: "Get custom items. Part of: Custom Task Types. Calls GET /team/{teamid}/customitem on ClickUp.",
     method: "GET",
     path: "/team/{team_id}/custom_item",
-    input: z.object({ team_id: z.number() }),
+    input: obj({ team_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

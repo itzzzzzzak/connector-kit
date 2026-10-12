@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const authenticationActions: Record<string, ActionDefinition> = {
     description: "Exchange sso token. Part of: authentication. Calls POST /v1/integrations/sso/token on Vercel.",
     method: "POST",
     path: "/v1/integrations/sso/token",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -20,7 +21,7 @@ export const authenticationActions: Record<string, ActionDefinition> = {
     description: "List auth tokens. Part of: authentication. Calls GET /v6/user/tokens on Vercel.",
     method: "GET",
     path: "/v6/user/tokens",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const authenticationActions: Record<string, ActionDefinition> = {
     description: "Create auth token. Part of: authentication. Calls POST /v3/user/tokens on Vercel.",
     method: "POST",
     path: "/v3/user/tokens",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional(), name: z.string(), expiresAt: z.number().optional(), projectId: z.string().optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional(), name: z.string(), expiresAt: z.number().optional(), projectId: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -38,7 +39,7 @@ export const authenticationActions: Record<string, ActionDefinition> = {
     description: "Get auth token. Part of: authentication. Calls GET /v5/user/tokens/{tokenId} on Vercel.",
     method: "GET",
     path: "/v5/user/tokens/{tokenId}",
-    input: z.object({ tokenId: z.string() }),
+    input: obj({ tokenId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -46,7 +47,7 @@ export const authenticationActions: Record<string, ActionDefinition> = {
     description: "Delete auth token. Part of: authentication. Calls DELETE /v3/user/tokens/{tokenId} on Vercel.",
     method: "DELETE",
     path: "/v3/user/tokens/{tokenId}",
-    input: z.object({ reason: z.enum(["logout"]).optional(), logoutSource: z.enum(["v0", "vercel"]).optional(), tokenId: z.string() }),
+    input: obj({ reason: z.enum(["logout"]).optional(), logoutSource: z.enum(["v0", "vercel"]).optional(), tokenId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

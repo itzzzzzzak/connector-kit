@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const issueCommentPropertiesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const issueCommentPropertiesActions: Record<string, ActionDefinition> = {
     description: "Get comment property keys. Returns the keys of all the properties of a comment.",
     method: "GET",
     path: "/comment/{commentId}/properties",
-    input: z.object({ commentId: z.string().describe("The ID of the comment.") }),
+    input: obj({ commentId: z.string().describe("The ID of the comment.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const issueCommentPropertiesActions: Record<string, ActionDefinition> = {
     description: "Get comment property. Returns the value of a comment property.",
     method: "GET",
     path: "/comment/{commentId}/properties/{propertyKey}",
-    input: z.object({ commentId: z.string().describe("The ID of the comment."), propertyKey: z.string().describe("The key of the property.") }),
+    input: obj({ commentId: z.string().describe("The ID of the comment."), propertyKey: z.string().describe("The key of the property.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const issueCommentPropertiesActions: Record<string, ActionDefinition> = {
     description: "Set comment property. Creates or updates the value of a property for a comment. Use this resource to store custom data against a comment.",
     method: "PUT",
     path: "/comment/{commentId}/properties/{propertyKey}",
-    input: z.object({ commentId: z.string().describe("The ID of the comment."), propertyKey: z.string().describe("The key of the property. The maximum length is 255 characters."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ commentId: z.string().describe("The ID of the comment."), propertyKey: z.string().describe("The key of the property. The maximum length is 255 characters."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -35,7 +36,7 @@ export const issueCommentPropertiesActions: Record<string, ActionDefinition> = {
     description: "Delete comment property. Deletes a comment property.",
     method: "DELETE",
     path: "/comment/{commentId}/properties/{propertyKey}",
-    input: z.object({ commentId: z.string().describe("The ID of the comment."), propertyKey: z.string().describe("The key of the property.") }),
+    input: obj({ commentId: z.string().describe("The ID of the comment."), propertyKey: z.string().describe("The key of the property.") }),
     output: z.unknown(),
     effect: "destructive",
   },

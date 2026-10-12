@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const campaignFoldersActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const campaignFoldersActions: Record<string, ActionDefinition> = {
     description: "Get campaign folders. Part of: campaignFolders. Calls GET /campaign-folders on Mailchimp.",
     method: "GET",
     path: "/campaign-folders",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const campaignFoldersActions: Record<string, ActionDefinition> = {
     description: "Post campaign folders. Part of: campaignFolders. Calls POST /campaign-folders on Mailchimp.",
     method: "POST",
     path: "/campaign-folders",
-    input: z.object({ name: z.string() }),
+    input: obj({ name: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const campaignFoldersActions: Record<string, ActionDefinition> = {
     description: "Get campaign folders id. Part of: campaignFolders. Calls GET /campaign-folders/{folderid} on Mailchimp.",
     method: "GET",
     path: "/campaign-folders/{folder_id}",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), folder_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), folder_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const campaignFoldersActions: Record<string, ActionDefinition> = {
     description: "Patch campaign folders id. Part of: campaignFolders. Calls PATCH /campaign-folders/{folderid} on Mailchimp.",
     method: "PATCH",
     path: "/campaign-folders/{folder_id}",
-    input: z.object({ folder_id: z.string(), name: z.string() }),
+    input: obj({ folder_id: z.string(), name: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const campaignFoldersActions: Record<string, ActionDefinition> = {
     description: "Delete campaign folders id. Part of: campaignFolders. Calls DELETE /campaign-folders/{folderid} on Mailchimp.",
     method: "DELETE",
     path: "/campaign-folders/{folder_id}",
-    input: z.object({ folder_id: z.string() }),
+    input: obj({ folder_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

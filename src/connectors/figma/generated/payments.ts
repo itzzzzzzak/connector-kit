@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/figma.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const paymentsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const paymentsActions: Record<string, ActionDefinition> = {
     description: "Get payments. There are two methods to query for a user's payment information on a plugin, widget, or Community file. The first method, using plugin payment tokens, is typically used when making queries from a plugin's or widget's code. The second method, providing a user ID and resource ID, is typically used when making queries from anywhere",
     method: "GET",
     path: "/v1/payments",
-    input: z.object({ plugin_payment_token: z.string().describe("Short-lived token returned from \"getPluginPaymentTokenAsync\" in the plugin payments API and used to authenticate to this endpoint. Read more about generating…").optional(), user_id: z.string().describe("The ID of the user to query payment information about. You can get the user ID by having the user OAuth2 to the Figma REST API.").optional(), community_file_id: z.string().describe("The ID of the Community file to query a user's payment information on. You can get the Community file ID from the file's Community page (look for the number…").optional(), plugin_id: z.string().describe("The ID of the plugin to query a user's payment information on. You can get the plugin ID from the plugin's manifest, or from the plugin's Community page (look…").optional(), widget_id: z.string().describe("The ID of the widget to query a user's payment information on. You can get the widget ID from the widget's manifest, or from the widget's Community page (look…").optional() }),
+    input: obj({ plugin_payment_token: z.string().describe("Short-lived token returned from \"getPluginPaymentTokenAsync\" in the plugin payments API and used to authenticate to this endpoint. Read more about generating…").optional(), user_id: z.string().describe("The ID of the user to query payment information about. You can get the user ID by having the user OAuth2 to the Figma REST API.").optional(), community_file_id: z.string().describe("The ID of the Community file to query a user's payment information on. You can get the Community file ID from the file's Community page (look for the number…").optional(), plugin_id: z.string().describe("The ID of the plugin to query a user's payment information on. You can get the plugin ID from the plugin's manifest, or from the plugin's Community page (look…").optional(), widget_id: z.string().describe("The ID of the widget to query a user's payment information on. You can get the widget ID from the widget's manifest, or from the widget's Community page (look…").optional() }),
     output: z.unknown(),
     effect: "read",
   },

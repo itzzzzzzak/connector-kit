@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const accountExportActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const accountExportActions: Record<string, ActionDefinition> = {
     description: "Get account export id. Part of: accountExport. Calls GET /account-exports/{exportid} on Mailchimp.",
     method: "GET",
     path: "/account-exports/{export_id}",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), export_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), export_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

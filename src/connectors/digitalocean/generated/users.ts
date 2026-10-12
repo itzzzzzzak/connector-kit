@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const usersActions: Record<string, ActionDefinition> = {
     description: "List Users. Returns the user IDs known for your team: session actorid values, the userid of connections that are not revoked, and actors with limit overrides. Only sessions and connections you can see count. Offset-paged with page and perpage.",
     method: "GET",
     path: "/action-gateway/users",
-    input: z.object({ user_id: z.string().describe("User ID prefix to return. An empty value returns all users.").optional(), sort: z.enum(["created_at", "user_id", "session_count", "connection_count"]).describe("userid|createdat|sessioncount|connectioncount. createdat is the earliest creation time among the user's sessions, connections, and limit overrides. Defaults…").optional(), sort_direction: z.enum(["asc", "desc"]).describe("asc|desc. Defaults to desc.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ user_id: z.string().describe("User ID prefix to return. An empty value returns all users.").optional(), sort: z.enum(["created_at", "user_id", "session_count", "connection_count"]).describe("userid|createdat|sessioncount|connectioncount. createdat is the earliest creation time among the user's sessions, connections, and limit overrides. Defaults…").optional(), sort_direction: z.enum(["asc", "desc"]).describe("asc|desc. Defaults to desc.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "user_ids", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const usersActions: Record<string, ActionDefinition> = {
     description: "Get a User. Returns the sessions and non-revoked connections of one user ID. Returns 404 when the user has none you can see and no limit overrides.",
     method: "GET",
     path: "/action-gateway/users/{user_id}",
-    input: z.object({ user_id: z.string().describe("User ID.") }),
+    input: obj({ user_id: z.string().describe("User ID.") }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const sendActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const sendActions: Record<string, ActionDefinition> = {
     description: "Draft email. Part of: Drafts. Calls POST /emails/mailboxes/{email}/drafts/send on Zoom.",
     method: "POST",
     path: "/emails/mailboxes/{email}/drafts/send",
-    input: z.object({ email: z.string(), id: z.string(), message: z.object({ raw: z.string().optional() }).optional() }),
+    input: obj({ email: z.string(), id: z.string(), message: obj({ raw: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const sendActions: Record<string, ActionDefinition> = {
     description: "Email. Part of: Messages. Calls POST /emails/mailboxes/{email}/messages/send on Zoom.",
     method: "POST",
     path: "/emails/mailboxes/{email}/messages/send",
-    input: z.object({ email: z.string(), raw: z.string(), labelIds: z.array(z.string()).optional(), sendTime: z.string().optional() }),
+    input: obj({ email: z.string(), raw: z.string(), labelIds: z.array(z.string()).optional(), sendTime: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

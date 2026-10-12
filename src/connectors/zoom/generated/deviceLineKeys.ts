@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const deviceLineKeysActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const deviceLineKeysActions: Record<string, ActionDefinition> = {
     description: "List device line key setting. Part of: Device Line Keys. Calls GET /phone/devices/{deviceId}/linekeys on Zoom.",
     method: "GET",
     path: "/phone/devices/{deviceId}/line_keys",
-    input: z.object({ deviceId: z.string() }),
+    input: obj({ deviceId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const deviceLineKeysActions: Record<string, ActionDefinition> = {
     description: "Batch update device line key setting. Part of: Device Line Keys. Calls PATCH /phone/devices/{deviceId}/linekeys on Zoom.",
     method: "PATCH",
     path: "/phone/devices/{deviceId}/line_keys",
-    input: z.object({ deviceId: z.string(), positions: z.array(z.object({ extension_id: z.string().optional(), index: z.number().optional() })).optional() }),
+    input: obj({ deviceId: z.string(), positions: z.array(obj({ extension_id: z.string().optional(), index: z.number().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },

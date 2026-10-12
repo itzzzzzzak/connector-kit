@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const storageActions: Record<string, ActionDefinition> = {
     description: "Get storage stores by id. Part of: storage. Calls GET /storage/stores/{id} on Vercel.",
     method: "GET",
     path: "/storage/stores/{id}",
-    input: z.object({ id: z.string(), skip_metadata: z.boolean().optional(), include_guides: z.boolean().optional() }),
+    input: obj({ id: z.string(), skip_metadata: z.boolean().optional(), include_guides: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { skip_metadata: "skip-metadata", include_guides: "include-guides" }),
@@ -20,7 +21,7 @@ export const storageActions: Record<string, ActionDefinition> = {
     description: "Create storage stores blob. Part of: storage. Calls POST /storage/stores/blob on Vercel.",
     method: "POST",
     path: "/storage/stores/blob",
-    input: z.object({ name: z.string(), region: z.enum(["arn1", "bom1", "cdg1", "cle1", "cpt1", "dub1", "dxb1", "fra1", "gru1", "hkg1", "hnd1", "iad1", "icn1", "kix1", "lhr1", "pdx1", "sfo1", "sin1", "syd1", "yul1"]).optional(), access: z.enum(["public", "private"]).optional(), projectId: z.string().optional() }),
+    input: obj({ name: z.string(), region: z.enum(["arn1", "bom1", "cdg1", "cle1", "cpt1", "dub1", "dxb1", "fra1", "gru1", "hkg1", "hnd1", "iad1", "icn1", "kix1", "lhr1", "pdx1", "sfo1", "sin1", "syd1", "yul1"]).optional(), access: z.enum(["public", "private"]).optional(), projectId: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const storageActions: Record<string, ActionDefinition> = {
     description: "Delete storage stores blob by id. Part of: storage. Calls DELETE /storage/stores/blob/{id} on Vercel.",
     method: "DELETE",
     path: "/storage/stores/blob/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
