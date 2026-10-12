@@ -50,6 +50,10 @@ const invalid = (message: string): ConnectorKitError =>
 function applyAuth(headers: Headers, auth: AuthConfig, token: string): void {
   if (auth.type === "apiKey") {
     headers.set(auth.header, `${auth.prefix ?? ""}${token}`)
+  } else if (auth.type === "apiKeys") {
+    const values = token.split(":")
+    if (values.length !== auth.headers.length) throw invalid(`The credential must hold ${auth.headers.length} values joined by ":" (${auth.headers.join(", ")}).`)
+    auth.headers.forEach((name, i) => headers.set(name, values[i]!))
   } else if (auth.type === "basic") {
     headers.set("Authorization", `Basic ${Buffer.from(token, "utf8").toString("base64")}`)
   } else if (auth.type === "oauth2" && auth.rawTokenPattern !== undefined && new RegExp(auth.rawTokenPattern).test(token)) {

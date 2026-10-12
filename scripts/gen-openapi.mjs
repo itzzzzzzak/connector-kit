@@ -97,7 +97,9 @@ const firstSentences = (text, max) => {
 }
 const camel = (s) => {
   const words = String(s).split(/[^A-Za-z0-9]+/).filter(Boolean)
-  return words.map((w, i) => (i === 0 ? w[0].toLowerCase() + w.slice(1) : w[0].toUpperCase() + w.slice(1))).join("")
+  // `acronyms`: APIKeys -> apiKeys, IPRanges -> ipRanges (a leading run of capitals is lowered as a word, not just its first letter).
+  const first = (w) => (config.acronyms ? (/^[A-Z]+$/.test(w) ? w.toLowerCase() : w.replace(/^([A-Z]+)(?=[A-Z][a-z])/, (m) => m.toLowerCase())) : w)
+  return words.map((w, i) => (i === 0 ? first(w)[0].toLowerCase() + first(w).slice(1) : w[0].toUpperCase() + w.slice(1))).join("")
 }
 // LLM tool names (connector_group_verb) may be at most 64 characters: abbreviate common words, then drop middle words.
 const ABBREVIATIONS = { Organization: "Org", Organizations: "Orgs", Repository: "Repo", Repositories: "Repos", Authenticated: "Auth", Permissions: "Perms", Permission: "Perm", Configuration: "Config", Configurations: "Configs", Enterprise: "Ent", Installations: "Installs", Installation: "Install", Environment: "Env", Environments: "Envs", Information: "Info", Notification: "Notif", Notifications: "Notifs", Integration: "Integ", Integrations: "Integs", Application: "App", Applications: "Apps", Subscription: "Sub", Subscriptions: "Subs", Administrator: "Admin", Administrators: "Admins", Authentication: "Authn", Authorization: "Authz", Collaborator: "Collab", Collaborators: "Collabs", Contributor: "Contrib", Contributors: "Contribs", Dependency: "Dep", Dependencies: "Deps", Vulnerability: "Vuln", Vulnerabilities: "Vulns", Management: "Mgmt", Properties: "Props", Property: "Prop", Attachment: "Attach", Attachments: "Attaches", Conversation: "Conv", Conversations: "Convs", Description: "Desc", Identifier: "Id", Specification: "Spec", Registration: "Reg", Notebook: "Nb" }
@@ -197,6 +199,7 @@ for (const [path, item] of Object.entries(spec.paths)) {
     const rel = relativePath(path)
     if (/[\\\s]/.test(path)) { skipped.oddPath++; continue }
     if (rel === null) { skipped.outsideBase++; continue }
+    if (config.excludePathPattern && new RegExp(config.excludePathPattern).test(path)) { skipped.handWritten++; continue }
     if (excluded.has(`${method.toUpperCase()} ${path}`) || handSignatures.has(norm(method, rel))) { skipped.handWritten++; continue }
     if (op.deprecated) { skipped.deprecated++; continue }
     if (seenSignatures.has(norm(method, rel))) { skipped.duplicate = (skipped.duplicate ?? 0) + 1; continue }
@@ -276,7 +279,15 @@ for (const { path, rel, method, op, params: allParams, bodySchema, bodyRequired,
   // `idSplit`: a regular expression over the operation id with the verb first and the resource second (Twilio: CreateMessage, ListCall).
   const split = config.idSplit ? new RegExp(config.idSplit).exec(id) : null
   if (config.naming === "path" || config.naming === "rest") { /* names set above */ }
-  else if (split) { verbWords = split[1]; groupWords = split[2] }
+  else if (split) {
+    verbWords = split[1]
+    groupWords = split[2]
+    // `groupFirstWord` (Datadog): ListSecurityMonitoringRules -> group "security", verb "listMonitoringRules", so related calls sit together.
+    const resourceWords = config.groupFirstWord ? split[2].match(/[A-Z]+(?![a-z])|[A-Z]?[a-z0-9]+/g) ?? [] : []
+    if (resourceWords.length > 1) { groupWords = resourceWords[0]; verbWords = `${split[1]} ${resourceWords.slice(1).join(" ")}` }
+    // `groupFromTag` (Datadog): the spec's own tag is the group ("Monitors", "Security Monitoring") and the operation id the verb (listMonitors).
+    if (config.groupFromTag && op.tags?.[0]) { groupWords = op.tags[0]; verbWords = id }
+  }
   else if (sep && !/\s/.test(id)) { groupWords = sep[1]; verbWords = sep[2] }
   else {
     groupWords = op.tags?.[0] ?? rel.split("/").filter((s) => s && !s.startsWith("{"))[0] ?? "misc"
@@ -325,7 +336,8 @@ for (const { path, rel, method, op, params: allParams, bodySchema, bodyRequired,
 
   for (const p of params) {
     if (paged.has(p.name)) continue
-    const key = p.name.replace(/<$/, "_before").replace(/>$/, "_after").replace(/[^A-Za-z0-9_]/g, "_") // Twilio: DateSent< and DateSent>
+    // Twilio: DateSent< and DateSent>. `bracketNames` (Datadog) turns filter[created_at] into filter_created_at instead of filter_created_at_.
+    const key = (config.bracketNames ? p.name.replace(/\]\[/g, "_").replace(/\[/g, "_").replace(/\]/g, "") : p.name).replace(/<$/, "_before").replace(/>$/, "_after").replace(/[^A-Za-z0-9_]/g, "_")
     const desc = derived ? "" : clean(p.description, 160)
     let zod = zodOf(swagger2 ? { type: p.type, enum: p.enum, items: p.items, format: p.format } : p.schema)
     if (desc) zod += `.describe(${q(desc)})`

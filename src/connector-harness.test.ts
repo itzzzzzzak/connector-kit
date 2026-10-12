@@ -110,7 +110,8 @@ export function standardTests<A extends Record<string, ActionDefinition>>(connec
       return !text.includes(secret) && !text.includes(encoded)
     })
     const sent = JSON.stringify([...new Headers(calls[0]?.init.headers)])
-    assert.ok(sent.includes(secret) || sent.includes(encoded), "the credential should be sent to the provider")
+    const parts = connector.auth.type === "apiKeys" ? secret.split(":") : [] // several keys travel in separate headers
+    assert.ok(sent.includes(secret) || sent.includes(encoded) || (parts.length > 1 && parts.every((part) => sent.includes(part))), "the credential should be sent to the provider")
   })
   if (effect === "read") {
     test(`${label}: a read is retried after a 5xx`, async () => {

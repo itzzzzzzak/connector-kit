@@ -62,6 +62,11 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
   // ---- auth
   const auth = connector.auth
   if (auth.type === "apiKey" && !auth.header) fail("auth.apiKey needs a header name")
+  if (auth.type === "apiKeys") {
+    if (auth.headers.length < 2) fail("auth.apiKeys needs at least two header names (use apiKey for one)")
+    if (new Set(auth.headers.map((h) => h.toLowerCase())).size !== auth.headers.length) fail("auth.apiKeys header names must be different")
+    for (const name of auth.headers) if (!/^[A-Za-z][A-Za-z0-9-]*$/.test(name)) fail(`auth.apiKeys header "${name}" is not a valid header name`)
+  }
   if (auth.type === "oauth2") {
     for (const field of ["authorizeUrl", "tokenUrl"] as const) {
       if (!auth[field].startsWith("https://")) fail(`auth.${field} must be https`)
@@ -112,7 +117,7 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
     // effect must agree with the HTTP method (RPC-style providers that POST reads may declare effect "read")
     if (action.method === "GET" && action.effect !== "read") fail(`${at}: a GET must have effect "read"`)
     if (action.method === "DELETE" && action.effect !== "destructive") fail(`${at}: a DELETE must have effect "destructive"`)
-    if (action.effect === "destructive" && action.method !== "DELETE" && !/\b(delete|remov|revok|cancel|destroy|archiv|void|refund|terminat|reject|deactivat|expire|close|trash|purg|wip|suspend|clear|block|stop|empty|ban|kick|prun)/i.test(`${name} ${description}`)) {
+    if (action.effect === "destructive" && action.method !== "DELETE" && !/\b(delete|remov|revok|cancel|destroy|archiv|void|refund|terminat|reject|deactivat|expire|close|trash|purg|wip|suspend|clear|block|stop|empty|ban|kick|prun|disabl|mut)/i.test(`${name} ${description}`)) {
       fail(`${at}: effect "destructive" on a ${action.method} should say in the description what is destroyed`)
     }
 

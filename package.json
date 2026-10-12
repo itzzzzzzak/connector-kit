@@ -28,6 +28,10 @@
       "types": "./dist/connectors/clickup/index.d.ts",
       "default": "./dist/connectors/clickup/index.js"
     },
+    "./datadog": {
+      "types": "./dist/connectors/datadog/index.d.ts",
+      "default": "./dist/connectors/datadog/index.js"
+    },
     "./digitalocean": {
       "types": "./dist/connectors/digitalocean/index.d.ts",
       "default": "./dist/connectors/digitalocean/index.js"

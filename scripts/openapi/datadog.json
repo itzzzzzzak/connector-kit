@@ -1,0 +1,43 @@
+{
+ "name": "datadog",
+ "title": "Datadog",
+ "license": "Apache-2.0 (github.com/DataDog/datadog-api-client-go)",
+ "specs": [
+  {
+   "url": "https://raw.githubusercontent.com/DataDog/datadog-api-client-go/master/.generator/schemas/v2/openapi.yaml"
+  },
+  {
+   "url": "https://raw.githubusercontent.com/DataDog/datadog-api-client-go/master/.generator/schemas/v1/openapi.yaml"
+  }
+ ],
+ "idSplit": "^([A-Z][a-z]+)(.+)$",
+ "acronyms": true,
+ "bracketNames": true,
+ "excludePathPattern": "^/api/unstable/",
+ "maxDepth": 1,
+ "destructiveVerbs": "^(cancel|delete|remove|revoke|disable|mute|archive|purge|reset|restart|terminate|unregister|detach)",
+ "pagination": [
+  {
+   "size": "page[limit]",
+   "cursor": "page[cursor]",
+   "itemsKey": "data",
+   "import": "bodyCursorPagination",
+   "call": "bodyCursorPagination({ itemsKey: \"data\", cursorPath: [\"meta\", \"page\", \"after\"], cursorParam: \"page[cursor]\", pageSizeParam: \"page[limit]\", defaultPageSize: 25, maxPageSize: 1000 })"
+  },
+  {
+   "size": "page[size]",
+   "page": "page[number]",
+   "itemsKey": "data",
+   "import": "offsetPagination",
+   "call": "offsetPagination({ itemsKey: \"data\", unit: \"page\", positionParam: \"page[number]\", firstPage: 0, pageSizeParam: \"page[size]\", defaultPageSize: 25, maxPageSize: 1000 })"
+  },
+  {
+   "size": "page[limit]",
+   "position": "page[offset]",
+   "itemsKey": "data",
+   "import": "offsetPagination",
+   "call": "offsetPagination({ itemsKey: \"data\", positionParam: \"page[offset]\", pageSizeParam: \"page[limit]\", defaultPageSize: 25, maxPageSize: 1000 })"
+  }
+ ],
+ "groupFromTag": true
+}

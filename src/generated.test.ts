@@ -45,7 +45,7 @@ for (const folder of folders) {
       const input: Record<string, unknown> = {}
       for (const [key, prop] of Object.entries(schema.properties ?? {})) if (key !== "cursor" && key !== "pageSize") input[key] = dummy(prop)
       const pathKeys = [...action.path.matchAll(/\{\+?(\w+)\}/g)].map((m) => m[1]!)
-      const { conn, calls } = harness(connector, () => json(action.paginate ? (action.paginate.itemsKey ? { [action.paginate.itemsKey]: [] } : []) : {}), { variables, credentials: { token: connector.auth.type === "basic" ? "user:pass" : "test-token" } })
+      const { conn, calls } = harness(connector, () => json(action.paginate ? (action.paginate.itemsKey ? { [action.paginate.itemsKey]: [] } : []) : {}), { variables, credentials: { token: connector.auth.type === "basic" || connector.auth.type === "apiKeys" ? "user:pass" : "test-token" } })
       try {
         await conn.execute(name as never, input as never)
       } catch (error) {

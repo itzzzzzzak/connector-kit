@@ -111,6 +111,9 @@ export function createConnectorKit(options: KitOptions = {}) {
         if (connector.auth.type === "basic" && !secret.includes(":")) {
           throw new Error(`Connector "${connector.name}" uses Basic auth: pass credentials as { username, password } or a token written "username:password".`)
         }
+        if (connector.auth.type === "apiKeys" && secret.split(":").length !== connector.auth.headers.length) {
+          throw new Error(`Connector "${connector.name}" needs ${connector.auth.headers.length} keys (${connector.auth.headers.join(", ")}): pass credentials as a token written "${connector.auth.headers.map((_, i) => `key${i + 1}`).join(":")}".`)
+        }
         tokens = staticTokenSource(secret)
       } else if (connector.auth.type === "oauth2") {
         tokens = oauthTokenSource(oauthDeps(connector as unknown as AnyConnector), connector as unknown as AnyConnector, connectionId)

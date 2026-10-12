@@ -16,6 +16,11 @@ export type AuthConfig =
   | { type: "basic" }
   | { type: "apiKey"; header: string; prefix?: string }
   /**
+   * Several secrets, each in its own header (Datadog: `DD-API-KEY` and `DD-APPLICATION-KEY`). The credential is the values joined by ":" in
+   * the order of `headers`, e.g. "apikey:appkey", so no value may contain a colon. See ADR-025.
+   */
+  | { type: "apiKeys"; headers: string[] }
+  /**
    * OAuth 2.0 authorization-code flow (ADR-014). Calls are sent as `Authorization: Bearer <token>`,
    * where the token comes from the TokenStore (refreshed when needed) or from static `credentials`
    * passed to `connect()` (e.g. a personal access token).
