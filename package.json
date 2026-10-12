@@ -124,6 +124,10 @@
       "types": "./dist/connectors/mailchimp/index.d.ts",
       "default": "./dist/connectors/mailchimp/index.js"
     },
+    "./microsoft-teams": {
+      "types": "./dist/connectors/microsoft-teams/index.d.ts",
+      "default": "./dist/connectors/microsoft-teams/index.js"
+    },
     "./netlify": {
       "types": "./dist/connectors/netlify/index.d.ts",
       "default": "./dist/connectors/netlify/index.js"
@@ -131,6 +135,14 @@
     "./notion": {
       "types": "./dist/connectors/notion/index.d.ts",
       "default": "./dist/connectors/notion/index.js"
+    },
+    "./onedrive": {
+      "types": "./dist/connectors/onedrive/index.d.ts",
+      "default": "./dist/connectors/onedrive/index.js"
+    },
+    "./outlook": {
+      "types": "./dist/connectors/outlook/index.d.ts",
+      "default": "./dist/connectors/outlook/index.js"
     },
     "./pagerduty": {
       "types": "./dist/connectors/pagerduty/index.d.ts",
