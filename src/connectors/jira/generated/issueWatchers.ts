@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const issueWatchersActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const issueWatchersActions: Record<string, ActionDefinition> = {
     description: "Get is watching issue bulk. Returns, for the user, details of the watched status of issues from a list. If an issue ID is invalid, the returned watched status is false.",
     method: "POST",
     path: "/issue/watching",
-    input: z.object({ issueIds: z.array(z.string()).describe("The list of issue IDs.") }),
+    input: obj({ issueIds: z.array(z.string()).describe("The list of issue IDs.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const issueWatchersActions: Record<string, ActionDefinition> = {
     description: "Get issue watchers. Returns the watchers for an issue.",
     method: "GET",
     path: "/issue/{issueIdOrKey}/watchers",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue.") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const issueWatchersActions: Record<string, ActionDefinition> = {
     description: "Add watcher. Adds a user as a watcher of an issue by passing the account ID of the user. For example, \"5b10ac8d82e05b22cc7d4ef5\". If no user is specified the calling user is added.",
     method: "POST",
     path: "/issue/{issueIdOrKey}/watchers",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -35,7 +36,7 @@ export const issueWatchersActions: Record<string, ActionDefinition> = {
     description: "Delete watcher. Deletes a user as a watcher of an issue.",
     method: "DELETE",
     path: "/issue/{issueIdOrKey}/watchers",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), username: z.string().describe("This parameter is no longer available. See the deprecation notice for details.").optional(), accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5. Required.").optional() }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), username: z.string().describe("This parameter is no longer available. See the deprecation notice for details.").optional(), accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5. Required.").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

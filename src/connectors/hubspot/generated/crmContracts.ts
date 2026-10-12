@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const crmContractsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /crm/v3/objects/contracts on HubSpot.",
     method: "GET",
     path: "/crm/v3/objects/contracts",
-    input: z.object({ archived: z.boolean().optional(), associations: z.array(z.string()).optional(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ archived: z.boolean().optional(), associations: z.array(z.string()).optional(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const crmContractsActions: Record<string, ActionDefinition> = {
     description: "Create batch read. Part of: Batch. Calls POST /crm/v3/objects/contracts/batch/read on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/contracts/batch/read",
-    input: z.object({ archived: z.boolean().optional(), idProperty: z.string().optional(), inputs: z.array(z.object({ id: z.string() })), properties: z.array(z.string()), propertiesWithHistory: z.array(z.string()) }),
+    input: obj({ archived: z.boolean().optional(), idProperty: z.string().optional(), inputs: z.array(obj({ id: z.string() })), properties: z.array(z.string()), propertiesWithHistory: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["archived"]),
@@ -31,7 +32,7 @@ export const crmContractsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /crm/v3/objects/contracts/{contractId} on HubSpot.",
     method: "GET",
     path: "/crm/v3/objects/contracts/{contractId}",
-    input: z.object({ contractId: z.string(), archived: z.boolean().optional(), associations: z.array(z.string()).optional(), idProperty: z.string().optional(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional() }),
+    input: obj({ contractId: z.string(), archived: z.boolean().optional(), associations: z.array(z.string()).optional(), idProperty: z.string().optional(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "read",
   },

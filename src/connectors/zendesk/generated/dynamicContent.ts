@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const dynamicContentActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const dynamicContentActions: Record<string, ActionDefinition> = {
     description: "List dynamic contents. Part of: Dynamic Content. Calls GET /dynamiccontent/items on Zendesk.",
     method: "GET",
     path: "/dynamic_content/items",
-    input: z.object({ page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional() }),
+    input: obj({ page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const dynamicContentActions: Record<string, ActionDefinition> = {
     description: "Create dynamic content. Part of: Dynamic Content. Calls POST /dynamiccontent/items on Zendesk.",
     method: "POST",
     path: "/dynamic_content/items",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const dynamicContentActions: Record<string, ActionDefinition> = {
     description: "Show dynamic content item. Part of: Dynamic Content. Calls GET /dynamiccontent/items/{dynamiccontentitemid} on Zendesk.",
     method: "GET",
     path: "/dynamic_content/items/{dynamic_content_item_id}",
-    input: z.object({ dynamic_content_item_id: z.number() }),
+    input: obj({ dynamic_content_item_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const dynamicContentActions: Record<string, ActionDefinition> = {
     description: "Update dynamic content item. Part of: Dynamic Content. Calls PUT /dynamiccontent/items/{dynamiccontentitemid} on Zendesk.",
     method: "PUT",
     path: "/dynamic_content/items/{dynamic_content_item_id}",
-    input: z.object({ dynamic_content_item_id: z.number() }),
+    input: obj({ dynamic_content_item_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const dynamicContentActions: Record<string, ActionDefinition> = {
     description: "Delete dynamic content item. Part of: Dynamic Content. Calls DELETE /dynamiccontent/items/{dynamiccontentitemid} on Zendesk.",
     method: "DELETE",
     path: "/dynamic_content/items/{dynamic_content_item_id}",
-    input: z.object({ dynamic_content_item_id: z.number() }),
+    input: obj({ dynamic_content_item_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const dynamicContentActions: Record<string, ActionDefinition> = {
     description: "Show many dynamic contents. Part of: Dynamic Content. Calls GET /dynamiccontent/items/showmany on Zendesk.",
     method: "GET",
     path: "/dynamic_content/items/show_many",
-    input: z.object({ identifiers: z.string().optional() }),
+    input: obj({ identifiers: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

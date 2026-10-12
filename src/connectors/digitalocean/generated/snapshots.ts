@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const snapshotsActions: Record<string, ActionDefinition> = {
     description: "List All Snapshots. To list all of the snapshots available on your account, send a GET request to /v2/snapshots.",
     method: "GET",
     path: "/snapshots",
-    input: z.object({ resource_type: z.enum(["droplet", "volume"]).describe("Used to filter snapshots by a resource type.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ resource_type: z.enum(["droplet", "volume"]).describe("Used to filter snapshots by a resource type.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "snapshots", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const snapshotsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing Snapshot. To retrieve information about a snapshot, send a GET request to /v2/snapshots/$SNAPSHOTID.",
     method: "GET",
     path: "/snapshots/{snapshot_id}",
-    input: z.object({ snapshot_id: z.unknown().describe("Either the ID of an existing snapshot. This will be an integer for a Droplet snapshot or a string for a volume snapshot.") }),
+    input: obj({ snapshot_id: z.unknown().describe("Either the ID of an existing snapshot. This will be an integer for a Droplet snapshot or a string for a volume snapshot.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const snapshotsActions: Record<string, ActionDefinition> = {
     description: "Delete a Snapshot. Both Droplet and volume snapshots are managed through the /v2/snapshots/ endpoint. To delete a snapshot, send a DELETE request to /v2/snapshots/$SNAPSHOTID.",
     method: "DELETE",
     path: "/snapshots/{snapshot_id}",
-    input: z.object({ snapshot_id: z.unknown().describe("Either the ID of an existing snapshot. This will be an integer for a Droplet snapshot or a string for a volume snapshot.") }),
+    input: obj({ snapshot_id: z.unknown().describe("Either the ID of an existing snapshot. This will be an integer for a Droplet snapshot or a string for a volume snapshot.") }),
     output: z.unknown(),
     effect: "destructive",
   },

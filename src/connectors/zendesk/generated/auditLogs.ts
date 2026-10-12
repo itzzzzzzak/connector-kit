@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const auditLogsActions: Record<string, ActionDefinition> = {
     description: "List audit logs. Part of: Audit Logs. Calls GET /auditlogs on Zendesk.",
     method: "GET",
     path: "/audit_logs",
-    input: z.object({ ids__: z.array(z.number()).optional(), filter_source_type_: z.string().optional(), filter_source_id_: z.number().optional(), filter_actor_id_: z.number().optional(), filter_ip_address_: z.string().optional(), filter_created_at_: z.string().optional(), filter_action_: z.string().optional(), sort_by: z.string().optional(), sort_order: z.string().optional(), sort: z.string().optional(), per_page: z.number().optional() }),
+    input: obj({ ids__: z.array(z.number()).optional(), filter_source_type_: z.string().optional(), filter_source_id_: z.number().optional(), filter_actor_id_: z.number().optional(), filter_ip_address_: z.string().optional(), filter_created_at_: z.string().optional(), filter_action_: z.string().optional(), sort_by: z.string().optional(), sort_order: z.string().optional(), sort: z.string().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { ids__: "ids[]", filter_source_type_: "filter[source_type]", filter_source_id_: "filter[source_id]", filter_actor_id_: "filter[actor_id]", filter_ip_address_: "filter[ip_address]", filter_created_at_: "filter[created_at]", filter_action_: "filter[action]", sort_by: "sort_by", sort_order: "sort_order", sort: "sort", per_page: "per_page" }),
@@ -20,7 +21,7 @@ export const auditLogsActions: Record<string, ActionDefinition> = {
     description: "Show audit log. Part of: Audit Logs. Calls GET /auditlogs/{auditlogid} on Zendesk.",
     method: "GET",
     path: "/audit_logs/{audit_log_id}",
-    input: z.object({ audit_log_id: z.number() }),
+    input: obj({ audit_log_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const auditLogsActions: Record<string, ActionDefinition> = {
     description: "Export audit logs. Part of: Audit Logs. Calls POST /auditlogs/export on Zendesk.",
     method: "POST",
     path: "/audit_logs/export",
-    input: z.object({ filter_source_type_: z.string().optional(), filter_source_id_: z.number().optional(), filter_actor_id_: z.number().optional(), filter_ip_address_: z.string().optional(), filter_created_at_: z.string().optional(), filter_action_: z.string().optional() }),
+    input: obj({ filter_source_type_: z.string().optional(), filter_source_id_: z.number().optional(), filter_actor_id_: z.number().optional(), filter_ip_address_: z.string().optional(), filter_created_at_: z.string().optional(), filter_action_: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pickAs(i, { filter_source_type_: "filter[source_type]", filter_source_id_: "filter[source_id]", filter_actor_id_: "filter[actor_id]", filter_ip_address_: "filter[ip_address]", filter_created_at_: "filter[created_at]", filter_action_: "filter[action]" }),

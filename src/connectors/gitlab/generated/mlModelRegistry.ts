@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const mlModelRegistryActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const mlModelRegistryActions: Record<string, ActionDefinition> = {
     description: "Put projects id packages ml models model version id files path file name authorize. Part of: mlmodelregistry. Calls PUT /projects/{id}/packages/mlmodels/{modelversionid}/files/(path/){filename}/authorize on GitLab.",
     method: "PUT",
     path: "/projects/{id}/packages/ml_models/{model_version_id}/files/(*path/){file_name}/authorize",
-    input: z.object({ id: z.string(), file_name: z.string(), model_version_id: z.string(), path: z.string().optional(), status: z.enum(["default", "hidden"]).optional() }),
+    input: obj({ id: z.string(), file_name: z.string(), model_version_id: z.string(), path: z.string().optional(), status: z.enum(["default", "hidden"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const mlModelRegistryActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages ml models model version id files path file name. Part of: mlmodelregistry. Calls GET /projects/{id}/packages/mlmodels/{modelversionid}/files/(path/){filename} on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/ml_models/{model_version_id}/files/(*path/){file_name}",
-    input: z.object({ id: z.string(), file_name: z.string(), path: z.string().optional(), status: z.enum(["default", "hidden"]).optional(), model_version_id: z.string() }),
+    input: obj({ id: z.string(), file_name: z.string(), path: z.string().optional(), status: z.enum(["default", "hidden"]).optional(), model_version_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const mlModelRegistryActions: Record<string, ActionDefinition> = {
     description: "Put projects id packages ml models model version id files path file name. Part of: mlmodelregistry. Calls PUT /projects/{id}/packages/mlmodels/{modelversionid}/files/(path/){filename} on GitLab.",
     method: "PUT",
     path: "/projects/{id}/packages/ml_models/{model_version_id}/files/(*path/){file_name}",
-    input: z.object({ id: z.string(), file_name: z.string(), model_version_id: z.string(), path: z.string().optional(), status: z.enum(["default", "hidden"]).optional(), file: z.unknown() }),
+    input: obj({ id: z.string(), file_name: z.string(), model_version_id: z.string(), path: z.string().optional(), status: z.enum(["default", "hidden"]).optional(), file: z.unknown() }),
     output: z.unknown(),
     effect: "write",
   },

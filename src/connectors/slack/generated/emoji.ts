@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const emojiActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const emojiActions: Record<string, ActionDefinition> = {
     description: "Lists custom emoji for a team. Calls GET /emoji.list on Slack.",
     method: "GET",
     path: "/emoji.list",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const crmGdprDeleteActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const crmGdprDeleteActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Advanced. Calls POST /crm/objects/v3/{objectType}/gdpr-delete on HubSpot.",
     method: "POST",
     path: "/crm/objects/v3/{objectType}/gdpr-delete",
-    input: z.object({ objectType: z.string(), idProperty: z.string().optional(), objectId: z.string() }),
+    input: obj({ objectType: z.string(), idProperty: z.string().optional(), objectId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

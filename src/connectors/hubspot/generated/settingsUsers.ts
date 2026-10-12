@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const settingsUsersActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /settings/users/v3 on HubSpot.",
     method: "GET",
     path: "/settings/users/v3",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const settingsUsersActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Basic. Calls POST /settings/users/v3 on HubSpot.",
     method: "POST",
     path: "/settings/users/v3",
-    input: z.object({ email: z.string(), firstName: z.string().optional(), lastName: z.string().optional(), primaryTeamId: z.string().optional(), roleId: z.string().optional(), seatNames: z.array(z.string()).optional(), secondaryTeamIds: z.array(z.string()).optional(), sendWelcomeEmail: z.boolean() }),
+    input: obj({ email: z.string(), firstName: z.string().optional(), lastName: z.string().optional(), primaryTeamId: z.string().optional(), roleId: z.string().optional(), seatNames: z.array(z.string()).optional(), secondaryTeamIds: z.array(z.string()).optional(), sendWelcomeEmail: z.boolean() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -29,7 +30,7 @@ export const settingsUsersActions: Record<string, ActionDefinition> = {
     description: "List roles. Part of: Roles. Calls GET /settings/v3/users/roles on HubSpot.",
     method: "GET",
     path: "/settings/v3/users/roles",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const settingsUsersActions: Record<string, ActionDefinition> = {
     description: "List teams. Part of: Teams. Calls GET /settings/v3/users/teams on HubSpot.",
     method: "GET",
     path: "/settings/v3/users/teams",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -45,7 +46,7 @@ export const settingsUsersActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Users. Calls GET /settings/v3/users/{userId} on HubSpot.",
     method: "GET",
     path: "/settings/v3/users/{userId}",
-    input: z.object({ userId: z.string(), idProperty: z.enum(["EMAIL", "USER_ID"]).optional() }),
+    input: obj({ userId: z.string(), idProperty: z.enum(["EMAIL", "USER_ID"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -53,7 +54,7 @@ export const settingsUsersActions: Record<string, ActionDefinition> = {
     description: "Replace. Part of: Users. Calls PUT /settings/v3/users/{userId} on HubSpot.",
     method: "PUT",
     path: "/settings/v3/users/{userId}",
-    input: z.object({ userId: z.string(), idProperty: z.enum(["EMAIL", "USER_ID"]).optional(), firstName: z.string().optional(), lastName: z.string().optional(), primaryTeamId: z.string().optional(), roleId: z.string().optional(), seatNames: z.array(z.string()).optional(), secondaryTeamIds: z.array(z.string()).optional() }),
+    input: obj({ userId: z.string(), idProperty: z.enum(["EMAIL", "USER_ID"]).optional(), firstName: z.string().optional(), lastName: z.string().optional(), primaryTeamId: z.string().optional(), roleId: z.string().optional(), seatNames: z.array(z.string()).optional(), secondaryTeamIds: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["idProperty"]),
@@ -63,7 +64,7 @@ export const settingsUsersActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Users. Calls DELETE /settings/v3/users/{userId} on HubSpot.",
     method: "DELETE",
     path: "/settings/v3/users/{userId}",
-    input: z.object({ userId: z.string(), idProperty: z.enum(["EMAIL", "USER_ID"]).optional() }),
+    input: obj({ userId: z.string(), idProperty: z.enum(["EMAIL", "USER_ID"]).optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const broadcastMessagesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const broadcastMessagesActions: Record<string, ActionDefinition> = {
     description: "Get broadcast messages. Part of: broadcastmessages. Calls GET /broadcastmessages on GitLab.",
     method: "GET",
     path: "/broadcast_messages",
-    input: z.object({ page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const broadcastMessagesActions: Record<string, ActionDefinition> = {
     description: "Post broadcast messages. Part of: broadcastmessages. Calls POST /broadcastmessages on GitLab.",
     method: "POST",
     path: "/broadcast_messages",
-    input: z.object({ message: z.string(), starts_at: z.string().optional(), ends_at: z.string().optional(), color: z.string().optional(), font: z.string().optional(), target_access_levels: z.array(z.number()).optional(), target_path: z.string().optional(), broadcast_type: z.enum(["banner", "notification"]).optional(), dismissable: z.boolean().optional(), theme: z.enum(["indigo", "light-indigo", "blue", "light-blue", "green", "light-green", "red", "light-red", "dark", "light"]).optional() }),
+    input: obj({ message: z.string(), starts_at: z.string().optional(), ends_at: z.string().optional(), color: z.string().optional(), font: z.string().optional(), target_access_levels: z.array(z.number()).optional(), target_path: z.string().optional(), broadcast_type: z.enum(["banner", "notification"]).optional(), dismissable: z.boolean().optional(), theme: z.enum(["indigo", "light-indigo", "blue", "light-blue", "green", "light-green", "red", "light-red", "dark", "light"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const broadcastMessagesActions: Record<string, ActionDefinition> = {
     description: "Get broadcast messages id. Part of: broadcastmessages. Calls GET /broadcastmessages/{id} on GitLab.",
     method: "GET",
     path: "/broadcast_messages/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const broadcastMessagesActions: Record<string, ActionDefinition> = {
     description: "Put broadcast messages id. Part of: broadcastmessages. Calls PUT /broadcastmessages/{id} on GitLab.",
     method: "PUT",
     path: "/broadcast_messages/{id}",
-    input: z.object({ id: z.number(), message: z.string().optional(), starts_at: z.string().optional(), ends_at: z.string().optional(), color: z.string().optional(), font: z.string().optional(), target_access_levels: z.array(z.number()).optional(), target_path: z.string().optional(), broadcast_type: z.enum(["banner", "notification"]).optional(), dismissable: z.boolean().optional(), theme: z.enum(["indigo", "light-indigo", "blue", "light-blue", "green", "light-green", "red", "light-red", "dark", "light"]).optional() }),
+    input: obj({ id: z.number(), message: z.string().optional(), starts_at: z.string().optional(), ends_at: z.string().optional(), color: z.string().optional(), font: z.string().optional(), target_access_levels: z.array(z.number()).optional(), target_path: z.string().optional(), broadcast_type: z.enum(["banner", "notification"]).optional(), dismissable: z.boolean().optional(), theme: z.enum(["indigo", "light-indigo", "blue", "light-blue", "green", "light-green", "red", "light-red", "dark", "light"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const broadcastMessagesActions: Record<string, ActionDefinition> = {
     description: "Delete broadcast messages id. Part of: broadcastmessages. Calls DELETE /broadcastmessages/{id} on GitLab.",
     method: "DELETE",
     path: "/broadcast_messages/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const tasksActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const tasksActions: Record<string, ActionDefinition> = {
     description: "Get task. Returns the status of a long-running asynchronous task.",
     method: "GET",
     path: "/task/{taskId}",
-    input: z.object({ taskId: z.string().describe("The ID of the task.") }),
+    input: obj({ taskId: z.string().describe("The ID of the task.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const tasksActions: Record<string, ActionDefinition> = {
     description: "Cancel task. Cancels a task. Calls POST /task/{taskId}/cancel on Jira.",
     method: "POST",
     path: "/task/{taskId}/cancel",
-    input: z.object({ taskId: z.string().describe("The ID of the task.") }),
+    input: obj({ taskId: z.string().describe("The ID of the task.") }),
     output: z.unknown(),
     effect: "write",
   },

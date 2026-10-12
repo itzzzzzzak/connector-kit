@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const activityStreamActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const activityStreamActions: Record<string, ActionDefinition> = {
     description: "List activities. Part of: Activity Stream. Calls GET /activities on Zendesk.",
     method: "GET",
     path: "/activities",
-    input: z.object({ since: z.string().optional(), page: z.unknown().optional(), sort: z.string().optional(), per_page: z.number().optional(), include: z.string().optional() }),
+    input: obj({ since: z.string().optional(), page: z.unknown().optional(), sort: z.string().optional(), per_page: z.number().optional(), include: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const activityStreamActions: Record<string, ActionDefinition> = {
     description: "Show activity. Part of: Activity Stream. Calls GET /activities/{activityid} on Zendesk.",
     method: "GET",
     path: "/activities/{activity_id}",
-    input: z.object({ activity_id: z.number() }),
+    input: obj({ activity_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const activityStreamActions: Record<string, ActionDefinition> = {
     description: "Count activities. Part of: Activity Stream. Calls GET /activities/count on Zendesk.",
     method: "GET",
     path: "/activities/count",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

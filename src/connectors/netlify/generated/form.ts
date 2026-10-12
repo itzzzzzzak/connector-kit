@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const formActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const formActions: Record<string, ActionDefinition> = {
     description: "List site forms Calls GET /sites/{siteid}/forms on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/forms",
-    input: z.object({ site_id: z.string() }),
+    input: obj({ site_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const formActions: Record<string, ActionDefinition> = {
     description: "Delete site form Calls DELETE /sites/{siteid}/forms/{formid} on Netlify.",
     method: "DELETE",
     path: "/sites/{site_id}/forms/{form_id}",
-    input: z.object({ site_id: z.string(), form_id: z.string() }),
+    input: obj({ site_id: z.string(), form_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

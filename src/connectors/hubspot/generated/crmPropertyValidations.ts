@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const crmPropertyValidationsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const crmPropertyValidationsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /crm/v3/property-validations/{objectTypeId} on HubSpot.",
     method: "GET",
     path: "/crm/v3/property-validations/{objectTypeId}",
-    input: z.object({ objectTypeId: z.string() }),
+    input: obj({ objectTypeId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const crmPropertyValidationsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /crm/v3/property-validations/{objectTypeId}/{propertyName} on HubSpot.",
     method: "GET",
     path: "/crm/v3/property-validations/{objectTypeId}/{propertyName}",
-    input: z.object({ objectTypeId: z.string(), propertyName: z.string() }),
+    input: obj({ objectTypeId: z.string(), propertyName: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const crmPropertyValidationsActions: Record<string, ActionDefinition> = {
     description: "Get rule type. Part of: Basic. Calls GET /crm/v3/property-validations/{objectTypeId}/{propertyName}/rule-type/{ruleType} on HubSpot.",
     method: "GET",
     path: "/crm/v3/property-validations/{objectTypeId}/{propertyName}/rule-type/{ruleType}",
-    input: z.object({ objectTypeId: z.string(), propertyName: z.string(), ruleType: z.enum(["AFTER_DATETIME_DURATION", "AFTER_DURATION", "ALPHANUMERIC", "BEFORE_DATETIME_DURATION", "BEFORE_DURATION", "DAYS_OF_WEEK", "DECIMAL", "DOMAIN", "EMAIL", "EMAIL_ALLOWED_DOMAINS", "EMAIL_BLOCKED_DOMAINS", "END_DATE", "END_DATETIME", "FORMAT", "MAX_LENGTH", "MAX_NUMBER", "MIN_LENGTH", "MIN_NUMBER", "PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE", "REGEX", "SPECIAL_CHARACTERS", "START_DATE", "START_DATETIME", "URL", "URL_ALLOWED_DOMAINS", "URL_BLOCKED_DOMAINS", "WHITESPACE"]) }),
+    input: obj({ objectTypeId: z.string(), propertyName: z.string(), ruleType: z.enum(["AFTER_DATETIME_DURATION", "AFTER_DURATION", "ALPHANUMERIC", "BEFORE_DATETIME_DURATION", "BEFORE_DURATION", "DAYS_OF_WEEK", "DECIMAL", "DOMAIN", "EMAIL", "EMAIL_ALLOWED_DOMAINS", "EMAIL_BLOCKED_DOMAINS", "END_DATE", "END_DATETIME", "FORMAT", "MAX_LENGTH", "MAX_NUMBER", "MIN_LENGTH", "MIN_NUMBER", "PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE", "REGEX", "SPECIAL_CHARACTERS", "START_DATE", "START_DATETIME", "URL", "URL_ALLOWED_DOMAINS", "URL_BLOCKED_DOMAINS", "WHITESPACE"]) }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const crmPropertyValidationsActions: Record<string, ActionDefinition> = {
     description: "Replace rule type. Part of: Basic. Calls PUT /crm/v3/property-validations/{objectTypeId}/{propertyName}/rule-type/{ruleType} on HubSpot.",
     method: "PUT",
     path: "/crm/v3/property-validations/{objectTypeId}/{propertyName}/rule-type/{ruleType}",
-    input: z.object({ objectTypeId: z.string(), propertyName: z.string(), ruleType: z.enum(["AFTER_DATETIME_DURATION", "AFTER_DURATION", "ALPHANUMERIC", "BEFORE_DATETIME_DURATION", "BEFORE_DURATION", "DAYS_OF_WEEK", "DECIMAL", "DOMAIN", "EMAIL", "EMAIL_ALLOWED_DOMAINS", "EMAIL_BLOCKED_DOMAINS", "END_DATE", "END_DATETIME", "FORMAT", "MAX_LENGTH", "MAX_NUMBER", "MIN_LENGTH", "MIN_NUMBER", "PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE", "REGEX", "SPECIAL_CHARACTERS", "START_DATE", "START_DATETIME", "URL", "URL_ALLOWED_DOMAINS", "URL_BLOCKED_DOMAINS", "WHITESPACE"]), ruleArguments: z.array(z.string()), shouldApplyNormalization: z.boolean().optional() }),
+    input: obj({ objectTypeId: z.string(), propertyName: z.string(), ruleType: z.enum(["AFTER_DATETIME_DURATION", "AFTER_DURATION", "ALPHANUMERIC", "BEFORE_DATETIME_DURATION", "BEFORE_DURATION", "DAYS_OF_WEEK", "DECIMAL", "DOMAIN", "EMAIL", "EMAIL_ALLOWED_DOMAINS", "EMAIL_BLOCKED_DOMAINS", "END_DATE", "END_DATETIME", "FORMAT", "MAX_LENGTH", "MAX_NUMBER", "MIN_LENGTH", "MIN_NUMBER", "PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE", "REGEX", "SPECIAL_CHARACTERS", "START_DATE", "START_DATETIME", "URL", "URL_ALLOWED_DOMAINS", "URL_BLOCKED_DOMAINS", "WHITESPACE"]), ruleArguments: z.array(z.string()), shouldApplyNormalization: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },

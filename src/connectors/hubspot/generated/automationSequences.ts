@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const automationSequencesActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /automation/v4/sequences on HubSpot.",
     method: "GET",
     path: "/automation/v4/sequences",
-    input: z.object({ userId: z.string(), name: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ userId: z.string(), name: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const automationSequencesActions: Record<string, ActionDefinition> = {
     description: "Create enrollments. Part of: Basic. Calls POST /automation/v4/sequences/enrollments on HubSpot.",
     method: "POST",
     path: "/automation/v4/sequences/enrollments",
-    input: z.object({ userId: z.string(), contactId: z.string(), senderAliasAddress: z.string().optional(), senderEmail: z.string(), sequenceId: z.string() }),
+    input: obj({ userId: z.string(), contactId: z.string(), senderAliasAddress: z.string().optional(), senderEmail: z.string(), sequenceId: z.string() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["userId"]),
@@ -31,7 +32,7 @@ export const automationSequencesActions: Record<string, ActionDefinition> = {
     description: "Get enrollments contact. Part of: Basic. Calls GET /automation/v4/sequences/enrollments/contact/{contactId} on HubSpot.",
     method: "GET",
     path: "/automation/v4/sequences/enrollments/contact/{contactId}",
-    input: z.object({ contactId: z.string() }),
+    input: obj({ contactId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -39,7 +40,7 @@ export const automationSequencesActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /automation/v4/sequences/{sequenceId} on HubSpot.",
     method: "GET",
     path: "/automation/v4/sequences/{sequenceId}",
-    input: z.object({ sequenceId: z.string(), userId: z.string() }),
+    input: obj({ sequenceId: z.string(), userId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

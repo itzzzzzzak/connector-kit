@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const usergroupsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const usergroupsActions: Record<string, ActionDefinition> = {
     description: "Create a User Group Calls POST /usergroups.create on Slack.",
     method: "POST",
     path: "/usergroups.create",
-    input: z.object({ channels: z.string().describe("A comma separated string of encoded channel IDs for which the User Group uses as a default.").optional(), description: z.string().describe("A short description of the User Group.").optional(), handle: z.string().describe("A mention handle. Must be unique among channels, users and User Groups.").optional(), include_count: z.boolean().describe("Include the number of users in each User Group.").optional(), name: z.string().describe("A name for the User Group. Must be unique among User Groups.") }),
+    input: obj({ channels: z.string().describe("A comma separated string of encoded channel IDs for which the User Group uses as a default.").optional(), description: z.string().describe("A short description of the User Group.").optional(), handle: z.string().describe("A mention handle. Must be unique among channels, users and User Groups.").optional(), include_count: z.boolean().describe("Include the number of users in each User Group.").optional(), name: z.string().describe("A name for the User Group. Must be unique among User Groups.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const usergroupsActions: Record<string, ActionDefinition> = {
     description: "Disable an existing User Group Calls POST /usergroups.disable on Slack.",
     method: "POST",
     path: "/usergroups.disable",
-    input: z.object({ include_count: z.boolean().describe("Include the number of users in the User Group.").optional(), usergroup: z.string().describe("The encoded ID of the User Group to disable.") }),
+    input: obj({ include_count: z.boolean().describe("Include the number of users in the User Group.").optional(), usergroup: z.string().describe("The encoded ID of the User Group to disable.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const usergroupsActions: Record<string, ActionDefinition> = {
     description: "Enable a User Group Calls POST /usergroups.enable on Slack.",
     method: "POST",
     path: "/usergroups.enable",
-    input: z.object({ include_count: z.boolean().describe("Include the number of users in the User Group.").optional(), usergroup: z.string().describe("The encoded ID of the User Group to enable.") }),
+    input: obj({ include_count: z.boolean().describe("Include the number of users in the User Group.").optional(), usergroup: z.string().describe("The encoded ID of the User Group to enable.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const usergroupsActions: Record<string, ActionDefinition> = {
     description: "List all User Groups for a team Calls GET /usergroups.list on Slack.",
     method: "GET",
     path: "/usergroups.list",
-    input: z.object({ include_users: z.boolean().describe("Include the list of users for each User Group.").optional(), include_count: z.boolean().describe("Include the number of users in each User Group.").optional(), include_disabled: z.boolean().describe("Include disabled User Groups.").optional() }),
+    input: obj({ include_users: z.boolean().describe("Include the list of users for each User Group.").optional(), include_count: z.boolean().describe("Include the number of users in each User Group.").optional(), include_disabled: z.boolean().describe("Include disabled User Groups.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const usergroupsActions: Record<string, ActionDefinition> = {
     description: "Update an existing User Group Calls POST /usergroups.update on Slack.",
     method: "POST",
     path: "/usergroups.update",
-    input: z.object({ handle: z.string().describe("A mention handle. Must be unique among channels, users and User Groups.").optional(), description: z.string().describe("A short description of the User Group.").optional(), channels: z.string().describe("A comma separated string of encoded channel IDs for which the User Group uses as a default.").optional(), include_count: z.boolean().describe("Include the number of users in the User Group.").optional(), usergroup: z.string().describe("The encoded ID of the User Group to update."), name: z.string().describe("A name for the User Group. Must be unique among User Groups.").optional() }),
+    input: obj({ handle: z.string().describe("A mention handle. Must be unique among channels, users and User Groups.").optional(), description: z.string().describe("A short description of the User Group.").optional(), channels: z.string().describe("A comma separated string of encoded channel IDs for which the User Group uses as a default.").optional(), include_count: z.boolean().describe("Include the number of users in the User Group.").optional(), usergroup: z.string().describe("The encoded ID of the User Group to update."), name: z.string().describe("A name for the User Group. Must be unique among User Groups.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const usergroupsActions: Record<string, ActionDefinition> = {
     description: "List all users in a User Group Calls GET /usergroups.users.list on Slack.",
     method: "GET",
     path: "/usergroups.users.list",
-    input: z.object({ include_disabled: z.boolean().describe("Allow results that involve disabled User Groups.").optional(), usergroup: z.string().describe("The encoded ID of the User Group to update.") }),
+    input: obj({ include_disabled: z.boolean().describe("Allow results that involve disabled User Groups.").optional(), usergroup: z.string().describe("The encoded ID of the User Group to update.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const usergroupsActions: Record<string, ActionDefinition> = {
     description: "Update the list of users for a User Group Calls POST /usergroups.users.update on Slack.",
     method: "POST",
     path: "/usergroups.users.update",
-    input: z.object({ include_count: z.boolean().describe("Include the number of users in the User Group.").optional(), usergroup: z.string().describe("The encoded ID of the User Group to update."), users: z.string().describe("A comma separated string of encoded user IDs that represent the entire list of users for the User Group.") }),
+    input: obj({ include_count: z.boolean().describe("Include the number of users in the User Group.").optional(), usergroup: z.string().describe("The encoded ID of the User Group to update."), users: z.string().describe("A comma separated string of encoded user IDs that represent the entire list of users for the User Group.") }),
     output: z.unknown(),
     effect: "write",
   },

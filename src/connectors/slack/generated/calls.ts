@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const callsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const callsActions: Record<string, ActionDefinition> = {
     description: "Registers a new Call. Calls POST /calls.add on Slack.",
     method: "POST",
     path: "/calls.add",
-    input: z.object({ external_unique_id: z.string().describe("An ID supplied by the 3rd-party Call provider. It must be unique across all Calls from that service."), external_display_id: z.string().describe("An optional, human-readable ID supplied by the 3rd-party Call provider. If supplied, this ID will be displayed in the Call object.").optional(), join_url: z.string().describe("The URL required for a client to join the Call."), desktop_app_join_url: z.string().describe("When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.").optional(), date_start: z.number().describe("Call start time in UTC UNIX timestamp format").optional(), title: z.string().describe("The name of the Call.").optional(), created_by: z.string().describe("The valid Slack user ID of the user who created this Call. When this method is called with a user token, the createdby field is optional and defaults to the…").optional(), users: z.string().describe("The list of users to register as participants in the Call. Read more on how to specify users here.").optional() }),
+    input: obj({ external_unique_id: z.string().describe("An ID supplied by the 3rd-party Call provider. It must be unique across all Calls from that service."), external_display_id: z.string().describe("An optional, human-readable ID supplied by the 3rd-party Call provider. If supplied, this ID will be displayed in the Call object.").optional(), join_url: z.string().describe("The URL required for a client to join the Call."), desktop_app_join_url: z.string().describe("When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.").optional(), date_start: z.number().describe("Call start time in UTC UNIX timestamp format").optional(), title: z.string().describe("The name of the Call.").optional(), created_by: z.string().describe("The valid Slack user ID of the user who created this Call. When this method is called with a user token, the createdby field is optional and defaults to the…").optional(), users: z.string().describe("The list of users to register as participants in the Call. Read more on how to specify users here.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const callsActions: Record<string, ActionDefinition> = {
     description: "Ends a Call. Calls POST /calls.end on Slack.",
     method: "POST",
     path: "/calls.end",
-    input: z.object({ id: z.string().describe("id returned when registering the call using the calls.add method."), duration: z.number().describe("Call duration in seconds").optional() }),
+    input: obj({ id: z.string().describe("id returned when registering the call using the calls.add method."), duration: z.number().describe("Call duration in seconds").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const callsActions: Record<string, ActionDefinition> = {
     description: "Returns information about a Call. Calls GET /calls.info on Slack.",
     method: "GET",
     path: "/calls.info",
-    input: z.object({ id: z.string().describe("id of the Call returned by the calls.add method.") }),
+    input: obj({ id: z.string().describe("id of the Call returned by the calls.add method.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const callsActions: Record<string, ActionDefinition> = {
     description: "Registers new participants added to a Call. Calls POST /calls.participants.add on Slack.",
     method: "POST",
     path: "/calls.participants.add",
-    input: z.object({ id: z.string().describe("id returned by the calls.add method."), users: z.string().describe("The list of users to add as participants in the Call. Read more on how to specify users here.") }),
+    input: obj({ id: z.string().describe("id returned by the calls.add method."), users: z.string().describe("The list of users to add as participants in the Call. Read more on how to specify users here.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const callsActions: Record<string, ActionDefinition> = {
     description: "Registers participants removed from a Call. Calls POST /calls.participants.remove on Slack.",
     method: "POST",
     path: "/calls.participants.remove",
-    input: z.object({ id: z.string().describe("id returned by the calls.add method."), users: z.string().describe("The list of users to remove as participants in the Call. Read more on how to specify users here.") }),
+    input: obj({ id: z.string().describe("id returned by the calls.add method."), users: z.string().describe("The list of users to remove as participants in the Call. Read more on how to specify users here.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const callsActions: Record<string, ActionDefinition> = {
     description: "Updates information about a Call. Calls POST /calls.update on Slack.",
     method: "POST",
     path: "/calls.update",
-    input: z.object({ id: z.string().describe("id returned by the calls.add method."), title: z.string().describe("The name of the Call.").optional(), join_url: z.string().describe("The URL required for a client to join the Call.").optional(), desktop_app_join_url: z.string().describe("When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.").optional() }),
+    input: obj({ id: z.string().describe("id returned by the calls.add method."), title: z.string().describe("The name of the Call.").optional(), join_url: z.string().describe("The URL required for a client to join the Call.").optional(), desktop_app_join_url: z.string().describe("When supplied, available Slack clients will attempt to directly launch the 3rd-party Call with this URL.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

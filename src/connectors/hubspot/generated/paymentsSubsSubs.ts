@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const paymentsSubsSubsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const paymentsSubsSubsActions: Record<string, ActionDefinition> = {
     description: "Create crm cancel. Part of: Advanced. Calls POST /payments-subscriptions/v1/subscriptions/crm/{objectId}/cancel on HubSpot.",
     method: "POST",
     path: "/payments-subscriptions/v1/subscriptions/crm/{objectId}/cancel",
-    input: z.object({ objectId: z.number() }),
+    input: obj({ objectId: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const paymentsSubsSubsActions: Record<string, ActionDefinition> = {
     description: "Create crm pause. Part of: Advanced. Calls POST /payments-subscriptions/v1/subscriptions/crm/{objectId}/pause on HubSpot.",
     method: "POST",
     path: "/payments-subscriptions/v1/subscriptions/crm/{objectId}/pause",
-    input: z.object({ objectId: z.number(), pauseReason: z.string().optional() }),
+    input: obj({ objectId: z.number(), pauseReason: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const paymentsSubsSubsActions: Record<string, ActionDefinition> = {
     description: "Create crm unpause. Part of: Advanced. Calls POST /payments-subscriptions/v1/subscriptions/crm/{objectId}/unpause on HubSpot.",
     method: "POST",
     path: "/payments-subscriptions/v1/subscriptions/crm/{objectId}/unpause",
-    input: z.object({ objectId: z.number(), proposedNextBillingDate: z.number() }),
+    input: obj({ objectId: z.number(), proposedNextBillingDate: z.number() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const workflowsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const workflowsActions: Record<string, ActionDefinition> = {
     description: "Indicate that an app's step in a workflow completed execution.",
     method: "GET",
     path: "/workflows.stepCompleted",
-    input: z.object({ workflow_step_execute_id: z.string().describe("Context identifier that maps to the correct workflow step execution."), outputs: z.string().describe("Key-value object of outputs from your step. Keys of this object reflect the configured key properties of your outputs array from your workflowstep object.").optional() }),
+    input: obj({ workflow_step_execute_id: z.string().describe("Context identifier that maps to the correct workflow step execution."), outputs: z.string().describe("Key-value object of outputs from your step. Keys of this object reflect the configured key properties of your outputs array from your workflowstep object.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const workflowsActions: Record<string, ActionDefinition> = {
     description: "Indicate that an app's step in a workflow failed to execute.",
     method: "GET",
     path: "/workflows.stepFailed",
-    input: z.object({ workflow_step_execute_id: z.string().describe("Context identifier that maps to the correct workflow step execution."), error: z.string().describe("A JSON-based object with a message property that should contain a human readable error message.") }),
+    input: obj({ workflow_step_execute_id: z.string().describe("Context identifier that maps to the correct workflow step execution."), error: z.string().describe("A JSON-based object with a message property that should contain a human readable error message.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const workflowsActions: Record<string, ActionDefinition> = {
     description: "Update the configuration for a workflow extension step.",
     method: "GET",
     path: "/workflows.updateStep",
-    input: z.object({ workflow_step_edit_id: z.string().describe("A context identifier provided with viewsubmission payloads used to call back to workflows.updateStep."), inputs: z.string().describe("A JSON key-value map of inputs required from a user during configuration. This is the data your app expects to receive when the workflow step starts. Please…").optional(), outputs: z.string().describe("An JSON array of output objects used during step execution. This is the data your app agrees to provide when your workflow step was executed.").optional(), step_name: z.string().describe("An optional field that can be used to override the step name that is shown in the Workflow Builder.").optional(), step_image_url: z.string().describe("An optional field that can be used to override app image that is shown in the Workflow Builder.").optional() }),
+    input: obj({ workflow_step_edit_id: z.string().describe("A context identifier provided with viewsubmission payloads used to call back to workflows.updateStep."), inputs: z.string().describe("A JSON key-value map of inputs required from a user during configuration. This is the data your app expects to receive when the workflow step starts. Please…").optional(), outputs: z.string().describe("An JSON array of output objects used during step execution. This is the data your app agrees to provide when your workflow step was executed.").optional(), step_name: z.string().describe("An optional field that can be used to override the step name that is shown in the Workflow Builder.").optional(), step_image_url: z.string().describe("An optional field that can be used to override app image that is shown in the Workflow Builder.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

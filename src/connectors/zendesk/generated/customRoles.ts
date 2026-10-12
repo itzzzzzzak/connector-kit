@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const customRolesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const customRolesActions: Record<string, ActionDefinition> = {
     description: "List custom roles. Part of: Custom Roles. Calls GET /customroles on Zendesk.",
     method: "GET",
     path: "/custom_roles",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const customRolesActions: Record<string, ActionDefinition> = {
     description: "Create custom role. Part of: Custom Roles. Calls POST /customroles on Zendesk.",
     method: "POST",
     path: "/custom_roles",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const customRolesActions: Record<string, ActionDefinition> = {
     description: "Show custom role by id. Part of: Custom Roles. Calls GET /customroles/{customroleid} on Zendesk.",
     method: "GET",
     path: "/custom_roles/{custom_role_id}",
-    input: z.object({ custom_role_id: z.number() }),
+    input: obj({ custom_role_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const customRolesActions: Record<string, ActionDefinition> = {
     description: "Update custom role by id. Part of: Custom Roles. Calls PUT /customroles/{customroleid} on Zendesk.",
     method: "PUT",
     path: "/custom_roles/{custom_role_id}",
-    input: z.object({ custom_role_id: z.number() }),
+    input: obj({ custom_role_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const customRolesActions: Record<string, ActionDefinition> = {
     description: "Delete custom role by id. Part of: Custom Roles. Calls DELETE /customroles/{customroleid} on Zendesk.",
     method: "DELETE",
     path: "/custom_roles/{custom_role_id}",
-    input: z.object({ custom_role_id: z.number() }),
+    input: obj({ custom_role_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

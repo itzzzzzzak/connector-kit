@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const sIPPhoneActions: Record<string, ActionDefinition> = {
     description: "List sipphone phones. Part of: SIP Phone. Calls GET /sipphones/phones on Zoom.",
     method: "GET",
     path: "/sip_phones/phones",
-    input: z.object({ search_key: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ search_key: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "phones", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const sIPPhoneActions: Record<string, ActionDefinition> = {
     description: "Enable sipphone phones. Part of: SIP Phone. Calls POST /sipphones/phones on Zoom.",
     method: "POST",
     path: "/sip_phones/phones",
-    input: z.object({ authorization_name: z.string(), domain: z.string(), password: z.string(), registration_expire_time: z.number().optional(), user_email: z.string(), user_name: z.string(), voice_mail: z.string().optional(), display_number: z.string().optional(), server: z.object({ proxy_server: z.string().optional(), register_server: z.string().optional(), transport_protocol: z.enum(["UDP", "TCP", "TLS", "AUTO"]).optional() }), server_2: z.object({ proxy_server: z.string().optional(), register_server: z.string().optional(), transport_protocol: z.enum(["UDP", "TCP", "TLS", "AUTO"]).optional() }).optional(), server_3: z.object({ proxy_server: z.string().optional(), register_server: z.string().optional(), transport_protocol: z.enum(["UDP", "TCP", "TLS", "AUTO"]).optional() }).optional() }),
+    input: obj({ authorization_name: z.string(), domain: z.string(), password: z.string(), registration_expire_time: z.number().optional(), user_email: z.string(), user_name: z.string(), voice_mail: z.string().optional(), display_number: z.string().optional(), server: obj({ proxy_server: z.string().optional(), register_server: z.string().optional(), transport_protocol: z.enum(["UDP", "TCP", "TLS", "AUTO"]).optional() }), server_2: obj({ proxy_server: z.string().optional(), register_server: z.string().optional(), transport_protocol: z.enum(["UDP", "TCP", "TLS", "AUTO"]).optional() }).optional(), server_3: obj({ proxy_server: z.string().optional(), register_server: z.string().optional(), transport_protocol: z.enum(["UDP", "TCP", "TLS", "AUTO"]).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const sIPPhoneActions: Record<string, ActionDefinition> = {
     description: "Update sipphone phones. Part of: SIP Phone. Calls PATCH /sipphones/phones/{phoneId} on Zoom.",
     method: "PATCH",
     path: "/sip_phones/phones/{phoneId}",
-    input: z.object({ phoneId: z.string(), authorization_name: z.string().optional(), domain: z.string().optional(), password: z.string().optional(), registration_expire_time: z.number().optional(), user_name: z.string().optional(), voice_mail: z.string().optional(), display_number: z.string().optional(), server: z.object({ proxy_server: z.string().optional(), register_server: z.string().optional(), transport_protocol: z.enum(["UDP", "TCP", "TLS", "AUTO"]).optional() }).optional(), server_2: z.object({ proxy_server: z.string().optional(), register_server: z.string().optional(), transport_protocol: z.enum(["UDP", "TCP", "TLS", "AUTO"]).optional() }).optional(), server_3: z.object({ proxy_server: z.string().optional(), register_server: z.string().optional(), transport_protocol: z.enum(["UDP", "TCP", "TLS", "AUTO"]).optional() }).optional() }),
+    input: obj({ phoneId: z.string(), authorization_name: z.string().optional(), domain: z.string().optional(), password: z.string().optional(), registration_expire_time: z.number().optional(), user_name: z.string().optional(), voice_mail: z.string().optional(), display_number: z.string().optional(), server: obj({ proxy_server: z.string().optional(), register_server: z.string().optional(), transport_protocol: z.enum(["UDP", "TCP", "TLS", "AUTO"]).optional() }).optional(), server_2: obj({ proxy_server: z.string().optional(), register_server: z.string().optional(), transport_protocol: z.enum(["UDP", "TCP", "TLS", "AUTO"]).optional() }).optional(), server_3: obj({ proxy_server: z.string().optional(), register_server: z.string().optional(), transport_protocol: z.enum(["UDP", "TCP", "TLS", "AUTO"]).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const sIPPhoneActions: Record<string, ActionDefinition> = {
     description: "Delete sipphone phones. Part of: SIP Phone. Calls DELETE /sipphones/phones/{phoneId} on Zoom.",
     method: "DELETE",
     path: "/sip_phones/phones/{phoneId}",
-    input: z.object({ phoneId: z.string() }),
+    input: obj({ phoneId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const emergencyAddressesActions: Record<string, ActionDefinition> = {
     description: "List emergency addresses. Part of: Emergency Addresses. Calls GET /phone/emergencyaddresses on Zoom.",
     method: "GET",
     path: "/phone/emergency_addresses",
-    input: z.object({ site_id: z.string().optional(), user_id: z.string().optional(), level: z.number().optional(), status: z.number().optional(), address_keyword: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ site_id: z.string().optional(), user_id: z.string().optional(), level: z.number().optional(), status: z.number().optional(), address_keyword: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "emergency_addresses", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const emergencyAddressesActions: Record<string, ActionDefinition> = {
     description: "Add emergency address. Part of: Emergency Addresses. Calls POST /phone/emergencyaddresses on Zoom.",
     method: "POST",
     path: "/phone/emergency_addresses",
-    input: z.object({ address_line1: z.string(), address_line2: z.string().optional(), city: z.string(), country: z.string(), is_default: z.boolean().optional(), site_id: z.string().optional(), state_code: z.string(), user_id: z.string().optional(), zip: z.string(), business_name: z.string().optional(), address_selection: z.enum(["user_provided", "zoom_suggested"]).optional() }),
+    input: obj({ address_line1: z.string(), address_line2: z.string().optional(), city: z.string(), country: z.string(), is_default: z.boolean().optional(), site_id: z.string().optional(), state_code: z.string(), user_id: z.string().optional(), zip: z.string(), business_name: z.string().optional(), address_selection: z.enum(["user_provided", "zoom_suggested"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const emergencyAddressesActions: Record<string, ActionDefinition> = {
     description: "Get emergency address. Part of: Emergency Addresses. Calls GET /phone/emergencyaddresses/{emergencyAddressId} on Zoom.",
     method: "GET",
     path: "/phone/emergency_addresses/{emergencyAddressId}",
-    input: z.object({ emergencyAddressId: z.string() }),
+    input: obj({ emergencyAddressId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const emergencyAddressesActions: Record<string, ActionDefinition> = {
     description: "Update emergency address. Part of: Emergency Addresses. Calls PATCH /phone/emergencyaddresses/{emergencyAddressId} on Zoom.",
     method: "PATCH",
     path: "/phone/emergency_addresses/{emergencyAddressId}",
-    input: z.object({ emergencyAddressId: z.string(), address_line1: z.string().optional(), address_line2: z.string().optional(), city: z.string().optional(), country: z.string().optional(), is_default: z.boolean().optional(), state_code: z.string().optional(), zip: z.string().optional(), business_name: z.string().optional(), address_selection: z.enum(["user_provided", "zoom_suggested"]).optional() }),
+    input: obj({ emergencyAddressId: z.string(), address_line1: z.string().optional(), address_line2: z.string().optional(), city: z.string().optional(), country: z.string().optional(), is_default: z.boolean().optional(), state_code: z.string().optional(), zip: z.string().optional(), business_name: z.string().optional(), address_selection: z.enum(["user_provided", "zoom_suggested"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const emergencyAddressesActions: Record<string, ActionDefinition> = {
     description: "Delete emergency address. Part of: Emergency Addresses. Calls DELETE /phone/emergencyaddresses/{emergencyAddressId} on Zoom.",
     method: "DELETE",
     path: "/phone/emergency_addresses/{emergencyAddressId}",
-    input: z.object({ emergencyAddressId: z.string() }),
+    input: obj({ emergencyAddressId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const jiraSettingsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const jiraSettingsActions: Record<string, ActionDefinition> = {
     description: "Get application property. Returns all application properties or an application property.",
     method: "GET",
     path: "/application-properties",
-    input: z.object({ key: z.string().describe("The key of the application property.").optional(), permissionLevel: z.string().describe("The permission level of all items being returned in the list.").optional(), keyFilter: z.string().describe("When a key isn't provided, this filters the list of results by the application property key using a regular expression. For example, using jira.lf. will…").optional() }),
+    input: obj({ key: z.string().describe("The key of the application property.").optional(), permissionLevel: z.string().describe("The permission level of all items being returned in the list.").optional(), keyFilter: z.string().describe("When a key isn't provided, this filters the list of results by the application property key using a regular expression. For example, using jira.lf. will…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const jiraSettingsActions: Record<string, ActionDefinition> = {
     description: "Get advanced settings. Returns the application properties that are accessible on the Advanced Settings page. To navigate to the Advanced Settings page in Jira, choose the Jira icon Jira settings System, General Configuration and then click Advanced Settings (in the upper right).",
     method: "GET",
     path: "/application-properties/advanced-settings",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const jiraSettingsActions: Record<string, ActionDefinition> = {
     description: "Set application property. Changes the value of an application property. For example, you can change the value of the jira.clone.prefix from its default value of CLONE - to Clone - if you prefer sentence case capitalization. Editable properties are described below along with their default values.",
     method: "PUT",
     path: "/application-properties/{id}",
-    input: z.object({ id: z.string().describe("The key of the application property to update."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ id: z.string().describe("The key of the application property to update."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -35,7 +36,7 @@ export const jiraSettingsActions: Record<string, ActionDefinition> = {
     description: "Get global settings. Returns the global settings in Jira. These settings determine whether optional features (for example, subtasks, time tracking, and others) are enabled. If time tracking is enabled, this operation also returns the time tracking configuration.",
     method: "GET",
     path: "/configuration",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

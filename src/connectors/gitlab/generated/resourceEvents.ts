@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const resourceEventsActions: Record<string, ActionDefinition> = {
     description: "Get projects id issues eventable id resource milestone events. Part of: resourceevents. Calls GET /projects/{id}/issues/{eventableid}/resourcemilestoneevents on GitLab.",
     method: "GET",
     path: "/projects/{id}/issues/{eventable_id}/resource_milestone_events",
-    input: z.object({ id: z.string(), eventable_id: z.number(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), eventable_id: z.number(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const resourceEventsActions: Record<string, ActionDefinition> = {
     description: "Get projects id issues eventable id resource milestone events event id. Part of: resourceevents. Calls GET /projects/{id}/issues/{eventableid}/resourcemilestoneevents/{eventid} on GitLab.",
     method: "GET",
     path: "/projects/{id}/issues/{eventable_id}/resource_milestone_events/{event_id}",
-    input: z.object({ id: z.string(), event_id: z.string(), eventable_id: z.number() }),
+    input: obj({ id: z.string(), event_id: z.string(), eventable_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const resourceEventsActions: Record<string, ActionDefinition> = {
     description: "Get projects id merge requests eventable id resource milestone events. Part of: resourceevents. Calls GET /projects/{id}/mergerequests/{eventableid}/resourcemilestoneevents on GitLab.",
     method: "GET",
     path: "/projects/{id}/merge_requests/{eventable_id}/resource_milestone_events",
-    input: z.object({ id: z.string(), eventable_id: z.number(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), eventable_id: z.number(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -37,7 +38,7 @@ export const resourceEventsActions: Record<string, ActionDefinition> = {
     description: "Get projects id merge requests eventable id resource milestone events event id. Part of: resourceevents. Calls GET /projects/{id}/mergerequests/{eventableid}/resourcemilestoneevents/{eventid} on GitLab.",
     method: "GET",
     path: "/projects/{id}/merge_requests/{eventable_id}/resource_milestone_events/{event_id}",
-    input: z.object({ id: z.string(), event_id: z.string(), eventable_id: z.number() }),
+    input: obj({ id: z.string(), event_id: z.string(), eventable_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

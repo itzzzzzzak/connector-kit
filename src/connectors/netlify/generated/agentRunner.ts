@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const agentRunnerActions: Record<string, ActionDefinition> = {
     description: "List agent runners Calls GET /agentrunners on Netlify.",
     method: "GET",
     path: "/agent_runners",
-    input: z.object({ account_id: z.string(), site_id: z.string(), state: z.enum(["live", "error"]).optional(), title: z.string().optional(), branch: z.string().optional(), result_branch: z.string().optional(), from: z.number().optional(), to: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ account_id: z.string(), site_id: z.string(), state: z.enum(["live", "error"]).optional(), title: z.string().optional(), branch: z.string().optional(), result_branch: z.string().optional(), from: z.number().optional(), to: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const agentRunnerActions: Record<string, ActionDefinition> = {
     description: "Create agent runner Calls POST /agentrunners on Netlify.",
     method: "POST",
     path: "/agent_runners",
-    input: z.object({ site_id: z.string(), deploy_id: z.string().optional(), branch: z.string().optional(), prompt: z.string().optional(), agent: z.string().optional(), model: z.string().optional(), parent_agent_runner_id: z.string().optional(), dev_server_image: z.string().optional(), file_keys: z.array(z.string()).optional() }),
+    input: obj({ site_id: z.string(), deploy_id: z.string().optional(), branch: z.string().optional(), prompt: z.string().optional(), agent: z.string().optional(), model: z.string().optional(), parent_agent_runner_id: z.string().optional(), dev_server_image: z.string().optional(), file_keys: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["site_id","deploy_id","branch","prompt","agent","model","parent_agent_runner_id","dev_server_image","file_keys"]),
@@ -30,7 +31,7 @@ export const agentRunnerActions: Record<string, ActionDefinition> = {
     description: "Create agent runner upload url Calls POST /agentrunners/uploadurl on Netlify.",
     method: "POST",
     path: "/agent_runners/upload_url",
-    input: z.object({ account_id: z.string(), filename: z.string(), content_type: z.string() }),
+    input: obj({ account_id: z.string(), filename: z.string(), content_type: z.string() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["account_id","filename","content_type"]),
@@ -39,7 +40,7 @@ export const agentRunnerActions: Record<string, ActionDefinition> = {
     description: "Get agent runner Calls GET /agentrunners/{agentrunnerid} on Netlify.",
     method: "GET",
     path: "/agent_runners/{agent_runner_id}",
-    input: z.object({ agent_runner_id: z.string() }),
+    input: obj({ agent_runner_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -47,7 +48,7 @@ export const agentRunnerActions: Record<string, ActionDefinition> = {
     description: "Update agent runner Calls PATCH /agentrunners/{agentrunnerid} on Netlify.",
     method: "PATCH",
     path: "/agent_runners/{agent_runner_id}",
-    input: z.object({ agent_runner_id: z.string() }),
+    input: obj({ agent_runner_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -55,7 +56,7 @@ export const agentRunnerActions: Record<string, ActionDefinition> = {
     description: "Delete agent runner Calls DELETE /agentrunners/{agentrunnerid} on Netlify.",
     method: "DELETE",
     path: "/agent_runners/{agent_runner_id}",
-    input: z.object({ agent_runner_id: z.string() }),
+    input: obj({ agent_runner_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -63,7 +64,7 @@ export const agentRunnerActions: Record<string, ActionDefinition> = {
     description: "Archive agent runner Calls POST /agentrunners/{agentrunnerid}/archive on Netlify.",
     method: "POST",
     path: "/agent_runners/{agent_runner_id}/archive",
-    input: z.object({ agent_runner_id: z.string() }),
+    input: obj({ agent_runner_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -71,7 +72,7 @@ export const agentRunnerActions: Record<string, ActionDefinition> = {
     description: "Agent runner pull request Calls POST /agentrunners/{agentrunnerid}/pullrequest on Netlify.",
     method: "POST",
     path: "/agent_runners/{agent_runner_id}/pull_request",
-    input: z.object({ agent_runner_id: z.string() }),
+    input: obj({ agent_runner_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -79,7 +80,7 @@ export const agentRunnerActions: Record<string, ActionDefinition> = {
     description: "Agent runner commit to branch Calls POST /agentrunners/{agentrunnerid}/commit on Netlify.",
     method: "POST",
     path: "/agent_runners/{agent_runner_id}/commit",
-    input: z.object({ agent_runner_id: z.string(), target_branch: z.string() }),
+    input: obj({ agent_runner_id: z.string(), target_branch: z.string() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["target_branch"]),

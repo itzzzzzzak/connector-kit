@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const outputViewsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const outputViewsActions: Record<string, ActionDefinition> = {
     description: "List Output Views. Returns the output views your team can use: views DigitalOcean publishes to every team, plus your team's own. Cursor-paged with pagesize and pagetoken; no total is reported.",
     method: "GET",
     path: "/action-gateway/output-views",
-    input: z.object({ tool: z.string().describe("At most one of tool or toolid, as on create. With one set, the list is the published views plus your team's own on that tool version. With neither, it is…").optional(), tool_id: z.string().describe("Opaque ID of the tool version; see tool.").optional(), page_size: z.number().describe("Page size, 1 to 100. Defaults to 20 when omitted or 0; other values are rejected with 400.").optional(), page_token: z.string().describe("nextpagetoken from the previous response. Valid only with the same tool selection; otherwise the request is rejected with 400.").optional() }),
+    input: obj({ tool: z.string().describe("At most one of tool or toolid, as on create. With one set, the list is the published views plus your team's own on that tool version. With neither, it is…").optional(), tool_id: z.string().describe("Opaque ID of the tool version; see tool.").optional(), page_size: z.number().describe("Page size, 1 to 100. Defaults to 20 when omitted or 0; other values are rejected with 400.").optional(), page_token: z.string().describe("nextpagetoken from the previous response. Valid only with the same tool selection; otherwise the request is rejected with 400.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const outputViewsActions: Record<string, ActionDefinition> = {
     description: "Create an Output View. An output view is a named projection of one tool version's output: tool calls that use it return only the listed fields, and its outputschema describes the result. The view is bound to the tool version your catalog currently releases. Returns 409 when your team already has a view with this name on the tool version, and 429 when",
     method: "POST",
     path: "/action-gateway/output-views",
-    input: z.object({ tool: z.string().describe("Exactly one of tool or toolid selects the tool version. tool is a provider-qualified slug, optionally pinned as <tool@<version. You can bind only the released…").optional(), tool_id: z.string().describe("Opaque ID of the tool version; see tool.").optional(), name: z.string().describe("View name. Must match ^[a-z][a-z0-9-]{0,63}$ and be unique per tool version within your team."), description: z.string().describe("Optional description. At most 512 bytes.").optional(), fields: z.array(z.string()).describe("Output paths to keep, 1 to 64 of them. Each is a dotted path of up to 8 segments made of [A-Za-z0-9-], and must be declared by the tool's output schema;…") }),
+    input: obj({ tool: z.string().describe("Exactly one of tool or toolid selects the tool version. tool is a provider-qualified slug, optionally pinned as <tool@<version. You can bind only the released…").optional(), tool_id: z.string().describe("Opaque ID of the tool version; see tool.").optional(), name: z.string().describe("View name. Must match ^[a-z][a-z0-9-]{0,63}$ and be unique per tool version within your team."), description: z.string().describe("Optional description. At most 512 bytes.").optional(), fields: z.array(z.string()).describe("Output paths to keep, 1 to 64 of them. Each is a dotted path of up to 8 segments made of [A-Za-z0-9-], and must be declared by the tool's output schema;…") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const outputViewsActions: Record<string, ActionDefinition> = {
     description: "Preview an Output View. Validates a projection exactly as create does and returns the view it would produce, including outputschema, without storing anything. name and description are optional here; name uniqueness and the per-tool-version limit are not checked.",
     method: "POST",
     path: "/action-gateway/output-views/preview",
-    input: z.object({ tool: z.string().describe("Tool slug, optionally pinned; as on create.").optional(), tool_id: z.string().describe("Opaque ID of the tool version; as on create.").optional(), name: z.string().describe("Optional view name, validated as on create when present.").optional(), description: z.string().describe("Optional description, validated as on create when present.").optional(), fields: z.array(z.string()).describe("Output paths to keep; as on create.") }),
+    input: obj({ tool: z.string().describe("Tool slug, optionally pinned; as on create.").optional(), tool_id: z.string().describe("Opaque ID of the tool version; as on create.").optional(), name: z.string().describe("Optional view name, validated as on create when present.").optional(), description: z.string().describe("Optional description, validated as on create when present.").optional(), fields: z.array(z.string()).describe("Output paths to keep; as on create.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const outputViewsActions: Record<string, ActionDefinition> = {
     description: "Get an Output View. Returns one of your team's views, or a published view on a tool version your catalog exposes. Returns 404 when the view does not exist, was deleted, or belongs to another team.",
     method: "GET",
     path: "/action-gateway/output-views/{view_id}",
-    input: z.object({ view_id: z.string().describe("Output view ID.") }),
+    input: obj({ view_id: z.string().describe("Output view ID.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const outputViewsActions: Record<string, ActionDefinition> = {
     description: "Delete an Output View. Deletes one of your team's views and returns it with audit.deletedat set; it can no longer be used. Published views cannot be deleted. Returns 404 when the view does not exist, is already deleted, or is not your team's.",
     method: "DELETE",
     path: "/action-gateway/output-views/{view_id}",
-    input: z.object({ view_id: z.string().describe("Output view ID.") }),
+    input: obj({ view_id: z.string().describe("Output view ID.") }),
     output: z.unknown(),
     effect: "destructive",
   },

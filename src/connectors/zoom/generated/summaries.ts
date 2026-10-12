@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const summariesActions: Record<string, ActionDefinition> = {
     description: "Listmeetingsummaries. Part of: Summaries. Calls GET /meetings/meetingsummaries on Zoom.",
     method: "GET",
     path: "/meetings/meeting_summaries",
-    input: z.object({ from: z.string().optional(), to: z.string().optional(), time_filter_field: z.enum(["summary_start_time", "summary_created_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string().optional(), to: z.string().optional(), time_filter_field: z.enum(["summary_start_time", "summary_created_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "summaries", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const summariesActions: Record<string, ActionDefinition> = {
     description: "Getameetingsummary. Part of: Summaries. Calls GET /meetings/{meetingId}/meetingsummary on Zoom.",
     method: "GET",
     path: "/meetings/{meetingId}/meeting_summary",
-    input: z.object({ meetingId: z.string() }),
+    input: obj({ meetingId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const summariesActions: Record<string, ActionDefinition> = {
     description: "Deletemeetingorwebinarsummary. Part of: Summaries. Calls DELETE /meetings/{meetingId}/meetingsummary on Zoom.",
     method: "DELETE",
     path: "/meetings/{meetingId}/meeting_summary",
-    input: z.object({ meetingId: z.string() }),
+    input: obj({ meetingId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -36,7 +37,7 @@ export const summariesActions: Record<string, ActionDefinition> = {
     description: "List user meeting summaries. Part of: Summaries. Calls GET /users/{userId}/meetingsummaries on Zoom.",
     method: "GET",
     path: "/users/{userId}/meeting_summaries",
-    input: z.object({ userId: z.string(), from: z.string().optional(), to: z.string().optional(), time_filter_field: z.enum(["summary_start_time", "summary_created_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ userId: z.string(), from: z.string().optional(), to: z.string().optional(), time_filter_field: z.enum(["summary_start_time", "summary_created_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "summaries", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

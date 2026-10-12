@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const featuresActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const featuresActions: Record<string, ActionDefinition> = {
     description: "Get features. Part of: features. Calls GET /features on GitLab.",
     method: "GET",
     path: "/features",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const featuresActions: Record<string, ActionDefinition> = {
     description: "Get features definitions. Part of: features. Calls GET /features/definitions on GitLab.",
     method: "GET",
     path: "/features/definitions",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const featuresActions: Record<string, ActionDefinition> = {
     description: "Post features name. Part of: features. Calls POST /features/{name} on GitLab.",
     method: "POST",
     path: "/features/{name}",
-    input: z.object({ name: z.string(), value: z.string(), key: z.string().optional(), feature_group: z.string().optional(), user: z.string().optional(), group: z.string().optional(), namespace: z.string().optional(), project: z.string().optional(), organization: z.string().optional(), repository: z.string().optional(), runner: z.string().optional(), endpoint: z.string().optional(), force: z.boolean().optional() }),
+    input: obj({ name: z.string(), value: z.string(), key: z.string().optional(), feature_group: z.string().optional(), user: z.string().optional(), group: z.string().optional(), namespace: z.string().optional(), project: z.string().optional(), organization: z.string().optional(), repository: z.string().optional(), runner: z.string().optional(), endpoint: z.string().optional(), force: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const featuresActions: Record<string, ActionDefinition> = {
     description: "Delete features name. Part of: features. Calls DELETE /features/{name} on GitLab.",
     method: "DELETE",
     path: "/features/{name}",
-    input: z.object({ name: z.string() }),
+    input: obj({ name: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

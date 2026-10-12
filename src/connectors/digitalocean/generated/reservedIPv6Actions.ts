@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const reservedIPv6ActionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const reservedIPv6ActionsActions: Record<string, ActionDefinition> = {
     description: "Initiate a Reserved IPv6 Action. To initiate an action on a reserved IPv6 send a POST request to /v2/reservedipv6/$RESERVEDIPV6/actions. In the JSON body to the request, set the type attribute to on of the supported action types:",
     method: "POST",
     path: "/reserved_ipv6/{reserved_ipv6}/actions",
-    input: z.object({ reserved_ipv6: z.string().describe("A reserved IPv6 address."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ reserved_ipv6: z.string().describe("A reserved IPv6 address."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const updateActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const updateActions: Record<string, ActionDefinition> = {
     description: "Draft email. Part of: Drafts. Calls PUT /emails/mailboxes/{email}/drafts/{draftId} on Zoom.",
     method: "PUT",
     path: "/emails/mailboxes/{email}/drafts/{draftId}",
-    input: z.object({ email: z.string(), draftId: z.string(), message: z.object({ raw: z.string().optional() }) }),
+    input: obj({ email: z.string(), draftId: z.string(), message: obj({ raw: z.string().optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const updateActions: Record<string, ActionDefinition> = {
     description: "Label in mailbox. Part of: Labels. Calls PUT /emails/mailboxes/{email}/labels/{labelId} on Zoom.",
     method: "PUT",
     path: "/emails/mailboxes/{email}/labels/{labelId}",
-    input: z.object({ email: z.string(), labelId: z.string(), name: z.string(), parentld: z.string(), messageListVisibilitystring: z.enum(["show", "hide"]).optional(), labelListVisibility: z.enum(["labelShow", "labelHide", "labelShowIfUnread"]).optional(), color: z.object({ textColor: z.string().optional(), backgroundColor: z.string().optional() }).optional() }),
+    input: obj({ email: z.string(), labelId: z.string(), name: z.string(), parentld: z.string(), messageListVisibilitystring: z.enum(["show", "hide"]).optional(), labelListVisibility: z.enum(["labelShow", "labelHide", "labelShowIfUnread"]).optional(), color: obj({ textColor: z.string().optional(), backgroundColor: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const updateActions: Record<string, ActionDefinition> = {
     description: "Email. Part of: Messages. Calls POST /emails/mailboxes/{email}/messages/{messageId}/modify on Zoom.",
     method: "POST",
     path: "/emails/mailboxes/{email}/messages/{messageId}/modify",
-    input: z.object({ email: z.string(), messageId: z.string(), addLabelIds: z.array(z.string()).optional(), removeLabelIds: z.array(z.string()).optional() }),
+    input: obj({ email: z.string(), messageId: z.string(), addLabelIds: z.array(z.string()).optional(), removeLabelIds: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const updateActions: Record<string, ActionDefinition> = {
     description: "Mailbox vacation response setting. Part of: Settings. Calls PUT /emails/mailboxes/{email}/settings/vacation on Zoom.",
     method: "PUT",
     path: "/emails/mailboxes/{email}/settings/vacation",
-    input: z.object({ email: z.string(), enableAutoReply: z.boolean(), responseSubject: z.string().optional(), responseBodyPlainText: z.string().optional(), responseBodyHtml: z.string().optional(), enableAlwaysRespond: z.boolean().optional(), restrictToContacts: z.boolean().optional(), restrictToDomain: z.boolean().optional(), startTime: z.string().optional(), startTimeISO: z.string().optional(), endTime: z.string().optional(), endTimeISO: z.string().optional() }),
+    input: obj({ email: z.string(), enableAutoReply: z.boolean(), responseSubject: z.string().optional(), responseBodyPlainText: z.string().optional(), responseBodyHtml: z.string().optional(), enableAlwaysRespond: z.boolean().optional(), restrictToContacts: z.boolean().optional(), restrictToDomain: z.boolean().optional(), startTime: z.string().optional(), startTimeISO: z.string().optional(), endTime: z.string().optional(), endTimeISO: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const updateActions: Record<string, ActionDefinition> = {
     description: "Email thread. Part of: Threads. Calls POST /emails/mailboxes/{email}/threads/{threadId}/modify on Zoom.",
     method: "POST",
     path: "/emails/mailboxes/{email}/threads/{threadId}/modify",
-    input: z.object({ email: z.string(), threadId: z.string(), addLabelIds: z.array(z.string()).optional(), removeLabelIds: z.array(z.string()).optional() }),
+    input: obj({ email: z.string(), threadId: z.string(), addLabelIds: z.array(z.string()).optional(), removeLabelIds: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },

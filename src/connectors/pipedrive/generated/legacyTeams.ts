@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const legacyTeamsActions: Record<string, ActionDefinition> = {
     description: "Get teams. Part of: LegacyTeams. Calls GET /v1/legacyTeams on Pipedrive.",
     method: "GET",
     path: "/v1/legacyTeams",
-    input: z.object({ order_by: z.enum(["id", "name", "manager_id", "active_flag"]).optional(), skip_users: z.number().optional() }),
+    input: obj({ order_by: z.enum(["id", "name", "manager_id", "active_flag"]).optional(), skip_users: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const legacyTeamsActions: Record<string, ActionDefinition> = {
     description: "Add team. Part of: LegacyTeams. Calls POST /v1/legacyTeams on Pipedrive.",
     method: "POST",
     path: "/v1/legacyTeams",
-    input: z.object({ name: z.string(), description: z.string().optional(), manager_id: z.number(), users: z.array(z.number()).optional() }),
+    input: obj({ name: z.string(), description: z.string().optional(), manager_id: z.number(), users: z.array(z.number()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const legacyTeamsActions: Record<string, ActionDefinition> = {
     description: "Get team. Part of: LegacyTeams. Calls GET /v1/legacyTeams/{id} on Pipedrive.",
     method: "GET",
     path: "/v1/legacyTeams/{id}",
-    input: z.object({ id: z.number(), skip_users: z.number().optional() }),
+    input: obj({ id: z.number(), skip_users: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const legacyTeamsActions: Record<string, ActionDefinition> = {
     description: "Update team. Part of: LegacyTeams. Calls PUT /v1/legacyTeams/{id} on Pipedrive.",
     method: "PUT",
     path: "/v1/legacyTeams/{id}",
-    input: z.object({ id: z.number(), name: z.string().optional(), description: z.string().optional(), manager_id: z.number().optional(), users: z.array(z.number()).optional(), active_flag: z.number().optional(), deleted_flag: z.number().optional() }),
+    input: obj({ id: z.number(), name: z.string().optional(), description: z.string().optional(), manager_id: z.number().optional(), users: z.array(z.number()).optional(), active_flag: z.number().optional(), deleted_flag: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -43,7 +44,7 @@ export const legacyTeamsActions: Record<string, ActionDefinition> = {
     description: "Get team users. Part of: LegacyTeams. Calls GET /v1/legacyTeams/{id}/users on Pipedrive.",
     method: "GET",
     path: "/v1/legacyTeams/{id}/users",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -51,7 +52,7 @@ export const legacyTeamsActions: Record<string, ActionDefinition> = {
     description: "Add team user. Part of: LegacyTeams. Calls POST /v1/legacyTeams/{id}/users on Pipedrive.",
     method: "POST",
     path: "/v1/legacyTeams/{id}/users",
-    input: z.object({ id: z.number(), users: z.array(z.number()) }),
+    input: obj({ id: z.number(), users: z.array(z.number()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -59,7 +60,7 @@ export const legacyTeamsActions: Record<string, ActionDefinition> = {
     description: "Delete team user. Part of: LegacyTeams. Calls DELETE /v1/legacyTeams/{id}/users on Pipedrive.",
     method: "DELETE",
     path: "/v1/legacyTeams/{id}/users",
-    input: z.object({ id: z.number(), users: z.array(z.number()) }),
+    input: obj({ id: z.number(), users: z.array(z.number()) }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => pick(i, ["users"]),
@@ -68,7 +69,7 @@ export const legacyTeamsActions: Record<string, ActionDefinition> = {
     description: "Get user teams. Part of: LegacyTeams. Calls GET /v1/legacyTeams/user/{id} on Pipedrive.",
     method: "GET",
     path: "/v1/legacyTeams/user/{id}",
-    input: z.object({ id: z.number(), order_by: z.enum(["id", "name", "manager_id", "active_flag"]).optional(), skip_users: z.number().optional() }),
+    input: obj({ id: z.number(), order_by: z.enum(["id", "name", "manager_id", "active_flag"]).optional(), skip_users: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },

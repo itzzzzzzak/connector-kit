@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const ticketActions: Record<string, ActionDefinition> = {
     description: "Create ticket Calls POST /oauth/tickets on Netlify.",
     method: "POST",
     path: "/oauth/tickets",
-    input: z.object({ client_id: z.string(), message: z.string().optional() }),
+    input: obj({ client_id: z.string(), message: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["client_id"]),
@@ -21,7 +22,7 @@ export const ticketActions: Record<string, ActionDefinition> = {
     description: "Show ticket Calls GET /oauth/tickets/{ticketid} on Netlify.",
     method: "GET",
     path: "/oauth/tickets/{ticket_id}",
-    input: z.object({ ticket_id: z.string() }),
+    input: obj({ ticket_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

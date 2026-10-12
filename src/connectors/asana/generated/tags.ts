@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Get multiple tags. Required scope: tags:read Calls GET /tags on Asana.",
     method: "GET",
     path: "/tags",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), workspace: z.string().describe("The workspace to filter tags on.").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "offset", "path", "permalink_url", "uri", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), workspace: z.string().describe("The workspace to filter tags on.").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "offset", "path", "permalink_url", "uri", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Create a tag. Required scope: tags:write Calls POST /tags on Asana.",
     method: "POST",
     path: "/tags",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "permalink_url", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ gid: z.string().optional(), resource_type: z.string().optional(), name: z.string().optional(), color: z.string().nullable().optional(), notes: z.string().optional(), followers: z.array(z.string()).optional(), workspace: z.string().optional() }).optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "permalink_url", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ gid: z.string().optional(), resource_type: z.string().optional(), name: z.string().optional(), color: z.string().nullable().optional(), notes: z.string().optional(), followers: z.array(z.string()).optional(), workspace: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -31,7 +32,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Get a tag. Required scope: tags:read Calls GET /tags/{taggid} on Asana.",
     method: "GET",
     path: "/tags/{tag_gid}",
-    input: z.object({ tag_gid: z.string().describe("Globally unique identifier for the tag."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "permalink_url", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ tag_gid: z.string().describe("Globally unique identifier for the tag."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "permalink_url", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -39,7 +40,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Update a tag. Required scope: tags:write Calls PUT /tags/{taggid} on Asana.",
     method: "PUT",
     path: "/tags/{tag_gid}",
-    input: z.object({ tag_gid: z.string().describe("Globally unique identifier for the tag."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "permalink_url", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ gid: z.string().optional(), resource_type: z.string().optional(), name: z.string().optional(), color: z.string().nullable().optional(), notes: z.string().optional() }).optional() }),
+    input: obj({ tag_gid: z.string().describe("Globally unique identifier for the tag."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "permalink_url", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ gid: z.string().optional(), resource_type: z.string().optional(), name: z.string().optional(), color: z.string().nullable().optional(), notes: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -49,7 +50,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Delete a tag. A specific, existing tag can be deleted by making a DELETE request on the URL for that tag.",
     method: "DELETE",
     path: "/tags/{tag_gid}",
-    input: z.object({ tag_gid: z.string().describe("Globally unique identifier for the tag."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
+    input: obj({ tag_gid: z.string().describe("Globally unique identifier for the tag."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -57,7 +58,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Get a task's tags. Required scope: tags:read Calls GET /tasks/{taskgid}/tags on Asana.",
     method: "GET",
     path: "/tasks/{task_gid}/tags",
-    input: z.object({ task_gid: z.string().describe("The task to operate on."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "offset", "path", "permalink_url", "uri", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ task_gid: z.string().describe("The task to operate on."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "offset", "path", "permalink_url", "uri", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -66,7 +67,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Get tags in a workspace. Required scope: tags:read",
     method: "GET",
     path: "/workspaces/{workspace_gid}/tags",
-    input: z.object({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "offset", "path", "permalink_url", "uri", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "offset", "path", "permalink_url", "uri", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -75,7 +76,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Create a tag in a workspace. Required scope: tags:write",
     method: "POST",
     path: "/workspaces/{workspace_gid}/tags",
-    input: z.object({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "permalink_url", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ gid: z.string().optional(), resource_type: z.string().optional(), name: z.string().optional(), color: z.string().nullable().optional(), notes: z.string().optional(), followers: z.array(z.string()).optional() }).optional() }),
+    input: obj({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "created_at", "followers", "followers.name", "name", "notes", "permalink_url", "workspace", "workspace.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ gid: z.string().optional(), resource_type: z.string().optional(), name: z.string().optional(), color: z.string().nullable().optional(), notes: z.string().optional(), followers: z.array(z.string()).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),

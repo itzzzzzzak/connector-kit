@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const templatesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "List meeting templates. Part of: Templates. Calls GET /users/{userId}/meetingtemplates on Zoom.",
     method: "GET",
     path: "/users/{userId}/meeting_templates",
-    input: z.object({ userId: z.string() }),
+    input: obj({ userId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Meeting template create. Part of: Templates. Calls POST /users/{userId}/meetingtemplates on Zoom.",
     method: "POST",
     path: "/users/{userId}/meeting_templates",
-    input: z.object({ userId: z.string(), meeting_id: z.number().optional(), name: z.string().optional(), save_recurrence: z.boolean().optional(), overwrite: z.boolean().optional() }),
+    input: obj({ userId: z.string(), meeting_id: z.number().optional(), name: z.string().optional(), save_recurrence: z.boolean().optional(), overwrite: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },

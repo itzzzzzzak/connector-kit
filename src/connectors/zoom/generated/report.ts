@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const reportActions: Record<string, ActionDefinition> = {
     description: "Analytics. Part of: analytics. Calls GET /scheduler/analytics on Zoom.",
     method: "GET",
     path: "/scheduler/analytics",
-    input: z.object({ to: z.string().optional(), from: z.string().optional(), time_zone: z.string().optional(), user_id: z.string().optional() }),
+    input: obj({ to: z.string().optional(), from: z.string().optional(), time_zone: z.string().optional(), user_id: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const reportActions: Record<string, ActionDefinition> = {
     description: "Get zvaengagements. Part of: Report. Calls GET /virtualagent/report/engagements on Zoom.",
     method: "GET",
     path: "/virtual_agent/report/engagements",
-    input: z.object({ from: z.string().optional(), to: z.string().optional(), timezone: z.string().optional(), include_query_detail: z.boolean().optional(), agent_types: z.array(z.enum(["chat", "ai_voice", "ai_chat"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string().optional(), to: z.string().optional(), timezone: z.string().optional(), include_query_detail: z.boolean().optional(), agent_types: z.array(z.enum(["chat", "ai_voice", "ai_chat"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "engagements", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -28,7 +29,7 @@ export const reportActions: Record<string, ActionDefinition> = {
     description: "Get zvaquery details. Part of: Report. Calls GET /virtualagent/report/engagements/querydetails on Zoom.",
     method: "GET",
     path: "/virtual_agent/report/engagements/query_details",
-    input: z.object({ from: z.string().optional(), to: z.string().optional(), timezone: z.string().optional(), engagement_ids: z.string().optional(), agent_types: z.array(z.enum(["chat", "ai_voice", "ai_chat"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string().optional(), to: z.string().optional(), timezone: z.string().optional(), engagement_ids: z.string().optional(), agent_types: z.array(z.enum(["chat", "ai_voice", "ai_chat"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "engagement_query_details", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -37,7 +38,7 @@ export const reportActions: Record<string, ActionDefinition> = {
     description: "Get zvaengagementvariabledetails. Part of: Report. Calls GET /virtualagent/report/engagements/variables on Zoom.",
     method: "GET",
     path: "/virtual_agent/report/engagements/variables",
-    input: z.object({ from: z.string().optional(), to: z.string().optional(), timezone: z.string().optional(), engagement_ids: z.string().optional(), agent_types: z.array(z.enum(["chat", "ai_voice", "ai_chat"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string().optional(), to: z.string().optional(), timezone: z.string().optional(), engagement_ids: z.string().optional(), agent_types: z.array(z.enum(["chat", "ai_voice", "ai_chat"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "engagement_variable_details", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -46,7 +47,7 @@ export const reportActions: Record<string, ActionDefinition> = {
     description: "Get zvasurveys. Part of: Report. Calls GET /virtualagent/report/surveys on Zoom.",
     method: "GET",
     path: "/virtual_agent/report/surveys",
-    input: z.object({ from: z.string().optional(), to: z.string().optional(), timezone: z.string().optional(), engagement_ids: z.string().optional(), agent_types: z.array(z.enum(["chat", "ai_voice", "ai_chat"])).optional(), survey_ids: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string().optional(), to: z.string().optional(), timezone: z.string().optional(), engagement_ids: z.string().optional(), agent_types: z.array(z.enum(["chat", "ai_voice", "ai_chat"])).optional(), survey_ids: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "surveys", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -55,7 +56,7 @@ export const reportActions: Record<string, ActionDefinition> = {
     description: "Get zvatranscripts. Part of: Report. Calls GET /virtualagent/report/transcripts on Zoom.",
     method: "GET",
     path: "/virtual_agent/report/transcripts",
-    input: z.object({ from: z.string().optional(), to: z.string().optional(), timezone: z.string().optional(), engagement_ids: z.string().optional(), agent_types: z.array(z.enum(["chat", "ai_voice", "ai_chat"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string().optional(), to: z.string().optional(), timezone: z.string().optional(), engagement_ids: z.string().optional(), agent_types: z.array(z.enum(["chat", "ai_voice", "ai_chat"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "transcripts", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

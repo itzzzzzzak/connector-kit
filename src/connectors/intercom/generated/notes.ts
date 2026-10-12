@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const notesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const notesActions: Record<string, ActionDefinition> = {
     description: "List all notes. You can fetch a list of notes that are associated to a contact.",
     method: "GET",
     path: "/contacts/{contact_id}/notes",
-    input: z.object({ contact_id: z.string().describe("The unique identifier of a contact."), page: z.number().describe("The page of results to fetch. Defaults to first page").optional(), per_page: z.number().describe("How many results to display per page. Defaults to 15").optional() }),
+    input: obj({ contact_id: z.string().describe("The unique identifier of a contact."), page: z.number().describe("The page of results to fetch. Defaults to first page").optional(), per_page: z.number().describe("How many results to display per page. Defaults to 15").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const notesActions: Record<string, ActionDefinition> = {
     description: "Create a note. You can add a note to a single contact.",
     method: "POST",
     path: "/contacts/{contact_id}/notes",
-    input: z.object({ contact_id: z.string().describe("The unique identifier of a given contact."), body: z.string().describe("The text of the note."), admin_id: z.string().describe("The unique identifier of a given admin.").optional() }),
+    input: obj({ contact_id: z.string().describe("The unique identifier of a given contact."), body: z.string().describe("The text of the note."), admin_id: z.string().describe("The unique identifier of a given admin.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const notesActions: Record<string, ActionDefinition> = {
     description: "Retrieve a note. You can fetch the details of a single note.",
     method: "GET",
     path: "/notes/{note_id}",
-    input: z.object({ note_id: z.string().describe("The unique identifier of a given note") }),
+    input: obj({ note_id: z.string().describe("The unique identifier of a given note") }),
     output: z.unknown(),
     effect: "read",
   },

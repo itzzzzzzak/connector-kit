@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const accessRequestsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const accessRequestsActions: Record<string, ActionDefinition> = {
     description: "Get access requests. Returns the pending access requests for a target object or a target object filtered by user.",
     method: "GET",
     path: "/access_requests",
-    input: z.object({ target: z.string().describe("Globally unique identifier for the target object."), user: z.string().describe("A string identifying a user. This can either be the string \"me\", an email, or the gid of a user.").optional(), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["approval_status", "message", "requester", "requester.name", "target"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ target: z.string().describe("Globally unique identifier for the target object."), user: z.string().describe("A string identifying a user. This can either be the string \"me\", an email, or the gid of a user.").optional(), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["approval_status", "message", "requester", "requester.name", "target"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const accessRequestsActions: Record<string, ActionDefinition> = {
     description: "Create an access request. Submits a new access request for a private object. Currently supports projects and portfolios.",
     method: "POST",
     path: "/access_requests",
-    input: z.object({ data: z.object({ target: z.string(), message: z.string().nullable().optional() }).describe("A request to create shareable access for a user.").optional() }),
+    input: obj({ data: obj({ target: z.string(), message: z.string().nullable().optional() }).describe("A request to create shareable access for a user.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const accessRequestsActions: Record<string, ActionDefinition> = {
     description: "Approve an access request. Approves an access request for a target object.",
     method: "POST",
     path: "/access_requests/{access_request_gid}/approve",
-    input: z.object({ access_request_gid: z.string().describe("Globally unique identifier for the access request.") }),
+    input: obj({ access_request_gid: z.string().describe("Globally unique identifier for the access request.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const accessRequestsActions: Record<string, ActionDefinition> = {
     description: "Reject an access request. Rejects an access request for a target object.",
     method: "POST",
     path: "/access_requests/{access_request_gid}/reject",
-    input: z.object({ access_request_gid: z.string().describe("Globally unique identifier for the access request.") }),
+    input: obj({ access_request_gid: z.string().describe("Globally unique identifier for the access request.") }),
     output: z.unknown(),
     effect: "write",
   },

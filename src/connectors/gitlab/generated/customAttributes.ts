@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const customAttributesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const customAttributesActions: Record<string, ActionDefinition> = {
     description: "Get groups id custom attributes. Part of: customattributes. Calls GET /groups/{id}/customattributes on GitLab.",
     method: "GET",
     path: "/groups/{id}/custom_attributes",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const customAttributesActions: Record<string, ActionDefinition> = {
     description: "Get groups id custom attributes key. Part of: customattributes. Calls GET /groups/{id}/customattributes/{key} on GitLab.",
     method: "GET",
     path: "/groups/{id}/custom_attributes/{key}",
-    input: z.object({ key: z.string(), id: z.number() }),
+    input: obj({ key: z.string(), id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const customAttributesActions: Record<string, ActionDefinition> = {
     description: "Put groups id custom attributes key. Part of: customattributes. Calls PUT /groups/{id}/customattributes/{key} on GitLab.",
     method: "PUT",
     path: "/groups/{id}/custom_attributes/{key}",
-    input: z.object({ key: z.string(), id: z.number(), value: z.string() }),
+    input: obj({ key: z.string(), id: z.number(), value: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const customAttributesActions: Record<string, ActionDefinition> = {
     description: "Delete groups id custom attributes key. Part of: customattributes. Calls DELETE /groups/{id}/customattributes/{key} on GitLab.",
     method: "DELETE",
     path: "/groups/{id}/custom_attributes/{key}",
-    input: z.object({ key: z.string(), id: z.number() }),
+    input: obj({ key: z.string(), id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const customAttributesActions: Record<string, ActionDefinition> = {
     description: "Get projects id custom attributes. Part of: customattributes. Calls GET /projects/{id}/customattributes on GitLab.",
     method: "GET",
     path: "/projects/{id}/custom_attributes",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const customAttributesActions: Record<string, ActionDefinition> = {
     description: "Get projects id custom attributes key. Part of: customattributes. Calls GET /projects/{id}/customattributes/{key} on GitLab.",
     method: "GET",
     path: "/projects/{id}/custom_attributes/{key}",
-    input: z.object({ key: z.string(), id: z.number() }),
+    input: obj({ key: z.string(), id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const customAttributesActions: Record<string, ActionDefinition> = {
     description: "Put projects id custom attributes key. Part of: customattributes. Calls PUT /projects/{id}/customattributes/{key} on GitLab.",
     method: "PUT",
     path: "/projects/{id}/custom_attributes/{key}",
-    input: z.object({ key: z.string(), id: z.number(), value: z.string() }),
+    input: obj({ key: z.string(), id: z.number(), value: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -66,7 +67,7 @@ export const customAttributesActions: Record<string, ActionDefinition> = {
     description: "Delete projects id custom attributes key. Part of: customattributes. Calls DELETE /projects/{id}/customattributes/{key} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/custom_attributes/{key}",
-    input: z.object({ key: z.string(), id: z.number() }),
+    input: obj({ key: z.string(), id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const ciTriggersActions: Record<string, ActionDefinition> = {
     description: "Post projects id ref ref trigger pipeline. Part of: citriggers. Calls POST /projects/{id}/(ref/{ref}/)trigger/pipeline on GitLab.",
     method: "POST",
     path: "/projects/{id}/(ref/{ref}/)trigger/pipeline",
-    input: z.object({ id: z.string(), ref: z.string(), token: z.string(), variables: z.record(z.string(), z.unknown()).optional(), inputs: z.record(z.string(), z.unknown()).optional() }),
+    input: obj({ id: z.string(), ref: z.string(), token: z.string(), variables: z.record(z.string(), z.unknown()).optional(), inputs: z.record(z.string(), z.unknown()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const ciTriggersActions: Record<string, ActionDefinition> = {
     description: "Get projects id triggers. Part of: citriggers. Calls GET /projects/{id}/triggers on GitLab.",
     method: "GET",
     path: "/projects/{id}/triggers",
-    input: z.object({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -28,7 +29,7 @@ export const ciTriggersActions: Record<string, ActionDefinition> = {
     description: "Post projects id triggers. Part of: citriggers. Calls POST /projects/{id}/triggers on GitLab.",
     method: "POST",
     path: "/projects/{id}/triggers",
-    input: z.object({ id: z.string(), description: z.string(), expires_at: z.string().optional() }),
+    input: obj({ id: z.string(), description: z.string(), expires_at: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const ciTriggersActions: Record<string, ActionDefinition> = {
     description: "Get projects id triggers trigger id. Part of: citriggers. Calls GET /projects/{id}/triggers/{triggerid} on GitLab.",
     method: "GET",
     path: "/projects/{id}/triggers/{trigger_id}",
-    input: z.object({ id: z.string(), trigger_id: z.number() }),
+    input: obj({ id: z.string(), trigger_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -44,7 +45,7 @@ export const ciTriggersActions: Record<string, ActionDefinition> = {
     description: "Put projects id triggers trigger id. Part of: citriggers. Calls PUT /projects/{id}/triggers/{triggerid} on GitLab.",
     method: "PUT",
     path: "/projects/{id}/triggers/{trigger_id}",
-    input: z.object({ id: z.string(), trigger_id: z.number(), description: z.string().optional() }),
+    input: obj({ id: z.string(), trigger_id: z.number(), description: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -52,7 +53,7 @@ export const ciTriggersActions: Record<string, ActionDefinition> = {
     description: "Delete projects id triggers trigger id. Part of: citriggers. Calls DELETE /projects/{id}/triggers/{triggerid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/triggers/{trigger_id}",
-    input: z.object({ id: z.string(), trigger_id: z.number() }),
+    input: obj({ id: z.string(), trigger_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

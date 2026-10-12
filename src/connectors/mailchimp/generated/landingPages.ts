@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const landingPagesActions: Record<string, ActionDefinition> = {
     description: "Post landing page id actions publish. Part of: landingPages. Calls POST /landing-pages/{pageid}/actions/publish on Mailchimp.",
     method: "POST",
     path: "/landing-pages/{page_id}/actions/publish",
-    input: z.object({ page_id: z.string() }),
+    input: obj({ page_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const landingPagesActions: Record<string, ActionDefinition> = {
     description: "Get landing page id. Part of: landingPages. Calls GET /landing-pages/{pageid} on Mailchimp.",
     method: "GET",
     path: "/landing-pages/{page_id}",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), page_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), page_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const landingPagesActions: Record<string, ActionDefinition> = {
     description: "Patch landing page id. Part of: landingPages. Calls PATCH /landing-pages/{pageid} on Mailchimp.",
     method: "PATCH",
     path: "/landing-pages/{page_id}",
-    input: z.object({ page_id: z.string(), name: z.string().optional(), title: z.string().optional(), description: z.string().optional(), store_id: z.string().optional(), list_id: z.string().optional(), tracking: z.object({ track_with_mailchimp: z.boolean().optional(), enable_restricted_data_processing: z.boolean().optional() }).optional() }),
+    input: obj({ page_id: z.string(), name: z.string().optional(), title: z.string().optional(), description: z.string().optional(), store_id: z.string().optional(), list_id: z.string().optional(), tracking: obj({ track_with_mailchimp: z.boolean().optional(), enable_restricted_data_processing: z.boolean().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -35,7 +36,7 @@ export const landingPagesActions: Record<string, ActionDefinition> = {
     description: "Delete landing page id. Part of: landingPages. Calls DELETE /landing-pages/{pageid} on Mailchimp.",
     method: "DELETE",
     path: "/landing-pages/{page_id}",
-    input: z.object({ page_id: z.string() }),
+    input: obj({ page_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -43,7 +44,7 @@ export const landingPagesActions: Record<string, ActionDefinition> = {
     description: "Get all landing pages. Part of: landingPages. Calls GET /landing-pages on Mailchimp.",
     method: "GET",
     path: "/landing-pages",
-    input: z.object({ sort_dir: z.enum(["ASC", "DESC"]).optional(), sort_field: z.enum(["created_at", "updated_at"]).optional(), fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional() }),
+    input: obj({ sort_dir: z.enum(["ASC", "DESC"]).optional(), sort_field: z.enum(["created_at", "updated_at"]).optional(), fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -51,7 +52,7 @@ export const landingPagesActions: Record<string, ActionDefinition> = {
     description: "Post all landing pages. Part of: landingPages. Calls POST /landing-pages on Mailchimp.",
     method: "POST",
     path: "/landing-pages",
-    input: z.object({ use_default_list: z.boolean().optional(), name: z.string().optional(), title: z.string().optional(), description: z.string().optional(), store_id: z.string().optional(), list_id: z.string().optional(), type: z.enum(["signup", "product"]).optional(), template_id: z.number().optional(), tracking: z.object({ track_with_mailchimp: z.boolean().optional(), enable_restricted_data_processing: z.boolean().optional() }).optional() }),
+    input: obj({ use_default_list: z.boolean().optional(), name: z.string().optional(), title: z.string().optional(), description: z.string().optional(), store_id: z.string().optional(), list_id: z.string().optional(), type: z.enum(["signup", "product"]).optional(), template_id: z.number().optional(), tracking: obj({ track_with_mailchimp: z.boolean().optional(), enable_restricted_data_processing: z.boolean().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["use_default_list"]),
@@ -61,7 +62,7 @@ export const landingPagesActions: Record<string, ActionDefinition> = {
     description: "Post landing page id actions unpublish. Part of: landingPages. Calls POST /landing-pages/{pageid}/actions/unpublish on Mailchimp.",
     method: "POST",
     path: "/landing-pages/{page_id}/actions/unpublish",
-    input: z.object({ page_id: z.string() }),
+    input: obj({ page_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -69,7 +70,7 @@ export const landingPagesActions: Record<string, ActionDefinition> = {
     description: "Get landing page id content. Part of: landingPages. Calls GET /landing-pages/{pageid}/content on Mailchimp.",
     method: "GET",
     path: "/landing-pages/{page_id}/content",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), page_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), page_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

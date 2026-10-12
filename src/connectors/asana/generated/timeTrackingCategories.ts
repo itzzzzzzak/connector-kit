@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const timeTrackingCategoriesActions: Record<string, ActionDefinition> = {
     description: "Get a time tracking category. Required scope: timetrackingcategories:read",
     method: "GET",
     path: "/time_tracking_categories/{time_tracking_category_gid}",
-    input: z.object({ time_tracking_category_gid: z.string().describe("Globally unique identifier for the time tracking category."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "is_archived", "name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ time_tracking_category_gid: z.string().describe("Globally unique identifier for the time tracking category."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "is_archived", "name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -20,7 +21,7 @@ export const timeTrackingCategoriesActions: Record<string, ActionDefinition> = {
     description: "Update a time tracking category. Required scope: timetrackingcategories:write",
     method: "PUT",
     path: "/time_tracking_categories/{time_tracking_category_gid}",
-    input: z.object({ time_tracking_category_gid: z.string().describe("Globally unique identifier for the time tracking category."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "is_archived", "name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ name: z.string().optional(), color: z.enum(["none", "red", "orange", "yellow-orange", "yellow", "yellow-green", "green", "blue-green", "aqua", "blue", "indigo", "purple", "magenta", "hot-pink", "pink", "cool-gray"]).optional(), is_archived: z.boolean().optional() }).optional() }),
+    input: obj({ time_tracking_category_gid: z.string().describe("Globally unique identifier for the time tracking category."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "is_archived", "name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ name: z.string().optional(), color: z.enum(["none", "red", "orange", "yellow-orange", "yellow", "yellow-green", "green", "blue-green", "aqua", "blue", "indigo", "purple", "magenta", "hot-pink", "pink", "cool-gray"]).optional(), is_archived: z.boolean().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -30,7 +31,7 @@ export const timeTrackingCategoriesActions: Record<string, ActionDefinition> = {
     description: "Delete a time tracking category. Required scope: timetrackingcategories:delete",
     method: "DELETE",
     path: "/time_tracking_categories/{time_tracking_category_gid}",
-    input: z.object({ time_tracking_category_gid: z.string().describe("Globally unique identifier for the time tracking category."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
+    input: obj({ time_tracking_category_gid: z.string().describe("Globally unique identifier for the time tracking category."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -38,7 +39,7 @@ export const timeTrackingCategoriesActions: Record<string, ActionDefinition> = {
     description: "Get time tracking entries for a time tracking category. Required scope: timetrackingcategories:read",
     method: "GET",
     path: "/time_tracking_categories/{time_tracking_category_gid}/time_tracking_entries",
-    input: z.object({ time_tracking_category_gid: z.string().describe("Globally unique identifier for the time tracking category."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), start_date: z.string().describe("The start date for filtering time tracking entries by their entry date.").optional(), end_date: z.string().describe("The end date for filtering time tracking entries by their entry date.").optional(), opt_fields: z.array(z.enum(["assignee", "assignee.name", "attributable_to", "attributable_to.name", "attributable_to.resource_subtype", "categories", "categories.color", "categories.name", "created_by", "created_by.name", "duration_minutes", "entered_on", "offset", "path", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ time_tracking_category_gid: z.string().describe("Globally unique identifier for the time tracking category."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), start_date: z.string().describe("The start date for filtering time tracking entries by their entry date.").optional(), end_date: z.string().describe("The end date for filtering time tracking entries by their entry date.").optional(), opt_fields: z.array(z.enum(["assignee", "assignee.name", "attributable_to", "attributable_to.name", "attributable_to.resource_subtype", "categories", "categories.color", "categories.name", "created_by", "created_by.name", "duration_minutes", "entered_on", "offset", "path", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -47,7 +48,7 @@ export const timeTrackingCategoriesActions: Record<string, ActionDefinition> = {
     description: "Get time tracking categories for a workspace. Required scope: timetrackingcategories:read",
     method: "GET",
     path: "/time_tracking_categories",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), workspace: z.string().describe("Globally unique identifier for the workspace."), is_archived: z.boolean().describe("Filter by archived status. If not provided, defaults to returning non-archived categories.").optional(), opt_fields: z.array(z.enum(["color", "is_archived", "name", "offset", "path", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), workspace: z.string().describe("Globally unique identifier for the workspace."), is_archived: z.boolean().describe("Filter by archived status. If not provided, defaults to returning non-archived categories.").optional(), opt_fields: z.array(z.enum(["color", "is_archived", "name", "offset", "path", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -56,7 +57,7 @@ export const timeTrackingCategoriesActions: Record<string, ActionDefinition> = {
     description: "Create a time tracking category. Required scope: timetrackingcategories:write",
     method: "POST",
     path: "/time_tracking_categories",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "is_archived", "name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ name: z.string(), color: z.enum(["none", "red", "orange", "yellow-orange", "yellow", "yellow-green", "green", "blue-green", "aqua", "blue", "indigo", "purple", "magenta", "hot-pink", "pink", "cool-gray"]).optional(), workspace: z.string() }).optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["color", "is_archived", "name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ name: z.string(), color: z.enum(["none", "red", "orange", "yellow-orange", "yellow", "yellow-green", "green", "blue-green", "aqua", "blue", "indigo", "purple", "magenta", "hot-pink", "pink", "cool-gray"]).optional(), workspace: z.string() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),

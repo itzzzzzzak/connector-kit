@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const hookTypeActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const hookTypeActions: Record<string, ActionDefinition> = {
     description: "List hook types Calls GET /hooks/types on Netlify.",
     method: "GET",
     path: "/hooks/types",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const classificationLevelsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const classificationLevelsActions: Record<string, ActionDefinition> = {
     description: "Get all classification levels. Returns all classification levels.",
     method: "GET",
     path: "/classification-levels",
-    input: z.object({ status: z.array(z.enum(["PUBLISHED", "ARCHIVED", "DRAFT"])).describe("Optional set of statuses to filter by.").optional(), orderBy: z.enum(["rank", "-rank", "+rank"]).describe("Ordering of the results by a given field. If not provided, values will not be sorted.").optional() }),
+    input: obj({ status: z.array(z.enum(["PUBLISHED", "ARCHIVED", "DRAFT"])).describe("Optional set of statuses to filter by.").optional(), orderBy: z.enum(["rank", "-rank", "+rank"]).describe("Ordering of the results by a given field. If not provided, values will not be sorted.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

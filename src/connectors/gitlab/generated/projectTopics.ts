@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectTopicsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectTopicsActions: Record<string, ActionDefinition> = {
     description: "Get topics. Part of: projecttopics. Calls GET /topics on GitLab.",
     method: "GET",
     path: "/topics",
-    input: z.object({ search: z.string().optional(), without_projects: z.boolean().optional(), organization_id: z.number().optional(), page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ search: z.string().optional(), without_projects: z.boolean().optional(), organization_id: z.number().optional(), page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const projectTopicsActions: Record<string, ActionDefinition> = {
     description: "Post topics. Part of: projecttopics. Calls POST /topics on GitLab.",
     method: "POST",
     path: "/topics",
-    input: z.object({ name: z.string(), title: z.string(), description: z.string().optional(), avatar: z.unknown().optional(), organization_id: z.number().optional() }),
+    input: obj({ name: z.string(), title: z.string(), description: z.string().optional(), avatar: z.unknown().optional(), organization_id: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const projectTopicsActions: Record<string, ActionDefinition> = {
     description: "Get topics id. Part of: projecttopics. Calls GET /topics/{id} on GitLab.",
     method: "GET",
     path: "/topics/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const projectTopicsActions: Record<string, ActionDefinition> = {
     description: "Put topics id. Part of: projecttopics. Calls PUT /topics/{id} on GitLab.",
     method: "PUT",
     path: "/topics/{id}",
-    input: z.object({ id: z.number(), name: z.string().optional(), title: z.string().optional(), description: z.string().optional(), avatar: z.unknown().optional() }),
+    input: obj({ id: z.number(), name: z.string().optional(), title: z.string().optional(), description: z.string().optional(), avatar: z.unknown().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const projectTopicsActions: Record<string, ActionDefinition> = {
     description: "Delete topics id. Part of: projecttopics. Calls DELETE /topics/{id} on GitLab.",
     method: "DELETE",
     path: "/topics/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const projectTopicsActions: Record<string, ActionDefinition> = {
     description: "Post topics merge. Part of: projecttopics. Calls POST /topics/merge on GitLab.",
     method: "POST",
     path: "/topics/merge",
-    input: z.object({ source_topic_id: z.number(), target_topic_id: z.number() }),
+    input: obj({ source_topic_id: z.number(), target_topic_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },

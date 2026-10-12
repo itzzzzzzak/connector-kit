@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const privateDirectoryActions: Record<string, ActionDefinition> = {
     description: "List private directory members. Part of: Private Directory. Calls GET /phone/privatedirectory/members on Zoom.",
     method: "GET",
     path: "/phone/private_directory/members",
-    input: z.object({ keyword: z.string().optional(), site_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ keyword: z.string().optional(), site_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "private_directory_members", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const privateDirectoryActions: Record<string, ActionDefinition> = {
     description: "Add members to aprivate directory. Part of: Private Directory. Calls POST /phone/privatedirectory/members on Zoom.",
     method: "POST",
     path: "/phone/private_directory/members",
-    input: z.object({ site_id: z.string().optional(), members: z.array(z.object({ extension_id: z.string(), searchable_on_web_portal: z.enum(["everybody", "admins_only", "nobody"]) })) }),
+    input: obj({ site_id: z.string().optional(), members: z.array(obj({ extension_id: z.string(), searchable_on_web_portal: z.enum(["everybody", "admins_only", "nobody"]) })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const privateDirectoryActions: Record<string, ActionDefinition> = {
     description: "Update aprivate directory member. Part of: Private Directory. Calls PATCH /phone/privatedirectory/members/{extensionId} on Zoom.",
     method: "PATCH",
     path: "/phone/private_directory/members/{extensionId}",
-    input: z.object({ extensionId: z.string(), site_id: z.string().optional(), searchable_on_web_portal: z.enum(["everybody", "admins_only", "nobody"]) }),
+    input: obj({ extensionId: z.string(), site_id: z.string().optional(), searchable_on_web_portal: z.enum(["everybody", "admins_only", "nobody"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const privateDirectoryActions: Record<string, ActionDefinition> = {
     description: "Remove amember from aprivate directory. Part of: Private Directory. Calls DELETE /phone/privatedirectory/members/{extensionId} on Zoom.",
     method: "DELETE",
     path: "/phone/private_directory/members/{extensionId}",
-    input: z.object({ extensionId: z.string(), site_id: z.string().optional() }),
+    input: obj({ extensionId: z.string(), site_id: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

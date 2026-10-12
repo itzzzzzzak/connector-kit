@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const issueCommentsActions: Record<string, ActionDefinition> = {
     description: "Get comments by IDs. Returns a paginated list of comments specified by a list of comment IDs.",
     method: "POST",
     path: "/comment/list",
-    input: z.object({ expand: z.string().describe("Use expand to include additional information about comments in the response. This parameter accepts a comma-separated list. Expand options include:…").optional(), ids: z.array(z.number()).describe("The list of comment IDs. A maximum of 1000 IDs can be specified.") }),
+    input: obj({ expand: z.string().describe("Use expand to include additional information about comments in the response. This parameter accepts a comma-separated list. Expand options include:…").optional(), ids: z.array(z.number()).describe("The list of comment IDs. A maximum of 1000 IDs can be specified.") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["expand"]),
@@ -22,7 +23,7 @@ export const issueCommentsActions: Record<string, ActionDefinition> = {
     description: "Get comments. Returns all comments for an issue.",
     method: "GET",
     path: "/issue/{issueIdOrKey}/comment",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), orderBy: z.enum(["created", "-created", "+created"]).describe("Order the results by a field. Accepts created to sort comments by their created date.").optional(), expand: z.string().describe("Use expand to include additional information about comments in the response. This parameter accepts renderedBody, which returns the comment body rendered in…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), orderBy: z.enum(["created", "-created", "+created"]).describe("Order the results by a field. Accepts created to sort comments by their created date.").optional(), expand: z.string().describe("Use expand to include additional information about comments in the response. This parameter accepts renderedBody, which returns the comment body rendered in…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "comments", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -31,7 +32,7 @@ export const issueCommentsActions: Record<string, ActionDefinition> = {
     description: "Get comment. Returns a comment. Calls GET /issue/{issueIdOrKey}/comment/{id} on Jira.",
     method: "GET",
     path: "/issue/{issueIdOrKey}/comment/{id}",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), id: z.string().describe("The ID of the comment."), expand: z.string().describe("Use expand to include additional information about comments in the response. This parameter accepts renderedBody, which returns the comment body rendered in…").optional() }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), id: z.string().describe("The ID of the comment."), expand: z.string().describe("Use expand to include additional information about comments in the response. This parameter accepts renderedBody, which returns the comment body rendered in…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -39,7 +40,7 @@ export const issueCommentsActions: Record<string, ActionDefinition> = {
     description: "Update comment. Updates a comment. Calls PUT /issue/{issueIdOrKey}/comment/{id} on Jira.",
     method: "PUT",
     path: "/issue/{issueIdOrKey}/comment/{id}",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), id: z.string().describe("The ID of the comment."), notifyUsers: z.boolean().describe("Whether users are notified when a comment is updated.").optional(), overrideEditableFlag: z.boolean().describe("Whether screen security is overridden to enable uneditable fields to be edited. Available to Connect app users with the Administer Jira global permission and…").optional(), expand: z.string().describe("Use expand to include additional information about comments in the response. This parameter accepts renderedBody, which returns the comment body rendered in…").optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), id: z.string().describe("The ID of the comment."), notifyUsers: z.boolean().describe("Whether users are notified when a comment is updated.").optional(), overrideEditableFlag: z.boolean().describe("Whether screen security is overridden to enable uneditable fields to be edited. Available to Connect app users with the Administer Jira global permission and…").optional(), expand: z.string().describe("Use expand to include additional information about comments in the response. This parameter accepts renderedBody, which returns the comment body rendered in…").optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["notifyUsers","overrideEditableFlag","expand"]),
@@ -49,7 +50,7 @@ export const issueCommentsActions: Record<string, ActionDefinition> = {
     description: "Delete comment. Deletes a comment. Calls DELETE /issue/{issueIdOrKey}/comment/{id} on Jira.",
     method: "DELETE",
     path: "/issue/{issueIdOrKey}/comment/{id}",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), id: z.string().describe("The ID of the comment.") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), id: z.string().describe("The ID of the comment.") }),
     output: z.unknown(),
     effect: "destructive",
   },

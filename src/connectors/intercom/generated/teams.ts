@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const teamsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const teamsActions: Record<string, ActionDefinition> = {
     description: "List all teams. This will return a list of team objects for the App.",
     method: "GET",
     path: "/teams",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const teamsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a team. You can fetch the details of a single team, containing an array of admins that belong to this team.",
     method: "GET",
     path: "/teams/{team_id}",
-    input: z.object({ team_id: z.string().describe("The unique identifier of a given team.") }),
+    input: obj({ team_id: z.string().describe("The unique identifier of a given team.") }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const sessionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const sessionsActions: Record<string, ActionDefinition> = {
     description: "List sessions. Part of: Sessions. Calls GET /sessions on Zendesk.",
     method: "GET",
     path: "/sessions",
-    input: z.object({ sort: z.string().optional() }),
+    input: obj({ sort: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const sessionsActions: Record<string, ActionDefinition> = {
     description: "List user sessions. Part of: Sessions. Calls GET /users/{userid}/sessions on Zendesk.",
     method: "GET",
     path: "/users/{user_id}/sessions",
-    input: z.object({ user_id: z.number() }),
+    input: obj({ user_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const sessionsActions: Record<string, ActionDefinition> = {
     description: "Bulk delete sessions by user id. Part of: Sessions. Calls DELETE /users/{userid}/sessions on Zendesk.",
     method: "DELETE",
     path: "/users/{user_id}/sessions",
-    input: z.object({ user_id: z.number() }),
+    input: obj({ user_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const sessionsActions: Record<string, ActionDefinition> = {
     description: "Show session. Part of: Sessions. Calls GET /users/{userid}/sessions/{sessionid} on Zendesk.",
     method: "GET",
     path: "/users/{user_id}/sessions/{session_id}",
-    input: z.object({ session_id: z.number(), user_id: z.number() }),
+    input: obj({ session_id: z.number(), user_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const sessionsActions: Record<string, ActionDefinition> = {
     description: "Delete session. Part of: Sessions. Calls DELETE /users/{userid}/sessions/{sessionid} on Zendesk.",
     method: "DELETE",
     path: "/users/{user_id}/sessions/{session_id}",
-    input: z.object({ session_id: z.number(), user_id: z.number() }),
+    input: obj({ session_id: z.number(), user_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const sessionsActions: Record<string, ActionDefinition> = {
     description: "Delete authenticated session. Part of: Sessions. Calls DELETE /users/me/logout on Zendesk.",
     method: "DELETE",
     path: "/users/me/logout",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -58,7 +59,7 @@ export const sessionsActions: Record<string, ActionDefinition> = {
     description: "Show currently authenticated session. Part of: Sessions. Calls GET /users/me/session on Zendesk.",
     method: "GET",
     path: "/users/me/session",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -66,7 +67,7 @@ export const sessionsActions: Record<string, ActionDefinition> = {
     description: "Renew current session. Part of: Sessions. Calls GET /users/me/session/renew on Zendesk.",
     method: "GET",
     path: "/users/me/session/renew",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

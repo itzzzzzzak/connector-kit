@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const cloudPeeringProviderExchangeActions: Record<string, ActionDefinitio
     description: "Listpeeringphonenumbersforprovider. Part of: Cloud Peering Provider Exchange. Calls GET /numbermanagement/carrier/peeringnumbers on Zoom.",
     method: "GET",
     path: "/number_management/carrier/peering_numbers",
-    input: z.object({ phone_number: z.string().optional(), customer_account_number: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ phone_number: z.string().optional(), customer_account_number: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "numbers", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const cloudPeeringProviderExchangeActions: Record<string, ActionDefinitio
     description: "List peering phone numbers. Part of: Cloud Peering Provider Exchange. Calls GET /numbermanagement/peeringnumbers on Zoom.",
     method: "GET",
     path: "/number_management/peering_numbers",
-    input: z.object({ phone_number: z.string().optional(), carrier_code: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ phone_number: z.string().optional(), carrier_code: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "numbers", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -29,7 +30,7 @@ export const cloudPeeringProviderExchangeActions: Record<string, ActionDefinitio
     description: "Add peering phone numbers. Part of: Cloud Peering Provider Exchange. Calls POST /numbermanagement/peeringnumbers on Zoom.",
     method: "POST",
     path: "/number_management/peering_numbers",
-    input: z.object({ carrier_code: z.number().optional(), allocated_product: z.enum(["UNALLOCATED", "ZOOM_PHONE", "ZOOM_CONTACT_CENTER"]).optional(), phone_numbers: z.array(z.object({ billing_ref_id: z.string().optional(), phone_number: z.string(), number_type: z.enum(["Mobile", "Toll", "TollFree", "VirtualService"]).optional(), service_info: z.string().optional(), sip_trunk_name: z.string(), status: z.boolean(), voice_msg_capacity: z.enum(["ZOOM_PHONE_USER_ONLY", "MULTI_USE"]).optional(), voice_direction: z.enum(["INBOUND_AND_OUTBOUND", "INBOUND_ONLY", "OUTBOUND_ONLY", "NOT_SUPPORTED"]).optional(), outbound_dialer_not_supported: z.boolean().optional(), outbound_cli_share_not_supported: z.boolean().optional(), message_capability: z.enum(["NOT_APPLICABLE", "SUPPORTED", "NOT_SUPPORTED"]).optional() })) }),
+    input: obj({ carrier_code: z.number().optional(), allocated_product: z.enum(["UNALLOCATED", "ZOOM_PHONE", "ZOOM_CONTACT_CENTER"]).optional(), phone_numbers: z.array(obj({ billing_ref_id: z.string().optional(), phone_number: z.string(), number_type: z.enum(["Mobile", "Toll", "TollFree", "VirtualService"]).optional(), service_info: z.string().optional(), sip_trunk_name: z.string(), status: z.boolean(), voice_msg_capacity: z.enum(["ZOOM_PHONE_USER_ONLY", "MULTI_USE"]).optional(), voice_direction: z.enum(["INBOUND_AND_OUTBOUND", "INBOUND_ONLY", "OUTBOUND_ONLY", "NOT_SUPPORTED"]).optional(), outbound_dialer_not_supported: z.boolean().optional(), outbound_cli_share_not_supported: z.boolean().optional(), message_capability: z.enum(["NOT_APPLICABLE", "SUPPORTED", "NOT_SUPPORTED"]).optional() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -37,7 +38,7 @@ export const cloudPeeringProviderExchangeActions: Record<string, ActionDefinitio
     description: "Update peering phone numbers. Part of: Cloud Peering Provider Exchange. Calls PATCH /numbermanagement/peeringnumbers on Zoom.",
     method: "PATCH",
     path: "/number_management/peering_numbers",
-    input: z.object({ carrier_code: z.number().optional(), allocated_product: z.enum(["UNALLOCATED", "ZOOM_PHONE", "ZOOM_CONTACT_CENTER"]).optional(), phone_numbers: z.array(z.object({ phone_number: z.string(), billing_ref_id: z.string().optional(), service_info: z.string().optional(), sip_trunk_name: z.string().optional(), status: z.boolean().optional(), voice_msg_capacity: z.enum(["ZOOM_PHONE_USER_ONLY", "MULTI_USE"]).optional(), voice_direction: z.enum(["INBOUND_AND_OUTBOUND", "INBOUND_ONLY", "OUTBOUND_ONLY", "NOT_SUPPORTED"]).optional(), outbound_dialer_not_supported: z.boolean().optional(), outbound_cli_share_not_supported: z.boolean().optional(), message_capability: z.enum(["NOT_APPLICABLE", "SUPPORTED", "NOT_SUPPORTED"]).optional() })) }),
+    input: obj({ carrier_code: z.number().optional(), allocated_product: z.enum(["UNALLOCATED", "ZOOM_PHONE", "ZOOM_CONTACT_CENTER"]).optional(), phone_numbers: z.array(obj({ phone_number: z.string(), billing_ref_id: z.string().optional(), service_info: z.string().optional(), sip_trunk_name: z.string().optional(), status: z.boolean().optional(), voice_msg_capacity: z.enum(["ZOOM_PHONE_USER_ONLY", "MULTI_USE"]).optional(), voice_direction: z.enum(["INBOUND_AND_OUTBOUND", "INBOUND_ONLY", "OUTBOUND_ONLY", "NOT_SUPPORTED"]).optional(), outbound_dialer_not_supported: z.boolean().optional(), outbound_cli_share_not_supported: z.boolean().optional(), message_capability: z.enum(["NOT_APPLICABLE", "SUPPORTED", "NOT_SUPPORTED"]).optional() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -45,7 +46,7 @@ export const cloudPeeringProviderExchangeActions: Record<string, ActionDefinitio
     description: "Delete peering phone numbers. Part of: Cloud Peering Provider Exchange. Calls DELETE /numbermanagement/peeringnumbers on Zoom.",
     method: "DELETE",
     path: "/number_management/peering_numbers",
-    input: z.object({ carrier_code: z.number().optional(), phone_numbers: z.array(z.string()) }),
+    input: obj({ carrier_code: z.number().optional(), phone_numbers: z.array(z.string()) }),
     output: z.unknown(),
     effect: "destructive",
   },

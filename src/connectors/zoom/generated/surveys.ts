@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const surveysActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const surveysActions: Record<string, ActionDefinition> = {
     description: "Meeting survey get. Part of: Surveys. Calls GET /meetings/{meetingId}/survey on Zoom.",
     method: "GET",
     path: "/meetings/{meetingId}/survey",
-    input: z.object({ meetingId: z.number() }),
+    input: obj({ meetingId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const surveysActions: Record<string, ActionDefinition> = {
     description: "Meeting survey update. Part of: Surveys. Calls PATCH /meetings/{meetingId}/survey on Zoom.",
     method: "PATCH",
     path: "/meetings/{meetingId}/survey",
-    input: z.object({ meetingId: z.number(), custom_survey: z.object({ title: z.string().optional(), anonymous: z.boolean().optional(), numbered_questions: z.boolean().optional(), show_question_type: z.boolean().optional(), feedback: z.string().optional(), questions: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), show_in_the_browser: z.boolean().optional(), third_party_survey: z.string().optional() }),
+    input: obj({ meetingId: z.number(), custom_survey: obj({ title: z.string().optional(), anonymous: z.boolean().optional(), numbered_questions: z.boolean().optional(), show_question_type: z.boolean().optional(), feedback: z.string().optional(), questions: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), show_in_the_browser: z.boolean().optional(), third_party_survey: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const surveysActions: Record<string, ActionDefinition> = {
     description: "Meeting survey delete. Part of: Surveys. Calls DELETE /meetings/{meetingId}/survey on Zoom.",
     method: "DELETE",
     path: "/meetings/{meetingId}/survey",
-    input: z.object({ meetingId: z.number() }),
+    input: obj({ meetingId: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

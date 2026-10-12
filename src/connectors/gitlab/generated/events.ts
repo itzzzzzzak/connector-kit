@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const eventsActions: Record<string, ActionDefinition> = {
     description: "Get projects id events. Part of: events. Calls GET /projects/{id}/events on GitLab.",
     method: "GET",
     path: "/projects/{id}/events",
-    input: z.object({ id: z.string(), action: z.string().optional(), target_type: z.enum(["issue", "milestone", "merge_request", "note", "project", "snippet", "user", "wiki", "design"]).optional(), before: z.string().optional(), after: z.string().optional(), sort: z.enum(["asc", "desc"]).optional(), page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ id: z.string(), action: z.string().optional(), target_type: z.enum(["issue", "milestone", "merge_request", "note", "project", "snippet", "user", "wiki", "design"]).optional(), before: z.string().optional(), after: z.string().optional(), sort: z.enum(["asc", "desc"]).optional(), page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const eventsActions: Record<string, ActionDefinition> = {
     description: "Get events. Part of: events. Calls GET /events on GitLab.",
     method: "GET",
     path: "/events",
-    input: z.object({ scope: z.string().optional(), action: z.string().optional(), target_type: z.enum(["issue", "milestone", "merge_request", "note", "project", "snippet", "user", "wiki", "design"]).optional(), before: z.string().optional(), after: z.string().optional(), sort: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ scope: z.string().optional(), action: z.string().optional(), target_type: z.enum(["issue", "milestone", "merge_request", "note", "project", "snippet", "user", "wiki", "design"]).optional(), before: z.string().optional(), after: z.string().optional(), sort: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -28,7 +29,7 @@ export const eventsActions: Record<string, ActionDefinition> = {
     description: "Get users id events. Part of: events. Calls GET /users/{id}/events on GitLab.",
     method: "GET",
     path: "/users/{id}/events",
-    input: z.object({ id: z.string(), action: z.string().optional(), target_type: z.enum(["issue", "milestone", "merge_request", "note", "project", "snippet", "user", "wiki", "design"]).optional(), before: z.string().optional(), after: z.string().optional(), sort: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), action: z.string().optional(), target_type: z.enum(["issue", "milestone", "merge_request", "note", "project", "snippet", "user", "wiki", "design"]).optional(), before: z.string().optional(), after: z.string().optional(), sort: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),

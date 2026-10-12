@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const organizationFieldsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const organizationFieldsActions: Record<string, ActionDefinition> = {
     description: "List organization fields. Part of: Organization Fields. Calls GET /organizationfields on Zendesk.",
     method: "GET",
     path: "/organization_fields",
-    input: z.object({ resolve_dc: z.boolean().optional() }),
+    input: obj({ resolve_dc: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const organizationFieldsActions: Record<string, ActionDefinition> = {
     description: "Create organization field. Part of: Organization Fields. Calls POST /organizationfields on Zendesk.",
     method: "POST",
     path: "/organization_fields",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const organizationFieldsActions: Record<string, ActionDefinition> = {
     description: "Show organization field. Part of: Organization Fields. Calls GET /organizationfields/{organizationfieldid} on Zendesk.",
     method: "GET",
     path: "/organization_fields/{organization_field_id}",
-    input: z.object({ organization_field_id: z.unknown() }),
+    input: obj({ organization_field_id: z.unknown() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const organizationFieldsActions: Record<string, ActionDefinition> = {
     description: "Update organization field. Part of: Organization Fields. Calls PUT /organizationfields/{organizationfieldid} on Zendesk.",
     method: "PUT",
     path: "/organization_fields/{organization_field_id}",
-    input: z.object({ organization_field_id: z.unknown() }),
+    input: obj({ organization_field_id: z.unknown() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const organizationFieldsActions: Record<string, ActionDefinition> = {
     description: "Delete organization field. Part of: Organization Fields. Calls DELETE /organizationfields/{organizationfieldid} on Zendesk.",
     method: "DELETE",
     path: "/organization_fields/{organization_field_id}",
-    input: z.object({ organization_field_id: z.unknown() }),
+    input: obj({ organization_field_id: z.unknown() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const organizationFieldsActions: Record<string, ActionDefinition> = {
     description: "Reorder organization field. Part of: Organization Fields. Calls PUT /organizationfields/reorder on Zendesk.",
     method: "PUT",
     path: "/organization_fields/reorder",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },

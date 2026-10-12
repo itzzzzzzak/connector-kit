@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const invoicesActions: Record<string, ActionDefinition> = {
     description: "List All Invoices. To retrieve a list of all invoices, send a GET request to /v2/customers/my/invoices.",
     method: "GET",
     path: "/customers/my/invoices",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "invoices", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const invoicesActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Invoice by UUID. To retrieve the invoice items for an invoice, send a GET request to /v2/customers/my/invoices/$INVOICEUUID.",
     method: "GET",
     path: "/customers/my/invoices/{invoice_uuid}",
-    input: z.object({ invoice_uuid: z.string().describe("UUID of the invoice"), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ invoice_uuid: z.string().describe("UUID of the invoice"), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "invoice_items", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -29,7 +30,7 @@ export const invoicesActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Invoice CSV by UUID. To retrieve a CSV for an invoice, send a GET request to /v2/customers/my/invoices/$INVOICEUUID/csv.",
     method: "GET",
     path: "/customers/my/invoices/{invoice_uuid}/csv",
-    input: z.object({ invoice_uuid: z.string().describe("UUID of the invoice") }),
+    input: obj({ invoice_uuid: z.string().describe("UUID of the invoice") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const invoicesActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Invoice PDF by UUID. To retrieve a PDF for an invoice, send a GET request to /v2/customers/my/invoices/$INVOICEUUID/pdf.",
     method: "GET",
     path: "/customers/my/invoices/{invoice_uuid}/pdf",
-    input: z.object({ invoice_uuid: z.string().describe("UUID of the invoice") }),
+    input: obj({ invoice_uuid: z.string().describe("UUID of the invoice") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -45,7 +46,7 @@ export const invoicesActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Invoice Summary by UUID. To retrieve a summary for an invoice, send a GET request to /v2/customers/my/invoices/$INVOICEUUID/summary.",
     method: "GET",
     path: "/customers/my/invoices/{invoice_uuid}/summary",
-    input: z.object({ invoice_uuid: z.string().describe("UUID of the invoice") }),
+    input: obj({ invoice_uuid: z.string().describe("UUID of the invoice") }),
     output: z.unknown(),
     effect: "read",
   },

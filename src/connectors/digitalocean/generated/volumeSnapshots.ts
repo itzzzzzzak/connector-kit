@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const volumeSnapshotsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing Volume Snapshot. To retrieve the details of a snapshot that has been created from a volume, send a GET request to /v2/volumes/snapshots/$VOLUMESNAPSHOTID.",
     method: "GET",
     path: "/volumes/snapshots/{snapshot_id}",
-    input: z.object({ snapshot_id: z.string().describe("The unique identifier for the snapshot.") }),
+    input: obj({ snapshot_id: z.string().describe("The unique identifier for the snapshot.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const volumeSnapshotsActions: Record<string, ActionDefinition> = {
     description: "Delete a Volume Snapshot. To delete a volume snapshot, send a DELETE request to /v2/volumes/snapshots/$VOLUMESNAPSHOTID.",
     method: "DELETE",
     path: "/volumes/snapshots/{snapshot_id}",
-    input: z.object({ snapshot_id: z.string().describe("The unique identifier for the snapshot.") }),
+    input: obj({ snapshot_id: z.string().describe("The unique identifier for the snapshot.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -27,7 +28,7 @@ export const volumeSnapshotsActions: Record<string, ActionDefinition> = {
     description: "List Snapshots for a Volume. To retrieve the snapshots that have been created from a volume, send a GET request to /v2/volumes/$VOLUMEID/snapshots.",
     method: "GET",
     path: "/volumes/{volume_id}/snapshots",
-    input: z.object({ volume_id: z.string().describe("The ID of the block storage volume."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ volume_id: z.string().describe("The ID of the block storage volume."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "snapshots", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -36,7 +37,7 @@ export const volumeSnapshotsActions: Record<string, ActionDefinition> = {
     description: "Create Snapshot from a Volume. To create a snapshot from a volume, sent a POST request to /v2/volumes/$VOLUMEID/snapshots.",
     method: "POST",
     path: "/volumes/{volume_id}/snapshots",
-    input: z.object({ volume_id: z.string().describe("The ID of the block storage volume."), name: z.string().describe("A human-readable name for the volume snapshot."), tags: z.array(z.string()).nullable().describe("A flat array of tag names as strings to be applied to the resource. Tag names may be for either existing or new tags. Requires tag:create scope.").optional() }),
+    input: obj({ volume_id: z.string().describe("The ID of the block storage volume."), name: z.string().describe("A human-readable name for the volume snapshot."), tags: z.array(z.string()).nullable().describe("A flat array of tag names as strings to be applied to the resource. Tag names may be for either existing or new tags. Requires tag:create scope.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

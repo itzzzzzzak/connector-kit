@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const aclActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const aclActions: Record<string, ActionDefinition> = {
     description: "Listacl. Part of: acl. Calls GET /calendars/{calId}/acl on Zoom.",
     method: "GET",
     path: "/calendars/{calId}/acl",
-    input: z.object({ calId: z.string(), maxResults: z.number().optional(), showDeleted: z.boolean().optional(), pageToken: z.string().optional() }),
+    input: obj({ calId: z.string(), maxResults: z.number().optional(), showDeleted: z.boolean().optional(), pageToken: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const aclActions: Record<string, ActionDefinition> = {
     description: "Insertacl. Part of: acl. Calls POST /calendars/{calId}/acl on Zoom.",
     method: "POST",
     path: "/calendars/{calId}/acl",
-    input: z.object({ calId: z.string(), scope: z.unknown(), role: z.enum(["none", "freeBusyReader", "reader", "writer", "owner"]) }),
+    input: obj({ calId: z.string(), scope: z.unknown(), role: z.enum(["none", "freeBusyReader", "reader", "writer", "owner"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const aclActions: Record<string, ActionDefinition> = {
     description: "Getacl. Part of: acl. Calls GET /calendars/{calId}/acl/{aclId} on Zoom.",
     method: "GET",
     path: "/calendars/{calId}/acl/{aclId}",
-    input: z.object({ calId: z.string(), aclId: z.string() }),
+    input: obj({ calId: z.string(), aclId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const aclActions: Record<string, ActionDefinition> = {
     description: "Patchacl. Part of: acl. Calls PATCH /calendars/{calId}/acl/{aclId} on Zoom.",
     method: "PATCH",
     path: "/calendars/{calId}/acl/{aclId}",
-    input: z.object({ calId: z.string(), aclId: z.string(), scope: z.record(z.string(), z.unknown()), role: z.enum(["none", "freeBusyReader", "reader", "writer", "owner"]) }),
+    input: obj({ calId: z.string(), aclId: z.string(), scope: z.record(z.string(), z.unknown()), role: z.enum(["none", "freeBusyReader", "reader", "writer", "owner"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const aclActions: Record<string, ActionDefinition> = {
     description: "Deleteacl. Part of: acl. Calls DELETE /calendars/{calId}/acl/{aclId} on Zoom.",
     method: "DELETE",
     path: "/calendars/{calId}/acl/{aclId}",
-    input: z.object({ calId: z.string(), aclId: z.string() }),
+    input: obj({ calId: z.string(), aclId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

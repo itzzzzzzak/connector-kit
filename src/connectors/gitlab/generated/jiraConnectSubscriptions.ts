@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const jiraConnectSubscriptionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const jiraConnectSubscriptionsActions: Record<string, ActionDefinition> =
     description: "Post integrations jira connect subscriptions. Part of: jiraconnectsubscriptions. Calls POST /integrations/jiraconnect/subscriptions on GitLab.",
     method: "POST",
     path: "/integrations/jira_connect/subscriptions",
-    input: z.object({ jwt: z.string(), namespace_path: z.string() }),
+    input: obj({ jwt: z.string(), namespace_path: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const globalClientsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const globalClientsActions: Record<string, ActionDefinition> = {
     description: "List global oauth clients. Part of: Global Clients. Calls GET /oauth/globalclients on Zendesk.",
     method: "GET",
     path: "/oauth/global_clients",
-    input: z.object({ sort: z.string().optional() }),
+    input: obj({ sort: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const globalClientsActions: Record<string, ActionDefinition> = {
     description: "Show global client. Part of: Global Clients. Calls GET /oauth/globalclients/{globalclientid} on Zendesk.",
     method: "GET",
     path: "/oauth/global_clients/{global_client_id}",
-    input: z.object({ global_client_id: z.number() }),
+    input: obj({ global_client_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const globalClientsActions: Record<string, ActionDefinition> = {
     description: "Global oauth clients token summary. Part of: Global Clients. Calls GET /oauth/globalclients/tokensummary on Zendesk.",
     method: "GET",
     path: "/oauth/global_clients/token_summary",
-    input: z.object({ global_client_id: z.number().optional(), include_expired: z.boolean().optional() }),
+    input: obj({ global_client_id: z.number().optional(), include_expired: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },

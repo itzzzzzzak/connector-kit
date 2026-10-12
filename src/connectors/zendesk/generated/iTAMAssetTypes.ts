@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const iTAMAssetTypesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const iTAMAssetTypesActions: Record<string, ActionDefinition> = {
     description: "List itam asset types. Part of: ITAM Asset Types. Calls GET /itassetmanagement/assettypes on Zendesk.",
     method: "GET",
     path: "/it_asset_management/asset_types",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const iTAMAssetTypesActions: Record<string, ActionDefinition> = {
     description: "Create itam asset type. Part of: ITAM Asset Types. Calls POST /itassetmanagement/assettypes on Zendesk.",
     method: "POST",
     path: "/it_asset_management/asset_types",
-    input: z.object({ asset_type: z.object({ created_by_user_id: z.number().optional(), description: z.string().nullable().optional(), display_icon_url: z.string().nullable().optional(), external_id: z.string().nullable().optional(), field_keys: z.array(z.string()).optional(), hierarchy_depth: z.number().optional(), icon_url: z.string().nullable().optional(), id: z.string().optional(), is_standard: z.boolean().optional(), name: z.string(), parent_id: z.string().nullable().optional(), photo: z.record(z.string(), z.unknown()).nullable().optional(), updated_by_user_id: z.number().optional(), url: z.string().optional() }).optional() }),
+    input: obj({ asset_type: obj({ created_by_user_id: z.number().optional(), description: z.string().nullable().optional(), display_icon_url: z.string().nullable().optional(), external_id: z.string().nullable().optional(), field_keys: z.array(z.string()).optional(), hierarchy_depth: z.number().optional(), icon_url: z.string().nullable().optional(), id: z.string().optional(), is_standard: z.boolean().optional(), name: z.string(), parent_id: z.string().nullable().optional(), photo: z.record(z.string(), z.unknown()).nullable().optional(), updated_by_user_id: z.number().optional(), url: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const iTAMAssetTypesActions: Record<string, ActionDefinition> = {
     description: "Show itam asset type. Part of: ITAM Asset Types. Calls GET /itassetmanagement/assettypes/{assettypeid} on Zendesk.",
     method: "GET",
     path: "/it_asset_management/asset_types/{asset_type_id}",
-    input: z.object({ asset_type_id: z.string() }),
+    input: obj({ asset_type_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const iTAMAssetTypesActions: Record<string, ActionDefinition> = {
     description: "Update itam asset type. Part of: ITAM Asset Types. Calls PATCH /itassetmanagement/assettypes/{assettypeid} on Zendesk.",
     method: "PATCH",
     path: "/it_asset_management/asset_types/{asset_type_id}",
-    input: z.object({ asset_type_id: z.string(), asset_type: z.object({ description: z.string().nullable().optional(), external_id: z.string().nullable().optional(), name: z.string().optional(), photo: z.record(z.string(), z.unknown()).nullable().optional() }).optional() }),
+    input: obj({ asset_type_id: z.string(), asset_type: obj({ description: z.string().nullable().optional(), external_id: z.string().nullable().optional(), name: z.string().optional(), photo: z.record(z.string(), z.unknown()).nullable().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const iTAMAssetTypesActions: Record<string, ActionDefinition> = {
     description: "Delete itam asset type. Part of: ITAM Asset Types. Calls DELETE /itassetmanagement/assettypes/{assettypeid} on Zendesk.",
     method: "DELETE",
     path: "/it_asset_management/asset_types/{asset_type_id}",
-    input: z.object({ asset_type_id: z.string() }),
+    input: obj({ asset_type_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

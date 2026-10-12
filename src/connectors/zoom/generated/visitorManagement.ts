@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const visitorManagementActions: Record<string, ActionDefinition> = {
     description: "Invitation list. Part of: Visitor Management. Calls GET /visitor/invitation on Zoom.",
     method: "GET",
     path: "/visitor/invitation",
-    input: z.object({ invite_location_id: z.string().optional(), from: z.string().optional(), to: z.string().optional(), data_scope: z.enum(["user", "account"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ invite_location_id: z.string().optional(), from: z.string().optional(), to: z.string().optional(), data_scope: z.enum(["user", "account"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "invitations", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const visitorManagementActions: Record<string, ActionDefinition> = {
     description: "Create invitation. Part of: Visitor Management. Calls POST /visitor/invitation on Zoom.",
     method: "POST",
     path: "/visitor/invitation",
-    input: z.object({ visitor_email: z.string().optional(), visitor_name: z.string().optional(), start_time: z.string().optional(), invite_location_id: z.string().optional(), host_id: z.string().optional(), visitor_organization: z.string().optional() }),
+    input: obj({ visitor_email: z.string().optional(), visitor_name: z.string().optional(), start_time: z.string().optional(), invite_location_id: z.string().optional(), host_id: z.string().optional(), visitor_organization: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const visitorManagementActions: Record<string, ActionDefinition> = {
     description: "Get invitation. Part of: Visitor Management. Calls GET /visitor/invitation/{invitationId} on Zoom.",
     method: "GET",
     path: "/visitor/invitation/{invitationId}",
-    input: z.object({ invitationId: z.string() }),
+    input: obj({ invitationId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const visitorManagementActions: Record<string, ActionDefinition> = {
     description: "Update invitation. Part of: Visitor Management. Calls PATCH /visitor/invitation/{invitationId} on Zoom.",
     method: "PATCH",
     path: "/visitor/invitation/{invitationId}",
-    input: z.object({ invitationId: z.string(), visitor_name: z.string().optional(), start_time: z.string().optional(), invite_location_id: z.string().optional(), host_id: z.string().optional(), visitor_organization: z.string().optional(), visitor_email: z.string().optional() }),
+    input: obj({ invitationId: z.string(), visitor_name: z.string().optional(), start_time: z.string().optional(), invite_location_id: z.string().optional(), host_id: z.string().optional(), visitor_organization: z.string().optional(), visitor_email: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const visitorManagementActions: Record<string, ActionDefinition> = {
     description: "Delete invitation. Part of: Visitor Management. Calls DELETE /visitor/invitation/{invitationId} on Zoom.",
     method: "DELETE",
     path: "/visitor/invitation/{invitationId}",
-    input: z.object({ invitationId: z.string(), cancel: z.boolean().optional() }),
+    input: obj({ invitationId: z.string(), cancel: z.boolean().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const visitorManagementActions: Record<string, ActionDefinition> = {
     description: "Checkin visitor. Part of: Visitor Management. Calls POST /visitor/invitation/{invitationId}/checkin on Zoom.",
     method: "POST",
     path: "/visitor/invitation/{invitationId}/checkin",
-    input: z.object({ invitationId: z.string() }),
+    input: obj({ invitationId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const jobArtifactsActions: Record<string, ActionDefinition> = {
     description: "Get projects id jobs artifacts ref name download. Part of: jobartifacts. Calls GET /projects/{id}/jobs/artifacts/{refname}/download on GitLab.",
     method: "GET",
     path: "/projects/{id}/jobs/artifacts/{ref_name}/download",
-    input: z.object({ id: z.string(), ref_name: z.string(), job: z.string(), job_token: z.string().optional(), search_recent_successful_pipelines: z.boolean().optional() }),
+    input: obj({ id: z.string(), ref_name: z.string(), job: z.string(), job_token: z.string().optional(), search_recent_successful_pipelines: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const jobArtifactsActions: Record<string, ActionDefinition> = {
     description: "Get projects id jobs artifacts ref name raw artifact path. Part of: jobartifacts. Calls GET /projects/{id}/jobs/artifacts/{refname}/raw/artifactpath on GitLab.",
     method: "GET",
     path: "/projects/{id}/jobs/artifacts/{ref_name}/raw/*artifact_path",
-    input: z.object({ id: z.string(), ref_name: z.string(), job: z.string(), artifact_path: z.string(), job_token: z.string().optional(), search_recent_successful_pipelines: z.boolean().optional() }),
+    input: obj({ id: z.string(), ref_name: z.string(), job: z.string(), artifact_path: z.string(), job_token: z.string().optional(), search_recent_successful_pipelines: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const jobArtifactsActions: Record<string, ActionDefinition> = {
     description: "Get projects id jobs job id artifacts. Part of: jobartifacts. Calls GET /projects/{id}/jobs/{jobid}/artifacts on GitLab.",
     method: "GET",
     path: "/projects/{id}/jobs/{job_id}/artifacts",
-    input: z.object({ id: z.string(), job_id: z.number(), job_token: z.string().optional() }),
+    input: obj({ id: z.string(), job_id: z.number(), job_token: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const jobArtifactsActions: Record<string, ActionDefinition> = {
     description: "Delete projects id jobs job id artifacts. Part of: jobartifacts. Calls DELETE /projects/{id}/jobs/{jobid}/artifacts on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/jobs/{job_id}/artifacts",
-    input: z.object({ id: z.string(), job_id: z.number() }),
+    input: obj({ id: z.string(), job_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -43,7 +44,7 @@ export const jobArtifactsActions: Record<string, ActionDefinition> = {
     description: "Get projects id jobs job id artifacts tree. Part of: jobartifacts. Calls GET /projects/{id}/jobs/{jobid}/artifacts/tree on GitLab.",
     method: "GET",
     path: "/projects/{id}/jobs/{job_id}/artifacts/tree",
-    input: z.object({ id: z.string(), job_id: z.number(), path: z.string().optional(), recursive: z.boolean().optional(), job_token: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), job_id: z.number(), path: z.string().optional(), recursive: z.boolean().optional(), job_token: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -52,7 +53,7 @@ export const jobArtifactsActions: Record<string, ActionDefinition> = {
     description: "Get projects id jobs job id artifacts artifact path. Part of: jobartifacts. Calls GET /projects/{id}/jobs/{jobid}/artifacts/artifactpath on GitLab.",
     method: "GET",
     path: "/projects/{id}/jobs/{job_id}/artifacts/*artifact_path",
-    input: z.object({ id: z.string(), job_id: z.number(), artifact_path: z.string(), job_token: z.string().optional() }),
+    input: obj({ id: z.string(), job_id: z.number(), artifact_path: z.string(), job_token: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -60,7 +61,7 @@ export const jobArtifactsActions: Record<string, ActionDefinition> = {
     description: "Post projects id jobs job id artifacts keep. Part of: jobartifacts. Calls POST /projects/{id}/jobs/{jobid}/artifacts/keep on GitLab.",
     method: "POST",
     path: "/projects/{id}/jobs/{job_id}/artifacts/keep",
-    input: z.object({ id: z.string(), job_id: z.number() }),
+    input: obj({ id: z.string(), job_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -68,7 +69,7 @@ export const jobArtifactsActions: Record<string, ActionDefinition> = {
     description: "Delete projects id artifacts. Part of: jobartifacts. Calls DELETE /projects/{id}/artifacts on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/artifacts",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

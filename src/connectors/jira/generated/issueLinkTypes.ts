@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const issueLinkTypesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const issueLinkTypesActions: Record<string, ActionDefinition> = {
     description: "Get issue link types. Returns a list of all issue link types.",
     method: "GET",
     path: "/issueLinkType",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const issueLinkTypesActions: Record<string, ActionDefinition> = {
     description: "Create issue link type. Creates an issue link type. Use this operation to create descriptions of the reasons why issues are linked. The issue link type consists of a name and descriptions for a link's inward and outward relationships.",
     method: "POST",
     path: "/issueLinkType",
-    input: z.object({ id: z.string().describe("The ID of the issue link type and is used as follows: In the issueLink resource it is the type of issue link. Required on create when name isn't provided.…").optional(), inward: z.string().describe("The description of the issue link type inward link and is used as follows: In the issueLink resource it is read only. In the issueLinkType resource it is…").optional(), name: z.string().describe("The name of the issue link type and is used as follows: In the issueLink resource it is the type of issue link. Required on create when id isn't provided.…").optional(), outward: z.string().describe("The description of the issue link type outward link and is used as follows: In the issueLink resource it is read only. In the issueLinkType resource it is…").optional(), self: z.string().describe("The URL of the issue link type. Read only.").optional() }),
+    input: obj({ id: z.string().describe("The ID of the issue link type and is used as follows: In the issueLink resource it is the type of issue link. Required on create when name isn't provided.…").optional(), inward: z.string().describe("The description of the issue link type inward link and is used as follows: In the issueLink resource it is read only. In the issueLinkType resource it is…").optional(), name: z.string().describe("The name of the issue link type and is used as follows: In the issueLink resource it is the type of issue link. Required on create when id isn't provided.…").optional(), outward: z.string().describe("The description of the issue link type outward link and is used as follows: In the issueLink resource it is read only. In the issueLinkType resource it is…").optional(), self: z.string().describe("The URL of the issue link type. Read only.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const issueLinkTypesActions: Record<string, ActionDefinition> = {
     description: "Get issue link type. Returns an issue link type.",
     method: "GET",
     path: "/issueLinkType/{issueLinkTypeId}",
-    input: z.object({ issueLinkTypeId: z.string().describe("The ID of the issue link type.") }),
+    input: obj({ issueLinkTypeId: z.string().describe("The ID of the issue link type.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const issueLinkTypesActions: Record<string, ActionDefinition> = {
     description: "Update issue link type. Updates an issue link type.",
     method: "PUT",
     path: "/issueLinkType/{issueLinkTypeId}",
-    input: z.object({ issueLinkTypeId: z.string().describe("The ID of the issue link type."), id: z.string().describe("The ID of the issue link type and is used as follows: In the issueLink resource it is the type of issue link. Required on create when name isn't provided.…").optional(), inward: z.string().describe("The description of the issue link type inward link and is used as follows: In the issueLink resource it is read only. In the issueLinkType resource it is…").optional(), name: z.string().describe("The name of the issue link type and is used as follows: In the issueLink resource it is the type of issue link. Required on create when id isn't provided.…").optional(), outward: z.string().describe("The description of the issue link type outward link and is used as follows: In the issueLink resource it is read only. In the issueLinkType resource it is…").optional(), self: z.string().describe("The URL of the issue link type. Read only.").optional() }),
+    input: obj({ issueLinkTypeId: z.string().describe("The ID of the issue link type."), id: z.string().describe("The ID of the issue link type and is used as follows: In the issueLink resource it is the type of issue link. Required on create when name isn't provided.…").optional(), inward: z.string().describe("The description of the issue link type inward link and is used as follows: In the issueLink resource it is read only. In the issueLinkType resource it is…").optional(), name: z.string().describe("The name of the issue link type and is used as follows: In the issueLink resource it is the type of issue link. Required on create when id isn't provided.…").optional(), outward: z.string().describe("The description of the issue link type outward link and is used as follows: In the issueLink resource it is read only. In the issueLinkType resource it is…").optional(), self: z.string().describe("The URL of the issue link type. Read only.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const issueLinkTypesActions: Record<string, ActionDefinition> = {
     description: "Delete issue link type. Deletes an issue link type.",
     method: "DELETE",
     path: "/issueLinkType/{issueLinkTypeId}",
-    input: z.object({ issueLinkTypeId: z.string().describe("The ID of the issue link type.") }),
+    input: obj({ issueLinkTypeId: z.string().describe("The ID of the issue link type.") }),
     output: z.unknown(),
     effect: "destructive",
   },

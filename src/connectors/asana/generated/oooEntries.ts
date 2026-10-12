@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const oooEntriesActions: Record<string, ActionDefinition> = {
     description: "Get an OOO entry. Required scope: oooentries:read",
     method: "GET",
     path: "/ooo_entries/{ooo_entry_gid}",
-    input: z.object({ ooo_entry_gid: z.string().describe("Globally unique identifier for the OOO entry."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "end_date", "start_date", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ ooo_entry_gid: z.string().describe("Globally unique identifier for the OOO entry."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "end_date", "start_date", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -20,7 +21,7 @@ export const oooEntriesActions: Record<string, ActionDefinition> = {
     description: "Update an OOO entry. Required scope: oooentries:write",
     method: "PUT",
     path: "/ooo_entries/{ooo_entry_gid}",
-    input: z.object({ ooo_entry_gid: z.string().describe("Globally unique identifier for the OOO entry."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "end_date", "start_date", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ gid: z.string().optional(), resource_type: z.string().optional(), start_date: z.string().optional(), end_date: z.string().optional() }).describe("A generic Asana Resource, containing a globally unique identifier.").optional() }),
+    input: obj({ ooo_entry_gid: z.string().describe("Globally unique identifier for the OOO entry."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "end_date", "start_date", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ gid: z.string().optional(), resource_type: z.string().optional(), start_date: z.string().optional(), end_date: z.string().optional() }).describe("A generic Asana Resource, containing a globally unique identifier.").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -30,7 +31,7 @@ export const oooEntriesActions: Record<string, ActionDefinition> = {
     description: "Delete an OOO entry. Required scope: oooentries:delete",
     method: "DELETE",
     path: "/ooo_entries/{ooo_entry_gid}",
-    input: z.object({ ooo_entry_gid: z.string().describe("Globally unique identifier for the OOO entry."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
+    input: obj({ ooo_entry_gid: z.string().describe("Globally unique identifier for the OOO entry."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -38,7 +39,7 @@ export const oooEntriesActions: Record<string, ActionDefinition> = {
     description: "Get OOO entries for a user. Required scope: oooentries:read",
     method: "GET",
     path: "/ooo_entries",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), user: z.string().describe("Globally unique identifier for the user to filter OOO entries by."), workspace: z.string().describe("Globally unique identifier for the workspace."), start_date: z.string().describe("An ISO 8601 date string. Filters to OOO entries that overlap with or end after this date.").optional(), end_date: z.string().describe("An ISO 8601 date string. Filters to OOO entries that overlap with or start before this date.").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "end_date", "offset", "path", "start_date", "uri", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), user: z.string().describe("Globally unique identifier for the user to filter OOO entries by."), workspace: z.string().describe("Globally unique identifier for the workspace."), start_date: z.string().describe("An ISO 8601 date string. Filters to OOO entries that overlap with or end after this date.").optional(), end_date: z.string().describe("An ISO 8601 date string. Filters to OOO entries that overlap with or start before this date.").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "end_date", "offset", "path", "start_date", "uri", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -47,7 +48,7 @@ export const oooEntriesActions: Record<string, ActionDefinition> = {
     description: "Create an OOO entry. Required scope: oooentries:write",
     method: "POST",
     path: "/ooo_entries",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "end_date", "start_date", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ gid: z.string().optional(), resource_type: z.string().optional(), start_date: z.string(), end_date: z.string(), user: z.string(), workspace: z.string() }).optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_by", "created_by.name", "end_date", "start_date", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ gid: z.string().optional(), resource_type: z.string().optional(), start_date: z.string(), end_date: z.string(), user: z.string(), workspace: z.string() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),

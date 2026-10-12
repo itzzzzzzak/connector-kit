@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const communicationPreferencesLinksActions: Record<string, ActionDefiniti
     description: "Create generate. Part of: Status. Calls POST /communication-preferences/v4/links/generate on HubSpot.",
     method: "POST",
     path: "/communication-preferences/v4/links/generate",
-    input: z.object({ channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional(), language: z.string().optional(), subscriberIdString: z.string(), subscriptionId: z.number().optional() }),
+    input: obj({ channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional(), language: z.string().optional(), subscriberIdString: z.string(), subscriptionId: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["channel","businessUnitId"]),

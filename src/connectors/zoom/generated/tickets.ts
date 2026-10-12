@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const ticketsActions: Record<string, ActionDefinition> = {
     description: "Get tickets. Part of: Tickets. Calls GET /zoomevents/events/{eventId}/tickets on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/tickets",
-    input: z.object({ eventId: z.string(), external_ticket_id: z.string().optional(), email: z.string().optional(), ticket_type_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ eventId: z.string(), external_ticket_id: z.string().optional(), email: z.string().optional(), ticket_type_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "tickets", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -21,7 +22,7 @@ export const ticketsActions: Record<string, ActionDefinition> = {
     description: "Create tickets. Part of: Tickets. Calls POST /zoomevents/events/{eventId}/tickets on Zoom.",
     method: "POST",
     path: "/zoom_events/events/{eventId}/tickets",
-    input: z.object({ eventId: z.string(), validation_level: z.enum(["standard", "strict", "none"]).optional(), registration_source: z.string().optional(), tickets: z.array(z.object({ email: z.string(), ticket_type_id: z.string().optional(), external_ticket_id: z.string().optional(), send_notification: z.boolean().optional(), fast_join: z.boolean().optional(), registration_needed: z.boolean().optional(), authentication_method: z.enum(["zoom_account", "zoom_account_otp", "email_otp", "corporate_idp", "accelerated_auth"]).optional(), idp_name: z.string().optional(), security_code_at_join: z.boolean().optional(), session_ids: z.array(z.string()).optional(), first_name: z.string().optional(), last_name: z.string().optional(), address: z.string().optional(), city: z.string().optional(), state: z.string().optional(), zip: z.string().optional(), country: z.string().optional(), phone: z.string().optional(), industry: z.string().optional(), job_title: z.string().optional(), organization: z.string().optional(), organization_size: z.string().optional(), comments: z.string().optional(), custom_questions: z.array(z.record(z.string(), z.unknown())).optional() })).optional() }),
+    input: obj({ eventId: z.string(), validation_level: z.enum(["standard", "strict", "none"]).optional(), registration_source: z.string().optional(), tickets: z.array(obj({ email: z.string(), ticket_type_id: z.string().optional(), external_ticket_id: z.string().optional(), send_notification: z.boolean().optional(), fast_join: z.boolean().optional(), registration_needed: z.boolean().optional(), authentication_method: z.enum(["zoom_account", "zoom_account_otp", "email_otp", "corporate_idp", "accelerated_auth"]).optional(), idp_name: z.string().optional(), security_code_at_join: z.boolean().optional(), session_ids: z.array(z.string()).optional(), first_name: z.string().optional(), last_name: z.string().optional(), address: z.string().optional(), city: z.string().optional(), state: z.string().optional(), zip: z.string().optional(), country: z.string().optional(), phone: z.string().optional(), industry: z.string().optional(), job_title: z.string().optional(), organization: z.string().optional(), organization_size: z.string().optional(), comments: z.string().optional(), custom_questions: z.array(z.record(z.string(), z.unknown())).optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["validation_level"]),
@@ -31,7 +32,7 @@ export const ticketsActions: Record<string, ActionDefinition> = {
     description: "Get ticket details. Part of: Tickets. Calls GET /zoomevents/events/{eventId}/tickets/{ticketId} on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/tickets/{ticketId}",
-    input: z.object({ eventId: z.string(), ticketId: z.string() }),
+    input: obj({ eventId: z.string(), ticketId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -39,7 +40,7 @@ export const ticketsActions: Record<string, ActionDefinition> = {
     description: "Updateticket. Part of: Tickets. Calls PATCH /zoomevents/events/{eventId}/tickets/{ticketId} on Zoom.",
     method: "PATCH",
     path: "/zoom_events/events/{eventId}/tickets/{ticketId}",
-    input: z.object({ eventId: z.string(), ticketId: z.string(), first_name: z.string().optional(), last_name: z.string().optional(), address: z.string().optional(), city: z.string().optional(), state: z.string().optional(), zip: z.string().optional(), country: z.string().optional(), phone: z.string().optional(), industry: z.string().optional(), job_title: z.string().optional(), organization: z.string().optional(), organization_size: z.string().optional(), comments: z.string().optional(), authentication_method: z.enum(["zoom_account", "zoom_account_otp", "email_otp", "corporate_idp", "accelerated_auth"]).optional(), idp_name: z.string().optional(), security_code_at_join: z.boolean().optional(), custom_questions: z.array(z.object({ title: z.string().optional(), answer: z.string().optional() })).optional(), external_ticket_id: z.string().optional() }),
+    input: obj({ eventId: z.string(), ticketId: z.string(), first_name: z.string().optional(), last_name: z.string().optional(), address: z.string().optional(), city: z.string().optional(), state: z.string().optional(), zip: z.string().optional(), country: z.string().optional(), phone: z.string().optional(), industry: z.string().optional(), job_title: z.string().optional(), organization: z.string().optional(), organization_size: z.string().optional(), comments: z.string().optional(), authentication_method: z.enum(["zoom_account", "zoom_account_otp", "email_otp", "corporate_idp", "accelerated_auth"]).optional(), idp_name: z.string().optional(), security_code_at_join: z.boolean().optional(), custom_questions: z.array(obj({ title: z.string().optional(), answer: z.string().optional() })).optional(), external_ticket_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -47,7 +48,7 @@ export const ticketsActions: Record<string, ActionDefinition> = {
     description: "Delete ticket. Part of: Tickets. Calls DELETE /zoomevents/events/{eventId}/tickets/{ticketId} on Zoom.",
     method: "DELETE",
     path: "/zoom_events/events/{eventId}/tickets/{ticketId}",
-    input: z.object({ eventId: z.string(), ticketId: z.string() }),
+    input: obj({ eventId: z.string(), ticketId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

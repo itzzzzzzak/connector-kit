@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const filesActions: Record<string, ActionDefinition> = {
     description: "Get projects id repository files file path blame. Part of: files. Calls GET /projects/{id}/repository/files/{filepath}/blame on GitLab.",
     method: "GET",
     path: "/projects/{id}/repository/files/{file_path}/blame",
-    input: z.object({ id: z.string(), file_path: z.string(), ref: z.string(), range_start_: z.number(), range_end_: z.number() }),
+    input: obj({ id: z.string(), file_path: z.string(), ref: z.string(), range_start_: z.number(), range_end_: z.number() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { ref: "ref", range_start_: "range[start]", range_end_: "range[end]" }),
@@ -20,7 +21,7 @@ export const filesActions: Record<string, ActionDefinition> = {
     description: "Get projects id repository files file path raw. Part of: files. Calls GET /projects/{id}/repository/files/{filepath}/raw on GitLab.",
     method: "GET",
     path: "/projects/{id}/repository/files/{file_path}/raw",
-    input: z.object({ id: z.string(), file_path: z.string(), ref: z.string().optional(), lfs: z.boolean().optional() }),
+    input: obj({ id: z.string(), file_path: z.string(), ref: z.string().optional(), lfs: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const filesActions: Record<string, ActionDefinition> = {
     description: "Get projects id repository files file path. Part of: files. Calls GET /projects/{id}/repository/files/{filepath} on GitLab.",
     method: "GET",
     path: "/projects/{id}/repository/files/{file_path}",
-    input: z.object({ id: z.string(), file_path: z.string(), ref: z.string() }),
+    input: obj({ id: z.string(), file_path: z.string(), ref: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const filesActions: Record<string, ActionDefinition> = {
     description: "Post projects id repository files file path. Part of: files. Calls POST /projects/{id}/repository/files/{filepath} on GitLab.",
     method: "POST",
     path: "/projects/{id}/repository/files/{file_path}",
-    input: z.object({ id: z.string(), file_path: z.string(), file: z.unknown() }),
+    input: obj({ id: z.string(), file_path: z.string(), file: z.unknown() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const filesActions: Record<string, ActionDefinition> = {
     description: "Put projects id repository files file path. Part of: files. Calls PUT /projects/{id}/repository/files/{filepath} on GitLab.",
     method: "PUT",
     path: "/projects/{id}/repository/files/{file_path}",
-    input: z.object({ id: z.string(), file_path: z.string(), file: z.unknown() }),
+    input: obj({ id: z.string(), file_path: z.string(), file: z.unknown() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -52,7 +53,7 @@ export const filesActions: Record<string, ActionDefinition> = {
     description: "Delete projects id repository files file path. Part of: files. Calls DELETE /projects/{id}/repository/files/{filepath} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/repository/files/{file_path}",
-    input: z.object({ id: z.string(), file_path: z.string(), branch: z.string(), commit_message: z.string(), start_branch: z.string().optional(), author_email: z.string().optional(), author_name: z.string().optional(), last_commit_id: z.string().optional() }),
+    input: obj({ id: z.string(), file_path: z.string(), branch: z.string(), commit_message: z.string(), start_branch: z.string().optional(), author_email: z.string().optional(), author_name: z.string().optional(), last_commit_id: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

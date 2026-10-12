@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const teamsInPlanActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const teamsInPlanActions: Record<string, ActionDefinition> = {
     description: "Get teams in plan paginated. Returns a paginated list of plan-only and Atlassian teams in a plan.",
     method: "GET",
     path: "/plans/plan/{planId}/team",
-    input: z.object({ planId: z.number().describe("The ID of the plan."), cursor: z.string().describe("The cursor to start from. If not provided, the first page will be returned.").optional(), maxResults: z.number().describe("The maximum number of plan teams to return per page. The maximum value is 50. The default value is 50.").optional() }),
+    input: obj({ planId: z.number().describe("The ID of the plan."), cursor: z.string().describe("The cursor to start from. If not provided, the first page will be returned.").optional(), maxResults: z.number().describe("The maximum number of plan teams to return per page. The maximum value is 50. The default value is 50.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const teamsInPlanActions: Record<string, ActionDefinition> = {
     description: "Add Atlassian team to plan. Adds an existing Atlassian team to a plan and configures their plannning settings.",
     method: "POST",
     path: "/plans/plan/{planId}/team/atlassian",
-    input: z.object({ planId: z.number().describe("The ID of the plan."), capacity: z.number().describe("The capacity for the Atlassian team.").optional(), id: z.string().describe("The Atlassian team ID."), issueSourceId: z.number().describe("The ID of the issue source for the Atlassian team.").optional(), planningStyle: z.enum(["Scrum", "Kanban"]).describe("The planning style for the Atlassian team. This must be \"Scrum\" or \"Kanban\"."), sprintLength: z.number().describe("The sprint length for the Atlassian team.").optional() }),
+    input: obj({ planId: z.number().describe("The ID of the plan."), capacity: z.number().describe("The capacity for the Atlassian team.").optional(), id: z.string().describe("The Atlassian team ID."), issueSourceId: z.number().describe("The ID of the issue source for the Atlassian team.").optional(), planningStyle: z.enum(["Scrum", "Kanban"]).describe("The planning style for the Atlassian team. This must be \"Scrum\" or \"Kanban\"."), sprintLength: z.number().describe("The sprint length for the Atlassian team.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const teamsInPlanActions: Record<string, ActionDefinition> = {
     description: "Get Atlassian team in plan. Returns planning settings for an Atlassian team in a plan.",
     method: "GET",
     path: "/plans/plan/{planId}/team/atlassian/{atlassianTeamId}",
-    input: z.object({ planId: z.number().describe("The ID of the plan."), atlassianTeamId: z.string().describe("The ID of the Atlassian team.") }),
+    input: obj({ planId: z.number().describe("The ID of the plan."), atlassianTeamId: z.string().describe("The ID of the Atlassian team.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const teamsInPlanActions: Record<string, ActionDefinition> = {
     description: "Remove Atlassian team from plan. Removes an Atlassian team from a plan and deletes their planning settings.",
     method: "DELETE",
     path: "/plans/plan/{planId}/team/atlassian/{atlassianTeamId}",
-    input: z.object({ planId: z.number().describe("The ID of the plan."), atlassianTeamId: z.string().describe("The ID of the Atlassian team.") }),
+    input: obj({ planId: z.number().describe("The ID of the plan."), atlassianTeamId: z.string().describe("The ID of the Atlassian team.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const teamsInPlanActions: Record<string, ActionDefinition> = {
     description: "Create plan-only team. Creates a plan-only team and configures their planning settings.",
     method: "POST",
     path: "/plans/plan/{planId}/team/planonly",
-    input: z.object({ planId: z.number().describe("The ID of the plan."), capacity: z.number().describe("The capacity for the plan-only team.").optional(), issueSourceId: z.number().describe("The ID of the issue source for the plan-only team.").optional(), memberAccountIds: z.array(z.string()).describe("The account IDs of the plan-only team members.").optional(), name: z.string().describe("The plan-only team name."), planningStyle: z.enum(["Scrum", "Kanban"]).describe("The planning style for the plan-only team. This must be \"Scrum\" or \"Kanban\"."), sprintLength: z.number().describe("The sprint length for the plan-only team.").optional() }),
+    input: obj({ planId: z.number().describe("The ID of the plan."), capacity: z.number().describe("The capacity for the plan-only team.").optional(), issueSourceId: z.number().describe("The ID of the issue source for the plan-only team.").optional(), memberAccountIds: z.array(z.string()).describe("The account IDs of the plan-only team members.").optional(), name: z.string().describe("The plan-only team name."), planningStyle: z.enum(["Scrum", "Kanban"]).describe("The planning style for the plan-only team. This must be \"Scrum\" or \"Kanban\"."), sprintLength: z.number().describe("The sprint length for the plan-only team.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const teamsInPlanActions: Record<string, ActionDefinition> = {
     description: "Get plan-only team. Returns planning settings for a plan-only team.",
     method: "GET",
     path: "/plans/plan/{planId}/team/planonly/{planOnlyTeamId}",
-    input: z.object({ planId: z.number().describe("The ID of the plan."), planOnlyTeamId: z.number().describe("The ID of the plan-only team.") }),
+    input: obj({ planId: z.number().describe("The ID of the plan."), planOnlyTeamId: z.number().describe("The ID of the plan-only team.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const teamsInPlanActions: Record<string, ActionDefinition> = {
     description: "Delete plan-only team. Deletes a plan-only team and their planning settings.",
     method: "DELETE",
     path: "/plans/plan/{planId}/team/planonly/{planOnlyTeamId}",
-    input: z.object({ planId: z.number().describe("The ID of the plan."), planOnlyTeamId: z.number().describe("The ID of the plan-only team.") }),
+    input: obj({ planId: z.number().describe("The ID of the plan."), planOnlyTeamId: z.number().describe("The ID of the plan-only team.") }),
     output: z.unknown(),
     effect: "destructive",
   },

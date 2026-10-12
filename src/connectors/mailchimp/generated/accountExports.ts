@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const accountExportsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const accountExportsActions: Record<string, ActionDefinition> = {
     description: "Get account exports. Part of: accountExports. Calls GET /account-exports on Mailchimp.",
     method: "GET",
     path: "/account-exports",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const accountExportsActions: Record<string, ActionDefinition> = {
     description: "Post account export. Part of: accountExports. Calls POST /account-exports on Mailchimp.",
     method: "POST",
     path: "/account-exports",
-    input: z.object({ include_stages: z.array(z.enum(["audiences", "campaigns", "events", "gallery_files", "reports", "templates"])), since_timestamp: z.string().optional() }),
+    input: obj({ include_stages: z.array(z.enum(["audiences", "campaigns", "events", "gallery_files", "reports", "templates"])), since_timestamp: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

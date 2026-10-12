@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const functionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const functionsActions: Record<string, ActionDefinition> = {
     description: "List Namespaces. Returns a list of namespaces associated with the current user. To get all namespaces, send a GET request to /v2/functions/namespaces.",
     method: "GET",
     path: "/functions/namespaces",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const functionsActions: Record<string, ActionDefinition> = {
     description: "Create Namespace. Creates a new serverless functions namespace in the desired region and associates it with the provided label. A namespace is a collection of functions and their associated packages, triggers, and project specifications. To create a namespace, send a POST request to /v2/functions/namespaces with the region and label properties.",
     method: "POST",
     path: "/functions/namespaces",
-    input: z.object({ region: z.string().describe("The datacenter region in which to create the namespace."), label: z.string().describe("The namespace's unique name.") }),
+    input: obj({ region: z.string().describe("The datacenter region in which to create the namespace."), label: z.string().describe("The namespace's unique name.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const functionsActions: Record<string, ActionDefinition> = {
     description: "Get Namespace. Gets the namespace details for the given namespace UUID. To get namespace details, send a GET request to /v2/functions/namespaces/$NAMESPACEID with no parameters.",
     method: "GET",
     path: "/functions/namespaces/{namespace_id}",
-    input: z.object({ namespace_id: z.string().describe("The ID of the namespace to be managed.") }),
+    input: obj({ namespace_id: z.string().describe("The ID of the namespace to be managed.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const functionsActions: Record<string, ActionDefinition> = {
     description: "Delete Namespace. Deletes the given namespace. When a namespace is deleted all assets, in the namespace are deleted, this includes packages, functions and triggers. Deleting a namespace is a destructive operation and assets in the namespace are not recoverable after deletion. Some metadata is retained, such as activations, or soft deleted for rep",
     method: "DELETE",
     path: "/functions/namespaces/{namespace_id}",
-    input: z.object({ namespace_id: z.string().describe("The ID of the namespace to be managed.") }),
+    input: obj({ namespace_id: z.string().describe("The ID of the namespace to be managed.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const functionsActions: Record<string, ActionDefinition> = {
     description: "List Triggers. Returns a list of triggers associated with the current user and namespace. To get all triggers, send a GET request to /v2/functions/namespaces/$NAMESPACEID/triggers.",
     method: "GET",
     path: "/functions/namespaces/{namespace_id}/triggers",
-    input: z.object({ namespace_id: z.string().describe("The ID of the namespace to be managed.") }),
+    input: obj({ namespace_id: z.string().describe("The ID of the namespace to be managed.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const functionsActions: Record<string, ActionDefinition> = {
     description: "Create Trigger. Creates a new trigger for a given function in a namespace. To create a trigger, send a POST request to /v2/functions/namespaces/$NAMESPACEID/triggers with the name, function, type, isenabled and scheduleddetails properties.",
     method: "POST",
     path: "/functions/namespaces/{namespace_id}/triggers",
-    input: z.object({ namespace_id: z.string().describe("The ID of the namespace to be managed."), name: z.string().describe("The trigger's unique name within the namespace."), function: z.string().describe("Name of function(action) that exists in the given namespace."), type: z.string().describe("One of different type of triggers. Currently only SCHEDULED is supported."), is_enabled: z.boolean().describe("Indicates weather the trigger is paused or unpaused."), scheduled_details: z.object({ cron: z.string(), body: z.object({ name: z.string().optional() }).nullable().optional() }).describe("Trigger details for SCHEDULED type, where body is optional.") }),
+    input: obj({ namespace_id: z.string().describe("The ID of the namespace to be managed."), name: z.string().describe("The trigger's unique name within the namespace."), function: z.string().describe("Name of function(action) that exists in the given namespace."), type: z.string().describe("One of different type of triggers. Currently only SCHEDULED is supported."), is_enabled: z.boolean().describe("Indicates weather the trigger is paused or unpaused."), scheduled_details: obj({ cron: z.string(), body: obj({ name: z.string().optional() }).nullable().optional() }).describe("Trigger details for SCHEDULED type, where body is optional.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const functionsActions: Record<string, ActionDefinition> = {
     description: "Get Trigger. Gets the trigger details. To get the trigger details, send a GET request to /v2/functions/namespaces/$NAMESPACEID/triggers/$TRIGGERNAME.",
     method: "GET",
     path: "/functions/namespaces/{namespace_id}/triggers/{trigger_name}",
-    input: z.object({ namespace_id: z.string().describe("The ID of the namespace to be managed."), trigger_name: z.string().describe("The name of the trigger to be managed.") }),
+    input: obj({ namespace_id: z.string().describe("The ID of the namespace to be managed."), trigger_name: z.string().describe("The name of the trigger to be managed.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -66,7 +67,7 @@ export const functionsActions: Record<string, ActionDefinition> = {
     description: "Update Trigger. Updates the details of the given trigger. To update a trigger, send a PUT request to /v2/functions/namespaces/$NAMESPACEID/triggers/$TRIGGERNAME with new values for the isenabled or scheduleddetails properties.",
     method: "PUT",
     path: "/functions/namespaces/{namespace_id}/triggers/{trigger_name}",
-    input: z.object({ namespace_id: z.string().describe("The ID of the namespace to be managed."), trigger_name: z.string().describe("The name of the trigger to be managed."), is_enabled: z.boolean().describe("Indicates weather the trigger is paused or unpaused.").optional(), scheduled_details: z.object({ cron: z.string(), body: z.object({ name: z.string().optional() }).nullable().optional() }).describe("Trigger details for SCHEDULED type, where body is optional.").optional() }),
+    input: obj({ namespace_id: z.string().describe("The ID of the namespace to be managed."), trigger_name: z.string().describe("The name of the trigger to be managed."), is_enabled: z.boolean().describe("Indicates weather the trigger is paused or unpaused.").optional(), scheduled_details: obj({ cron: z.string(), body: obj({ name: z.string().optional() }).nullable().optional() }).describe("Trigger details for SCHEDULED type, where body is optional.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -74,7 +75,7 @@ export const functionsActions: Record<string, ActionDefinition> = {
     description: "Delete Trigger. Deletes the given trigger. To delete trigger, send a DELETE request to /v2/functions/namespaces/$NAMESPACEID/triggers/$TRIGGERNAME. A successful deletion returns a 204 response.",
     method: "DELETE",
     path: "/functions/namespaces/{namespace_id}/triggers/{trigger_name}",
-    input: z.object({ namespace_id: z.string().describe("The ID of the namespace to be managed."), trigger_name: z.string().describe("The name of the trigger to be managed.") }),
+    input: obj({ namespace_id: z.string().describe("The ID of the namespace to be managed."), trigger_name: z.string().describe("The name of the trigger to be managed.") }),
     output: z.unknown(),
     effect: "destructive",
   },

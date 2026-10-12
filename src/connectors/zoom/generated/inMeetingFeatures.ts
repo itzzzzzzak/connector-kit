@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const inMeetingFeaturesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const inMeetingFeaturesActions: Record<string, ActionDefinition> = {
     description: "Update meeting chat message by id. Part of: In-Meeting Features. Calls PATCH /livemeetings/{meetingId}/chat/messages/{messageId} on Zoom.",
     method: "PATCH",
     path: "/live_meetings/{meetingId}/chat/messages/{messageId}",
-    input: z.object({ meetingId: z.number(), messageId: z.string(), message_content: z.string() }),
+    input: obj({ meetingId: z.number(), messageId: z.string(), message_content: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const inMeetingFeaturesActions: Record<string, ActionDefinition> = {
     description: "Delete meeting chat message by id. Part of: In-Meeting Features. Calls DELETE /livemeetings/{meetingId}/chat/messages/{messageId} on Zoom.",
     method: "DELETE",
     path: "/live_meetings/{meetingId}/chat/messages/{messageId}",
-    input: z.object({ meetingId: z.number(), messageId: z.string(), file_ids: z.string().optional() }),
+    input: obj({ meetingId: z.number(), messageId: z.string(), file_ids: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -26,7 +27,7 @@ export const inMeetingFeaturesActions: Record<string, ActionDefinition> = {
     description: "In meeting control. Part of: In-Meeting Features. Calls PATCH /livemeetings/{meetingId}/events on Zoom.",
     method: "PATCH",
     path: "/live_meetings/{meetingId}/events",
-    input: z.object({ meetingId: z.string(), method: z.enum(["recording.start", "recording.stop", "recording.pause", "recording.resume", "participant.invite", "participant.invite.callout", "participant.invite.room_system_callout", "waiting_room.update", "ai_companion.start", "ai_companion.stop", "ai_companion.disable", "participant.remove"]).optional(), params: z.object({ contacts: z.array(z.record(z.string(), z.unknown())).optional(), invitee_name: z.string().optional(), phone_number: z.string().optional(), invite_options: z.object({ require_greeting: z.boolean().optional(), require_pressing_one: z.boolean().optional() }).optional(), call_type: z.string().optional(), device_ip: z.string().optional(), h323_headers: z.object({ from_display_name: z.string().optional(), to_display_name: z.string().optional() }).optional(), sip_headers: z.object({ from_display_name: z.string().optional(), to_display_name: z.string().optional(), from_uri: z.string().optional(), additional_headers: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), participant_uuid: z.string().optional(), waiting_room_title: z.string().optional(), waiting_room_description: z.string().optional(), ai_companion_mode: z.enum(["questions", "summary", "all"]).optional(), retain_meeting_transcript: z.boolean().optional(), delete_meeting_assets: z.boolean().optional() }).optional() }),
+    input: obj({ meetingId: z.string(), method: z.enum(["recording.start", "recording.stop", "recording.pause", "recording.resume", "participant.invite", "participant.invite.callout", "participant.invite.room_system_callout", "waiting_room.update", "ai_companion.start", "ai_companion.stop", "ai_companion.disable", "participant.remove"]).optional(), params: obj({ contacts: z.array(z.record(z.string(), z.unknown())).optional(), invitee_name: z.string().optional(), phone_number: z.string().optional(), invite_options: obj({ require_greeting: z.boolean().optional(), require_pressing_one: z.boolean().optional() }).optional(), call_type: z.string().optional(), device_ip: z.string().optional(), h323_headers: obj({ from_display_name: z.string().optional(), to_display_name: z.string().optional() }).optional(), sip_headers: obj({ from_display_name: z.string().optional(), to_display_name: z.string().optional(), from_uri: z.string().optional(), additional_headers: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), participant_uuid: z.string().optional(), waiting_room_title: z.string().optional(), waiting_room_description: z.string().optional(), ai_companion_mode: z.enum(["questions", "summary", "all"]).optional(), retain_meeting_transcript: z.boolean().optional(), delete_meeting_assets: z.boolean().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const inMeetingFeaturesActions: Record<string, ActionDefinition> = {
     description: "Meeting local recording join token. Part of: In-Meeting Features. Calls GET /meetings/{meetingId}/jointoken/localrecording on Zoom.",
     method: "GET",
     path: "/meetings/{meetingId}/jointoken/local_recording",
-    input: z.object({ meetingId: z.number(), bypass_waiting_room: z.boolean().optional() }),
+    input: obj({ meetingId: z.number(), bypass_waiting_room: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const inMeetingFeaturesActions: Record<string, ActionDefinition> = {
     description: "Meeting token. Part of: In-Meeting Features. Calls GET /meetings/{meetingId}/token on Zoom.",
     method: "GET",
     path: "/meetings/{meetingId}/token",
-    input: z.object({ meetingId: z.number(), type: z.enum(["closed_caption_token"]).optional() }),
+    input: obj({ meetingId: z.number(), type: z.enum(["closed_caption_token"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },

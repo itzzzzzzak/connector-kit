@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const marketingFormsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /marketing/v3/forms on HubSpot.",
     method: "GET",
     path: "/marketing/v3/forms",
-    input: z.object({ archived: z.boolean().optional(), formTypes: z.array(z.enum(["hubspot", "captured", "flow", "blog_comment", "all"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ archived: z.boolean().optional(), formTypes: z.array(z.enum(["hubspot", "captured", "flow", "blog_comment", "all"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const marketingFormsActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Basic. Calls POST /marketing/v3/forms on HubSpot.",
     method: "POST",
     path: "/marketing/v3/forms",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -29,7 +30,7 @@ export const marketingFormsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /marketing/v3/forms/{formId} on HubSpot.",
     method: "GET",
     path: "/marketing/v3/forms/{formId}",
-    input: z.object({ formId: z.string(), archived: z.boolean().optional() }),
+    input: obj({ formId: z.string(), archived: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const marketingFormsActions: Record<string, ActionDefinition> = {
     description: "Replace. Part of: Basic. Calls PUT /marketing/v3/forms/{formId} on HubSpot.",
     method: "PUT",
     path: "/marketing/v3/forms/{formId}",
-    input: z.object({ formId: z.string(), archived: z.boolean(), archivedAt: z.string().optional(), configuration: z.object({ allowLinkToResetKnownValues: z.boolean(), archivable: z.boolean(), cloneable: z.boolean(), createNewContactForNewEmail: z.boolean(), editable: z.boolean(), embedType: z.enum(["V3", "V4"]).optional(), language: z.enum(["af", "ar-eg", "bg", "bn", "ca-es", "cs", "da", "de", "el", "en", "en-gb", "es", "es-mx", "fi", "fr", "fr-ca", "he-il", "hr", "hu", "id", "it", "ja", "ko", "lt", "ms", "nl", "no-no", "pl", "pt", "pt-br", "ro", "ru", "sk", "sl", "sv", "th", "tl", "tr", "uk", "vi", "zh-cn", "zh-hk", "zh-tw"]), lifecycleStages: z.array(z.record(z.string(), z.unknown())), notifyContactOwner: z.boolean(), notifyRecipients: z.array(z.string()), postSubmitAction: z.object({ type: z.enum(["redirect_url", "thank_you"]), value: z.string() }), prePopulateKnownValues: z.boolean(), recaptchaEnabled: z.boolean() }), createdAt: z.string(), displayOptions: z.object({ cssClass: z.string().optional(), renderRawHtml: z.boolean(), style: z.object({ backgroundWidth: z.string(), fontFamily: z.string(), helpTextColor: z.string(), helpTextSize: z.string(), labelTextColor: z.string(), labelTextSize: z.string(), legalConsentTextColor: z.string(), legalConsentTextSize: z.string(), submitAlignment: z.enum(["center", "left", "right"]), submitColor: z.string(), submitFontColor: z.string(), submitSize: z.string() }), submitButtonText: z.string(), theme: z.enum(["canvas", "default_style", "legacy", "linear", "round", "sharp"]) }), fieldGroups: z.array(z.object({ fields: z.array(z.unknown()), groupType: z.enum(["default_group", "progressive", "queued"]), richText: z.string().optional(), richTextType: z.enum(["image", "text"]) })), formType: z.enum(["hubspot"]), id: z.string(), legalConsentOptions: z.unknown(), name: z.string(), updatedAt: z.string() }),
+    input: obj({ formId: z.string(), archived: z.boolean(), archivedAt: z.string().optional(), configuration: obj({ allowLinkToResetKnownValues: z.boolean(), archivable: z.boolean(), cloneable: z.boolean(), createNewContactForNewEmail: z.boolean(), editable: z.boolean(), embedType: z.enum(["V3", "V4"]).optional(), language: z.enum(["af", "ar-eg", "bg", "bn", "ca-es", "cs", "da", "de", "el", "en", "en-gb", "es", "es-mx", "fi", "fr", "fr-ca", "he-il", "hr", "hu", "id", "it", "ja", "ko", "lt", "ms", "nl", "no-no", "pl", "pt", "pt-br", "ro", "ru", "sk", "sl", "sv", "th", "tl", "tr", "uk", "vi", "zh-cn", "zh-hk", "zh-tw"]), lifecycleStages: z.array(z.record(z.string(), z.unknown())), notifyContactOwner: z.boolean(), notifyRecipients: z.array(z.string()), postSubmitAction: obj({ type: z.enum(["redirect_url", "thank_you"]), value: z.string() }), prePopulateKnownValues: z.boolean(), recaptchaEnabled: z.boolean() }), createdAt: z.string(), displayOptions: obj({ cssClass: z.string().optional(), renderRawHtml: z.boolean(), style: obj({ backgroundWidth: z.string(), fontFamily: z.string(), helpTextColor: z.string(), helpTextSize: z.string(), labelTextColor: z.string(), labelTextSize: z.string(), legalConsentTextColor: z.string(), legalConsentTextSize: z.string(), submitAlignment: z.enum(["center", "left", "right"]), submitColor: z.string(), submitFontColor: z.string(), submitSize: z.string() }), submitButtonText: z.string(), theme: z.enum(["canvas", "default_style", "legacy", "linear", "round", "sharp"]) }), fieldGroups: z.array(obj({ fields: z.array(z.unknown()), groupType: z.enum(["default_group", "progressive", "queued"]), richText: z.string().optional(), richTextType: z.enum(["image", "text"]) })), formType: z.enum(["hubspot"]), id: z.string(), legalConsentOptions: z.unknown(), name: z.string(), updatedAt: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -45,7 +46,7 @@ export const marketingFormsActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Basic. Calls PATCH /marketing/v3/forms/{formId} on HubSpot.",
     method: "PATCH",
     path: "/marketing/v3/forms/{formId}",
-    input: z.object({ formId: z.string(), archived: z.boolean().optional(), configuration: z.object({ allowLinkToResetKnownValues: z.boolean(), archivable: z.boolean(), cloneable: z.boolean(), createNewContactForNewEmail: z.boolean(), editable: z.boolean(), embedType: z.enum(["V3", "V4"]).optional(), language: z.enum(["af", "ar-eg", "bg", "bn", "ca-es", "cs", "da", "de", "el", "en", "en-gb", "es", "es-mx", "fi", "fr", "fr-ca", "he-il", "hr", "hu", "id", "it", "ja", "ko", "lt", "ms", "nl", "no-no", "pl", "pt", "pt-br", "ro", "ru", "sk", "sl", "sv", "th", "tl", "tr", "uk", "vi", "zh-cn", "zh-hk", "zh-tw"]), lifecycleStages: z.array(z.record(z.string(), z.unknown())), notifyContactOwner: z.boolean(), notifyRecipients: z.array(z.string()), postSubmitAction: z.object({ type: z.enum(["redirect_url", "thank_you"]), value: z.string() }), prePopulateKnownValues: z.boolean(), recaptchaEnabled: z.boolean() }).optional(), displayOptions: z.object({ cssClass: z.string().optional(), renderRawHtml: z.boolean(), style: z.object({ backgroundWidth: z.string(), fontFamily: z.string(), helpTextColor: z.string(), helpTextSize: z.string(), labelTextColor: z.string(), labelTextSize: z.string(), legalConsentTextColor: z.string(), legalConsentTextSize: z.string(), submitAlignment: z.enum(["center", "left", "right"]), submitColor: z.string(), submitFontColor: z.string(), submitSize: z.string() }), submitButtonText: z.string(), theme: z.enum(["canvas", "default_style", "legacy", "linear", "round", "sharp"]) }).optional(), fieldGroups: z.array(z.object({ fields: z.array(z.unknown()), groupType: z.enum(["default_group", "progressive", "queued"]), richText: z.string().optional(), richTextType: z.enum(["image", "text"]) })).optional(), legalConsentOptions: z.unknown().optional(), name: z.string().optional() }),
+    input: obj({ formId: z.string(), archived: z.boolean().optional(), configuration: obj({ allowLinkToResetKnownValues: z.boolean(), archivable: z.boolean(), cloneable: z.boolean(), createNewContactForNewEmail: z.boolean(), editable: z.boolean(), embedType: z.enum(["V3", "V4"]).optional(), language: z.enum(["af", "ar-eg", "bg", "bn", "ca-es", "cs", "da", "de", "el", "en", "en-gb", "es", "es-mx", "fi", "fr", "fr-ca", "he-il", "hr", "hu", "id", "it", "ja", "ko", "lt", "ms", "nl", "no-no", "pl", "pt", "pt-br", "ro", "ru", "sk", "sl", "sv", "th", "tl", "tr", "uk", "vi", "zh-cn", "zh-hk", "zh-tw"]), lifecycleStages: z.array(z.record(z.string(), z.unknown())), notifyContactOwner: z.boolean(), notifyRecipients: z.array(z.string()), postSubmitAction: obj({ type: z.enum(["redirect_url", "thank_you"]), value: z.string() }), prePopulateKnownValues: z.boolean(), recaptchaEnabled: z.boolean() }).optional(), displayOptions: obj({ cssClass: z.string().optional(), renderRawHtml: z.boolean(), style: obj({ backgroundWidth: z.string(), fontFamily: z.string(), helpTextColor: z.string(), helpTextSize: z.string(), labelTextColor: z.string(), labelTextSize: z.string(), legalConsentTextColor: z.string(), legalConsentTextSize: z.string(), submitAlignment: z.enum(["center", "left", "right"]), submitColor: z.string(), submitFontColor: z.string(), submitSize: z.string() }), submitButtonText: z.string(), theme: z.enum(["canvas", "default_style", "legacy", "linear", "round", "sharp"]) }).optional(), fieldGroups: z.array(obj({ fields: z.array(z.unknown()), groupType: z.enum(["default_group", "progressive", "queued"]), richText: z.string().optional(), richTextType: z.enum(["image", "text"]) })).optional(), legalConsentOptions: z.unknown().optional(), name: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -53,7 +54,7 @@ export const marketingFormsActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /marketing/v3/forms/{formId} on HubSpot.",
     method: "DELETE",
     path: "/marketing/v3/forms/{formId}",
-    input: z.object({ formId: z.string() }),
+    input: obj({ formId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

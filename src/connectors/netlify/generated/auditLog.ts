@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const auditLogActions: Record<string, ActionDefinition> = {
     description: "List account audit events Calls GET /accounts/{accountid}/audit on Netlify.",
     method: "GET",
     path: "/accounts/{account_id}/audit",
-    input: z.object({ account_id: z.string(), query: z.string().optional(), log_type: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ account_id: z.string(), query: z.string().optional(), log_type: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),

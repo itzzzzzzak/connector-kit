@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const permissionSetsActions: Record<string, ActionDefinition> = {
     description: "Get permission sets. Part of: PermissionSets. Calls GET /v1/permissionSets on Pipedrive.",
     method: "GET",
     path: "/v1/permissionSets",
-    input: z.object({ app: z.enum(["sales", "projects", "campaigns", "global", "account_settings", "partnership", "nova"]).optional() }),
+    input: obj({ app: z.enum(["sales", "projects", "campaigns", "global", "account_settings", "partnership", "nova"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const permissionSetsActions: Record<string, ActionDefinition> = {
     description: "Get permission set. Part of: PermissionSets. Calls GET /v1/permissionSets/{id} on Pipedrive.",
     method: "GET",
     path: "/v1/permissionSets/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const permissionSetsActions: Record<string, ActionDefinition> = {
     description: "Get permission set assignments. Part of: PermissionSets. Calls GET /v1/permissionSets/{id}/assignments on Pipedrive.",
     method: "GET",
     path: "/v1/permissionSets/{id}/assignments",
-    input: z.object({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "data", positionParam: "start", pageSizeParam: "limit", hasMorePath: ["additional_data", "pagination", "more_items_in_collection"], defaultPageSize: 30, maxPageSize: 500 }),

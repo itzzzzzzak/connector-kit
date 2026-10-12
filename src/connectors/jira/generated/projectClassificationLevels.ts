@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectClassificationLevelsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectClassificationLevelsActions: Record<string, ActionDefinition
     description: "Get the classification configuration for a project. Returns the consolidated classification configuration for a project's admin settings page.",
     method: "GET",
     path: "/project/{projectIdOrKey}/classification-config",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case-sensitive).") }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case-sensitive).") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const projectClassificationLevelsActions: Record<string, ActionDefinition
     description: "Get the default data classification level of a project. Returns the default data classification for a project.",
     method: "GET",
     path: "/project/{projectIdOrKey}/classification-level/default",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case-sensitive).") }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case-sensitive).") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const projectClassificationLevelsActions: Record<string, ActionDefinition
     description: "Update the default data classification level of a project. Updates the default data classification level for a project.",
     method: "PUT",
     path: "/project/{projectIdOrKey}/classification-level/default",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case-sensitive)."), id: z.string().describe("The ID of the project classification.") }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case-sensitive)."), id: z.string().describe("The ID of the project classification.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const projectClassificationLevelsActions: Record<string, ActionDefinition
     description: "Remove the default data classification level from a project",
     method: "DELETE",
     path: "/project/{projectIdOrKey}/classification-level/default",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case-sensitive).") }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case-sensitive).") }),
     output: z.unknown(),
     effect: "destructive",
   },

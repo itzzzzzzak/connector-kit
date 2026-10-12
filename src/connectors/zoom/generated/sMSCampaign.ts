@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const sMSCampaignActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const sMSCampaignActions: Record<string, ActionDefinition> = {
     description: "Get number campaign opt status. Part of: SMS Campaign. Calls GET /phone/smscampaigns/{smsCampaignId}/phonenumbers/optstatus on Zoom.",
     method: "GET",
     path: "/phone/sms_campaigns/{smsCampaignId}/phone_numbers/opt_status",
-    input: z.object({ smsCampaignId: z.string(), consumer_phone_number: z.string(), zoom_phone_user_numbers: z.array(z.string()) }),
+    input: obj({ smsCampaignId: z.string(), consumer_phone_number: z.string(), zoom_phone_user_numbers: z.array(z.string()) }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const sMSCampaignActions: Record<string, ActionDefinition> = {
     description: "Update number campaign opt status. Part of: SMS Campaign. Calls PATCH /phone/smscampaigns/{smsCampaignId}/phonenumbers/optstatus on Zoom.",
     method: "PATCH",
     path: "/phone/sms_campaigns/{smsCampaignId}/phone_numbers/opt_status",
-    input: z.object({ smsCampaignId: z.string(), consumer_phone_number: z.string(), zoom_phone_user_numbers: z.array(z.string()), opt_status: z.enum(["opt_in", "opt_out"]) }),
+    input: obj({ smsCampaignId: z.string(), consumer_phone_number: z.string(), zoom_phone_user_numbers: z.array(z.string()), opt_status: z.enum(["opt_in", "opt_out"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const sMSCampaignActions: Record<string, ActionDefinition> = {
     description: "Get user number campaign opt status. Part of: SMS Campaign. Calls GET /phone/user/{userId}/smscampaigns/phonenumbers/optstatus on Zoom.",
     method: "GET",
     path: "/phone/user/{userId}/sms_campaigns/phone_numbers/opt_status",
-    input: z.object({ userId: z.string(), consumer_phone_numbers: z.array(z.string()), zoom_phone_user_numbers: z.array(z.string()) }),
+    input: obj({ userId: z.string(), consumer_phone_numbers: z.array(z.string()), zoom_phone_user_numbers: z.array(z.string()) }),
     output: z.unknown(),
     effect: "read",
   },

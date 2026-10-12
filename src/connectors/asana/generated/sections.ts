@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const sectionsActions: Record<string, ActionDefinition> = {
     description: "Get a section. Returns the complete record for a single section.",
     method: "GET",
     path: "/sections/{section_gid}",
-    input: z.object({ section_gid: z.string().describe("The globally unique identifier for the section."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "name", "project", "project.name", "project.resource_subtype", "projects", "projects.name", "projects.resource_subtype"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ section_gid: z.string().describe("The globally unique identifier for the section."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "name", "project", "project.name", "project.resource_subtype", "projects", "projects.name", "projects.resource_subtype"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -20,7 +21,7 @@ export const sectionsActions: Record<string, ActionDefinition> = {
     description: "Update a section. A specific, existing section can be updated by making a PUT request on the URL for that project. Only the fields provided in the data block will be updated; any unspecified fields will remain unchanged. (note that at this time, the only field that can be updated is the name field.)",
     method: "PUT",
     path: "/sections/{section_gid}",
-    input: z.object({ section_gid: z.string().describe("The globally unique identifier for the section."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "name", "project", "project.name", "project.resource_subtype", "projects", "projects.name", "projects.resource_subtype"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ name: z.string(), insert_before: z.string().optional(), insert_after: z.string().optional() }).optional() }),
+    input: obj({ section_gid: z.string().describe("The globally unique identifier for the section."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "name", "project", "project.name", "project.resource_subtype", "projects", "projects.name", "projects.resource_subtype"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ name: z.string(), insert_before: z.string().optional(), insert_after: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -30,7 +31,7 @@ export const sectionsActions: Record<string, ActionDefinition> = {
     description: "Delete a section. A specific, existing section can be deleted by making a DELETE request on the URL for that section.",
     method: "DELETE",
     path: "/sections/{section_gid}",
-    input: z.object({ section_gid: z.string().describe("The globally unique identifier for the section."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
+    input: obj({ section_gid: z.string().describe("The globally unique identifier for the section."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -38,7 +39,7 @@ export const sectionsActions: Record<string, ActionDefinition> = {
     description: "Get sections in a project. Returns the compact records for all sections in the specified project.",
     method: "GET",
     path: "/projects/{project_gid}/sections",
-    input: z.object({ project_gid: z.string().describe("Globally unique identifier for the project."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "name", "offset", "path", "project", "project.name", "project.resource_subtype", "projects", "projects.name", "projects.resource_subtype", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ project_gid: z.string().describe("Globally unique identifier for the project."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "name", "offset", "path", "project", "project.name", "project.resource_subtype", "projects", "projects.name", "projects.resource_subtype", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -47,7 +48,7 @@ export const sectionsActions: Record<string, ActionDefinition> = {
     description: "Create a section in a project. Creates a new section in a project. Returns the full record of the newly created section.",
     method: "POST",
     path: "/projects/{project_gid}/sections",
-    input: z.object({ project_gid: z.string().describe("Globally unique identifier for the project."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "name", "project", "project.name", "project.resource_subtype", "projects", "projects.name", "projects.resource_subtype"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ name: z.string(), insert_before: z.string().optional(), insert_after: z.string().optional() }).optional() }),
+    input: obj({ project_gid: z.string().describe("Globally unique identifier for the project."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "name", "project", "project.name", "project.resource_subtype", "projects", "projects.name", "projects.resource_subtype"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ name: z.string(), insert_before: z.string().optional(), insert_after: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -57,7 +58,7 @@ export const sectionsActions: Record<string, ActionDefinition> = {
     description: "Add task to section. Required scope: tasks:write",
     method: "POST",
     path: "/sections/{section_gid}/addTask",
-    input: z.object({ section_gid: z.string().describe("The globally unique identifier for the section."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), data: z.object({ task: z.string(), insert_before: z.string().optional(), insert_after: z.string().optional() }).optional() }),
+    input: obj({ section_gid: z.string().describe("The globally unique identifier for the section."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), data: obj({ task: z.string(), insert_before: z.string().optional(), insert_after: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty"]),
@@ -67,7 +68,7 @@ export const sectionsActions: Record<string, ActionDefinition> = {
     description: "Move or Insert sections. Move sections relative to each other. One of beforesection or aftersection is required.",
     method: "POST",
     path: "/projects/{project_gid}/sections/insert",
-    input: z.object({ project_gid: z.string().describe("Globally unique identifier for the project."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), data: z.object({ section: z.string(), before_section: z.string().optional(), after_section: z.string().optional() }).optional() }),
+    input: obj({ project_gid: z.string().describe("Globally unique identifier for the project."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), data: obj({ section: z.string(), before_section: z.string().optional(), after_section: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty"]),

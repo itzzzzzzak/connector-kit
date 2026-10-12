@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const splitTestActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const splitTestActions: Record<string, ActionDefinition> = {
     description: "Get split tests Calls GET /sites/{siteid}/trafficsplits on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/traffic_splits",
-    input: z.object({ site_id: z.string() }),
+    input: obj({ site_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const splitTestActions: Record<string, ActionDefinition> = {
     description: "Create split test Calls POST /sites/{siteid}/trafficsplits on Netlify.",
     method: "POST",
     path: "/sites/{site_id}/traffic_splits",
-    input: z.object({ site_id: z.string(), branch_tests: z.record(z.string(), z.unknown()).optional() }),
+    input: obj({ site_id: z.string(), branch_tests: z.record(z.string(), z.unknown()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const splitTestActions: Record<string, ActionDefinition> = {
     description: "Get split test Calls GET /sites/{siteid}/trafficsplits/{splittestid} on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/traffic_splits/{split_test_id}",
-    input: z.object({ site_id: z.string(), split_test_id: z.string() }),
+    input: obj({ site_id: z.string(), split_test_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const splitTestActions: Record<string, ActionDefinition> = {
     description: "Update split test Calls PUT /sites/{siteid}/trafficsplits/{splittestid} on Netlify.",
     method: "PUT",
     path: "/sites/{site_id}/traffic_splits/{split_test_id}",
-    input: z.object({ site_id: z.string(), split_test_id: z.string(), branch_tests: z.record(z.string(), z.unknown()).optional() }),
+    input: obj({ site_id: z.string(), split_test_id: z.string(), branch_tests: z.record(z.string(), z.unknown()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const splitTestActions: Record<string, ActionDefinition> = {
     description: "Enable split test Calls POST /sites/{siteid}/trafficsplits/{splittestid}/publish on Netlify.",
     method: "POST",
     path: "/sites/{site_id}/traffic_splits/{split_test_id}/publish",
-    input: z.object({ site_id: z.string(), split_test_id: z.string() }),
+    input: obj({ site_id: z.string(), split_test_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const splitTestActions: Record<string, ActionDefinition> = {
     description: "Disable split test Calls POST /sites/{siteid}/trafficsplits/{splittestid}/unpublish on Netlify.",
     method: "POST",
     path: "/sites/{site_id}/traffic_splits/{split_test_id}/unpublish",
-    input: z.object({ site_id: z.string(), split_test_id: z.string() }),
+    input: obj({ site_id: z.string(), split_test_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

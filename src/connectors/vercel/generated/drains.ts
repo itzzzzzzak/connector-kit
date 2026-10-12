@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const drainsActions: Record<string, ActionDefinition> = {
     description: "Get drains. Part of: drains. Calls GET /v1/drains on Vercel.",
     method: "GET",
     path: "/v1/drains",
-    input: z.object({ projectId: z.string().optional(), includeMetadata: z.boolean().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ projectId: z.string().optional(), includeMetadata: z.boolean().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const drainsActions: Record<string, ActionDefinition> = {
     description: "Create drain. Part of: drains. Calls POST /v1/drains on Vercel.",
     method: "POST",
     path: "/v1/drains",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional(), name: z.string(), projects: z.enum(["some", "all"]), projectIds: z.array(z.string()).optional(), filter: z.object({ version: z.string(), filter: z.unknown() }).optional(), schemas: z.record(z.string(), z.unknown()), delivery: z.record(z.string(), z.unknown()).optional(), sampling: z.array(z.object({ type: z.string(), rate: z.number(), env: z.enum(["production", "preview"]).optional(), requestPath: z.string().optional() })).optional(), transforms: z.array(z.object({ id: z.string() })).optional(), source: z.record(z.string(), z.unknown()).optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional(), name: z.string(), projects: z.enum(["some", "all"]), projectIds: z.array(z.string()).optional(), filter: obj({ version: z.string(), filter: z.unknown() }).optional(), schemas: z.record(z.string(), z.unknown()), delivery: z.record(z.string(), z.unknown()).optional(), sampling: z.array(obj({ type: z.string(), rate: z.number(), env: z.enum(["production", "preview"]).optional(), requestPath: z.string().optional() })).optional(), transforms: z.array(obj({ id: z.string() })).optional(), source: z.record(z.string(), z.unknown()).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -29,7 +30,7 @@ export const drainsActions: Record<string, ActionDefinition> = {
     description: "Get drain. Part of: drains. Calls GET /v1/drains/{id} on Vercel.",
     method: "GET",
     path: "/v1/drains/{id}",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const drainsActions: Record<string, ActionDefinition> = {
     description: "Update drain. Part of: drains. Calls PATCH /v1/drains/{id} on Vercel.",
     method: "PATCH",
     path: "/v1/drains/{id}",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional(), name: z.string().optional(), projects: z.enum(["some", "all"]).optional(), projectIds: z.array(z.string()).nullable().optional(), filter: z.unknown().optional(), schemas: z.record(z.string(), z.unknown()).optional(), delivery: z.record(z.string(), z.unknown()).optional(), sampling: z.array(z.object({ type: z.string(), rate: z.number(), env: z.enum(["production", "preview"]).optional(), requestPath: z.string().optional() })).nullable().optional(), transforms: z.array(z.object({ id: z.string() })).nullable().optional(), status: z.enum(["enabled", "disabled"]).optional(), source: z.record(z.string(), z.unknown()).optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional(), name: z.string().optional(), projects: z.enum(["some", "all"]).optional(), projectIds: z.array(z.string()).nullable().optional(), filter: z.unknown().optional(), schemas: z.record(z.string(), z.unknown()).optional(), delivery: z.record(z.string(), z.unknown()).optional(), sampling: z.array(obj({ type: z.string(), rate: z.number(), env: z.enum(["production", "preview"]).optional(), requestPath: z.string().optional() })).nullable().optional(), transforms: z.array(obj({ id: z.string() })).nullable().optional(), status: z.enum(["enabled", "disabled"]).optional(), source: z.record(z.string(), z.unknown()).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -47,7 +48,7 @@ export const drainsActions: Record<string, ActionDefinition> = {
     description: "Delete drain. Part of: drains. Calls DELETE /v1/drains/{id} on Vercel.",
     method: "DELETE",
     path: "/v1/drains/{id}",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -55,7 +56,7 @@ export const drainsActions: Record<string, ActionDefinition> = {
     description: "Test drain. Part of: drains. Calls POST /v1/drains/test on Vercel.",
     method: "POST",
     path: "/v1/drains/test",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional(), schemas: z.record(z.string(), z.unknown()), delivery: z.record(z.string(), z.unknown()) }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional(), schemas: z.record(z.string(), z.unknown()), delivery: z.record(z.string(), z.unknown()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),

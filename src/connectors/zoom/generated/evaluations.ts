@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const evaluationsActions: Record<string, ActionDefinition> = {
     description: "List automated evaluations. Part of: Evaluations. Calls GET /qm/automatedevaluations on Zoom.",
     method: "GET",
     path: "/qm/automated_evaluations",
-    input: z.object({ status: z.enum(["COMPLETED", "PROCESSING", "FAILED"]).optional(), agent_id: z.string().optional(), interaction_id: z.string().optional(), from: z.string().optional(), to: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ status: z.enum(["COMPLETED", "PROCESSING", "FAILED"]).optional(), agent_id: z.string().optional(), interaction_id: z.string().optional(), from: z.string().optional(), to: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const evaluationsActions: Record<string, ActionDefinition> = {
     description: "Listevaluations. Part of: Evaluations. Calls GET /qm/evaluation on Zoom.",
     method: "GET",
     path: "/qm/evaluation",
-    input: z.object({ status: z.enum(["Active", "Completed", "Pending", "Expired", "Canceled"]).optional(), agent_ids: z.string().optional(), evaluator_id: z.string().optional(), acknowledgement_status: z.enum(["Pending", "Complete", "Auto complete", "None"]).optional(), interaction_id: z.string().optional(), from: z.string().optional(), to: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ status: z.enum(["Active", "Completed", "Pending", "Expired", "Canceled"]).optional(), agent_ids: z.string().optional(), evaluator_id: z.string().optional(), acknowledgement_status: z.enum(["Pending", "Complete", "Auto complete", "None"]).optional(), interaction_id: z.string().optional(), from: z.string().optional(), to: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -29,7 +30,7 @@ export const evaluationsActions: Record<string, ActionDefinition> = {
     description: "Evaluation detail. Part of: Evaluations. Calls GET /qm/evaluation/{evaluationId} on Zoom.",
     method: "GET",
     path: "/qm/evaluation/{evaluationId}",
-    input: z.object({ evaluationId: z.string() }),
+    input: obj({ evaluationId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const freebusyActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const freebusyActions: Record<string, ActionDefinition> = {
     description: "Queryfreebusy. Part of: freebusy. Calls POST /calendars/freeBusy on Zoom.",
     method: "POST",
     path: "/calendars/freeBusy",
-    input: z.object({ timeZone: z.string().optional(), timeMin: z.string(), timeMax: z.string(), calendarExpansionMax: z.number().optional(), groupExpansionMax: z.number().optional(), items: z.array(z.object({ id: z.string().optional() })).optional() }),
+    input: obj({ timeZone: z.string().optional(), timeMin: z.string(), timeMax: z.string(), calendarExpansionMax: z.number().optional(), groupExpansionMax: z.number().optional(), items: z.array(obj({ id: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },

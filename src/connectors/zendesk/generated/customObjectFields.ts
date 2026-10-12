@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const customObjectFieldsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const customObjectFieldsActions: Record<string, ActionDefinition> = {
     description: "List custom object fields. Part of: Custom Object Fields. Calls GET /customobjects/{customobjectkey}/fields on Zendesk.",
     method: "GET",
     path: "/custom_objects/{custom_object_key}/fields",
-    input: z.object({ custom_object_key: z.string(), include_standard_fields: z.boolean().optional() }),
+    input: obj({ custom_object_key: z.string(), include_standard_fields: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const customObjectFieldsActions: Record<string, ActionDefinition> = {
     description: "Create custom object field. Part of: Custom Object Fields. Calls POST /customobjects/{customobjectkey}/fields on Zendesk.",
     method: "POST",
     path: "/custom_objects/{custom_object_key}/fields",
-    input: z.object({ custom_object_key: z.string(), custom_object_field: z.object({ active: z.boolean().optional(), created_at: z.string().optional(), custom_field_options: z.array(z.record(z.string(), z.unknown())).optional(), description: z.string().optional(), id: z.number().optional(), key: z.string(), position: z.number().optional(), raw_description: z.string().optional(), raw_title: z.string().optional(), regexp_for_validation: z.string().nullable().optional(), relationship_filter: z.record(z.string(), z.unknown()).optional(), system: z.boolean().optional(), tag: z.string().optional(), title: z.string(), type: z.string(), updated_at: z.string().optional(), url: z.string().optional(), properties: z.object({ allowed_currencies: z.array(z.string()).optional(), autoincrement_enabled: z.boolean().optional(), autoincrement_next_sequence: z.number().optional(), autoincrement_padding: z.number().optional(), autoincrement_prefix: z.string().optional(), cascade_permissions_enabled: z.boolean().optional(), is_unique: z.boolean().optional(), rollup_aggregated_field: z.string().nullable().optional(), rollup_aggregated_field_title: z.string().optional(), rollup_aggregation_type: z.enum(["COUNT", "SUM", "MIN", "MAX"]).optional(), rollup_child_object: z.string().optional(), rollup_filter_criteria: z.record(z.string(), z.unknown()).nullable().optional() }).optional(), readonly: z.boolean().optional(), relationship_target_type: z.string().optional(), required: z.boolean().optional() }).optional() }),
+    input: obj({ custom_object_key: z.string(), custom_object_field: obj({ active: z.boolean().optional(), created_at: z.string().optional(), custom_field_options: z.array(z.record(z.string(), z.unknown())).optional(), description: z.string().optional(), id: z.number().optional(), key: z.string(), position: z.number().optional(), raw_description: z.string().optional(), raw_title: z.string().optional(), regexp_for_validation: z.string().nullable().optional(), relationship_filter: z.record(z.string(), z.unknown()).optional(), system: z.boolean().optional(), tag: z.string().optional(), title: z.string(), type: z.string(), updated_at: z.string().optional(), url: z.string().optional(), properties: obj({ allowed_currencies: z.array(z.string()).optional(), autoincrement_enabled: z.boolean().optional(), autoincrement_next_sequence: z.number().optional(), autoincrement_padding: z.number().optional(), autoincrement_prefix: z.string().optional(), cascade_permissions_enabled: z.boolean().optional(), is_unique: z.boolean().optional(), rollup_aggregated_field: z.string().nullable().optional(), rollup_aggregated_field_title: z.string().optional(), rollup_aggregation_type: z.enum(["COUNT", "SUM", "MIN", "MAX"]).optional(), rollup_child_object: z.string().optional(), rollup_filter_criteria: z.record(z.string(), z.unknown()).nullable().optional() }).optional(), readonly: z.boolean().optional(), relationship_target_type: z.string().optional(), required: z.boolean().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const customObjectFieldsActions: Record<string, ActionDefinition> = {
     description: "Show custom object field. Part of: Custom Object Fields. Calls GET /customobjects/{customobjectkey}/fields/{customobjectfieldkeyorid} on Zendesk.",
     method: "GET",
     path: "/custom_objects/{custom_object_key}/fields/{custom_object_field_key_or_id}",
-    input: z.object({ custom_object_key: z.string(), custom_object_field_key_or_id: z.string(), include_standard_fields: z.boolean().optional() }),
+    input: obj({ custom_object_key: z.string(), custom_object_field_key_or_id: z.string(), include_standard_fields: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const customObjectFieldsActions: Record<string, ActionDefinition> = {
     description: "Update custom object field. Part of: Custom Object Fields. Calls PATCH /customobjects/{customobjectkey}/fields/{customobjectfieldkeyorid} on Zendesk.",
     method: "PATCH",
     path: "/custom_objects/{custom_object_key}/fields/{custom_object_field_key_or_id}",
-    input: z.object({ custom_object_key: z.string(), custom_object_field_key_or_id: z.string() }),
+    input: obj({ custom_object_key: z.string(), custom_object_field_key_or_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const customObjectFieldsActions: Record<string, ActionDefinition> = {
     description: "Delete custom object field. Part of: Custom Object Fields. Calls DELETE /customobjects/{customobjectkey}/fields/{customobjectfieldkeyorid} on Zendesk.",
     method: "DELETE",
     path: "/custom_objects/{custom_object_key}/fields/{custom_object_field_key_or_id}",
-    input: z.object({ custom_object_key: z.string(), custom_object_field_key_or_id: z.string() }),
+    input: obj({ custom_object_key: z.string(), custom_object_field_key_or_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const customObjectFieldsActions: Record<string, ActionDefinition> = {
     description: "Reorder custom object fields. Part of: Custom Object Fields. Calls PUT /customobjects/{customobjectkey}/fields/reorder on Zendesk.",
     method: "PUT",
     path: "/custom_objects/{custom_object_key}/fields/reorder",
-    input: z.object({ custom_object_key: z.string() }),
+    input: obj({ custom_object_key: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const customObjectFieldsActions: Record<string, ActionDefinition> = {
     description: "Custom object fields limit. Part of: Custom Object Fields. Calls GET /customobjects/{customobjectkey}/limits/fieldlimit on Zendesk.",
     method: "GET",
     path: "/custom_objects/{custom_object_key}/limits/field_limit",
-    input: z.object({ custom_object_key: z.string() }),
+    input: obj({ custom_object_key: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const authorizedAppsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const authorizedAppsActions: Record<string, ActionDefinition> = {
     description: "Get authorized apps id. Part of: authorizedApps. Calls GET /authorized-apps/{appid} on Mailchimp.",
     method: "GET",
     path: "/authorized-apps/{app_id}",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), app_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), app_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const authorizedAppsActions: Record<string, ActionDefinition> = {
     description: "Get authorized apps. Part of: authorizedApps. Calls GET /authorized-apps on Mailchimp.",
     method: "GET",
     path: "/authorized-apps",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const automationEmailTemplatesActions: Record<string, ActionDefinition> =
     description: "List. Part of: Basic. Calls GET /automation/email-templates/2026-09 on HubSpot.",
     method: "GET",
     path: "/automation/email-templates/2026-09",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const automationEmailTemplatesActions: Record<string, ActionDefinition> =
     description: "Create. Part of: Basic. Calls POST /automation/email-templates/2026-09 on HubSpot.",
     method: "POST",
     path: "/automation/email-templates/2026-09",
-    input: z.object({ body: z.string(), folderId: z.string().optional(), name: z.string(), subject: z.string().optional() }),
+    input: obj({ body: z.string(), folderId: z.string().optional(), name: z.string(), subject: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const automationEmailTemplatesActions: Record<string, ActionDefinition> =
     description: "List folders. Part of: Basic. Calls GET /automation/email-templates/2026-09/folders on HubSpot.",
     method: "GET",
     path: "/automation/email-templates/2026-09/folders",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -37,7 +38,7 @@ export const automationEmailTemplatesActions: Record<string, ActionDefinition> =
     description: "Get. Part of: Basic. Calls GET /automation/email-templates/2026-09/{templateId} on HubSpot.",
     method: "GET",
     path: "/automation/email-templates/2026-09/{templateId}",
-    input: z.object({ templateId: z.number() }),
+    input: obj({ templateId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -45,7 +46,7 @@ export const automationEmailTemplatesActions: Record<string, ActionDefinition> =
     description: "Update. Part of: Basic. Calls PATCH /automation/email-templates/2026-09/{templateId} on HubSpot.",
     method: "PATCH",
     path: "/automation/email-templates/2026-09/{templateId}",
-    input: z.object({ templateId: z.number(), body: z.record(z.string(), z.unknown()), folderId: z.record(z.string(), z.unknown()), name: z.record(z.string(), z.unknown()), subject: z.record(z.string(), z.unknown()) }),
+    input: obj({ templateId: z.number(), body: z.record(z.string(), z.unknown()), folderId: z.record(z.string(), z.unknown()), name: z.record(z.string(), z.unknown()), subject: z.record(z.string(), z.unknown()) }),
     output: z.unknown(),
     effect: "write",
   },

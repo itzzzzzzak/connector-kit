@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const rulesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const rulesActions: Record<string, ActionDefinition> = {
     description: "Trigger a rule Calls POST /ruletriggers/{ruletriggergid}/run on Asana.",
     method: "POST",
     path: "/rule_triggers/{rule_trigger_gid}/run",
-    input: z.object({ rule_trigger_gid: z.string().describe("The ID of the incoming web request trigger. This value is a path parameter that is automatically generated for the API endpoint."), data: z.object({ resource: z.string(), action_data: z.record(z.string(), z.unknown()) }).optional() }),
+    input: obj({ rule_trigger_gid: z.string().describe("The ID of the incoming web request trigger. This value is a path parameter that is automatically generated for the API endpoint."), data: obj({ resource: z.string(), action_data: z.record(z.string(), z.unknown()) }).optional() }),
     output: z.unknown(),
     effect: "write",
   },

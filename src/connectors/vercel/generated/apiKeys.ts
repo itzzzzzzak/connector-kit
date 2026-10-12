@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const apiKeysActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const apiKeysActions: Record<string, ActionDefinition> = {
     description: "Create api keys. Calls POST /api-keys on Vercel.",
     method: "POST",
     path: "/api-keys",
-    input: z.object({ purpose: z.string(), projectId: z.string().optional(), name: z.string().optional(), expiresAt: z.number().optional(), aiGatewayQuota: z.object({ limitAmount: z.number(), includeByokInQuota: z.boolean().optional(), refreshPeriod: z.enum(["daily", "weekly", "monthly", "none"]).optional(), alertThresholds: z.array(z.number()).optional() }).optional(), metadata: z.record(z.string(), z.unknown()).optional() }),
+    input: obj({ purpose: z.string(), projectId: z.string().optional(), name: z.string().optional(), expiresAt: z.number().optional(), aiGatewayQuota: obj({ limitAmount: z.number(), includeByokInQuota: z.boolean().optional(), refreshPeriod: z.enum(["daily", "weekly", "monthly", "none"]).optional(), alertThresholds: z.array(z.number()).optional() }).optional(), metadata: z.record(z.string(), z.unknown()).optional() }),
     output: z.unknown(),
     effect: "write",
   },

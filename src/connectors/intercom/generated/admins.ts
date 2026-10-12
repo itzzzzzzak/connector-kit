@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const adminsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const adminsActions: Record<string, ActionDefinition> = {
     description: "Set an admin to away. You can set an Admin as away for the Inbox.",
     method: "PUT",
     path: "/admins/{admin_id}/away",
-    input: z.object({ admin_id: z.string().describe("The unique identifier of a given admin"), away_mode_enabled: z.boolean().describe("Set to \"true\" to change the status of the admin to away."), away_mode_reassign: z.boolean().describe("Set to \"true\" to assign any new conversation replies to your default inbox.") }),
+    input: obj({ admin_id: z.string().describe("The unique identifier of a given admin"), away_mode_enabled: z.boolean().describe("Set to \"true\" to change the status of the admin to away."), away_mode_reassign: z.boolean().describe("Set to \"true\" to assign any new conversation replies to your default inbox.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const adminsActions: Record<string, ActionDefinition> = {
     description: "List all activity logs. You can get a log of activities by all admins in an app.",
     method: "GET",
     path: "/admins/activity_logs",
-    input: z.object({ created_at_after: z.string().describe("The start date that you request data for. It must be formatted as a UNIX timestamp."), created_at_before: z.string().describe("The end date that you request data for. It must be formatted as a UNIX timestamp.").optional() }),
+    input: obj({ created_at_after: z.string().describe("The start date that you request data for. It must be formatted as a UNIX timestamp."), created_at_before: z.string().describe("The end date that you request data for. It must be formatted as a UNIX timestamp.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const adminsActions: Record<string, ActionDefinition> = {
     description: "List all admins. You can fetch a list of admins for a given workspace.",
     method: "GET",
     path: "/admins",
-    input: z.object({ display_avatar: z.boolean().describe("If set to true, the response will include the admin's avatar object containing the image URL. Defaults to false.").optional() }),
+    input: obj({ display_avatar: z.boolean().describe("If set to true, the response will include the admin's avatar object containing the image URL. Defaults to false.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const adminsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an admin. You can retrieve the details of a single admin.",
     method: "GET",
     path: "/admins/{admin_id}",
-    input: z.object({ admin_id: z.string().describe("The unique identifier of a given admin") }),
+    input: obj({ admin_id: z.string().describe("The unique identifier of a given admin") }),
     output: z.unknown(),
     effect: "read",
   },

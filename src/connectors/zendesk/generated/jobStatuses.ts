@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const jobStatusesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const jobStatusesActions: Record<string, ActionDefinition> = {
     description: "List job statuses. Part of: Job Statuses. Calls GET /jobstatuses on Zendesk.",
     method: "GET",
     path: "/job_statuses",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const jobStatusesActions: Record<string, ActionDefinition> = {
     description: "Show job status. Part of: Job Statuses. Calls GET /jobstatuses/{jobstatusid} on Zendesk.",
     method: "GET",
     path: "/job_statuses/{job_status_id}",
-    input: z.object({ job_status_id: z.string() }),
+    input: obj({ job_status_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const jobStatusesActions: Record<string, ActionDefinition> = {
     description: "Show many job statuses. Part of: Job Statuses. Calls GET /jobstatuses/showmany on Zendesk.",
     method: "GET",
     path: "/job_statuses/show_many",
-    input: z.object({ ids: z.string() }),
+    input: obj({ ids: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

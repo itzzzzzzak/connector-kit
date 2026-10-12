@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const dealInstallmentsActions: Record<string, ActionDefinition> = {
     description: "Get installments. Part of: DealInstallments. Calls GET /api/v2/deals/installments on Pipedrive.",
     method: "GET",
     path: "/api/v2/deals/installments",
-    input: z.object({ deal_ids: z.array(z.number()), sort_by: z.enum(["id", "billing_date", "deal_id"]).optional(), sort_direction: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ deal_ids: z.array(z.number()), sort_by: z.enum(["id", "billing_date", "deal_id"]).optional(), sort_direction: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["additional_data", "next_cursor"], cursorParam: "cursor", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 500 }),
@@ -20,7 +21,7 @@ export const dealInstallmentsActions: Record<string, ActionDefinition> = {
     description: "Post installment. Part of: DealInstallments. Calls POST /api/v2/deals/{id}/installments on Pipedrive.",
     method: "POST",
     path: "/api/v2/deals/{id}/installments",
-    input: z.object({ id: z.number(), description: z.string(), amount: z.number(), billing_date: z.string() }),
+    input: obj({ id: z.number(), description: z.string(), amount: z.number(), billing_date: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const dealInstallmentsActions: Record<string, ActionDefinition> = {
     description: "Update installment. Part of: DealInstallments. Calls PATCH /api/v2/deals/{id}/installments/{installmentid} on Pipedrive.",
     method: "PATCH",
     path: "/api/v2/deals/{id}/installments/{installment_id}",
-    input: z.object({ id: z.number(), installment_id: z.number(), description: z.string().optional(), amount: z.number().optional(), billing_date: z.string().optional() }),
+    input: obj({ id: z.number(), installment_id: z.number(), description: z.string().optional(), amount: z.number().optional(), billing_date: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const dealInstallmentsActions: Record<string, ActionDefinition> = {
     description: "Delete installment. Part of: DealInstallments. Calls DELETE /api/v2/deals/{id}/installments/{installmentid} on Pipedrive.",
     method: "DELETE",
     path: "/api/v2/deals/{id}/installments/{installment_id}",
-    input: z.object({ id: z.number(), installment_id: z.number() }),
+    input: obj({ id: z.number(), installment_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const ciJobsActions: Record<string, ActionDefinition> = {
     description: "Get projects id jobs. Part of: cijobs. Calls GET /projects/{id}/jobs on GitLab.",
     method: "GET",
     path: "/projects/{id}/jobs",
-    input: z.object({ id: z.string(), scope: z.array(z.enum(["created", "waiting_for_resource", "preparing", "waiting_for_callback", "pending", "running", "success", "failed", "canceling", "canceled", "skipped", "manual", "scheduled"])).optional(), ref: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), scope: z.array(z.enum(["created", "waiting_for_resource", "preparing", "waiting_for_callback", "pending", "running", "success", "failed", "canceling", "canceled", "skipped", "manual", "scheduled"])).optional(), ref: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const ciJobsActions: Record<string, ActionDefinition> = {
     description: "Get projects id jobs job id. Part of: cijobs. Calls GET /projects/{id}/jobs/{jobid} on GitLab.",
     method: "GET",
     path: "/projects/{id}/jobs/{job_id}",
-    input: z.object({ job_id: z.number(), id: z.number() }),
+    input: obj({ job_id: z.number(), id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const ciJobsActions: Record<string, ActionDefinition> = {
     description: "Get projects id jobs job id trace. Part of: cijobs. Calls GET /projects/{id}/jobs/{jobid}/trace on GitLab.",
     method: "GET",
     path: "/projects/{id}/jobs/{job_id}/trace",
-    input: z.object({ id: z.string(), job_id: z.number(), byte_offset: z.number().optional(), byte_limit: z.number().optional() }),
+    input: obj({ id: z.string(), job_id: z.number(), byte_offset: z.number().optional(), byte_limit: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const ciJobsActions: Record<string, ActionDefinition> = {
     description: "Post projects id jobs job id cancel. Part of: cijobs. Calls POST /projects/{id}/jobs/{jobid}/cancel on GitLab.",
     method: "POST",
     path: "/projects/{id}/jobs/{job_id}/cancel",
-    input: z.object({ job_id: z.number(), id: z.number(), force: z.boolean().optional() }),
+    input: obj({ job_id: z.number(), id: z.number(), force: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const ciJobsActions: Record<string, ActionDefinition> = {
     description: "Post projects id jobs job id retry. Part of: cijobs. Calls POST /projects/{id}/jobs/{jobid}/retry on GitLab.",
     method: "POST",
     path: "/projects/{id}/jobs/{job_id}/retry",
-    input: z.object({ job_id: z.number(), id: z.number(), inputs: z.record(z.string(), z.unknown()).optional() }),
+    input: obj({ job_id: z.number(), id: z.number(), inputs: z.record(z.string(), z.unknown()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -52,7 +53,7 @@ export const ciJobsActions: Record<string, ActionDefinition> = {
     description: "Post projects id jobs job id erase. Part of: cijobs. Calls POST /projects/{id}/jobs/{jobid}/erase on GitLab.",
     method: "POST",
     path: "/projects/{id}/jobs/{job_id}/erase",
-    input: z.object({ job_id: z.number(), id: z.number() }),
+    input: obj({ job_id: z.number(), id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -60,7 +61,7 @@ export const ciJobsActions: Record<string, ActionDefinition> = {
     description: "Post projects id jobs job id play. Part of: cijobs. Calls POST /projects/{id}/jobs/{jobid}/play on GitLab.",
     method: "POST",
     path: "/projects/{id}/jobs/{job_id}/play",
-    input: z.object({ job_id: z.number(), id: z.number(), job_variables_attributes: z.array(z.object({ key: z.string(), value: z.string() })).optional(), job_inputs: z.record(z.string(), z.unknown()).optional() }),
+    input: obj({ job_id: z.number(), id: z.number(), job_variables_attributes: z.array(obj({ key: z.string(), value: z.string() })).optional(), job_inputs: z.record(z.string(), z.unknown()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -68,7 +69,7 @@ export const ciJobsActions: Record<string, ActionDefinition> = {
     description: "Get job. Part of: cijobs. Calls GET /job on GitLab.",
     method: "GET",
     path: "/job",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

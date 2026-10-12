@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const templatesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Get templates id default content. Part of: templates. Calls GET /templates/{templateid}/default-content on Mailchimp.",
     method: "GET",
     path: "/templates/{template_id}/default-content",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), template_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), template_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Get templates. Part of: templates. Calls GET /templates on Mailchimp.",
     method: "GET",
     path: "/templates",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional(), created_by: z.string().optional(), since_date_created: z.string().optional(), before_date_created: z.string().optional(), type: z.string().optional(), category: z.string().optional(), folder_id: z.string().optional(), sort_field: z.enum(["date_created", "date_edited", "name"]).optional(), content_type: z.enum(["html", "template", "multichannel"]).optional(), sort_dir: z.enum(["ASC", "DESC"]).optional() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional(), created_by: z.string().optional(), since_date_created: z.string().optional(), before_date_created: z.string().optional(), type: z.string().optional(), category: z.string().optional(), folder_id: z.string().optional(), sort_field: z.enum(["date_created", "date_edited", "name"]).optional(), content_type: z.enum(["html", "template", "multichannel"]).optional(), sort_dir: z.enum(["ASC", "DESC"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Post templates. Part of: templates. Calls POST /templates on Mailchimp.",
     method: "POST",
     path: "/templates",
-    input: z.object({ name: z.string(), folder_id: z.string().optional(), html: z.string() }),
+    input: obj({ name: z.string(), folder_id: z.string().optional(), html: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Get templates id. Part of: templates. Calls GET /templates/{templateid} on Mailchimp.",
     method: "GET",
     path: "/templates/{template_id}",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), template_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), template_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Patch templates id. Part of: templates. Calls PATCH /templates/{templateid} on Mailchimp.",
     method: "PATCH",
     path: "/templates/{template_id}",
-    input: z.object({ template_id: z.string(), name: z.string(), folder_id: z.string().optional(), html: z.string() }),
+    input: obj({ template_id: z.string(), name: z.string(), folder_id: z.string().optional(), html: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Delete templates id. Part of: templates. Calls DELETE /templates/{templateid} on Mailchimp.",
     method: "DELETE",
     path: "/templates/{template_id}",
-    input: z.object({ template_id: z.string() }),
+    input: obj({ template_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

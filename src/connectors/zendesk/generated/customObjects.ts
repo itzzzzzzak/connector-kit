@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const customObjectsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const customObjectsActions: Record<string, ActionDefinition> = {
     description: "List custom objects. Part of: Custom Objects. Calls GET /customobjects on Zendesk.",
     method: "GET",
     path: "/custom_objects",
-    input: z.object({ include_ui_path: z.boolean().optional() }),
+    input: obj({ include_ui_path: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const customObjectsActions: Record<string, ActionDefinition> = {
     description: "Create custom object. Part of: Custom Objects. Calls POST /customobjects on Zendesk.",
     method: "POST",
     path: "/custom_objects",
-    input: z.object({ custom_object: z.object({ allows_attachments: z.boolean().optional(), allows_photos: z.boolean().optional(), description: z.string().optional(), include_in_list_view: z.boolean().optional(), key: z.string().optional(), title: z.string().optional(), title_pluralized: z.string().optional() }).optional() }),
+    input: obj({ custom_object: obj({ allows_attachments: z.boolean().optional(), allows_photos: z.boolean().optional(), description: z.string().optional(), include_in_list_view: z.boolean().optional(), key: z.string().optional(), title: z.string().optional(), title_pluralized: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const customObjectsActions: Record<string, ActionDefinition> = {
     description: "Show custom object. Part of: Custom Objects. Calls GET /customobjects/{customobjectkey} on Zendesk.",
     method: "GET",
     path: "/custom_objects/{custom_object_key}",
-    input: z.object({ custom_object_key: z.string(), include_permissions_metadata: z.boolean().optional(), include_ui_path: z.boolean().optional() }),
+    input: obj({ custom_object_key: z.string(), include_permissions_metadata: z.boolean().optional(), include_ui_path: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const customObjectsActions: Record<string, ActionDefinition> = {
     description: "Update custom object. Part of: Custom Objects. Calls PATCH /customobjects/{customobjectkey} on Zendesk.",
     method: "PATCH",
     path: "/custom_objects/{custom_object_key}",
-    input: z.object({ custom_object_key: z.string() }),
+    input: obj({ custom_object_key: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const customObjectsActions: Record<string, ActionDefinition> = {
     description: "Delete custom object. Part of: Custom Objects. Calls DELETE /customobjects/{customobjectkey} on Zendesk.",
     method: "DELETE",
     path: "/custom_objects/{custom_object_key}",
-    input: z.object({ custom_object_key: z.string() }),
+    input: obj({ custom_object_key: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const customObjectsActions: Record<string, ActionDefinition> = {
     description: "Custom objects limit. Part of: Custom Objects. Calls GET /customobjects/limits/objectlimit on Zendesk.",
     method: "GET",
     path: "/custom_objects/limits/object_limit",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

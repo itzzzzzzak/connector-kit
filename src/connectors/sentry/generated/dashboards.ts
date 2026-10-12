@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/sentry.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const dashboardsActions: Record<string, ActionDefinition> = {
     description: "List organization dashboards. Part of: Dashboards. Calls GET /organizations/{organizationidorslug}/dashboards/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/dashboards/",
-    input: z.object({ organization_id_or_slug: z.string(), filter: z.array(z.enum(["excludeFavorites", "excludePrebuilt", "onlyFavorites", "onlyPrebuilt", "owned", "shared", "showHidden"])).optional(), query: z.string().optional(), sort: z.string().optional(), pin: z.enum(["favorites"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), filter: z.array(z.enum(["excludeFavorites", "excludePrebuilt", "onlyFavorites", "onlyPrebuilt", "owned", "shared", "showHidden"])).optional(), query: z.string().optional(), sort: z.string().optional(), pin: z.enum(["favorites"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderCursorPagination({ cursorParam: "cursor", pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const dashboardsActions: Record<string, ActionDefinition> = {
     description: "Create organization dashboard. Part of: Dashboards. Calls POST /organizations/{organizationidorslug}/dashboards/ on Sentry.",
     method: "POST",
     path: "/organizations/{organization_id_or_slug}/dashboards/",
-    input: z.object({ organization_id_or_slug: z.string(), title: z.string(), id: z.string().optional(), widgets: z.array(z.object({ id: z.string().optional(), title: z.string().optional(), description: z.string().nullable().optional(), thresholds: z.record(z.string(), z.unknown()).nullable().optional(), display_type: z.enum(["line", "area", "bar", "table", "big_number", "details", "categorical_bar", "wheel", "rage_and_dead_clicks", "server_tree", "text", "agents_traces_table", "heatmap"]).optional(), interval: z.string().optional(), queries: z.array(z.record(z.string(), z.unknown())).optional(), widget_type: z.string().nullable().optional(), limit: z.number().nullable().optional(), layout: z.record(z.string(), z.unknown()).nullable().optional(), axis_range: z.string().nullable().optional(), legend_type: z.string().nullable().optional() })).optional(), projects: z.array(z.number()).optional(), environment: z.array(z.string()).nullable().optional(), period: z.string().nullable().optional(), start: z.string().nullable().optional(), end: z.string().nullable().optional(), filters: z.record(z.string(), z.unknown()).optional(), utc: z.boolean().optional(), permissions: z.object({ is_editable_by_everyone: z.boolean(), teams_with_edit_access: z.array(z.number()).optional() }).nullable().optional(), is_favorited: z.boolean().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), title: z.string(), id: z.string().optional(), widgets: z.array(obj({ id: z.string().optional(), title: z.string().optional(), description: z.string().nullable().optional(), thresholds: z.record(z.string(), z.unknown()).nullable().optional(), display_type: z.enum(["line", "area", "bar", "table", "big_number", "details", "categorical_bar", "wheel", "rage_and_dead_clicks", "server_tree", "text", "agents_traces_table", "heatmap"]).optional(), interval: z.string().optional(), queries: z.array(z.record(z.string(), z.unknown())).optional(), widget_type: z.string().nullable().optional(), limit: z.number().nullable().optional(), layout: z.record(z.string(), z.unknown()).nullable().optional(), axis_range: z.string().nullable().optional(), legend_type: z.string().nullable().optional() })).optional(), projects: z.array(z.number()).optional(), environment: z.array(z.string()).nullable().optional(), period: z.string().nullable().optional(), start: z.string().nullable().optional(), end: z.string().nullable().optional(), filters: z.record(z.string(), z.unknown()).optional(), utc: z.boolean().optional(), permissions: obj({ is_editable_by_everyone: z.boolean(), teams_with_edit_access: z.array(z.number()).optional() }).nullable().optional(), is_favorited: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const dashboardsActions: Record<string, ActionDefinition> = {
     description: "Get organization dashboard. Part of: Dashboards. Calls GET /organizations/{organizationidorslug}/dashboards/{dashboardid}/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/dashboards/{dashboard_id}/",
-    input: z.object({ organization_id_or_slug: z.string(), dashboard_id: z.number() }),
+    input: obj({ organization_id_or_slug: z.string(), dashboard_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const dashboardsActions: Record<string, ActionDefinition> = {
     description: "Update organization dashboard. Part of: Dashboards. Calls PUT /organizations/{organizationidorslug}/dashboards/{dashboardid}/ on Sentry.",
     method: "PUT",
     path: "/organizations/{organization_id_or_slug}/dashboards/{dashboard_id}/",
-    input: z.object({ organization_id_or_slug: z.string(), dashboard_id: z.number(), id: z.string().optional(), title: z.string().optional(), widgets: z.array(z.object({ id: z.string().optional(), title: z.string().optional(), description: z.string().nullable().optional(), thresholds: z.record(z.string(), z.unknown()).nullable().optional(), display_type: z.enum(["line", "area", "bar", "table", "big_number", "details", "categorical_bar", "wheel", "rage_and_dead_clicks", "server_tree", "text", "agents_traces_table", "heatmap"]).optional(), interval: z.string().optional(), queries: z.array(z.record(z.string(), z.unknown())).optional(), widget_type: z.string().nullable().optional(), limit: z.number().nullable().optional(), layout: z.record(z.string(), z.unknown()).nullable().optional(), axis_range: z.string().nullable().optional(), legend_type: z.string().nullable().optional() })).optional(), projects: z.array(z.number()).optional(), environment: z.array(z.string()).nullable().optional(), period: z.string().nullable().optional(), start: z.string().nullable().optional(), end: z.string().nullable().optional(), filters: z.record(z.string(), z.unknown()).optional(), utc: z.boolean().optional(), permissions: z.object({ is_editable_by_everyone: z.boolean(), teams_with_edit_access: z.array(z.number()).optional() }).nullable().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), dashboard_id: z.number(), id: z.string().optional(), title: z.string().optional(), widgets: z.array(obj({ id: z.string().optional(), title: z.string().optional(), description: z.string().nullable().optional(), thresholds: z.record(z.string(), z.unknown()).nullable().optional(), display_type: z.enum(["line", "area", "bar", "table", "big_number", "details", "categorical_bar", "wheel", "rage_and_dead_clicks", "server_tree", "text", "agents_traces_table", "heatmap"]).optional(), interval: z.string().optional(), queries: z.array(z.record(z.string(), z.unknown())).optional(), widget_type: z.string().nullable().optional(), limit: z.number().nullable().optional(), layout: z.record(z.string(), z.unknown()).nullable().optional(), axis_range: z.string().nullable().optional(), legend_type: z.string().nullable().optional() })).optional(), projects: z.array(z.number()).optional(), environment: z.array(z.string()).nullable().optional(), period: z.string().nullable().optional(), start: z.string().nullable().optional(), end: z.string().nullable().optional(), filters: z.record(z.string(), z.unknown()).optional(), utc: z.boolean().optional(), permissions: obj({ is_editable_by_everyone: z.boolean(), teams_with_edit_access: z.array(z.number()).optional() }).nullable().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const dashboardsActions: Record<string, ActionDefinition> = {
     description: "Delete organization dashboard. Part of: Dashboards. Calls DELETE /organizations/{organizationidorslug}/dashboards/{dashboardid}/ on Sentry.",
     method: "DELETE",
     path: "/organizations/{organization_id_or_slug}/dashboards/{dashboard_id}/",
-    input: z.object({ organization_id_or_slug: z.string(), dashboard_id: z.number() }),
+    input: obj({ organization_id_or_slug: z.string(), dashboard_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

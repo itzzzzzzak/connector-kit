@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const conversationLogActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const conversationLogActions: Record<string, ActionDefinition> = {
     description: "List conversation log for ticket. Part of: Conversation Log. Calls GET /tickets/{ticketid}/conversationlog on Zendesk.",
     method: "GET",
     path: "/tickets/{ticket_id}/conversation_log",
-    input: z.object({ ticket_id: z.number(), sort: z.string().optional() }),
+    input: obj({ ticket_id: z.number(), sort: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const projectRoutesActions: Record<string, ActionDefinition> = {
     description: "Get routes. Part of: project-routes. Calls GET /v1/projects/{projectId}/routes on Vercel.",
     method: "GET",
     path: "/v1/projects/{projectId}/routes",
-    input: z.object({ projectId: z.string(), versionId: z.string().optional(), q: z.string().optional(), filter: z.enum(["rewrite", "redirect", "set_status", "transform"]).optional(), diff: z.unknown().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ projectId: z.string(), versionId: z.string().optional(), q: z.string().optional(), filter: z.enum(["rewrite", "redirect", "set_status", "transform"]).optional(), diff: z.unknown().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const projectRoutesActions: Record<string, ActionDefinition> = {
     description: "Add route. Part of: project-routes. Calls POST /v1/projects/{projectId}/routes on Vercel.",
     method: "POST",
     path: "/v1/projects/{projectId}/routes",
-    input: z.object({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), route: z.object({ name: z.string(), description: z.string().optional(), enabled: z.boolean().optional(), srcSyntax: z.enum(["equals", "path-to-regexp", "regex"]).optional(), route: z.object({ src: z.string(), dest: z.string().optional(), headers: z.record(z.string(), z.unknown()).optional(), caseSensitive: z.boolean().optional(), status: z.number().optional(), has: z.array(z.record(z.string(), z.unknown())).optional(), missing: z.array(z.record(z.string(), z.unknown())).optional(), transforms: z.array(z.record(z.string(), z.unknown())).optional(), respectOriginCacheControl: z.boolean().optional() }) }), position: z.object({ placement: z.enum(["start", "end", "after", "before"]).optional(), referenceId: z.string().optional() }).optional() }),
+    input: obj({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), route: obj({ name: z.string(), description: z.string().optional(), enabled: z.boolean().optional(), srcSyntax: z.enum(["equals", "path-to-regexp", "regex"]).optional(), route: obj({ src: z.string(), dest: z.string().optional(), headers: z.record(z.string(), z.unknown()).optional(), caseSensitive: z.boolean().optional(), status: z.number().optional(), has: z.array(z.record(z.string(), z.unknown())).optional(), missing: z.array(z.record(z.string(), z.unknown())).optional(), transforms: z.array(z.record(z.string(), z.unknown())).optional(), respectOriginCacheControl: z.boolean().optional() }) }), position: obj({ placement: z.enum(["start", "end", "after", "before"]).optional(), referenceId: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -29,7 +30,7 @@ export const projectRoutesActions: Record<string, ActionDefinition> = {
     description: "Stage routes. Part of: project-routes. Calls PUT /v1/projects/{projectId}/routes on Vercel.",
     method: "PUT",
     path: "/v1/projects/{projectId}/routes",
-    input: z.object({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), overwrite: z.boolean().optional(), routes: z.array(z.object({ id: z.string(), name: z.string(), description: z.string().optional(), enabled: z.boolean().optional(), route: z.record(z.string(), z.unknown()) })).optional() }),
+    input: obj({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), overwrite: z.boolean().optional(), routes: z.array(obj({ id: z.string(), name: z.string(), description: z.string().optional(), enabled: z.boolean().optional(), route: z.record(z.string(), z.unknown()) })).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -39,7 +40,7 @@ export const projectRoutesActions: Record<string, ActionDefinition> = {
     description: "Delete routes. Part of: project-routes. Calls DELETE /v1/projects/{projectId}/routes on Vercel.",
     method: "DELETE",
     path: "/v1/projects/{projectId}/routes",
-    input: z.object({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), routeIds: z.array(z.string()) }),
+    input: obj({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), routeIds: z.array(z.string()) }),
     output: z.unknown(),
     effect: "destructive",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -49,7 +50,7 @@ export const projectRoutesActions: Record<string, ActionDefinition> = {
     description: "Edit route. Part of: project-routes. Calls PATCH /v1/projects/{projectId}/routes/{routeId} on Vercel.",
     method: "PATCH",
     path: "/v1/projects/{projectId}/routes/{routeId}",
-    input: z.object({ projectId: z.string(), routeId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), route: z.object({ name: z.string(), description: z.string().optional(), enabled: z.boolean().optional(), srcSyntax: z.enum(["equals", "path-to-regexp", "regex"]).optional(), route: z.object({ src: z.string(), dest: z.string().optional(), headers: z.record(z.string(), z.unknown()).optional(), caseSensitive: z.boolean().optional(), status: z.number().optional(), has: z.array(z.record(z.string(), z.unknown())).optional(), missing: z.array(z.record(z.string(), z.unknown())).optional(), transforms: z.array(z.record(z.string(), z.unknown())).optional(), respectOriginCacheControl: z.boolean().optional() }) }).optional(), restore: z.boolean().optional() }),
+    input: obj({ projectId: z.string(), routeId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), route: obj({ name: z.string(), description: z.string().optional(), enabled: z.boolean().optional(), srcSyntax: z.enum(["equals", "path-to-regexp", "regex"]).optional(), route: obj({ src: z.string(), dest: z.string().optional(), headers: z.record(z.string(), z.unknown()).optional(), caseSensitive: z.boolean().optional(), status: z.number().optional(), has: z.array(z.record(z.string(), z.unknown())).optional(), missing: z.array(z.record(z.string(), z.unknown())).optional(), transforms: z.array(z.record(z.string(), z.unknown())).optional(), respectOriginCacheControl: z.boolean().optional() }) }).optional(), restore: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -59,7 +60,7 @@ export const projectRoutesActions: Record<string, ActionDefinition> = {
     description: "Generate route. Part of: project-routes. Calls POST /v1/projects/{projectId}/routes/generate on Vercel.",
     method: "POST",
     path: "/v1/projects/{projectId}/routes/generate",
-    input: z.object({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), prompt: z.string(), currentRoute: z.object({ name: z.string().optional(), description: z.string().optional(), pathCondition: z.object({ value: z.string().optional(), syntax: z.string().optional() }), conditions: z.array(z.record(z.string(), z.unknown())).optional(), actions: z.array(z.record(z.string(), z.unknown())) }).optional() }),
+    input: obj({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), prompt: z.string(), currentRoute: obj({ name: z.string().optional(), description: z.string().optional(), pathCondition: obj({ value: z.string().optional(), syntax: z.string().optional() }), conditions: z.array(z.record(z.string(), z.unknown())).optional(), actions: z.array(z.record(z.string(), z.unknown())) }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -69,7 +70,7 @@ export const projectRoutesActions: Record<string, ActionDefinition> = {
     description: "Get route versions. Part of: project-routes. Calls GET /v1/projects/{projectId}/routes/versions on Vercel.",
     method: "GET",
     path: "/v1/projects/{projectId}/routes/versions",
-    input: z.object({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -77,7 +78,7 @@ export const projectRoutesActions: Record<string, ActionDefinition> = {
     description: "Update route versions. Part of: project-routes. Calls POST /v1/projects/{projectId}/routes/versions on Vercel.",
     method: "POST",
     path: "/v1/projects/{projectId}/routes/versions",
-    input: z.object({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), id: z.string(), action: z.enum(["promote", "restore", "discard"]) }),
+    input: obj({ projectId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), id: z.string(), action: z.enum(["promote", "restore", "discard"]) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),

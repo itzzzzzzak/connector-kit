@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/sentry.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const snapshotsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const snapshotsActions: Record<string, ActionDefinition> = {
     description: "Get organization preprod artifact snapshot. Part of: Snapshots. Calls GET /organizations/{organizationidorslug}/preprodartifacts/snapshots/{snapshotid}/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/preprodartifacts/snapshots/{snapshot_id}/",
-    input: z.object({ organization_id_or_slug: z.string(), snapshot_id: z.string(), compact_metadata: z.string().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), snapshot_id: z.string(), compact_metadata: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const snapshotsActions: Record<string, ActionDefinition> = {
     description: "Delete organization preprod artifact snapshot. Part of: Snapshots. Calls DELETE /organizations/{organizationidorslug}/preprodartifacts/snapshots/{snapshotid}/ on Sentry.",
     method: "DELETE",
     path: "/organizations/{organization_id_or_slug}/preprodartifacts/snapshots/{snapshot_id}/",
-    input: z.object({ organization_id_or_slug: z.string(), snapshot_id: z.string() }),
+    input: obj({ organization_id_or_slug: z.string(), snapshot_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -26,7 +27,7 @@ export const snapshotsActions: Record<string, ActionDefinition> = {
     description: "Get organization preprod artifact snapshot image. Part of: Snapshots. Calls GET /organizations/{organizationidorslug}/preprodartifacts/snapshots/{snapshotid}/images/{imageidentifier}/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/preprodartifacts/snapshots/{snapshot_id}/images/{image_identifier}/",
-    input: z.object({ organization_id_or_slug: z.string(), snapshot_id: z.string(), image_identifier: z.string() }),
+    input: obj({ organization_id_or_slug: z.string(), snapshot_id: z.string(), image_identifier: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const snapshotsActions: Record<string, ActionDefinition> = {
     description: "Get organization preprod artifact snapshot latest base. Part of: Snapshots. Calls GET /organizations/{organizationidorslug}/preprodartifacts/snapshots/latest-base/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/preprodartifacts/snapshots/latest-base/",
-    input: z.object({ organization_id_or_slug: z.string(), app_id: z.string(), branch: z.string().optional(), project: z.unknown().optional(), compact_metadata: z.string().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), app_id: z.string(), branch: z.string().optional(), project: z.unknown().optional(), compact_metadata: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const snapshotsActions: Record<string, ActionDefinition> = {
     description: "Get project preprod snapshot status check rules. Part of: Snapshots. Calls GET /projects/{organizationidorslug}/{projectidorslug}/preprod/snapshots/status-check-rules/ on Sentry.",
     method: "GET",
     path: "/projects/{organization_id_or_slug}/{project_id_or_slug}/preprod/snapshots/status-check-rules/",
-    input: z.object({ organization_id_or_slug: z.string(), project_id_or_slug: z.string() }),
+    input: obj({ organization_id_or_slug: z.string(), project_id_or_slug: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const snapshotsActions: Record<string, ActionDefinition> = {
     description: "Create project preprod snapshot skipped status check. Part of: Snapshots. Calls POST /projects/{organizationidorslug}/{projectidorslug}/preprod/snapshots/status-checks/skip/ on Sentry.",
     method: "POST",
     path: "/projects/{organization_id_or_slug}/{project_id_or_slug}/preprod/snapshots/status-checks/skip/",
-    input: z.object({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), sha: z.string(), repository: z.string(), provider: z.enum(["github", "github_enterprise"]) }),
+    input: obj({ organization_id_or_slug: z.string(), project_id_or_slug: z.string(), sha: z.string(), repository: z.string(), provider: z.enum(["github", "github_enterprise"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const snapshotsActions: Record<string, ActionDefinition> = {
     description: "Upload project preprod artifact snapshot. Part of: Snapshots. Calls POST /projects/{organizationidorslug}/{projectidorslug}/preprodartifacts/snapshots/ on Sentry.",
     method: "POST",
     path: "/projects/{organization_id_or_slug}/{project_id_or_slug}/preprodartifacts/snapshots/",
-    input: z.object({ organization_id_or_slug: z.string(), project_id_or_slug: z.string() }),
+    input: obj({ organization_id_or_slug: z.string(), project_id_or_slug: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

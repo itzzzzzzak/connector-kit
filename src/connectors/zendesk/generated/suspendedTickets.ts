@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const suspendedTicketsActions: Record<string, ActionDefinition> = {
     description: "List suspended tickets. Part of: Suspended Tickets. Calls GET /suspendedtickets on Zendesk.",
     method: "GET",
     path: "/suspended_tickets",
-    input: z.object({ sort_by: z.string().optional(), sort_order: z.string().optional(), page: z.unknown().optional(), per_page: z.number().optional() }),
+    input: obj({ sort_by: z.string().optional(), sort_order: z.string().optional(), page: z.unknown().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const suspendedTicketsActions: Record<string, ActionDefinition> = {
     description: "Show suspended tickets. Part of: Suspended Tickets. Calls GET /suspendedtickets/{id} on Zendesk.",
     method: "GET",
     path: "/suspended_tickets/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const suspendedTicketsActions: Record<string, ActionDefinition> = {
     description: "Delete suspended ticket. Part of: Suspended Tickets. Calls DELETE /suspendedtickets/{id} on Zendesk.",
     method: "DELETE",
     path: "/suspended_tickets/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -35,7 +36,7 @@ export const suspendedTicketsActions: Record<string, ActionDefinition> = {
     description: "Recover suspended ticket. Part of: Suspended Tickets. Calls PUT /suspendedtickets/{id}/recover on Zendesk.",
     method: "PUT",
     path: "/suspended_tickets/{id}/recover",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -43,7 +44,7 @@ export const suspendedTicketsActions: Record<string, ActionDefinition> = {
     description: "Suspended tickets attachments. Part of: Suspended Tickets. Calls POST /suspendedtickets/attachments on Zendesk.",
     method: "POST",
     path: "/suspended_tickets/attachments",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -51,7 +52,7 @@ export const suspendedTicketsActions: Record<string, ActionDefinition> = {
     description: "Bulk recover suspended tickets. Part of: Suspended Tickets. Calls PUT /suspendedtickets/bulkrecover on Zendesk.",
     method: "PUT",
     path: "/suspended_tickets/bulk_recover",
-    input: z.object({ ids: z.string(), author: z.object({ email: z.string().optional(), id: z.number().optional() }).optional() }),
+    input: obj({ ids: z.string(), author: obj({ email: z.string().optional(), id: z.number().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["ids"]),
@@ -61,7 +62,7 @@ export const suspendedTicketsActions: Record<string, ActionDefinition> = {
     description: "Delete suspended tickets. Part of: Suspended Tickets. Calls DELETE /suspendedtickets/destroymany on Zendesk.",
     method: "DELETE",
     path: "/suspended_tickets/destroy_many",
-    input: z.object({ ids: z.string() }),
+    input: obj({ ids: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -69,7 +70,7 @@ export const suspendedTicketsActions: Record<string, ActionDefinition> = {
     description: "Export suspended tickets. Part of: Suspended Tickets. Calls POST /suspendedtickets/export on Zendesk.",
     method: "POST",
     path: "/suspended_tickets/export",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -77,7 +78,7 @@ export const suspendedTicketsActions: Record<string, ActionDefinition> = {
     description: "Recover suspended tickets. Part of: Suspended Tickets. Calls PUT /suspendedtickets/recovermany on Zendesk.",
     method: "PUT",
     path: "/suspended_tickets/recover_many",
-    input: z.object({ ids: z.string() }),
+    input: obj({ ids: z.string() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["ids"]),

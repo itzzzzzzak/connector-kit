@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const marketingEmailActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const marketingEmailActions: Record<string, ActionDefinition> = {
     description: "Create single send. Part of: Advanced. Calls POST /marketing/v4/email/single-send on HubSpot.",
     method: "POST",
     path: "/marketing/v4/email/single-send",
-    input: z.object({ contactProperties: z.record(z.string(), z.unknown()).optional(), customProperties: z.record(z.string(), z.unknown()).optional(), emailId: z.number(), message: z.object({ bcc: z.array(z.string()).optional(), cc: z.array(z.string()).optional(), from: z.string().optional(), replyTo: z.array(z.string()).optional(), sendId: z.string().optional(), to: z.string() }) }),
+    input: obj({ contactProperties: z.record(z.string(), z.unknown()).optional(), customProperties: z.record(z.string(), z.unknown()).optional(), emailId: z.number(), message: obj({ bcc: z.array(z.string()).optional(), cc: z.array(z.string()).optional(), from: z.string().optional(), replyTo: z.array(z.string()).optional(), sendId: z.string().optional(), to: z.string() }) }),
     output: z.unknown(),
     effect: "write",
   },

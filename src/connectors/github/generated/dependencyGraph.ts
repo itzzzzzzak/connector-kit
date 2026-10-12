@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const dependencyGraphActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const dependencyGraphActions: Record<string, ActionDefinition> = {
     description: "Get a diff of the dependencies between commits. Gets the diff of the dependency changes between two commits of a repository, based on the changes to the dependency manifests made in those commits.",
     method: "GET",
     path: "/repos/{owner}/{repo}/dependency-graph/compare/{basehead}",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), basehead: z.string().describe("The base and head Git revisions to compare. The Git revisions will be resolved to commit SHAs. Named revisions will be resolved to their corresponding HEAD…"), name: z.string().describe("The full path, relative to the repository root, of the dependency manifest file.").optional() }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), basehead: z.string().describe("The base and head Git revisions to compare. The Git revisions will be resolved to commit SHAs. Named revisions will be resolved to their corresponding HEAD…"), name: z.string().describe("The full path, relative to the repository root, of the dependency manifest file.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const dependencyGraphActions: Record<string, ActionDefinition> = {
     description: "Fetch a software bill of materials (SBOM) for a repository. Fetches a previously generated software bill of materials (SBOM) for a repository. When the SBOM is ready, the response is a 302 redirect to a temporary download URL for the SBOM in SPDX JSON format. The generated SBOM report may be retained for up to one week from the original request. The temporary download URL returned by thi",
     method: "GET",
     path: "/repos/{owner}/{repo}/dependency-graph/sbom/fetch-report/{sbom_uuid}",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), sbom_uuid: z.string().describe("The unique identifier of the SBOM export.") }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), sbom_uuid: z.string().describe("The unique identifier of the SBOM export.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const dependencyGraphActions: Record<string, ActionDefinition> = {
     description: "Request generation of a software bill of materials (SBOM) for a repository. Triggers a job to generate a software bill of materials (SBOM) for a repository in SPDX JSON format.",
     method: "GET",
     path: "/repos/{owner}/{repo}/dependency-graph/sbom/generate-report",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive.") }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const dependencyGraphActions: Record<string, ActionDefinition> = {
     description: "Create a snapshot of dependencies for a repository. Create a new snapshot of a repository's dependencies.",
     method: "POST",
     path: "/repos/{owner}/{repo}/dependency-graph/snapshots",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), version: z.number().describe("The version of the repository snapshot submission."), job: z.object({ id: z.string(), correlator: z.string(), html_url: z.string().optional() }), sha: z.string().describe("The commit SHA associated with this dependency snapshot. Maximum length: 64 characters."), ref: z.string().describe("The repository branch that triggered this snapshot."), detector: z.object({ name: z.string(), version: z.string(), url: z.string() }).describe("A description of the detector used."), metadata: z.record(z.string(), z.unknown()).describe("User-defined metadata to store domain-specific information limited to 8 keys with scalar values.").optional(), manifests: z.record(z.string(), z.unknown()).describe("A collection of package manifests, which are a collection of related dependencies declared in a file or representing a logical group of dependencies.").optional(), scanned: z.string().describe("The time at which the snapshot was scanned.") }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), version: z.number().describe("The version of the repository snapshot submission."), job: obj({ id: z.string(), correlator: z.string(), html_url: z.string().optional() }), sha: z.string().describe("The commit SHA associated with this dependency snapshot. Maximum length: 64 characters."), ref: z.string().describe("The repository branch that triggered this snapshot."), detector: obj({ name: z.string(), version: z.string(), url: z.string() }).describe("A description of the detector used."), metadata: z.record(z.string(), z.unknown()).describe("User-defined metadata to store domain-specific information limited to 8 keys with scalar values.").optional(), manifests: z.record(z.string(), z.unknown()).describe("A collection of package manifests, which are a collection of related dependencies declared in a file or representing a logical group of dependencies.").optional(), scanned: z.string().describe("The time at which the snapshot was scanned.") }),
     output: z.unknown(),
     effect: "write",
   },

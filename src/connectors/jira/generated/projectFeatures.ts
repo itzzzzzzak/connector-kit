@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectFeaturesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectFeaturesActions: Record<string, ActionDefinition> = {
     description: "Get project features. Returns the list of features for a project.",
     method: "GET",
     path: "/project/{projectIdOrKey}/features",
-    input: z.object({ projectIdOrKey: z.string().describe("The ID or (case-sensitive) key of the project.") }),
+    input: obj({ projectIdOrKey: z.string().describe("The ID or (case-sensitive) key of the project.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const projectFeaturesActions: Record<string, ActionDefinition> = {
     description: "Set project feature state. Sets the state of a project feature.",
     method: "PUT",
     path: "/project/{projectIdOrKey}/features/{featureKey}",
-    input: z.object({ projectIdOrKey: z.string().describe("The ID or (case-sensitive) key of the project."), featureKey: z.string().describe("The key of the feature."), state: z.enum(["ENABLED", "DISABLED", "COMING_SOON"]).describe("The feature state.").optional() }),
+    input: obj({ projectIdOrKey: z.string().describe("The ID or (case-sensitive) key of the project."), featureKey: z.string().describe("The key of the feature."), state: z.enum(["ENABLED", "DISABLED", "COMING_SOON"]).describe("The feature state.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

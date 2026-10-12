@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const jiraForgeSubscriptionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const jiraForgeSubscriptionsActions: Record<string, ActionDefinition> = {
     description: "Get integrations jira forge subscriptions. Part of: jiraforgesubscriptions. Calls GET /integrations/jiraforge/subscriptions on GitLab.",
     method: "GET",
     path: "/integrations/jira_forge/subscriptions",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const jiraForgeSubscriptionsActions: Record<string, ActionDefinition> = {
     description: "Post integrations jira forge subscriptions. Part of: jiraforgesubscriptions. Calls POST /integrations/jiraforge/subscriptions on GitLab.",
     method: "POST",
     path: "/integrations/jira_forge/subscriptions",
-    input: z.object({ namespace_path: z.string() }),
+    input: obj({ namespace_path: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const jiraForgeSubscriptionsActions: Record<string, ActionDefinition> = {
     description: "Delete integrations jira forge subscriptions id. Part of: jiraforgesubscriptions. Calls DELETE /integrations/jiraforge/subscriptions/{id} on GitLab.",
     method: "DELETE",
     path: "/integrations/jira_forge/subscriptions/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

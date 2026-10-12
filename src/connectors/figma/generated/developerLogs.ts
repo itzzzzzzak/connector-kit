@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/figma.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const developerLogsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const developerLogsActions: Record<string, ActionDefinition> = {
     description: "Get developer logs. Returns a list of developer log entries for REST API and MCP server requests made within the organization. This endpoint requires a plan access token with the org:developerlogread scope.",
     method: "POST",
     path: "/v1/developer_logs",
-    input: z.object({ token_type: z.enum(["plan_access_token", "developer_token", "oauth_token"]).describe("Filter by the type of token used for authentication.").optional(), token: z.string().describe("Filter by token value(s). Multiple values can be separated by commas.").optional(), token_name: z.string().describe("Filter by token name prefix(es). Multiple values can be separated by commas.").optional(), user_email: z.string().describe("Filter by user email prefix(es). Multiple values can be separated by commas.").optional(), ip_address: z.string().describe("Filter by IP address prefix(es). Multiple values can be separated by commas.").optional(), event_source: z.enum(["rest_api", "mcp_server"]).describe("Filter by event source.").optional(), date_range: z.enum(["last_24h", "last_7d", "last_30d"]).describe("Filter by date range.").optional(), limit: z.number().describe("Maximum number of entries to return.").optional(), cursor: z.string().describe("A cursor returned from a previous request, used for pagination.").optional() }),
+    input: obj({ token_type: z.enum(["plan_access_token", "developer_token", "oauth_token"]).describe("Filter by the type of token used for authentication.").optional(), token: z.string().describe("Filter by token value(s). Multiple values can be separated by commas.").optional(), token_name: z.string().describe("Filter by token name prefix(es). Multiple values can be separated by commas.").optional(), user_email: z.string().describe("Filter by user email prefix(es). Multiple values can be separated by commas.").optional(), ip_address: z.string().describe("Filter by IP address prefix(es). Multiple values can be separated by commas.").optional(), event_source: z.enum(["rest_api", "mcp_server"]).describe("Filter by event source.").optional(), date_range: z.enum(["last_24h", "last_7d", "last_30d"]).describe("Filter by date range.").optional(), limit: z.number().describe("Maximum number of entries to return.").optional(), cursor: z.string().describe("A cursor returned from a previous request, used for pagination.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

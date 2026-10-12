@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const applicationRolesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const applicationRolesActions: Record<string, ActionDefinition> = {
     description: "Get all application roles. Returns all application roles. In Jira, application roles are managed using the Application access configuration page.",
     method: "GET",
     path: "/applicationrole",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const applicationRolesActions: Record<string, ActionDefinition> = {
     description: "Get application role. Returns an application role.",
     method: "GET",
     path: "/applicationrole/{key}",
-    input: z.object({ key: z.string().describe("The key of the application role. Use the Get all application roles operation to get the key for each application role.") }),
+    input: obj({ key: z.string().describe("The key of the application role. Use the Get all application roles operation to get the key for each application role.") }),
     output: z.unknown(),
     effect: "read",
   },

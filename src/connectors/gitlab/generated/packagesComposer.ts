@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const packagesComposerActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const packagesComposerActions: Record<string, ActionDefinition> = {
     description: "Post projects id packages composer. Part of: packagescomposer. Calls POST /projects/{id}/packages/composer on GitLab.",
     method: "POST",
     path: "/projects/{id}/packages/composer",
-    input: z.object({ id: z.string(), branch: z.string().optional(), tag: z.string().optional() }),
+    input: obj({ id: z.string(), branch: z.string().optional(), tag: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const packagesComposerActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages composer archives package name. Part of: packagescomposer. Calls GET /projects/{id}/packages/composer/archives/packagename on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/composer/archives/*package_name",
-    input: z.object({ id: z.string(), sha: z.string(), package_name: z.string() }),
+    input: obj({ id: z.string(), sha: z.string(), package_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const packagesComposerActions: Record<string, ActionDefinition> = {
     description: "Get group id packages composer packages. Part of: packagescomposer. Calls GET /group/{id}/-/packages/composer/packages on GitLab.",
     method: "GET",
     path: "/group/{id}/-/packages/composer/packages",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const packagesComposerActions: Record<string, ActionDefinition> = {
     description: "Get group id packages composer psha. Part of: packagescomposer. Calls GET /group/{id}/-/packages/composer/p/{sha} on GitLab.",
     method: "GET",
     path: "/group/{id}/-/packages/composer/p/{sha}",
-    input: z.object({ id: z.string(), sha: z.string() }),
+    input: obj({ id: z.string(), sha: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const packagesComposerActions: Record<string, ActionDefinition> = {
     description: "Get group id packages composer p2 package name. Part of: packagescomposer. Calls GET /group/{id}/-/packages/composer/p2/packagename on GitLab.",
     method: "GET",
     path: "/group/{id}/-/packages/composer/p2/*package_name",
-    input: z.object({ id: z.string(), package_name: z.string() }),
+    input: obj({ id: z.string(), package_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const packagesComposerActions: Record<string, ActionDefinition> = {
     description: "Get group id packages composer package name. Part of: packagescomposer. Calls GET /group/{id}/-/packages/composer/packagename on GitLab.",
     method: "GET",
     path: "/group/{id}/-/packages/composer/*package_name",
-    input: z.object({ id: z.string(), package_name: z.string() }),
+    input: obj({ id: z.string(), package_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

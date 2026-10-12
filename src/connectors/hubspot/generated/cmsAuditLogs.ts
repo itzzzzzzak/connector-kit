@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const cmsAuditLogsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /cms/audit-logs/v3 on HubSpot.",
     method: "GET",
     path: "/cms/audit-logs/v3",
-    input: z.object({ before: z.string().optional(), eventType: z.array(z.string()).optional(), objectId: z.array(z.string()).optional(), objectType: z.array(z.string()).optional(), sort: z.array(z.string()).optional(), userId: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ before: z.string().optional(), eventType: z.array(z.string()).optional(), objectId: z.array(z.string()).optional(), objectType: z.array(z.string()).optional(), sort: z.array(z.string()).optional(), userId: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),

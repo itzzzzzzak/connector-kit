@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const notesActions: Record<string, ActionDefinition> = {
     description: "Notes. Part of: Notes. Calls GET /contactcenter/engagements/notes on Zoom.",
     method: "GET",
     path: "/contact_center/engagements/notes",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "notes", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const notesActions: Record<string, ActionDefinition> = {
     description: "Engagement notes. Part of: Notes. Calls GET /contactcenter/engagements/{engagementId}/notes on Zoom.",
     method: "GET",
     path: "/contact_center/engagements/{engagementId}/notes",
-    input: z.object({ engagementId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ engagementId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "notes", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -29,7 +30,7 @@ export const notesActions: Record<string, ActionDefinition> = {
     description: "Get note. Part of: Notes. Calls GET /contactcenter/engagements/{engagementId}/notes/{noteId} on Zoom.",
     method: "GET",
     path: "/contact_center/engagements/{engagementId}/notes/{noteId}",
-    input: z.object({ engagementId: z.string(), noteId: z.string() }),
+    input: obj({ engagementId: z.string(), noteId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const notesActions: Record<string, ActionDefinition> = {
     description: "Note update. Part of: Notes. Calls PATCH /contactcenter/engagements/{engagementId}/notes/{noteId} on Zoom.",
     method: "PATCH",
     path: "/contact_center/engagements/{engagementId}/notes/{noteId}",
-    input: z.object({ engagementId: z.string(), noteId: z.string(), note: z.string().optional() }),
+    input: obj({ engagementId: z.string(), noteId: z.string(), note: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

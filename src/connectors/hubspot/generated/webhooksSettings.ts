@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const webhooksSettingsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const webhooksSettingsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /webhooks/v3/{appId}/settings on HubSpot.",
     method: "GET",
     path: "/webhooks/v3/{appId}/settings",
-    input: z.object({ appId: z.number() }),
+    input: obj({ appId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const webhooksSettingsActions: Record<string, ActionDefinition> = {
     description: "Replace. Part of: Basic. Calls PUT /webhooks/v3/{appId}/settings on HubSpot.",
     method: "PUT",
     path: "/webhooks/v3/{appId}/settings",
-    input: z.object({ appId: z.number(), targetUrl: z.string(), throttling: z.object({ maxConcurrentRequests: z.number() }) }),
+    input: obj({ appId: z.number(), targetUrl: z.string(), throttling: obj({ maxConcurrentRequests: z.number() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const webhooksSettingsActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /webhooks/v3/{appId}/settings on HubSpot.",
     method: "DELETE",
     path: "/webhooks/v3/{appId}/settings",
-    input: z.object({ appId: z.number() }),
+    input: obj({ appId: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

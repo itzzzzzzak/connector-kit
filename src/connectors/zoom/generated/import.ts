@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const importActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const importActions: Record<string, ActionDefinition> = {
     description: "Create whiteboard import. Part of: Import. Calls POST /whiteboards/import on Zoom.",
     method: "POST",
     path: "/whiteboards/import",
-    input: z.object({ file_id: z.string(), type: z.number(), whiteboard_name: z.string().optional(), skip_notifications: z.boolean().optional(), owner_email: z.string().optional(), collaborators: z.array(z.object({ email: z.string().optional(), role: z.enum(["0", "1", "2", "3", "4"]).optional(), channel_id: z.string().optional() })).optional(), project_id: z.string().optional() }),
+    input: obj({ file_id: z.string(), type: z.number(), whiteboard_name: z.string().optional(), skip_notifications: z.boolean().optional(), owner_email: z.string().optional(), collaborators: z.array(obj({ email: z.string().optional(), role: z.enum(["0", "1", "2", "3", "4"]).optional(), channel_id: z.string().optional() })).optional(), project_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const importActions: Record<string, ActionDefinition> = {
     description: "Get whiteboardimportstatus. Part of: Import. Calls GET /whiteboards/import/{taskId}/status on Zoom.",
     method: "GET",
     path: "/whiteboards/import/{taskId}/status",
-    input: z.object({ taskId: z.string() }),
+    input: obj({ taskId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

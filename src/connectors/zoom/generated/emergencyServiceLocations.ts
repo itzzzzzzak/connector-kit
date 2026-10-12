@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const emergencyServiceLocationsActions: Record<string, ActionDefinition> 
     description: "Batch add locations. Part of: Emergency Service Locations. Calls POST /phone/batchlocations on Zoom.",
     method: "POST",
     path: "/phone/batch_locations",
-    input: z.object({ locations: z.array(z.object({ bssid: z.string().optional(), company_address: z.record(z.string(), z.unknown()), display_name: z.string(), elin: z.string().optional(), identifier: z.string(), network_switches: z.array(z.record(z.string(), z.unknown())).optional(), parent_identifier: z.string().optional(), private_ip: z.string().optional(), public_ip: z.string().optional(), private_ipv6: z.string().optional(), public_ipv6: z.string().optional(), sip_group_name: z.string().optional(), minimum_match_criteria: z.boolean().optional() })), site_id: z.string().optional() }),
+    input: obj({ locations: z.array(obj({ bssid: z.string().optional(), company_address: z.record(z.string(), z.unknown()), display_name: z.string(), elin: z.string().optional(), identifier: z.string(), network_switches: z.array(z.record(z.string(), z.unknown())).optional(), parent_identifier: z.string().optional(), private_ip: z.string().optional(), public_ip: z.string().optional(), private_ipv6: z.string().optional(), public_ipv6: z.string().optional(), sip_group_name: z.string().optional(), minimum_match_criteria: z.boolean().optional() })), site_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const emergencyServiceLocationsActions: Record<string, ActionDefinition> 
     description: "List locations. Part of: Emergency Service Locations. Calls GET /phone/locations on Zoom.",
     method: "GET",
     path: "/phone/locations",
-    input: z.object({ site_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ site_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "locations", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -28,7 +29,7 @@ export const emergencyServiceLocationsActions: Record<string, ActionDefinition> 
     description: "Add location. Part of: Emergency Service Locations. Calls POST /phone/locations on Zoom.",
     method: "POST",
     path: "/phone/locations",
-    input: z.object({ bssid: z.string().optional(), elin_phone_number_id: z.string().optional(), emergency_address_id: z.string(), name: z.string(), parent_location_id: z.string().optional(), private_ip: z.string().optional(), public_ip: z.string().optional(), private_ipv6: z.string().optional(), public_ipv6: z.string().optional(), sip_group_id: z.string().optional(), site_id: z.string().optional(), minimum_match_criteria: z.boolean().optional(), network_switches: z.array(z.object({ mac_address: z.string(), port: z.string().optional(), port_prefix: z.string().optional(), port_range_from: z.string().optional(), port_range_to: z.string().optional() })).optional() }),
+    input: obj({ bssid: z.string().optional(), elin_phone_number_id: z.string().optional(), emergency_address_id: z.string(), name: z.string(), parent_location_id: z.string().optional(), private_ip: z.string().optional(), public_ip: z.string().optional(), private_ipv6: z.string().optional(), public_ipv6: z.string().optional(), sip_group_id: z.string().optional(), site_id: z.string().optional(), minimum_match_criteria: z.boolean().optional(), network_switches: z.array(obj({ mac_address: z.string(), port: z.string().optional(), port_prefix: z.string().optional(), port_range_from: z.string().optional(), port_range_to: z.string().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const emergencyServiceLocationsActions: Record<string, ActionDefinition> 
     description: "Get location. Part of: Emergency Service Locations. Calls GET /phone/locations/{locationId} on Zoom.",
     method: "GET",
     path: "/phone/locations/{locationId}",
-    input: z.object({ locationId: z.string() }),
+    input: obj({ locationId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -44,7 +45,7 @@ export const emergencyServiceLocationsActions: Record<string, ActionDefinition> 
     description: "Update location. Part of: Emergency Service Locations. Calls PATCH /phone/locations/{locationId} on Zoom.",
     method: "PATCH",
     path: "/phone/locations/{locationId}",
-    input: z.object({ locationId: z.string(), bssid: z.string().optional(), elin_phone_number_id: z.string().optional(), emergency_address_id: z.string().optional(), name: z.string().optional(), network_switches: z.array(z.object({ mac_address: z.string().optional(), port: z.string().optional(), port_prefix: z.string().optional(), port_range_from: z.string().optional(), port_range_to: z.string().optional() })).optional(), private_ip: z.string().optional(), public_ip: z.string().optional(), private_ipv6: z.string().optional(), public_ipv6: z.string().optional(), sip_group_id: z.string().optional(), minimum_match_criteria: z.boolean().optional() }),
+    input: obj({ locationId: z.string(), bssid: z.string().optional(), elin_phone_number_id: z.string().optional(), emergency_address_id: z.string().optional(), name: z.string().optional(), network_switches: z.array(obj({ mac_address: z.string().optional(), port: z.string().optional(), port_prefix: z.string().optional(), port_range_from: z.string().optional(), port_range_to: z.string().optional() })).optional(), private_ip: z.string().optional(), public_ip: z.string().optional(), private_ipv6: z.string().optional(), public_ipv6: z.string().optional(), sip_group_id: z.string().optional(), minimum_match_criteria: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -52,7 +53,7 @@ export const emergencyServiceLocationsActions: Record<string, ActionDefinition> 
     description: "Delete location. Part of: Emergency Service Locations. Calls DELETE /phone/locations/{locationId} on Zoom.",
     method: "DELETE",
     path: "/phone/locations/{locationId}",
-    input: z.object({ locationId: z.string() }),
+    input: obj({ locationId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

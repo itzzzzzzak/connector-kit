@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const errorTrackingActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const errorTrackingActions: Record<string, ActionDefinition> = {
     description: "Get projects id error tracking client keys. Part of: errortracking. Calls GET /projects/{id}/errortracking/clientkeys on GitLab.",
     method: "GET",
     path: "/projects/{id}/error_tracking/client_keys",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const errorTrackingActions: Record<string, ActionDefinition> = {
     description: "Post projects id error tracking client keys. Part of: errortracking. Calls POST /projects/{id}/errortracking/clientkeys on GitLab.",
     method: "POST",
     path: "/projects/{id}/error_tracking/client_keys",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const errorTrackingActions: Record<string, ActionDefinition> = {
     description: "Delete projects id error tracking client keys key id. Part of: errortracking. Calls DELETE /projects/{id}/errortracking/clientkeys/{keyid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/error_tracking/client_keys/{key_id}",
-    input: z.object({ id: z.string(), key_id: z.number() }),
+    input: obj({ id: z.string(), key_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const errorTrackingActions: Record<string, ActionDefinition> = {
     description: "Get projects id error tracking settings. Part of: errortracking. Calls GET /projects/{id}/errortracking/settings on GitLab.",
     method: "GET",
     path: "/projects/{id}/error_tracking/settings",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const errorTrackingActions: Record<string, ActionDefinition> = {
     description: "Put projects id error tracking settings. Part of: errortracking. Calls PUT /projects/{id}/errortracking/settings on GitLab.",
     method: "PUT",
     path: "/projects/{id}/error_tracking/settings",
-    input: z.object({ id: z.string(), active: z.boolean(), integrated: z.boolean() }),
+    input: obj({ id: z.string(), active: z.boolean(), integrated: z.boolean() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const errorTrackingActions: Record<string, ActionDefinition> = {
     description: "Patch projects id error tracking settings. Part of: errortracking. Calls PATCH /projects/{id}/errortracking/settings on GitLab.",
     method: "PATCH",
     path: "/projects/{id}/error_tracking/settings",
-    input: z.object({ id: z.string(), active: z.boolean(), integrated: z.boolean().optional() }),
+    input: obj({ id: z.string(), active: z.boolean(), integrated: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },

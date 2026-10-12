@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const taskRelationshipsActions: Record<string, ActionDefinition> = {
     description: "Add dependency. Part of: Task Relationships. Calls POST /task/{taskid}/dependency on ClickUp.",
     method: "POST",
     path: "/task/{task_id}/dependency",
-    input: z.object({ task_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional(), depends_on: z.string().optional(), dependency_of: z.string().optional() }),
+    input: obj({ task_id: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional(), depends_on: z.string().optional(), dependency_of: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["custom_task_ids","team_id"]),
@@ -21,7 +22,7 @@ export const taskRelationshipsActions: Record<string, ActionDefinition> = {
     description: "Delete dependency. Part of: Task Relationships. Calls DELETE /task/{taskid}/dependency on ClickUp.",
     method: "DELETE",
     path: "/task/{task_id}/dependency",
-    input: z.object({ task_id: z.string(), depends_on: z.string(), dependency_of: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
+    input: obj({ task_id: z.string(), depends_on: z.string(), dependency_of: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -29,7 +30,7 @@ export const taskRelationshipsActions: Record<string, ActionDefinition> = {
     description: "Add task link. Part of: Task Relationships. Calls POST /task/{taskid}/link/{linksto} on ClickUp.",
     method: "POST",
     path: "/task/{task_id}/link/{links_to}",
-    input: z.object({ task_id: z.string(), links_to: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
+    input: obj({ task_id: z.string(), links_to: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["custom_task_ids","team_id"]),
@@ -38,7 +39,7 @@ export const taskRelationshipsActions: Record<string, ActionDefinition> = {
     description: "Delete task link. Part of: Task Relationships. Calls DELETE /task/{taskid}/link/{linksto} on ClickUp.",
     method: "DELETE",
     path: "/task/{task_id}/link/{links_to}",
-    input: z.object({ task_id: z.string(), links_to: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
+    input: obj({ task_id: z.string(), links_to: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

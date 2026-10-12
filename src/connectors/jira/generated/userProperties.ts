@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const userPropertiesActions: Record<string, ActionDefinition> = {
     description: "Get user property keys. Returns the keys of all properties for a user.",
     method: "GET",
     path: "/user/properties",
-    input: z.object({ accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5.").optional(), userKey: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), username: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional() }),
+    input: obj({ accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5.").optional(), userKey: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), username: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const userPropertiesActions: Record<string, ActionDefinition> = {
     description: "Get user property. Returns the value of a user's property. If no property key is provided Get user property keys is called.",
     method: "GET",
     path: "/user/properties/{propertyKey}",
-    input: z.object({ accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5.").optional(), userKey: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), username: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), propertyKey: z.string().describe("The key of the user's property.") }),
+    input: obj({ accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5.").optional(), userKey: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), username: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), propertyKey: z.string().describe("The key of the user's property.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const userPropertiesActions: Record<string, ActionDefinition> = {
     description: "Set user property. Sets the value of a user's property. Use this resource to store custom data against a user.",
     method: "PUT",
     path: "/user/properties/{propertyKey}",
-    input: z.object({ accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5.").optional(), userKey: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), username: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), propertyKey: z.string().describe("The key of the user's property. The maximum length is 255 characters."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5.").optional(), userKey: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), username: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), propertyKey: z.string().describe("The key of the user's property. The maximum length is 255 characters."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["accountId","userKey","username"]),
@@ -37,7 +38,7 @@ export const userPropertiesActions: Record<string, ActionDefinition> = {
     description: "Delete user property. Deletes a property from a user.",
     method: "DELETE",
     path: "/user/properties/{propertyKey}",
-    input: z.object({ accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5.").optional(), userKey: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), username: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), propertyKey: z.string().describe("The key of the user's property.") }),
+    input: obj({ accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5.").optional(), userKey: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), username: z.string().describe("This parameter is no longer available and will be removed from the documentation soon. See the deprecation notice for details.").optional(), propertyKey: z.string().describe("The key of the user's property.") }),
     output: z.unknown(),
     effect: "destructive",
   },

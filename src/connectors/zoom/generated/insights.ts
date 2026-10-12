@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const insightsActions: Record<string, ActionDefinition> = {
     description: "Get attendee engagement. Part of: Insights. Calls GET /zoomevents/hubs/{hubId}/attendeeinsights/engagement on Zoom.",
     method: "GET",
     path: "/zoom_events/hubs/{hubId}/attendee_insights/engagement",
-    input: z.object({ hubId: z.string(), engagement_type: z.enum(["certification"]), email: z.string(), event_id: z.string().optional(), session_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ hubId: z.string(), engagement_type: z.enum(["certification"]), email: z.string(), event_id: z.string().optional(), session_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

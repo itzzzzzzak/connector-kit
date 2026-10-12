@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const containerRegistryActions: Record<string, ActionDefinition> = {
     description: "Get groups id registry repositories. Part of: containerregistry. Calls GET /groups/{id}/registry/repositories on GitLab.",
     method: "GET",
     path: "/groups/{id}/registry/repositories",
-    input: z.object({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const containerRegistryActions: Record<string, ActionDefinition> = {
     description: "Get projects id registry repositories. Part of: containerregistry. Calls GET /projects/{id}/registry/repositories on GitLab.",
     method: "GET",
     path: "/projects/{id}/registry/repositories",
-    input: z.object({ id: z.string(), tags: z.boolean().optional(), tags_count: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), tags: z.boolean().optional(), tags_count: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -29,7 +30,7 @@ export const containerRegistryActions: Record<string, ActionDefinition> = {
     description: "Delete projects id registry repositories repository id. Part of: containerregistry. Calls DELETE /projects/{id}/registry/repositories/{repositoryid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/registry/repositories/{repository_id}",
-    input: z.object({ id: z.string(), repository_id: z.number() }),
+    input: obj({ id: z.string(), repository_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -37,7 +38,7 @@ export const containerRegistryActions: Record<string, ActionDefinition> = {
     description: "Get projects id registry repositories repository id tags. Part of: containerregistry. Calls GET /projects/{id}/registry/repositories/{repositoryid}/tags on GitLab.",
     method: "GET",
     path: "/projects/{id}/registry/repositories/{repository_id}/tags",
-    input: z.object({ id: z.string(), repository_id: z.number(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), repository_id: z.number(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -46,7 +47,7 @@ export const containerRegistryActions: Record<string, ActionDefinition> = {
     description: "Delete projects id registry repositories repository id tags. Part of: containerregistry. Calls DELETE /projects/{id}/registry/repositories/{repositoryid}/tags on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/registry/repositories/{repository_id}/tags",
-    input: z.object({ id: z.string(), repository_id: z.number(), name_regex_delete: z.string().optional(), name_regex: z.string().optional(), name_regex_keep: z.string().optional(), keep_n: z.number().optional(), older_than: z.string().optional() }),
+    input: obj({ id: z.string(), repository_id: z.number(), name_regex_delete: z.string().optional(), name_regex: z.string().optional(), name_regex_keep: z.string().optional(), keep_n: z.number().optional(), older_than: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -54,7 +55,7 @@ export const containerRegistryActions: Record<string, ActionDefinition> = {
     description: "Get projects id registry repositories repository id tags tag name. Part of: containerregistry. Calls GET /projects/{id}/registry/repositories/{repositoryid}/tags/{tagname} on GitLab.",
     method: "GET",
     path: "/projects/{id}/registry/repositories/{repository_id}/tags/{tag_name}",
-    input: z.object({ id: z.string(), repository_id: z.number(), tag_name: z.string() }),
+    input: obj({ id: z.string(), repository_id: z.number(), tag_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -62,7 +63,7 @@ export const containerRegistryActions: Record<string, ActionDefinition> = {
     description: "Delete projects id registry repositories repository id tags tag name. Part of: containerregistry. Calls DELETE /projects/{id}/registry/repositories/{repositoryid}/tags/{tagname} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/registry/repositories/{repository_id}/tags/{tag_name}",
-    input: z.object({ id: z.string(), repository_id: z.number(), tag_name: z.string() }),
+    input: obj({ id: z.string(), repository_id: z.number(), tag_name: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -70,7 +71,7 @@ export const containerRegistryActions: Record<string, ActionDefinition> = {
     description: "Post container registry event events. Part of: containerregistry. Calls POST /containerregistryevent/events on GitLab.",
     method: "POST",
     path: "/container_registry_event/events",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -78,7 +79,7 @@ export const containerRegistryActions: Record<string, ActionDefinition> = {
     description: "Get registry repositories id. Part of: containerregistry. Calls GET /registry/repositories/{id} on GitLab.",
     method: "GET",
     path: "/registry/repositories/{id}",
-    input: z.object({ id: z.string(), tags: z.boolean().optional(), tags_count: z.boolean().optional(), size: z.boolean().optional() }),
+    input: obj({ id: z.string(), tags: z.boolean().optional(), tags_count: z.boolean().optional(), size: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },

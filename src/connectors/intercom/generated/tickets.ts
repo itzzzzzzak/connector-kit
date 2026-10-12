@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const ticketsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const ticketsActions: Record<string, ActionDefinition> = {
     description: "Reply to a ticket. You can reply to a ticket with a message from an admin or on behalf of a contact, or with a note for admins.",
     method: "POST",
     path: "/tickets/{ticket_id}/reply",
-    input: z.object({ ticket_id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ ticket_id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -19,7 +20,7 @@ export const ticketsActions: Record<string, ActionDefinition> = {
     description: "Create a ticket. You can create a new ticket.",
     method: "POST",
     path: "/tickets",
-    input: z.object({ ticket_type_id: z.string().describe("The ID of the type of ticket you want to create"), contacts: z.array(z.record(z.string(), z.unknown())).describe("The list of contacts (users or leads) affected by this ticket. Currently only one is allowed"), company_id: z.string().describe("The ID of the company that the ticket is associated with. The ID that you set upon company creation.").optional(), created_at: z.number().describe("The time the ticket was created. If not provided, the current time will be used.").optional(), ticket_attributes: z.record(z.string(), z.unknown()).describe("The attributes set on the ticket. When setting the default title and description attributes, the attribute keys that should be used are defaulttitle and…").optional() }),
+    input: obj({ ticket_type_id: z.string().describe("The ID of the type of ticket you want to create"), contacts: z.array(z.record(z.string(), z.unknown())).describe("The list of contacts (users or leads) affected by this ticket. Currently only one is allowed"), company_id: z.string().describe("The ID of the company that the ticket is associated with. The ID that you set upon company creation.").optional(), created_at: z.number().describe("The time the ticket was created. If not provided, the current time will be used.").optional(), ticket_attributes: z.record(z.string(), z.unknown()).describe("The attributes set on the ticket. When setting the default title and description attributes, the attribute keys that should be used are defaulttitle and…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const ticketsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a ticket. You can fetch the details of a single ticket.",
     method: "GET",
     path: "/tickets/{ticket_id}",
-    input: z.object({ ticket_id: z.string().describe("The unique identifier for the ticket which is given by Intercom.") }),
+    input: obj({ ticket_id: z.string().describe("The unique identifier for the ticket which is given by Intercom.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const ticketsActions: Record<string, ActionDefinition> = {
     description: "Update a ticket. You can update a ticket. Calls PUT /tickets/{ticketid} on Intercom.",
     method: "PUT",
     path: "/tickets/{ticket_id}",
-    input: z.object({ ticket_id: z.string().describe("The unique identifier for the ticket which is given by Intercom"), ticket_attributes: z.record(z.string(), z.unknown()).describe("The attributes set on the ticket.").optional(), state: z.enum(["in_progress", "waiting_on_customer", "resolved"]).describe("The state of the ticket.").optional(), open: z.boolean().describe("Specify if a ticket is open. Set to false to close a ticket. Closing a ticket will also unsnooze it.").optional(), is_shared: z.boolean().describe("Specify whether the ticket is visible to users.").optional(), snoozed_until: z.number().describe("The time you want the ticket to reopen.").optional(), assignment: z.object({ admin_id: z.string().optional(), assignee_id: z.string().optional() }).optional() }),
+    input: obj({ ticket_id: z.string().describe("The unique identifier for the ticket which is given by Intercom"), ticket_attributes: z.record(z.string(), z.unknown()).describe("The attributes set on the ticket.").optional(), state: z.enum(["in_progress", "waiting_on_customer", "resolved"]).describe("The state of the ticket.").optional(), open: z.boolean().describe("Specify if a ticket is open. Set to false to close a ticket. Closing a ticket will also unsnooze it.").optional(), is_shared: z.boolean().describe("Specify whether the ticket is visible to users.").optional(), snoozed_until: z.number().describe("The time you want the ticket to reopen.").optional(), assignment: obj({ admin_id: z.string().optional(), assignee_id: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -43,7 +44,7 @@ export const ticketsActions: Record<string, ActionDefinition> = {
     description: "Search tickets. You can search for multiple tickets by the value of their attributes in order to fetch exactly which ones you want.",
     method: "POST",
     path: "/tickets/search",
-    input: z.object({ query: z.unknown(), pagination: z.object({ per_page: z.number(), starting_after: z.string().nullable().optional() }).optional() }),
+    input: obj({ query: z.unknown(), pagination: obj({ per_page: z.number(), starting_after: z.string().nullable().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },

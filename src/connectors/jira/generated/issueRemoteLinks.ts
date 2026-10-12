@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const issueRemoteLinksActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const issueRemoteLinksActions: Record<string, ActionDefinition> = {
     description: "Get remote issue links. Returns the remote issue links for an issue. When a remote issue link global ID is provided the record with that global ID is returned, otherwise all remote issue links are returned. Where a global ID includes reserved URL characters these must be escaped in the request. For example, pass system=http://www.mycompany.com/support&",
     method: "GET",
     path: "/issue/{issueIdOrKey}/remotelink",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), globalId: z.string().describe("The global ID of the remote issue link.").optional() }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), globalId: z.string().describe("The global ID of the remote issue link.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const issueRemoteLinksActions: Record<string, ActionDefinition> = {
     description: "Create or update remote issue link. Creates or updates a remote issue link for an issue.",
     method: "POST",
     path: "/issue/{issueIdOrKey}/remotelink",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), application: z.object({ name: z.string().optional(), type: z.string().optional() }).describe("Details of the remote application the linked item is in. For example, trello.").optional(), globalId: z.string().describe("An identifier for the remote item in the remote system. For example, the global ID for a remote item in Confluence would consist of the app ID and page ID,…").optional(), object: z.object({ icon: z.object({ link: z.string().optional(), title: z.string().optional(), url16x16: z.string().optional() }).optional(), status: z.object({ icon: z.record(z.string(), z.unknown()).optional(), resolved: z.boolean().optional() }).optional(), summary: z.string().optional(), title: z.string(), url: z.string() }).describe("Details of the item linked to."), relationship: z.string().describe("Description of the relationship between the issue and the linked item. If not set, the relationship description \"links to\" is used in Jira.").optional() }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), application: obj({ name: z.string().optional(), type: z.string().optional() }).describe("Details of the remote application the linked item is in. For example, trello.").optional(), globalId: z.string().describe("An identifier for the remote item in the remote system. For example, the global ID for a remote item in Confluence would consist of the app ID and page ID,…").optional(), object: obj({ icon: obj({ link: z.string().optional(), title: z.string().optional(), url16x16: z.string().optional() }).optional(), status: obj({ icon: z.record(z.string(), z.unknown()).optional(), resolved: z.boolean().optional() }).optional(), summary: z.string().optional(), title: z.string(), url: z.string() }).describe("Details of the item linked to."), relationship: z.string().describe("Description of the relationship between the issue and the linked item. If not set, the relationship description \"links to\" is used in Jira.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const issueRemoteLinksActions: Record<string, ActionDefinition> = {
     description: "Delete remote issue link by global ID. Deletes the remote issue link from the issue using the link's global ID. Where the global ID includes reserved URL characters these must be escaped in the request. For example, pass system=http://www.mycompany.com/support&id=1 as system%3Dhttp%3A%2F%2Fwww.mycompany.com%2Fsupport%26id%3D1.",
     method: "DELETE",
     path: "/issue/{issueIdOrKey}/remotelink",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), globalId: z.string().describe("The global ID of a remote issue link.") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), globalId: z.string().describe("The global ID of a remote issue link.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const issueRemoteLinksActions: Record<string, ActionDefinition> = {
     description: "Get remote issue link by ID. Returns a remote issue link for an issue.",
     method: "GET",
     path: "/issue/{issueIdOrKey}/remotelink/{linkId}",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), linkId: z.string().describe("The ID of the remote issue link.") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), linkId: z.string().describe("The ID of the remote issue link.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const issueRemoteLinksActions: Record<string, ActionDefinition> = {
     description: "Update remote issue link by ID. Updates a remote issue link for an issue.",
     method: "PUT",
     path: "/issue/{issueIdOrKey}/remotelink/{linkId}",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), linkId: z.string().describe("The ID of the remote issue link."), application: z.object({ name: z.string().optional(), type: z.string().optional() }).describe("Details of the remote application the linked item is in. For example, trello.").optional(), globalId: z.string().describe("An identifier for the remote item in the remote system. For example, the global ID for a remote item in Confluence would consist of the app ID and page ID,…").optional(), object: z.object({ icon: z.object({ link: z.string().optional(), title: z.string().optional(), url16x16: z.string().optional() }).optional(), status: z.object({ icon: z.record(z.string(), z.unknown()).optional(), resolved: z.boolean().optional() }).optional(), summary: z.string().optional(), title: z.string(), url: z.string() }).describe("Details of the item linked to."), relationship: z.string().describe("Description of the relationship between the issue and the linked item. If not set, the relationship description \"links to\" is used in Jira.").optional() }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), linkId: z.string().describe("The ID of the remote issue link."), application: obj({ name: z.string().optional(), type: z.string().optional() }).describe("Details of the remote application the linked item is in. For example, trello.").optional(), globalId: z.string().describe("An identifier for the remote item in the remote system. For example, the global ID for a remote item in Confluence would consist of the app ID and page ID,…").optional(), object: obj({ icon: obj({ link: z.string().optional(), title: z.string().optional(), url16x16: z.string().optional() }).optional(), status: obj({ icon: z.record(z.string(), z.unknown()).optional(), resolved: z.boolean().optional() }).optional(), summary: z.string().optional(), title: z.string(), url: z.string() }).describe("Details of the item linked to."), relationship: z.string().describe("Description of the relationship between the issue and the linked item. If not set, the relationship description \"links to\" is used in Jira.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const issueRemoteLinksActions: Record<string, ActionDefinition> = {
     description: "Delete remote issue link by ID. Deletes a remote issue link from an issue.",
     method: "DELETE",
     path: "/issue/{issueIdOrKey}/remotelink/{linkId}",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue."), linkId: z.string().describe("The ID of a remote issue link.") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue."), linkId: z.string().describe("The ID of a remote issue link.") }),
     output: z.unknown(),
     effect: "destructive",
   },

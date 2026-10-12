@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const callHandlingActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const callHandlingActions: Record<string, ActionDefinition> = {
     description: "Delete call handling. Part of: Call Handling. Calls DELETE /phone/extension/{extensionId}/callhandling/settings/{settingType} on Zoom.",
     method: "DELETE",
     path: "/phone/extension/{extensionId}/call_handling/settings/{settingType}",
-    input: z.object({ extensionId: z.string(), settingType: z.enum(["business_hours", "closed_hours", "holiday_hours"]), call_forwarding_id: z.string().optional(), holiday_id: z.string().optional() }),
+    input: obj({ extensionId: z.string(), settingType: z.enum(["business_hours", "closed_hours", "holiday_hours"]), call_forwarding_id: z.string().optional(), holiday_id: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

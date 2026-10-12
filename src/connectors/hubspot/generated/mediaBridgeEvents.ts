@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const mediaBridgeEventsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const mediaBridgeEventsActions: Record<string, ActionDefinition> = {
     description: "Create attention span. Part of: Advanced. Calls POST /media-bridge/v1/events/attention-span on HubSpot.",
     method: "POST",
     path: "/media-bridge/v1/events/attention-span",
-    input: z.object({ _hsenc: z.string().optional(), contactId: z.number().optional(), contactUtk: z.string().optional(), derivedValues: z.object({ totalPercentPlayed: z.number(), totalSecondsPlayed: z.number() }).optional(), externalId: z.string().optional(), externalPlayContext: z.enum(["EMAIL", "EXTERNAL_PAGE"]).optional(), mediaBridgeId: z.number().optional(), mediaName: z.string().optional(), mediaType: z.enum(["AUDIO", "DOCUMENT", "IMAGE", "OTHER", "VIDEO"]), mediaUrl: z.string().optional(), occurredTimestamp: z.number(), pageId: z.number().optional(), pageName: z.string().optional(), pageUrl: z.string().optional(), rawDataMap: z.record(z.string(), z.unknown()), rawDataString: z.string().optional(), sessionId: z.string() }),
+    input: obj({ _hsenc: z.string().optional(), contactId: z.number().optional(), contactUtk: z.string().optional(), derivedValues: obj({ totalPercentPlayed: z.number(), totalSecondsPlayed: z.number() }).optional(), externalId: z.string().optional(), externalPlayContext: z.enum(["EMAIL", "EXTERNAL_PAGE"]).optional(), mediaBridgeId: z.number().optional(), mediaName: z.string().optional(), mediaType: z.enum(["AUDIO", "DOCUMENT", "IMAGE", "OTHER", "VIDEO"]), mediaUrl: z.string().optional(), occurredTimestamp: z.number(), pageId: z.number().optional(), pageName: z.string().optional(), pageUrl: z.string().optional(), rawDataMap: z.record(z.string(), z.unknown()), rawDataString: z.string().optional(), sessionId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const mediaBridgeEventsActions: Record<string, ActionDefinition> = {
     description: "Create media played. Part of: Advanced. Calls POST /media-bridge/v1/events/media-played on HubSpot.",
     method: "POST",
     path: "/media-bridge/v1/events/media-played",
-    input: z.object({ _hsenc: z.string().optional(), contactId: z.number().optional(), contactUtk: z.string().optional(), externalId: z.string().optional(), externalPlayContext: z.enum(["EMAIL", "EXTERNAL_PAGE"]).optional(), iframeUrl: z.string().optional(), mediaBridgeId: z.number().optional(), mediaName: z.string().optional(), mediaType: z.enum(["AUDIO", "DOCUMENT", "IMAGE", "OTHER", "VIDEO"]), mediaUrl: z.string().optional(), occurredTimestamp: z.number(), pageId: z.number().optional(), pageName: z.string().optional(), pageUrl: z.string().optional(), sessionId: z.string(), state: z.enum(["STARTED", "VIEWED"]) }),
+    input: obj({ _hsenc: z.string().optional(), contactId: z.number().optional(), contactUtk: z.string().optional(), externalId: z.string().optional(), externalPlayContext: z.enum(["EMAIL", "EXTERNAL_PAGE"]).optional(), iframeUrl: z.string().optional(), mediaBridgeId: z.number().optional(), mediaName: z.string().optional(), mediaType: z.enum(["AUDIO", "DOCUMENT", "IMAGE", "OTHER", "VIDEO"]), mediaUrl: z.string().optional(), occurredTimestamp: z.number(), pageId: z.number().optional(), pageName: z.string().optional(), pageUrl: z.string().optional(), sessionId: z.string(), state: z.enum(["STARTED", "VIEWED"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const mediaBridgeEventsActions: Record<string, ActionDefinition> = {
     description: "Create media played percent. Part of: Advanced. Calls POST /media-bridge/v1/events/media-played-percent on HubSpot.",
     method: "POST",
     path: "/media-bridge/v1/events/media-played-percent",
-    input: z.object({ _hsenc: z.string().optional(), contactId: z.number().optional(), contactUtk: z.string().optional(), externalId: z.string().optional(), externalPlayContext: z.enum(["EMAIL", "EXTERNAL_PAGE"]).optional(), mediaBridgeId: z.number().optional(), mediaName: z.string().optional(), mediaType: z.enum(["AUDIO", "DOCUMENT", "IMAGE", "OTHER", "VIDEO"]), mediaUrl: z.string().optional(), occurredTimestamp: z.number(), pageId: z.number().optional(), pageName: z.string().optional(), pageUrl: z.string().optional(), playedPercent: z.number(), sessionId: z.string() }),
+    input: obj({ _hsenc: z.string().optional(), contactId: z.number().optional(), contactUtk: z.string().optional(), externalId: z.string().optional(), externalPlayContext: z.enum(["EMAIL", "EXTERNAL_PAGE"]).optional(), mediaBridgeId: z.number().optional(), mediaName: z.string().optional(), mediaType: z.enum(["AUDIO", "DOCUMENT", "IMAGE", "OTHER", "VIDEO"]), mediaUrl: z.string().optional(), occurredTimestamp: z.number(), pageId: z.number().optional(), pageName: z.string().optional(), pageUrl: z.string().optional(), playedPercent: z.number(), sessionId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

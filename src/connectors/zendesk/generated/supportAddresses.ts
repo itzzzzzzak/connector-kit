@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const supportAddressesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const supportAddressesActions: Record<string, ActionDefinition> = {
     description: "List support addresses. Part of: Support Addresses. Calls GET /recipientaddresses on Zendesk.",
     method: "GET",
     path: "/recipient_addresses",
-    input: z.object({ page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional(), include: z.string().optional() }),
+    input: obj({ page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional(), include: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const supportAddressesActions: Record<string, ActionDefinition> = {
     description: "Create support address. Part of: Support Addresses. Calls POST /recipientaddresses on Zendesk.",
     method: "POST",
     path: "/recipient_addresses",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const supportAddressesActions: Record<string, ActionDefinition> = {
     description: "Show support address. Part of: Support Addresses. Calls GET /recipientaddresses/{supportaddressid} on Zendesk.",
     method: "GET",
     path: "/recipient_addresses/{support_address_id}",
-    input: z.object({ support_address_id: z.number() }),
+    input: obj({ support_address_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const supportAddressesActions: Record<string, ActionDefinition> = {
     description: "Update support address. Part of: Support Addresses. Calls PUT /recipientaddresses/{supportaddressid} on Zendesk.",
     method: "PUT",
     path: "/recipient_addresses/{support_address_id}",
-    input: z.object({ support_address_id: z.number() }),
+    input: obj({ support_address_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const supportAddressesActions: Record<string, ActionDefinition> = {
     description: "Delete recipient address. Part of: Support Addresses. Calls DELETE /recipientaddresses/{supportaddressid} on Zendesk.",
     method: "DELETE",
     path: "/recipient_addresses/{support_address_id}",
-    input: z.object({ support_address_id: z.number() }),
+    input: obj({ support_address_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const supportAddressesActions: Record<string, ActionDefinition> = {
     description: "Verify support address forwarding. Part of: Support Addresses. Calls PUT /recipientaddresses/{supportaddressid}/verify on Zendesk.",
     method: "PUT",
     path: "/recipient_addresses/{support_address_id}/verify",
-    input: z.object({ support_address_id: z.number() }),
+    input: obj({ support_address_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },

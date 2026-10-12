@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const metricImagesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const metricImagesActions: Record<string, ActionDefinition> = {
     description: "Post projects id issues issue iid metric images authorize. Part of: metricimages. Calls POST /projects/{id}/issues/{issueiid}/metricimages/authorize on GitLab.",
     method: "POST",
     path: "/projects/{id}/issues/{issue_iid}/metric_images/authorize",
-    input: z.object({ id: z.string(), issue_iid: z.number() }),
+    input: obj({ id: z.string(), issue_iid: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const metricImagesActions: Record<string, ActionDefinition> = {
     description: "Get projects id issues issue iid metric images. Part of: metricimages. Calls GET /projects/{id}/issues/{issueiid}/metricimages on GitLab.",
     method: "GET",
     path: "/projects/{id}/issues/{issue_iid}/metric_images",
-    input: z.object({ id: z.string(), issue_iid: z.number() }),
+    input: obj({ id: z.string(), issue_iid: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const metricImagesActions: Record<string, ActionDefinition> = {
     description: "Post projects id issues issue iid metric images. Part of: metricimages. Calls POST /projects/{id}/issues/{issueiid}/metricimages on GitLab.",
     method: "POST",
     path: "/projects/{id}/issues/{issue_iid}/metric_images",
-    input: z.object({ id: z.string(), issue_iid: z.number(), file: z.unknown(), url: z.string().optional(), url_text: z.string().optional() }),
+    input: obj({ id: z.string(), issue_iid: z.number(), file: z.unknown(), url: z.string().optional(), url_text: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const metricImagesActions: Record<string, ActionDefinition> = {
     description: "Put projects id issues issue iid metric images metric image id. Part of: metricimages. Calls PUT /projects/{id}/issues/{issueiid}/metricimages/{metricimageid} on GitLab.",
     method: "PUT",
     path: "/projects/{id}/issues/{issue_iid}/metric_images/{metric_image_id}",
-    input: z.object({ id: z.string(), metric_image_id: z.number(), issue_iid: z.number(), url: z.string().optional(), url_text: z.string().optional() }),
+    input: obj({ id: z.string(), metric_image_id: z.number(), issue_iid: z.number(), url: z.string().optional(), url_text: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const metricImagesActions: Record<string, ActionDefinition> = {
     description: "Delete projects id issues issue iid metric images metric image id. Part of: metricimages. Calls DELETE /projects/{id}/issues/{issueiid}/metricimages/{metricimageid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/issues/{issue_iid}/metric_images/{metric_image_id}",
-    input: z.object({ id: z.string(), metric_image_id: z.number(), issue_iid: z.number() }),
+    input: obj({ id: z.string(), metric_image_id: z.number(), issue_iid: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

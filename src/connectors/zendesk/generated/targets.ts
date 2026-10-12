@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const targetsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const targetsActions: Record<string, ActionDefinition> = {
     description: "List targets. Part of: Targets. Calls GET /targets on Zendesk.",
     method: "GET",
     path: "/targets",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const targetsActions: Record<string, ActionDefinition> = {
     description: "Create target. Part of: Targets. Calls POST /targets on Zendesk.",
     method: "POST",
     path: "/targets",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const targetsActions: Record<string, ActionDefinition> = {
     description: "Show target. Part of: Targets. Calls GET /targets/{targetid} on Zendesk.",
     method: "GET",
     path: "/targets/{target_id}",
-    input: z.object({ target_id: z.number() }),
+    input: obj({ target_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const targetsActions: Record<string, ActionDefinition> = {
     description: "Update target. Part of: Targets. Calls PUT /targets/{targetid} on Zendesk.",
     method: "PUT",
     path: "/targets/{target_id}",
-    input: z.object({ target_id: z.number() }),
+    input: obj({ target_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const targetsActions: Record<string, ActionDefinition> = {
     description: "Delete target. Part of: Targets. Calls DELETE /targets/{targetid} on Zendesk.",
     method: "DELETE",
     path: "/targets/{target_id}",
-    input: z.object({ target_id: z.number() }),
+    input: obj({ target_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

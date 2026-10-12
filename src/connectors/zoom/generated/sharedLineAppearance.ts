@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const sharedLineAppearanceActions: Record<string, ActionDefinition> = {
     description: "List shared line appearances. Part of: Shared Line Appearance. Calls GET /phone/sharedlineappearances on Zoom.",
     method: "GET",
     path: "/phone/shared_line_appearances",
-    input: z.object({ keyword: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ keyword: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "shared_line_appearances", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const vpcSubnetRoutesActions: Record<string, ActionDefinition> = {
     description: "List VPC Subnet Routes. To list routes for a VPC subnet, send a GET request to /v2/vpcs/$VPCUUID/subnets/$SUBNETUUID/routes. The response includes VPC-scoped routes propagated into the subnet and subnet-scoped routes.",
     method: "GET",
     path: "/vpcs/{vpc_uuid}/subnets/{subnet_uuid}/routes",
-    input: z.object({ vpc_uuid: z.string().describe("The unique identifier of the VPC."), subnet_uuid: z.string().describe("The unique identifier of the VPC subnet."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ vpc_uuid: z.string().describe("The unique identifier of the VPC."), subnet_uuid: z.string().describe("The unique identifier of the VPC subnet."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "routes", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const vpcSubnetRoutesActions: Record<string, ActionDefinition> = {
     description: "Create a VPC Subnet Route. To add a static route to a VPC subnet, send a POST request to /v2/vpcs/$VPCUUID/subnets/$SUBNETUUID/routes. This route is additional to the routes the VPC already propagates to the subnet. The server assigns the route's id and type.",
     method: "POST",
     path: "/vpcs/{vpc_uuid}/subnets/{subnet_uuid}/routes",
-    input: z.object({ vpc_uuid: z.string().describe("The unique identifier of the VPC."), subnet_uuid: z.string().describe("The unique identifier of the VPC subnet."), destination_cidr: z.string().describe("A valid IPv4 CIDR accepted by the VPC routing product."), target_urns: z.array(z.string()).describe("The URNs of supported next-hop resources. Droplet targets must use a numeric ID in the format do:droplet:<id. VPC NAT Gateway targets use a UUID in the format…") }),
+    input: obj({ vpc_uuid: z.string().describe("The unique identifier of the VPC."), subnet_uuid: z.string().describe("The unique identifier of the VPC subnet."), destination_cidr: z.string().describe("A valid IPv4 CIDR accepted by the VPC routing product."), target_urns: z.array(z.string()).describe("The URNs of supported next-hop resources. Droplet targets must use a numeric ID in the format do:droplet:<id. VPC NAT Gateway targets use a UUID in the format…") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const vpcSubnetRoutesActions: Record<string, ActionDefinition> = {
     description: "Update a VPC Subnet Route. To update the next hop for a user-defined VPC subnet route, send a PATCH request to /v2/vpcs/$VPCUUID/subnets/$SUBNETUUID/routes/$ROUTEUUID. The destinationcidr cannot be changed.",
     method: "PATCH",
     path: "/vpcs/{vpc_uuid}/subnets/{subnet_uuid}/routes/{route_uuid}",
-    input: z.object({ vpc_uuid: z.string().describe("The unique identifier of the VPC."), subnet_uuid: z.string().describe("The unique identifier of the VPC subnet."), route_uuid: z.string().describe("The unique identifier of the route."), target_urns: z.array(z.string()).describe("The URNs of supported next-hop resources. Droplet targets must use a numeric ID in the format do:droplet:<id. VPC NAT Gateway targets use a UUID in the format…") }),
+    input: obj({ vpc_uuid: z.string().describe("The unique identifier of the VPC."), subnet_uuid: z.string().describe("The unique identifier of the VPC subnet."), route_uuid: z.string().describe("The unique identifier of the route."), target_urns: z.array(z.string()).describe("The URNs of supported next-hop resources. Droplet targets must use a numeric ID in the format do:droplet:<id. VPC NAT Gateway targets use a UUID in the format…") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const vpcSubnetRoutesActions: Record<string, ActionDefinition> = {
     description: "Delete a VPC Subnet Route. To delete a user-defined VPC subnet route, send a DELETE request to /v2/vpcs/$VPCUUID/subnets/$SUBNETUUID/routes/$ROUTEUUID. Managed routes cannot be deleted. A successful request returns a 204 status code with no response body.",
     method: "DELETE",
     path: "/vpcs/{vpc_uuid}/subnets/{subnet_uuid}/routes/{route_uuid}",
-    input: z.object({ vpc_uuid: z.string().describe("The unique identifier of the VPC."), subnet_uuid: z.string().describe("The unique identifier of the VPC subnet."), route_uuid: z.string().describe("The unique identifier of the route.") }),
+    input: obj({ vpc_uuid: z.string().describe("The unique identifier of the VPC."), subnet_uuid: z.string().describe("The unique identifier of the VPC subnet."), route_uuid: z.string().describe("The unique identifier of the route.") }),
     output: z.unknown(),
     effect: "destructive",
   },

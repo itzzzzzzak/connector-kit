@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const userPasswordsActions: Record<string, ActionDefinition> = {
     description: "Set user password. Part of: User Passwords. Calls POST /users/{userid}/password on Zendesk.",
     method: "POST",
     path: "/users/{user_id}/password",
-    input: z.object({ user_id: z.number() }),
+    input: obj({ user_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const userPasswordsActions: Record<string, ActionDefinition> = {
     description: "Change own password. Part of: User Passwords. Calls PUT /users/{userid}/password on Zendesk.",
     method: "PUT",
     path: "/users/{user_id}/password",
-    input: z.object({ user_id: z.number(), brand_id: z.number().optional() }),
+    input: obj({ user_id: z.number(), brand_id: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["brand_id"]),
@@ -28,7 +29,7 @@ export const userPasswordsActions: Record<string, ActionDefinition> = {
     description: "Get user password requirements. Part of: User Passwords. Calls GET /users/{userid}/password/requirements on Zendesk.",
     method: "GET",
     path: "/users/{user_id}/password/requirements",
-    input: z.object({ user_id: z.number() }),
+    input: obj({ user_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

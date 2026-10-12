@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const setCalendarFreeActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const setCalendarFreeActions: Record<string, ActionDefinition> = {
     description: "Busy event. Part of: Workspaces. Calls POST /workspaces/users/{userId}/calendar/settings on Zoom.",
     method: "POST",
     path: "/workspaces/users/{userId}/calendar/settings",
-    input: z.object({ userId: z.string(), room_status: z.enum(["free", "busy"]).optional(), desk_status: z.enum(["free", "busy"]).optional() }),
+    input: obj({ userId: z.string(), room_status: z.enum(["free", "busy"]).optional(), desk_status: z.enum(["free", "busy"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },

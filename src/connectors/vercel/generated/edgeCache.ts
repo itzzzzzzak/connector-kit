@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const edgeCacheActions: Record<string, ActionDefinition> = {
     description: "Invalidate by tags. Part of: edge-cache. Calls POST /v1/edge-cache/invalidate-by-tags on Vercel.",
     method: "POST",
     path: "/v1/edge-cache/invalidate-by-tags",
-    input: z.object({ projectIdOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional(), tags: z.unknown(), target: z.enum(["production", "preview"]).optional() }),
+    input: obj({ projectIdOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional(), tags: z.unknown(), target: z.enum(["production", "preview"]).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["projectIdOrName","teamId","slug"]),
@@ -21,7 +22,7 @@ export const edgeCacheActions: Record<string, ActionDefinition> = {
     description: "Dangerously delete by tags. Part of: edge-cache. Calls POST /v1/edge-cache/dangerously-delete-by-tags on Vercel.",
     method: "POST",
     path: "/v1/edge-cache/dangerously-delete-by-tags",
-    input: z.object({ projectIdOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional(), revalidationDeadlineSeconds: z.number().optional(), tags: z.unknown(), target: z.enum(["production", "preview"]).optional() }),
+    input: obj({ projectIdOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional(), revalidationDeadlineSeconds: z.number().optional(), tags: z.unknown(), target: z.enum(["production", "preview"]).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["projectIdOrName","teamId","slug"]),
@@ -31,7 +32,7 @@ export const edgeCacheActions: Record<string, ActionDefinition> = {
     description: "Invalidate by src images. Part of: edge-cache. Calls POST /v1/edge-cache/invalidate-by-src-images on Vercel.",
     method: "POST",
     path: "/v1/edge-cache/invalidate-by-src-images",
-    input: z.object({ projectIdOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional(), srcImages: z.array(z.string()) }),
+    input: obj({ projectIdOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional(), srcImages: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["projectIdOrName","teamId","slug"]),
@@ -41,7 +42,7 @@ export const edgeCacheActions: Record<string, ActionDefinition> = {
     description: "Dangerously delete by src images. Part of: edge-cache. Calls POST /v1/edge-cache/dangerously-delete-by-src-images on Vercel.",
     method: "POST",
     path: "/v1/edge-cache/dangerously-delete-by-src-images",
-    input: z.object({ projectIdOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional(), revalidationDeadlineSeconds: z.number().optional(), srcImages: z.array(z.string()) }),
+    input: obj({ projectIdOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional(), revalidationDeadlineSeconds: z.number().optional(), srcImages: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["projectIdOrName","teamId","slug"]),

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectTypesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectTypesActions: Record<string, ActionDefinition> = {
     description: "Get all project types. Returns all project types, whether or not the instance has a valid license for each type.",
     method: "GET",
     path: "/project/type",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const projectTypesActions: Record<string, ActionDefinition> = {
     description: "Get licensed project types. Returns all project types with a valid license.",
     method: "GET",
     path: "/project/type/accessible",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const projectTypesActions: Record<string, ActionDefinition> = {
     description: "Get project type by key. Returns a project type.",
     method: "GET",
     path: "/project/type/{projectTypeKey}",
-    input: z.object({ projectTypeKey: z.enum(["software", "service_desk", "business", "product_discovery"]).describe("The key of the project type.") }),
+    input: obj({ projectTypeKey: z.enum(["software", "service_desk", "business", "product_discovery"]).describe("The key of the project type.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const projectTypesActions: Record<string, ActionDefinition> = {
     description: "Get accessible project type by key. Returns a project type if it is accessible to the user.",
     method: "GET",
     path: "/project/type/{projectTypeKey}/accessible",
-    input: z.object({ projectTypeKey: z.enum(["software", "service_desk", "business", "product_discovery"]).describe("The key of the project type.") }),
+    input: obj({ projectTypeKey: z.enum(["software", "service_desk", "business", "product_discovery"]).describe("The key of the project type.") }),
     output: z.unknown(),
     effect: "read",
   },

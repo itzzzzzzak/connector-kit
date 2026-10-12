@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const purgeActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const purgeActions: Record<string, ActionDefinition> = {
     description: "Purges cached content from Netlify's CDN. Supports purging by Cache-Tag.",
     method: "POST",
     path: "/purge",
-    input: z.object({ site_id: z.string().optional(), site_slug: z.string().optional(), cache_tags: z.array(z.string()).optional() }),
+    input: obj({ site_id: z.string().optional(), site_slug: z.string().optional(), cache_tags: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },

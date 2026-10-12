@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const buildHookActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const buildHookActions: Record<string, ActionDefinition> = {
     description: "List site build hooks Calls GET /sites/{siteid}/buildhooks on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/build_hooks",
-    input: z.object({ site_id: z.string() }),
+    input: obj({ site_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const buildHookActions: Record<string, ActionDefinition> = {
     description: "Create site build hook Calls POST /sites/{siteid}/buildhooks on Netlify.",
     method: "POST",
     path: "/sites/{site_id}/build_hooks",
-    input: z.object({ site_id: z.string(), title: z.string().optional(), branch: z.string().optional() }),
+    input: obj({ site_id: z.string(), title: z.string().optional(), branch: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const buildHookActions: Record<string, ActionDefinition> = {
     description: "Get site build hook Calls GET /sites/{siteid}/buildhooks/{id} on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/build_hooks/{id}",
-    input: z.object({ site_id: z.string(), id: z.string() }),
+    input: obj({ site_id: z.string(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const buildHookActions: Record<string, ActionDefinition> = {
     description: "Update site build hook Calls PUT /sites/{siteid}/buildhooks/{id} on Netlify.",
     method: "PUT",
     path: "/sites/{site_id}/build_hooks/{id}",
-    input: z.object({ site_id: z.string(), id: z.string(), title: z.string().optional(), branch: z.string().optional() }),
+    input: obj({ site_id: z.string(), id: z.string(), title: z.string().optional(), branch: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const buildHookActions: Record<string, ActionDefinition> = {
     description: "Delete site build hook Calls DELETE /sites/{siteid}/buildhooks/{id} on Netlify.",
     method: "DELETE",
     path: "/sites/{site_id}/build_hooks/{id}",
-    input: z.object({ site_id: z.string(), id: z.string() }),
+    input: obj({ site_id: z.string(), id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

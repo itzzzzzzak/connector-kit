@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const segmentsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const segmentsActions: Record<string, ActionDefinition> = {
     description: "Get segment list. Part of: segments. Calls GET /segments on Mailchimp.",
     method: "GET",
     path: "/segments",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), cursor: z.string().optional(), list_id: z.string(), sort_field: z.enum(["created_at", "name"]).optional(), sort_dir: z.enum(["ASC", "DESC"]).optional() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), cursor: z.string().optional(), list_id: z.string(), sort_field: z.enum(["created_at", "name"]).optional(), sort_dir: z.enum(["ASC", "DESC"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const segmentsActions: Record<string, ActionDefinition> = {
     description: "Create segment. Part of: segments. Calls POST /segments on Mailchimp.",
     method: "POST",
     path: "/segments",
-    input: z.object({ name: z.string(), list_id: z.string(), definition: z.object({ schema_version: z.number().optional(), contacts: z.object({ email: z.record(z.string(), z.unknown()).optional(), sms: z.record(z.string(), z.unknown()).optional(), whatsapp: z.record(z.string(), z.unknown()).optional() }).optional(), match: z.enum(["all", "any"]), conditions: z.array(z.record(z.string(), z.unknown())), field: z.string().optional(), op: z.string().optional(), value: z.unknown().optional(), filters: z.array(z.record(z.string(), z.unknown())).optional(), value_op: z.enum(["and", "or"]).optional(), extra: z.unknown().optional(), location: z.object({ region: z.string().optional(), city: z.string().optional(), country_code: z.string().optional(), lat: z.number().optional(), lng: z.number().optional() }).optional(), namespace: z.string().optional(), event_name: z.string().optional(), type: z.enum(["string", "integer", "decimal", "boolean", "datetime"]).optional() }) }),
+    input: obj({ name: z.string(), list_id: z.string(), definition: obj({ schema_version: z.number().optional(), contacts: obj({ email: z.record(z.string(), z.unknown()).optional(), sms: z.record(z.string(), z.unknown()).optional(), whatsapp: z.record(z.string(), z.unknown()).optional() }).optional(), match: z.enum(["all", "any"]), conditions: z.array(z.record(z.string(), z.unknown())), field: z.string().optional(), op: z.string().optional(), value: z.unknown().optional(), filters: z.array(z.record(z.string(), z.unknown())).optional(), value_op: z.enum(["and", "or"]).optional(), extra: z.unknown().optional(), location: obj({ region: z.string().optional(), city: z.string().optional(), country_code: z.string().optional(), lat: z.number().optional(), lng: z.number().optional() }).optional(), namespace: z.string().optional(), event_name: z.string().optional(), type: z.enum(["string", "integer", "decimal", "boolean", "datetime"]).optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const segmentsActions: Record<string, ActionDefinition> = {
     description: "Get segment. Part of: segments. Calls GET /segments/{segmentid} on Mailchimp.",
     method: "GET",
     path: "/segments/{segment_id}",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), segment_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), segment_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const segmentsActions: Record<string, ActionDefinition> = {
     description: "Update segment. Part of: segments. Calls PATCH /segments/{segmentid} on Mailchimp.",
     method: "PATCH",
     path: "/segments/{segment_id}",
-    input: z.object({ segment_id: z.string(), name: z.string().optional(), definition: z.object({ schema_version: z.number().optional(), contacts: z.object({ email: z.record(z.string(), z.unknown()).optional(), sms: z.record(z.string(), z.unknown()).optional(), whatsapp: z.record(z.string(), z.unknown()).optional() }).optional(), match: z.enum(["all", "any"]), conditions: z.array(z.record(z.string(), z.unknown())), field: z.string().optional(), op: z.string().optional(), value: z.unknown().optional(), filters: z.array(z.record(z.string(), z.unknown())).optional(), value_op: z.enum(["and", "or"]).optional(), extra: z.unknown().optional(), location: z.object({ region: z.string().optional(), city: z.string().optional(), country_code: z.string().optional(), lat: z.number().optional(), lng: z.number().optional() }).optional(), namespace: z.string().optional(), event_name: z.string().optional(), type: z.enum(["string", "integer", "decimal", "boolean", "datetime"]).optional() }).optional() }),
+    input: obj({ segment_id: z.string(), name: z.string().optional(), definition: obj({ schema_version: z.number().optional(), contacts: obj({ email: z.record(z.string(), z.unknown()).optional(), sms: z.record(z.string(), z.unknown()).optional(), whatsapp: z.record(z.string(), z.unknown()).optional() }).optional(), match: z.enum(["all", "any"]), conditions: z.array(z.record(z.string(), z.unknown())), field: z.string().optional(), op: z.string().optional(), value: z.unknown().optional(), filters: z.array(z.record(z.string(), z.unknown())).optional(), value_op: z.enum(["and", "or"]).optional(), extra: z.unknown().optional(), location: obj({ region: z.string().optional(), city: z.string().optional(), country_code: z.string().optional(), lat: z.number().optional(), lng: z.number().optional() }).optional(), namespace: z.string().optional(), event_name: z.string().optional(), type: z.enum(["string", "integer", "decimal", "boolean", "datetime"]).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const segmentsActions: Record<string, ActionDefinition> = {
     description: "Delete segment. Part of: segments. Calls DELETE /segments/{segmentid} on Mailchimp.",
     method: "DELETE",
     path: "/segments/{segment_id}",
-    input: z.object({ segment_id: z.string() }),
+    input: obj({ segment_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const segmentsActions: Record<string, ActionDefinition> = {
     description: "Create segment snapshot. Part of: segments. Calls POST /segments/{segmentid}/snapshots on Mailchimp.",
     method: "POST",
     path: "/segments/{segment_id}/snapshots",
-    input: z.object({ segment_id: z.string() }),
+    input: obj({ segment_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const segmentsActions: Record<string, ActionDefinition> = {
     description: "Get segment snapshot. Part of: segments. Calls GET /segments/{segmentid}/snapshots/{snapshotid} on Mailchimp.",
     method: "GET",
     path: "/segments/{segment_id}/snapshots/{snapshot_id}",
-    input: z.object({ segment_id: z.string(), snapshot_id: z.string() }),
+    input: obj({ segment_id: z.string(), snapshot_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -66,7 +67,7 @@ export const segmentsActions: Record<string, ActionDefinition> = {
     description: "Get segment snapshot contact id list. Part of: segments. Calls GET /segments/{segmentid}/snapshots/{snapshotid}/members on Mailchimp.",
     method: "GET",
     path: "/segments/{segment_id}/snapshots/{snapshot_id}/members",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), limit: z.number().optional(), cursor: z.string().optional(), segment_id: z.string(), snapshot_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), limit: z.number().optional(), cursor: z.string().optional(), segment_id: z.string(), snapshot_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -74,7 +75,7 @@ export const segmentsActions: Record<string, ActionDefinition> = {
     description: "Get segment count. Part of: segments. Calls GET /segments/{segmentid}/count on Mailchimp.",
     method: "GET",
     path: "/segments/{segment_id}/count",
-    input: z.object({ segment_id: z.string() }),
+    input: obj({ segment_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

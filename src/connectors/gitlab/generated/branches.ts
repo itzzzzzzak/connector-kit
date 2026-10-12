@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const branchesActions: Record<string, ActionDefinition> = {
     description: "Get projects id repository branches. Part of: branches. Calls GET /projects/{id}/repository/branches on GitLab.",
     method: "GET",
     path: "/projects/{id}/repository/branches",
-    input: z.object({ id: z.string(), search: z.string().optional(), regex: z.string().optional(), sort: z.enum(["name_asc", "updated_asc", "updated_desc"]).optional(), page_token: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), search: z.string().optional(), regex: z.string().optional(), sort: z.enum(["name_asc", "updated_asc", "updated_desc"]).optional(), page_token: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const branchesActions: Record<string, ActionDefinition> = {
     description: "Post projects id repository branches. Part of: branches. Calls POST /projects/{id}/repository/branches on GitLab.",
     method: "POST",
     path: "/projects/{id}/repository/branches",
-    input: z.object({ id: z.string(), branch: z.string(), ref: z.string() }),
+    input: obj({ id: z.string(), branch: z.string(), ref: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const branchesActions: Record<string, ActionDefinition> = {
     description: "Get projects id repository branches branch. Part of: branches. Calls GET /projects/{id}/repository/branches/{branch} on GitLab.",
     method: "GET",
     path: "/projects/{id}/repository/branches/{branch}",
-    input: z.object({ id: z.string(), branch: z.string() }),
+    input: obj({ id: z.string(), branch: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const branchesActions: Record<string, ActionDefinition> = {
     description: "Delete projects id repository branches branch. Part of: branches. Calls DELETE /projects/{id}/repository/branches/{branch} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/repository/branches/{branch}",
-    input: z.object({ id: z.string(), branch: z.string() }),
+    input: obj({ id: z.string(), branch: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -44,7 +45,7 @@ export const branchesActions: Record<string, ActionDefinition> = {
     description: "Put projects id repository branches branch protect. Part of: branches. Calls PUT /projects/{id}/repository/branches/{branch}/protect on GitLab.",
     method: "PUT",
     path: "/projects/{id}/repository/branches/{branch}/protect",
-    input: z.object({ id: z.string(), branch: z.string(), developers_can_push: z.boolean().optional(), developers_can_merge: z.boolean().optional() }),
+    input: obj({ id: z.string(), branch: z.string(), developers_can_push: z.boolean().optional(), developers_can_merge: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -52,7 +53,7 @@ export const branchesActions: Record<string, ActionDefinition> = {
     description: "Put projects id repository branches branch unprotect. Part of: branches. Calls PUT /projects/{id}/repository/branches/{branch}/unprotect on GitLab.",
     method: "PUT",
     path: "/projects/{id}/repository/branches/{branch}/unprotect",
-    input: z.object({ id: z.string(), branch: z.string() }),
+    input: obj({ id: z.string(), branch: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -60,7 +61,7 @@ export const branchesActions: Record<string, ActionDefinition> = {
     description: "Delete projects id repository merged branches. Part of: branches. Calls DELETE /projects/{id}/repository/mergedbranches on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/repository/merged_branches",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

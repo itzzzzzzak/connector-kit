@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const suggestionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const suggestionsActions: Record<string, ActionDefinition> = {
     description: "Put suggestions id apply. Part of: suggestions. Calls PUT /suggestions/{id}/apply on GitLab.",
     method: "PUT",
     path: "/suggestions/{id}/apply",
-    input: z.object({ id: z.number(), commit_message: z.string().optional() }),
+    input: obj({ id: z.number(), commit_message: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const suggestionsActions: Record<string, ActionDefinition> = {
     description: "Put suggestions batch apply. Part of: suggestions. Calls PUT /suggestions/batchapply on GitLab.",
     method: "PUT",
     path: "/suggestions/batch_apply",
-    input: z.object({ ids: z.array(z.number()), commit_message: z.string().optional() }),
+    input: obj({ ids: z.array(z.number()), commit_message: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

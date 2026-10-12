@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const emergencyServiceRoutingActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const emergencyServiceRoutingActions: Record<string, ActionDefinition> = 
     description: "List account emergency routing rules. Part of: Emergency Service Routing. Calls GET /phone/emergencyservices/routingrules on Zoom.",
     method: "GET",
     path: "/phone/emergency_services/routing_rules",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const emergencyServiceRoutingActions: Record<string, ActionDefinition> = 
     description: "Add account emergency routing rule. Part of: Emergency Service Routing. Calls POST /phone/emergencyservices/routingrules on Zoom.",
     method: "POST",
     path: "/phone/emergency_services/routing_rules",
-    input: z.object({ number_pattern: z.string(), translation: z.string().optional(), name: z.string(), routing_type: z.number(), sip_group_id: z.string().optional() }),
+    input: obj({ number_pattern: z.string(), translation: z.string().optional(), name: z.string(), routing_type: z.number(), sip_group_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const emergencyServiceRoutingActions: Record<string, ActionDefinition> = 
     description: "Update account emergency routing rule. Part of: Emergency Service Routing. Calls PATCH /phone/emergencyservices/routingrules/{routingRuleIdentifier} on Zoom.",
     method: "PATCH",
     path: "/phone/emergency_services/routing_rules/{routingRuleIdentifier}",
-    input: z.object({ routingRuleIdentifier: z.string(), number_pattern: z.string().optional(), translation: z.string().optional(), name: z.string().optional(), routing_type: z.number().optional(), sip_group_id: z.string().optional() }),
+    input: obj({ routingRuleIdentifier: z.string(), number_pattern: z.string().optional(), translation: z.string().optional(), name: z.string().optional(), routing_type: z.number().optional(), sip_group_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const emergencyServiceRoutingActions: Record<string, ActionDefinition> = 
     description: "Delete account emergency routing rule. Part of: Emergency Service Routing. Calls DELETE /phone/emergencyservices/routingrules/{routingRuleIdentifier} on Zoom.",
     method: "DELETE",
     path: "/phone/emergency_services/routing_rules/{routingRuleIdentifier}",
-    input: z.object({ routingRuleIdentifier: z.string() }),
+    input: obj({ routingRuleIdentifier: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const emergencyServiceRoutingActions: Record<string, ActionDefinition> = 
     description: "List site emergency routing rules. Part of: Emergency Service Routing. Calls GET /phone/sites/{siteId}/emergencyservices/routingrules on Zoom.",
     method: "GET",
     path: "/phone/sites/{siteId}/emergency_services/routing_rules",
-    input: z.object({ siteId: z.string() }),
+    input: obj({ siteId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const emergencyServiceRoutingActions: Record<string, ActionDefinition> = 
     description: "Add site emergency routing rule. Part of: Emergency Service Routing. Calls POST /phone/sites/{siteId}/emergencyservices/routingrules on Zoom.",
     method: "POST",
     path: "/phone/sites/{siteId}/emergency_services/routing_rules",
-    input: z.object({ siteId: z.string(), number_pattern: z.string(), translation: z.string().optional(), name: z.string(), routing_type: z.number(), sip_group_id: z.string().optional() }),
+    input: obj({ siteId: z.string(), number_pattern: z.string(), translation: z.string().optional(), name: z.string(), routing_type: z.number(), sip_group_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const emergencyServiceRoutingActions: Record<string, ActionDefinition> = 
     description: "Update site emergency routing rule. Part of: Emergency Service Routing. Calls PATCH /phone/sites/{siteId}/emergencyservices/routingrules/{routingRuleIdentifier} on Zoom.",
     method: "PATCH",
     path: "/phone/sites/{siteId}/emergency_services/routing_rules/{routingRuleIdentifier}",
-    input: z.object({ siteId: z.string(), routingRuleIdentifier: z.string(), number_pattern: z.string().optional(), translation: z.string().optional(), name: z.string().optional(), routing_type: z.number().optional(), sip_group_id: z.string().optional() }),
+    input: obj({ siteId: z.string(), routingRuleIdentifier: z.string(), number_pattern: z.string().optional(), translation: z.string().optional(), name: z.string().optional(), routing_type: z.number().optional(), sip_group_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -66,7 +67,7 @@ export const emergencyServiceRoutingActions: Record<string, ActionDefinition> = 
     description: "Delete site emergency routing rule. Part of: Emergency Service Routing. Calls DELETE /phone/sites/{siteId}/emergencyservices/routingrules/{routingRuleIdentifier} on Zoom.",
     method: "DELETE",
     path: "/phone/sites/{siteId}/emergency_services/routing_rules/{routingRuleIdentifier}",
-    input: z.object({ siteId: z.string(), routingRuleIdentifier: z.string() }),
+    input: obj({ siteId: z.string(), routingRuleIdentifier: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

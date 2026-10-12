@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const protectedTagsActions: Record<string, ActionDefinition> = {
     description: "Get projects id protected tags. Part of: protectedtags. Calls GET /projects/{id}/protectedtags on GitLab.",
     method: "GET",
     path: "/projects/{id}/protected_tags",
-    input: z.object({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const protectedTagsActions: Record<string, ActionDefinition> = {
     description: "Post projects id protected tags. Part of: protectedtags. Calls POST /projects/{id}/protectedtags on GitLab.",
     method: "POST",
     path: "/projects/{id}/protected_tags",
-    input: z.object({ id: z.string(), name: z.string(), create_access_level: z.number().optional(), allowed_to_create: z.array(z.object({ deploy_key_id: z.number().optional(), access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional() })).optional() }),
+    input: obj({ id: z.string(), name: z.string(), create_access_level: z.number().optional(), allowed_to_create: z.array(obj({ deploy_key_id: z.number().optional(), access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const protectedTagsActions: Record<string, ActionDefinition> = {
     description: "Get projects id protected tags name. Part of: protectedtags. Calls GET /projects/{id}/protectedtags/{name} on GitLab.",
     method: "GET",
     path: "/projects/{id}/protected_tags/{name}",
-    input: z.object({ id: z.string(), name: z.string() }),
+    input: obj({ id: z.string(), name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const protectedTagsActions: Record<string, ActionDefinition> = {
     description: "Delete projects id protected tags name. Part of: protectedtags. Calls DELETE /projects/{id}/protectedtags/{name} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/protected_tags/{name}",
-    input: z.object({ id: z.string(), name: z.string() }),
+    input: obj({ id: z.string(), name: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

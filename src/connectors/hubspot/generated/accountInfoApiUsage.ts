@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const accountInfoApiUsageActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const accountInfoApiUsageActions: Record<string, ActionDefinition> = {
     description: "List daily private apps. Part of: Basic. Calls GET /account-info/v3/api-usage/daily/private-apps on HubSpot.",
     method: "GET",
     path: "/account-info/v3/api-usage/daily/private-apps",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

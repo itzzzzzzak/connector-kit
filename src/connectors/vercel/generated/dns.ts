@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const dnsActions: Record<string, ActionDefinition> = {
     description: "Get records. Part of: dns. Calls GET /v5/domains/{domain}/records on Vercel.",
     method: "GET",
     path: "/v5/domains/{domain}/records",
-    input: z.object({ domain: z.string(), limit: z.string().optional(), since: z.string().optional(), until: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ domain: z.string(), limit: z.string().optional(), since: z.string().optional(), until: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const dnsActions: Record<string, ActionDefinition> = {
     description: "Create record. Part of: dns. Calls POST /v2/domains/{domain}/records on Vercel.",
     method: "POST",
     path: "/v2/domains/{domain}/records",
-    input: z.object({ domain: z.string(), teamId: z.string().optional(), slug: z.string().optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ domain: z.string(), teamId: z.string().optional(), slug: z.string().optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -29,7 +30,7 @@ export const dnsActions: Record<string, ActionDefinition> = {
     description: "Update record. Part of: dns. Calls PATCH /v1/domains/records/{recordId} on Vercel.",
     method: "PATCH",
     path: "/v1/domains/records/{recordId}",
-    input: z.object({ recordId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), name: z.string().nullable().optional(), value: z.string().nullable().optional(), type: z.string().nullable().optional(), ttl: z.number().nullable().optional(), mxPriority: z.number().nullable().optional(), srv: z.object({ target: z.string().nullable(), weight: z.number().nullable(), port: z.number().nullable(), priority: z.number().nullable() }).nullable().optional(), https: z.object({ priority: z.number().nullable(), target: z.string().nullable(), params: z.string().nullable().optional() }).nullable().optional(), comment: z.string().optional() }),
+    input: obj({ recordId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), name: z.string().nullable().optional(), value: z.string().nullable().optional(), type: z.string().nullable().optional(), ttl: z.number().nullable().optional(), mxPriority: z.number().nullable().optional(), srv: obj({ target: z.string().nullable(), weight: z.number().nullable(), port: z.number().nullable(), priority: z.number().nullable() }).nullable().optional(), https: obj({ priority: z.number().nullable(), target: z.string().nullable(), params: z.string().nullable().optional() }).nullable().optional(), comment: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -39,7 +40,7 @@ export const dnsActions: Record<string, ActionDefinition> = {
     description: "Remove record. Part of: dns. Calls DELETE /v2/domains/{domain}/records/{recordId} on Vercel.",
     method: "DELETE",
     path: "/v2/domains/{domain}/records/{recordId}",
-    input: z.object({ domain: z.string(), recordId: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ domain: z.string(), recordId: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

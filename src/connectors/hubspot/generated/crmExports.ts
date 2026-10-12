@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const crmExportsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const crmExportsActions: Record<string, ActionDefinition> = {
     description: "Create export async. Part of: Advanced. Calls POST /crm/v3/exports/export/async on HubSpot.",
     method: "POST",
     path: "/crm/v3/exports/export/async",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -19,7 +20,7 @@ export const crmExportsActions: Record<string, ActionDefinition> = {
     description: "List export async tasks status. Part of: Advanced. Calls GET /crm/v3/exports/export/async/tasks/{taskId}/status on HubSpot.",
     method: "GET",
     path: "/crm/v3/exports/export/async/tasks/{taskId}/status",
-    input: z.object({ taskId: z.number() }),
+    input: obj({ taskId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const crmExportsActions: Record<string, ActionDefinition> = {
     description: "Get export. Part of: Basic. Calls GET /crm/v3/exports/export/{exportId} on HubSpot.",
     method: "GET",
     path: "/crm/v3/exports/export/{exportId}",
-    input: z.object({ exportId: z.number() }),
+    input: obj({ exportId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

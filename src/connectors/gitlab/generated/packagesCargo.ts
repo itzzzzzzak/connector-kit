@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const packagesCargoActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const packagesCargoActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages cargo config json. Part of: packagescargo. Calls GET /projects/{id}/packages/cargo/config.json on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/cargo/config.json",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const packagesCargoActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages cargo1 package name. Part of: packagescargo. Calls GET /projects/{id}/packages/cargo/1/{packagename} on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/cargo/1/{package_name}",
-    input: z.object({ id: z.string(), package_name: z.string() }),
+    input: obj({ id: z.string(), package_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const packagesCargoActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages cargo2 package name. Part of: packagescargo. Calls GET /projects/{id}/packages/cargo/2/{packagename} on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/cargo/2/{package_name}",
-    input: z.object({ id: z.string(), package_name: z.string() }),
+    input: obj({ id: z.string(), package_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const packagesCargoActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages cargo3 first char package name. Part of: packagescargo. Calls GET /projects/{id}/packages/cargo/3/{firstchar}/{packagename} on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/cargo/3/{first_char}/{package_name}",
-    input: z.object({ id: z.string(), first_char: z.string(), package_name: z.string() }),
+    input: obj({ id: z.string(), first_char: z.string(), package_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const packagesCargoActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages cargo prefix1 prefix2 package name. Part of: packagescargo. Calls GET /projects/{id}/packages/cargo/{prefix1}/{prefix2}/{packagename} on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/cargo/{prefix_1}/{prefix_2}/{package_name}",
-    input: z.object({ id: z.string(), prefix_1: z.string(), prefix_2: z.string(), package_name: z.string() }),
+    input: obj({ id: z.string(), prefix_1: z.string(), prefix_2: z.string(), package_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const packagesCargoActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages cargo package name package version download. Part of: packagescargo. Calls GET /projects/{id}/packages/cargo/{packagename}/{packageversion}/download on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/cargo/{package_name}/{package_version}/download",
-    input: z.object({ id: z.string(), package_name: z.string(), package_version: z.string() }),
+    input: obj({ id: z.string(), package_name: z.string(), package_version: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

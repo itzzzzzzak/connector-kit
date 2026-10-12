@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const pinsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const pinsActions: Record<string, ActionDefinition> = {
     description: "Pins an item to a channel. Calls POST /pins.add on Slack.",
     method: "POST",
     path: "/pins.add",
-    input: z.object({ channel: z.string().describe("Channel to pin the item in."), timestamp: z.string().describe("Timestamp of the message to pin.").optional() }),
+    input: obj({ channel: z.string().describe("Channel to pin the item in."), timestamp: z.string().describe("Timestamp of the message to pin.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const pinsActions: Record<string, ActionDefinition> = {
     description: "Lists items pinned to a channel. Calls GET /pins.list on Slack.",
     method: "GET",
     path: "/pins.list",
-    input: z.object({ channel: z.string().describe("Channel to get pinned items for.") }),
+    input: obj({ channel: z.string().describe("Channel to get pinned items for.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const pinsActions: Record<string, ActionDefinition> = {
     description: "Un-pins an item from a channel. Calls POST /pins.remove on Slack.",
     method: "POST",
     path: "/pins.remove",
-    input: z.object({ channel: z.string().describe("Channel where the item is pinned to."), timestamp: z.string().describe("Timestamp of the message to un-pin.").optional() }),
+    input: obj({ channel: z.string().describe("Channel where the item is pinned to."), timestamp: z.string().describe("Timestamp of the message to un-pin.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

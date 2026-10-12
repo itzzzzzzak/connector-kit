@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const apiInsightsActions: Record<string, ActionDefinition> = {
     description: "Get route stats by actor. Get API request count statistics for an actor broken down by route within a specified time frame.",
     method: "GET",
     path: "/orgs/{org}/insights/api/route-stats/{actor_type}/{actor_id}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), actor_type: z.enum(["installation", "classic_pat", "fine_grained_pat", "oauth_app", "github_app_user_to_server"]).describe("The type of the actor"), actor_id: z.number().describe("The ID of the actor"), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), direction: z.enum(["asc", "desc"]).describe("The direction to sort the results by.").optional(), sort: z.array(z.enum(["last_rate_limited_timestamp", "last_request_timestamp", "rate_limited_request_count", "http_method", "api_route", "total_request_count"])).describe("The property to sort the results by.").optional(), api_route_substring: z.string().describe("Providing a substring will filter results where the API route contains the substring. This is a case-insensitive search.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), actor_type: z.enum(["installation", "classic_pat", "fine_grained_pat", "oauth_app", "github_app_user_to_server"]).describe("The type of the actor"), actor_id: z.number().describe("The ID of the actor"), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), direction: z.enum(["asc", "desc"]).describe("The direction to sort the results by.").optional(), sort: z.array(z.enum(["last_rate_limited_timestamp", "last_request_timestamp", "rate_limited_request_count", "http_method", "api_route", "total_request_count"])).describe("The property to sort the results by.").optional(), api_route_substring: z.string().describe("Providing a substring will filter results where the API route contains the substring. This is a case-insensitive search.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination(),
@@ -20,7 +21,7 @@ export const apiInsightsActions: Record<string, ActionDefinition> = {
     description: "Get subject stats. Get API request statistics for all subjects within an organization within a specified time frame. Subjects can be users or GitHub Apps.",
     method: "GET",
     path: "/orgs/{org}/insights/api/subject-stats",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), direction: z.enum(["asc", "desc"]).describe("The direction to sort the results by.").optional(), sort: z.array(z.enum(["last_rate_limited_timestamp", "last_request_timestamp", "rate_limited_request_count", "subject_name", "total_request_count"])).describe("The property to sort the results by.").optional(), subject_name_substring: z.string().describe("Providing a substring will filter results where the subject name contains the substring. This is a case-insensitive search.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), direction: z.enum(["asc", "desc"]).describe("The direction to sort the results by.").optional(), sort: z.array(z.enum(["last_rate_limited_timestamp", "last_request_timestamp", "rate_limited_request_count", "subject_name", "total_request_count"])).describe("The property to sort the results by.").optional(), subject_name_substring: z.string().describe("Providing a substring will filter results where the subject name contains the substring. This is a case-insensitive search.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination(),
@@ -29,7 +30,7 @@ export const apiInsightsActions: Record<string, ActionDefinition> = {
     description: "Get summary stats. Get overall statistics of API requests made within an organization by all users and apps within a specified time frame.",
     method: "GET",
     path: "/orgs/{org}/insights/api/summary-stats",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional() }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const apiInsightsActions: Record<string, ActionDefinition> = {
     description: "Get summary stats by user. Get overall statistics of API requests within the organization for a user.",
     method: "GET",
     path: "/orgs/{org}/insights/api/summary-stats/users/{user_id}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), user_id: z.string().describe("The ID of the user to query for stats"), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional() }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), user_id: z.string().describe("The ID of the user to query for stats"), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -45,7 +46,7 @@ export const apiInsightsActions: Record<string, ActionDefinition> = {
     description: "Get summary stats by actor. Get overall statistics of API requests within the organization made by a specific actor. Actors can be GitHub App installations, OAuth apps or other tokens on behalf of a user.",
     method: "GET",
     path: "/orgs/{org}/insights/api/summary-stats/{actor_type}/{actor_id}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), actor_type: z.enum(["installation", "classic_pat", "fine_grained_pat", "oauth_app", "github_app_user_to_server"]).describe("The type of the actor"), actor_id: z.number().describe("The ID of the actor") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), actor_type: z.enum(["installation", "classic_pat", "fine_grained_pat", "oauth_app", "github_app_user_to_server"]).describe("The type of the actor"), actor_id: z.number().describe("The ID of the actor") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -53,7 +54,7 @@ export const apiInsightsActions: Record<string, ActionDefinition> = {
     description: "Get time stats. Get the number of API requests and rate-limited requests made within an organization over a specified time period.",
     method: "GET",
     path: "/orgs/{org}/insights/api/time-stats",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), timestamp_increment: z.string().describe("The increment of time used to breakdown the query results (5m, 10m, 1h, etc.)") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), timestamp_increment: z.string().describe("The increment of time used to breakdown the query results (5m, 10m, 1h, etc.)") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -61,7 +62,7 @@ export const apiInsightsActions: Record<string, ActionDefinition> = {
     description: "Get time stats by user. Get the number of API requests and rate-limited requests made within an organization by a specific user over a specified time period.",
     method: "GET",
     path: "/orgs/{org}/insights/api/time-stats/users/{user_id}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), user_id: z.string().describe("The ID of the user to query for stats"), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), timestamp_increment: z.string().describe("The increment of time used to breakdown the query results (5m, 10m, 1h, etc.)") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), user_id: z.string().describe("The ID of the user to query for stats"), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), timestamp_increment: z.string().describe("The increment of time used to breakdown the query results (5m, 10m, 1h, etc.)") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -69,7 +70,7 @@ export const apiInsightsActions: Record<string, ActionDefinition> = {
     description: "Get time stats by actor. Get the number of API requests and rate-limited requests made within an organization by a specific actor within a specified time period.",
     method: "GET",
     path: "/orgs/{org}/insights/api/time-stats/{actor_type}/{actor_id}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), actor_type: z.enum(["installation", "classic_pat", "fine_grained_pat", "oauth_app", "github_app_user_to_server"]).describe("The type of the actor"), actor_id: z.number().describe("The ID of the actor"), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), timestamp_increment: z.string().describe("The increment of time used to breakdown the query results (5m, 10m, 1h, etc.)") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), actor_type: z.enum(["installation", "classic_pat", "fine_grained_pat", "oauth_app", "github_app_user_to_server"]).describe("The type of the actor"), actor_id: z.number().describe("The ID of the actor"), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), timestamp_increment: z.string().describe("The increment of time used to breakdown the query results (5m, 10m, 1h, etc.)") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -77,7 +78,7 @@ export const apiInsightsActions: Record<string, ActionDefinition> = {
     description: "Get user stats. Get API usage statistics within an organization for a user broken down by the type of access.",
     method: "GET",
     path: "/orgs/{org}/insights/api/user-stats/{user_id}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), user_id: z.string().describe("The ID of the user to query for stats"), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), direction: z.enum(["asc", "desc"]).describe("The direction to sort the results by.").optional(), sort: z.array(z.enum(["last_rate_limited_timestamp", "last_request_timestamp", "rate_limited_request_count", "subject_name", "total_request_count"])).describe("The property to sort the results by.").optional(), actor_name_substring: z.string().describe("Providing a substring will filter results where the actor name contains the substring. This is a case-insensitive search.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), user_id: z.string().describe("The ID of the user to query for stats"), min_timestamp: z.string().describe("The minimum timestamp to query for stats. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ."), max_timestamp: z.string().describe("The maximum timestamp to query for stats. Defaults to the time 30 days ago. This is a timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ.").optional(), direction: z.enum(["asc", "desc"]).describe("The direction to sort the results by.").optional(), sort: z.array(z.enum(["last_rate_limited_timestamp", "last_request_timestamp", "rate_limited_request_count", "subject_name", "total_request_count"])).describe("The property to sort the results by.").optional(), actor_name_substring: z.string().describe("Providing a substring will filter results where the actor name contains the substring. This is a case-insensitive search.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination(),

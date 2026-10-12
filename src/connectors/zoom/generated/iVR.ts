@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const iVRActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const iVRActions: Record<string, ActionDefinition> = {
     description: "Get auto receptionist ivr. Part of: IVR. Calls GET /phone/autoreceptionists/{autoReceptionistId}/ivr on Zoom.",
     method: "GET",
     path: "/phone/auto_receptionists/{autoReceptionistId}/ivr",
-    input: z.object({ autoReceptionistId: z.string(), hours_type: z.enum(["business_hours", "closed_hours", "holiday_hours", "break_hours"]).optional(), holiday_id: z.string().optional(), break_id: z.string().optional() }),
+    input: obj({ autoReceptionistId: z.string(), hours_type: z.enum(["business_hours", "closed_hours", "holiday_hours", "break_hours"]).optional(), holiday_id: z.string().optional(), break_id: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const iVRActions: Record<string, ActionDefinition> = {
     description: "Update auto receptionist ivr. Part of: IVR. Calls PATCH /phone/autoreceptionists/{autoReceptionistId}/ivr on Zoom.",
     method: "PATCH",
     path: "/phone/auto_receptionists/{autoReceptionistId}/ivr",
-    input: z.object({ autoReceptionistId: z.string(), audio_prompt_id: z.string().optional(), caller_enters_no_action: z.object({ action: z.number().optional(), caller_no_input_timeout: z.number().optional(), audio_prompt_repeat: z.number().optional(), forward_to_extension_id: z.string().optional(), voicemail_greeting_id: z.string().optional(), forward_to: z.object({ phone_number: z.string().optional(), teams_app_id: z.string().optional(), partner_contact_center_id: z.string().optional(), zva_receptionist_id: z.string().optional(), third_party_agent_id: z.string().optional(), external_contact_id: z.string().optional() }).optional() }).optional(), holiday_id: z.string().optional(), break_id: z.string().optional(), hours_type: z.enum(["business_hours", "closed_hours", "holiday_hours", "break_hours"]).optional(), key_action: z.object({ action: z.number().optional(), key: z.string().optional(), target: z.object({ extension_id: z.string().optional(), phone_number: z.string().optional(), teams_app_id: z.string().optional(), partner_contact_center_id: z.string().optional(), zva_receptionist_id: z.string().optional(), third_party_agent_id: z.string().optional(), external_contact_id: z.string().optional() }).optional(), voicemail_greeting_id: z.string().optional() }).optional(), allow_callers_to_navigate_ivr: z.object({ enable: z.boolean().optional(), voice_input_confidence_score: z.enum(["low", "medium", "high"]).optional() }).optional(), allow_dialing_by_extension: z.boolean().optional() }),
+    input: obj({ autoReceptionistId: z.string(), audio_prompt_id: z.string().optional(), caller_enters_no_action: obj({ action: z.number().optional(), caller_no_input_timeout: z.number().optional(), audio_prompt_repeat: z.number().optional(), forward_to_extension_id: z.string().optional(), voicemail_greeting_id: z.string().optional(), forward_to: obj({ phone_number: z.string().optional(), teams_app_id: z.string().optional(), partner_contact_center_id: z.string().optional(), zva_receptionist_id: z.string().optional(), third_party_agent_id: z.string().optional(), external_contact_id: z.string().optional() }).optional() }).optional(), holiday_id: z.string().optional(), break_id: z.string().optional(), hours_type: z.enum(["business_hours", "closed_hours", "holiday_hours", "break_hours"]).optional(), key_action: obj({ action: z.number().optional(), key: z.string().optional(), target: obj({ extension_id: z.string().optional(), phone_number: z.string().optional(), teams_app_id: z.string().optional(), partner_contact_center_id: z.string().optional(), zva_receptionist_id: z.string().optional(), third_party_agent_id: z.string().optional(), external_contact_id: z.string().optional() }).optional(), voicemail_greeting_id: z.string().optional() }).optional(), allow_callers_to_navigate_ivr: obj({ enable: z.boolean().optional(), voice_input_confidence_score: z.enum(["low", "medium", "high"]).optional() }).optional(), allow_dialing_by_extension: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },

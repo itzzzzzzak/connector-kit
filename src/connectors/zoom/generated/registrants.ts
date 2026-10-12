@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const registrantsActions: Record<string, ActionDefinition> = {
     description: "Get registrants. Part of: Registrants. Calls GET /zoomevents/events/{eventId}/registrants on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/registrants",
-    input: z.object({ eventId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ eventId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "registrants", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const registrantsActions: Record<string, ActionDefinition> = {
     description: "Get session attendee list. Part of: Registrants. Calls GET /zoomevents/events/{eventId}/sessions/{sessionId}/attendees on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/sessions/{sessionId}/attendees",
-    input: z.object({ eventId: z.string(), sessionId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ eventId: z.string(), sessionId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "attendees", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

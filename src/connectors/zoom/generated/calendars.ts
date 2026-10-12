@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const calendarsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const calendarsActions: Record<string, ActionDefinition> = {
     description: "Insertcalendar. Part of: calendars. Calls POST /calendars on Zoom.",
     method: "POST",
     path: "/calendars",
-    input: z.object({ summary: z.string() }),
+    input: obj({ summary: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const calendarsActions: Record<string, ActionDefinition> = {
     description: "Getcalendar. Part of: calendars. Calls GET /calendars/{calId} on Zoom.",
     method: "GET",
     path: "/calendars/{calId}",
-    input: z.object({ calId: z.string() }),
+    input: obj({ calId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const calendarsActions: Record<string, ActionDefinition> = {
     description: "Patchcalendar. Part of: calendars. Calls PATCH /calendars/{calId} on Zoom.",
     method: "PATCH",
     path: "/calendars/{calId}",
-    input: z.object({ calId: z.string(), summary: z.string().optional(), timeZone: z.string().optional(), description: z.string().optional(), location: z.string().optional() }),
+    input: obj({ calId: z.string(), summary: z.string().optional(), timeZone: z.string().optional(), description: z.string().optional(), location: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const calendarsActions: Record<string, ActionDefinition> = {
     description: "Deletecalendar. Part of: calendars. Calls DELETE /calendars/{calId} on Zoom.",
     method: "DELETE",
     path: "/calendars/{calId}",
-    input: z.object({ calId: z.string() }),
+    input: obj({ calId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

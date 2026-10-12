@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const sREAgentActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const sREAgentActions: Record<string, ActionDefinition> = {
     description: "List sre memories. Part of: SRE Agent. Calls GET /sreagent/memories on PagerDuty.",
     method: "GET",
     path: "/sre_agent/memories",
-    input: z.object({ limit: z.number().optional(), service_id: z.string().optional(), incident_id: z.string().optional(), type: z.enum(["runbook", "service_profile", "incident_playbook"]).optional() }),
+    input: obj({ limit: z.number().optional(), service_id: z.string().optional(), incident_id: z.string().optional(), type: z.enum(["runbook", "service_profile", "incident_playbook"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const sREAgentActions: Record<string, ActionDefinition> = {
     description: "Update sre memory. Part of: SRE Agent. Calls PUT /sreagent/memories/{id} on PagerDuty.",
     method: "PUT",
     path: "/sre_agent/memories/{id}",
-    input: z.object({ id: z.string(), memory: z.object({ content: z.string() }) }),
+    input: obj({ id: z.string(), memory: obj({ content: z.string() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const sREAgentActions: Record<string, ActionDefinition> = {
     description: "Delete sre memory. Part of: SRE Agent. Calls DELETE /sreagent/memories/{id} on PagerDuty.",
     method: "DELETE",
     path: "/sre_agent/memories/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

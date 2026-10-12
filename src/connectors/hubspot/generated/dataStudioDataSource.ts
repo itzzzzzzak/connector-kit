@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const dataStudioDataSourceActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const dataStudioDataSourceActions: Record<string, ActionDefinition> = {
     description: "Create json. Part of: Advanced. Calls POST /data-studio/data-source/2026-09/json on HubSpot.",
     method: "POST",
     path: "/data-studio/data-source/2026-09/json",
-    input: z.object({ config: z.object({ file: z.object({ columns: z.array(z.record(z.string(), z.unknown())), headerRowIndex: z.number(), sheetIndex: z.number() }).optional(), json: z.object({ columns: z.array(z.record(z.string(), z.unknown())), data: z.array(z.record(z.string(), z.unknown())), recordId: z.string().optional() }).optional() }), datasourceName: z.string().optional() }),
+    input: obj({ config: obj({ file: obj({ columns: z.array(z.record(z.string(), z.unknown())), headerRowIndex: z.number(), sheetIndex: z.number() }).optional(), json: obj({ columns: z.array(z.record(z.string(), z.unknown())), data: z.array(z.record(z.string(), z.unknown())), recordId: z.string().optional() }).optional() }), datasourceName: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const dataStudioDataSourceActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /data-studio/data-source/2026-09/{datasourceId} on HubSpot.",
     method: "GET",
     path: "/data-studio/data-source/2026-09/{datasourceId}",
-    input: z.object({ datasourceId: z.number() }),
+    input: obj({ datasourceId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const dataStudioDataSourceActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Basic. Calls PATCH /data-studio/data-source/2026-09/{datasourceId} on HubSpot.",
     method: "PATCH",
     path: "/data-studio/data-source/2026-09/{datasourceId}",
-    input: z.object({ datasourceId: z.number(), datasourceName: z.string() }),
+    input: obj({ datasourceId: z.number(), datasourceName: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const dataStudioDataSourceActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /data-studio/data-source/2026-09/{datasourceId} on HubSpot.",
     method: "DELETE",
     path: "/data-studio/data-source/2026-09/{datasourceId}",
-    input: z.object({ datasourceId: z.number() }),
+    input: obj({ datasourceId: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const dataStudioDataSourceActions: Record<string, ActionDefinition> = {
     description: "Create data push. Part of: Advanced. Calls POST /data-studio/data-source/2026-09/{datasourceId}/data-push on HubSpot.",
     method: "POST",
     path: "/data-studio/data-source/2026-09/{datasourceId}/data-push",
-    input: z.object({ datasourceId: z.number(), data: z.array(z.record(z.string(), z.unknown())) }),
+    input: obj({ datasourceId: z.number(), data: z.array(z.record(z.string(), z.unknown())) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const dataStudioDataSourceActions: Record<string, ActionDefinition> = {
     description: "Replace json. Part of: Basic. Calls PUT /data-studio/data-source/2026-09/{datasourceId}/json on HubSpot.",
     method: "PUT",
     path: "/data-studio/data-source/2026-09/{datasourceId}/json",
-    input: z.object({ datasourceId: z.number(), config: z.object({ file: z.object({ columns: z.array(z.record(z.string(), z.unknown())), headerRowIndex: z.number(), sheetIndex: z.number() }).optional(), json: z.object({ columns: z.array(z.record(z.string(), z.unknown())), data: z.array(z.record(z.string(), z.unknown())), recordId: z.string().optional() }).optional() }).optional(), datasourceName: z.string().optional() }),
+    input: obj({ datasourceId: z.number(), config: obj({ file: obj({ columns: z.array(z.record(z.string(), z.unknown())), headerRowIndex: z.number(), sheetIndex: z.number() }).optional(), json: obj({ columns: z.array(z.record(z.string(), z.unknown())), data: z.array(z.record(z.string(), z.unknown())), recordId: z.string().optional() }).optional() }).optional(), datasourceName: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

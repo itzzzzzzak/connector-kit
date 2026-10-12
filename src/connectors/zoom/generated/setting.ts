@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const settingActions: Record<string, ActionDefinition> = {
     description: "Listportednumbers. Part of: Setting. Calls GET /numbermanagement/portednumbers/orders on Zoom.",
     method: "GET",
     path: "/number_management/ported_numbers/orders",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "ported_numbers", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const settingActions: Record<string, ActionDefinition> = {
     description: "Getportednumbersdetails. Part of: Setting. Calls GET /numbermanagement/portednumbers/orders/{orderId} on Zoom.",
     method: "GET",
     path: "/number_management/ported_numbers/orders/{orderId}",
-    input: z.object({ orderId: z.string() }),
+    input: obj({ orderId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const settingActions: Record<string, ActionDefinition> = {
     description: "List sipgroups. Part of: Setting. Calls GET /numbermanagement/sipgroups on Zoom.",
     method: "GET",
     path: "/number_management/sip_groups",
-    input: z.object({ allocated_product: z.enum(["ZOOM_PHONE", "ZOOM_CONTACT_CENTER"]), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ allocated_product: z.enum(["ZOOM_PHONE", "ZOOM_CONTACT_CENTER"]), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "sip_groups", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -37,7 +38,7 @@ export const settingActions: Record<string, ActionDefinition> = {
     description: "List byocsiptrunks. Part of: Setting. Calls GET /numbermanagement/siptrunks on Zoom.",
     method: "GET",
     path: "/number_management/sip_trunks",
-    input: z.object({ allocated_product: z.enum(["ZOOM_PHONE", "ZOOM_CONTACT_CENTER"]), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ allocated_product: z.enum(["ZOOM_PHONE", "ZOOM_CONTACT_CENTER"]), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "byoc_sip_trunk", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

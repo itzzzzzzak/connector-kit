@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const oAuthTokensActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const oAuthTokensActions: Record<string, ActionDefinition> = {
     description: "List oauth tokens. Part of: OAuth Tokens. Calls GET /oauth/tokens on Zendesk.",
     method: "GET",
     path: "/oauth/tokens",
-    input: z.object({ client_id: z.number().optional(), global_client_id: z.number().optional(), all: z.boolean().optional(), sort: z.string().optional() }),
+    input: obj({ client_id: z.number().optional(), global_client_id: z.number().optional(), all: z.boolean().optional(), sort: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const oAuthTokensActions: Record<string, ActionDefinition> = {
     description: "Show token. Part of: OAuth Tokens. Calls GET /oauth/tokens/{oauthtokenid} on Zendesk.",
     method: "GET",
     path: "/oauth/tokens/{oauth_token_id}",
-    input: z.object({ oauth_token_id: z.number() }),
+    input: obj({ oauth_token_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const oAuthTokensActions: Record<string, ActionDefinition> = {
     description: "Revoke oauth token. Part of: OAuth Tokens. Calls DELETE /oauth/tokens/{oauthtokenid} on Zendesk.",
     method: "DELETE",
     path: "/oauth/tokens/{oauth_token_id}",
-    input: z.object({ oauth_token_id: z.number() }),
+    input: obj({ oauth_token_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const oAuthTokensActions: Record<string, ActionDefinition> = {
     description: "Show current token. Part of: OAuth Tokens. Calls GET /oauth/tokens/current on Zendesk.",
     method: "GET",
     path: "/oauth/tokens/current",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const oAuthTokensActions: Record<string, ActionDefinition> = {
     description: "Revoke current oauth token. Part of: OAuth Tokens. Calls DELETE /oauth/tokens/current on Zendesk.",
     method: "DELETE",
     path: "/oauth/tokens/current",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const issueCustomFieldOptionsActions: Record<string, ActionDefinition> = 
     description: "Get custom field option. Returns a custom field option. For example, an option in a select list.",
     method: "GET",
     path: "/customFieldOption/{id}",
-    input: z.object({ id: z.string().describe("The ID of the custom field option.") }),
+    input: obj({ id: z.string().describe("The ID of the custom field option.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const issueCustomFieldOptionsActions: Record<string, ActionDefinition> = 
     description: "Get custom field options (context). Returns a paginated list of all custom field option for a context. Options are returned first then cascading options, in the order they display in Jira.",
     method: "GET",
     path: "/field/{fieldId}/context/{contextId}/option",
-    input: z.object({ fieldId: z.string().describe("The ID of the custom field."), contextId: z.number().describe("The ID of the context."), optionId: z.number().describe("The ID of the option.").optional(), onlyOptions: z.boolean().describe("Whether only options are returned.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ fieldId: z.string().describe("The ID of the custom field."), contextId: z.number().describe("The ID of the context."), optionId: z.number().describe("The ID of the option.").optional(), onlyOptions: z.boolean().describe("Whether only options are returned.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -28,7 +29,7 @@ export const issueCustomFieldOptionsActions: Record<string, ActionDefinition> = 
     description: "Create custom field options (context). Creates options and, where the custom select field is of the type Select List (cascading), cascading options for a custom select field. The options are added to a context of the field.",
     method: "POST",
     path: "/field/{fieldId}/context/{contextId}/option",
-    input: z.object({ fieldId: z.string().describe("The ID of the custom field."), contextId: z.number().describe("The ID of the context."), options: z.array(z.object({ disabled: z.boolean().optional(), optionId: z.string().optional(), value: z.string() })).describe("Details of options to create.").optional() }),
+    input: obj({ fieldId: z.string().describe("The ID of the custom field."), contextId: z.number().describe("The ID of the context."), options: z.array(obj({ disabled: z.boolean().optional(), optionId: z.string().optional(), value: z.string() })).describe("Details of options to create.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const issueCustomFieldOptionsActions: Record<string, ActionDefinition> = 
     description: "Update custom field options (context). Updates the options of a custom field.",
     method: "PUT",
     path: "/field/{fieldId}/context/{contextId}/option",
-    input: z.object({ fieldId: z.string().describe("The ID of the custom field."), contextId: z.number().describe("The ID of the context."), options: z.array(z.object({ disabled: z.boolean().optional(), id: z.string(), value: z.string().optional() })).describe("Details of the options to update.").optional() }),
+    input: obj({ fieldId: z.string().describe("The ID of the custom field."), contextId: z.number().describe("The ID of the context."), options: z.array(obj({ disabled: z.boolean().optional(), id: z.string(), value: z.string().optional() })).describe("Details of the options to update.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const issueCustomFieldOptionsActions: Record<string, ActionDefinition> = 
     description: "Reorder custom field options (context). Changes the order of custom field options or cascading options in a context.",
     method: "PUT",
     path: "/field/{fieldId}/context/{contextId}/option/move",
-    input: z.object({ fieldId: z.string().describe("The ID of the custom field."), contextId: z.number().describe("The ID of the context."), after: z.string().describe("The ID of the custom field option or cascading option to place the moved options after. Required if position isn't provided.").optional(), customFieldOptionIds: z.array(z.string()).describe("A list of IDs of custom field options to move. The order of the custom field option IDs in the list is the order they are given after the move. The list must…"), position: z.enum(["First", "Last"]).describe("The position the custom field options should be moved to. Required if after isn't provided.").optional() }),
+    input: obj({ fieldId: z.string().describe("The ID of the custom field."), contextId: z.number().describe("The ID of the context."), after: z.string().describe("The ID of the custom field option or cascading option to place the moved options after. Required if position isn't provided.").optional(), customFieldOptionIds: z.array(z.string()).describe("A list of IDs of custom field options to move. The order of the custom field option IDs in the list is the order they are given after the move. The list must…"), position: z.enum(["First", "Last"]).describe("The position the custom field options should be moved to. Required if after isn't provided.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -52,7 +53,7 @@ export const issueCustomFieldOptionsActions: Record<string, ActionDefinition> = 
     description: "Delete custom field options (context). Deletes a custom field option.",
     method: "DELETE",
     path: "/field/{fieldId}/context/{contextId}/option/{optionId}",
-    input: z.object({ fieldId: z.string().describe("The ID of the custom field."), contextId: z.number().describe("The ID of the context from which an option should be deleted."), optionId: z.number().describe("The ID of the option to delete.") }),
+    input: obj({ fieldId: z.string().describe("The ID of the custom field."), contextId: z.number().describe("The ID of the context from which an option should be deleted."), optionId: z.number().describe("The ID of the option to delete.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -60,7 +61,7 @@ export const issueCustomFieldOptionsActions: Record<string, ActionDefinition> = 
     description: "Replace custom field options. Replaces the options of a custom field.",
     method: "DELETE",
     path: "/field/{fieldId}/context/{contextId}/option/{optionId}/issue",
-    input: z.object({ replaceWith: z.number().describe("The ID of the option that will replace the currently selected option.").optional(), jql: z.string().describe("A JQL query that specifies the issues to be updated. For example, project=10000.").optional(), fieldId: z.string().describe("The ID of the custom field."), optionId: z.number().describe("The ID of the option to be deselected."), contextId: z.number().describe("The ID of the context.") }),
+    input: obj({ replaceWith: z.number().describe("The ID of the option that will replace the currently selected option.").optional(), jql: z.string().describe("A JQL query that specifies the issues to be updated. For example, project=10000.").optional(), fieldId: z.string().describe("The ID of the custom field."), optionId: z.number().describe("The ID of the option to be deselected."), contextId: z.number().describe("The ID of the context.") }),
     output: z.unknown(),
     effect: "destructive",
   },

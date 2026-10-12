@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const crmObjectSchemasSchemasActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const crmObjectSchemasSchemasActions: Record<string, ActionDefinition> = 
     description: "List. Part of: Basic. Calls GET /crm-object-schemas/v3/schemas on HubSpot.",
     method: "GET",
     path: "/crm-object-schemas/v3/schemas",
-    input: z.object({ archived: z.boolean().optional(), includeAssociationDefinitions: z.boolean().optional(), includeAuditMetadata: z.boolean().optional(), includePropertyDefinitions: z.boolean().optional() }),
+    input: obj({ archived: z.boolean().optional(), includeAssociationDefinitions: z.boolean().optional(), includeAuditMetadata: z.boolean().optional(), includePropertyDefinitions: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const crmObjectSchemasSchemasActions: Record<string, ActionDefinition> = 
     description: "Create. Part of: Basic. Calls POST /crm-object-schemas/v3/schemas on HubSpot.",
     method: "POST",
     path: "/crm-object-schemas/v3/schemas",
-    input: z.object({ allowsSensitiveProperties: z.boolean().optional(), associatedObjects: z.array(z.string()), description: z.string().optional(), labels: z.object({ plural: z.string().optional(), singular: z.string().optional() }), name: z.string(), primaryDisplayProperty: z.string().optional(), properties: z.array(z.object({ description: z.string().optional(), displayOrder: z.number().optional(), externalOptionsReferenceType: z.string().optional(), fieldType: z.string(), formField: z.boolean().optional(), groupName: z.string().optional(), hasUniqueValue: z.boolean().optional(), hidden: z.boolean().optional(), label: z.string(), name: z.string(), numberDisplayHint: z.enum(["currency", "duration", "formatted", "percentage", "probability", "unformatted"]).optional(), optionSortStrategy: z.enum(["ALPHABETICAL", "DISPLAY_ORDER"]).optional(), options: z.array(z.record(z.string(), z.unknown())).optional(), referencedObjectType: z.string().optional(), searchableInGlobalSearch: z.boolean().optional(), showCurrencySymbol: z.boolean().optional(), textDisplayHint: z.enum(["domain_name", "email", "ip_address", "multi_line", "phone_number", "physical_address", "postal_code", "unformatted_single_line"]).optional(), type: z.enum(["bool", "date", "datetime", "enumeration", "number", "phone_number", "string"]) })), requiredProperties: z.array(z.string()), searchableProperties: z.array(z.string()).optional(), secondaryDisplayProperties: z.array(z.string()).optional(), shouldCreateSameObjectAssociation: z.boolean().optional() }),
+    input: obj({ allowsSensitiveProperties: z.boolean().optional(), associatedObjects: z.array(z.string()), description: z.string().optional(), labels: obj({ plural: z.string().optional(), singular: z.string().optional() }), name: z.string(), primaryDisplayProperty: z.string().optional(), properties: z.array(obj({ description: z.string().optional(), displayOrder: z.number().optional(), externalOptionsReferenceType: z.string().optional(), fieldType: z.string(), formField: z.boolean().optional(), groupName: z.string().optional(), hasUniqueValue: z.boolean().optional(), hidden: z.boolean().optional(), label: z.string(), name: z.string(), numberDisplayHint: z.enum(["currency", "duration", "formatted", "percentage", "probability", "unformatted"]).optional(), optionSortStrategy: z.enum(["ALPHABETICAL", "DISPLAY_ORDER"]).optional(), options: z.array(z.record(z.string(), z.unknown())).optional(), referencedObjectType: z.string().optional(), searchableInGlobalSearch: z.boolean().optional(), showCurrencySymbol: z.boolean().optional(), textDisplayHint: z.enum(["domain_name", "email", "ip_address", "multi_line", "phone_number", "physical_address", "postal_code", "unformatted_single_line"]).optional(), type: z.enum(["bool", "date", "datetime", "enumeration", "number", "phone_number", "string"]) })), requiredProperties: z.array(z.string()), searchableProperties: z.array(z.string()).optional(), secondaryDisplayProperties: z.array(z.string()).optional(), shouldCreateSameObjectAssociation: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const crmObjectSchemasSchemasActions: Record<string, ActionDefinition> = 
     description: "Create batch read. Part of: Batch. Calls POST /crm-object-schemas/v3/schemas/batch/read on HubSpot.",
     method: "POST",
     path: "/crm-object-schemas/v3/schemas/batch/read",
-    input: z.object({ includeAssociationDefinitions: z.boolean(), includeAuditMetadata: z.boolean(), includePropertyDefinitions: z.boolean(), inputs: z.array(z.string()) }),
+    input: obj({ includeAssociationDefinitions: z.boolean(), includeAuditMetadata: z.boolean(), includePropertyDefinitions: z.boolean(), inputs: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const crmObjectSchemasSchemasActions: Record<string, ActionDefinition> = 
     description: "Get. Part of: Basic. Calls GET /crm-object-schemas/v3/schemas/{objectType} on HubSpot.",
     method: "GET",
     path: "/crm-object-schemas/v3/schemas/{objectType}",
-    input: z.object({ objectType: z.string(), includeAssociationDefinitions: z.boolean().optional(), includeAuditMetadata: z.boolean().optional(), includePropertyDefinitions: z.boolean().optional() }),
+    input: obj({ objectType: z.string(), includeAssociationDefinitions: z.boolean().optional(), includeAuditMetadata: z.boolean().optional(), includePropertyDefinitions: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const crmObjectSchemasSchemasActions: Record<string, ActionDefinition> = 
     description: "Update. Part of: Basic. Calls PATCH /crm-object-schemas/v3/schemas/{objectType} on HubSpot.",
     method: "PATCH",
     path: "/crm-object-schemas/v3/schemas/{objectType}",
-    input: z.object({ objectType: z.string(), allowsSensitiveProperties: z.boolean().optional(), clearDescription: z.boolean().optional(), description: z.string().optional(), labels: z.object({ plural: z.string().optional(), singular: z.string().optional() }).optional(), primaryDisplayProperty: z.string().optional(), requiredProperties: z.array(z.string()).optional(), restorable: z.boolean().optional(), searchableProperties: z.array(z.string()).optional(), secondaryDisplayProperties: z.array(z.string()).optional() }),
+    input: obj({ objectType: z.string(), allowsSensitiveProperties: z.boolean().optional(), clearDescription: z.boolean().optional(), description: z.string().optional(), labels: obj({ plural: z.string().optional(), singular: z.string().optional() }).optional(), primaryDisplayProperty: z.string().optional(), requiredProperties: z.array(z.string()).optional(), restorable: z.boolean().optional(), searchableProperties: z.array(z.string()).optional(), secondaryDisplayProperties: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const crmObjectSchemasSchemasActions: Record<string, ActionDefinition> = 
     description: "Delete. Part of: Basic. Calls DELETE /crm-object-schemas/v3/schemas/{objectType} on HubSpot.",
     method: "DELETE",
     path: "/crm-object-schemas/v3/schemas/{objectType}",
-    input: z.object({ objectType: z.string(), archived: z.boolean().optional() }),
+    input: obj({ objectType: z.string(), archived: z.boolean().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -58,7 +59,7 @@ export const crmObjectSchemasSchemasActions: Record<string, ActionDefinition> = 
     description: "Create associations. Part of: Advanced. Calls POST /crm-object-schemas/v3/schemas/{objectType}/associations on HubSpot.",
     method: "POST",
     path: "/crm-object-schemas/v3/schemas/{objectType}/associations",
-    input: z.object({ objectType: z.string(), fromObjectTypeId: z.string(), name: z.string().optional(), toObjectTypeId: z.string() }),
+    input: obj({ objectType: z.string(), fromObjectTypeId: z.string(), name: z.string().optional(), toObjectTypeId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -66,7 +67,7 @@ export const crmObjectSchemasSchemasActions: Record<string, ActionDefinition> = 
     description: "Delete associations. Part of: Basic. Calls DELETE /crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier} on HubSpot.",
     method: "DELETE",
     path: "/crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier}",
-    input: z.object({ associationIdentifier: z.string(), objectType: z.string() }),
+    input: obj({ associationIdentifier: z.string(), objectType: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

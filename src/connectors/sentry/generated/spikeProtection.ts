@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/sentry.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const spikeProtectionActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const spikeProtectionActions: Record<string, ActionDefinition> = {
     description: "List organization notifications actions. Part of: Spike Protection. Calls GET /organizations/{organizationidorslug}/notifications/actions/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/notifications/actions/",
-    input: z.object({ organization_id_or_slug: z.string(), project: z.array(z.unknown()).optional(), project_id_or_slug: z.array(z.string()).optional(), triggerType: z.string().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), project: z.array(z.unknown()).optional(), project_id_or_slug: z.array(z.string()).optional(), triggerType: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const spikeProtectionActions: Record<string, ActionDefinition> = {
     description: "Create organization notifications action. Part of: Spike Protection. Calls POST /organizations/{organizationidorslug}/notifications/actions/ on Sentry.",
     method: "POST",
     path: "/organizations/{organization_id_or_slug}/notifications/actions/",
-    input: z.object({ organization_id_or_slug: z.string(), trigger_type: z.string(), service_type: z.string(), integration_id: z.number().optional(), target_identifier: z.string().optional(), target_display: z.string().optional(), projects: z.array(z.string()).optional(), sentry_app_id: z.number().optional(), target_type: z.string().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), trigger_type: z.string(), service_type: z.string(), integration_id: z.number().optional(), target_identifier: z.string().optional(), target_display: z.string().optional(), projects: z.array(z.string()).optional(), sentry_app_id: z.number().optional(), target_type: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const spikeProtectionActions: Record<string, ActionDefinition> = {
     description: "Get organization notifications action. Part of: Spike Protection. Calls GET /organizations/{organizationidorslug}/notifications/actions/{actionid}/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/notifications/actions/{action_id}/",
-    input: z.object({ organization_id_or_slug: z.string(), action_id: z.number() }),
+    input: obj({ organization_id_or_slug: z.string(), action_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const spikeProtectionActions: Record<string, ActionDefinition> = {
     description: "Update organization notifications action. Part of: Spike Protection. Calls PUT /organizations/{organizationidorslug}/notifications/actions/{actionid}/ on Sentry.",
     method: "PUT",
     path: "/organizations/{organization_id_or_slug}/notifications/actions/{action_id}/",
-    input: z.object({ organization_id_or_slug: z.string(), action_id: z.number(), trigger_type: z.string(), service_type: z.string(), integration_id: z.number().optional(), target_identifier: z.string().optional(), target_display: z.string().optional(), projects: z.array(z.string()).optional(), sentry_app_id: z.number().optional(), target_type: z.string().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), action_id: z.number(), trigger_type: z.string(), service_type: z.string(), integration_id: z.number().optional(), target_identifier: z.string().optional(), target_display: z.string().optional(), projects: z.array(z.string()).optional(), sentry_app_id: z.number().optional(), target_type: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const spikeProtectionActions: Record<string, ActionDefinition> = {
     description: "Delete organization notifications action. Part of: Spike Protection. Calls DELETE /organizations/{organizationidorslug}/notifications/actions/{actionid}/ on Sentry.",
     method: "DELETE",
     path: "/organizations/{organization_id_or_slug}/notifications/actions/{action_id}/",
-    input: z.object({ organization_id_or_slug: z.string(), action_id: z.number() }),
+    input: obj({ organization_id_or_slug: z.string(), action_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

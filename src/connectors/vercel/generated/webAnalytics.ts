@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const webAnalyticsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const webAnalyticsActions: Record<string, ActionDefinition> = {
     description: "Aggregate pageviews. Part of: web-analytics. Calls GET /v1/query/web-analytics/visits/aggregate on Vercel.",
     method: "GET",
     path: "/v1/query/web-analytics/visits/aggregate",
-    input: z.object({ projectId: z.string(), by: z.array(z.string()), since: z.unknown(), until: z.unknown(), limit: z.number().optional(), filter: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ projectId: z.string(), by: z.array(z.string()), since: z.unknown(), until: z.unknown(), limit: z.number().optional(), filter: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const webAnalyticsActions: Record<string, ActionDefinition> = {
     description: "Aggregate events. Part of: web-analytics. Calls GET /v1/query/web-analytics/events/aggregate on Vercel.",
     method: "GET",
     path: "/v1/query/web-analytics/events/aggregate",
-    input: z.object({ projectId: z.string(), by: z.array(z.string()), since: z.unknown(), until: z.unknown(), limit: z.number().optional(), filter: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ projectId: z.string(), by: z.array(z.string()), since: z.unknown(), until: z.unknown(), limit: z.number().optional(), filter: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const webAnalyticsActions: Record<string, ActionDefinition> = {
     description: "Count pageviews. Part of: web-analytics. Calls GET /v1/query/web-analytics/visits/count on Vercel.",
     method: "GET",
     path: "/v1/query/web-analytics/visits/count",
-    input: z.object({ projectId: z.string(), since: z.unknown().optional(), until: z.unknown().optional(), filter: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ projectId: z.string(), since: z.unknown().optional(), until: z.unknown().optional(), filter: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const webAnalyticsActions: Record<string, ActionDefinition> = {
     description: "Count events. Part of: web-analytics. Calls GET /v1/query/web-analytics/events/count on Vercel.",
     method: "GET",
     path: "/v1/query/web-analytics/events/count",
-    input: z.object({ projectId: z.string(), since: z.unknown().optional(), until: z.unknown().optional(), filter: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ projectId: z.string(), since: z.unknown().optional(), until: z.unknown().optional(), filter: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

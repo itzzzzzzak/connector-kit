@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const ticketTypesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const ticketTypesActions: Record<string, ActionDefinition> = {
     description: "Get registration questions for event. Part of: Ticket Types. Calls GET /zoomevents/events/{eventId}/questions on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/questions",
-    input: z.object({ eventId: z.string() }),
+    input: obj({ eventId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const ticketTypesActions: Record<string, ActionDefinition> = {
     description: "Update registration questions for event. Part of: Ticket Types. Calls PUT /zoomevents/events/{eventId}/questions on Zoom.",
     method: "PUT",
     path: "/zoom_events/events/{eventId}/questions",
-    input: z.object({ eventId: z.string(), questions: z.array(z.object({ field_name: z.enum(["first_name", "last_name", "address", "city", "state", "zip", "country", "phone", "industry", "job_title", "organization", "organization_size"]).optional(), required: z.boolean().optional(), title: z.string().optional(), question_id: z.string().optional() })).optional(), custom_questions: z.array(z.object({ options: z.array(z.string()).optional(), required: z.boolean().optional(), title: z.string().optional(), question_id: z.string().optional(), type: z.enum(["short_answer", "long_answer", "single_radio", "single_dropdown", "multiple_choice"]).optional(), min_length: z.number().optional(), max_length: z.number().optional() })).optional() }),
+    input: obj({ eventId: z.string(), questions: z.array(obj({ field_name: z.enum(["first_name", "last_name", "address", "city", "state", "zip", "country", "phone", "industry", "job_title", "organization", "organization_size"]).optional(), required: z.boolean().optional(), title: z.string().optional(), question_id: z.string().optional() })).optional(), custom_questions: z.array(obj({ options: z.array(z.string()).optional(), required: z.boolean().optional(), title: z.string().optional(), question_id: z.string().optional(), type: z.enum(["short_answer", "long_answer", "single_radio", "single_dropdown", "multiple_choice"]).optional(), min_length: z.number().optional(), max_length: z.number().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const ticketTypesActions: Record<string, ActionDefinition> = {
     description: "Get event ticket types. Part of: Ticket Types. Calls GET /zoomevents/events/{eventId}/tickettypes on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/ticket_types",
-    input: z.object({ eventId: z.string() }),
+    input: obj({ eventId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const ticketTypesActions: Record<string, ActionDefinition> = {
     description: "Create ticket type. Part of: Ticket Types. Calls POST /zoomevents/events/{eventId}/tickettypes on Zoom.",
     method: "POST",
     path: "/zoom_events/events/{eventId}/ticket_types",
-    input: z.object({ eventId: z.string(), name: z.string(), currency: z.string(), free: z.boolean().optional(), price: z.string().optional(), quantity: z.number().optional(), start_time: z.string(), end_time: z.string(), description: z.string().optional(), sold_quantity: z.number().optional(), sessions: z.array(z.string()).optional(), bookmarked_sessions: z.array(z.string()).optional(), private_visibility_rules: z.object({ account_restrict: z.boolean().optional(), allow_domain_list: z.array(z.string()).optional(), email_restrict_list: z.array(z.string()).optional() }).optional(), attendance_type: z.enum(["virtual", "in-person", "hybrid"]).optional() }),
+    input: obj({ eventId: z.string(), name: z.string(), currency: z.string(), free: z.boolean().optional(), price: z.string().optional(), quantity: z.number().optional(), start_time: z.string(), end_time: z.string(), description: z.string().optional(), sold_quantity: z.number().optional(), sessions: z.array(z.string()).optional(), bookmarked_sessions: z.array(z.string()).optional(), private_visibility_rules: obj({ account_restrict: z.boolean().optional(), allow_domain_list: z.array(z.string()).optional(), email_restrict_list: z.array(z.string()).optional() }).optional(), attendance_type: z.enum(["virtual", "in-person", "hybrid"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const ticketTypesActions: Record<string, ActionDefinition> = {
     description: "Update ticket type. Part of: Ticket Types. Calls PATCH /zoomevents/events/{eventId}/tickettypes/{ticketTypeId} on Zoom.",
     method: "PATCH",
     path: "/zoom_events/events/{eventId}/ticket_types/{ticketTypeId}",
-    input: z.object({ eventId: z.string(), ticketTypeId: z.string(), name: z.string().optional(), currency: z.string().optional(), free: z.boolean().optional(), price: z.string().optional(), quantity: z.number().optional(), start_time: z.string().optional(), end_time: z.string().optional(), description: z.string().optional(), sold_quantity: z.number().optional(), sessions: z.array(z.string()).optional(), bookmarked_sessions: z.array(z.string()).optional(), private_visibility_rules: z.object({ account_restrict: z.boolean().optional(), allow_domain_list: z.array(z.string()).optional(), email_restrict_list: z.array(z.string()).optional(), attendance_type: z.enum(["virtual", "in-person", "hybrid"]).optional() }).optional() }),
+    input: obj({ eventId: z.string(), ticketTypeId: z.string(), name: z.string().optional(), currency: z.string().optional(), free: z.boolean().optional(), price: z.string().optional(), quantity: z.number().optional(), start_time: z.string().optional(), end_time: z.string().optional(), description: z.string().optional(), sold_quantity: z.number().optional(), sessions: z.array(z.string()).optional(), bookmarked_sessions: z.array(z.string()).optional(), private_visibility_rules: obj({ account_restrict: z.boolean().optional(), allow_domain_list: z.array(z.string()).optional(), email_restrict_list: z.array(z.string()).optional(), attendance_type: z.enum(["virtual", "in-person", "hybrid"]).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const ticketTypesActions: Record<string, ActionDefinition> = {
     description: "Delete event ticket type. Part of: Ticket Types. Calls DELETE /zoomevents/events/{eventId}/tickettypes/{ticketTypeId} on Zoom.",
     method: "DELETE",
     path: "/zoom_events/events/{eventId}/ticket_types/{ticketTypeId}",
-    input: z.object({ eventId: z.string(), ticketTypeId: z.string() }),
+    input: obj({ eventId: z.string(), ticketTypeId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -58,7 +59,7 @@ export const ticketTypesActions: Record<string, ActionDefinition> = {
     description: "Get registration questions for ticket type. Part of: Ticket Types. Calls GET /zoomevents/events/{eventId}/tickettypes/{ticketTypeId}/questions on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/ticket_types/{ticketTypeId}/questions",
-    input: z.object({ eventId: z.string(), ticketTypeId: z.string() }),
+    input: obj({ eventId: z.string(), ticketTypeId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -66,7 +67,7 @@ export const ticketTypesActions: Record<string, ActionDefinition> = {
     description: "Update registration questions for ticket type. Part of: Ticket Types. Calls PUT /zoomevents/events/{eventId}/tickettypes/{ticketTypeId}/questions on Zoom.",
     method: "PUT",
     path: "/zoom_events/events/{eventId}/ticket_types/{ticketTypeId}/questions",
-    input: z.object({ eventId: z.string(), ticketTypeId: z.string(), questions: z.array(z.object({ field_name: z.enum(["first_name", "last_name", "address", "city", "state", "zip", "country", "phone", "industry", "job_title", "organization", "organization_size"]).optional(), required: z.boolean().optional(), title: z.string().optional(), question_id: z.string().optional() })).optional(), custom_questions: z.array(z.object({ options: z.array(z.string()).optional(), required: z.boolean().optional(), title: z.string().optional(), question_id: z.string().optional(), type: z.enum(["short_answer", "long_answer", "single_radio", "single_dropdown", "multiple_choice"]).optional(), min_length: z.number().optional(), max_length: z.number().optional() })).optional() }),
+    input: obj({ eventId: z.string(), ticketTypeId: z.string(), questions: z.array(obj({ field_name: z.enum(["first_name", "last_name", "address", "city", "state", "zip", "country", "phone", "industry", "job_title", "organization", "organization_size"]).optional(), required: z.boolean().optional(), title: z.string().optional(), question_id: z.string().optional() })).optional(), custom_questions: z.array(obj({ options: z.array(z.string()).optional(), required: z.boolean().optional(), title: z.string().optional(), question_id: z.string().optional(), type: z.enum(["short_answer", "long_answer", "single_radio", "single_dropdown", "multiple_choice"]).optional(), min_length: z.number().optional(), max_length: z.number().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },

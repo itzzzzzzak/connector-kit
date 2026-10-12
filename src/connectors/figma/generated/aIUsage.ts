@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/figma.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const aIUsageActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const aIUsageActions: Record<string, ActionDefinition> = {
     description: "Get daily AI credit usage. Returns per-user, per-day AI credit usage for the plan associated with the calling token. This endpoint requires a plan access token with the org:aimeteringusageread scope.",
     method: "GET",
     path: "/v1/ai_usage/daily",
-    input: z.object({ start_date: z.string().describe("The first day to include, inclusive, as a YYYY-MM-DD calendar date (UTC). Required. Must be on or after 2025-12-01 and no more than 366 days before the…"), end_date: z.string().describe("The last day to include, inclusive, as a YYYY-MM-DD calendar date (UTC). Required. Must be on or after startdate and the current UTC day or earlier."), user_email: z.string().describe("Restrict the results to a single Figma user, identified by email. When omitted, rows for every user in the plan with usage in the range are returned. An email…").optional(), limit: z.number().describe("Maximum number of rows to return. This param defaults to 1000 if unspecified, and may not exceed 1000.").optional(), cursor: z.string().describe("An opaque cursor returned from a previous request, used for pagination.").optional() }),
+    input: obj({ start_date: z.string().describe("The first day to include, inclusive, as a YYYY-MM-DD calendar date (UTC). Required. Must be on or after 2025-12-01 and no more than 366 days before the…"), end_date: z.string().describe("The last day to include, inclusive, as a YYYY-MM-DD calendar date (UTC). Required. Must be on or after startdate and the current UTC day or earlier."), user_email: z.string().describe("Restrict the results to a single Figma user, identified by email. When omitted, rows for every user in the plan with usage in the range are returned. An email…").optional(), limit: z.number().describe("Maximum number of rows to return. This param defaults to 1000 if unspecified, and may not exceed 1000.").optional(), cursor: z.string().describe("An opaque cursor returned from a previous request, used for pagination.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

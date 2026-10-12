@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const whatsAppMessagesActions: Record<string, ActionDefinition> = {
     description: "User whatsapp session. Part of: WhatsApp Messages. Calls GET /phone/users/{userId}/whatsapp/sessions on Zoom.",
     method: "GET",
     path: "/phone/users/{userId}/whatsapp/sessions",
-    input: z.object({ userId: z.string(), session_type: z.enum(["user", "call_queue", "auto_receptionist", "all"]).optional(), from: z.string().optional(), to: z.string().optional(), phone_number: z.string().optional(), filter_type: z.enum(["sent_message_time", "received_message_time", "last_message_time", "sent_received_message_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ userId: z.string(), session_type: z.enum(["user", "call_queue", "auto_receptionist", "all"]).optional(), from: z.string().optional(), to: z.string().optional(), phone_number: z.string().optional(), filter_type: z.enum(["sent_message_time", "received_message_time", "last_message_time", "sent_received_message_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "whatsapp_sessions", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const whatsAppMessagesActions: Record<string, ActionDefinition> = {
     description: "Post whats app message. Part of: WhatsApp Messages. Calls POST /phone/whatsapp/messages on Zoom.",
     method: "POST",
     path: "/phone/whatsapp/messages",
-    input: z.object({ sender: z.string(), recipient: z.string(), message_type: z.enum(["text", "template", "image", "document"]), message: z.string().optional(), template: z.object({ name: z.string(), language: z.string(), params: z.record(z.string(), z.unknown()).optional() }).optional(), attachments: z.array(z.object({ base64_encoding: z.string(), type: z.enum(["JPG", "JPEG", "PNG", "GIF", "PDF"]) })).optional(), session_id: z.string().optional() }),
+    input: obj({ sender: z.string(), recipient: z.string(), message_type: z.enum(["text", "template", "image", "document"]), message: z.string().optional(), template: obj({ name: z.string(), language: z.string(), params: z.record(z.string(), z.unknown()).optional() }).optional(), attachments: z.array(obj({ base64_encoding: z.string(), type: z.enum(["JPG", "JPEG", "PNG", "GIF", "PDF"]) })).optional(), session_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const whatsAppMessagesActions: Record<string, ActionDefinition> = {
     description: "List whats app sessions. Part of: WhatsApp Messages. Calls GET /phone/whatsapp/sessions on Zoom.",
     method: "GET",
     path: "/phone/whatsapp/sessions",
-    input: z.object({ from: z.string().optional(), to: z.string().optional(), session_type: z.enum(["user", "call_queue", "auto_receptionist", "all"]).optional(), phone_number: z.string().optional(), filter_type: z.enum(["sent_message_time", "received_message_time", "last_message_time", "sent_received_message_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string().optional(), to: z.string().optional(), session_type: z.enum(["user", "call_queue", "auto_receptionist", "all"]).optional(), phone_number: z.string().optional(), filter_type: z.enum(["sent_message_time", "received_message_time", "last_message_time", "sent_received_message_time"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "whatsapp_sessions", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -37,7 +38,7 @@ export const whatsAppMessagesActions: Record<string, ActionDefinition> = {
     description: "Whatsapp session details. Part of: WhatsApp Messages. Calls GET /phone/whatsapp/sessions/{sessionId} on Zoom.",
     method: "GET",
     path: "/phone/whatsapp/sessions/{sessionId}",
-    input: z.object({ sessionId: z.string(), page_size: z.number().optional(), next_page_token: z.string().optional(), from: z.string().optional(), to: z.string().optional(), message_status: z.enum(["delivered", "played", "read", "sent", "failed", "received", "edited"]).optional(), sort: z.enum(["asc", "desc"]).optional() }),
+    input: obj({ sessionId: z.string(), page_size: z.number().optional(), next_page_token: z.string().optional(), from: z.string().optional(), to: z.string().optional(), message_status: z.enum(["delivered", "played", "read", "sent", "failed", "received", "edited"]).optional(), sort: z.enum(["asc", "desc"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -45,7 +46,7 @@ export const whatsAppMessagesActions: Record<string, ActionDefinition> = {
     description: "Whatsapp by message id. Part of: WhatsApp Messages. Calls GET /phone/whatsapp/sessions/{sessionId}/messages/{messageId} on Zoom.",
     method: "GET",
     path: "/phone/whatsapp/sessions/{sessionId}/messages/{messageId}",
-    input: z.object({ sessionId: z.string(), messageId: z.string() }),
+    input: obj({ sessionId: z.string(), messageId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

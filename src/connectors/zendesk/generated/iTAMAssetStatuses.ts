@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const iTAMAssetStatusesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const iTAMAssetStatusesActions: Record<string, ActionDefinition> = {
     description: "List itam statuses. Part of: ITAM Asset Statuses. Calls GET /itassetmanagement/statuses on Zendesk.",
     method: "GET",
     path: "/it_asset_management/statuses",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const iTAMAssetStatusesActions: Record<string, ActionDefinition> = {
     description: "Create itam status. Part of: ITAM Asset Statuses. Calls POST /itassetmanagement/statuses on Zendesk.",
     method: "POST",
     path: "/it_asset_management/statuses",
-    input: z.object({ status: z.object({ category: z.enum(["available", "in_use", "unavailable", "end_of_life"]), description: z.string().nullable().optional(), external_id: z.string().nullable().optional(), name: z.string() }).optional() }),
+    input: obj({ status: obj({ category: z.enum(["available", "in_use", "unavailable", "end_of_life"]), description: z.string().nullable().optional(), external_id: z.string().nullable().optional(), name: z.string() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const iTAMAssetStatusesActions: Record<string, ActionDefinition> = {
     description: "Show itam status. Part of: ITAM Asset Statuses. Calls GET /itassetmanagement/statuses/{statusid} on Zendesk.",
     method: "GET",
     path: "/it_asset_management/statuses/{status_id}",
-    input: z.object({ status_id: z.string() }),
+    input: obj({ status_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const iTAMAssetStatusesActions: Record<string, ActionDefinition> = {
     description: "Update itam status. Part of: ITAM Asset Statuses. Calls PATCH /itassetmanagement/statuses/{statusid} on Zendesk.",
     method: "PATCH",
     path: "/it_asset_management/statuses/{status_id}",
-    input: z.object({ status_id: z.string(), status: z.object({ description: z.string().nullable().optional(), external_id: z.string().nullable().optional(), name: z.string().optional() }).optional() }),
+    input: obj({ status_id: z.string(), status: obj({ description: z.string().nullable().optional(), external_id: z.string().nullable().optional(), name: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const iTAMAssetStatusesActions: Record<string, ActionDefinition> = {
     description: "Delete itam status. Part of: ITAM Asset Statuses. Calls DELETE /itassetmanagement/statuses/{statusid} on Zendesk.",
     method: "DELETE",
     path: "/it_asset_management/statuses/{status_id}",
-    input: z.object({ status_id: z.string() }),
+    input: obj({ status_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

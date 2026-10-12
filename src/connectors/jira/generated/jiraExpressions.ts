@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const jiraExpressionsActions: Record<string, ActionDefinition> = {
     description: "Analyse Jira expression. Analyses and validates Jira expressions.",
     method: "POST",
     path: "/expression/analyse",
-    input: z.object({ check: z.enum(["syntax", "type", "complexity"]).describe("The check to perform: syntax Each expression's syntax is checked to ensure the expression can be parsed. Also, syntactic limits are validated. For example,…").optional(), contextVariables: z.record(z.string(), z.unknown()).describe("Context variables and their types. The type checker assumes that common context variables, such as issue or project, are available in context and sets their…").optional(), expressions: z.array(z.string()).describe("The list of Jira expressions to analyse.") }),
+    input: obj({ check: z.enum(["syntax", "type", "complexity"]).describe("The check to perform: syntax Each expression's syntax is checked to ensure the expression can be parsed. Also, syntactic limits are validated. For example,…").optional(), contextVariables: z.record(z.string(), z.unknown()).describe("Context variables and their types. The type checker assumes that common context variables, such as issue or project, are available in context and sets their…").optional(), expressions: z.array(z.string()).describe("The list of Jira expressions to analyse.") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["check"]),
@@ -21,7 +22,7 @@ export const jiraExpressionsActions: Record<string, ActionDefinition> = {
     description: "Evaluate Jira expression using enhanced search API. Evaluates a Jira expression and returns its value. The difference between this and eval is that this endpoint uses the enhanced search API when evaluating JQL queries. This API is eventually consistent, unlike the strongly consistent eval API. This allows for better performance and scalability. In addition, this API's response f",
     method: "POST",
     path: "/expression/evaluate",
-    input: z.object({ expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts meta.complexity that returns information about the expression complexity.…").optional(), context: z.object({ board: z.number().optional(), custom: z.array(z.record(z.string(), z.unknown())).optional(), customerRequest: z.number().optional(), issue: z.object({ id: z.number().optional(), key: z.string().optional() }).optional(), issues: z.object({ jql: z.record(z.string(), z.unknown()).optional() }).optional(), project: z.object({ id: z.number().optional(), key: z.string().optional() }).optional(), serviceDesk: z.number().optional(), sprint: z.number().optional() }).describe("The context in which the Jira expression is evaluated.").optional(), expression: z.string().describe("The Jira expression to evaluate.") }),
+    input: obj({ expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts meta.complexity that returns information about the expression complexity.…").optional(), context: obj({ board: z.number().optional(), custom: z.array(z.record(z.string(), z.unknown())).optional(), customerRequest: z.number().optional(), issue: obj({ id: z.number().optional(), key: z.string().optional() }).optional(), issues: obj({ jql: z.record(z.string(), z.unknown()).optional() }).optional(), project: obj({ id: z.number().optional(), key: z.string().optional() }).optional(), serviceDesk: z.number().optional(), sprint: z.number().optional() }).describe("The context in which the Jira expression is evaluated.").optional(), expression: z.string().describe("The Jira expression to evaluate.") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["expand"]),

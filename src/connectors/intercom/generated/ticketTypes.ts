@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const ticketTypesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const ticketTypesActions: Record<string, ActionDefinition> = {
     description: "List all ticket types. You can get a list of all ticket types for a workspace.",
     method: "GET",
     path: "/ticket_types",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const ticketTypesActions: Record<string, ActionDefinition> = {
     description: "Create a ticket type. You can create a new ticket type. 📘 Creating ticket types. Every ticket type will be created with two default attributes: defaulttitle and defaultdescription. For the icon propery, use an emoji from Twemoji Cheatsheet",
     method: "POST",
     path: "/ticket_types",
-    input: z.object({ name: z.string().describe("The name of the ticket type."), description: z.string().describe("The description of the ticket type.").optional(), category: z.enum(["Customer", "Back-office", "Tracker"]).describe("Category of the Ticket Type.").optional(), icon: z.string().describe("The icon of the ticket type.").optional(), is_internal: z.boolean().describe("Whether the tickets associated with this ticket type are intended for internal use only or will be shared with customers. This is currently a limited attribute.").optional() }),
+    input: obj({ name: z.string().describe("The name of the ticket type."), description: z.string().describe("The description of the ticket type.").optional(), category: z.enum(["Customer", "Back-office", "Tracker"]).describe("Category of the Ticket Type.").optional(), icon: z.string().describe("The icon of the ticket type.").optional(), is_internal: z.boolean().describe("Whether the tickets associated with this ticket type are intended for internal use only or will be shared with customers. This is currently a limited attribute.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const ticketTypesActions: Record<string, ActionDefinition> = {
     description: "Retrieve a ticket type. You can fetch the details of a single ticket type.",
     method: "GET",
     path: "/ticket_types/{ticket_type_id}",
-    input: z.object({ ticket_type_id: z.string().describe("The unique identifier for the ticket type which is given by Intercom.") }),
+    input: obj({ ticket_type_id: z.string().describe("The unique identifier for the ticket type which is given by Intercom.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const ticketTypesActions: Record<string, ActionDefinition> = {
     description: "Update a ticket type. You can update a ticket type.",
     method: "PUT",
     path: "/ticket_types/{ticket_type_id}",
-    input: z.object({ ticket_type_id: z.string().describe("The unique identifier for the ticket type which is given by Intercom."), name: z.string().describe("The name of the ticket type.").optional(), description: z.string().describe("The description of the ticket type.").optional(), category: z.enum(["Customer", "Back-office", "Tracker"]).describe("Category of the Ticket Type.").optional(), icon: z.string().describe("The icon of the ticket type.").optional(), archived: z.boolean().describe("The archived status of the ticket type.").optional(), is_internal: z.boolean().describe("Whether the tickets associated with this ticket type are intended for internal use only or will be shared with customers. This is currently a limited attribute.").optional() }),
+    input: obj({ ticket_type_id: z.string().describe("The unique identifier for the ticket type which is given by Intercom."), name: z.string().describe("The name of the ticket type.").optional(), description: z.string().describe("The description of the ticket type.").optional(), category: z.enum(["Customer", "Back-office", "Tracker"]).describe("Category of the Ticket Type.").optional(), icon: z.string().describe("The icon of the ticket type.").optional(), archived: z.boolean().describe("The archived status of the ticket type.").optional(), is_internal: z.boolean().describe("Whether the tickets associated with this ticket type are intended for internal use only or will be shared with customers. This is currently a limited attribute.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

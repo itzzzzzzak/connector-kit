@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectAvatarsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectAvatarsActions: Record<string, ActionDefinition> = {
     description: "Set project avatar. Sets the avatar displayed for a project.",
     method: "PUT",
     path: "/project/{projectIdOrKey}/avatar",
-    input: z.object({ projectIdOrKey: z.string().describe("The ID or (case-sensitive) key of the project."), fileName: z.string().describe("The file name of the avatar icon. Returned for system avatars.").optional(), id: z.string().describe("The ID of the avatar."), isDeletable: z.boolean().describe("Whether the avatar can be deleted.").optional(), isSelected: z.boolean().describe("Whether the avatar is used in Jira. For example, shown as a project's avatar.").optional(), isSystemAvatar: z.boolean().describe("Whether the avatar is a system avatar.").optional(), owner: z.string().describe("The owner of the avatar. For a system avatar the owner is null (and nothing is returned). For non-system avatars this is the appropriate identifier, such as…").optional(), urls: z.record(z.string(), z.unknown()).describe("The list of avatar icon URLs.").optional() }),
+    input: obj({ projectIdOrKey: z.string().describe("The ID or (case-sensitive) key of the project."), fileName: z.string().describe("The file name of the avatar icon. Returned for system avatars.").optional(), id: z.string().describe("The ID of the avatar."), isDeletable: z.boolean().describe("Whether the avatar can be deleted.").optional(), isSelected: z.boolean().describe("Whether the avatar is used in Jira. For example, shown as a project's avatar.").optional(), isSystemAvatar: z.boolean().describe("Whether the avatar is a system avatar.").optional(), owner: z.string().describe("The owner of the avatar. For a system avatar the owner is null (and nothing is returned). For non-system avatars this is the appropriate identifier, such as…").optional(), urls: z.record(z.string(), z.unknown()).describe("The list of avatar icon URLs.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const projectAvatarsActions: Record<string, ActionDefinition> = {
     description: "Delete project avatar. Deletes a custom avatar from a project. Note that system avatars cannot be deleted.",
     method: "DELETE",
     path: "/project/{projectIdOrKey}/avatar/{id}",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or (case-sensitive) key."), id: z.number().describe("The ID of the avatar.") }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or (case-sensitive) key."), id: z.number().describe("The ID of the avatar.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -26,7 +27,7 @@ export const projectAvatarsActions: Record<string, ActionDefinition> = {
     description: "Get all project avatars. Returns all project avatars, grouped by system and custom avatars.",
     method: "GET",
     path: "/project/{projectIdOrKey}/avatars",
-    input: z.object({ projectIdOrKey: z.string().describe("The ID or (case-sensitive) key of the project.") }),
+    input: obj({ projectIdOrKey: z.string().describe("The ID or (case-sensitive) key of the project.") }),
     output: z.unknown(),
     effect: "read",
   },

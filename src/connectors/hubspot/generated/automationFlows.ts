@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const automationFlowsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /automation/v4/flows on HubSpot.",
     method: "GET",
     path: "/automation/v4/flows",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const automationFlowsActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Basic. Calls POST /automation/v4/flows on HubSpot.",
     method: "POST",
     path: "/automation/v4/flows",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -29,7 +30,7 @@ export const automationFlowsActions: Record<string, ActionDefinition> = {
     description: "Create batch read. Part of: Batch. Calls POST /automation/v4/flows/batch/read on HubSpot.",
     method: "POST",
     path: "/automation/v4/flows/batch/read",
-    input: z.object({ inputs: z.array(z.unknown()) }),
+    input: obj({ inputs: z.array(z.unknown()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -37,7 +38,7 @@ export const automationFlowsActions: Record<string, ActionDefinition> = {
     description: "List email campaigns. Part of: Basic. Calls GET /automation/v4/flows/email-campaigns on HubSpot.",
     method: "GET",
     path: "/automation/v4/flows/email-campaigns",
-    input: z.object({ before: z.string().optional(), flowId: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ before: z.string().optional(), flowId: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -46,7 +47,7 @@ export const automationFlowsActions: Record<string, ActionDefinition> = {
     description: "Get performance. Part of: Basic. Calls GET /automation/v4/flows/performance/{flowId} on HubSpot.",
     method: "GET",
     path: "/automation/v4/flows/performance/{flowId}",
-    input: z.object({ flowId: z.string(), bucketType: z.enum(["DAY", "MONTH", "WEEK"]).optional(), end: z.number().optional(), firstDay: z.enum(["FRIDAY", "MONDAY", "SATURDAY", "SUNDAY", "THURSDAY", "TUESDAY", "WEDNESDAY"]).optional(), start: z.number().optional() }),
+    input: obj({ flowId: z.string(), bucketType: z.enum(["DAY", "MONTH", "WEEK"]).optional(), end: z.number().optional(), firstDay: z.enum(["FRIDAY", "MONDAY", "SATURDAY", "SUNDAY", "THURSDAY", "TUESDAY", "WEDNESDAY"]).optional(), start: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -54,7 +55,7 @@ export const automationFlowsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /automation/v4/flows/{flowId} on HubSpot.",
     method: "GET",
     path: "/automation/v4/flows/{flowId}",
-    input: z.object({ flowId: z.string() }),
+    input: obj({ flowId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -62,7 +63,7 @@ export const automationFlowsActions: Record<string, ActionDefinition> = {
     description: "Replace. Part of: Basic. Calls PUT /automation/v4/flows/{flowId} on HubSpot.",
     method: "PUT",
     path: "/automation/v4/flows/{flowId}",
-    input: z.object({ flowId: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ flowId: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -71,7 +72,7 @@ export const automationFlowsActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /automation/v4/flows/{flowId} on HubSpot.",
     method: "DELETE",
     path: "/automation/v4/flows/{flowId}",
-    input: z.object({ flowId: z.number() }),
+    input: obj({ flowId: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

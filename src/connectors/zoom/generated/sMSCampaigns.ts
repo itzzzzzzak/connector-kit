@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const sMSCampaignsActions: Record<string, ActionDefinition> = {
     description: "List account smscampaigns. Part of: SMS Campaigns. Calls GET /numbermanagement/smscampaigns on Zoom.",
     method: "GET",
     path: "/number_management/sms_campaigns",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "sms_campaigns", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const sMSCampaignsActions: Record<string, ActionDefinition> = {
     description: "Get smscampaign. Part of: SMS Campaigns. Calls GET /numbermanagement/smscampaigns/{smsCampaignId} on Zoom.",
     method: "GET",
     path: "/number_management/sms_campaigns/{smsCampaignId}",
-    input: z.object({ smsCampaignId: z.string() }),
+    input: obj({ smsCampaignId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const sMSCampaignsActions: Record<string, ActionDefinition> = {
     description: "Assign campaign phone numbers. Part of: SMS Campaigns. Calls POST /numbermanagement/smscampaigns/{smsCampaignId}/phonenumbers on Zoom.",
     method: "POST",
     path: "/number_management/sms_campaigns/{smsCampaignId}/phone_numbers",
-    input: z.object({ smsCampaignId: z.string(), phone_number_ids: z.array(z.string()), loa_authorizing_person: z.string(), contact_number: z.string(), title: z.string(), contact_emails: z.string().optional() }),
+    input: obj({ smsCampaignId: z.string(), phone_number_ids: z.array(z.string()), loa_authorizing_person: z.string(), contact_number: z.string(), title: z.string(), contact_emails: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const sMSCampaignsActions: Record<string, ActionDefinition> = {
     description: "Unassign campaign phone number. Part of: SMS Campaigns. Calls DELETE /numbermanagement/smscampaigns/{smsCampaignId}/phonenumbers on Zoom.",
     method: "DELETE",
     path: "/number_management/sms_campaigns/{smsCampaignId}/phone_numbers",
-    input: z.object({ smsCampaignId: z.string(), phone_number_ids: z.array(z.string()) }),
+    input: obj({ smsCampaignId: z.string(), phone_number_ids: z.array(z.string()) }),
     output: z.unknown(),
     effect: "destructive",
   },

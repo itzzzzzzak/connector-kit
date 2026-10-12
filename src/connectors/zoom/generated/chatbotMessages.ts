@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const chatbotMessagesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const chatbotMessagesActions: Record<string, ActionDefinition> = {
     description: "Send chatbot. Part of: Chatbot Messages. Calls POST /im/chat/messages on Zoom.",
     method: "POST",
     path: "/im/chat/messages",
-    input: z.object({ robot_jid: z.string(), to_jid: z.string(), account_id: z.string(), content: z.record(z.string(), z.unknown()), visible_to_user: z.string().optional(), user_jid: z.string(), reply_to: z.string().optional(), is_markdown_support: z.boolean().optional() }),
+    input: obj({ robot_jid: z.string(), to_jid: z.string(), account_id: z.string(), content: z.record(z.string(), z.unknown()), visible_to_user: z.string().optional(), user_jid: z.string(), reply_to: z.string().optional(), is_markdown_support: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const chatbotMessagesActions: Record<string, ActionDefinition> = {
     description: "Edit chatbot message. Part of: Chatbot Messages. Calls PUT /im/chat/messages/{messageid} on Zoom.",
     method: "PUT",
     path: "/im/chat/messages/{message_id}",
-    input: z.object({ message_id: z.string(), robot_jid: z.string(), account_id: z.string(), content: z.record(z.string(), z.unknown()), user_jid: z.string().optional(), is_markdown_support: z.boolean().optional() }),
+    input: obj({ message_id: z.string(), robot_jid: z.string(), account_id: z.string(), content: z.record(z.string(), z.unknown()), user_jid: z.string().optional(), is_markdown_support: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const chatbotMessagesActions: Record<string, ActionDefinition> = {
     description: "Delete achatbot message. Part of: Chatbot Messages. Calls DELETE /im/chat/messages/{messageid} on Zoom.",
     method: "DELETE",
     path: "/im/chat/messages/{message_id}",
-    input: z.object({ message_id: z.string(), account_id: z.string(), user_jid: z.string().optional(), robot_jid: z.string() }),
+    input: obj({ message_id: z.string(), account_id: z.string(), user_jid: z.string().optional(), robot_jid: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const chatbotMessagesActions: Record<string, ActionDefinition> = {
     description: "Unfurling link. Part of: Chatbot Messages. Calls POST /im/chat/users/{userId}/unfurls/{triggerId} on Zoom.",
     method: "POST",
     path: "/im/chat/users/{userId}/unfurls/{triggerId}",
-    input: z.object({ userId: z.string(), triggerId: z.string(), content: z.string() }),
+    input: obj({ userId: z.string(), triggerId: z.string(), content: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/figma.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const componentsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const componentsActions: Record<string, ActionDefinition> = {
     description: "Get team components. Get a paginated list of published components within a team library.",
     method: "GET",
     path: "/v1/teams/{team_id}/components",
-    input: z.object({ team_id: z.string().describe("Id of the team to list components from."), page_size: z.number().describe("Number of items to return in a paged list of results. Defaults to 30. Maximum of 1000.").optional(), after: z.number().describe("Cursor indicating which id after which to start retrieving components for. Exclusive with before. The cursor value is an internally tracked integer that…").optional(), before: z.number().describe("Cursor indicating which id before which to start retrieving components for. Exclusive with after. The cursor value is an internally tracked integer that…").optional() }),
+    input: obj({ team_id: z.string().describe("Id of the team to list components from."), page_size: z.number().describe("Number of items to return in a paged list of results. Defaults to 30. Maximum of 1000.").optional(), after: z.number().describe("Cursor indicating which id after which to start retrieving components for. Exclusive with before. The cursor value is an internally tracked integer that…").optional(), before: z.number().describe("Cursor indicating which id before which to start retrieving components for. Exclusive with after. The cursor value is an internally tracked integer that…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const componentsActions: Record<string, ActionDefinition> = {
     description: "Get file components. Get a list of published components within a file library.",
     method: "GET",
     path: "/v1/files/{file_key}/components",
-    input: z.object({ file_key: z.string().describe("File to list components from. This must be a main file key, not a branch key, as it is not possible to publish from branches.") }),
+    input: obj({ file_key: z.string().describe("File to list components from. This must be a main file key, not a branch key, as it is not possible to publish from branches.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const componentsActions: Record<string, ActionDefinition> = {
     description: "Get component. Get metadata on a component by key.",
     method: "GET",
     path: "/v1/components/{key}",
-    input: z.object({ key: z.string().describe("The unique identifier of the component.") }),
+    input: obj({ key: z.string().describe("The unique identifier of the component.") }),
     output: z.unknown(),
     effect: "read",
   },

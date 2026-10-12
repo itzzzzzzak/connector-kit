@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const groupCallPickupActions: Record<string, ActionDefinition> = {
     description: "List gcp. Part of: Group Call Pickup. Calls GET /phone/groupcallpickup on Zoom.",
     method: "GET",
     path: "/phone/group_call_pickup",
-    input: z.object({ site_id: z.string().optional(), keyword: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ site_id: z.string().optional(), keyword: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "group_call_pickup", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const groupCallPickupActions: Record<string, ActionDefinition> = {
     description: "Add gcp. Part of: Group Call Pickup. Calls POST /phone/groupcallpickup on Zoom.",
     method: "POST",
     path: "/phone/group_call_pickup",
-    input: z.object({ display_name: z.string(), site_id: z.string().optional(), description: z.string().optional(), extension_number: z.number().optional(), delay: z.number().optional(), play_incoming_calls_sound: z.object({ enable: z.boolean().optional(), ring_tone: z.enum(["ringtone_1", "ringtone_2", "ringtone_3"]).optional(), duration: z.number().optional() }).optional(), directed_call_pickup: z.boolean().optional(), member_extension_ids: z.array(z.string()).optional() }),
+    input: obj({ display_name: z.string(), site_id: z.string().optional(), description: z.string().optional(), extension_number: z.number().optional(), delay: z.number().optional(), play_incoming_calls_sound: obj({ enable: z.boolean().optional(), ring_tone: z.enum(["ringtone_1", "ringtone_2", "ringtone_3"]).optional(), duration: z.number().optional() }).optional(), directed_call_pickup: z.boolean().optional(), member_extension_ids: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const groupCallPickupActions: Record<string, ActionDefinition> = {
     description: "Get gcp. Part of: Group Call Pickup. Calls GET /phone/groupcallpickup/{groupId} on Zoom.",
     method: "GET",
     path: "/phone/group_call_pickup/{groupId}",
-    input: z.object({ groupId: z.string() }),
+    input: obj({ groupId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const groupCallPickupActions: Record<string, ActionDefinition> = {
     description: "Update gcp. Part of: Group Call Pickup. Calls PATCH /phone/groupcallpickup/{groupId} on Zoom.",
     method: "PATCH",
     path: "/phone/group_call_pickup/{groupId}",
-    input: z.object({ groupId: z.string(), display_name: z.string().optional(), extension_number: z.number().optional(), description: z.string().optional(), delay: z.number().optional(), cost_center: z.string().optional(), department: z.string().optional(), play_incoming_calls_sound: z.object({ enable: z.boolean().optional(), ring_tone: z.enum(["ringtone_1", "ringtone_2", "ringtone_3"]).optional(), duration: z.number().optional() }).optional(), directed_call_pickup: z.boolean().optional() }),
+    input: obj({ groupId: z.string(), display_name: z.string().optional(), extension_number: z.number().optional(), description: z.string().optional(), delay: z.number().optional(), cost_center: z.string().optional(), department: z.string().optional(), play_incoming_calls_sound: obj({ enable: z.boolean().optional(), ring_tone: z.enum(["ringtone_1", "ringtone_2", "ringtone_3"]).optional(), duration: z.number().optional() }).optional(), directed_call_pickup: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const groupCallPickupActions: Record<string, ActionDefinition> = {
     description: "Delete gcp. Part of: Group Call Pickup. Calls DELETE /phone/groupcallpickup/{groupId} on Zoom.",
     method: "DELETE",
     path: "/phone/group_call_pickup/{groupId}",
-    input: z.object({ groupId: z.string() }),
+    input: obj({ groupId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const groupCallPickupActions: Record<string, ActionDefinition> = {
     description: "List gcpmembers. Part of: Group Call Pickup. Calls GET /phone/groupcallpickup/{groupId}/members on Zoom.",
     method: "GET",
     path: "/phone/group_call_pickup/{groupId}/members",
-    input: z.object({ groupId: z.string(), site_id: z.string().optional(), extension_type: z.enum(["user", "commonArea"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ groupId: z.string(), site_id: z.string().optional(), extension_type: z.enum(["user", "commonArea"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "group_call_pickup_member", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -61,7 +62,7 @@ export const groupCallPickupActions: Record<string, ActionDefinition> = {
     description: "Add gcpmembers. Part of: Group Call Pickup. Calls POST /phone/groupcallpickup/{groupId}/members on Zoom.",
     method: "POST",
     path: "/phone/group_call_pickup/{groupId}/members",
-    input: z.object({ groupId: z.string(), member_extension_ids: z.array(z.string()).optional() }),
+    input: obj({ groupId: z.string(), member_extension_ids: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -69,7 +70,7 @@ export const groupCallPickupActions: Record<string, ActionDefinition> = {
     description: "Remove gcpmembers. Part of: Group Call Pickup. Calls DELETE /phone/groupcallpickup/{groupId}/members/{extensionId} on Zoom.",
     method: "DELETE",
     path: "/phone/group_call_pickup/{groupId}/members/{extensionId}",
-    input: z.object({ groupId: z.string(), extensionId: z.string() }),
+    input: obj({ groupId: z.string(), extensionId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

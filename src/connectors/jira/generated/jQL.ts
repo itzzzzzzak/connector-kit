@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const jQLActions: Record<string, ActionDefinition> = {
     description: "Get field reference data (GET). Returns reference data for JQL searches. This is a downloadable version of the documentation provided in Advanced searching - fields reference and Advanced searching - functions reference, along with a list of JQL-reserved words. Use this information to assist with the programmatic creation of JQL queries or the validation of qu",
     method: "GET",
     path: "/jql/autocompletedata",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const jQLActions: Record<string, ActionDefinition> = {
     description: "Get field reference data (POST). Returns reference data for JQL searches. This is a downloadable version of the documentation provided in Advanced searching - fields reference and Advanced searching - functions reference, along with a list of JQL-reserved words. Use this information to assist with the programmatic creation of JQL queries or the validation of qu",
     method: "POST",
     path: "/jql/autocompletedata",
-    input: z.object({ includeCollapsedFields: z.boolean().describe("Include collapsed fields for fields that have non-unique names.").optional(), projectIds: z.array(z.number()).describe("List of project IDs used to filter the visible field details returned.").optional() }),
+    input: obj({ includeCollapsedFields: z.boolean().describe("Include collapsed fields for fields that have non-unique names.").optional(), projectIds: z.array(z.number()).describe("List of project IDs used to filter the visible field details returned.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const jQLActions: Record<string, ActionDefinition> = {
     description: "Get field auto complete suggestions. Returns the JQL search auto complete suggestions for a field.",
     method: "GET",
     path: "/jql/autocompletedata/suggestions",
-    input: z.object({ fieldName: z.string().describe("The name of the field.").optional(), fieldValue: z.string().describe("The partial field item name entered by the user.").optional(), predicateName: z.string().describe("The name of the CHANGED operator predicate for which the suggestions are generated. The valid predicate operators are by, from, and to.").optional(), predicateValue: z.string().describe("The partial predicate item name entered by the user.").optional() }),
+    input: obj({ fieldName: z.string().describe("The name of the field.").optional(), fieldValue: z.string().describe("The partial field item name entered by the user.").optional(), predicateName: z.string().describe("The name of the CHANGED operator predicate for which the suggestions are generated. The valid predicate operators are by, from, and to.").optional(), predicateValue: z.string().describe("The partial predicate item name entered by the user.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const jQLActions: Record<string, ActionDefinition> = {
     description: "Parse JQL query. Parses and validates JQL queries.",
     method: "POST",
     path: "/jql/parse",
-    input: z.object({ validation: z.enum(["strict", "warn", "none"]).describe("How to validate the JQL query and treat the validation results. Validation options include: strict Returns all errors. If validation fails, the query…"), queries: z.array(z.string()).describe("A list of queries to parse.") }),
+    input: obj({ validation: z.enum(["strict", "warn", "none"]).describe("How to validate the JQL query and treat the validation results. Validation options include: strict Returns all errors. If validation fails, the query…"), queries: z.array(z.string()).describe("A list of queries to parse.") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["validation"]),
@@ -45,7 +46,7 @@ export const jQLActions: Record<string, ActionDefinition> = {
     description: "Convert user identifiers to account IDs in JQL queries. Converts one or more JQL queries with user identifiers (username or user key) to equivalent JQL queries with account IDs.",
     method: "POST",
     path: "/jql/pdcleaner",
-    input: z.object({ queryStrings: z.array(z.string()).describe("A list of queries with user identifiers. Maximum of 100 queries.").optional() }),
+    input: obj({ queryStrings: z.array(z.string()).describe("A list of queries with user identifiers. Maximum of 100 queries.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -53,7 +54,7 @@ export const jQLActions: Record<string, ActionDefinition> = {
     description: "Sanitize JQL queries. Sanitizes one or more JQL queries by converting readable details into IDs where a user doesn't have permission to view the entity.",
     method: "POST",
     path: "/jql/sanitize",
-    input: z.object({ queries: z.array(z.object({ accountId: z.string().nullable().optional(), query: z.string() })).describe("The list of JQL queries to sanitize. Must contain unique values. Maximum of 20 queries.") }),
+    input: obj({ queries: z.array(obj({ accountId: z.string().nullable().optional(), query: z.string() })).describe("The list of JQL queries to sanitize. Must contain unique values. Maximum of 20 queries.") }),
     output: z.unknown(),
     effect: "write",
   },

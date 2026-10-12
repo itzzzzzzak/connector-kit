@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const ciLintActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const ciLintActions: Record<string, ActionDefinition> = {
     description: "Get projects id ci lint. Part of: cilint. Calls GET /projects/{id}/ci/lint on GitLab.",
     method: "GET",
     path: "/projects/{id}/ci/lint",
-    input: z.object({ id: z.string(), sha: z.string().optional(), content_ref: z.string().optional(), dry_run: z.boolean().optional(), include_jobs: z.boolean().optional(), ref: z.string().optional(), dry_run_ref: z.string().optional() }),
+    input: obj({ id: z.string(), sha: z.string().optional(), content_ref: z.string().optional(), dry_run: z.boolean().optional(), include_jobs: z.boolean().optional(), ref: z.string().optional(), dry_run_ref: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const ciLintActions: Record<string, ActionDefinition> = {
     description: "Post projects id ci lint. Part of: cilint. Calls POST /projects/{id}/ci/lint on GitLab.",
     method: "POST",
     path: "/projects/{id}/ci/lint",
-    input: z.object({ id: z.string(), content: z.string(), dry_run: z.boolean().optional(), include_jobs: z.boolean().optional(), ref: z.string().optional() }),
+    input: obj({ id: z.string(), content: z.string(), dry_run: z.boolean().optional(), include_jobs: z.boolean().optional(), ref: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

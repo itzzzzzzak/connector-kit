@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const exportsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const exportsActions: Record<string, ActionDefinition> = {
     description: "Initiate a graph export. Initiates a graph export job for a given parent object (goal, team, portfolio, or project). The export will be processed asynchronously. Once initiated, use the jobs endpoint to monitor progress.",
     method: "POST",
     path: "/exports/graph",
-    input: z.object({ data: z.object({ parent: z.string().optional() }).describe("A graphexport request starts a job to export data starting from a parent object.").optional() }),
+    input: obj({ data: obj({ parent: z.string().optional() }).describe("A graphexport request starts a job to export data starting from a parent object.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const exportsActions: Record<string, ActionDefinition> = {
     description: "Initiate a resource export. Initiates a bulk export of resources for a workspace. The export will be processed asynchronously. Once the export has been requested, its progress can be monitored using the jobs endpoint.",
     method: "POST",
     path: "/exports/resource",
-    input: z.object({ data: z.object({ workspace: z.string().optional(), export_request_parameters: z.array(z.record(z.string(), z.unknown())).optional() }).describe("A resourceexport request starts a job to bulk export objects for one or more resources.").optional() }),
+    input: obj({ data: obj({ workspace: z.string().optional(), export_request_parameters: z.array(z.record(z.string(), z.unknown())).optional() }).describe("A resourceexport request starts a job to bulk export objects for one or more resources.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

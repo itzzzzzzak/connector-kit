@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const viewsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const viewsActions: Record<string, ActionDefinition> = {
     description: "Open a view for a user. Calls GET /views.open on Slack.",
     method: "GET",
     path: "/views.open",
-    input: z.object({ trigger_id: z.string().describe("Exchange a trigger to post to the user."), view: z.string().describe("A view payload. This must be a JSON-encoded string.") }),
+    input: obj({ trigger_id: z.string().describe("Exchange a trigger to post to the user."), view: z.string().describe("A view payload. This must be a JSON-encoded string.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const viewsActions: Record<string, ActionDefinition> = {
     description: "Publish a static view for a User. Calls GET /views.publish on Slack.",
     method: "GET",
     path: "/views.publish",
-    input: z.object({ user_id: z.string().describe("id of the user you want publish a view to."), view: z.string().describe("A view payload. This must be a JSON-encoded string."), hash: z.string().describe("A string that represents view state to protect against possible race conditions.").optional() }),
+    input: obj({ user_id: z.string().describe("id of the user you want publish a view to."), view: z.string().describe("A view payload. This must be a JSON-encoded string."), hash: z.string().describe("A string that represents view state to protect against possible race conditions.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const viewsActions: Record<string, ActionDefinition> = {
     description: "Push a view onto the stack of a root view. Calls GET /views.push on Slack.",
     method: "GET",
     path: "/views.push",
-    input: z.object({ trigger_id: z.string().describe("Exchange a trigger to post to the user."), view: z.string().describe("A view payload. This must be a JSON-encoded string.") }),
+    input: obj({ trigger_id: z.string().describe("Exchange a trigger to post to the user."), view: z.string().describe("A view payload. This must be a JSON-encoded string.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const viewsActions: Record<string, ActionDefinition> = {
     description: "Update an existing view. Calls GET /views.update on Slack.",
     method: "GET",
     path: "/views.update",
-    input: z.object({ view_id: z.string().describe("A unique identifier of the view to be updated. Either viewid or externalid is required.").optional(), external_id: z.string().describe("A unique identifier of the view set by the developer. Must be unique for all views on a team. Max length of 255 characters. Either viewid or externalid is…").optional(), view: z.string().describe("A view object. This must be a JSON-encoded string.").optional(), hash: z.string().describe("A string that represents view state to protect against possible race conditions.").optional() }),
+    input: obj({ view_id: z.string().describe("A unique identifier of the view to be updated. Either viewid or externalid is required.").optional(), external_id: z.string().describe("A unique identifier of the view set by the developer. Must be unique for all views on a team. Max length of 255 characters. Either viewid or externalid is…").optional(), view: z.string().describe("A view object. This must be a JSON-encoded string.").optional(), hash: z.string().describe("A string that represents view state to protect against possible race conditions.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

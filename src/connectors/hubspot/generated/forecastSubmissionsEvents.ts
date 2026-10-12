@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const forecastSubmissionsEventsActions: Record<string, ActionDefinition> 
     description: "List. Part of: Basic. Calls GET /forecast-submissions/2026-09/events on HubSpot.",
     method: "GET",
     path: "/forecast-submissions/2026-09/events",
-    input: z.object({ occurredAfter: z.number().optional(), occurredBefore: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ occurredAfter: z.number().optional(), occurredBefore: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),

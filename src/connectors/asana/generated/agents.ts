@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const agentsActions: Record<string, ActionDefinition> = {
     description: "Get a list of agents in a workspace. Returns the compact records of agents (AI Teammates) configured. Use optfields to request additional fields in the workspace.",
     method: "GET",
     path: "/workspaces/{workspace_gid}/agents",
-    input: z.object({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["behavior_guidance", "description", "name", "offset", "path", "photo", "photo.image_1024x1024", "photo.image_128x128", "photo.image_21x21", "photo.image_27x27", "photo.image_36x36", "photo.image_60x60", "resource_subtype", "uri", "workspace"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["behavior_guidance", "description", "name", "offset", "path", "photo", "photo.image_1024x1024", "photo.image_128x128", "photo.image_21x21", "photo.image_27x27", "photo.image_36x36", "photo.image_60x60", "resource_subtype", "uri", "workspace"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const agentsActions: Record<string, ActionDefinition> = {
     description: "Get an agent. Returns the complete record for a single agent (AI Teammate).",
     method: "GET",
     path: "/agents/{agent_gid}",
-    input: z.object({ agent_gid: z.string().describe("Globally unique identifier for the agent."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["behavior_guidance", "description", "name", "photo", "photo.image_1024x1024", "photo.image_128x128", "photo.image_21x21", "photo.image_27x27", "photo.image_36x36", "photo.image_60x60", "resource_subtype", "workspace"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ agent_gid: z.string().describe("Globally unique identifier for the agent."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["behavior_guidance", "description", "name", "photo", "photo.image_1024x1024", "photo.image_128x128", "photo.image_21x21", "photo.image_27x27", "photo.image_36x36", "photo.image_60x60", "resource_subtype", "workspace"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },

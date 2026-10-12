@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const packagesHelmActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const packagesHelmActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages helm channel index yaml. Part of: packageshelm. Calls GET /projects/{id}/packages/helm/{channel}/index.yaml on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/helm/{channel}/index.yaml",
-    input: z.object({ id: z.number(), channel: z.string() }),
+    input: obj({ id: z.number(), channel: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const packagesHelmActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages helm channel charts file name tgz. Part of: packageshelm. Calls GET /projects/{id}/packages/helm/{channel}/charts/{filename}.tgz on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/helm/{channel}/charts/{file_name}.tgz",
-    input: z.object({ id: z.number(), channel: z.string(), file_name: z.string() }),
+    input: obj({ id: z.number(), channel: z.string(), file_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const packagesHelmActions: Record<string, ActionDefinition> = {
     description: "Post projects id packages helm api channel charts authorize. Part of: packageshelm. Calls POST /projects/{id}/packages/helm/api/{channel}/charts/authorize on GitLab.",
     method: "POST",
     path: "/projects/{id}/packages/helm/api/{channel}/charts/authorize",
-    input: z.object({ id: z.number(), channel: z.string() }),
+    input: obj({ id: z.number(), channel: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const packagesHelmActions: Record<string, ActionDefinition> = {
     description: "Post projects id packages helm api channel charts. Part of: packageshelm. Calls POST /projects/{id}/packages/helm/api/{channel}/charts on GitLab.",
     method: "POST",
     path: "/projects/{id}/packages/helm/api/{channel}/charts",
-    input: z.object({ id: z.number(), channel: z.string(), chart: z.unknown() }),
+    input: obj({ id: z.number(), channel: z.string(), chart: z.unknown() }),
     output: z.unknown(),
     effect: "write",
   },

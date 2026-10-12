@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const webhooksActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Get webhooks. Part of: Webhooks. Calls GET /team/{teamid}/webhook on ClickUp.",
     method: "GET",
     path: "/team/{team_id}/webhook",
-    input: z.object({ team_id: z.number() }),
+    input: obj({ team_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Create webhook. Part of: Webhooks. Calls POST /team/{teamid}/webhook on ClickUp.",
     method: "POST",
     path: "/team/{team_id}/webhook",
-    input: z.object({ team_id: z.number(), endpoint: z.string(), events: z.array(z.string()), space_id: z.number().optional(), folder_id: z.number().optional(), list_id: z.number().optional(), task_id: z.string().optional() }),
+    input: obj({ team_id: z.number(), endpoint: z.string(), events: z.array(z.string()), space_id: z.number().optional(), folder_id: z.number().optional(), list_id: z.number().optional(), task_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Update webhook. Part of: Webhooks. Calls PUT /webhook/{webhookid} on ClickUp.",
     method: "PUT",
     path: "/webhook/{webhook_id}",
-    input: z.object({ webhook_id: z.string(), endpoint: z.string(), events: z.string(), status: z.string() }),
+    input: obj({ webhook_id: z.string(), endpoint: z.string(), events: z.string(), status: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Delete webhook. Part of: Webhooks. Calls DELETE /webhook/{webhookid} on ClickUp.",
     method: "DELETE",
     path: "/webhook/{webhook_id}",
-    input: z.object({ webhook_id: z.string() }),
+    input: obj({ webhook_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

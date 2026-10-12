@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const hubsActions: Record<string, ActionDefinition> = {
     description: "Get hub list. Part of: Hubs. Calls GET /zoomevents/hubs on Zoom.",
     method: "GET",
     path: "/zoom_events/hubs",
-    input: z.object({ role_type: z.enum(["host", "attendee"]), email: z.string().optional() }),
+    input: obj({ role_type: z.enum(["host", "attendee"]), email: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const hubsActions: Record<string, ActionDefinition> = {
     description: "Gethubhost list. Part of: Hubs. Calls GET /zoomevents/hubs/{hubId}/hosts on Zoom.",
     method: "GET",
     path: "/zoom_events/hubs/{hubId}/hosts",
-    input: z.object({ hubId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ hubId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "hosts", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -28,7 +29,7 @@ export const hubsActions: Record<string, ActionDefinition> = {
     description: "Create hub host. Part of: Hubs. Calls POST /zoomevents/hubs/{hubId}/hosts on Zoom.",
     method: "POST",
     path: "/zoom_events/hubs/{hubId}/hosts",
-    input: z.object({ hubId: z.string(), email: z.string().optional() }),
+    input: obj({ hubId: z.string(), email: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const hubsActions: Record<string, ActionDefinition> = {
     description: "Delete hub host. Part of: Hubs. Calls DELETE /zoomevents/hubs/{hubId}/hosts/{hostUserId} on Zoom.",
     method: "DELETE",
     path: "/zoom_events/hubs/{hubId}/hosts/{hostUserId}",
-    input: z.object({ hubId: z.string(), hostUserId: z.string() }),
+    input: obj({ hubId: z.string(), hostUserId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -44,7 +45,7 @@ export const hubsActions: Record<string, ActionDefinition> = {
     description: "List hub videos. Part of: Hubs. Calls GET /zoomevents/hubs/{hubId}/videos on Zoom.",
     method: "GET",
     path: "/zoom_events/hubs/{hubId}/videos",
-    input: z.object({ hubId: z.string(), folder_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ hubId: z.string(), folder_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "videos", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

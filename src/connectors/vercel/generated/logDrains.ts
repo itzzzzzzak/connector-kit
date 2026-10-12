@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const logDrainsActions: Record<string, ActionDefinition> = {
     description: "Get configurable log drain. Part of: logDrains. Calls GET /v1/log-drains/{id} on Vercel.",
     method: "GET",
     path: "/v1/log-drains/{id}",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const logDrainsActions: Record<string, ActionDefinition> = {
     description: "Delete configurable log drain. Part of: logDrains. Calls DELETE /v1/log-drains/{id} on Vercel.",
     method: "DELETE",
     path: "/v1/log-drains/{id}",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -27,7 +28,7 @@ export const logDrainsActions: Record<string, ActionDefinition> = {
     description: "Get all log drains. Part of: logDrains. Calls GET /v1/log-drains on Vercel.",
     method: "GET",
     path: "/v1/log-drains",
-    input: z.object({ projectId: z.string().optional(), projectIdOrName: z.string().optional(), includeMetadata: z.boolean().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ projectId: z.string().optional(), projectIdOrName: z.string().optional(), includeMetadata: z.boolean().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const logDrainsActions: Record<string, ActionDefinition> = {
     description: "Create configurable log drain. Part of: logDrains. Calls POST /v1/log-drains on Vercel.",
     method: "POST",
     path: "/v1/log-drains",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional(), deliveryFormat: z.enum(["json", "ndjson"]), url: z.string(), headers: z.record(z.string(), z.unknown()).optional(), projectIds: z.array(z.string()).optional(), sources: z.array(z.enum(["static", "lambda", "build", "edge", "external", "firewall"])), environments: z.array(z.enum(["preview", "production"])).optional(), secret: z.string().optional(), samplingRate: z.number().optional(), name: z.string().optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional(), deliveryFormat: z.enum(["json", "ndjson"]), url: z.string(), headers: z.record(z.string(), z.unknown()).optional(), projectIds: z.array(z.string()).optional(), sources: z.array(z.enum(["static", "lambda", "build", "edge", "external", "firewall"])), environments: z.array(z.enum(["preview", "production"])).optional(), secret: z.string().optional(), samplingRate: z.number().optional(), name: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -45,7 +46,7 @@ export const logDrainsActions: Record<string, ActionDefinition> = {
     description: "Get integration log drains. Part of: logDrains. Calls GET /v2/integrations/log-drains on Vercel.",
     method: "GET",
     path: "/v2/integrations/log-drains",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -53,7 +54,7 @@ export const logDrainsActions: Record<string, ActionDefinition> = {
     description: "Create log drain. Part of: logDrains. Calls POST /v2/integrations/log-drains on Vercel.",
     method: "POST",
     path: "/v2/integrations/log-drains",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional(), name: z.string(), projectIds: z.array(z.string()).optional(), secret: z.string().optional(), deliveryFormat: z.enum(["json", "ndjson"]).optional(), url: z.string(), sources: z.array(z.enum(["static", "lambda", "build", "edge", "external", "firewall"])).optional(), headers: z.record(z.string(), z.unknown()).optional(), environments: z.array(z.enum(["preview", "production"])).optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional(), name: z.string(), projectIds: z.array(z.string()).optional(), secret: z.string().optional(), deliveryFormat: z.enum(["json", "ndjson"]).optional(), url: z.string(), sources: z.array(z.enum(["static", "lambda", "build", "edge", "external", "firewall"])).optional(), headers: z.record(z.string(), z.unknown()).optional(), environments: z.array(z.enum(["preview", "production"])).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -63,7 +64,7 @@ export const logDrainsActions: Record<string, ActionDefinition> = {
     description: "Delete integration log drain. Part of: logDrains. Calls DELETE /v1/integrations/log-drains/{id} on Vercel.",
     method: "DELETE",
     path: "/v1/integrations/log-drains/{id}",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

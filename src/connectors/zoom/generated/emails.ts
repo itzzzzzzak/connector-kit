@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const emailsActions: Record<string, ActionDefinition> = {
     description: "List email types. Part of: Emails. Calls GET /zoomevents/events/{eventId}/emailtypes on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/email_types",
-    input: z.object({ eventId: z.string(), status: z.enum(["scheduled", "ongoing", "sent", "deactivated"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ eventId: z.string(), status: z.enum(["scheduled", "ongoing", "sent", "deactivated"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "email_types", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const emailsActions: Record<string, ActionDefinition> = {
     description: "List email sent statuses. Part of: Emails. Calls GET /zoomevents/events/{eventId}/emailtypes/{emailTypeId}/sendstatus on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/email_types/{emailTypeId}/send_status",
-    input: z.object({ eventId: z.string(), emailTypeId: z.string(), status: z.enum(["scheduled", "pending", "delivered", "failed", "missed_schedule"]).optional(), search_text: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ eventId: z.string(), emailTypeId: z.string(), status: z.enum(["scheduled", "pending", "delivered", "failed", "missed_schedule"]).optional(), search_text: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "emails", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

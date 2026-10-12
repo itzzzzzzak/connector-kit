@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const patchActions: Record<string, ActionDefinition> = {
     description: "Availability. Part of: availability. Calls PATCH /scheduler/availability/{availabilityId} on Zoom.",
     method: "PATCH",
     path: "/scheduler/availability/{availabilityId}",
-    input: z.object({ availabilityId: z.string(), default: z.boolean().optional(), name: z.string(), time_zone: z.string(), segments: z.array(z.object({ end: z.string(), start: z.string() })).optional(), segments_recurrence: z.object({ sun: z.array(z.record(z.string(), z.unknown())).optional(), mon: z.array(z.record(z.string(), z.unknown())).optional(), tue: z.array(z.record(z.string(), z.unknown())).optional(), wed: z.array(z.record(z.string(), z.unknown())).optional(), thu: z.array(z.record(z.string(), z.unknown())).optional(), fri: z.array(z.record(z.string(), z.unknown())).optional(), sat: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }),
+    input: obj({ availabilityId: z.string(), default: z.boolean().optional(), name: z.string(), time_zone: z.string(), segments: z.array(obj({ end: z.string(), start: z.string() })).optional(), segments_recurrence: obj({ sun: z.array(z.record(z.string(), z.unknown())).optional(), mon: z.array(z.record(z.string(), z.unknown())).optional(), tue: z.array(z.record(z.string(), z.unknown())).optional(), wed: z.array(z.record(z.string(), z.unknown())).optional(), thu: z.array(z.record(z.string(), z.unknown())).optional(), fri: z.array(z.record(z.string(), z.unknown())).optional(), sat: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const patchActions: Record<string, ActionDefinition> = {
     description: "Scheduled events. Part of: scheduled events. Calls PATCH /scheduler/events/{eventId} on Zoom.",
     method: "PATCH",
     path: "/scheduler/events/{eventId}",
-    input: z.object({ eventId: z.string(), user_id: z.string().optional(), attendees: z.array(z.object({ attendee_id: z.string().optional(), no_show: z.boolean().optional(), email: z.string().optional() })).optional(), status: z.enum(["confirmed", "cancelled"]).optional(), meeting_notes: z.string().optional() }),
+    input: obj({ eventId: z.string(), user_id: z.string().optional(), attendees: z.array(obj({ attendee_id: z.string().optional(), no_show: z.boolean().optional(), email: z.string().optional() })).optional(), status: z.enum(["confirmed", "cancelled"]).optional(), meeting_notes: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["user_id"]),
@@ -29,7 +30,7 @@ export const patchActions: Record<string, ActionDefinition> = {
     description: "Schedule. Part of: schedules. Calls PATCH /scheduler/schedules/{scheduleId} on Zoom.",
     method: "PATCH",
     path: "/scheduler/schedules/{scheduleId}",
-    input: z.object({ scheduleId: z.string(), user_id: z.string().optional(), add_on_type: z.enum(["zoomMeeting", "zoomPhone", "offline"]).optional(), availability_override: z.boolean().optional(), availability_rules: z.array(z.object({ email: z.string().optional(), availability_id: z.string().optional(), segments: z.array(z.record(z.string(), z.unknown())).optional(), segments_recurrence: z.record(z.string(), z.unknown()).optional(), time_zone: z.string().optional(), use_custom: z.boolean().optional() })).optional(), booking_limit: z.number().optional(), buffer: z.object({ after: z.number().optional(), before: z.number().optional() }).optional(), capacity: z.number().optional(), color: z.string().optional(), cushion: z.number().optional(), custom_fields: z.array(z.object({ enabled: z.boolean(), format: z.enum(["text", "string", "phone_number", "choices_one", "choices_many", "select"]), custom_field_id: z.string().optional(), include_other: z.boolean(), name: z.string(), position: z.number(), required: z.boolean(), answer_choices: z.array(z.string()).optional() })).optional(), description: z.string().optional(), duration: z.number().optional(), end_date: z.string().optional(), segments: z.array(z.object({ start: z.string().optional(), end: z.string().optional() })).optional(), segments_recurrence: z.object({ sun: z.array(z.record(z.string(), z.unknown())).optional(), mon: z.array(z.record(z.string(), z.unknown())).optional(), tue: z.array(z.record(z.string(), z.unknown())).optional(), wed: z.array(z.record(z.string(), z.unknown())).optional(), thu: z.array(z.record(z.string(), z.unknown())).optional(), fri: z.array(z.record(z.string(), z.unknown())).optional(), sat: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), time_zone: z.string().optional(), location: z.string().optional(), secret: z.boolean().optional(), slug: z.string().optional(), start_date: z.string().optional(), start_time_increment: z.number().optional(), status: z.enum(["confirmed", "cancelled"]).optional(), interval_type: z.enum(["unlimited", "fixed"]).optional(), summary: z.string().optional(), active: z.boolean().optional() }),
+    input: obj({ scheduleId: z.string(), user_id: z.string().optional(), add_on_type: z.enum(["zoomMeeting", "zoomPhone", "offline"]).optional(), availability_override: z.boolean().optional(), availability_rules: z.array(obj({ email: z.string().optional(), availability_id: z.string().optional(), segments: z.array(z.record(z.string(), z.unknown())).optional(), segments_recurrence: z.record(z.string(), z.unknown()).optional(), time_zone: z.string().optional(), use_custom: z.boolean().optional() })).optional(), booking_limit: z.number().optional(), buffer: obj({ after: z.number().optional(), before: z.number().optional() }).optional(), capacity: z.number().optional(), color: z.string().optional(), cushion: z.number().optional(), custom_fields: z.array(obj({ enabled: z.boolean(), format: z.enum(["text", "string", "phone_number", "choices_one", "choices_many", "select"]), custom_field_id: z.string().optional(), include_other: z.boolean(), name: z.string(), position: z.number(), required: z.boolean(), answer_choices: z.array(z.string()).optional() })).optional(), description: z.string().optional(), duration: z.number().optional(), end_date: z.string().optional(), segments: z.array(obj({ start: z.string().optional(), end: z.string().optional() })).optional(), segments_recurrence: obj({ sun: z.array(z.record(z.string(), z.unknown())).optional(), mon: z.array(z.record(z.string(), z.unknown())).optional(), tue: z.array(z.record(z.string(), z.unknown())).optional(), wed: z.array(z.record(z.string(), z.unknown())).optional(), thu: z.array(z.record(z.string(), z.unknown())).optional(), fri: z.array(z.record(z.string(), z.unknown())).optional(), sat: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), time_zone: z.string().optional(), location: z.string().optional(), secret: z.boolean().optional(), slug: z.string().optional(), start_date: z.string().optional(), start_time_increment: z.number().optional(), status: z.enum(["confirmed", "cancelled"]).optional(), interval_type: z.enum(["unlimited", "fixed"]).optional(), summary: z.string().optional(), active: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["user_id"]),
@@ -39,7 +40,7 @@ export const patchActions: Record<string, ActionDefinition> = {
     description: "Label in mailbox. Part of: Labels. Calls PATCH /emails/mailboxes/{email}/labels/{labelId} on Zoom.",
     method: "PATCH",
     path: "/emails/mailboxes/{email}/labels/{labelId}",
-    input: z.object({ email: z.string(), labelId: z.string(), name: z.string(), parentId: z.string(), messageListVisibilitystring: z.enum(["show", "hide"]).optional(), labelListVisibility: z.enum(["labelShow", "labelHide", "labelShowIfUnread"]).optional(), color: z.object({ textColor: z.string().optional(), backgroundColor: z.string().optional() }).optional() }),
+    input: obj({ email: z.string(), labelId: z.string(), name: z.string(), parentId: z.string(), messageListVisibilitystring: z.enum(["show", "hide"]).optional(), labelListVisibility: z.enum(["labelShow", "labelHide", "labelShowIfUnread"]).optional(), color: obj({ textColor: z.string().optional(), backgroundColor: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },

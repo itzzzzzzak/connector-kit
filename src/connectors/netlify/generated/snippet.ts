@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const snippetActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const snippetActions: Record<string, ActionDefinition> = {
     description: "List site snippets Calls GET /sites/{siteid}/snippets on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/snippets",
-    input: z.object({ site_id: z.string() }),
+    input: obj({ site_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const snippetActions: Record<string, ActionDefinition> = {
     description: "Create site snippet Calls POST /sites/{siteid}/snippets on Netlify.",
     method: "POST",
     path: "/sites/{site_id}/snippets",
-    input: z.object({ site_id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ site_id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -27,7 +28,7 @@ export const snippetActions: Record<string, ActionDefinition> = {
     description: "Get site snippet Calls GET /sites/{siteid}/snippets/{snippetid} on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/snippets/{snippet_id}",
-    input: z.object({ site_id: z.string(), snippet_id: z.string() }),
+    input: obj({ site_id: z.string(), snippet_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const snippetActions: Record<string, ActionDefinition> = {
     description: "Update site snippet Calls PUT /sites/{siteid}/snippets/{snippetid} on Netlify.",
     method: "PUT",
     path: "/sites/{site_id}/snippets/{snippet_id}",
-    input: z.object({ site_id: z.string(), snippet_id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ site_id: z.string(), snippet_id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -44,7 +45,7 @@ export const snippetActions: Record<string, ActionDefinition> = {
     description: "Delete site snippet Calls DELETE /sites/{siteid}/snippets/{snippetid} on Netlify.",
     method: "DELETE",
     path: "/sites/{site_id}/snippets/{snippet_id}",
-    input: z.object({ site_id: z.string(), snippet_id: z.string() }),
+    input: obj({ site_id: z.string(), snippet_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

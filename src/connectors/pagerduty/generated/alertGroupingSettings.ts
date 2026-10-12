@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const alertGroupingSettingsActions: Record<string, ActionDefinition> = {
     description: "List alert grouping settings. Part of: Alert Grouping Settings. Calls GET /alertgroupingsettings on PagerDuty.",
     method: "GET",
     path: "/alert_grouping_settings",
-    input: z.object({ after: z.string().optional(), before: z.string().optional(), total: z.boolean().optional(), limit: z.number().optional(), service_ids__: z.array(z.string()).optional() }),
+    input: obj({ after: z.string().optional(), before: z.string().optional(), total: z.boolean().optional(), limit: z.number().optional(), service_ids__: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { after: "after", before: "before", total: "total", limit: "limit", service_ids__: "service_ids[]" }),
@@ -20,7 +21,7 @@ export const alertGroupingSettingsActions: Record<string, ActionDefinition> = {
     description: "Post alert grouping settings. Part of: Alert Grouping Settings. Calls POST /alertgroupingsettings on PagerDuty.",
     method: "POST",
     path: "/alert_grouping_settings",
-    input: z.object({ alert_grouping_setting: z.object({ id: z.string().optional(), name: z.string().nullable().optional(), description: z.string().nullable().optional(), type: z.enum(["content_based", "content_based_intelligent", "intelligent", "time"]).optional(), config: z.unknown().optional(), services: z.array(z.record(z.string(), z.unknown())).optional(), created_at: z.string().optional(), updated_at: z.string().optional() }) }),
+    input: obj({ alert_grouping_setting: obj({ id: z.string().optional(), name: z.string().nullable().optional(), description: z.string().nullable().optional(), type: z.enum(["content_based", "content_based_intelligent", "intelligent", "time"]).optional(), config: z.unknown().optional(), services: z.array(z.record(z.string(), z.unknown())).optional(), created_at: z.string().optional(), updated_at: z.string().optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const alertGroupingSettingsActions: Record<string, ActionDefinition> = {
     description: "Get alert grouping setting. Part of: Alert Grouping Settings. Calls GET /alertgroupingsettings/{id} on PagerDuty.",
     method: "GET",
     path: "/alert_grouping_settings/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const alertGroupingSettingsActions: Record<string, ActionDefinition> = {
     description: "Put alert grouping setting. Part of: Alert Grouping Settings. Calls PUT /alertgroupingsettings/{id} on PagerDuty.",
     method: "PUT",
     path: "/alert_grouping_settings/{id}",
-    input: z.object({ id: z.string(), alert_grouping_setting: z.object({ id: z.string().optional(), name: z.string().nullable().optional(), description: z.string().nullable().optional(), type: z.enum(["content_based", "content_based_intelligent", "intelligent", "time"]).optional(), config: z.unknown().optional(), services: z.array(z.record(z.string(), z.unknown())).optional(), created_at: z.string().optional(), updated_at: z.string().optional() }) }),
+    input: obj({ id: z.string(), alert_grouping_setting: obj({ id: z.string().optional(), name: z.string().nullable().optional(), description: z.string().nullable().optional(), type: z.enum(["content_based", "content_based_intelligent", "intelligent", "time"]).optional(), config: z.unknown().optional(), services: z.array(z.record(z.string(), z.unknown())).optional(), created_at: z.string().optional(), updated_at: z.string().optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const alertGroupingSettingsActions: Record<string, ActionDefinition> = {
     description: "Delete alert grouping setting. Part of: Alert Grouping Settings. Calls DELETE /alertgroupingsettings/{id} on PagerDuty.",
     method: "DELETE",
     path: "/alert_grouping_settings/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

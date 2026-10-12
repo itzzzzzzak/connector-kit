@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const namespacesActions: Record<string, ActionDefinition> = {
     description: "Get namespaces id. Part of: namespaces. Calls GET /namespaces/{id} on GitLab.",
     method: "GET",
     path: "/namespaces/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const namespacesActions: Record<string, ActionDefinition> = {
     description: "Put namespaces id. Part of: namespaces. Calls PUT /namespaces/{id} on GitLab.",
     method: "PUT",
     path: "/namespaces/{id}",
-    input: z.object({ id: z.number(), shared_runners_minutes_limit: z.number().optional(), extra_shared_runners_minutes_limit: z.number().optional(), additional_purchased_storage_size: z.number().optional(), additional_purchased_storage_ends_on: z.string().optional(), gitlab_subscription_attributes: z.object({ start_date: z.string().optional(), seats: z.number().optional(), max_seats_used: z.number().optional(), plan_code: z.string().optional(), end_date: z.string().optional(), auto_renew: z.boolean().optional(), trial: z.boolean().optional(), trial_ends_on: z.string().optional(), trial_starts_on: z.string().optional(), trial_extension_type: z.number().optional() }).optional() }),
+    input: obj({ id: z.number(), shared_runners_minutes_limit: z.number().optional(), extra_shared_runners_minutes_limit: z.number().optional(), additional_purchased_storage_size: z.number().optional(), additional_purchased_storage_ends_on: z.string().optional(), gitlab_subscription_attributes: obj({ start_date: z.string().optional(), seats: z.number().optional(), max_seats_used: z.number().optional(), plan_code: z.string().optional(), end_date: z.string().optional(), auto_renew: z.boolean().optional(), trial: z.boolean().optional(), trial_ends_on: z.string().optional(), trial_starts_on: z.string().optional(), trial_extension_type: z.number().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const namespacesActions: Record<string, ActionDefinition> = {
     description: "Get namespaces id gitlab subscription. Part of: namespaces. Calls GET /namespaces/{id}/gitlabsubscription on GitLab.",
     method: "GET",
     path: "/namespaces/{id}/gitlab_subscription",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const namespacesActions: Record<string, ActionDefinition> = {
     description: "Post namespaces id storage limit exclusion. Part of: namespaces. Calls POST /namespaces/{id}/storage/limitexclusion on GitLab.",
     method: "POST",
     path: "/namespaces/{id}/storage/limit_exclusion",
-    input: z.object({ id: z.number(), reason: z.string() }),
+    input: obj({ id: z.number(), reason: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -43,7 +44,7 @@ export const namespacesActions: Record<string, ActionDefinition> = {
     description: "Delete namespaces id storage limit exclusion. Part of: namespaces. Calls DELETE /namespaces/{id}/storage/limitexclusion on GitLab.",
     method: "DELETE",
     path: "/namespaces/{id}/storage/limit_exclusion",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -51,7 +52,7 @@ export const namespacesActions: Record<string, ActionDefinition> = {
     description: "Get namespaces storage limit exclusions. Part of: namespaces. Calls GET /namespaces/storage/limitexclusions on GitLab.",
     method: "GET",
     path: "/namespaces/storage/limit_exclusions",
-    input: z.object({ page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -59,7 +60,7 @@ export const namespacesActions: Record<string, ActionDefinition> = {
     description: "Get namespaces. Part of: namespaces. Calls GET /namespaces on GitLab.",
     method: "GET",
     path: "/namespaces",
-    input: z.object({ search: z.string().optional(), owned_only: z.boolean().optional(), top_level_only: z.boolean().optional(), full_path_search: z.boolean().optional(), requested_hosted_plan: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ search: z.string().optional(), owned_only: z.boolean().optional(), top_level_only: z.boolean().optional(), full_path_search: z.boolean().optional(), requested_hosted_plan: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -68,7 +69,7 @@ export const namespacesActions: Record<string, ActionDefinition> = {
     description: "Get namespaces id exists. Part of: namespaces. Calls GET /namespaces/{id}/exists on GitLab.",
     method: "GET",
     path: "/namespaces/{id}/exists",
-    input: z.object({ id: z.string(), parent_id: z.number().optional() }),
+    input: obj({ id: z.string(), parent_id: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },

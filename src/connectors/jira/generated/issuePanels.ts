@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const issuePanelsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const issuePanelsActions: Record<string, ActionDefinition> = {
     description: "Bulk pin or unpin issue panel to projects. Bulk pin or unpin an issue panel (added by a Forge app) to or from multiple projects.",
     method: "POST",
     path: "/forge/panel/action/bulk/async",
-    input: z.object({ moduleId: z.string().describe("The moduleId of the Forge panel in the format ari:cloud:ecosystem::extension/{app-id}/{environment-id}/static/{module-key}"), projectList: z.array(z.object({ action: z.enum(["PIN", "UNPIN"]), projectIdOrKey: z.string() })).describe("The list of projects to pin or unpin the issue panel to or from.") }),
+    input: obj({ moduleId: z.string().describe("The moduleId of the Forge panel in the format ari:cloud:ecosystem::extension/{app-id}/{environment-id}/static/{module-key}"), projectList: z.array(obj({ action: z.enum(["PIN", "UNPIN"]), projectIdOrKey: z.string() })).describe("The list of projects to pin or unpin the issue panel to or from.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const issuePanelsActions: Record<string, ActionDefinition> = {
     description: "Get issue panel pin status for projects. Get the pin status of an issue panel (added by a Forge app) for multiple projects.",
     method: "POST",
     path: "/forge/panel/action/bulk/status",
-    input: z.object({ moduleId: z.string().describe("The moduleId of the Forge panel in the format ari:cloud:ecosystem::extension/{app-id}/{environment-id}/static/{module-key}"), projectList: z.array(z.string()).describe("The IDs or keys of the projects to check the issue panel pin status for.") }),
+    input: obj({ moduleId: z.string().describe("The moduleId of the Forge panel in the format ari:cloud:ecosystem::extension/{app-id}/{environment-id}/static/{module-key}"), projectList: z.array(z.string()).describe("The IDs or keys of the projects to check the issue panel pin status for.") }),
     output: z.unknown(),
     effect: "write",
   },

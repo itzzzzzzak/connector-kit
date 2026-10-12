@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const iTAMAssetsActions: Record<string, ActionDefinition> = {
     description: "List itam assets. Part of: ITAM Assets. Calls GET /itassetmanagement/assets on Zendesk.",
     method: "GET",
     path: "/it_asset_management/assets",
-    input: z.object({ filter_ids_: z.string().optional(), filter_external_ids_: z.string().optional() }),
+    input: obj({ filter_ids_: z.string().optional(), filter_external_ids_: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { filter_ids_: "filter[ids]", filter_external_ids_: "filter[external_ids]" }),
@@ -21,7 +22,7 @@ export const iTAMAssetsActions: Record<string, ActionDefinition> = {
     description: "Create itam asset. Part of: ITAM Assets. Calls POST /itassetmanagement/assets on Zendesk.",
     method: "POST",
     path: "/it_asset_management/assets",
-    input: z.object({ asset: z.object({ asset_tag: z.string().nullable().optional(), asset_type_icon_url: z.string().nullable().optional(), asset_type_id: z.string(), created_at: z.string().optional(), created_by_user_id: z.number().optional(), custom_field_values: z.record(z.string(), z.unknown()).optional(), external_id: z.string().nullable().optional(), id: z.string().optional(), location_id: z.string().nullable().optional(), manufacturer: z.string().nullable().optional(), model: z.string().nullable().optional(), name: z.string(), notes: z.string().nullable().optional(), organization_id: z.number().nullable().optional(), purchase_cost: z.object({ amount: z.number().optional(), currency: z.string().optional() }).nullable().optional(), purchase_date: z.string().nullable().optional(), serial_number: z.string().nullable().optional(), status_id: z.string(), updated_at: z.string().optional(), updated_by_user_id: z.number().optional(), url: z.string().optional(), user_id: z.number().nullable().optional(), vendor: z.string().nullable().optional(), warranty_expiration: z.string().nullable().optional() }).optional() }),
+    input: obj({ asset: obj({ asset_tag: z.string().nullable().optional(), asset_type_icon_url: z.string().nullable().optional(), asset_type_id: z.string(), created_at: z.string().optional(), created_by_user_id: z.number().optional(), custom_field_values: z.record(z.string(), z.unknown()).optional(), external_id: z.string().nullable().optional(), id: z.string().optional(), location_id: z.string().nullable().optional(), manufacturer: z.string().nullable().optional(), model: z.string().nullable().optional(), name: z.string(), notes: z.string().nullable().optional(), organization_id: z.number().nullable().optional(), purchase_cost: obj({ amount: z.number().optional(), currency: z.string().optional() }).nullable().optional(), purchase_date: z.string().nullable().optional(), serial_number: z.string().nullable().optional(), status_id: z.string(), updated_at: z.string().optional(), updated_by_user_id: z.number().optional(), url: z.string().optional(), user_id: z.number().nullable().optional(), vendor: z.string().nullable().optional(), warranty_expiration: z.string().nullable().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -29,7 +30,7 @@ export const iTAMAssetsActions: Record<string, ActionDefinition> = {
     description: "Show itam asset. Part of: ITAM Assets. Calls GET /itassetmanagement/assets/{assetid} on Zendesk.",
     method: "GET",
     path: "/it_asset_management/assets/{asset_id}",
-    input: z.object({ asset_id: z.string() }),
+    input: obj({ asset_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const iTAMAssetsActions: Record<string, ActionDefinition> = {
     description: "Update itam asset. Part of: ITAM Assets. Calls PATCH /itassetmanagement/assets/{assetid} on Zendesk.",
     method: "PATCH",
     path: "/it_asset_management/assets/{asset_id}",
-    input: z.object({ asset_id: z.string() }),
+    input: obj({ asset_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -45,7 +46,7 @@ export const iTAMAssetsActions: Record<string, ActionDefinition> = {
     description: "Delete itam asset. Part of: ITAM Assets. Calls DELETE /itassetmanagement/assets/{assetid} on Zendesk.",
     method: "DELETE",
     path: "/it_asset_management/assets/{asset_id}",
-    input: z.object({ asset_id: z.string() }),
+    input: obj({ asset_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -53,7 +54,7 @@ export const iTAMAssetsActions: Record<string, ActionDefinition> = {
     description: "Itam asset bulk jobs. Part of: ITAM Assets. Calls POST /itassetmanagement/assets/jobs on Zendesk.",
     method: "POST",
     path: "/it_asset_management/assets/jobs",
-    input: z.object({ job: z.object({ action: z.enum(["create", "update", "delete", "delete_by_external_id"]).optional(), items: z.array(z.unknown()).optional() }).optional() }),
+    input: obj({ job: obj({ action: z.enum(["create", "update", "delete", "delete_by_external_id"]).optional(), items: z.array(z.unknown()).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -61,7 +62,7 @@ export const iTAMAssetsActions: Record<string, ActionDefinition> = {
     description: "Search itam assets. Part of: ITAM Assets. Calls GET /itassetmanagement/assets/search on Zendesk.",
     method: "GET",
     path: "/it_asset_management/assets/search",
-    input: z.object({ query: z.string(), sort: z.string().optional(), page_before_: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ query: z.string(), sort: z.string().optional(), page_before_: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "assets", nextUrlPath: ["links", "next"], hasMorePath: ["meta", "has_more"], pageSizeParam: "page[size]", defaultPageSize: 30, maxPageSize: 100 }),
@@ -71,7 +72,7 @@ export const iTAMAssetsActions: Record<string, ActionDefinition> = {
     description: "Filtered search itam assets. Part of: ITAM Assets. Calls POST /itassetmanagement/assets/search on Zendesk.",
     method: "POST",
     path: "/it_asset_management/assets/search",
-    input: z.object({ query: z.string().optional(), sort: z.string().optional(), page_before_: z.string().optional(), page_after_: z.string().optional(), page_size_: z.number().optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ query: z.string().optional(), sort: z.string().optional(), page_before_: z.string().optional(), page_after_: z.string().optional(), page_size_: z.number().optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pickAs(i, { query: "query", sort: "sort", page_before_: "page[before]", page_after_: "page[after]", page_size_: "page[size]" }),

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const issueSecurityLevelActions: Record<string, ActionDefinition> = {
     description: "Get issue security level members by issue security scheme. Returns issue security level members.",
     method: "GET",
     path: "/issuesecurityschemes/{issueSecuritySchemeId}/members",
-    input: z.object({ issueSecuritySchemeId: z.number().describe("The ID of the issue security scheme. Use the Get issue security schemes operation to get a list of issue security scheme IDs."), issueSecurityLevelId: z.array(z.string()).describe("The list of issue security level IDs. To include multiple issue security levels separate IDs with ampersand:…").optional(), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Expand options include: all Returns all…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ issueSecuritySchemeId: z.number().describe("The ID of the issue security scheme. Use the Get issue security schemes operation to get a list of issue security scheme IDs."), issueSecurityLevelId: z.array(z.string()).describe("The list of issue security level IDs. To include multiple issue security levels separate IDs with ampersand:…").optional(), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Expand options include: all Returns all…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const issueSecurityLevelActions: Record<string, ActionDefinition> = {
     description: "Get issue security level. Returns details of an issue security level.",
     method: "GET",
     path: "/securitylevel/{id}",
-    input: z.object({ id: z.string().describe("The ID of the issue security level.") }),
+    input: obj({ id: z.string().describe("The ID of the issue security level.") }),
     output: z.unknown(),
     effect: "read",
   },

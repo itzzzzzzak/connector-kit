@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const communicationStatusesActions: Record<string, ActionDefinition> = {
     description: "Create batch read. Part of: Status. Calls POST /communication-preferences/v4/statuses/batch/read on HubSpot.",
     method: "POST",
     path: "/communication-preferences/v4/statuses/batch/read",
-    input: z.object({ channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional(), inputs: z.array(z.string()) }),
+    input: obj({ channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional(), inputs: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["channel","businessUnitId"]),
@@ -21,7 +22,7 @@ export const communicationStatusesActions: Record<string, ActionDefinition> = {
     description: "Create batch unsubscribe all. Part of: Status. Calls POST /communication-preferences/v4/statuses/batch/unsubscribe-all on HubSpot.",
     method: "POST",
     path: "/communication-preferences/v4/statuses/batch/unsubscribe-all",
-    input: z.object({ channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional(), verbose: z.boolean().optional(), inputs: z.array(z.string()) }),
+    input: obj({ channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional(), verbose: z.boolean().optional(), inputs: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["channel","businessUnitId","verbose"]),
@@ -31,7 +32,7 @@ export const communicationStatusesActions: Record<string, ActionDefinition> = {
     description: "Create batch unsubscribe all read. Part of: Status. Calls POST /communication-preferences/v4/statuses/batch/unsubscribe-all/read on HubSpot.",
     method: "POST",
     path: "/communication-preferences/v4/statuses/batch/unsubscribe-all/read",
-    input: z.object({ channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional(), inputs: z.array(z.string()) }),
+    input: obj({ channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional(), inputs: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["channel","businessUnitId"]),
@@ -41,7 +42,7 @@ export const communicationStatusesActions: Record<string, ActionDefinition> = {
     description: "Create batch write. Part of: Status. Calls POST /communication-preferences/v4/statuses/batch/write on HubSpot.",
     method: "POST",
     path: "/communication-preferences/v4/statuses/batch/write",
-    input: z.object({ inputs: z.array(z.object({ channel: z.enum(["EMAIL"]), legalBasis: z.enum(["CONSENT_WITH_NOTICE", "LEGITIMATE_INTEREST_CLIENT", "LEGITIMATE_INTEREST_OTHER", "LEGITIMATE_INTEREST_PQL", "NON_GDPR", "PERFORMANCE_OF_CONTRACT", "PROCESS_AND_STORE"]).optional(), legalBasisExplanation: z.string().optional(), statusState: z.enum(["NOT_SPECIFIED", "SUBSCRIBED", "UNSUBSCRIBED"]), subscriberIdString: z.string(), subscriptionId: z.number() })) }),
+    input: obj({ inputs: z.array(obj({ channel: z.enum(["EMAIL"]), legalBasis: z.enum(["CONSENT_WITH_NOTICE", "LEGITIMATE_INTEREST_CLIENT", "LEGITIMATE_INTEREST_OTHER", "LEGITIMATE_INTEREST_PQL", "NON_GDPR", "PERFORMANCE_OF_CONTRACT", "PROCESS_AND_STORE"]).optional(), legalBasisExplanation: z.string().optional(), statusState: z.enum(["NOT_SPECIFIED", "SUBSCRIBED", "UNSUBSCRIBED"]), subscriberIdString: z.string(), subscriptionId: z.number() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -49,7 +50,7 @@ export const communicationStatusesActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Status. Calls GET /communication-preferences/v4/statuses/{subscriberIdString} on HubSpot.",
     method: "GET",
     path: "/communication-preferences/v4/statuses/{subscriberIdString}",
-    input: z.object({ subscriberIdString: z.string(), channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional() }),
+    input: obj({ subscriberIdString: z.string(), channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -57,7 +58,7 @@ export const communicationStatusesActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Status. Calls POST /communication-preferences/v4/statuses/{subscriberIdString} on HubSpot.",
     method: "POST",
     path: "/communication-preferences/v4/statuses/{subscriberIdString}",
-    input: z.object({ subscriberIdString: z.string(), channel: z.enum(["EMAIL"]), legalBasis: z.enum(["CONSENT_WITH_NOTICE", "LEGITIMATE_INTEREST_CLIENT", "LEGITIMATE_INTEREST_OTHER", "LEGITIMATE_INTEREST_PQL", "NON_GDPR", "PERFORMANCE_OF_CONTRACT", "PROCESS_AND_STORE"]).optional(), legalBasisExplanation: z.string().optional(), statusState: z.enum(["NOT_SPECIFIED", "SUBSCRIBED", "UNSUBSCRIBED"]), subscriptionId: z.number() }),
+    input: obj({ subscriberIdString: z.string(), channel: z.enum(["EMAIL"]), legalBasis: z.enum(["CONSENT_WITH_NOTICE", "LEGITIMATE_INTEREST_CLIENT", "LEGITIMATE_INTEREST_OTHER", "LEGITIMATE_INTEREST_PQL", "NON_GDPR", "PERFORMANCE_OF_CONTRACT", "PROCESS_AND_STORE"]).optional(), legalBasisExplanation: z.string().optional(), statusState: z.enum(["NOT_SPECIFIED", "SUBSCRIBED", "UNSUBSCRIBED"]), subscriptionId: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -65,7 +66,7 @@ export const communicationStatusesActions: Record<string, ActionDefinition> = {
     description: "List unsubscribe all. Part of: Status. Calls GET /communication-preferences/v4/statuses/{subscriberIdString}/unsubscribe-all on HubSpot.",
     method: "GET",
     path: "/communication-preferences/v4/statuses/{subscriberIdString}/unsubscribe-all",
-    input: z.object({ subscriberIdString: z.string(), channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional(), verbose: z.boolean().optional() }),
+    input: obj({ subscriberIdString: z.string(), channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional(), verbose: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -73,7 +74,7 @@ export const communicationStatusesActions: Record<string, ActionDefinition> = {
     description: "Create unsubscribe all. Part of: Status. Calls POST /communication-preferences/v4/statuses/{subscriberIdString}/unsubscribe-all on HubSpot.",
     method: "POST",
     path: "/communication-preferences/v4/statuses/{subscriberIdString}/unsubscribe-all",
-    input: z.object({ subscriberIdString: z.string(), channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional(), verbose: z.boolean().optional() }),
+    input: obj({ subscriberIdString: z.string(), channel: z.enum(["EMAIL"]), businessUnitId: z.number().optional(), verbose: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["channel","businessUnitId","verbose"]),

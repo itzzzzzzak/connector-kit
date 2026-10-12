@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const projectTemplatesActions: Record<string, ActionDefinition> = {
     description: "Get project templates. Part of: ProjectTemplates. Calls GET /api/v2/projectTemplates on Pipedrive.",
     method: "GET",
     path: "/api/v2/projectTemplates",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["additional_data", "next_cursor"], cursorParam: "cursor", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 500 }),
@@ -20,7 +21,7 @@ export const projectTemplatesActions: Record<string, ActionDefinition> = {
     description: "Get project template. Part of: ProjectTemplates. Calls GET /api/v2/projectTemplates/{id} on Pipedrive.",
     method: "GET",
     path: "/api/v2/projectTemplates/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const projectTemplatesActions: Record<string, ActionDefinition> = {
     description: "Get project templates. Part of: ProjectTemplates. Calls GET /v1/projectTemplates on Pipedrive.",
     method: "GET",
     path: "/v1/projectTemplates",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["additional_data", "next_cursor"], cursorParam: "cursor", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 500 }),
@@ -37,7 +38,7 @@ export const projectTemplatesActions: Record<string, ActionDefinition> = {
     description: "Get project template. Part of: ProjectTemplates. Calls GET /v1/projectTemplates/{id} on Pipedrive.",
     method: "GET",
     path: "/v1/projectTemplates/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

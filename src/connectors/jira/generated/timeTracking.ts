@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const timeTrackingActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const timeTrackingActions: Record<string, ActionDefinition> = {
     description: "Get selected time tracking provider. Returns the time tracking provider that is currently selected. Note that if time tracking is disabled, then a successful but empty response is returned.",
     method: "GET",
     path: "/configuration/timetracking",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const timeTrackingActions: Record<string, ActionDefinition> = {
     description: "Select time tracking provider. Selects a time tracking provider.",
     method: "PUT",
     path: "/configuration/timetracking",
-    input: z.object({ key: z.string().describe("The key for the time tracking provider. For example, JIRA."), name: z.string().describe("The name of the time tracking provider. For example, JIRA provided time tracking.").optional(), url: z.string().describe("The URL of the configuration page for the time tracking provider app. For example, /example/config/url. This property is only returned if the adminPageKey…").optional() }),
+    input: obj({ key: z.string().describe("The key for the time tracking provider. For example, JIRA."), name: z.string().describe("The name of the time tracking provider. For example, JIRA provided time tracking.").optional(), url: z.string().describe("The URL of the configuration page for the time tracking provider app. For example, /example/config/url. This property is only returned if the adminPageKey…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const timeTrackingActions: Record<string, ActionDefinition> = {
     description: "Get all time tracking providers. Returns all time tracking providers. By default, Jira only has one time tracking provider: JIRA provided time tracking. However, you can install other time tracking providers via apps from the Atlassian Marketplace. For more information on time tracking providers, see the documentation for the Time Tracking Provider module.",
     method: "GET",
     path: "/configuration/timetracking/list",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const timeTrackingActions: Record<string, ActionDefinition> = {
     description: "Get time tracking settings. Returns the time tracking settings. This includes settings such as the time format, default time unit, and others. For more information, see Configuring time tracking.",
     method: "GET",
     path: "/configuration/timetracking/options",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const timeTrackingActions: Record<string, ActionDefinition> = {
     description: "Set time tracking settings. Sets the time tracking settings.",
     method: "PUT",
     path: "/configuration/timetracking/options",
-    input: z.object({ defaultUnit: z.enum(["minute", "hour", "day", "week"]).describe("The default unit of time applied to logged time."), timeFormat: z.enum(["pretty", "days", "hours"]).describe("The format that will appear on an issue's Time Spent field."), workingDaysPerWeek: z.number().describe("The number of days in a working week."), workingHoursPerDay: z.number().describe("The number of hours in a working day.") }),
+    input: obj({ defaultUnit: z.enum(["minute", "hour", "day", "week"]).describe("The default unit of time applied to logged time."), timeFormat: z.enum(["pretty", "days", "hours"]).describe("The format that will appear on an issue's Time Spent field."), workingDaysPerWeek: z.number().describe("The number of days in a working week."), workingHoursPerDay: z.number().describe("The number of hours in a working day.") }),
     output: z.unknown(),
     effect: "write",
   },

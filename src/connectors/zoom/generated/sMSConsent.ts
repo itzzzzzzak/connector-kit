@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const sMSConsentActions: Record<string, ActionDefinition> = {
     description: "Get number consent opt status. Part of: SMS Consent. Calls GET /phone/smsconsent/{consentId}/phonenumbers/optstatus on Zoom.",
     method: "GET",
     path: "/phone/sms_consent/{consentId}/phone_numbers/opt_status",
-    input: z.object({ consentId: z.string(), consumer_phone_number: z.string(), zoom_phone_user_numbers: z.array(z.string()) }),
+    input: obj({ consentId: z.string(), consumer_phone_number: z.string(), zoom_phone_user_numbers: z.array(z.string()) }),
     output: z.unknown(),
     effect: "read",
   },
@@ -20,7 +21,7 @@ export const sMSConsentActions: Record<string, ActionDefinition> = {
     description: "List smsconsents. Part of: SMS Consent. Calls GET /numbermanagement/smsconsent on Zoom.",
     method: "GET",
     path: "/number_management/sms_consent",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "sms_consent", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -29,7 +30,7 @@ export const sMSConsentActions: Record<string, ActionDefinition> = {
     description: "Create smsconsent. Part of: SMS Consent. Calls POST /numbermanagement/smsconsent on Zoom.",
     method: "POST",
     path: "/number_management/sms_consent",
-    input: z.object({ consent_name: z.string(), description: z.string().optional(), in_out_bound: z.object({ opt_in_message: z.object({ prompt: z.string(), keywords: z.array(z.string()), confirmation_message: z.string() }), opt_out_message: z.object({ message: z.string(), keywords: z.array(z.string()) }), help_message: z.object({ message: z.string(), keywords: z.array(z.string()) }), disclaimer: z.object({ message: z.string(), enable: z.boolean().optional(), append_frequency: z.enum(["OFF", "FIRST_MESSAGE", "ALWAYS"]) }) }), status: z.boolean(), enable_consent_handling_message: z.boolean().optional(), enable_help_message: z.boolean().optional(), enable_disclaimer: z.boolean().optional(), enable_opt_in_out_at_campaign_level: z.boolean().optional(), outbound_messages_to_unknown_numbers: z.enum(["ALLOW_ANY_MESSAGE", "REQUIRE_OPT_IN", "PREVENT_MESSAGE"]).optional(), inbound_messages_from_unknown_numbers: z.enum(["ALLOW_ANY_MESSAGE", "REQUIRE_OPT_IN"]).optional() }),
+    input: obj({ consent_name: z.string(), description: z.string().optional(), in_out_bound: obj({ opt_in_message: obj({ prompt: z.string(), keywords: z.array(z.string()), confirmation_message: z.string() }), opt_out_message: obj({ message: z.string(), keywords: z.array(z.string()) }), help_message: obj({ message: z.string(), keywords: z.array(z.string()) }), disclaimer: obj({ message: z.string(), enable: z.boolean().optional(), append_frequency: z.enum(["OFF", "FIRST_MESSAGE", "ALWAYS"]) }) }), status: z.boolean(), enable_consent_handling_message: z.boolean().optional(), enable_help_message: z.boolean().optional(), enable_disclaimer: z.boolean().optional(), enable_opt_in_out_at_campaign_level: z.boolean().optional(), outbound_messages_to_unknown_numbers: z.enum(["ALLOW_ANY_MESSAGE", "REQUIRE_OPT_IN", "PREVENT_MESSAGE"]).optional(), inbound_messages_from_unknown_numbers: z.enum(["ALLOW_ANY_MESSAGE", "REQUIRE_OPT_IN"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -37,7 +38,7 @@ export const sMSConsentActions: Record<string, ActionDefinition> = {
     description: "Delete smsconsents. Part of: SMS Consent. Calls DELETE /numbermanagement/smsconsent on Zoom.",
     method: "DELETE",
     path: "/number_management/sms_consent",
-    input: z.object({ consent_ids: z.array(z.string()) }),
+    input: obj({ consent_ids: z.array(z.string()) }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => pick(i, ["consent_ids"]),
@@ -46,7 +47,7 @@ export const sMSConsentActions: Record<string, ActionDefinition> = {
     description: "Get smsconsent. Part of: SMS Consent. Calls GET /numbermanagement/smsconsent/{consentId} on Zoom.",
     method: "GET",
     path: "/number_management/sms_consent/{consentId}",
-    input: z.object({ consentId: z.string() }),
+    input: obj({ consentId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -54,7 +55,7 @@ export const sMSConsentActions: Record<string, ActionDefinition> = {
     description: "Update smsconsent. Part of: SMS Consent. Calls PATCH /numbermanagement/smsconsent/{consentId} on Zoom.",
     method: "PATCH",
     path: "/number_management/sms_consent/{consentId}",
-    input: z.object({ consentId: z.string(), consent_name: z.string().optional(), description: z.string().optional(), in_out_bound: z.object({ opt_in_message: z.object({ prompt: z.string().optional(), keywords: z.array(z.string()).optional(), confirmation_message: z.string().optional() }).optional(), opt_out_message: z.object({ message: z.string().optional(), keywords: z.array(z.string()).optional() }).optional(), help_message: z.object({ message: z.string().optional(), keywords: z.array(z.string()).optional() }).optional(), disclaimer: z.object({ message: z.string().optional(), enable: z.boolean().optional(), append_frequency: z.enum(["OFF", "FIRST_MESSAGE", "ALWAYS"]).optional() }).optional() }).optional(), status: z.boolean().optional(), enable_consent_handling_message: z.boolean().optional(), enable_help_message: z.boolean().optional(), enable_disclaimer: z.boolean().optional(), enable_opt_in_out_at_campaign_level: z.boolean().optional(), outbound_messages_to_unknown_numbers: z.enum(["ALLOW_ANY_MESSAGE", "REQUIRE_OPT_IN", "PREVENT_MESSAGE"]).optional(), inbound_messages_from_unknown_numbers: z.enum(["ALLOW_ANY_MESSAGE", "REQUIRE_OPT_IN"]).optional() }),
+    input: obj({ consentId: z.string(), consent_name: z.string().optional(), description: z.string().optional(), in_out_bound: obj({ opt_in_message: obj({ prompt: z.string().optional(), keywords: z.array(z.string()).optional(), confirmation_message: z.string().optional() }).optional(), opt_out_message: obj({ message: z.string().optional(), keywords: z.array(z.string()).optional() }).optional(), help_message: obj({ message: z.string().optional(), keywords: z.array(z.string()).optional() }).optional(), disclaimer: obj({ message: z.string().optional(), enable: z.boolean().optional(), append_frequency: z.enum(["OFF", "FIRST_MESSAGE", "ALWAYS"]).optional() }).optional() }).optional(), status: z.boolean().optional(), enable_consent_handling_message: z.boolean().optional(), enable_help_message: z.boolean().optional(), enable_disclaimer: z.boolean().optional(), enable_opt_in_out_at_campaign_level: z.boolean().optional(), outbound_messages_to_unknown_numbers: z.enum(["ALLOW_ANY_MESSAGE", "REQUIRE_OPT_IN", "PREVENT_MESSAGE"]).optional(), inbound_messages_from_unknown_numbers: z.enum(["ALLOW_ANY_MESSAGE", "REQUIRE_OPT_IN"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -62,7 +63,7 @@ export const sMSConsentActions: Record<string, ActionDefinition> = {
     description: "List consent phone numbers. Part of: SMS Consent. Calls GET /numbermanagement/smsconsent/{consentId}/phonenumbers on Zoom.",
     method: "GET",
     path: "/number_management/sms_consent/{consentId}/phone_numbers",
-    input: z.object({ consentId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ consentId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "sms_consent_number", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -71,7 +72,7 @@ export const sMSConsentActions: Record<string, ActionDefinition> = {
     description: "Assign phone numbers to consent. Part of: SMS Consent. Calls POST /numbermanagement/smsconsent/{consentId}/phonenumbers on Zoom.",
     method: "POST",
     path: "/number_management/sms_consent/{consentId}/phone_numbers",
-    input: z.object({ consentId: z.string(), phone_number_ids: z.array(z.string()) }),
+    input: obj({ consentId: z.string(), phone_number_ids: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -79,7 +80,7 @@ export const sMSConsentActions: Record<string, ActionDefinition> = {
     description: "Unassign phone numbers from consent. Part of: SMS Consent. Calls DELETE /numbermanagement/smsconsent/{consentId}/phonenumbers on Zoom.",
     method: "DELETE",
     path: "/number_management/sms_consent/{consentId}/phone_numbers",
-    input: z.object({ consentId: z.string(), phone_number_ids: z.array(z.string()) }),
+    input: obj({ consentId: z.string(), phone_number_ids: z.array(z.string()) }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => pick(i, ["phone_number_ids"]),

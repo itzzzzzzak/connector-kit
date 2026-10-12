@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const sniCertificateActions: Record<string, ActionDefinition> = {
     description: "Show site tlscertificate Calls GET /sites/{siteid}/ssl on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/ssl",
-    input: z.object({ site_id: z.string() }),
+    input: obj({ site_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const sniCertificateActions: Record<string, ActionDefinition> = {
     description: "Provisions or updates a TLS certificate for the site. Creating a certificate (site has no certificate): - Omit certificate params to initiate Let's Encrypt…",
     method: "POST",
     path: "/sites/{site_id}/ssl",
-    input: z.object({ site_id: z.string(), certificate: z.string().describe("PEM-encoded certificate. Required when updating an existing certificate.").optional(), key: z.string().describe("PEM-encoded private key. Required when updating an existing certificate.").optional(), ca_certificates: z.string().describe("PEM-encoded CA certificate chain. Required when updating an existing certificate.").optional() }),
+    input: obj({ site_id: z.string(), certificate: z.string().describe("PEM-encoded certificate. Required when updating an existing certificate.").optional(), key: z.string().describe("PEM-encoded private key. Required when updating an existing certificate.").optional(), ca_certificates: z.string().describe("PEM-encoded CA certificate chain. Required when updating an existing certificate.").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["certificate","key","ca_certificates"]),
@@ -28,7 +29,7 @@ export const sniCertificateActions: Record<string, ActionDefinition> = {
     description: "Get all certificates Calls GET /sites/{siteid}/ssl/certificates on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/ssl/certificates",
-    input: z.object({ site_id: z.string(), domain: z.string() }),
+    input: obj({ site_id: z.string(), domain: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

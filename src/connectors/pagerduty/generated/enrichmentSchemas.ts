@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const enrichmentSchemasActions: Record<string, ActionDefinition> = {
     description: "Query enrichment data. Part of: Enrichment Schemas. Calls POST /enrichment/query on PagerDuty.",
     method: "POST",
     path: "/enrichment/query",
-    input: z.object({ schema_id: z.string(), query: z.array(z.object({ field: z.string(), value: z.string() })) }),
+    input: obj({ schema_id: z.string(), query: z.array(obj({ field: z.string(), value: z.string() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const enrichmentSchemasActions: Record<string, ActionDefinition> = {
     description: "List enrichment schemas. Part of: Enrichment Schemas. Calls GET /enrichment/schemas on PagerDuty.",
     method: "GET",
     path: "/enrichment/schemas",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const enrichmentSchemasActions: Record<string, ActionDefinition> = {
     description: "Create enrichment schema. Part of: Enrichment Schemas. Calls POST /enrichment/schemas on PagerDuty.",
     method: "POST",
     path: "/enrichment/schemas",
-    input: z.object({ filename: z.string().optional(), integration_type: z.enum(["CSV"]).optional(), name: z.string(), description: z.string().optional(), fields: z.array(z.object({ name: z.string(), type: z.enum(["query", "enriched"]) })) }),
+    input: obj({ filename: z.string().optional(), integration_type: z.enum(["CSV"]).optional(), name: z.string(), description: z.string().optional(), fields: z.array(obj({ name: z.string(), type: z.enum(["query", "enriched"]) })) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["filename"]),
@@ -37,7 +38,7 @@ export const enrichmentSchemasActions: Record<string, ActionDefinition> = {
     description: "Get enrichment schema. Part of: Enrichment Schemas. Calls GET /enrichment/schemas/{schemaid} on PagerDuty.",
     method: "GET",
     path: "/enrichment/schemas/{schema_id}",
-    input: z.object({ schema_id: z.string() }),
+    input: obj({ schema_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -45,7 +46,7 @@ export const enrichmentSchemasActions: Record<string, ActionDefinition> = {
     description: "Update enrichment schema. Part of: Enrichment Schemas. Calls PUT /enrichment/schemas/{schemaid} on PagerDuty.",
     method: "PUT",
     path: "/enrichment/schemas/{schema_id}",
-    input: z.object({ schema_id: z.string(), schema: z.object({ name: z.string().optional(), description: z.string().optional() }) }),
+    input: obj({ schema_id: z.string(), schema: obj({ name: z.string().optional(), description: z.string().optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -53,7 +54,7 @@ export const enrichmentSchemasActions: Record<string, ActionDefinition> = {
     description: "Delete enrichment schema. Part of: Enrichment Schemas. Calls DELETE /enrichment/schemas/{schemaid} on PagerDuty.",
     method: "DELETE",
     path: "/enrichment/schemas/{schema_id}",
-    input: z.object({ schema_id: z.string() }),
+    input: obj({ schema_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -61,7 +62,7 @@ export const enrichmentSchemasActions: Record<string, ActionDefinition> = {
     description: "List enrichment records. Part of: Enrichment Schemas. Calls GET /enrichment/schemas/{schemaid}/records on PagerDuty.",
     method: "GET",
     path: "/enrichment/schemas/{schema_id}/records",
-    input: z.object({ schema_id: z.string(), limit: z.number().optional(), cursor: z.string().optional() }),
+    input: obj({ schema_id: z.string(), limit: z.number().optional(), cursor: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -69,7 +70,7 @@ export const enrichmentSchemasActions: Record<string, ActionDefinition> = {
     description: "Delete enrichment record. Part of: Enrichment Schemas. Calls DELETE /enrichment/schemas/{schemaid}/records/{recordid} on PagerDuty.",
     method: "DELETE",
     path: "/enrichment/schemas/{schema_id}/records/{record_id}",
-    input: z.object({ schema_id: z.string(), record_id: z.string() }),
+    input: obj({ schema_id: z.string(), record_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const keysActions: Record<string, ActionDefinition> = {
     description: "Get groups id ssh certificates. Part of: keys. Calls GET /groups/{id}/sshcertificates on GitLab.",
     method: "GET",
     path: "/groups/{id}/ssh_certificates",
-    input: z.object({ id: z.number(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.number(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const keysActions: Record<string, ActionDefinition> = {
     description: "Post groups id ssh certificates. Part of: keys. Calls POST /groups/{id}/sshcertificates on GitLab.",
     method: "POST",
     path: "/groups/{id}/ssh_certificates",
-    input: z.object({ id: z.number(), title: z.string(), key: z.string() }),
+    input: obj({ id: z.number(), title: z.string(), key: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const keysActions: Record<string, ActionDefinition> = {
     description: "Delete groups id ssh certificates ssh certificates id. Part of: keys. Calls DELETE /groups/{id}/sshcertificates/{sshcertificatesid} on GitLab.",
     method: "DELETE",
     path: "/groups/{id}/ssh_certificates/{ssh_certificates_id}",
-    input: z.object({ id: z.number(), ssh_certificates_id: z.number() }),
+    input: obj({ id: z.number(), ssh_certificates_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -36,7 +37,7 @@ export const keysActions: Record<string, ActionDefinition> = {
     description: "Get keys id. Part of: keys. Calls GET /keys/{id} on GitLab.",
     method: "GET",
     path: "/keys/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -44,7 +45,7 @@ export const keysActions: Record<string, ActionDefinition> = {
     description: "Get keys. Part of: keys. Calls GET /keys on GitLab.",
     method: "GET",
     path: "/keys",
-    input: z.object({ fingerprint: z.string() }),
+    input: obj({ fingerprint: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

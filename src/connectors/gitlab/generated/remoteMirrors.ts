@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const remoteMirrorsActions: Record<string, ActionDefinition> = {
     description: "Get projects id remote mirrors. Part of: remotemirrors. Calls GET /projects/{id}/remotemirrors on GitLab.",
     method: "GET",
     path: "/projects/{id}/remote_mirrors",
-    input: z.object({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const remoteMirrorsActions: Record<string, ActionDefinition> = {
     description: "Post projects id remote mirrors. Part of: remotemirrors. Calls POST /projects/{id}/remotemirrors on GitLab.",
     method: "POST",
     path: "/projects/{id}/remote_mirrors",
-    input: z.object({ id: z.string(), url: z.string(), enabled: z.boolean().optional(), auth_method: z.enum(["ssh_public_key", "password"]).optional(), keep_divergent_refs: z.boolean().optional(), only_protected_branches: z.boolean().optional(), mirror_branch_regex: z.string().optional(), host_keys: z.array(z.string()).optional() }),
+    input: obj({ id: z.string(), url: z.string(), enabled: z.boolean().optional(), auth_method: z.enum(["ssh_public_key", "password"]).optional(), keep_divergent_refs: z.boolean().optional(), only_protected_branches: z.boolean().optional(), mirror_branch_regex: z.string().optional(), host_keys: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const remoteMirrorsActions: Record<string, ActionDefinition> = {
     description: "Get projects id remote mirrors mirror id. Part of: remotemirrors. Calls GET /projects/{id}/remotemirrors/{mirrorid} on GitLab.",
     method: "GET",
     path: "/projects/{id}/remote_mirrors/{mirror_id}",
-    input: z.object({ id: z.string(), mirror_id: z.string() }),
+    input: obj({ id: z.string(), mirror_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const remoteMirrorsActions: Record<string, ActionDefinition> = {
     description: "Put projects id remote mirrors mirror id. Part of: remotemirrors. Calls PUT /projects/{id}/remotemirrors/{mirrorid} on GitLab.",
     method: "PUT",
     path: "/projects/{id}/remote_mirrors/{mirror_id}",
-    input: z.object({ id: z.string(), mirror_id: z.string(), enabled: z.boolean().optional(), auth_method: z.string().optional(), keep_divergent_refs: z.boolean().optional(), only_protected_branches: z.boolean().optional(), mirror_branch_regex: z.string().optional(), host_keys: z.array(z.string()).optional() }),
+    input: obj({ id: z.string(), mirror_id: z.string(), enabled: z.boolean().optional(), auth_method: z.string().optional(), keep_divergent_refs: z.boolean().optional(), only_protected_branches: z.boolean().optional(), mirror_branch_regex: z.string().optional(), host_keys: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const remoteMirrorsActions: Record<string, ActionDefinition> = {
     description: "Delete projects id remote mirrors mirror id. Part of: remotemirrors. Calls DELETE /projects/{id}/remotemirrors/{mirrorid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/remote_mirrors/{mirror_id}",
-    input: z.object({ id: z.string(), mirror_id: z.string() }),
+    input: obj({ id: z.string(), mirror_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const remoteMirrorsActions: Record<string, ActionDefinition> = {
     description: "Post projects id remote mirrors mirror id sync. Part of: remotemirrors. Calls POST /projects/{id}/remotemirrors/{mirrorid}/sync on GitLab.",
     method: "POST",
     path: "/projects/{id}/remote_mirrors/{mirror_id}/sync",
-    input: z.object({ id: z.string(), mirror_id: z.string() }),
+    input: obj({ id: z.string(), mirror_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -60,7 +61,7 @@ export const remoteMirrorsActions: Record<string, ActionDefinition> = {
     description: "Get projects id remote mirrors mirror id public key. Part of: remotemirrors. Calls GET /projects/{id}/remotemirrors/{mirrorid}/publickey on GitLab.",
     method: "GET",
     path: "/projects/{id}/remote_mirrors/{mirror_id}/public_key",
-    input: z.object({ id: z.string(), mirror_id: z.string() }),
+    input: obj({ id: z.string(), mirror_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
