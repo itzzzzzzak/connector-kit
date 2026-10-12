@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const licensesActions: Record<string, ActionDefinition> = {
     description: "Get all commonly used licenses. Lists the most commonly used licenses on GitHub. For more information, see \"Licensing a repository .\"",
     method: "GET",
     path: "/licenses",
-    input: z.object({ featured: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ featured: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination(),
@@ -20,7 +21,7 @@ export const licensesActions: Record<string, ActionDefinition> = {
     description: "Get a license. Gets information about a specific license. For more information, see \"Licensing a repository .\"",
     method: "GET",
     path: "/licenses/{license}",
-    input: z.object({ license: z.string() }),
+    input: obj({ license: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const licensesActions: Record<string, ActionDefinition> = {
     description: "Get the license for a repository. This method returns the contents of the repository's license file, if one is detected.",
     method: "GET",
     path: "/repos/{owner}/{repo}/license",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), ref: z.string().describe("The Git reference for the results you want to list. The ref for a branch can be formatted either as refs/heads/<branch name or simply <branch name. To…").optional() }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), ref: z.string().describe("The Git reference for the results you want to list. The ref for a branch can be formatted either as refs/heads/<branch name or simply <branch name. To…").optional() }),
     output: z.unknown(),
     effect: "read",
   },

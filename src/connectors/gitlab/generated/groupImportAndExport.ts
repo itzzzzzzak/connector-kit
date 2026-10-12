@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const groupImportAndExportActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const groupImportAndExportActions: Record<string, ActionDefinition> = {
     description: "Get groups id export download. Part of: groupimportandexport. Calls GET /groups/{id}/export/download on GitLab.",
     method: "GET",
     path: "/groups/{id}/export/download",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const groupImportAndExportActions: Record<string, ActionDefinition> = {
     description: "Post groups id export. Part of: groupimportandexport. Calls POST /groups/{id}/export on GitLab.",
     method: "POST",
     path: "/groups/{id}/export",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const groupImportAndExportActions: Record<string, ActionDefinition> = {
     description: "Post groups id export relations. Part of: groupimportandexport. Calls POST /groups/{id}/exportrelations on GitLab.",
     method: "POST",
     path: "/groups/{id}/export_relations",
-    input: z.object({ id: z.string(), batched: z.boolean().optional() }),
+    input: obj({ id: z.string(), batched: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const groupImportAndExportActions: Record<string, ActionDefinition> = {
     description: "Get groups id export relations download. Part of: groupimportandexport. Calls GET /groups/{id}/exportrelations/download on GitLab.",
     method: "GET",
     path: "/groups/{id}/export_relations/download",
-    input: z.object({ id: z.string(), relation: z.string(), batched: z.boolean().optional(), batch_number: z.number().optional() }),
+    input: obj({ id: z.string(), relation: z.string(), batched: z.boolean().optional(), batch_number: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const groupImportAndExportActions: Record<string, ActionDefinition> = {
     description: "Get groups id export relations status. Part of: groupimportandexport. Calls GET /groups/{id}/exportrelations/status on GitLab.",
     method: "GET",
     path: "/groups/{id}/export_relations/status",
-    input: z.object({ id: z.string(), relation: z.string().optional() }),
+    input: obj({ id: z.string(), relation: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const groupImportAndExportActions: Record<string, ActionDefinition> = {
     description: "Post groups import authorize. Part of: groupimportandexport. Calls POST /groups/import/authorize on GitLab.",
     method: "POST",
     path: "/groups/import/authorize",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },

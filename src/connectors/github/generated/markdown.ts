@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const markdownActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const markdownActions: Record<string, ActionDefinition> = {
     description: "Render a Markdown document. Depending on what is rendered in the Markdown, you may need to provide additional token scopes for labels, such as issues:read or pullrequests:read.",
     method: "POST",
     path: "/markdown",
-    input: z.object({ text: z.string().describe("The Markdown text to render in HTML."), mode: z.enum(["markdown", "gfm"]).describe("The rendering mode.").optional(), context: z.string().describe("The repository context to use when creating references in gfm mode. For example, setting context to octo-org/octo-repo will change the text 42 into an HTML…").optional() }),
+    input: obj({ text: z.string().describe("The Markdown text to render in HTML."), mode: z.enum(["markdown", "gfm"]).describe("The rendering mode.").optional(), context: z.string().describe("The repository context to use when creating references in gfm mode. For example, setting context to octo-org/octo-repo will change the text 42 into an HTML…").optional() }),
     output: z.unknown(),
     effect: "write",
   },

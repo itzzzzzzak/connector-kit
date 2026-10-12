@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const verifiedDomainsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const verifiedDomainsActions: Record<string, ActionDefinition> = {
     description: "Verify domain. Part of: verifiedDomains. Calls POST /verified-domains/{domainname}/actions/verify on Mailchimp.",
     method: "POST",
     path: "/verified-domains/{domain_name}/actions/verify",
-    input: z.object({ domain_name: z.string(), code: z.string() }),
+    input: obj({ domain_name: z.string(), code: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const verifiedDomainsActions: Record<string, ActionDefinition> = {
     description: "Get verified domain. Part of: verifiedDomains. Calls GET /verified-domains/{domainname} on Mailchimp.",
     method: "GET",
     path: "/verified-domains/{domain_name}",
-    input: z.object({ domain_name: z.string() }),
+    input: obj({ domain_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const verifiedDomainsActions: Record<string, ActionDefinition> = {
     description: "Delete verified domain. Part of: verifiedDomains. Calls DELETE /verified-domains/{domainname} on Mailchimp.",
     method: "DELETE",
     path: "/verified-domains/{domain_name}",
-    input: z.object({ domain_name: z.string() }),
+    input: obj({ domain_name: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const verifiedDomainsActions: Record<string, ActionDefinition> = {
     description: "Get verified domains. Part of: verifiedDomains. Calls GET /verified-domains on Mailchimp.",
     method: "GET",
     path: "/verified-domains",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const verifiedDomainsActions: Record<string, ActionDefinition> = {
     description: "Create verified domain. Part of: verifiedDomains. Calls POST /verified-domains on Mailchimp.",
     method: "POST",
     path: "/verified-domains",
-    input: z.object({ verification_email: z.string() }),
+    input: obj({ verification_email: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

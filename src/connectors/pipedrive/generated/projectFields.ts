@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const projectFieldsActions: Record<string, ActionDefinition> = {
     description: "Get project fields. Part of: ProjectFields. Calls GET /api/v2/projectFields on Pipedrive.",
     method: "GET",
     path: "/api/v2/projectFields",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["additional_data", "next_cursor"], cursorParam: "cursor", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 500 }),
@@ -20,7 +21,7 @@ export const projectFieldsActions: Record<string, ActionDefinition> = {
     description: "Add project field. Part of: ProjectFields. Calls POST /api/v2/projectFields on Pipedrive.",
     method: "POST",
     path: "/api/v2/projectFields",
-    input: z.object({ field_name: z.string(), field_type: z.enum(["varchar", "text", "double", "phone", "date", "daterange", "time", "timerange", "set", "enum", "varchar_auto", "address", "monetary", "org", "people", "user"]), options: z.array(z.object({ label: z.string() })).optional(), ui_visibility: z.object({ add_visible_flag: z.boolean().optional(), details_visible_flag: z.boolean().optional() }).optional(), important_fields: z.object({ enabled: z.boolean().optional(), stage_ids: z.array(z.number()).optional() }).optional(), required_fields: z.object({ enabled: z.boolean().optional() }).optional() }),
+    input: obj({ field_name: z.string(), field_type: z.enum(["varchar", "text", "double", "phone", "date", "daterange", "time", "timerange", "set", "enum", "varchar_auto", "address", "monetary", "org", "people", "user"]), options: z.array(obj({ label: z.string() })).optional(), ui_visibility: obj({ add_visible_flag: z.boolean().optional(), details_visible_flag: z.boolean().optional() }).optional(), important_fields: obj({ enabled: z.boolean().optional(), stage_ids: z.array(z.number()).optional() }).optional(), required_fields: obj({ enabled: z.boolean().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const projectFieldsActions: Record<string, ActionDefinition> = {
     description: "Get project field. Part of: ProjectFields. Calls GET /api/v2/projectFields/{fieldcode} on Pipedrive.",
     method: "GET",
     path: "/api/v2/projectFields/{field_code}",
-    input: z.object({ field_code: z.string() }),
+    input: obj({ field_code: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const projectFieldsActions: Record<string, ActionDefinition> = {
     description: "Update project field. Part of: ProjectFields. Calls PATCH /api/v2/projectFields/{fieldcode} on Pipedrive.",
     method: "PATCH",
     path: "/api/v2/projectFields/{field_code}",
-    input: z.object({ field_code: z.string(), field_name: z.string().optional(), ui_visibility: z.object({ add_visible_flag: z.boolean().optional(), details_visible_flag: z.boolean().optional() }).optional(), important_fields: z.object({ enabled: z.boolean().optional(), stage_ids: z.array(z.number()).optional() }).optional(), required_fields: z.object({ enabled: z.boolean().optional() }).optional() }),
+    input: obj({ field_code: z.string(), field_name: z.string().optional(), ui_visibility: obj({ add_visible_flag: z.boolean().optional(), details_visible_flag: z.boolean().optional() }).optional(), important_fields: obj({ enabled: z.boolean().optional(), stage_ids: z.array(z.number()).optional() }).optional(), required_fields: obj({ enabled: z.boolean().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const projectFieldsActions: Record<string, ActionDefinition> = {
     description: "Delete project field. Part of: ProjectFields. Calls DELETE /api/v2/projectFields/{fieldcode} on Pipedrive.",
     method: "DELETE",
     path: "/api/v2/projectFields/{field_code}",
-    input: z.object({ field_code: z.string() }),
+    input: obj({ field_code: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const projectFieldsActions: Record<string, ActionDefinition> = {
     description: "Add project field options. Part of: ProjectFields. Calls POST /api/v2/projectFields/{fieldcode}/options on Pipedrive.",
     method: "POST",
     path: "/api/v2/projectFields/{field_code}/options",
-    input: z.object({ field_code: z.string(), body: z.array(z.object({ label: z.string() })).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ field_code: z.string(), body: z.array(obj({ label: z.string() })).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -61,7 +62,7 @@ export const projectFieldsActions: Record<string, ActionDefinition> = {
     description: "Update project field options. Part of: ProjectFields. Calls PATCH /api/v2/projectFields/{fieldcode}/options on Pipedrive.",
     method: "PATCH",
     path: "/api/v2/projectFields/{field_code}/options",
-    input: z.object({ field_code: z.string(), body: z.array(z.object({ id: z.number(), label: z.string() })).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ field_code: z.string(), body: z.array(obj({ id: z.number(), label: z.string() })).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -70,7 +71,7 @@ export const projectFieldsActions: Record<string, ActionDefinition> = {
     description: "Delete project field options. Part of: ProjectFields. Calls DELETE /api/v2/projectFields/{fieldcode}/options on Pipedrive.",
     method: "DELETE",
     path: "/api/v2/projectFields/{field_code}/options",
-    input: z.object({ field_code: z.string(), body: z.array(z.object({ id: z.number() })).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ field_code: z.string(), body: z.array(obj({ id: z.number() })).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => i.body,

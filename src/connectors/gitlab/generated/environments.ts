@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "Get projects id environments. Part of: environments. Calls GET /projects/{id}/environments on GitLab.",
     method: "GET",
     path: "/projects/{id}/environments",
-    input: z.object({ id: z.string(), name: z.string().optional(), search: z.string().optional(), states: z.enum(["stopped", "stopping", "available"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), name: z.string().optional(), search: z.string().optional(), states: z.enum(["stopped", "stopping", "available"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "Post projects id environments. Part of: environments. Calls POST /projects/{id}/environments on GitLab.",
     method: "POST",
     path: "/projects/{id}/environments",
-    input: z.object({ id: z.string(), name: z.string(), external_url: z.string().optional(), tier: z.enum(["production", "staging", "testing", "development", "other"]).optional(), cluster_agent_id: z.number().optional(), kubernetes_namespace: z.string().optional(), flux_resource_path: z.string().optional(), description: z.string().optional(), auto_stop_setting: z.enum(["always", "with_action"]).optional() }),
+    input: obj({ id: z.string(), name: z.string(), external_url: z.string().optional(), tier: z.enum(["production", "staging", "testing", "development", "other"]).optional(), cluster_agent_id: z.number().optional(), kubernetes_namespace: z.string().optional(), flux_resource_path: z.string().optional(), description: z.string().optional(), auto_stop_setting: z.enum(["always", "with_action"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "Get projects id environments environment id. Part of: environments. Calls GET /projects/{id}/environments/{environmentid} on GitLab.",
     method: "GET",
     path: "/projects/{id}/environments/{environment_id}",
-    input: z.object({ id: z.string(), environment_id: z.number() }),
+    input: obj({ id: z.string(), environment_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "Put projects id environments environment id. Part of: environments. Calls PUT /projects/{id}/environments/{environmentid} on GitLab.",
     method: "PUT",
     path: "/projects/{id}/environments/{environment_id}",
-    input: z.object({ id: z.string(), environment_id: z.number(), external_url: z.string().optional(), tier: z.enum(["production", "staging", "testing", "development", "other"]).optional(), cluster_agent_id: z.number().optional(), kubernetes_namespace: z.string().optional(), flux_resource_path: z.string().optional(), description: z.string().optional(), auto_stop_setting: z.enum(["always", "with_action"]).optional() }),
+    input: obj({ id: z.string(), environment_id: z.number(), external_url: z.string().optional(), tier: z.enum(["production", "staging", "testing", "development", "other"]).optional(), cluster_agent_id: z.number().optional(), kubernetes_namespace: z.string().optional(), flux_resource_path: z.string().optional(), description: z.string().optional(), auto_stop_setting: z.enum(["always", "with_action"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "Delete projects id environments environment id. Part of: environments. Calls DELETE /projects/{id}/environments/{environmentid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/environments/{environment_id}",
-    input: z.object({ id: z.string(), environment_id: z.number() }),
+    input: obj({ id: z.string(), environment_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "Delete projects id environments review apps. Part of: environments. Calls DELETE /projects/{id}/environments/reviewapps on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/environments/review_apps",
-    input: z.object({ id: z.string(), before: z.string().optional(), limit: z.number().optional(), dry_run: z.boolean().optional() }),
+    input: obj({ id: z.string(), before: z.string().optional(), limit: z.number().optional(), dry_run: z.boolean().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -60,7 +61,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "Post projects id environments environment id stop. Part of: environments. Calls POST /projects/{id}/environments/{environmentid}/stop on GitLab.",
     method: "POST",
     path: "/projects/{id}/environments/{environment_id}/stop",
-    input: z.object({ id: z.string(), environment_id: z.number(), force: z.boolean().optional() }),
+    input: obj({ id: z.string(), environment_id: z.number(), force: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -68,7 +69,7 @@ export const environmentsActions: Record<string, ActionDefinition> = {
     description: "Post projects id environments stop stale. Part of: environments. Calls POST /projects/{id}/environments/stopstale on GitLab.",
     method: "POST",
     path: "/projects/{id}/environments/stop_stale",
-    input: z.object({ id: z.string(), before: z.string() }),
+    input: obj({ id: z.string(), before: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

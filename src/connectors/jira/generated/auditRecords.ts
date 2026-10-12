@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const auditRecordsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const auditRecordsActions: Record<string, ActionDefinition> = {
     description: "Get audit records. Returns a list of audit records. The list can be filtered to include items:",
     method: "GET",
     path: "/auditing/record",
-    input: z.object({ offset: z.number().describe("The number of records to skip before returning the first result.").optional(), limit: z.number().describe("The maximum number of results to return.").optional(), filter: z.string().describe("The strings to match with audit field content, space separated.").optional(), from: z.string().describe("The date and time on or after which returned audit records must have been created. If to is provided from must be before to or no audit records are returned.").optional(), to: z.string().describe("The date and time on or before which returned audit results must have been created. If from is provided to must be after from or no audit records are returned.").optional() }),
+    input: obj({ offset: z.number().describe("The number of records to skip before returning the first result.").optional(), limit: z.number().describe("The maximum number of results to return.").optional(), filter: z.string().describe("The strings to match with audit field content, space separated.").optional(), from: z.string().describe("The date and time on or after which returned audit records must have been created. If to is provided from must be before to or no audit records are returned.").optional(), to: z.string().describe("The date and time on or before which returned audit results must have been created. If from is provided to must be after from or no audit records are returned.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

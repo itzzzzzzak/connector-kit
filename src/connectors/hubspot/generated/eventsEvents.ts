@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const eventsEventsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /events/v3/events on HubSpot.",
     method: "GET",
     path: "/events/v3/events",
-    input: z.object({ before: z.string().optional(), eventType: z.string().optional(), id: z.array(z.string()).optional(), objectId: z.number().optional(), objectType: z.string().optional(), occurredAfter: z.string().optional(), occurredBefore: z.string().optional(), properties: z.array(z.string()).optional(), sort: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ before: z.string().optional(), eventType: z.string().optional(), id: z.array(z.string()).optional(), objectId: z.number().optional(), objectType: z.string().optional(), occurredAfter: z.string().optional(), occurredBefore: z.string().optional(), properties: z.array(z.string()).optional(), sort: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const eventsEventsActions: Record<string, ActionDefinition> = {
     description: "List event types. Part of: Basic. Calls GET /events/v3/events/event-types on HubSpot.",
     method: "GET",
     path: "/events/v3/events/event-types",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

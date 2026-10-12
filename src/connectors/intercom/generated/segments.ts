@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const segmentsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const segmentsActions: Record<string, ActionDefinition> = {
     description: "List all segments. You can fetch a list of all segments.",
     method: "GET",
     path: "/segments",
-    input: z.object({ include_count: z.boolean().describe("It includes the count of contacts that belong to each segment.").optional() }),
+    input: obj({ include_count: z.boolean().describe("It includes the count of contacts that belong to each segment.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const segmentsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a segment. You can fetch the details of a single segment.",
     method: "GET",
     path: "/segments/{segment_id}",
-    input: z.object({ segment_id: z.string().describe("The unique identified of a given segment.") }),
+    input: obj({ segment_id: z.string().describe("The unique identified of a given segment.") }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const glqlActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const glqlActions: Record<string, ActionDefinition> = {
     description: "Post glql. Part of: glql. Calls POST /glql on GitLab.",
     method: "POST",
     path: "/glql",
-    input: z.object({ glql_yaml: z.string(), after: z.string().optional() }),
+    input: obj({ glql_yaml: z.string(), after: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

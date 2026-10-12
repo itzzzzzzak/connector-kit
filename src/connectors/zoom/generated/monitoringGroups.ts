@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const monitoringGroupsActions: Record<string, ActionDefinition> = {
     description: "List monitoring group. Part of: Monitoring Groups. Calls GET /phone/monitoringgroups on Zoom.",
     method: "GET",
     path: "/phone/monitoring_groups",
-    input: z.object({ type: z.number().optional(), site_id: z.string().optional(), keyword: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ type: z.number().optional(), site_id: z.string().optional(), keyword: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "monitoring_groups", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -21,7 +22,7 @@ export const monitoringGroupsActions: Record<string, ActionDefinition> = {
     description: "Create monitoring group. Part of: Monitoring Groups. Calls POST /phone/monitoringgroups on Zoom.",
     method: "POST",
     path: "/phone/monitoring_groups",
-    input: z.object({ monitoring_privileges: z.array(z.enum(["listen", "whisper", "barge", "take_over"])).optional(), name: z.string().optional(), prompt: z.boolean().optional(), site_id: z.string().optional(), type: z.number().optional() }),
+    input: obj({ monitoring_privileges: z.array(z.enum(["listen", "whisper", "barge", "take_over"])).optional(), name: z.string().optional(), prompt: z.boolean().optional(), site_id: z.string().optional(), type: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -29,7 +30,7 @@ export const monitoringGroupsActions: Record<string, ActionDefinition> = {
     description: "Get monitoring group by id. Part of: Monitoring Groups. Calls GET /phone/monitoringgroups/{monitoringGroupId} on Zoom.",
     method: "GET",
     path: "/phone/monitoring_groups/{monitoringGroupId}",
-    input: z.object({ monitoringGroupId: z.string() }),
+    input: obj({ monitoringGroupId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const monitoringGroupsActions: Record<string, ActionDefinition> = {
     description: "Update monitoring group. Part of: Monitoring Groups. Calls PATCH /phone/monitoringgroups/{monitoringGroupId} on Zoom.",
     method: "PATCH",
     path: "/phone/monitoring_groups/{monitoringGroupId}",
-    input: z.object({ monitoringGroupId: z.string(), monitoring_privileges: z.array(z.enum(["listen", "whisper", "barge", "take_over"])).optional(), name: z.string().optional(), prompt: z.boolean().optional(), site_id: z.string().optional() }),
+    input: obj({ monitoringGroupId: z.string(), monitoring_privileges: z.array(z.enum(["listen", "whisper", "barge", "take_over"])).optional(), name: z.string().optional(), prompt: z.boolean().optional(), site_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -45,7 +46,7 @@ export const monitoringGroupsActions: Record<string, ActionDefinition> = {
     description: "Delete monitoring group. Part of: Monitoring Groups. Calls DELETE /phone/monitoringgroups/{monitoringGroupId} on Zoom.",
     method: "DELETE",
     path: "/phone/monitoring_groups/{monitoringGroupId}",
-    input: z.object({ monitoringGroupId: z.string() }),
+    input: obj({ monitoringGroupId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -53,7 +54,7 @@ export const monitoringGroupsActions: Record<string, ActionDefinition> = {
     description: "List members. Part of: Monitoring Groups. Calls GET /phone/monitoringgroups/{monitoringGroupId}/monitormembers on Zoom.",
     method: "GET",
     path: "/phone/monitoring_groups/{monitoringGroupId}/monitor_members",
-    input: z.object({ monitoringGroupId: z.string(), member_type: z.enum(["monitor", "monitored"]), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ monitoringGroupId: z.string(), member_type: z.enum(["monitor", "monitored"]), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "members", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -62,7 +63,7 @@ export const monitoringGroupsActions: Record<string, ActionDefinition> = {
     description: "Add members. Part of: Monitoring Groups. Calls POST /phone/monitoringgroups/{monitoringGroupId}/monitormembers on Zoom.",
     method: "POST",
     path: "/phone/monitoring_groups/{monitoringGroupId}/monitor_members",
-    input: z.object({ monitoringGroupId: z.string(), member_type: z.enum(["monitor", "monitored"]), body: z.array(z.string()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ monitoringGroupId: z.string(), member_type: z.enum(["monitor", "monitored"]), body: z.array(z.string()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["member_type"]),
@@ -72,7 +73,7 @@ export const monitoringGroupsActions: Record<string, ActionDefinition> = {
     description: "Remove members. Part of: Monitoring Groups. Calls DELETE /phone/monitoringgroups/{monitoringGroupId}/monitormembers on Zoom.",
     method: "DELETE",
     path: "/phone/monitoring_groups/{monitoringGroupId}/monitor_members",
-    input: z.object({ monitoringGroupId: z.string(), member_type: z.enum(["monitor", "monitored"]) }),
+    input: obj({ monitoringGroupId: z.string(), member_type: z.enum(["monitor", "monitored"]) }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -80,7 +81,7 @@ export const monitoringGroupsActions: Record<string, ActionDefinition> = {
     description: "Remove member. Part of: Monitoring Groups. Calls DELETE /phone/monitoringgroups/{monitoringGroupId}/monitormembers/{memberExtensionId} on Zoom.",
     method: "DELETE",
     path: "/phone/monitoring_groups/{monitoringGroupId}/monitor_members/{memberExtensionId}",
-    input: z.object({ monitoringGroupId: z.string(), memberExtensionId: z.string(), member_type: z.enum(["monitor", "monitored"]).optional() }),
+    input: obj({ monitoringGroupId: z.string(), memberExtensionId: z.string(), member_type: z.enum(["monitor", "monitored"]).optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

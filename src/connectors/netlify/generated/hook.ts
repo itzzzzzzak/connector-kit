@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const hookActions: Record<string, ActionDefinition> = {
     description: "List hooks by site id Calls GET /hooks on Netlify.",
     method: "GET",
     path: "/hooks",
-    input: z.object({ site_id: z.string() }),
+    input: obj({ site_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const hookActions: Record<string, ActionDefinition> = {
     description: "Create hook by site id Calls POST /hooks on Netlify.",
     method: "POST",
     path: "/hooks",
-    input: z.object({ site_id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ site_id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["site_id"]),
@@ -29,7 +30,7 @@ export const hookActions: Record<string, ActionDefinition> = {
     description: "Get hook Calls GET /hooks/{hookid} on Netlify.",
     method: "GET",
     path: "/hooks/{hook_id}",
-    input: z.object({ hook_id: z.string() }),
+    input: obj({ hook_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const hookActions: Record<string, ActionDefinition> = {
     description: "Update hook Calls PUT /hooks/{hookid} on Netlify.",
     method: "PUT",
     path: "/hooks/{hook_id}",
-    input: z.object({ hook_id: z.string(), id: z.string().optional(), site_id: z.string().optional(), type: z.string().optional(), event: z.string().optional(), data: z.record(z.string(), z.unknown()).optional(), created_at: z.string().optional(), updated_at: z.string().optional(), disabled: z.boolean().optional() }),
+    input: obj({ hook_id: z.string(), id: z.string().optional(), site_id: z.string().optional(), type: z.string().optional(), event: z.string().optional(), data: z.record(z.string(), z.unknown()).optional(), created_at: z.string().optional(), updated_at: z.string().optional(), disabled: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -45,7 +46,7 @@ export const hookActions: Record<string, ActionDefinition> = {
     description: "Delete hook Calls DELETE /hooks/{hookid} on Netlify.",
     method: "DELETE",
     path: "/hooks/{hook_id}",
-    input: z.object({ hook_id: z.string() }),
+    input: obj({ hook_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -53,7 +54,7 @@ export const hookActions: Record<string, ActionDefinition> = {
     description: "Enable hook Calls POST /hooks/{hookid}/enable on Netlify.",
     method: "POST",
     path: "/hooks/{hook_id}/enable",
-    input: z.object({ hook_id: z.string() }),
+    input: obj({ hook_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const crmCompaniesActions: Record<string, ActionDefinition> = {
     description: "Create batch archive. Part of: Batch. Calls POST /crm/v3/objects/companies/batch/archive on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/companies/batch/archive",
-    input: z.object({ inputs: z.array(z.object({ id: z.string() })) }),
+    input: obj({ inputs: z.array(obj({ id: z.string() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const crmCompaniesActions: Record<string, ActionDefinition> = {
     description: "Create batch create. Part of: Batch. Calls POST /crm/v3/objects/companies/batch/create on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/companies/batch/create",
-    input: z.object({ inputs: z.array(z.object({ associations: z.array(z.record(z.string(), z.unknown())), objectWriteTraceId: z.string().optional(), properties: z.record(z.string(), z.unknown()) })) }),
+    input: obj({ inputs: z.array(obj({ associations: z.array(z.record(z.string(), z.unknown())), objectWriteTraceId: z.string().optional(), properties: z.record(z.string(), z.unknown()) })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const crmCompaniesActions: Record<string, ActionDefinition> = {
     description: "Create batch read. Part of: Batch. Calls POST /crm/v3/objects/companies/batch/read on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/companies/batch/read",
-    input: z.object({ archived: z.boolean().optional(), idProperty: z.string().optional(), inputs: z.array(z.object({ id: z.string() })), properties: z.array(z.string()), propertiesWithHistory: z.array(z.string()) }),
+    input: obj({ archived: z.boolean().optional(), idProperty: z.string().optional(), inputs: z.array(obj({ id: z.string() })), properties: z.array(z.string()), propertiesWithHistory: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["archived"]),
@@ -37,7 +38,7 @@ export const crmCompaniesActions: Record<string, ActionDefinition> = {
     description: "Create batch update. Part of: Batch. Calls POST /crm/v3/objects/companies/batch/update on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/companies/batch/update",
-    input: z.object({ inputs: z.array(z.object({ id: z.string(), idProperty: z.string().optional(), objectWriteTraceId: z.string().optional(), properties: z.record(z.string(), z.unknown()) })) }),
+    input: obj({ inputs: z.array(obj({ id: z.string(), idProperty: z.string().optional(), objectWriteTraceId: z.string().optional(), properties: z.record(z.string(), z.unknown()) })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -45,7 +46,7 @@ export const crmCompaniesActions: Record<string, ActionDefinition> = {
     description: "Create batch upsert. Part of: Batch. Calls POST /crm/v3/objects/companies/batch/upsert on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/companies/batch/upsert",
-    input: z.object({ inputs: z.array(z.object({ id: z.string(), idProperty: z.string().optional(), objectWriteTraceId: z.string().optional(), properties: z.record(z.string(), z.unknown()) })) }),
+    input: obj({ inputs: z.array(obj({ id: z.string(), idProperty: z.string().optional(), objectWriteTraceId: z.string().optional(), properties: z.record(z.string(), z.unknown()) })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -53,7 +54,7 @@ export const crmCompaniesActions: Record<string, ActionDefinition> = {
     description: "Create merge. Part of: Advanced. Calls POST /crm/v3/objects/companies/merge on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/companies/merge",
-    input: z.object({ objectIdToMerge: z.string(), primaryObjectId: z.string() }),
+    input: obj({ objectIdToMerge: z.string(), primaryObjectId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -61,7 +62,7 @@ export const crmCompaniesActions: Record<string, ActionDefinition> = {
     description: "Create search. Part of: Search. Calls POST /crm/v3/objects/companies/search on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/companies/search",
-    input: z.object({ after: z.string(), filterGroups: z.array(z.object({ filters: z.array(z.record(z.string(), z.unknown())) })), limit: z.number(), properties: z.array(z.string()), query: z.string().optional(), sorts: z.array(z.string()) }),
+    input: obj({ after: z.string(), filterGroups: z.array(obj({ filters: z.array(z.record(z.string(), z.unknown())) })), limit: z.number(), properties: z.array(z.string()), query: z.string().optional(), sorts: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -69,7 +70,7 @@ export const crmCompaniesActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Basic. Calls PATCH /crm/v3/objects/companies/{companyId} on HubSpot.",
     method: "PATCH",
     path: "/crm/v3/objects/companies/{companyId}",
-    input: z.object({ companyId: z.string(), idProperty: z.string().optional(), properties: z.record(z.string(), z.unknown()) }),
+    input: obj({ companyId: z.string(), idProperty: z.string().optional(), properties: z.record(z.string(), z.unknown()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["idProperty"]),
@@ -79,7 +80,7 @@ export const crmCompaniesActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /crm/v3/objects/companies/{companyId} on HubSpot.",
     method: "DELETE",
     path: "/crm/v3/objects/companies/{companyId}",
-    input: z.object({ companyId: z.string() }),
+    input: obj({ companyId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

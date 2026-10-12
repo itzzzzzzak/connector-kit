@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const regionsActions: Record<string, ActionDefinition> = {
     description: "List regions. Part of: Regions. Calls GET /contactcenter/regions on Zoom.",
     method: "GET",
     path: "/contact_center/regions",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "regions", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -21,7 +22,7 @@ export const regionsActions: Record<string, ActionDefinition> = {
     description: "Create aregion. Part of: Regions. Calls POST /contactcenter/regions on Zoom.",
     method: "POST",
     path: "/contact_center/regions",
-    input: z.object({ region_name: z.string().optional(), sip_zone_id: z.string().optional() }),
+    input: obj({ region_name: z.string().optional(), sip_zone_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -29,7 +30,7 @@ export const regionsActions: Record<string, ActionDefinition> = {
     description: "Get aregion. Part of: Regions. Calls GET /contactcenter/regions/{regionId} on Zoom.",
     method: "GET",
     path: "/contact_center/regions/{regionId}",
-    input: z.object({ regionId: z.string(), region_identifier_type: z.enum(["id", "name"]).optional() }),
+    input: obj({ regionId: z.string(), region_identifier_type: z.enum(["id", "name"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const regionsActions: Record<string, ActionDefinition> = {
     description: "Update aregion. Part of: Regions. Calls PATCH /contactcenter/regions/{regionId} on Zoom.",
     method: "PATCH",
     path: "/contact_center/regions/{regionId}",
-    input: z.object({ regionId: z.string(), region_identifier_type: z.enum(["id", "name"]).optional(), region_name: z.string().optional(), sip_zone_id: z.string().optional() }),
+    input: obj({ regionId: z.string(), region_identifier_type: z.enum(["id", "name"]).optional(), region_name: z.string().optional(), sip_zone_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["region_identifier_type"]),
@@ -47,7 +48,7 @@ export const regionsActions: Record<string, ActionDefinition> = {
     description: "Delete aregion. Part of: Regions. Calls DELETE /contactcenter/regions/{regionId} on Zoom.",
     method: "DELETE",
     path: "/contact_center/regions/{regionId}",
-    input: z.object({ regionId: z.string(), region_identifier_type: z.enum(["id", "name"]).optional(), move_to_region_id: z.string() }),
+    input: obj({ regionId: z.string(), region_identifier_type: z.enum(["id", "name"]).optional(), move_to_region_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -55,7 +56,7 @@ export const regionsActions: Record<string, ActionDefinition> = {
     description: "List region s users. Part of: Regions. Calls GET /contactcenter/regions/{regionId}/users on Zoom.",
     method: "GET",
     path: "/contact_center/regions/{regionId}/users",
-    input: z.object({ regionId: z.string(), region_identifier_type: z.enum(["id", "name"]).optional(), role_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ regionId: z.string(), region_identifier_type: z.enum(["id", "name"]).optional(), role_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "users", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -64,7 +65,7 @@ export const regionsActions: Record<string, ActionDefinition> = {
     description: "Assign users to aregion. Part of: Regions. Calls POST /contactcenter/regions/{regionId}/users on Zoom.",
     method: "POST",
     path: "/contact_center/regions/{regionId}/users",
-    input: z.object({ regionId: z.string(), region_identifier_type: z.enum(["id", "name"]).optional(), user_ids: z.array(z.string()).optional() }),
+    input: obj({ regionId: z.string(), region_identifier_type: z.enum(["id", "name"]).optional(), user_ids: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["region_identifier_type"]),

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const issuingPhysicalBundlesActions: Record<string, ActionDefinition> = {
     description: "List all physical bundles. Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.",
     method: "GET",
     path: "/issuing/physical_bundles",
-    input: z.object({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), status: z.enum(["active", "inactive", "review"]).describe("Only return physical bundles with the given status.").optional(), type: z.enum(["custom", "standard"]).describe("Only return physical bundles with the given type.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), status: z.enum(["active", "inactive", "review"]).describe("Only return physical bundles with the given status.").optional(), type: z.enum(["custom", "standard"]).describe("Only return physical bundles with the given type.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const issuingPhysicalBundlesActions: Record<string, ActionDefinition> = {
     description: "Retrieve a physical bundle. Retrieves a physical bundle object.",
     method: "GET",
     path: "/issuing/physical_bundles/{physical_bundle}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), physical_bundle: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), physical_bundle: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

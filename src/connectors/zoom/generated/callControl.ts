@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const callControlActions: Record<string, ActionDefinition> = {
     description: "Engagement recording control. Part of: Call Control. Calls PUT /contactcenter/engagements/{engagementId}/recording/{command} on Zoom.",
     method: "PUT",
     path: "/contact_center/engagements/{engagementId}/recording/{command}",
-    input: z.object({ engagementId: z.string(), command: z.enum(["pause", "resume"]) }),
+    input: obj({ engagementId: z.string(), command: z.enum(["pause", "resume"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const callControlActions: Record<string, ActionDefinition> = {
     description: "User control. Part of: Call Control. Calls POST /contactcenter/users/{userId}/commands on Zoom.",
     method: "POST",
     path: "/contact_center/users/{userId}/commands",
-    input: z.object({ userId: z.string(), command: z.enum(["make_call", "answer_call", "hold_call", "unhold_call", "end_call", "conference_warm_invite", "transfer_direct"]), channel: z.enum(["voice"]), params: z.object({ device_id: z.string().optional(), cc_queue_id: z.string().optional(), queue_caller_id_number: z.string().optional(), consumer_number: z.string().optional(), consumer_display_name: z.string().optional(), reservation_id: z.string().optional(), engagement_id: z.string().optional(), invitee_type: z.number().optional(), invitee_id: z.string().optional(), target: z.object({ type: z.enum(["queue"]), id: z.string() }).optional() }).optional() }),
+    input: obj({ userId: z.string(), command: z.enum(["make_call", "answer_call", "hold_call", "unhold_call", "end_call", "conference_warm_invite", "transfer_direct"]), channel: z.enum(["voice"]), params: obj({ device_id: z.string().optional(), cc_queue_id: z.string().optional(), queue_caller_id_number: z.string().optional(), consumer_number: z.string().optional(), consumer_display_name: z.string().optional(), reservation_id: z.string().optional(), engagement_id: z.string().optional(), invitee_type: z.number().optional(), invitee_id: z.string().optional(), target: obj({ type: z.enum(["queue"]), id: z.string() }).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const callControlActions: Record<string, ActionDefinition> = {
     description: "Listuserdevices. Part of: Call Control. Calls GET /contactcenter/users/{userId}/devices on Zoom.",
     method: "GET",
     path: "/contact_center/users/{userId}/devices",
-    input: z.object({ userId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ userId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "devices", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const speakersActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const speakersActions: Record<string, ActionDefinition> = {
     description: "Get speakers. Part of: Speakers. Calls GET /zoomevents/events/{eventId}/speakers on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/speakers",
-    input: z.object({ eventId: z.string() }),
+    input: obj({ eventId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const speakersActions: Record<string, ActionDefinition> = {
     description: "Create speaker. Part of: Speakers. Calls POST /zoomevents/events/{eventId}/speakers on Zoom.",
     method: "POST",
     path: "/zoom_events/events/{eventId}/speakers",
-    input: z.object({ eventId: z.string(), name: z.string(), email: z.string().optional(), job_title: z.string().optional(), biography: z.string().optional(), company_name: z.string().optional(), company_website: z.string().optional(), linkedin_url: z.string().optional(), twitter_url: z.string().optional(), youtube_url: z.string().optional(), featured_in_event_detail_page: z.boolean().optional(), visible_in_event_detail_page: z.boolean().optional(), featured_in_lobby: z.boolean().optional(), visible_in_lobby: z.boolean().optional() }),
+    input: obj({ eventId: z.string(), name: z.string(), email: z.string().optional(), job_title: z.string().optional(), biography: z.string().optional(), company_name: z.string().optional(), company_website: z.string().optional(), linkedin_url: z.string().optional(), twitter_url: z.string().optional(), youtube_url: z.string().optional(), featured_in_event_detail_page: z.boolean().optional(), visible_in_event_detail_page: z.boolean().optional(), featured_in_lobby: z.boolean().optional(), visible_in_lobby: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const speakersActions: Record<string, ActionDefinition> = {
     description: "Get speaker. Part of: Speakers. Calls GET /zoomevents/events/{eventId}/speakers/{speakerId} on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/speakers/{speakerId}",
-    input: z.object({ eventId: z.string(), speakerId: z.string() }),
+    input: obj({ eventId: z.string(), speakerId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const speakersActions: Record<string, ActionDefinition> = {
     description: "Update speaker. Part of: Speakers. Calls PATCH /zoomevents/events/{eventId}/speakers/{speakerId} on Zoom.",
     method: "PATCH",
     path: "/zoom_events/events/{eventId}/speakers/{speakerId}",
-    input: z.object({ eventId: z.string(), speakerId: z.string(), name: z.string().optional(), email: z.string().optional(), job_title: z.string().optional(), biography: z.string().optional(), company_name: z.string().optional(), company_website: z.string().optional(), linkedin_url: z.string().optional(), twitter_url: z.string().optional(), youtube_url: z.string().optional(), featured_in_event_detail_page: z.boolean().optional(), visible_in_event_detail_page: z.boolean().optional(), featured_in_lobby: z.boolean().optional(), visible_in_lobby: z.boolean().optional() }),
+    input: obj({ eventId: z.string(), speakerId: z.string(), name: z.string().optional(), email: z.string().optional(), job_title: z.string().optional(), biography: z.string().optional(), company_name: z.string().optional(), company_website: z.string().optional(), linkedin_url: z.string().optional(), twitter_url: z.string().optional(), youtube_url: z.string().optional(), featured_in_event_detail_page: z.boolean().optional(), visible_in_event_detail_page: z.boolean().optional(), featured_in_lobby: z.boolean().optional(), visible_in_lobby: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const speakersActions: Record<string, ActionDefinition> = {
     description: "Delete speaker. Part of: Speakers. Calls DELETE /zoomevents/events/{eventId}/speakers/{speakerId} on Zoom.",
     method: "DELETE",
     path: "/zoom_events/events/{eventId}/speakers/{speakerId}",
-    input: z.object({ eventId: z.string(), speakerId: z.string() }),
+    input: obj({ eventId: z.string(), speakerId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

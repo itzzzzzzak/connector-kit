@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const iPAllowListsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const iPAllowListsActions: Record<string, ActionDefinition> = {
     description: "List ip allow lists. Part of: IP Allow Lists. Calls GET /ipallowlists on PagerDuty.",
     method: "GET",
     path: "/ip_allow_lists",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const iPAllowListsActions: Record<string, ActionDefinition> = {
     description: "Create ip allow list. Part of: IP Allow Lists. Calls POST /ipallowlists on PagerDuty.",
     method: "POST",
     path: "/ip_allow_lists",
-    input: z.object({ ip_allow_list: z.object({ id: z.string().optional(), type: z.enum(["ip_allow_list"]).optional(), state: z.enum(["enabled", "disabled"]), cidr_entries: z.array(z.record(z.string(), z.unknown())) }) }),
+    input: obj({ ip_allow_list: obj({ id: z.string().optional(), type: z.enum(["ip_allow_list"]).optional(), state: z.enum(["enabled", "disabled"]), cidr_entries: z.array(z.record(z.string(), z.unknown())) }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const iPAllowListsActions: Record<string, ActionDefinition> = {
     description: "Get ip allow list. Part of: IP Allow Lists. Calls GET /ipallowlists/{id} on PagerDuty.",
     method: "GET",
     path: "/ip_allow_lists/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const iPAllowListsActions: Record<string, ActionDefinition> = {
     description: "Update ip allow list. Part of: IP Allow Lists. Calls PUT /ipallowlists/{id} on PagerDuty.",
     method: "PUT",
     path: "/ip_allow_lists/{id}",
-    input: z.object({ id: z.string(), ip_allow_list: z.object({ id: z.string().optional(), type: z.enum(["ip_allow_list"]).optional(), state: z.enum(["enabled", "disabled"]), cidr_entries: z.array(z.record(z.string(), z.unknown())) }) }),
+    input: obj({ id: z.string(), ip_allow_list: obj({ id: z.string().optional(), type: z.enum(["ip_allow_list"]).optional(), state: z.enum(["enabled", "disabled"]), cidr_entries: z.array(z.record(z.string(), z.unknown())) }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const iPAllowListsActions: Record<string, ActionDefinition> = {
     description: "Delete ip allow list. Part of: IP Allow Lists. Calls DELETE /ipallowlists/{id} on PagerDuty.",
     method: "DELETE",
     path: "/ip_allow_lists/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const iPAllowListsActions: Record<string, ActionDefinition> = {
     description: "List ip allow list audit records. Part of: IP Allow Lists. Calls GET /ipallowlists/{id}/audit/records on PagerDuty.",
     method: "GET",
     path: "/ip_allow_lists/{id}/audit/records",
-    input: z.object({ id: z.string(), limit: z.number().optional(), cursor: z.string().optional(), since: z.string().optional(), until: z.string().optional() }),
+    input: obj({ id: z.string(), limit: z.number().optional(), cursor: z.string().optional(), since: z.string().optional(), until: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const incrementalExportActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const incrementalExportActions: Record<string, ActionDefinition> = {
     description: "Incremental sample export. Part of: Incremental Export. Calls GET /incremental/{incrementalresource}/sample on Zendesk.",
     method: "GET",
     path: "/incremental/{incremental_resource}/sample",
-    input: z.object({ start_time: z.number(), incremental_resource: z.string() }),
+    input: obj({ start_time: z.number(), incremental_resource: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const incrementalExportActions: Record<string, ActionDefinition> = {
     description: "Incremental organization export. Part of: Incremental Export. Calls GET /incremental/organizations on Zendesk.",
     method: "GET",
     path: "/incremental/organizations",
-    input: z.object({ start_time: z.number(), per_page: z.number().optional() }),
+    input: obj({ start_time: z.number(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const incrementalExportActions: Record<string, ActionDefinition> = {
     description: "Incremental ticket events. Part of: Incremental Export. Calls GET /incremental/ticketevents on Zendesk.",
     method: "GET",
     path: "/incremental/ticket_events",
-    input: z.object({ start_time: z.number(), support_type_scope: z.string().optional(), include: z.string().optional() }),
+    input: obj({ start_time: z.number(), support_type_scope: z.string().optional(), include: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const incrementalExportActions: Record<string, ActionDefinition> = {
     description: "Incremental ticket export time. Part of: Incremental Export. Calls GET /incremental/tickets on Zendesk.",
     method: "GET",
     path: "/incremental/tickets",
-    input: z.object({ start_time: z.number(), support_type_scope: z.string().optional() }),
+    input: obj({ start_time: z.number(), support_type_scope: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const incrementalExportActions: Record<string, ActionDefinition> = {
     description: "Incremental ticket export cursor. Part of: Incremental Export. Calls GET /incremental/tickets/cursor on Zendesk.",
     method: "GET",
     path: "/incremental/tickets/cursor",
-    input: z.object({ start_time: z.number().optional(), cursor: z.string().optional(), support_type_scope: z.string().optional() }),
+    input: obj({ start_time: z.number().optional(), cursor: z.string().optional(), support_type_scope: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const incrementalExportActions: Record<string, ActionDefinition> = {
     description: "Incremental user export time. Part of: Incremental Export. Calls GET /incremental/users on Zendesk.",
     method: "GET",
     path: "/incremental/users",
-    input: z.object({ start_time: z.number(), per_page: z.number().optional() }),
+    input: obj({ start_time: z.number(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const incrementalExportActions: Record<string, ActionDefinition> = {
     description: "Incremental user export cursor. Part of: Incremental Export. Calls GET /incremental/users/cursor on Zendesk.",
     method: "GET",
     path: "/incremental/users/cursor",
-    input: z.object({ start_time: z.number().optional(), cursor: z.string().optional(), per_page: z.number().optional() }),
+    input: obj({ start_time: z.number().optional(), cursor: z.string().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },

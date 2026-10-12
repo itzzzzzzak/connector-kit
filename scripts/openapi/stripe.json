@@ -1,4 +1,4 @@
-{ "name": "stripe", "title": "Stripe", "naming": "rest", "formEncoded": true, "spec": "https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.json", "license": "MIT (github.com/stripe/openapi)",
+{ "name": "stripe", "title": "Stripe", "naming": "rest", "formEncoded": true, "maxDepth": 1, "spec": "https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.json", "license": "MIT (github.com/stripe/openapi)",
   "namespaces": ["apps", "billing", "billing_portal", "checkout", "climate", "entitlements", "financial_connections", "forwarding", "identity", "issuing", "radar", "reporting", "sigma", "tax", "terminal", "test_helpers", "treasury"],
   "destructiveVerbs": "^(cancel|void|expire|close|reject|decline|deactivate|archive|revoke|refund|delete)",
   "pagination": [

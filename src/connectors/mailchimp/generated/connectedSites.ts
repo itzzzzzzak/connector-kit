@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const connectedSitesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const connectedSitesActions: Record<string, ActionDefinition> = {
     description: "Post connected sites id actions verify script installation. Part of: connectedSites. Calls POST /connected-sites/{connectedsiteid}/actions/verify-script-installation on Mailchimp.",
     method: "POST",
     path: "/connected-sites/{connected_site_id}/actions/verify-script-installation",
-    input: z.object({ connected_site_id: z.string() }),
+    input: obj({ connected_site_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const connectedSitesActions: Record<string, ActionDefinition> = {
     description: "Get connected sites id. Part of: connectedSites. Calls GET /connected-sites/{connectedsiteid} on Mailchimp.",
     method: "GET",
     path: "/connected-sites/{connected_site_id}",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), connected_site_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), connected_site_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const connectedSitesActions: Record<string, ActionDefinition> = {
     description: "Delete connected sites id. Part of: connectedSites. Calls DELETE /connected-sites/{connectedsiteid} on Mailchimp.",
     method: "DELETE",
     path: "/connected-sites/{connected_site_id}",
-    input: z.object({ connected_site_id: z.string() }),
+    input: obj({ connected_site_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const connectedSitesActions: Record<string, ActionDefinition> = {
     description: "Get connected sites. Part of: connectedSites. Calls GET /connected-sites on Mailchimp.",
     method: "GET",
     path: "/connected-sites",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const connectedSitesActions: Record<string, ActionDefinition> = {
     description: "Post connected sites. Part of: connectedSites. Calls POST /connected-sites on Mailchimp.",
     method: "POST",
     path: "/connected-sites",
-    input: z.object({ foreign_id: z.string(), domain: z.string() }),
+    input: obj({ foreign_id: z.string(), domain: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const connectedSitesActions: Record<string, ActionDefinition> = {
     description: "Post connected sites id actions disable pixel. Part of: connectedSites. Calls POST /connected-sites/{connectedsiteid}/actions/disable-pixel on Mailchimp.",
     method: "POST",
     path: "/connected-sites/{connected_site_id}/actions/disable-pixel",
-    input: z.object({ connected_site_id: z.string() }),
+    input: obj({ connected_site_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const connectedSitesActions: Record<string, ActionDefinition> = {
     description: "Post connected sites id actions enable pixel. Part of: connectedSites. Calls POST /connected-sites/{connectedsiteid}/actions/enable-pixel on Mailchimp.",
     method: "POST",
     path: "/connected-sites/{connected_site_id}/actions/enable-pixel",
-    input: z.object({ connected_site_id: z.string() }),
+    input: obj({ connected_site_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

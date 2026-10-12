@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectCategoriesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectCategoriesActions: Record<string, ActionDefinition> = {
     description: "Get all project categories. Returns all project categories.",
     method: "GET",
     path: "/projectCategory",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const projectCategoriesActions: Record<string, ActionDefinition> = {
     description: "Create project category. Creates a project category.",
     method: "POST",
     path: "/projectCategory",
-    input: z.object({ description: z.string().describe("The description of the project category.").optional(), id: z.string().describe("The ID of the project category.").optional(), name: z.string().describe("The name of the project category. Required on create, optional on update.").optional(), self: z.string().describe("The URL of the project category.").optional() }),
+    input: obj({ description: z.string().describe("The description of the project category.").optional(), id: z.string().describe("The ID of the project category.").optional(), name: z.string().describe("The name of the project category. Required on create, optional on update.").optional(), self: z.string().describe("The URL of the project category.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const projectCategoriesActions: Record<string, ActionDefinition> = {
     description: "Get project category by ID. Returns a project category.",
     method: "GET",
     path: "/projectCategory/{id}",
-    input: z.object({ id: z.number().describe("The ID of the project category.") }),
+    input: obj({ id: z.number().describe("The ID of the project category.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const projectCategoriesActions: Record<string, ActionDefinition> = {
     description: "Update project category. Updates a project category.",
     method: "PUT",
     path: "/projectCategory/{id}",
-    input: z.object({ id: z.number(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ id: z.number(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -43,7 +44,7 @@ export const projectCategoriesActions: Record<string, ActionDefinition> = {
     description: "Delete project category. Deletes a project category.",
     method: "DELETE",
     path: "/projectCategory/{id}",
-    input: z.object({ id: z.number().describe("ID of the project category to delete.") }),
+    input: obj({ id: z.number().describe("ID of the project category to delete.") }),
     output: z.unknown(),
     effect: "destructive",
   },

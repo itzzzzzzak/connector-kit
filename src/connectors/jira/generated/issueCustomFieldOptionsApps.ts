@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const issueCustomFieldOptionsAppsActions: Record<string, ActionDefinition
     description: "Get all issue field options. Returns a paginated list of all the options of a select list issue field. A select list issue field is a type of issue field that enables a user to select a value from a list of options.",
     method: "GET",
     path: "/field/{fieldKey}/option",
-    input: z.object({ fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const issueCustomFieldOptionsAppsActions: Record<string, ActionDefinition
     description: "Create issue field option. Creates an option for a select list issue field.",
     method: "POST",
     path: "/field/{fieldKey}/option",
-    input: z.object({ fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), config: z.object({ attributes: z.array(z.enum(["notSelectable", "defaultValue"])).optional(), scope: z.object({ global: z.record(z.string(), z.unknown()).optional(), projects: z.array(z.number()).optional(), projects2: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }).describe("Details of the projects the option is available in.").optional(), properties: z.record(z.string(), z.unknown()).describe("The properties of the option as arbitrary key-value pairs. These properties can be searched using JQL, if the extractions (see…").optional(), value: z.string().describe("The option's name, which is displayed in Jira.") }),
+    input: obj({ fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), config: obj({ attributes: z.array(z.enum(["notSelectable", "defaultValue"])).optional(), scope: obj({ global: z.record(z.string(), z.unknown()).optional(), projects: z.array(z.number()).optional(), projects2: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }).describe("Details of the projects the option is available in.").optional(), properties: z.record(z.string(), z.unknown()).describe("The properties of the option as arbitrary key-value pairs. These properties can be searched using JQL, if the extractions (see…").optional(), value: z.string().describe("The option's name, which is displayed in Jira.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const issueCustomFieldOptionsAppsActions: Record<string, ActionDefinition
     description: "Get selectable issue field options. Returns a paginated list of options for a select list issue field that can be viewed and selected by the user.",
     method: "GET",
     path: "/field/{fieldKey}/option/suggestions/edit",
-    input: z.object({ projectId: z.number().describe("Filters the results to options that are only available in the specified project.").optional(), fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ projectId: z.number().describe("Filters the results to options that are only available in the specified project.").optional(), fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -37,7 +38,7 @@ export const issueCustomFieldOptionsAppsActions: Record<string, ActionDefinition
     description: "Get visible issue field options. Returns a paginated list of options for a select list issue field that can be viewed by the user.",
     method: "GET",
     path: "/field/{fieldKey}/option/suggestions/search",
-    input: z.object({ projectId: z.number().describe("Filters the results to options that are only available in the specified project.").optional(), fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ projectId: z.number().describe("Filters the results to options that are only available in the specified project.").optional(), fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -46,7 +47,7 @@ export const issueCustomFieldOptionsAppsActions: Record<string, ActionDefinition
     description: "Get issue field option. Returns an option from a select list issue field.",
     method: "GET",
     path: "/field/{fieldKey}/option/{optionId}",
-    input: z.object({ fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), optionId: z.number().describe("The ID of the option to be returned.") }),
+    input: obj({ fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), optionId: z.number().describe("The ID of the option to be returned.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -54,7 +55,7 @@ export const issueCustomFieldOptionsAppsActions: Record<string, ActionDefinition
     description: "Update issue field option. Updates or creates an option for a select list issue field. This operation requires that the option ID is provided when creating an option, therefore, the option ID needs to be specified as a path and body parameter. The option ID provided in the path and body must be identical.",
     method: "PUT",
     path: "/field/{fieldKey}/option/{optionId}",
-    input: z.object({ fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), optionId: z.number().describe("The ID of the option to be updated."), config: z.object({ attributes: z.array(z.enum(["notSelectable", "defaultValue"])).optional(), scope: z.object({ global: z.record(z.string(), z.unknown()).optional(), projects: z.array(z.number()).optional(), projects2: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }).describe("Details of the projects the option is available in.").optional(), id: z.number().describe("The unique identifier for the option. This is only unique within the select field's set of options."), properties: z.record(z.string(), z.unknown()).describe("The properties of the object, as arbitrary key-value pairs. These properties can be searched using JQL, if the extractions (see Issue Field Option Property…").optional(), value: z.string().describe("The option's name, which is displayed in Jira.") }),
+    input: obj({ fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), optionId: z.number().describe("The ID of the option to be updated."), config: obj({ attributes: z.array(z.enum(["notSelectable", "defaultValue"])).optional(), scope: obj({ global: z.record(z.string(), z.unknown()).optional(), projects: z.array(z.number()).optional(), projects2: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }).describe("Details of the projects the option is available in.").optional(), id: z.number().describe("The unique identifier for the option. This is only unique within the select field's set of options."), properties: z.record(z.string(), z.unknown()).describe("The properties of the object, as arbitrary key-value pairs. These properties can be searched using JQL, if the extractions (see Issue Field Option Property…").optional(), value: z.string().describe("The option's name, which is displayed in Jira.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -62,7 +63,7 @@ export const issueCustomFieldOptionsAppsActions: Record<string, ActionDefinition
     description: "Delete issue field option. Deletes an option from a select list issue field.",
     method: "DELETE",
     path: "/field/{fieldKey}/option/{optionId}",
-    input: z.object({ fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), optionId: z.number().describe("The ID of the option to be deleted.") }),
+    input: obj({ fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), optionId: z.number().describe("The ID of the option to be deleted.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -70,7 +71,7 @@ export const issueCustomFieldOptionsAppsActions: Record<string, ActionDefinition
     description: "Replace issue field option. Deselects an issue-field select-list option from all issues where it is selected. A different option can be selected to replace the deselected option. The update can also be limited to a smaller set of issues by using a JQL query.",
     method: "DELETE",
     path: "/field/{fieldKey}/option/{optionId}/issue",
-    input: z.object({ replaceWith: z.number().describe("The ID of the option that will replace the currently selected option.").optional(), jql: z.string().describe("A JQL query that specifies the issues to be updated. For example, project=10000.").optional(), overrideScreenSecurity: z.boolean().describe("Whether screen security is overridden to enable hidden fields to be edited. Available to Connect and Forge app users with admin permission.").optional(), overrideEditableFlag: z.boolean().describe("Whether screen security is overridden to enable uneditable fields to be edited. Available to Connect and Forge app users with Administer Jira global permission.").optional(), fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), optionId: z.number().describe("The ID of the option to be deselected.") }),
+    input: obj({ replaceWith: z.number().describe("The ID of the option that will replace the currently selected option.").optional(), jql: z.string().describe("A JQL query that specifies the issues to be updated. For example, project=10000.").optional(), overrideScreenSecurity: z.boolean().describe("Whether screen security is overridden to enable hidden fields to be edited. Available to Connect and Forge app users with admin permission.").optional(), overrideEditableFlag: z.boolean().describe("Whether screen security is overridden to enable uneditable fields to be edited. Available to Connect and Forge app users with Administer Jira global permission.").optional(), fieldKey: z.string().describe("The field key is specified in the following format: $(app-key)\\\\$(field-key). For example, example-add-on\\\\example-issue-field. To determine the fieldKey…"), optionId: z.number().describe("The ID of the option to be deselected.") }),
     output: z.unknown(),
     effect: "destructive",
   },

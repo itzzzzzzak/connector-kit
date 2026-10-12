@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const packagesRubygemActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const packagesRubygemActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages rubygems file name. Part of: packagesrubygem. Calls GET /projects/{id}/packages/rubygems/{filename} on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/rubygems/{file_name}",
-    input: z.object({ id: z.number(), file_name: z.enum(["specs.4.8.gz", "latest_specs.4.8.gz", "prerelease_specs.4.8.gz"]) }),
+    input: obj({ id: z.number(), file_name: z.enum(["specs.4.8.gz", "latest_specs.4.8.gz", "prerelease_specs.4.8.gz"]) }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const packagesRubygemActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages rubygems quick marshal48 file name. Part of: packagesrubygem. Calls GET /projects/{id}/packages/rubygems/quick/Marshal.4.8/{filename} on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/rubygems/quick/Marshal.4.8/{file_name}",
-    input: z.object({ id: z.number(), file_name: z.unknown() }),
+    input: obj({ id: z.number(), file_name: z.unknown() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const packagesRubygemActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages rubygems gems file name. Part of: packagesrubygem. Calls GET /projects/{id}/packages/rubygems/gems/{filename} on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/rubygems/gems/{file_name}",
-    input: z.object({ id: z.number(), file_name: z.unknown() }),
+    input: obj({ id: z.number(), file_name: z.unknown() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const packagesRubygemActions: Record<string, ActionDefinition> = {
     description: "Post projects id packages rubygems api v1 gems authorize. Part of: packagesrubygem. Calls POST /projects/{id}/packages/rubygems/api/v1/gems/authorize on GitLab.",
     method: "POST",
     path: "/projects/{id}/packages/rubygems/api/v1/gems/authorize",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const packagesRubygemActions: Record<string, ActionDefinition> = {
     description: "Post projects id packages rubygems api v1 gems. Part of: packagesrubygem. Calls POST /projects/{id}/packages/rubygems/api/v1/gems on GitLab.",
     method: "POST",
     path: "/projects/{id}/packages/rubygems/api/v1/gems",
-    input: z.object({ id: z.number(), file: z.unknown() }),
+    input: obj({ id: z.number(), file: z.unknown() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const packagesRubygemActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages rubygems api v1 dependencies. Part of: packagesrubygem. Calls GET /projects/{id}/packages/rubygems/api/v1/dependencies on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/rubygems/api/v1/dependencies",
-    input: z.object({ id: z.number(), gems: z.array(z.string()).optional() }),
+    input: obj({ id: z.number(), gems: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const environmentVariablesActions: Record<string, ActionDefinition> = {
     description: "Returns all environment variables for an account or site. An account corresponds to a team in the Netlify UI.",
     method: "GET",
     path: "/accounts/{account_id}/env",
-    input: z.object({ account_id: z.string().describe("Scope response to accountid"), context_name: z.enum(["all", "dev", "dev-server", "branch-deploy", "deploy-preview", "production"]).describe("Filter by deploy context").optional(), scope: z.enum(["builds", "functions", "runtime", "post-processing"]).describe("Filter by scope").optional(), site_id: z.string().describe("If specified, only return environment variables set on this site").optional() }),
+    input: obj({ account_id: z.string().describe("Scope response to accountid"), context_name: z.enum(["all", "dev", "dev-server", "branch-deploy", "deploy-preview", "production"]).describe("Filter by deploy context").optional(), scope: z.enum(["builds", "functions", "runtime", "post-processing"]).describe("Filter by scope").optional(), site_id: z.string().describe("If specified, only return environment variables set on this site").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const environmentVariablesActions: Record<string, ActionDefinition> = {
     description: "Creates new environment variables. Granular scopes are available on Pro plans and above.",
     method: "POST",
     path: "/accounts/{account_id}/env",
-    input: z.object({ account_id: z.string().describe("Scope response to accountid"), site_id: z.string().describe("If provided, create an environment variable on the site level, not the account level").optional(), body: z.array(z.object({ key: z.string().optional(), scopes: z.array(z.enum(["builds", "functions", "runtime", "post-processing"])).optional(), values: z.array(z.record(z.string(), z.unknown())).optional(), is_secret: z.boolean().optional() })).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ account_id: z.string().describe("Scope response to accountid"), site_id: z.string().describe("If provided, create an environment variable on the site level, not the account level").optional(), body: z.array(obj({ key: z.string().optional(), scopes: z.array(z.enum(["builds", "functions", "runtime", "post-processing"])).optional(), values: z.array(z.record(z.string(), z.unknown())).optional(), is_secret: z.boolean().optional() })).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["site_id"]),
@@ -29,7 +30,7 @@ export const environmentVariablesActions: Record<string, ActionDefinition> = {
     description: "Returns all environment variables for a site. This convenience method behaves the same as getEnvVars but doesn't require an accountid as input.",
     method: "GET",
     path: "/api/v1/sites/{site_id}/env",
-    input: z.object({ context_name: z.enum(["all", "dev", "dev-server", "branch-deploy", "deploy-preview", "production"]).describe("Filter by deploy context").optional(), scope: z.enum(["builds", "functions", "runtime", "post_processing"]).describe("Filter by scope").optional(), site_id: z.string().describe("Scope response to siteid") }),
+    input: obj({ context_name: z.enum(["all", "dev", "dev-server", "branch-deploy", "deploy-preview", "production"]).describe("Filter by deploy context").optional(), scope: z.enum(["builds", "functions", "runtime", "post_processing"]).describe("Filter by scope").optional(), site_id: z.string().describe("Scope response to siteid") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const environmentVariablesActions: Record<string, ActionDefinition> = {
     description: "Returns an individual environment variable. Calls GET /accounts/{accountid}/env/{key} on Netlify.",
     method: "GET",
     path: "/accounts/{account_id}/env/{key}",
-    input: z.object({ account_id: z.string().describe("Scope response to accountid"), key: z.string().describe("The environment variable key (case-sensitive)"), site_id: z.string().describe("If provided, return the environment variable for a specific site (no merging is performed)").optional() }),
+    input: obj({ account_id: z.string().describe("Scope response to accountid"), key: z.string().describe("The environment variable key (case-sensitive)"), site_id: z.string().describe("If provided, return the environment variable for a specific site (no merging is performed)").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -45,7 +46,7 @@ export const environmentVariablesActions: Record<string, ActionDefinition> = {
     description: "Updates an existing environment variable and all of its values. Existing values will be replaced by values provided.",
     method: "PUT",
     path: "/accounts/{account_id}/env/{key}",
-    input: z.object({ account_id: z.string().describe("Scope response to accountid"), key: z.string().describe("The existing environment variable key name (case-sensitive)"), site_id: z.string().describe("If provided, update an environment variable set on this site").optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ account_id: z.string().describe("Scope response to accountid"), key: z.string().describe("The existing environment variable key name (case-sensitive)"), site_id: z.string().describe("If provided, update an environment variable set on this site").optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["site_id"]),
@@ -55,7 +56,7 @@ export const environmentVariablesActions: Record<string, ActionDefinition> = {
     description: "Updates or creates a new value for an existing environment variable.",
     method: "PATCH",
     path: "/accounts/{account_id}/env/{key}",
-    input: z.object({ account_id: z.string().describe("Scope response to accountid"), key: z.string().describe("The existing environment variable key name (case-sensitive)"), site_id: z.string().describe("If provided, update an environment variable set on this site").optional(), context: z.enum(["all", "dev", "dev-server", "branch-deploy", "deploy-preview", "production", "branch"]).describe("The deploy context in which this value will be used. dev refers to local development when running netlify dev. branch must be provided with a value in…").optional(), context_parameter: z.string().describe("An additional parameter for custom branches. Currently, this is used for providing a branch name when context=branch.").optional(), value: z.string().describe("The environment variable's unencrypted value").optional() }),
+    input: obj({ account_id: z.string().describe("Scope response to accountid"), key: z.string().describe("The existing environment variable key name (case-sensitive)"), site_id: z.string().describe("If provided, update an environment variable set on this site").optional(), context: z.enum(["all", "dev", "dev-server", "branch-deploy", "deploy-preview", "production", "branch"]).describe("The deploy context in which this value will be used. dev refers to local development when running netlify dev. branch must be provided with a value in…").optional(), context_parameter: z.string().describe("An additional parameter for custom branches. Currently, this is used for providing a branch name when context=branch.").optional(), value: z.string().describe("The environment variable's unencrypted value").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["site_id"]),
@@ -65,7 +66,7 @@ export const environmentVariablesActions: Record<string, ActionDefinition> = {
     description: "Deletes an environment variable Calls DELETE /accounts/{accountid}/env/{key} on Netlify.",
     method: "DELETE",
     path: "/accounts/{account_id}/env/{key}",
-    input: z.object({ account_id: z.string().describe("Scope response to accountid"), key: z.string().describe("The environment variable key (case-sensitive)"), site_id: z.string().describe("If provided, delete the environment variable from this site").optional() }),
+    input: obj({ account_id: z.string().describe("Scope response to accountid"), key: z.string().describe("The environment variable key (case-sensitive)"), site_id: z.string().describe("If provided, delete the environment variable from this site").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -73,7 +74,7 @@ export const environmentVariablesActions: Record<string, ActionDefinition> = {
     description: "Deletes a specific environment variable value.",
     method: "DELETE",
     path: "/accounts/{account_id}/env/{key}/value/{id}",
-    input: z.object({ account_id: z.string().describe("Scope response to accountid"), id: z.string().describe("The environment variable value's ID"), key: z.string().describe("The environment variable key name (case-sensitive)"), site_id: z.string().describe("If provided, delete the value from an environment variable on this site").optional() }),
+    input: obj({ account_id: z.string().describe("Scope response to accountid"), id: z.string().describe("The environment variable value's ID"), key: z.string().describe("The environment variable key name (case-sensitive)"), site_id: z.string().describe("If provided, delete the value from an environment variable on this site").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/sentry.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const exploreActions: Record<string, ActionDefinition> = {
     description: "List organization aiconversations. Part of: Explore. Calls GET /organizations/{organizationidorslug}/agents/conversations/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/agents/conversations/",
-    input: z.object({ organization_id_or_slug: z.string(), project: z.array(z.unknown()).optional(), environment: z.array(z.string()).optional(), statsPeriod: z.string().optional(), start: z.string().optional(), end: z.string().optional(), query: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), project: z.array(z.unknown()).optional(), environment: z.array(z.string()).optional(), statsPeriod: z.string().optional(), start: z.string().optional(), end: z.string().optional(), query: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderCursorPagination({ cursorParam: "cursor", pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const exploreActions: Record<string, ActionDefinition> = {
     description: "Retrieve organization aiconversation. Part of: Explore. Calls GET /organizations/{organizationidorslug}/agents/conversations/{conversationid}/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/agents/conversations/{conversation_id}/",
-    input: z.object({ organization_id_or_slug: z.string(), conversation_id: z.string(), project: z.array(z.unknown()).optional(), environment: z.array(z.string()).optional(), statsPeriod: z.string().optional(), start: z.string().optional(), end: z.string().optional(), cursor: z.string().optional(), per_page: z.number().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), conversation_id: z.string(), project: z.array(z.unknown()).optional(), environment: z.array(z.string()).optional(), statsPeriod: z.string().optional(), start: z.string().optional(), end: z.string().optional(), cursor: z.string().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const exploreActions: Record<string, ActionDefinition> = {
     description: "List organization events. Part of: Explore. Calls GET /organizations/{organizationidorslug}/events/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/events/",
-    input: z.object({ organization_id_or_slug: z.string(), field: z.array(z.string()), dataset: z.enum(["errors", "logs", "profile_functions", "spans", "tracemetrics", "uptime_results"]), end: z.string().optional(), environment: z.array(z.string()).optional(), referrer: z.string().optional(), project: z.array(z.unknown()).optional(), start: z.string().optional(), statsPeriod: z.string().optional(), per_page: z.number().optional(), query: z.string().optional(), sort: z.string().optional(), allowAggregateConditions: z.boolean().optional(), cursor: z.string().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), field: z.array(z.string()), dataset: z.enum(["errors", "logs", "profile_functions", "spans", "tracemetrics", "uptime_results"]), end: z.string().optional(), environment: z.array(z.string()).optional(), referrer: z.string().optional(), project: z.array(z.unknown()).optional(), start: z.string().optional(), statsPeriod: z.string().optional(), per_page: z.number().optional(), query: z.string().optional(), sort: z.string().optional(), allowAggregateConditions: z.boolean().optional(), cursor: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const exploreActions: Record<string, ActionDefinition> = {
     description: "List organization events dropped. Part of: Explore. Calls GET /organizations/{organizationidorslug}/events-dropped/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/events-dropped/",
-    input: z.object({ organization_id_or_slug: z.string(), dataset: z.enum(["errors", "logs", "profile_functions", "spans", "tracemetrics", "uptime_results"]), end: z.string().optional(), environment: z.array(z.string()).optional(), project: z.array(z.unknown()).optional(), start: z.string().optional(), statsPeriod: z.string().optional(), interval: z.number().optional(), outcome: z.enum(["filtered", "rate_limited", "invalid", "abuse", "client_discard", "cardinality_limited"]).optional(), reason: z.string().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), dataset: z.enum(["errors", "logs", "profile_functions", "spans", "tracemetrics", "uptime_results"]), end: z.string().optional(), environment: z.array(z.string()).optional(), project: z.array(z.unknown()).optional(), start: z.string().optional(), statsPeriod: z.string().optional(), interval: z.number().optional(), outcome: z.enum(["filtered", "rate_limited", "invalid", "abuse", "client_discard", "cardinality_limited"]).optional(), reason: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -44,7 +45,7 @@ export const exploreActions: Record<string, ActionDefinition> = {
     description: "List organization events timeseries. Part of: Explore. Calls GET /organizations/{organizationidorslug}/events-timeseries/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/events-timeseries/",
-    input: z.object({ organization_id_or_slug: z.string(), dataset: z.enum(["errors", "logs", "profile_functions", "spans", "tracemetrics", "uptime_results"]), end: z.string().optional(), environment: z.array(z.string()).optional(), project: z.array(z.unknown()).optional(), start: z.string().optional(), statsPeriod: z.string().optional(), topEvents: z.number().optional(), comparisonDelta: z.number().optional(), interval: z.number().optional(), sort: z.string().optional(), groupBy: z.array(z.string()).optional(), yAxis: z.string().optional(), query: z.string().optional(), disableAggregateExtrapolation: z.enum(["0", "1"]).optional(), preventMetricAggregates: z.enum(["0", "1"]).optional(), excludeOther: z.enum(["0", "1"]).optional() }),
+    input: obj({ organization_id_or_slug: z.string(), dataset: z.enum(["errors", "logs", "profile_functions", "spans", "tracemetrics", "uptime_results"]), end: z.string().optional(), environment: z.array(z.string()).optional(), project: z.array(z.unknown()).optional(), start: z.string().optional(), statsPeriod: z.string().optional(), topEvents: z.number().optional(), comparisonDelta: z.number().optional(), interval: z.number().optional(), sort: z.string().optional(), groupBy: z.array(z.string()).optional(), yAxis: z.string().optional(), query: z.string().optional(), disableAggregateExtrapolation: z.enum(["0", "1"]).optional(), preventMetricAggregates: z.enum(["0", "1"]).optional(), excludeOther: z.enum(["0", "1"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -52,7 +53,7 @@ export const exploreActions: Record<string, ActionDefinition> = {
     description: "Star organization service span. Part of: Explore. Calls POST /organizations/{organizationidorslug}/starred-service-spans/ on Sentry.",
     method: "POST",
     path: "/organizations/{organization_id_or_slug}/starred-service-spans/",
-    input: z.object({ organization_id_or_slug: z.string(), service_span: z.string(), project_id: z.number() }),
+    input: obj({ organization_id_or_slug: z.string(), service_span: z.string(), project_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -60,7 +61,7 @@ export const exploreActions: Record<string, ActionDefinition> = {
     description: "Unstar organization service span. Part of: Explore. Calls DELETE /organizations/{organizationidorslug}/starred-service-spans/ on Sentry.",
     method: "DELETE",
     path: "/organizations/{organization_id_or_slug}/starred-service-spans/",
-    input: z.object({ organization_id_or_slug: z.string(), service_span: z.string(), project_id: z.number() }),
+    input: obj({ organization_id_or_slug: z.string(), service_span: z.string(), project_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -68,7 +69,7 @@ export const exploreActions: Record<string, ActionDefinition> = {
     description: "List organization trace metrics. Part of: Explore. Calls GET /organizations/{organizationidorslug}/trace-items/metrics/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/trace-items/metrics/",
-    input: z.object({ organization_id_or_slug: z.string(), project: z.array(z.unknown()).optional(), environment: z.array(z.string()).optional(), statsPeriod: z.string().optional(), start: z.string().optional(), end: z.string().optional(), query: z.string().optional(), sort: z.enum(["-count", "-lastSeen", "-name", "-type", "-unit", "count", "lastSeen", "name", "type", "unit"]).optional(), expand: z.array(z.enum(["context"])).optional(), contextOnly: z.boolean().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), project: z.array(z.unknown()).optional(), environment: z.array(z.string()).optional(), statsPeriod: z.string().optional(), start: z.string().optional(), end: z.string().optional(), query: z.string().optional(), sort: z.enum(["-count", "-lastSeen", "-name", "-type", "-unit", "count", "lastSeen", "name", "type", "unit"]).optional(), expand: z.array(z.enum(["context"])).optional(), contextOnly: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -76,7 +77,7 @@ export const exploreActions: Record<string, ActionDefinition> = {
     description: "Retrieve trace item statistics. Part of: Explore. Calls GET /organizations/{organizationidorslug}/trace-items/stats/ on Sentry.",
     method: "GET",
     path: "/organizations/{organization_id_or_slug}/trace-items/stats/",
-    input: z.object({ organization_id_or_slug: z.string(), statsType: z.array(z.enum(["attributeDistributions"])), project: z.array(z.unknown()).optional(), environment: z.array(z.string()).optional(), statsPeriod: z.string().optional(), start: z.string().optional(), end: z.string().optional(), itemType: z.enum(["occurrences", "spans"]).optional(), query: z.string().optional(), substringMatch: z.string().optional(), traceItemsLimit: z.number().optional(), cursor: z.string().optional() }),
+    input: obj({ organization_id_or_slug: z.string(), statsType: z.array(z.enum(["attributeDistributions"])), project: z.array(z.unknown()).optional(), environment: z.array(z.string()).optional(), statsPeriod: z.string().optional(), start: z.string().optional(), end: z.string().optional(), itemType: z.enum(["occurrences", "spans"]).optional(), query: z.string().optional(), substringMatch: z.string().optional(), traceItemsLimit: z.number().optional(), cursor: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

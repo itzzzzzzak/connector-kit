@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const treasuryOutboundTransfersActions: Record<string, ActionDefinition> 
     description: "List all OutboundTransfers. Returns a list of OutboundTransfers sent from the specified FinancialAccount.",
     method: "GET",
     path: "/treasury/outbound_transfers",
-    input: z.object({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), financial_account: z.string().describe("Returns objects associated with this FinancialAccount."), status: z.enum(["canceled", "failed", "posted", "processing", "returned"]).describe("Only return OutboundTransfers that have the given status: processing, canceled, failed, posted, or returned.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), financial_account: z.string().describe("Returns objects associated with this FinancialAccount."), status: z.enum(["canceled", "failed", "posted", "processing", "returned"]).describe("Only return OutboundTransfers that have the given status: processing, canceled, failed, posted, or returned.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const treasuryOutboundTransfersActions: Record<string, ActionDefinition> 
     description: "Create an OutboundTransfer. Creates an OutboundTransfer.",
     method: "POST",
     path: "/treasury/outbound_transfers",
-    input: z.object({ amount: z.number().describe("Amount (in cents) to be transferred."), currency: z.string().describe("Three-letter ISO currency code, in lowercase. Must be a supported currency."), description: z.string().describe("An arbitrary string attached to the object. Often useful for displaying to users.").optional(), destination_payment_method: z.string().describe("The PaymentMethod to use as the payment instrument for the OutboundTransfer.").optional(), destination_payment_method_data: z.object({ financial_account: z.string().optional(), type: z.enum(["financial_account"]) }).describe("Hash used to generate the PaymentMethod to be used for this OutboundTransfer. Exclusive with destinationpaymentmethod.").optional(), destination_payment_method_options: z.object({ us_bank_account: z.unknown().optional() }).describe("Hash describing payment method configuration details.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), financial_account: z.string().describe("The FinancialAccount to pull funds from."), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), statement_descriptor: z.string().describe("Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for ach transfers or 140 characters for usdomesticwire…").optional() }),
+    input: obj({ amount: z.number().describe("Amount (in cents) to be transferred."), currency: z.string().describe("Three-letter ISO currency code, in lowercase. Must be a supported currency."), description: z.string().describe("An arbitrary string attached to the object. Often useful for displaying to users.").optional(), destination_payment_method: z.string().describe("The PaymentMethod to use as the payment instrument for the OutboundTransfer.").optional(), destination_payment_method_data: obj({ financial_account: z.string().optional(), type: z.enum(["financial_account"]) }).describe("Hash used to generate the PaymentMethod to be used for this OutboundTransfer. Exclusive with destinationpaymentmethod.").optional(), destination_payment_method_options: obj({ us_bank_account: z.unknown().optional() }).describe("Hash describing payment method configuration details.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), financial_account: z.string().describe("The FinancialAccount to pull funds from."), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), statement_descriptor: z.string().describe("Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for ach transfers or 140 characters for usdomesticwire…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const treasuryOutboundTransfersActions: Record<string, ActionDefinition> 
     description: "Retrieve an OutboundTransfer. Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.",
     method: "GET",
     path: "/treasury/outbound_transfers/{outbound_transfer}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), outbound_transfer: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), outbound_transfer: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const treasuryOutboundTransfersActions: Record<string, ActionDefinition> 
     description: "Cancel an OutboundTransfer. An OutboundTransfer can be canceled if the funds have not yet been paid out.",
     method: "POST",
     path: "/treasury/outbound_transfers/{outbound_transfer}/cancel",
-    input: z.object({ outbound_transfer: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ outbound_transfer: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

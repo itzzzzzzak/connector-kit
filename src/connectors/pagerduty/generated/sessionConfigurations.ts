@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const sessionConfigurationsActions: Record<string, ActionDefinition> = {
     description: "Get session configurations. Part of: Session Configurations. Calls GET /sessionconfigurations on PagerDuty.",
     method: "GET",
     path: "/session_configurations",
-    input: z.object({ type: z.enum(["mobile", "web"]).optional() }),
+    input: obj({ type: z.enum(["mobile", "web"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const sessionConfigurationsActions: Record<string, ActionDefinition> = {
     description: "Update session configurations. Part of: Session Configurations. Calls PUT /sessionconfigurations on PagerDuty.",
     method: "PUT",
     path: "/session_configurations",
-    input: z.object({ type: z.enum(["mobile", "web"]), session_configuration: z.object({ absolute_session_ttl: z.number(), idle_session_ttl: z.number() }) }),
+    input: obj({ type: z.enum(["mobile", "web"]), session_configuration: obj({ absolute_session_ttl: z.number(), idle_session_ttl: z.number() }) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["type"]),
@@ -29,7 +30,7 @@ export const sessionConfigurationsActions: Record<string, ActionDefinition> = {
     description: "Delete session configurations. Part of: Session Configurations. Calls DELETE /sessionconfigurations on PagerDuty.",
     method: "DELETE",
     path: "/session_configurations",
-    input: z.object({ type: z.enum(["mobile", "web"]) }),
+    input: obj({ type: z.enum(["mobile", "web"]) }),
     output: z.unknown(),
     effect: "destructive",
   },

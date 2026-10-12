@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const savedSearchesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const savedSearchesActions: Record<string, ActionDefinition> = {
     description: "List saved searches. Part of: Saved Searches. Calls GET /savedsearches on Zendesk.",
     method: "GET",
     path: "/saved_searches",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const savedSearchesActions: Record<string, ActionDefinition> = {
     description: "Create saved search. Part of: Saved Searches. Calls POST /savedsearches on Zendesk.",
     method: "POST",
     path: "/saved_searches",
-    input: z.object({ filters: z.string().optional(), name: z.string(), query: z.string(), type: z.enum(["ticket", "user", "organization", "side_conversation", "article"]) }),
+    input: obj({ filters: z.string().optional(), name: z.string(), query: z.string(), type: z.enum(["ticket", "user", "organization", "side_conversation", "article"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const savedSearchesActions: Record<string, ActionDefinition> = {
     description: "Update saved search. Part of: Saved Searches. Calls PUT /savedsearches/{id} on Zendesk.",
     method: "PUT",
     path: "/saved_searches/{id}",
-    input: z.object({ id: z.string(), filters: z.string().optional(), name: z.string(), query: z.string(), type: z.enum(["ticket", "user", "organization", "side_conversation", "article"]) }),
+    input: obj({ id: z.string(), filters: z.string().optional(), name: z.string(), query: z.string(), type: z.enum(["ticket", "user", "organization", "side_conversation", "article"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const savedSearchesActions: Record<string, ActionDefinition> = {
     description: "Delete saved search. Part of: Saved Searches. Calls DELETE /savedsearches/{id} on Zendesk.",
     method: "DELETE",
     path: "/saved_searches/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

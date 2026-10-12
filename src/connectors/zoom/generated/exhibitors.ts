@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const exhibitorsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const exhibitorsActions: Record<string, ActionDefinition> = {
     description: "Get exhibitors. Part of: Exhibitors. Calls GET /zoomevents/events/{eventId}/exhibitors on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/exhibitors",
-    input: z.object({ eventId: z.string() }),
+    input: obj({ eventId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const exhibitorsActions: Record<string, ActionDefinition> = {
     description: "Create exhibitor. Part of: Exhibitors. Calls POST /zoomevents/events/{eventId}/exhibitors on Zoom.",
     method: "POST",
     path: "/zoom_events/events/{eventId}/exhibitors",
-    input: z.object({ eventId: z.string(), name: z.string(), is_sponsor: z.boolean(), tier_id: z.string(), description: z.string().optional(), associated_sessions: z.array(z.string()).optional(), contact_name: z.string(), contact_email: z.string(), website: z.string().optional(), privacy_policy: z.string().optional(), linkedin_url: z.string().optional(), twitter_url: z.string().optional(), youtube_url: z.string().optional(), instagram_url: z.string().optional(), facebook_url: z.string().optional() }),
+    input: obj({ eventId: z.string(), name: z.string(), is_sponsor: z.boolean(), tier_id: z.string(), description: z.string().optional(), associated_sessions: z.array(z.string()).optional(), contact_name: z.string(), contact_email: z.string(), website: z.string().optional(), privacy_policy: z.string().optional(), linkedin_url: z.string().optional(), twitter_url: z.string().optional(), youtube_url: z.string().optional(), instagram_url: z.string().optional(), facebook_url: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const exhibitorsActions: Record<string, ActionDefinition> = {
     description: "Get exhibitor info. Part of: Exhibitors. Calls GET /zoomevents/events/{eventId}/exhibitors/{exhibitorId} on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/exhibitors/{exhibitorId}",
-    input: z.object({ eventId: z.string(), exhibitorId: z.string() }),
+    input: obj({ eventId: z.string(), exhibitorId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const exhibitorsActions: Record<string, ActionDefinition> = {
     description: "Update exhibitor. Part of: Exhibitors. Calls PATCH /zoomevents/events/{eventId}/exhibitors/{exhibitorId} on Zoom.",
     method: "PATCH",
     path: "/zoom_events/events/{eventId}/exhibitors/{exhibitorId}",
-    input: z.object({ eventId: z.string(), exhibitorId: z.string(), name: z.string().optional(), is_sponsor: z.boolean().optional(), sponsor_tier: z.string().optional(), description: z.string().optional(), associated_sessions: z.array(z.string()).optional(), contact_name: z.string().optional(), contact_email: z.string().optional(), website: z.string().optional(), privacy_policy: z.string().optional(), linkedin_url: z.string().optional(), twitter_url: z.string().optional(), youtube_url: z.string().optional(), instagram_url: z.string().optional(), facebook_url: z.string().optional() }),
+    input: obj({ eventId: z.string(), exhibitorId: z.string(), name: z.string().optional(), is_sponsor: z.boolean().optional(), sponsor_tier: z.string().optional(), description: z.string().optional(), associated_sessions: z.array(z.string()).optional(), contact_name: z.string().optional(), contact_email: z.string().optional(), website: z.string().optional(), privacy_policy: z.string().optional(), linkedin_url: z.string().optional(), twitter_url: z.string().optional(), youtube_url: z.string().optional(), instagram_url: z.string().optional(), facebook_url: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const exhibitorsActions: Record<string, ActionDefinition> = {
     description: "Delete exhibitor. Part of: Exhibitors. Calls DELETE /zoomevents/events/{eventId}/exhibitors/{exhibitorId} on Zoom.",
     method: "DELETE",
     path: "/zoom_events/events/{eventId}/exhibitors/{exhibitorId}",
-    input: z.object({ eventId: z.string(), exhibitorId: z.string() }),
+    input: obj({ eventId: z.string(), exhibitorId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const exhibitorsActions: Record<string, ActionDefinition> = {
     description: "List sponsor tiers. Part of: Exhibitors. Calls GET /zoomevents/events/{eventId}/sponsortiers on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/sponsor_tiers",
-    input: z.object({ eventId: z.string() }),
+    input: obj({ eventId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

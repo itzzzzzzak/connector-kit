@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const dndActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const dndActions: Record<string, ActionDefinition> = {
     description: "Ends the current user's Do Not Disturb session immediately.",
     method: "POST",
     path: "/dnd.endDnd",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const dndActions: Record<string, ActionDefinition> = {
     description: "Ends the current user's snooze mode immediately.",
     method: "POST",
     path: "/dnd.endSnooze",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const dndActions: Record<string, ActionDefinition> = {
     description: "Retrieves a user's current Do Not Disturb status.",
     method: "GET",
     path: "/dnd.info",
-    input: z.object({ user: z.string().describe("User to fetch status for (defaults to current user)").optional() }),
+    input: obj({ user: z.string().describe("User to fetch status for (defaults to current user)").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const dndActions: Record<string, ActionDefinition> = {
     description: "Turns on Do Not Disturb mode for the current user, or changes its duration.",
     method: "POST",
     path: "/dnd.setSnooze",
-    input: z.object({ num_minutes: z.string().describe("Number of minutes, from now, to snooze until.") }),
+    input: obj({ num_minutes: z.string().describe("Number of minutes, from now, to snooze until.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const dndActions: Record<string, ActionDefinition> = {
     description: "Retrieves the Do Not Disturb status for up to 50 users on a team.",
     method: "GET",
     path: "/dnd.teamInfo",
-    input: z.object({ users: z.string().describe("Comma-separated list of users to fetch Do Not Disturb status for").optional() }),
+    input: obj({ users: z.string().describe("Comma-separated list of users to fetch Do Not Disturb status for").optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const batchActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const batchActions: Record<string, ActionDefinition> = {
     description: "Delete emails. Part of: Messages. Calls POST /emails/mailboxes/{email}/messages/batchDelete on Zoom.",
     method: "POST",
     path: "/emails/mailboxes/{email}/messages/batchDelete",
-    input: z.object({ email: z.string(), ids: z.array(z.string()) }),
+    input: obj({ email: z.string(), ids: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const batchActions: Record<string, ActionDefinition> = {
     description: "Modify emails. Part of: Messages. Calls POST /emails/mailboxes/{email}/messages/batchModify on Zoom.",
     method: "POST",
     path: "/emails/mailboxes/{email}/messages/batchModify",
-    input: z.object({ email: z.string(), ids: z.array(z.string()), addLabelIds: z.array(z.string()).optional(), removeLabelIds: z.array(z.string()).optional() }),
+    input: obj({ email: z.string(), ids: z.array(z.string()), addLabelIds: z.array(z.string()).optional(), removeLabelIds: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },

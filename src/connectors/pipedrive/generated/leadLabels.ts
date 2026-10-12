@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const leadLabelsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const leadLabelsActions: Record<string, ActionDefinition> = {
     description: "Get lead labels. Part of: LeadLabels. Calls GET /v1/leadLabels on Pipedrive.",
     method: "GET",
     path: "/v1/leadLabels",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const leadLabelsActions: Record<string, ActionDefinition> = {
     description: "Add lead label. Part of: LeadLabels. Calls POST /v1/leadLabels on Pipedrive.",
     method: "POST",
     path: "/v1/leadLabels",
-    input: z.object({ name: z.string(), color: z.enum(["blue", "brown", "dark-gray", "gray", "green", "orange", "pink", "purple", "red", "yellow"]) }),
+    input: obj({ name: z.string(), color: z.enum(["blue", "brown", "dark-gray", "gray", "green", "orange", "pink", "purple", "red", "yellow"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const leadLabelsActions: Record<string, ActionDefinition> = {
     description: "Update lead label. Part of: LeadLabels. Calls PATCH /v1/leadLabels/{id} on Pipedrive.",
     method: "PATCH",
     path: "/v1/leadLabels/{id}",
-    input: z.object({ id: z.string(), name: z.string().optional(), color: z.enum(["blue", "brown", "dark-gray", "gray", "green", "orange", "pink", "purple", "red", "yellow"]).optional() }),
+    input: obj({ id: z.string(), name: z.string().optional(), color: z.enum(["blue", "brown", "dark-gray", "gray", "green", "orange", "pink", "purple", "red", "yellow"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const leadLabelsActions: Record<string, ActionDefinition> = {
     description: "Delete lead label. Part of: LeadLabels. Calls DELETE /v1/leadLabels/{id} on Pipedrive.",
     method: "DELETE",
     path: "/v1/leadLabels/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

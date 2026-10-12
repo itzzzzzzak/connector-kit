@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const crmSearchActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const crmSearchActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Search. Calls POST /crm/objects/v3/{objectType}/search on HubSpot.",
     method: "POST",
     path: "/crm/objects/v3/{objectType}/search",
-    input: z.object({ objectType: z.string(), after: z.string(), filterGroups: z.array(z.object({ filters: z.array(z.record(z.string(), z.unknown())) })), limit: z.number(), properties: z.array(z.string()), query: z.string().optional(), sorts: z.array(z.string()) }),
+    input: obj({ objectType: z.string(), after: z.string(), filterGroups: z.array(obj({ filters: z.array(z.record(z.string(), z.unknown())) })), limit: z.number(), properties: z.array(z.string()), query: z.string().optional(), sorts: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const crmSearchActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Search. Calls POST /crm/v3/objects/{objectType}/search on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/{objectType}/search",
-    input: z.object({ objectType: z.string(), after: z.string(), filterGroups: z.array(z.object({ filters: z.array(z.record(z.string(), z.unknown())) })), limit: z.number(), properties: z.array(z.string()), query: z.string().optional(), sorts: z.array(z.string()) }),
+    input: obj({ objectType: z.string(), after: z.string(), filterGroups: z.array(obj({ filters: z.array(z.record(z.string(), z.unknown())) })), limit: z.number(), properties: z.array(z.string()), query: z.string().optional(), sorts: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
   },

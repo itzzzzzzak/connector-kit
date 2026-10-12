@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const dataRequestsActions: Record<string, ActionDefinition> = {
     description: "Downloadfilesfrom data request. Part of: Data Requests. Calls GET /datarequests/files/{fileId}/url on Zoom.",
     method: "GET",
     path: "/data_requests/files/{fileId}/url",
-    input: z.object({ fileId: z.string() }),
+    input: obj({ fileId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const dataRequestsActions: Record<string, ActionDefinition> = {
     description: "Get data requests history. Part of: Data Requests. Calls GET /datarequests/requests on Zoom.",
     method: "GET",
     path: "/data_requests/requests",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "records", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -28,7 +29,7 @@ export const dataRequestsActions: Record<string, ActionDefinition> = {
     description: "Create data access request. Part of: Data Requests. Calls POST /datarequests/requests on Zoom.",
     method: "POST",
     path: "/data_requests/requests",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -37,7 +38,7 @@ export const dataRequestsActions: Record<string, ActionDefinition> = {
     description: "Get downloadable filesfor data request. Part of: Data Requests. Calls GET /datarequests/requests/{requestId} on Zoom.",
     method: "GET",
     path: "/data_requests/requests/{requestId}",
-    input: z.object({ requestId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ requestId: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "file_records", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -46,7 +47,7 @@ export const dataRequestsActions: Record<string, ActionDefinition> = {
     description: "Cancel data request. Part of: Data Requests. Calls DELETE /datarequests/requests/{requestId} on Zoom.",
     method: "DELETE",
     path: "/data_requests/requests/{requestId}",
-    input: z.object({ requestId: z.string() }),
+    input: obj({ requestId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

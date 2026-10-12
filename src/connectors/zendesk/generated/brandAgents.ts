@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const brandAgentsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const brandAgentsActions: Record<string, ActionDefinition> = {
     description: "List brand agents. Part of: Brand Agents. Calls GET /brandagents on Zendesk.",
     method: "GET",
     path: "/brand_agents",
-    input: z.object({ page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional() }),
+    input: obj({ page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const brandAgentsActions: Record<string, ActionDefinition> = {
     description: "Show brand agent by id. Part of: Brand Agents. Calls GET /brandagents/{brandagentid} on Zendesk.",
     method: "GET",
     path: "/brand_agents/{brand_agent_id}",
-    input: z.object({ brand_agent_id: z.string() }),
+    input: obj({ brand_agent_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const brandAgentsActions: Record<string, ActionDefinition> = {
     description: "Delete brand agent by id. Part of: Brand Agents. Calls DELETE /brandagents/{brandagentid} on Zendesk.",
     method: "DELETE",
     path: "/brand_agents/{brand_agent_id}",
-    input: z.object({ brand_agent_id: z.string() }),
+    input: obj({ brand_agent_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const brandAgentsActions: Record<string, ActionDefinition> = {
     description: "List brand agents by brand. Part of: Brand Agents. Calls GET /brands/{brandid}/agents on Zendesk.",
     method: "GET",
     path: "/brands/{brand_id}/agents",
-    input: z.object({ brand_id: z.number() }),
+    input: obj({ brand_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const brandAgentsActions: Record<string, ActionDefinition> = {
     description: "List user brand agents. Part of: Brand Agents. Calls GET /users/{userid}/brandagents on Zendesk.",
     method: "GET",
     path: "/users/{user_id}/brand_agents",
-    input: z.object({ user_id: z.number() }),
+    input: obj({ user_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const brandAgentsActions: Record<string, ActionDefinition> = {
     description: "Show user brand agent by id. Part of: Brand Agents. Calls GET /users/{userid}/brandagents/{brandagentid} on Zendesk.",
     method: "GET",
     path: "/users/{user_id}/brand_agents/{brand_agent_id}",
-    input: z.object({ user_id: z.number(), brand_agent_id: z.string() }),
+    input: obj({ user_id: z.number(), brand_agent_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

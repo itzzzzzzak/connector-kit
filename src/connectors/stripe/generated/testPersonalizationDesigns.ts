@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const testPersonalizationDesignsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const testPersonalizationDesignsActions: Record<string, ActionDefinition>
     description: "Activate a testmode personalization design. Updates the status of the specified testmode personalization design object to active.",
     method: "POST",
     path: "/test_helpers/issuing/personalization_designs/{personalization_design}/activate",
-    input: z.object({ personalization_design: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ personalization_design: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const testPersonalizationDesignsActions: Record<string, ActionDefinition>
     description: "Deactivate a testmode personalization design. Updates the status of the specified testmode personalization design object to inactive.",
     method: "POST",
     path: "/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate",
-    input: z.object({ personalization_design: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ personalization_design: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -26,7 +27,7 @@ export const testPersonalizationDesignsActions: Record<string, ActionDefinition>
     description: "Reject a testmode personalization design. Updates the status of the specified testmode personalization design object to rejected.",
     method: "POST",
     path: "/test_helpers/issuing/personalization_designs/{personalization_design}/reject",
-    input: z.object({ personalization_design: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), rejection_reasons: z.object({ card_logo: z.array(z.enum(["geographic_location", "inappropriate", "network_name", "non_binary_image", "non_fiat_currency", "other", "other_entity", "promotional_material"])).optional(), carrier_text: z.array(z.enum(["geographic_location", "inappropriate", "network_name", "non_fiat_currency", "other", "other_entity", "promotional_material"])).optional() }).describe("The reason(s) the personalization design was rejected.") }),
+    input: obj({ personalization_design: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), rejection_reasons: obj({ card_logo: z.array(z.enum(["geographic_location", "inappropriate", "network_name", "non_binary_image", "non_fiat_currency", "other", "other_entity", "promotional_material"])).optional(), carrier_text: z.array(z.enum(["geographic_location", "inappropriate", "network_name", "non_fiat_currency", "other", "other_entity", "promotional_material"])).optional() }).describe("The reason(s) the personalization design was rejected.") }),
     output: z.unknown(),
     effect: "destructive",
   },

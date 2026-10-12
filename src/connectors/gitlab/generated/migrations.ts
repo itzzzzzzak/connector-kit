@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const migrationsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const migrationsActions: Record<string, ActionDefinition> = {
     description: "Get admin migrations pending. Part of: migrations. Calls GET /admin/migrations/pending on GitLab.",
     method: "GET",
     path: "/admin/migrations/pending",
-    input: z.object({ database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
+    input: obj({ database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const migrationsActions: Record<string, ActionDefinition> = {
     description: "Post admin migrations timestamp mark. Part of: migrations. Calls POST /admin/migrations/{timestamp}/mark on GitLab.",
     method: "POST",
     path: "/admin/migrations/{timestamp}/mark",
-    input: z.object({ timestamp: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
+    input: obj({ timestamp: z.number(), database: z.enum(["main", "ci", "sec", "embedding", "geo"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },

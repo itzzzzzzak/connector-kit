@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const mergeRequestApprovalsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const mergeRequestApprovalsActions: Record<string, ActionDefinition> = {
     description: "Get projects id merge requests merge request iid approvals. Part of: mergerequestapprovals. Calls GET /projects/{id}/mergerequests/{mergerequestiid}/approvals on GitLab.",
     method: "GET",
     path: "/projects/{id}/merge_requests/{merge_request_iid}/approvals",
-    input: z.object({ id: z.string(), merge_request_iid: z.number() }),
+    input: obj({ id: z.string(), merge_request_iid: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const mergeRequestApprovalsActions: Record<string, ActionDefinition> = {
     description: "Post projects id merge requests merge request iid approve. Part of: mergerequestapprovals. Calls POST /projects/{id}/mergerequests/{mergerequestiid}/approve on GitLab.",
     method: "POST",
     path: "/projects/{id}/merge_requests/{merge_request_iid}/approve",
-    input: z.object({ id: z.string(), merge_request_iid: z.number(), sha: z.string().optional(), publish_review: z.boolean().optional(), approval_password: z.string().optional() }),
+    input: obj({ id: z.string(), merge_request_iid: z.number(), sha: z.string().optional(), publish_review: z.boolean().optional(), approval_password: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const mergeRequestApprovalsActions: Record<string, ActionDefinition> = {
     description: "Post projects id merge requests merge request iid unapprove. Part of: mergerequestapprovals. Calls POST /projects/{id}/mergerequests/{mergerequestiid}/unapprove on GitLab.",
     method: "POST",
     path: "/projects/{id}/merge_requests/{merge_request_iid}/unapprove",
-    input: z.object({ id: z.string(), merge_request_iid: z.number() }),
+    input: obj({ id: z.string(), merge_request_iid: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const mergeRequestApprovalsActions: Record<string, ActionDefinition> = {
     description: "Put projects id merge requests merge request iid reset approvals. Part of: mergerequestapprovals. Calls PUT /projects/{id}/mergerequests/{mergerequestiid}/resetapprovals on GitLab.",
     method: "PUT",
     path: "/projects/{id}/merge_requests/{merge_request_iid}/reset_approvals",
-    input: z.object({ id: z.string(), merge_request_iid: z.number() }),
+    input: obj({ id: z.string(), merge_request_iid: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const mergeRequestApprovalsActions: Record<string, ActionDefinition> = {
     description: "Get projects id merge requests merge request iid approval state. Part of: mergerequestapprovals. Calls GET /projects/{id}/mergerequests/{mergerequestiid}/approvalstate on GitLab.",
     method: "GET",
     path: "/projects/{id}/merge_requests/{merge_request_iid}/approval_state",
-    input: z.object({ id: z.string(), merge_request_iid: z.number() }),
+    input: obj({ id: z.string(), merge_request_iid: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

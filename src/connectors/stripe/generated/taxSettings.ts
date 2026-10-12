@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const taxSettingsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const taxSettingsActions: Record<string, ActionDefinition> = {
     description: "Retrieve settings. Retrieves Tax Settings for a merchant.",
     method: "GET",
     path: "/tax/settings",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const taxSettingsActions: Record<string, ActionDefinition> = {
     description: "Update settings. Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set. Check the returned Tax Settings object and validate that its status is active.",
     method: "POST",
     path: "/tax/settings",
-    input: z.object({ defaults: z.object({ tax_behavior: z.enum(["exclusive", "inclusive", "inferred_by_currency"]).optional(), tax_code: z.string().optional() }).describe("Default configuration to be used on Stripe Tax calculations.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), head_office: z.object({ address: z.object({ city: z.string().optional(), country: z.string().optional(), line1: z.string().optional(), line2: z.string().optional(), postal_code: z.string().optional(), state: z.string().optional() }) }).describe("The place where your business is located.").optional() }),
+    input: obj({ defaults: obj({ tax_behavior: z.enum(["exclusive", "inclusive", "inferred_by_currency"]).optional(), tax_code: z.string().optional() }).describe("Default configuration to be used on Stripe Tax calculations.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), head_office: obj({ address: z.record(z.string(), z.unknown()) }).describe("The place where your business is located.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

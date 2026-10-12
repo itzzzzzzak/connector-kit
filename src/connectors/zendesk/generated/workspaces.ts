@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const workspacesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const workspacesActions: Record<string, ActionDefinition> = {
     description: "List workspaces. Part of: Workspaces. Calls GET /workspaces on Zendesk.",
     method: "GET",
     path: "/workspaces",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const workspacesActions: Record<string, ActionDefinition> = {
     description: "Create workspace. Part of: Workspaces. Calls POST /workspaces on Zendesk.",
     method: "POST",
     path: "/workspaces",
-    input: z.object({ workspace: z.object({ conditions: z.object({ all: z.array(z.record(z.string(), z.unknown())).optional(), any: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), description: z.string().optional(), macros: z.array(z.number()).optional(), ticket_form_id: z.number().optional(), title: z.string().optional() }).optional() }),
+    input: obj({ workspace: obj({ conditions: obj({ all: z.array(z.record(z.string(), z.unknown())).optional(), any: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), description: z.string().optional(), macros: z.array(z.number()).optional(), ticket_form_id: z.number().optional(), title: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const workspacesActions: Record<string, ActionDefinition> = {
     description: "Show workspace. Part of: Workspaces. Calls GET /workspaces/{workspaceid} on Zendesk.",
     method: "GET",
     path: "/workspaces/{workspace_id}",
-    input: z.object({ workspace_id: z.number() }),
+    input: obj({ workspace_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const workspacesActions: Record<string, ActionDefinition> = {
     description: "Update workspace. Part of: Workspaces. Calls PUT /workspaces/{workspaceid} on Zendesk.",
     method: "PUT",
     path: "/workspaces/{workspace_id}",
-    input: z.object({ workspace_id: z.number(), workspace: z.object({ conditions: z.object({ all: z.array(z.record(z.string(), z.unknown())).optional(), any: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), description: z.string().optional(), macros: z.array(z.number()).optional(), ticket_form_id: z.number().optional(), title: z.string().optional() }).optional() }),
+    input: obj({ workspace_id: z.number(), workspace: obj({ conditions: obj({ all: z.array(z.record(z.string(), z.unknown())).optional(), any: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), description: z.string().optional(), macros: z.array(z.number()).optional(), ticket_form_id: z.number().optional(), title: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const workspacesActions: Record<string, ActionDefinition> = {
     description: "Delete workspace. Part of: Workspaces. Calls DELETE /workspaces/{workspaceid} on Zendesk.",
     method: "DELETE",
     path: "/workspaces/{workspace_id}",
-    input: z.object({ workspace_id: z.number() }),
+    input: obj({ workspace_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const workspacesActions: Record<string, ActionDefinition> = {
     description: "Destroy many workspaces. Part of: Workspaces. Calls DELETE /workspaces/destroymany on Zendesk.",
     method: "DELETE",
     path: "/workspaces/destroy_many",
-    input: z.object({ ids: z.array(z.number()) }),
+    input: obj({ ids: z.array(z.number()) }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -58,7 +59,7 @@ export const workspacesActions: Record<string, ActionDefinition> = {
     description: "Reorder workspaces. Part of: Workspaces. Calls PUT /workspaces/reorder on Zendesk.",
     method: "PUT",
     path: "/workspaces/reorder",
-    input: z.object({ ids: z.array(z.number()).optional() }),
+    input: obj({ ids: z.array(z.number()).optional() }),
     output: z.unknown(),
     effect: "write",
   },

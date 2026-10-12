@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const organizationSubscriptionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const organizationSubscriptionsActions: Record<string, ActionDefinition> 
     description: "List organization subscriptions. Part of: Organization Subscriptions. Calls GET /organizationsubscriptions on Zendesk.",
     method: "GET",
     path: "/organization_subscriptions",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const organizationSubscriptionsActions: Record<string, ActionDefinition> 
     description: "Create organization subscription. Part of: Organization Subscriptions. Calls POST /organizationsubscriptions on Zendesk.",
     method: "POST",
     path: "/organization_subscriptions",
-    input: z.object({ organization_subscription: z.object({ organization_id: z.number().optional(), user_id: z.number().optional() }).optional() }),
+    input: obj({ organization_subscription: obj({ organization_id: z.number().optional(), user_id: z.number().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const organizationSubscriptionsActions: Record<string, ActionDefinition> 
     description: "Show organization subscription. Part of: Organization Subscriptions. Calls GET /organizationsubscriptions/{organizationsubscriptionid} on Zendesk.",
     method: "GET",
     path: "/organization_subscriptions/{organization_subscription_id}",
-    input: z.object({ organization_subscription_id: z.number() }),
+    input: obj({ organization_subscription_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const organizationSubscriptionsActions: Record<string, ActionDefinition> 
     description: "Delete organization subscription. Part of: Organization Subscriptions. Calls DELETE /organizationsubscriptions/{organizationsubscriptionid} on Zendesk.",
     method: "DELETE",
     path: "/organization_subscriptions/{organization_subscription_id}",
-    input: z.object({ organization_subscription_id: z.number() }),
+    input: obj({ organization_subscription_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const organizationSubscriptionsActions: Record<string, ActionDefinition> 
     description: "List organization subscriptions by organization. Part of: Organization Subscriptions. Calls GET /organizations/{organizationid}/subscriptions on Zendesk.",
     method: "GET",
     path: "/organizations/{organization_id}/subscriptions",
-    input: z.object({ organization_id: z.number() }),
+    input: obj({ organization_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const organizationSubscriptionsActions: Record<string, ActionDefinition> 
     description: "List user organization subscriptions. Part of: Organization Subscriptions. Calls GET /users/{userid}/organizationsubscriptions on Zendesk.",
     method: "GET",
     path: "/users/{user_id}/organization_subscriptions",
-    input: z.object({ user_id: z.number() }),
+    input: obj({ user_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

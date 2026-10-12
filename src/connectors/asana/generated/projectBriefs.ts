@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const projectBriefsActions: Record<string, ActionDefinition> = {
     description: "Get a project brief. Get the full record for a project brief.",
     method: "GET",
     path: "/project_briefs/{project_brief_gid}",
-    input: z.object({ project_brief_gid: z.string().describe("Globally unique identifier for the project brief."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["html_text", "permalink_url", "project", "project.name", "project.resource_subtype", "text", "title"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ project_brief_gid: z.string().describe("Globally unique identifier for the project brief."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["html_text", "permalink_url", "project", "project.name", "project.resource_subtype", "text", "title"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const projectBriefsActions: Record<string, ActionDefinition> = {
     description: "Update a project brief. An existing project brief can be updated by making a PUT request on the URL for that project brief. Only the fields provided in the data block will be updated; any unspecified fields will remain unchanged.",
     method: "PUT",
     path: "/project_briefs/{project_brief_gid}",
-    input: z.object({ project_brief_gid: z.string().describe("Globally unique identifier for the project brief."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["html_text", "permalink_url", "project", "project.name", "project.resource_subtype", "text", "title"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ gid: z.string().optional(), resource_type: z.string().optional(), title: z.string().optional(), html_text: z.string().optional(), text: z.string().optional() }).optional() }),
+    input: obj({ project_brief_gid: z.string().describe("Globally unique identifier for the project brief."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["html_text", "permalink_url", "project", "project.name", "project.resource_subtype", "text", "title"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ gid: z.string().optional(), resource_type: z.string().optional(), title: z.string().optional(), html_text: z.string().optional(), text: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -29,7 +30,7 @@ export const projectBriefsActions: Record<string, ActionDefinition> = {
     description: "Delete a project brief. Deletes a specific, existing project brief.",
     method: "DELETE",
     path: "/project_briefs/{project_brief_gid}",
-    input: z.object({ project_brief_gid: z.string().describe("Globally unique identifier for the project brief."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
+    input: obj({ project_brief_gid: z.string().describe("Globally unique identifier for the project brief."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -37,7 +38,7 @@ export const projectBriefsActions: Record<string, ActionDefinition> = {
     description: "Create a project brief. Creates a new project brief.",
     method: "POST",
     path: "/projects/{project_gid}/project_briefs",
-    input: z.object({ project_gid: z.string().describe("Globally unique identifier for the project."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["html_text", "permalink_url", "project", "project.name", "project.resource_subtype", "text", "title"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ gid: z.string().optional(), resource_type: z.string().optional(), title: z.string().optional(), html_text: z.string().optional(), text: z.string().optional() }).optional() }),
+    input: obj({ project_gid: z.string().describe("Globally unique identifier for the project."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["html_text", "permalink_url", "project", "project.name", "project.resource_subtype", "text", "title"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ gid: z.string().optional(), resource_type: z.string().optional(), title: z.string().optional(), html_text: z.string().optional(), text: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),

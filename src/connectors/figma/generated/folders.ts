@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/figma.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const foldersActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const foldersActions: Record<string, ActionDefinition> = {
     description: "Get top-level folders in a team. Get a list of the top-level folders (previously called \"projects\") within the specified team. Subfolders can be traversed with the GET /v2/folders/{folderid}/folders endpoint. It is not possible to programmatically obtain team IDs. To obtain a team ID, navigate to the team page in the Figma file browser. The team ID is present i",
     method: "GET",
     path: "/v2/teams/{team_id}/folders",
-    input: z.object({ team_id: z.string().describe("ID of the team to list folders from") }),
+    input: obj({ team_id: z.string().describe("ID of the team to list folders from") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const foldersActions: Record<string, ActionDefinition> = {
     description: "Get subfolders in a folder. Get a list of the direct subfolders within the specified folder.",
     method: "GET",
     path: "/v2/folders/{folder_id}/folders",
-    input: z.object({ folder_id: z.string().describe("ID of the parent folder to list subfolders from") }),
+    input: obj({ folder_id: z.string().describe("ID of the parent folder to list subfolders from") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const foldersActions: Record<string, ActionDefinition> = {
     description: "Get files in a folder. Get a list of the files directly within the specified folder.",
     method: "GET",
     path: "/v2/folders/{folder_id}/files",
-    input: z.object({ folder_id: z.string().describe("ID of the folder to list files from"), branch_data: z.boolean().describe("Returns branch metadata in the response for each main file with a branch inside the folder.").optional() }),
+    input: obj({ folder_id: z.string().describe("ID of the folder to list files from"), branch_data: z.boolean().describe("Returns branch metadata in the response for each main file with a branch inside the folder.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const foldersActions: Record<string, ActionDefinition> = {
     description: "Get folder metadata. Get metadata for a folder (name, thumbnail, file count, timestamps) without enumerating its files.",
     method: "GET",
     path: "/v2/folders/{folder_id}/meta",
-    input: z.object({ folder_id: z.string().describe("ID of the folder to get metadata for") }),
+    input: obj({ folder_id: z.string().describe("ID of the folder to get metadata for") }),
     output: z.unknown(),
     effect: "read",
   },

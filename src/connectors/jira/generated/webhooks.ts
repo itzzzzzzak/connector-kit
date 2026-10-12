@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Get dynamic webhooks for app. Returns a paginated list of the webhooks registered by the calling app.",
     method: "GET",
     path: "/webhook",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Register dynamic webhooks. Registers webhooks.",
     method: "POST",
     path: "/webhook",
-    input: z.object({ url: z.string().describe("The URL that specifies where to send the webhooks. This URL must use the same base URL as the Connect app. Only a single URL per app is allowed to be…"), webhooks: z.array(z.object({ events: z.array(z.enum(["jira:issue_created", "jira:issue_updated", "jira:issue_deleted", "comment_created", "comment_updated", "comment_deleted", "issue_property_set", "issue_property_deleted", "sprint_created", "sprint_updated", "sprint_closed", "sprint_deleted", "sprint_started", "jira:version_released", "jira:version_unreleased", "jira:version_created", "jira:version_moved", "jira:version_updated", "jira:version_merged", "jira:version_deleted"])), fieldIdsFilter: z.array(z.string()).optional(), issuePropertyKeysFilter: z.array(z.string()).optional(), jqlFilter: z.string() })).describe("A list of webhooks.") }),
+    input: obj({ url: z.string().describe("The URL that specifies where to send the webhooks. This URL must use the same base URL as the Connect app. Only a single URL per app is allowed to be…"), webhooks: z.array(obj({ events: z.array(z.enum(["jira:issue_created", "jira:issue_updated", "jira:issue_deleted", "comment_created", "comment_updated", "comment_deleted", "issue_property_set", "issue_property_deleted", "sprint_created", "sprint_updated", "sprint_closed", "sprint_deleted", "sprint_started", "jira:version_released", "jira:version_unreleased", "jira:version_created", "jira:version_moved", "jira:version_updated", "jira:version_merged", "jira:version_deleted"])), fieldIdsFilter: z.array(z.string()).optional(), issuePropertyKeysFilter: z.array(z.string()).optional(), jqlFilter: z.string() })).describe("A list of webhooks.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -29,7 +30,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Delete webhooks by ID. Removes webhooks by ID. Only webhooks registered by the calling app are removed. If webhooks created by other apps are specified, they are ignored.",
     method: "DELETE",
     path: "/webhook",
-    input: z.object({ webhookIds: z.array(z.number()).describe("A list of webhook IDs.") }),
+    input: obj({ webhookIds: z.array(z.number()).describe("A list of webhook IDs.") }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => pick(i, ["webhookIds"]),
@@ -38,7 +39,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Get failed webhooks. Returns webhooks that have recently failed to be delivered to the requesting app after the maximum number of retries.",
     method: "GET",
     path: "/webhook/failed",
-    input: z.object({ maxResults: z.number().describe("The maximum number of webhooks to return per page. If obeying the maxResults directive would result in records with the same failure time being split across…").optional(), after: z.number().describe("The time after which any webhook failure must have occurred for the record to be returned, expressed as milliseconds since the UNIX epoch.").optional() }),
+    input: obj({ maxResults: z.number().describe("The maximum number of webhooks to return per page. If obeying the maxResults directive would result in records with the same failure time being split across…").optional(), after: z.number().describe("The time after which any webhook failure must have occurred for the record to be returned, expressed as milliseconds since the UNIX epoch.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -46,7 +47,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Extend webhook life. Extends the life of webhook. Webhooks registered through the REST API expire after 30 days. Call this operation to keep them alive.",
     method: "PUT",
     path: "/webhook/refresh",
-    input: z.object({ webhookIds: z.array(z.number()).describe("A list of webhook IDs.") }),
+    input: obj({ webhookIds: z.array(z.number()).describe("A list of webhook IDs.") }),
     output: z.unknown(),
     effect: "write",
   },

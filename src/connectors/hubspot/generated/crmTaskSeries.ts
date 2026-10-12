@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const crmTaskSeriesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const crmTaskSeriesActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Advanced. Calls POST /crm/task-series/2026-09 on HubSpot.",
     method: "POST",
     path: "/crm/task-series/2026-09",
-    input: z.object({ properties: z.record(z.string(), z.unknown()), series: z.object({ repeatInterval: z.string().optional(), repeatStatus: z.string().optional(), startsAt: z.string().optional() }), taskId: z.number() }),
+    input: obj({ properties: z.record(z.string(), z.unknown()), series: obj({ repeatInterval: z.string().optional(), repeatStatus: z.string().optional(), startsAt: z.string().optional() }), taskId: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const crmTaskSeriesActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /crm/task-series/2026-09/{taskId} on HubSpot.",
     method: "GET",
     path: "/crm/task-series/2026-09/{taskId}",
-    input: z.object({ taskId: z.number(), properties: z.array(z.string()).optional() }),
+    input: obj({ taskId: z.number(), properties: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const crmTaskSeriesActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Basic. Calls PATCH /crm/task-series/2026-09/{taskId} on HubSpot.",
     method: "PATCH",
     path: "/crm/task-series/2026-09/{taskId}",
-    input: z.object({ taskId: z.number(), properties: z.record(z.string(), z.unknown()).optional(), series: z.object({ repeatInterval: z.string().optional(), repeatStatus: z.string().optional(), startsAt: z.string().optional() }).optional() }),
+    input: obj({ taskId: z.number(), properties: z.record(z.string(), z.unknown()).optional(), series: obj({ repeatInterval: z.string().optional(), repeatStatus: z.string().optional(), startsAt: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const crmTaskSeriesActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /crm/task-series/2026-09/{taskId} on HubSpot.",
     method: "DELETE",
     path: "/crm/task-series/2026-09/{taskId}",
-    input: z.object({ taskId: z.number() }),
+    input: obj({ taskId: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

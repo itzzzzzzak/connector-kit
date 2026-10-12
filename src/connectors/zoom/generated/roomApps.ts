@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const roomAppsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const roomAppsActions: Record<string, ActionDefinition> = {
     description: "Config zoom room controller apps. Part of: Room Apps. Calls POST /rooms/controller/apps/config on Zoom.",
     method: "POST",
     path: "/rooms/controller/apps/config",
-    input: z.object({ body: z.array(z.object({ app_id: z.string().optional(), room_id: z.string().optional(), configuration_type: z.number().optional(), username: z.string().optional(), password: z.string().optional(), token: z.string().optional(), url: z.string().optional(), support_unverified_url: z.boolean().optional(), allow_list_domains: z.array(z.record(z.string(), z.unknown())).optional() })).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ body: z.array(obj({ app_id: z.string().optional(), room_id: z.string().optional(), configuration_type: z.number().optional(), username: z.string().optional(), password: z.string().optional(), token: z.string().optional(), url: z.string().optional(), support_unverified_url: z.boolean().optional(), allow_list_domains: z.array(z.record(z.string(), z.unknown())).optional() })).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,

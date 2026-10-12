@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const projectMembershipsActions: Record<string, ActionDefinition> = {
     description: "Get a project membership. Returns the complete project record for a single project membership.",
     method: "GET",
     path: "/project_memberships/{project_membership_gid}",
-    input: z.object({ project_membership_gid: z.string(), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["access_level", "member", "member.name", "parent", "parent.name", "parent.resource_subtype", "project", "project.name", "project.resource_subtype", "user", "user.name", "write_access"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ project_membership_gid: z.string(), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["access_level", "member", "member.name", "parent", "parent.name", "parent.resource_subtype", "project", "project.name", "project.resource_subtype", "user", "user.name", "write_access"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const projectMembershipsActions: Record<string, ActionDefinition> = {
     description: "Get memberships from a project. Returns the compact project membership records for the project.",
     method: "GET",
     path: "/projects/{project_gid}/project_memberships",
-    input: z.object({ project_gid: z.string().describe("Globally unique identifier for the project."), user: z.string().describe("A string identifying a user. This can either be the string \"me\", an email, or the gid of a user.").optional(), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["access_level", "member", "member.name", "offset", "parent", "parent.name", "parent.resource_subtype", "path", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ project_gid: z.string().describe("Globally unique identifier for the project."), user: z.string().describe("A string identifying a user. This can either be the string \"me\", an email, or the gid of a user.").optional(), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["access_level", "member", "member.name", "offset", "parent", "parent.name", "parent.resource_subtype", "path", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),

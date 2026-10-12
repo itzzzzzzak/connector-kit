@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const appDataPoliciesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const appDataPoliciesActions: Record<string, ActionDefinition> = {
     description: "Get data policy for the workspace. Returns data policy for the workspace.",
     method: "GET",
     path: "/data-policy",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const appDataPoliciesActions: Record<string, ActionDefinition> = {
     description: "Get data policy for projects. Returns data policies for the projects specified in the request.",
     method: "GET",
     path: "/data-policy/project",
-    input: z.object({ ids: z.string().describe("A list of project identifiers. This parameter accepts a comma-separated list.").optional() }),
+    input: obj({ ids: z.string().describe("A list of project identifiers. This parameter accepts a comma-separated list.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

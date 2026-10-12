@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const testTreasuryOutboundTransfersActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const testTreasuryOutboundTransfersActions: Record<string, ActionDefiniti
     description: "Test mode: Update an OutboundTransfer. Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.",
     method: "POST",
     path: "/test_helpers/treasury/outbound_transfers/{outbound_transfer}",
-    input: z.object({ outbound_transfer: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), tracking_details: z.object({ ach: z.object({ trace_id: z.string() }).optional(), type: z.enum(["ach", "us_domestic_wire"]), us_domestic_wire: z.object({ chips: z.string().optional(), imad: z.string().optional(), omad: z.string().optional() }).optional() }).describe("Details about network-specific tracking information.") }),
+    input: obj({ outbound_transfer: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), tracking_details: obj({ ach: z.record(z.string(), z.unknown()).optional(), type: z.enum(["ach", "us_domestic_wire"]), us_domestic_wire: z.record(z.string(), z.unknown()).optional() }).describe("Details about network-specific tracking information.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const testTreasuryOutboundTransfersActions: Record<string, ActionDefiniti
     description: "Test mode: Fail an OutboundTransfer. Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.",
     method: "POST",
     path: "/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail",
-    input: z.object({ outbound_transfer: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ outbound_transfer: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const testTreasuryOutboundTransfersActions: Record<string, ActionDefiniti
     description: "Test mode: Post an OutboundTransfer. Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.",
     method: "POST",
     path: "/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post",
-    input: z.object({ outbound_transfer: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ outbound_transfer: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const testTreasuryOutboundTransfersActions: Record<string, ActionDefiniti
     description: "Test mode: Return an OutboundTransfer. Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.",
     method: "POST",
     path: "/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return",
-    input: z.object({ outbound_transfer: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), returned_details: z.object({ code: z.enum(["account_closed", "account_frozen", "bank_account_restricted", "bank_ownership_changed", "declined", "incorrect_account_holder_name", "invalid_account_number", "invalid_currency", "no_account", "other"]).optional() }).describe("Details about a returned OutboundTransfer.").optional() }),
+    input: obj({ outbound_transfer: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), returned_details: obj({ code: z.enum(["account_closed", "account_frozen", "bank_account_restricted", "bank_ownership_changed", "declined", "incorrect_account_holder_name", "invalid_account_number", "invalid_currency", "no_account", "other"]).optional() }).describe("Details about a returned OutboundTransfer.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

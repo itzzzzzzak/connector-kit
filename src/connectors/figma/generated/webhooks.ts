@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/figma.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const webhooksActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Get webhooks by context or plan. Returns a list of webhooks corresponding to the context or plan provided, if they exist. For plan, the webhooks for all contexts that you have access to will be returned, and theresponse is paginated",
     method: "GET",
     path: "/v2/webhooks",
-    input: z.object({ context: z.string().describe("Context to create the resource on. Should be \"team\", \"project\", or \"file\".").optional(), context_id: z.string().describe("The id of the context that you want to get attached webhooks for. If you're using contextid, you cannot use planapiid.").optional(), plan_api_id: z.string().describe("The id of your plan. Use this to get all webhooks for all contexts you have access to. If you're using planapiid, you cannot use context or contextid. When…").optional(), cursor: z.string().describe("If you're using planapiid, this is the cursor to use for pagination. If you're using context or contextid, this parameter is ignored. Provide the nextpage or…").optional() }),
+    input: obj({ context: z.string().describe("Context to create the resource on. Should be \"team\", \"project\", or \"file\".").optional(), context_id: z.string().describe("The id of the context that you want to get attached webhooks for. If you're using contextid, you cannot use planapiid.").optional(), plan_api_id: z.string().describe("The id of your plan. Use this to get all webhooks for all contexts you have access to. If you're using planapiid, you cannot use context or contextid. When…").optional(), cursor: z.string().describe("If you're using planapiid, this is the cursor to use for pagination. If you're using context or contextid, this parameter is ignored. Provide the nextpage or…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Create a webhook. Create a new webhook which will call the specified endpoint when the event triggers. By default, this webhook will automatically send a PING event to the endpoint when it is created. If this behavior is not desired, you can create the webhook and set the status to PAUSED and reactivate it later.",
     method: "POST",
     path: "/v2/webhooks",
-    input: z.object({ event_type: z.enum(["PING", "FILE_UPDATE", "FILE_VERSION_UPDATE", "FILE_DELETE", "LIBRARY_PUBLISH", "FILE_COMMENT", "DEV_MODE_STATUS_UPDATE"]).describe("An enum representing the possible events that a webhook can subscribe to"), team_id: z.string().describe("Team id to receive updates about. This is deprecated, use 'context' and 'contextid' instead.").optional(), context: z.string().describe("Context to create the webhook for. Must be \"team\", \"project\", or \"file\"."), context_id: z.string().describe("The id of the context you want to receive updates about."), endpoint: z.string().describe("The HTTP endpoint that will receive a POST request when the event triggers. Max length 2048 characters."), passcode: z.string().describe("String that will be passed back to your webhook endpoint to verify that it is being called by Figma. Max length 100 characters."), status: z.enum(["ACTIVE", "PAUSED"]).describe("An enum representing the possible statuses you can set a webhook to: - ACTIVE: The webhook is healthy and receive all events - PAUSED: The webhook is paused…").optional(), description: z.string().describe("User provided description or name for the webhook. Max length 150 characters.").optional() }),
+    input: obj({ event_type: z.enum(["PING", "FILE_UPDATE", "FILE_VERSION_UPDATE", "FILE_DELETE", "LIBRARY_PUBLISH", "FILE_COMMENT", "DEV_MODE_STATUS_UPDATE"]).describe("An enum representing the possible events that a webhook can subscribe to"), team_id: z.string().describe("Team id to receive updates about. This is deprecated, use 'context' and 'contextid' instead.").optional(), context: z.string().describe("Context to create the webhook for. Must be \"team\", \"project\", or \"file\"."), context_id: z.string().describe("The id of the context you want to receive updates about."), endpoint: z.string().describe("The HTTP endpoint that will receive a POST request when the event triggers. Max length 2048 characters."), passcode: z.string().describe("String that will be passed back to your webhook endpoint to verify that it is being called by Figma. Max length 100 characters."), status: z.enum(["ACTIVE", "PAUSED"]).describe("An enum representing the possible statuses you can set a webhook to: - ACTIVE: The webhook is healthy and receive all events - PAUSED: The webhook is paused…").optional(), description: z.string().describe("User provided description or name for the webhook. Max length 150 characters.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Get a webhook Calls GET /v2/webhooks/{webhookid} on Figma.",
     method: "GET",
     path: "/v2/webhooks/{webhook_id}",
-    input: z.object({ webhook_id: z.string().describe("ID of webhook to get") }),
+    input: obj({ webhook_id: z.string().describe("ID of webhook to get") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Update a webhook Calls PUT /v2/webhooks/{webhookid} on Figma.",
     method: "PUT",
     path: "/v2/webhooks/{webhook_id}",
-    input: z.object({ webhook_id: z.string().describe("ID of webhook to update"), event_type: z.enum(["PING", "FILE_UPDATE", "FILE_VERSION_UPDATE", "FILE_DELETE", "LIBRARY_PUBLISH", "FILE_COMMENT", "DEV_MODE_STATUS_UPDATE"]).describe("An enum representing the possible events that a webhook can subscribe to"), endpoint: z.string().describe("The HTTP endpoint that will receive a POST request when the event triggers. Max length 2048 characters."), passcode: z.string().describe("String that will be passed back to your webhook endpoint to verify that it is being called by Figma. Max length 100 characters."), status: z.enum(["ACTIVE", "PAUSED"]).describe("An enum representing the possible statuses you can set a webhook to: - ACTIVE: The webhook is healthy and receive all events - PAUSED: The webhook is paused…").optional(), description: z.string().describe("User provided description or name for the webhook. Max length 150 characters.").optional() }),
+    input: obj({ webhook_id: z.string().describe("ID of webhook to update"), event_type: z.enum(["PING", "FILE_UPDATE", "FILE_VERSION_UPDATE", "FILE_DELETE", "LIBRARY_PUBLISH", "FILE_COMMENT", "DEV_MODE_STATUS_UPDATE"]).describe("An enum representing the possible events that a webhook can subscribe to"), endpoint: z.string().describe("The HTTP endpoint that will receive a POST request when the event triggers. Max length 2048 characters."), passcode: z.string().describe("String that will be passed back to your webhook endpoint to verify that it is being called by Figma. Max length 100 characters."), status: z.enum(["ACTIVE", "PAUSED"]).describe("An enum representing the possible statuses you can set a webhook to: - ACTIVE: The webhook is healthy and receive all events - PAUSED: The webhook is paused…").optional(), description: z.string().describe("User provided description or name for the webhook. Max length 150 characters.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Delete a webhook. Deletes the specified webhook. This operation cannot be reversed.",
     method: "DELETE",
     path: "/v2/webhooks/{webhook_id}",
-    input: z.object({ webhook_id: z.string().describe("ID of webhook to delete") }),
+    input: obj({ webhook_id: z.string().describe("ID of webhook to delete") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Get webhook requests. Returns all webhook requests sent within the last week. Useful for debugging.",
     method: "GET",
     path: "/v2/webhooks/{webhook_id}/requests",
-    input: z.object({ webhook_id: z.string().describe("The id of the webhook subscription you want to see events from") }),
+    input: obj({ webhook_id: z.string().describe("The id of the webhook subscription you want to see events from") }),
     output: z.unknown(),
     effect: "read",
   },

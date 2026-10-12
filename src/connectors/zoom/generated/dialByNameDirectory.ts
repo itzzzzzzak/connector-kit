@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const dialByNameDirectoryActions: Record<string, ActionDefinition> = {
     description: "List users from directory. Part of: Dial by Name Directory. Calls GET /phone/dialbynamedirectory/extensions on Zoom.",
     method: "GET",
     path: "/phone/dial_by_name_directory/extensions",
-    input: z.object({ in_directory: z.boolean().optional(), site_id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ in_directory: z.boolean().optional(), site_id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "result", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const dialByNameDirectoryActions: Record<string, ActionDefinition> = {
     description: "Add users to directory. Part of: Dial by Name Directory. Calls POST /phone/dialbynamedirectory/extensions on Zoom.",
     method: "POST",
     path: "/phone/dial_by_name_directory/extensions",
-    input: z.object({ site_id: z.string(), extension_ids: z.array(z.string()).optional() }),
+    input: obj({ site_id: z.string(), extension_ids: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const dialByNameDirectoryActions: Record<string, ActionDefinition> = {
     description: "Delete users from directory. Part of: Dial by Name Directory. Calls DELETE /phone/dialbynamedirectory/extensions on Zoom.",
     method: "DELETE",
     path: "/phone/dial_by_name_directory/extensions",
-    input: z.object({ site_id: z.string(), extension_ids: z.array(z.string()).optional() }),
+    input: obj({ site_id: z.string(), extension_ids: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -36,7 +37,7 @@ export const dialByNameDirectoryActions: Record<string, ActionDefinition> = {
     description: "List users from directory by site. Part of: Dial by Name Directory. Calls GET /phone/sites/{siteId}/dialbynamedirectory/extensions on Zoom.",
     method: "GET",
     path: "/phone/sites/{siteId}/dial_by_name_directory/extensions",
-    input: z.object({ siteId: z.string(), in_directory: z.boolean().optional(), site_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ siteId: z.string(), in_directory: z.boolean().optional(), site_id: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "result", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -45,7 +46,7 @@ export const dialByNameDirectoryActions: Record<string, ActionDefinition> = {
     description: "Add users to directory by site. Part of: Dial by Name Directory. Calls POST /phone/sites/{siteId}/dialbynamedirectory/extensions on Zoom.",
     method: "POST",
     path: "/phone/sites/{siteId}/dial_by_name_directory/extensions",
-    input: z.object({ siteId: z.string(), site_id: z.string().optional(), extension_ids: z.array(z.string()).optional() }),
+    input: obj({ siteId: z.string(), site_id: z.string().optional(), extension_ids: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -53,7 +54,7 @@ export const dialByNameDirectoryActions: Record<string, ActionDefinition> = {
     description: "Delete users from directory by site. Part of: Dial by Name Directory. Calls DELETE /phone/sites/{siteId}/dialbynamedirectory/extensions on Zoom.",
     method: "DELETE",
     path: "/phone/sites/{siteId}/dial_by_name_directory/extensions",
-    input: z.object({ siteId: z.string(), site_id: z.string().optional(), extension_ids: z.array(z.string()).optional() }),
+    input: obj({ siteId: z.string(), site_id: z.string().optional(), extension_ids: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

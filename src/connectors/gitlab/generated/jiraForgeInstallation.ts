@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const jiraForgeInstallationActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const jiraForgeInstallationActions: Record<string, ActionDefinition> = {
     description: "Put integrations jira forge installation. Part of: jiraforgeinstallation. Calls PUT /integrations/jiraforge/installation on GitLab.",
     method: "PUT",
     path: "/integrations/jira_forge/installation",
-    input: z.object({ instance_url: z.string().optional() }),
+    input: obj({ instance_url: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const jiraForgeInstallationActions: Record<string, ActionDefinition> = {
     description: "Post integrations jira forge installation forge token. Part of: jiraforgeinstallation. Calls POST /integrations/jiraforge/installation/forgetoken on GitLab.",
     method: "POST",
     path: "/integrations/jira_forge/installation/forge_token",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },

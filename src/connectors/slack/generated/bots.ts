@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const botsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const botsActions: Record<string, ActionDefinition> = {
     description: "Gets information about a bot user. Calls GET /bots.info on Slack.",
     method: "GET",
     path: "/bots.info",
-    input: z.object({ bot: z.string().describe("Bot user to get info on").optional() }),
+    input: obj({ bot: z.string().describe("Bot user to get info on").optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const filesActions: Record<string, ActionDefinition> = {
     description: "Get files. Part of: Files. Calls GET /v1/files on Pipedrive.",
     method: "GET",
     path: "/v1/files",
-    input: z.object({ sort: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ sort: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "data", positionParam: "start", pageSizeParam: "limit", hasMorePath: ["additional_data", "pagination", "more_items_in_collection"], defaultPageSize: 30, maxPageSize: 500 }),
@@ -20,7 +21,7 @@ export const filesActions: Record<string, ActionDefinition> = {
     description: "Get file. Part of: Files. Calls GET /v1/files/{id} on Pipedrive.",
     method: "GET",
     path: "/v1/files/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const filesActions: Record<string, ActionDefinition> = {
     description: "Delete file. Part of: Files. Calls DELETE /v1/files/{id} on Pipedrive.",
     method: "DELETE",
     path: "/v1/files/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -36,7 +37,7 @@ export const filesActions: Record<string, ActionDefinition> = {
     description: "Download file. Part of: Files. Calls GET /v1/files/{id}/download on Pipedrive.",
     method: "GET",
     path: "/v1/files/{id}/download",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

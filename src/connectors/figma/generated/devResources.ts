@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/figma.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const devResourcesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const devResourcesActions: Record<string, ActionDefinition> = {
     description: "Get dev resources Calls GET /v1/files/{filekey}/devresources on Figma.",
     method: "GET",
     path: "/v1/files/{file_key}/dev_resources",
-    input: z.object({ file_key: z.string().describe("The file to get the dev resources from. This must be a main file key, not a branch key."), node_ids: z.string().describe("Comma separated list of nodes that you care about in the document. If specified, only dev resources attached to these nodes will be returned. If not…").optional() }),
+    input: obj({ file_key: z.string().describe("The file to get the dev resources from. This must be a main file key, not a branch key."), node_ids: z.string().describe("Comma separated list of nodes that you care about in the document. If specified, only dev resources attached to these nodes will be returned. If not…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const devResourcesActions: Record<string, ActionDefinition> = {
     description: "Create dev resources. Bulk create dev resources across multiple files. Dev resources that are successfully created will show up in the linkscreated array in the response.",
     method: "POST",
     path: "/v1/dev_resources",
-    input: z.object({ dev_resources: z.array(z.object({ name: z.string(), url: z.string(), file_key: z.string(), node_id: z.string() })).describe("An array of dev resources.") }),
+    input: obj({ dev_resources: z.array(obj({ name: z.string(), url: z.string(), file_key: z.string(), node_id: z.string() })).describe("An array of dev resources.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const devResourcesActions: Record<string, ActionDefinition> = {
     description: "Update dev resources. Bulk update dev resources across multiple files.",
     method: "PUT",
     path: "/v1/dev_resources",
-    input: z.object({ dev_resources: z.array(z.object({ id: z.string(), name: z.string().optional(), url: z.string().optional() })).describe("An array of dev resources.") }),
+    input: obj({ dev_resources: z.array(obj({ id: z.string(), name: z.string().optional(), url: z.string().optional() })).describe("An array of dev resources.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const devResourcesActions: Record<string, ActionDefinition> = {
     description: "Delete dev resource. Delete a dev resource from a file",
     method: "DELETE",
     path: "/v1/files/{file_key}/dev_resources/{dev_resource_id}",
-    input: z.object({ file_key: z.string().describe("The file to delete the dev resource from. This must be a main file key, not a branch key."), dev_resource_id: z.string().describe("The id of the dev resource to delete.") }),
+    input: obj({ file_key: z.string().describe("The file to delete the dev resource from. This must be a main file key, not a branch key."), dev_resource_id: z.string().describe("The id of the dev resource to delete.") }),
     output: z.unknown(),
     effect: "destructive",
   },

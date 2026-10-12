@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const addonsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const addonsActions: Record<string, ActionDefinition> = {
     description: "List Available Add-On Applications. To fetch details of all available Add-On Applications, send a GET request to /v2/add-ons/apps.",
     method: "GET",
     path: "/add-ons/apps",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const addonsActions: Record<string, ActionDefinition> = {
     description: "Get Metadata for an Add-On Application. To find out what metadata is required for a specific add-on, send a GET request to /v2/add-ons/apps/{appslug}/metadata. Metadata varies by application.",
     method: "GET",
     path: "/add-ons/apps/{app_slug}/metadata",
-    input: z.object({ app_slug: z.string().describe("The slug identifier for the application whose metadata is being requested.") }),
+    input: obj({ app_slug: z.string().describe("The slug identifier for the application whose metadata is being requested.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const addonsActions: Record<string, ActionDefinition> = {
     description: "List all Add-On Resources. To fetch all Add-On Resources under your team, send a GET request to /v2/add-ons/saas.",
     method: "GET",
     path: "/add-ons/saas",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const addonsActions: Record<string, ActionDefinition> = {
     description: "Create/Provision a New Add-on Resource. To create an add-on resource, send a POST request to /v2/add-ons/saas with required parameters. Some add-ons require additional metadata to be provided in the request body. To find out what metadata is required for a specific add-on, send a GET request to /v2/add-ons/apps/{appslug}/metadata.",
     method: "POST",
     path: "/add-ons/saas",
-    input: z.object({ app_slug: z.string().describe("The slug identifier for the application associated with the resource."), plan_slug: z.string().describe("The slug identifier for the plan associated with the resource."), name: z.string().describe("The name of the addon resource."), metadata: z.array(z.object({ name: z.string(), value: z.unknown() })).describe("Metadata associated with the resource, set by the user. Metadata expected varies per app, and can be verified with a GET request to…"), linked_droplet_id: z.number().describe("ID of the droplet to be linked to this resource, if applicable.").optional(), fleet_uuid: z.string().describe("UUID of the fleet/project to which this resource will belong.").optional() }),
+    input: obj({ app_slug: z.string().describe("The slug identifier for the application associated with the resource."), plan_slug: z.string().describe("The slug identifier for the plan associated with the resource."), name: z.string().describe("The name of the addon resource."), metadata: z.array(obj({ name: z.string(), value: z.unknown() })).describe("Metadata associated with the resource, set by the user. Metadata expected varies per app, and can be verified with a GET request to…"), linked_droplet_id: z.number().describe("ID of the droplet to be linked to this resource, if applicable.").optional(), fleet_uuid: z.string().describe("UUID of the fleet/project to which this resource will belong.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const addonsActions: Record<string, ActionDefinition> = {
     description: "Get details on an Add-On Resource. To fetch details of a specific Add-On Resource, send a GET request to /v2/add-ons/saas/{resourceuuid}. Replace {resourceuuid} with the UUID of the resource you want to retrieve.",
     method: "GET",
     path: "/add-ons/saas/{resource_uuid}",
-    input: z.object({ resource_uuid: z.string().describe("The UUID of the add-on resource to retrieve.") }),
+    input: obj({ resource_uuid: z.string().describe("The UUID of the add-on resource to retrieve.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const addonsActions: Record<string, ActionDefinition> = {
     description: "Update the name for an Add-On Resource. To change the name of an Add-On Resource, send a PATCH request to /v2/add-ons/saas/{resourceuuid}. Replace {resourceuuid} with the UUID of the resource for which you want to change the name.",
     method: "PATCH",
     path: "/add-ons/saas/{resource_uuid}",
-    input: z.object({ resource_uuid: z.string().describe("The UUID of the add-on resource to rename."), name: z.string().describe("The new name for the add-on resource.") }),
+    input: obj({ resource_uuid: z.string().describe("The UUID of the add-on resource to rename."), name: z.string().describe("The new name for the add-on resource.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const addonsActions: Record<string, ActionDefinition> = {
     description: "Delete/Deprovision an Add-on Resource. To delete an add-on resource, send a DELETE request to /v2/add-ons/saas/{resourceuuid} with the UUID of the resource to delete. You cannot retrieve the resource after it has been deleted. The response indicates a request was sent to the 3rd party add-on provider to delete the resource. You will no longer be billed for this resou",
     method: "DELETE",
     path: "/add-ons/saas/{resource_uuid}",
-    input: z.object({ resource_uuid: z.string().describe("A unique identifier for the add-on resource.") }),
+    input: obj({ resource_uuid: z.string().describe("A unique identifier for the add-on resource.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -66,7 +67,7 @@ export const addonsActions: Record<string, ActionDefinition> = {
     description: "Update the plan for an Add-On Resource. To change the plan associated with an Add-On Resource, send a PATCH request to /v2/add-ons/saas/{resourceuuid}/plan. Replace {resourceuuid} with the UUID of the resource for which you want to change the plan.",
     method: "PATCH",
     path: "/add-ons/saas/{resource_uuid}/plan",
-    input: z.object({ resource_uuid: z.string().describe("The UUID of the add-on resource to update."), plan_slug: z.string().describe("The slug identifier for the new plan to apply to the add-on resource.") }),
+    input: obj({ resource_uuid: z.string().describe("The UUID of the add-on resource to update."), plan_slug: z.string().describe("The slug identifier for the new plan to apply to the add-on resource.") }),
     output: z.unknown(),
     effect: "write",
   },

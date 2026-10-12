@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const issueVotesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const issueVotesActions: Record<string, ActionDefinition> = {
     description: "Get votes. Returns details about the votes on an issue.",
     method: "GET",
     path: "/issue/{issueIdOrKey}/votes",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue.") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const issueVotesActions: Record<string, ActionDefinition> = {
     description: "Add vote. Adds the user's vote to an issue. This is the equivalent of the user clicking Vote on an issue in Jira.",
     method: "POST",
     path: "/issue/{issueIdOrKey}/votes",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue.") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const issueVotesActions: Record<string, ActionDefinition> = {
     description: "Delete vote. Deletes a user's vote from an issue. This is the equivalent of the user clicking Unvote on an issue in Jira.",
     method: "DELETE",
     path: "/issue/{issueIdOrKey}/votes",
-    input: z.object({ issueIdOrKey: z.string().describe("The ID or key of the issue.") }),
+    input: obj({ issueIdOrKey: z.string().describe("The ID or key of the issue.") }),
     output: z.unknown(),
     effect: "destructive",
   },

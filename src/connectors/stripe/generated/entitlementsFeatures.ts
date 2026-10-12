@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const entitlementsFeaturesActions: Record<string, ActionDefinition> = {
     description: "List all features. Retrieve a list of features",
     method: "GET",
     path: "/entitlements/features",
-    input: z.object({ archived: z.boolean().describe("If set, filter results to only include features with the given archive status.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), lookup_key: z.string().describe("If set, filter results to only include features with the given lookupkey.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ archived: z.boolean().describe("If set, filter results to only include features with the given archive status.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), lookup_key: z.string().describe("If set, filter results to only include features with the given lookupkey.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const entitlementsFeaturesActions: Record<string, ActionDefinition> = {
     description: "Create a feature. Creates a feature Calls POST /entitlements/features on Stripe.",
     method: "POST",
     path: "/entitlements/features",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), lookup_key: z.string().describe("A unique key you provide as your own system identifier. This may be up to 80 characters."), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.").optional(), name: z.string().describe("The feature's name, for your own purpose, not meant to be displayable to the customer.") }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), lookup_key: z.string().describe("A unique key you provide as your own system identifier. This may be up to 80 characters."), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.").optional(), name: z.string().describe("The feature's name, for your own purpose, not meant to be displayable to the customer.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const entitlementsFeaturesActions: Record<string, ActionDefinition> = {
     description: "Retrieve a feature. Retrieves a feature Calls GET /entitlements/features/{id} on Stripe.",
     method: "GET",
     path: "/entitlements/features/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string().describe("The ID of the feature.") }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string().describe("The ID of the feature.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const entitlementsFeaturesActions: Record<string, ActionDefinition> = {
     description: "Updates a feature. Update a feature’s metadata or permanently deactivate it.",
     method: "POST",
     path: "/entitlements/features/{id}",
-    input: z.object({ id: z.string(), active: z.boolean().describe("Inactive features cannot be attached to new products and will not be returned from the features list endpoint.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.").optional(), name: z.string().describe("The feature's name, for your own purpose, not meant to be displayable to the customer.").optional() }),
+    input: obj({ id: z.string(), active: z.boolean().describe("Inactive features cannot be attached to new products and will not be returned from the features list endpoint.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.").optional(), name: z.string().describe("The feature's name, for your own purpose, not meant to be displayable to the customer.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

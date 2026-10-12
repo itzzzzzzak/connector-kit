@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const aiGatewayActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const aiGatewayActions: Record<string, ActionDefinition> = {
     description: "Get aigateway providers Calls GET /ai-gateway/providers on Netlify.",
     method: "GET",
     path: "/ai-gateway/providers",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const aiGatewayActions: Record<string, ActionDefinition> = {
     description: "Returns an AI Gateway token for a specific site",
     method: "GET",
     path: "/sites/{site_id}/ai-gateway/token",
-    input: z.object({ site_id: z.string().describe("The site ID") }),
+    input: obj({ site_id: z.string().describe("The site ID") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const aiGatewayActions: Record<string, ActionDefinition> = {
     description: "Returns an AI Gateway token scoped to an account",
     method: "GET",
     path: "/accounts/{account_id}/ai-gateway/token",
-    input: z.object({ account_id: z.string().describe("The account ID") }),
+    input: obj({ account_id: z.string().describe("The account ID") }),
     output: z.unknown(),
     effect: "read",
   },

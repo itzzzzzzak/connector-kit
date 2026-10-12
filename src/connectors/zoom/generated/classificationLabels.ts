@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const classificationLabelsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const classificationLabelsActions: Record<string, ActionDefinition> = {
     description: "List classification labels. Part of: Classification Labels. Calls GET /whiteboards/classificationlabels on Zoom.",
     method: "GET",
     path: "/whiteboards/classification_labels",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const classificationLabelsActions: Record<string, ActionDefinition> = {
     description: "Create classification label. Part of: Classification Labels. Calls POST /whiteboards/classificationlabels on Zoom.",
     method: "POST",
     path: "/whiteboards/classification_labels",
-    input: z.object({ name: z.string(), description: z.string().optional(), color: z.string(), sensitivity_level: z.number(), guideline_url: z.string().optional(), is_default: z.boolean().optional() }),
+    input: obj({ name: z.string(), description: z.string().optional(), color: z.string(), sensitivity_level: z.number(), guideline_url: z.string().optional(), is_default: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const classificationLabelsActions: Record<string, ActionDefinition> = {
     description: "Get classification label. Part of: Classification Labels. Calls GET /whiteboards/classificationlabels/{classificationId} on Zoom.",
     method: "GET",
     path: "/whiteboards/classification_labels/{classificationId}",
-    input: z.object({ classificationId: z.string() }),
+    input: obj({ classificationId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const classificationLabelsActions: Record<string, ActionDefinition> = {
     description: "Update classification label. Part of: Classification Labels. Calls PATCH /whiteboards/classificationlabels/{classificationId} on Zoom.",
     method: "PATCH",
     path: "/whiteboards/classification_labels/{classificationId}",
-    input: z.object({ classificationId: z.string(), name: z.string().optional(), description: z.string().optional(), color: z.string().optional(), sensitivity_level: z.number().optional(), guideline_url: z.string().optional(), is_default: z.boolean().optional() }),
+    input: obj({ classificationId: z.string(), name: z.string().optional(), description: z.string().optional(), color: z.string().optional(), sensitivity_level: z.number().optional(), guideline_url: z.string().optional(), is_default: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const classificationLabelsActions: Record<string, ActionDefinition> = {
     description: "Delete classification label. Part of: Classification Labels. Calls DELETE /whiteboards/classificationlabels/{classificationId} on Zoom.",
     method: "DELETE",
     path: "/whiteboards/classification_labels/{classificationId}",
-    input: z.object({ classificationId: z.string() }),
+    input: obj({ classificationId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const classificationLabelsActions: Record<string, ActionDefinition> = {
     description: "Applyclassificationtowhiteboard. Part of: Classification Labels. Calls PUT /whiteboards/{whiteboardId}/classification on Zoom.",
     method: "PUT",
     path: "/whiteboards/{whiteboardId}/classification",
-    input: z.object({ whiteboardId: z.string(), classification_id: z.string() }),
+    input: obj({ whiteboardId: z.string(), classification_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const classificationLabelsActions: Record<string, ActionDefinition> = {
     description: "Remove whiteboard classification. Part of: Classification Labels. Calls DELETE /whiteboards/{whiteboardId}/classification on Zoom.",
     method: "DELETE",
     path: "/whiteboards/{whiteboardId}/classification",
-    input: z.object({ whiteboardId: z.string() }),
+    input: obj({ whiteboardId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

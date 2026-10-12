@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const liveStreamingActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const liveStreamingActions: Record<string, ActionDefinition> = {
     description: "Meeting live streaming join token. Part of: Live streaming. Calls GET /meetings/{meetingId}/jointoken/livestreaming on Zoom.",
     method: "GET",
     path: "/meetings/{meetingId}/jointoken/live_streaming",
-    input: z.object({ meetingId: z.number() }),
+    input: obj({ meetingId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const liveStreamingActions: Record<string, ActionDefinition> = {
     description: "Get meeting live stream details. Part of: Live streaming. Calls GET /meetings/{meetingId}/livestream on Zoom.",
     method: "GET",
     path: "/meetings/{meetingId}/livestream",
-    input: z.object({ meetingId: z.string() }),
+    input: obj({ meetingId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const liveStreamingActions: Record<string, ActionDefinition> = {
     description: "Meeting live stream update. Part of: Live streaming. Calls PATCH /meetings/{meetingId}/livestream on Zoom.",
     method: "PATCH",
     path: "/meetings/{meetingId}/livestream",
-    input: z.object({ meetingId: z.number(), page_url: z.string(), stream_key: z.string(), stream_url: z.string(), resolution: z.string().optional() }),
+    input: obj({ meetingId: z.number(), page_url: z.string(), stream_key: z.string(), stream_url: z.string(), resolution: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const liveStreamingActions: Record<string, ActionDefinition> = {
     description: "Meeting live stream status update. Part of: Live streaming. Calls PATCH /meetings/{meetingId}/livestream/status on Zoom.",
     method: "PATCH",
     path: "/meetings/{meetingId}/livestream/status",
-    input: z.object({ meetingId: z.number(), action: z.enum(["start", "stop", "mode"]).optional(), settings: z.object({ active_speaker_name: z.boolean().optional(), display_name: z.string().optional(), layout: z.enum(["follow_host", "gallery_view", "speaker_view"]).optional(), close_caption: z.enum(["burnt-in", "embedded", "off"]).optional() }).optional() }),
+    input: obj({ meetingId: z.number(), action: z.enum(["start", "stop", "mode"]).optional(), settings: obj({ active_speaker_name: z.boolean().optional(), display_name: z.string().optional(), layout: z.enum(["follow_host", "gallery_view", "speaker_view"]).optional(), close_caption: z.enum(["burnt-in", "embedded", "off"]).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },

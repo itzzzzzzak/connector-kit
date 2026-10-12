@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const calendarListActions: Record<string, ActionDefinition> = {
     description: "Listcalendar list. Part of: calendar list. Calls GET /calendars/users/{userIdentifier}/calendarList on Zoom.",
     method: "GET",
     path: "/calendars/users/{userIdentifier}/calendarList",
-    input: z.object({ userIdentifier: z.string(), maxResults: z.number().optional(), minAccessRole: z.enum(["freeBusyReader", "reader", "writer", "owner"]).optional(), pageToken: z.string().optional(), showDeleted: z.boolean().optional(), showHidden: z.boolean().optional() }),
+    input: obj({ userIdentifier: z.string(), maxResults: z.number().optional(), minAccessRole: z.enum(["freeBusyReader", "reader", "writer", "owner"]).optional(), pageToken: z.string().optional(), showDeleted: z.boolean().optional(), showHidden: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const calendarListActions: Record<string, ActionDefinition> = {
     description: "Insertcalendar list. Part of: calendar list. Calls POST /calendars/users/{userIdentifier}/calendarList on Zoom.",
     method: "POST",
     path: "/calendars/users/{userIdentifier}/calendarList",
-    input: z.object({ userIdentifier: z.string(), colorRgbFormat: z.boolean().optional(), id: z.string(), summary: z.string().optional(), description: z.string().optional(), location: z.string().optional(), timeZone: z.string().optional(), colorId: z.string().optional(), backgroundColor: z.string().optional(), foregroundColor: z.string().optional(), hidden: z.boolean().optional(), selected: z.boolean().optional(), accessRole: z.enum(["freeBusyReader", "reader", "writer", "owner"]).optional(), defaultReminders: z.array(z.object({ method: z.enum(["email", "popup"]).optional(), minutes: z.number().optional() })).optional(), defaultAllDayReminders: z.array(z.object({ method: z.enum(["email", "popup"]).optional(), minutes: z.number().optional() })).optional(), notificationSettings: z.object({ notifications: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), primary: z.boolean().optional(), deleted: z.boolean().optional(), summaryOverride: z.string().optional() }),
+    input: obj({ userIdentifier: z.string(), colorRgbFormat: z.boolean().optional(), id: z.string(), summary: z.string().optional(), description: z.string().optional(), location: z.string().optional(), timeZone: z.string().optional(), colorId: z.string().optional(), backgroundColor: z.string().optional(), foregroundColor: z.string().optional(), hidden: z.boolean().optional(), selected: z.boolean().optional(), accessRole: z.enum(["freeBusyReader", "reader", "writer", "owner"]).optional(), defaultReminders: z.array(obj({ method: z.enum(["email", "popup"]).optional(), minutes: z.number().optional() })).optional(), defaultAllDayReminders: z.array(obj({ method: z.enum(["email", "popup"]).optional(), minutes: z.number().optional() })).optional(), notificationSettings: obj({ notifications: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), primary: z.boolean().optional(), deleted: z.boolean().optional(), summaryOverride: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["colorRgbFormat"]),
@@ -29,7 +30,7 @@ export const calendarListActions: Record<string, ActionDefinition> = {
     description: "Getcalendar list. Part of: calendar list. Calls GET /calendars/users/{userIdentifier}/calendarList/{calendarId} on Zoom.",
     method: "GET",
     path: "/calendars/users/{userIdentifier}/calendarList/{calendarId}",
-    input: z.object({ userIdentifier: z.string(), calendarId: z.string() }),
+    input: obj({ userIdentifier: z.string(), calendarId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const calendarListActions: Record<string, ActionDefinition> = {
     description: "Patchcalendar list. Part of: calendar list. Calls PATCH /calendars/users/{userIdentifier}/calendarList/{calendarId} on Zoom.",
     method: "PATCH",
     path: "/calendars/users/{userIdentifier}/calendarList/{calendarId}",
-    input: z.object({ userIdentifier: z.string(), calendarId: z.string(), colorRgbFormat: z.boolean().optional(), id: z.string(), summary: z.string().optional(), description: z.string().optional(), location: z.string().optional(), timeZone: z.string().optional(), colorId: z.string().optional(), backgroundColor: z.string().optional(), foregroundColor: z.string().optional(), hidden: z.boolean().optional(), selected: z.boolean().optional(), accessRole: z.enum(["freeBusyReader", "reader", "writer", "owner"]).optional(), defaultReminders: z.array(z.object({ method: z.enum(["email", "popup"]).optional(), minutes: z.number().optional() })).optional(), defaultAllDayReminders: z.array(z.object({ method: z.enum(["email", "popup"]).optional(), minutes: z.number().optional() })).optional(), notificationSettings: z.object({ notifications: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), primary: z.boolean().optional(), deleted: z.boolean().optional(), summaryOverride: z.string().optional() }),
+    input: obj({ userIdentifier: z.string(), calendarId: z.string(), colorRgbFormat: z.boolean().optional(), id: z.string(), summary: z.string().optional(), description: z.string().optional(), location: z.string().optional(), timeZone: z.string().optional(), colorId: z.string().optional(), backgroundColor: z.string().optional(), foregroundColor: z.string().optional(), hidden: z.boolean().optional(), selected: z.boolean().optional(), accessRole: z.enum(["freeBusyReader", "reader", "writer", "owner"]).optional(), defaultReminders: z.array(obj({ method: z.enum(["email", "popup"]).optional(), minutes: z.number().optional() })).optional(), defaultAllDayReminders: z.array(obj({ method: z.enum(["email", "popup"]).optional(), minutes: z.number().optional() })).optional(), notificationSettings: obj({ notifications: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), primary: z.boolean().optional(), deleted: z.boolean().optional(), summaryOverride: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["colorRgbFormat"]),
@@ -47,7 +48,7 @@ export const calendarListActions: Record<string, ActionDefinition> = {
     description: "Deletecalendar list. Part of: calendar list. Calls DELETE /calendars/users/{userIdentifier}/calendarList/{calendarId} on Zoom.",
     method: "DELETE",
     path: "/calendars/users/{userIdentifier}/calendarList/{calendarId}",
-    input: z.object({ userIdentifier: z.string(), calendarId: z.string() }),
+    input: obj({ userIdentifier: z.string(), calendarId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

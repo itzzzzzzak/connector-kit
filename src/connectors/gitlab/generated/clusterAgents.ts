@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const clusterAgentsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const clusterAgentsActions: Record<string, ActionDefinition> = {
     description: "Get projects id cluster agents agent id tokens. Part of: clusteragents. Calls GET /projects/{id}/clusteragents/{agentid}/tokens on GitLab.",
     method: "GET",
     path: "/projects/{id}/cluster_agents/{agent_id}/tokens",
-    input: z.object({ id: z.string(), agent_id: z.number(), page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ id: z.string(), agent_id: z.number(), page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const clusterAgentsActions: Record<string, ActionDefinition> = {
     description: "Post projects id cluster agents agent id tokens. Part of: clusteragents. Calls POST /projects/{id}/clusteragents/{agentid}/tokens on GitLab.",
     method: "POST",
     path: "/projects/{id}/cluster_agents/{agent_id}/tokens",
-    input: z.object({ id: z.string(), agent_id: z.number(), name: z.string(), description: z.string().optional() }),
+    input: obj({ id: z.string(), agent_id: z.number(), name: z.string(), description: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const clusterAgentsActions: Record<string, ActionDefinition> = {
     description: "Get projects id cluster agents agent id tokens token id. Part of: clusteragents. Calls GET /projects/{id}/clusteragents/{agentid}/tokens/{tokenid} on GitLab.",
     method: "GET",
     path: "/projects/{id}/cluster_agents/{agent_id}/tokens/{token_id}",
-    input: z.object({ id: z.string(), agent_id: z.number(), token_id: z.number() }),
+    input: obj({ id: z.string(), agent_id: z.number(), token_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const clusterAgentsActions: Record<string, ActionDefinition> = {
     description: "Delete projects id cluster agents agent id tokens token id. Part of: clusteragents. Calls DELETE /projects/{id}/clusteragents/{agentid}/tokens/{tokenid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/cluster_agents/{agent_id}/tokens/{token_id}",
-    input: z.object({ id: z.string(), agent_id: z.number(), token_id: z.number() }),
+    input: obj({ id: z.string(), agent_id: z.number(), token_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const clusterAgentsActions: Record<string, ActionDefinition> = {
     description: "Get projects id cluster agents. Part of: clusteragents. Calls GET /projects/{id}/clusteragents on GitLab.",
     method: "GET",
     path: "/projects/{id}/cluster_agents",
-    input: z.object({ id: z.string(), page: z.number().optional(), per_page: z.number().optional() }),
+    input: obj({ id: z.string(), page: z.number().optional(), per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const clusterAgentsActions: Record<string, ActionDefinition> = {
     description: "Post projects id cluster agents. Part of: clusteragents. Calls POST /projects/{id}/clusteragents on GitLab.",
     method: "POST",
     path: "/projects/{id}/cluster_agents",
-    input: z.object({ id: z.string(), name: z.string() }),
+    input: obj({ id: z.string(), name: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const clusterAgentsActions: Record<string, ActionDefinition> = {
     description: "Get projects id cluster agents agent id. Part of: clusteragents. Calls GET /projects/{id}/clusteragents/{agentid} on GitLab.",
     method: "GET",
     path: "/projects/{id}/cluster_agents/{agent_id}",
-    input: z.object({ id: z.string(), agent_id: z.number() }),
+    input: obj({ id: z.string(), agent_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -66,7 +67,7 @@ export const clusterAgentsActions: Record<string, ActionDefinition> = {
     description: "Delete projects id cluster agents agent id. Part of: clusteragents. Calls DELETE /projects/{id}/clusteragents/{agentid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/cluster_agents/{agent_id}",
-    input: z.object({ id: z.string(), agent_id: z.number() }),
+    input: obj({ id: z.string(), agent_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

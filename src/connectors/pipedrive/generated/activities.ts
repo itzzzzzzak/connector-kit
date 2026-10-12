@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const activitiesActions: Record<string, ActionDefinition> = {
     description: "Get activities. Part of: Activities. Calls GET /api/v2/activities on Pipedrive.",
     method: "GET",
     path: "/api/v2/activities",
-    input: z.object({ filter_id: z.number().optional(), ids: z.array(z.number()).optional(), owner_id: z.number().optional(), deal_id: z.number().optional(), lead_id: z.string().optional(), person_id: z.number().optional(), org_id: z.number().optional(), done: z.boolean().optional(), updated_since: z.string().optional(), updated_until: z.string().optional(), sort_by: z.enum(["id", "update_time", "add_time", "due_date"]).optional(), sort_direction: z.enum(["asc", "desc"]).optional(), include_fields: z.array(z.enum(["attendees"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ filter_id: z.number().optional(), ids: z.array(z.number()).optional(), owner_id: z.number().optional(), deal_id: z.number().optional(), lead_id: z.string().optional(), person_id: z.number().optional(), org_id: z.number().optional(), done: z.boolean().optional(), updated_since: z.string().optional(), updated_until: z.string().optional(), sort_by: z.enum(["id", "update_time", "add_time", "due_date"]).optional(), sort_direction: z.enum(["asc", "desc"]).optional(), include_fields: z.array(z.enum(["attendees"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["additional_data", "next_cursor"], cursorParam: "cursor", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 500 }),
@@ -20,7 +21,7 @@ export const activitiesActions: Record<string, ActionDefinition> = {
     description: "Add activity. Part of: Activities. Calls POST /api/v2/activities on Pipedrive.",
     method: "POST",
     path: "/api/v2/activities",
-    input: z.object({ subject: z.string().optional(), type: z.string().optional(), owner_id: z.number().optional(), deal_id: z.number().optional(), lead_id: z.string().optional(), org_id: z.number().optional(), project_id: z.number().optional(), due_date: z.string().optional(), due_time: z.string().optional(), duration: z.string().optional(), busy: z.boolean().optional(), done: z.boolean().optional(), location: z.object({ value: z.string().optional(), country: z.string().optional(), admin_area_level_1: z.string().optional(), admin_area_level_2: z.string().optional(), locality: z.string().optional(), sublocality: z.string().optional(), route: z.string().optional(), street_number: z.string().optional(), subpremise: z.string().optional(), postal_code: z.string().optional() }).optional(), participants: z.array(z.object({ person_id: z.number().optional(), primary: z.boolean().optional() })).optional(), attendees: z.array(z.object({ email: z.string().optional(), name: z.string().optional(), status: z.string().optional(), is_organizer: z.boolean().optional(), person_id: z.number().optional(), user_id: z.number().optional() })).optional(), public_description: z.string().optional(), priority: z.number().optional(), outcome: z.number().nullable().optional(), note: z.string().optional() }),
+    input: obj({ subject: z.string().optional(), type: z.string().optional(), owner_id: z.number().optional(), deal_id: z.number().optional(), lead_id: z.string().optional(), org_id: z.number().optional(), project_id: z.number().optional(), due_date: z.string().optional(), due_time: z.string().optional(), duration: z.string().optional(), busy: z.boolean().optional(), done: z.boolean().optional(), location: obj({ value: z.string().optional(), country: z.string().optional(), admin_area_level_1: z.string().optional(), admin_area_level_2: z.string().optional(), locality: z.string().optional(), sublocality: z.string().optional(), route: z.string().optional(), street_number: z.string().optional(), subpremise: z.string().optional(), postal_code: z.string().optional() }).optional(), participants: z.array(obj({ person_id: z.number().optional(), primary: z.boolean().optional() })).optional(), attendees: z.array(obj({ email: z.string().optional(), name: z.string().optional(), status: z.string().optional(), is_organizer: z.boolean().optional(), person_id: z.number().optional(), user_id: z.number().optional() })).optional(), public_description: z.string().optional(), priority: z.number().optional(), outcome: z.number().nullable().optional(), note: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const activitiesActions: Record<string, ActionDefinition> = {
     description: "Get activity. Part of: Activities. Calls GET /api/v2/activities/{id} on Pipedrive.",
     method: "GET",
     path: "/api/v2/activities/{id}",
-    input: z.object({ id: z.number(), include_fields: z.array(z.enum(["attendees"])).optional() }),
+    input: obj({ id: z.number(), include_fields: z.array(z.enum(["attendees"])).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const activitiesActions: Record<string, ActionDefinition> = {
     description: "Update activity. Part of: Activities. Calls PATCH /api/v2/activities/{id} on Pipedrive.",
     method: "PATCH",
     path: "/api/v2/activities/{id}",
-    input: z.object({ id: z.number(), subject: z.string().optional(), type: z.string().optional(), owner_id: z.number().optional(), deal_id: z.number().optional(), lead_id: z.string().optional(), org_id: z.number().optional(), project_id: z.number().optional(), due_date: z.string().optional(), due_time: z.string().optional(), duration: z.string().optional(), busy: z.boolean().optional(), done: z.boolean().optional(), location: z.object({ value: z.string().optional(), country: z.string().optional(), admin_area_level_1: z.string().optional(), admin_area_level_2: z.string().optional(), locality: z.string().optional(), sublocality: z.string().optional(), route: z.string().optional(), street_number: z.string().optional(), subpremise: z.string().optional(), postal_code: z.string().optional() }).optional(), participants: z.array(z.object({ person_id: z.number().optional(), primary: z.boolean().optional() })).optional(), attendees: z.array(z.object({ email: z.string().optional(), name: z.string().optional(), status: z.string().optional(), is_organizer: z.boolean().optional(), person_id: z.number().optional(), user_id: z.number().optional() })).optional(), public_description: z.string().optional(), priority: z.number().optional(), outcome: z.number().nullable().optional(), note: z.string().optional() }),
+    input: obj({ id: z.number(), subject: z.string().optional(), type: z.string().optional(), owner_id: z.number().optional(), deal_id: z.number().optional(), lead_id: z.string().optional(), org_id: z.number().optional(), project_id: z.number().optional(), due_date: z.string().optional(), due_time: z.string().optional(), duration: z.string().optional(), busy: z.boolean().optional(), done: z.boolean().optional(), location: obj({ value: z.string().optional(), country: z.string().optional(), admin_area_level_1: z.string().optional(), admin_area_level_2: z.string().optional(), locality: z.string().optional(), sublocality: z.string().optional(), route: z.string().optional(), street_number: z.string().optional(), subpremise: z.string().optional(), postal_code: z.string().optional() }).optional(), participants: z.array(obj({ person_id: z.number().optional(), primary: z.boolean().optional() })).optional(), attendees: z.array(obj({ email: z.string().optional(), name: z.string().optional(), status: z.string().optional(), is_organizer: z.boolean().optional(), person_id: z.number().optional(), user_id: z.number().optional() })).optional(), public_description: z.string().optional(), priority: z.number().optional(), outcome: z.number().nullable().optional(), note: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const activitiesActions: Record<string, ActionDefinition> = {
     description: "Delete activity. Part of: Activities. Calls DELETE /api/v2/activities/{id} on Pipedrive.",
     method: "DELETE",
     path: "/api/v2/activities/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

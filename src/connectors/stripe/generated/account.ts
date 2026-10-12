@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const accountActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const accountActions: Record<string, ActionDefinition> = {
     description: "Retrieve account. Retrieves the details of an account.",
     method: "GET",
     path: "/account",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

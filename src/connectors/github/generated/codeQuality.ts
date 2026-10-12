@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const codeQualityActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const codeQualityActions: Record<string, ActionDefinition> = {
     description: "List code quality findings for a repository. Lists code quality findings for a repository.",
     method: "GET",
     path: "/repos/{owner}/{repo}/code-quality/findings",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), per_page: z.number().describe("The number of results per page (max 100). For more information, see \"Using pagination in the REST API.\"").optional(), direction: z.enum(["asc", "desc"]).describe("The direction to sort the results by.").optional(), before: z.string().describe("A cursor, as given in the Link header. If specified, the query only searches for results before this cursor. For more information, see \"Using pagination in…").optional(), after: z.string().describe("A cursor, as given in the Link header. If specified, the query only searches for results after this cursor. For more information, see \"Using pagination in the…").optional(), state: z.enum(["open", "dismissed"]).describe("If specified, only code quality findings with this state will be returned.").optional() }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), per_page: z.number().describe("The number of results per page (max 100). For more information, see \"Using pagination in the REST API.\"").optional(), direction: z.enum(["asc", "desc"]).describe("The direction to sort the results by.").optional(), before: z.string().describe("A cursor, as given in the Link header. If specified, the query only searches for results before this cursor. For more information, see \"Using pagination in…").optional(), after: z.string().describe("A cursor, as given in the Link header. If specified, the query only searches for results after this cursor. For more information, see \"Using pagination in the…").optional(), state: z.enum(["open", "dismissed"]).describe("If specified, only code quality findings with this state will be returned.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const codeQualityActions: Record<string, ActionDefinition> = {
     description: "Get a code quality finding. Gets a single code quality finding.",
     method: "GET",
     path: "/repos/{owner}/{repo}/code-quality/findings/{finding_number}",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), finding_number: z.number().describe("The number that identifies a finding.") }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), finding_number: z.number().describe("The number that identifies a finding.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const codeQualityActions: Record<string, ActionDefinition> = {
     description: "Get a code quality setup configuration. Gets a code quality setup configuration.",
     method: "GET",
     path: "/repos/{owner}/{repo}/code-quality/setup",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive.") }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const codeQualityActions: Record<string, ActionDefinition> = {
     description: "Update a code quality setup configuration. Updates a code quality setup configuration.",
     method: "PATCH",
     path: "/repos/{owner}/{repo}/code-quality/setup",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,

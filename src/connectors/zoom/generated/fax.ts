@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const faxActions: Record<string, ActionDefinition> = {
     description: "Getuser sfaxlogs. Part of: Fax. Calls GET /phone/extension/{extensionId}/fax/logs on Zoom.",
     method: "GET",
     path: "/phone/extension/{extensionId}/fax/logs",
-    input: z.object({ extensionId: z.string(), sender_number: z.string().optional(), receiver_number: z.string().optional(), from: z.string().optional(), to: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ extensionId: z.string(), sender_number: z.string().optional(), receiver_number: z.string().optional(), from: z.string().optional(), to: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "fax_logs", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -21,7 +22,7 @@ export const faxActions: Record<string, ActionDefinition> = {
     description: "List fax covers. Part of: Fax. Calls GET /phone/fax/coverpages on Zoom.",
     method: "GET",
     path: "/phone/fax/cover_pages",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "fax_covers", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -30,7 +31,7 @@ export const faxActions: Record<string, ActionDefinition> = {
     description: "Download fax cover preview image. Part of: Fax. Calls GET /phone/fax/coverpages/download/{coverId} on Zoom.",
     method: "GET",
     path: "/phone/fax/cover_pages/download/{coverId}",
-    input: z.object({ coverId: z.string() }),
+    input: obj({ coverId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -38,7 +39,7 @@ export const faxActions: Record<string, ActionDefinition> = {
     description: "Send efax. Part of: Fax. Calls POST /phone/fax/documents on Zoom.",
     method: "POST",
     path: "/phone/fax/documents",
-    input: z.object({ sender_number: z.string(), sender_name: z.string().optional(), file_id: z.string(), receivers: z.array(z.object({ receiver_number: z.string(), receiver_name: z.string().optional() })), cover_note: z.string().optional(), cover_id: z.string().optional() }),
+    input: obj({ sender_number: z.string(), sender_name: z.string().optional(), file_id: z.string(), receivers: z.array(obj({ receiver_number: z.string(), receiver_name: z.string().optional() })), cover_note: z.string().optional(), cover_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -46,7 +47,7 @@ export const faxActions: Record<string, ActionDefinition> = {
     description: "Get account s fax logs. Part of: Fax. Calls GET /phone/fax/logs on Zoom.",
     method: "GET",
     path: "/phone/fax/logs",
-    input: z.object({ site_id: z.string().optional(), sender_number: z.string().optional(), receiver_number: z.string().optional(), extension_type: z.enum(["user", "callQueue", "autoReceptionist", "commonArea", "sharedLineGroup"]).optional(), from: z.string().optional(), to: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ site_id: z.string().optional(), sender_number: z.string().optional(), receiver_number: z.string().optional(), extension_type: z.enum(["user", "callQueue", "autoReceptionist", "commonArea", "sharedLineGroup"]).optional(), from: z.string().optional(), to: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "fax_logs", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -55,7 +56,7 @@ export const faxActions: Record<string, ActionDefinition> = {
     description: "Get fax log details. Part of: Fax. Calls GET /phone/fax/logs/{faxLogId} on Zoom.",
     method: "GET",
     path: "/phone/fax/logs/{faxLogId}",
-    input: z.object({ faxLogId: z.string() }),
+    input: obj({ faxLogId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -63,7 +64,7 @@ export const faxActions: Record<string, ActionDefinition> = {
     description: "Update fax log read status. Part of: Fax. Calls PATCH /phone/fax/logs/{faxLogId} on Zoom.",
     method: "PATCH",
     path: "/phone/fax/logs/{faxLogId}",
-    input: z.object({ faxLogId: z.string(), read_status: z.enum(["read", "unread"]) }),
+    input: obj({ faxLogId: z.string(), read_status: z.enum(["read", "unread"]) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["read_status"]),
@@ -72,7 +73,7 @@ export const faxActions: Record<string, ActionDefinition> = {
     description: "Delete fax log. Part of: Fax. Calls DELETE /phone/fax/logs/{faxLogId} on Zoom.",
     method: "DELETE",
     path: "/phone/fax/logs/{faxLogId}",
-    input: z.object({ faxLogId: z.string() }),
+    input: obj({ faxLogId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -80,7 +81,7 @@ export const faxActions: Record<string, ActionDefinition> = {
     description: "Downloadfaxfile. Part of: Fax. Calls GET /phone/fax/logs/{faxLogId}/file/{fileId} on Zoom.",
     method: "GET",
     path: "/phone/fax/logs/{faxLogId}/file/{fileId}",
-    input: z.object({ faxLogId: z.string(), fileId: z.string() }),
+    input: obj({ faxLogId: z.string(), fileId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

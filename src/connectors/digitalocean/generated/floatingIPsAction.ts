@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const floatingIPsActionActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const floatingIPsActionActions: Record<string, ActionDefinition> = {
     description: "List All Actions for a Floating IP. To retrieve all actions that have been executed on a floating IP, send a GET request to /v2/floatingips/$FLOATINGIP/actions.",
     method: "GET",
     path: "/floating_ips/{floating_ip}/actions",
-    input: z.object({ floating_ip: z.string().describe("A floating IP address.") }),
+    input: obj({ floating_ip: z.string().describe("A floating IP address.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const floatingIPsActionActions: Record<string, ActionDefinition> = {
     description: "Initiate a Floating IP Action. To initiate an action on a floating IP send a POST request to /v2/floatingips/$FLOATINGIP/actions. In the JSON body to the request, set the type attribute to on of the supported action types:",
     method: "POST",
     path: "/floating_ips/{floating_ip}/actions",
-    input: z.object({ floating_ip: z.string().describe("A floating IP address."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ floating_ip: z.string().describe("A floating IP address."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -27,7 +28,7 @@ export const floatingIPsActionActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing Floating IP Action. To retrieve the status of a floating IP action, send a GET request to /v2/floatingips/$FLOATINGIP/actions/$ACTIONID.",
     method: "GET",
     path: "/floating_ips/{floating_ip}/actions/{action_id}",
-    input: z.object({ floating_ip: z.string().describe("A floating IP address."), action_id: z.number().describe("A unique numeric ID that can be used to identify and reference an action.") }),
+    input: obj({ floating_ip: z.string().describe("A floating IP address."), action_id: z.number().describe("A unique numeric ID that can be used to identify and reference an action.") }),
     output: z.unknown(),
     effect: "read",
   },

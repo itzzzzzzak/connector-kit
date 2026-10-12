@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const automationsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const automationsActions: Record<string, ActionDefinition> = {
     description: "List automations. Part of: Automations. Calls GET /automations on Zendesk.",
     method: "GET",
     path: "/automations",
-    input: z.object({ page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional(), active: z.boolean().optional(), include: z.string().optional() }),
+    input: obj({ page: z.unknown().optional(), per_page: z.number().optional(), sort: z.string().optional(), active: z.boolean().optional(), include: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const automationsActions: Record<string, ActionDefinition> = {
     description: "Create automation. Part of: Automations. Calls POST /automations on Zendesk.",
     method: "POST",
     path: "/automations",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const automationsActions: Record<string, ActionDefinition> = {
     description: "Show automation. Part of: Automations. Calls GET /automations/{automationid} on Zendesk.",
     method: "GET",
     path: "/automations/{automation_id}",
-    input: z.object({ automation_id: z.number() }),
+    input: obj({ automation_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const automationsActions: Record<string, ActionDefinition> = {
     description: "Update automation. Part of: Automations. Calls PUT /automations/{automationid} on Zendesk.",
     method: "PUT",
     path: "/automations/{automation_id}",
-    input: z.object({ automation_id: z.number() }),
+    input: obj({ automation_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const automationsActions: Record<string, ActionDefinition> = {
     description: "Delete automation. Part of: Automations. Calls DELETE /automations/{automationid} on Zendesk.",
     method: "DELETE",
     path: "/automations/{automation_id}",
-    input: z.object({ automation_id: z.number() }),
+    input: obj({ automation_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const automationsActions: Record<string, ActionDefinition> = {
     description: "List active automations. Part of: Automations. Calls GET /automations/active on Zendesk.",
     method: "GET",
     path: "/automations/active",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const automationsActions: Record<string, ActionDefinition> = {
     description: "Bulk delete automations. Part of: Automations. Calls DELETE /automations/destroymany on Zendesk.",
     method: "DELETE",
     path: "/automations/destroy_many",
-    input: z.object({ ids: z.array(z.number()).optional() }),
+    input: obj({ ids: z.array(z.number()).optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -66,7 +67,7 @@ export const automationsActions: Record<string, ActionDefinition> = {
     description: "Search automations. Part of: Automations. Calls GET /automations/search on Zendesk.",
     method: "GET",
     path: "/automations/search",
-    input: z.object({ query: z.string(), active: z.boolean().optional(), sort_by: z.string().optional(), sort_order: z.string().optional(), include: z.string().optional() }),
+    input: obj({ query: z.string(), active: z.boolean().optional(), sort_by: z.string().optional(), sort_order: z.string().optional(), include: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -74,7 +75,7 @@ export const automationsActions: Record<string, ActionDefinition> = {
     description: "Update many automations. Part of: Automations. Calls PUT /automations/updatemany on Zendesk.",
     method: "PUT",
     path: "/automations/update_many",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },

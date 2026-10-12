@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const cmsSourceCodeActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const cmsSourceCodeActions: Record<string, ActionDefinition> = {
     description: "Create extract async. Part of: Advanced. Calls POST /cms/v3/source-code/extract/async on HubSpot.",
     method: "POST",
     path: "/cms/v3/source-code/extract/async",
-    input: z.object({ path: z.string() }),
+    input: obj({ path: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const cmsSourceCodeActions: Record<string, ActionDefinition> = {
     description: "List extract async tasks status. Part of: Advanced. Calls GET /cms/v3/source-code/extract/async/tasks/{taskId}/status on HubSpot.",
     method: "GET",
     path: "/cms/v3/source-code/extract/async/tasks/{taskId}/status",
-    input: z.object({ taskId: z.number() }),
+    input: obj({ taskId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const cmsSourceCodeActions: Record<string, ActionDefinition> = {
     description: "Get content. Part of: Basic. Calls GET /cms/v3/source-code/{environment}/content/{path} on HubSpot.",
     method: "GET",
     path: "/cms/v3/source-code/{environment}/content/{path}",
-    input: z.object({ environment: z.string(), path: z.string() }),
+    input: obj({ environment: z.string(), path: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const cmsSourceCodeActions: Record<string, ActionDefinition> = {
     description: "Delete content. Part of: Basic. Calls DELETE /cms/v3/source-code/{environment}/content/{path} on HubSpot.",
     method: "DELETE",
     path: "/cms/v3/source-code/{environment}/content/{path}",
-    input: z.object({ environment: z.string(), path: z.string() }),
+    input: obj({ environment: z.string(), path: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const cmsSourceCodeActions: Record<string, ActionDefinition> = {
     description: "Get metadata. Part of: Basic. Calls GET /cms/v3/source-code/{environment}/metadata/{path} on HubSpot.",
     method: "GET",
     path: "/cms/v3/source-code/{environment}/metadata/{path}",
-    input: z.object({ environment: z.string(), path: z.string(), properties: z.string().optional() }),
+    input: obj({ environment: z.string(), path: z.string(), properties: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

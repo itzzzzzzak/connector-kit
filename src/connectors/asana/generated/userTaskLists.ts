@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const userTaskListsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const userTaskListsActions: Record<string, ActionDefinition> = {
     description: "Get a user task list. Required scope: tasks:read",
     method: "GET",
     path: "/user_task_lists/{user_task_list_gid}",
-    input: z.object({ user_task_list_gid: z.string().describe("Globally unique identifier for the user task list."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["name", "owner", "workspace"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ user_task_list_gid: z.string().describe("Globally unique identifier for the user task list."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["name", "owner", "workspace"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const userTaskListsActions: Record<string, ActionDefinition> = {
     description: "Get a user's task list. Required scope: tasks:read",
     method: "GET",
     path: "/users/{user_gid}/user_task_list",
-    input: z.object({ user_gid: z.string().describe("A string identifying a user. This can either be the string \"me\", an email, or the gid of a user."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), workspace: z.string().describe("The workspace in which to get the user task list."), opt_fields: z.array(z.enum(["name", "owner", "workspace"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ user_gid: z.string().describe("A string identifying a user. This can either be the string \"me\", an email, or the gid of a user."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), workspace: z.string().describe("The workspace in which to get the user task list."), opt_fields: z.array(z.enum(["name", "owner", "workspace"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const webhooksActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Get webhooks. Part of: Webhooks. Calls GET /v1/webhooks on Pipedrive.",
     method: "GET",
     path: "/v1/webhooks",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Add webhook. Part of: Webhooks. Calls POST /v1/webhooks on Pipedrive.",
     method: "POST",
     path: "/v1/webhooks",
-    input: z.object({ subscription_url: z.string(), event_action: z.enum(["create", "change", "delete", "*"]), event_object: z.enum(["activity", "deal", "lead", "note", "organization", "person", "pipeline", "product", "stage", "user", "*"]), name: z.string(), user_id: z.number().optional(), http_auth_user: z.string().nullable().optional(), http_auth_password: z.string().nullable().optional(), version: z.enum(["1.0", "2.0"]).optional() }),
+    input: obj({ subscription_url: z.string(), event_action: z.enum(["create", "change", "delete", "*"]), event_object: z.enum(["activity", "deal", "lead", "note", "organization", "person", "pipeline", "product", "stage", "user", "*"]), name: z.string(), user_id: z.number().optional(), http_auth_user: z.string().nullable().optional(), http_auth_password: z.string().nullable().optional(), version: z.enum(["1.0", "2.0"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const webhooksActions: Record<string, ActionDefinition> = {
     description: "Delete webhook. Part of: Webhooks. Calls DELETE /v1/webhooks/{id} on Pipedrive.",
     method: "DELETE",
     path: "/v1/webhooks/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

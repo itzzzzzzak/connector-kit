@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const callLogsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const callLogsActions: Record<string, ActionDefinition> = {
     description: "Get call element. Part of: Call Logs. Calls GET /phone/callelement/{callElementId} on Zoom.",
     method: "GET",
     path: "/phone/call_element/{callElementId}",
-    input: z.object({ callElementId: z.string() }),
+    input: obj({ callElementId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const callLogsActions: Record<string, ActionDefinition> = {
     description: "Account call history. Part of: Call Logs. Calls GET /phone/callhistory on Zoom.",
     method: "GET",
     path: "/phone/call_history",
-    input: z.object({ page_size: z.number().optional(), from: z.string().optional(), to: z.string().optional(), next_page_token: z.string().optional(), keyword: z.string().optional(), directions: z.array(z.enum(["inbound", "outbound"])).optional(), connect_types: z.array(z.enum(["internal", "external"])).optional(), number_types: z.array(z.enum(["zoom_pstn", "zoom_toll_free_number", "external_pstn", "external_contact", "byoc", "byop", "3rd_party_contact_center", "zoom_service_number", "external_service_number", "zoom_contact_center", "meeting_phone_number", "meeting_id", "anonymous_number", "zoom_revenue_accelerator"])).optional(), call_types: z.array(z.enum(["general", "emergency"])).optional(), extension_types: z.array(z.enum(["user", "call_queue", "auto_receptionist", "common_area", "zoom_room", "cisco_room", "shared_line_group", "group_call_pickup", "external_contact"])).optional(), call_results: z.array(z.enum(["answered", "accepted", "picked_up", "connected", "succeeded", "voicemail", "hang_up", "canceled", "call_failed", "unconnected", "rejected", "busy", "ring_timeout", "overflowed", "no_answer", "invalid_key", "invalid_operation", "abandoned", "system_blocked", "service_unavailable"])).optional(), group_ids: z.array(z.string()).optional(), site_ids: z.array(z.string()).optional(), department: z.string().optional(), cost_center: z.string().optional(), time_type: z.enum(["start_time", "end_time"]).optional(), recording_status: z.enum(["recorded", "non_recorded"]).optional(), with_voicemail: z.boolean().optional(), call_ids: z.array(z.string()).optional() }),
+    input: obj({ page_size: z.number().optional(), from: z.string().optional(), to: z.string().optional(), next_page_token: z.string().optional(), keyword: z.string().optional(), directions: z.array(z.enum(["inbound", "outbound"])).optional(), connect_types: z.array(z.enum(["internal", "external"])).optional(), number_types: z.array(z.enum(["zoom_pstn", "zoom_toll_free_number", "external_pstn", "external_contact", "byoc", "byop", "3rd_party_contact_center", "zoom_service_number", "external_service_number", "zoom_contact_center", "meeting_phone_number", "meeting_id", "anonymous_number", "zoom_revenue_accelerator"])).optional(), call_types: z.array(z.enum(["general", "emergency"])).optional(), extension_types: z.array(z.enum(["user", "call_queue", "auto_receptionist", "common_area", "zoom_room", "cisco_room", "shared_line_group", "group_call_pickup", "external_contact"])).optional(), call_results: z.array(z.enum(["answered", "accepted", "picked_up", "connected", "succeeded", "voicemail", "hang_up", "canceled", "call_failed", "unconnected", "rejected", "busy", "ring_timeout", "overflowed", "no_answer", "invalid_key", "invalid_operation", "abandoned", "system_blocked", "service_unavailable"])).optional(), group_ids: z.array(z.string()).optional(), site_ids: z.array(z.string()).optional(), department: z.string().optional(), cost_center: z.string().optional(), time_type: z.enum(["start_time", "end_time"]).optional(), recording_status: z.enum(["recorded", "non_recorded"]).optional(), with_voicemail: z.boolean().optional(), call_ids: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const callLogsActions: Record<string, ActionDefinition> = {
     description: "Add client code to call history. Part of: Call Logs. Calls PATCH /phone/callhistory/{callElementId}/clientcode on Zoom.",
     method: "PATCH",
     path: "/phone/call_history/{callElementId}/client_code",
-    input: z.object({ callElementId: z.string(), client_code: z.string() }),
+    input: obj({ callElementId: z.string(), client_code: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const callLogsActions: Record<string, ActionDefinition> = {
     description: "Get call path. Part of: Call Logs. Calls GET /phone/callhistory/{callHistoryUuid} on Zoom.",
     method: "GET",
     path: "/phone/call_history/{callHistoryUuid}",
-    input: z.object({ callHistoryUuid: z.string() }),
+    input: obj({ callHistoryUuid: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const callLogsActions: Record<string, ActionDefinition> = {
     description: "Get user aicall summary. Part of: Call Logs. Calls GET /phone/user/{userId}/aicallsummary/{aiCallSummaryId} on Zoom.",
     method: "GET",
     path: "/phone/user/{userId}/ai_call_summary/{aiCallSummaryId}",
-    input: z.object({ userId: z.string(), aiCallSummaryId: z.string() }),
+    input: obj({ userId: z.string(), aiCallSummaryId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const callLogsActions: Record<string, ActionDefinition> = {
     description: "Phone user call history. Part of: Call Logs. Calls GET /phone/users/{userId}/callhistory on Zoom.",
     method: "GET",
     path: "/phone/users/{userId}/call_history",
-    input: z.object({ userId: z.string(), page_size: z.number().optional(), from: z.string().optional(), to: z.string().optional(), next_page_token: z.string().optional(), keyword: z.string().optional(), directions: z.array(z.enum(["inbound", "outbound"])).optional(), connect_types: z.array(z.enum(["internal", "external"])).optional(), number_types: z.array(z.enum(["zoom_pstn", "zoom_toll_free_number", "external_pstn", "external_contact", "byoc", "byop", "3rd_party_contact_center", "zoom_service_number", "external_service_number", "zoom_contact_center", "meeting_phone_number", "meeting_id", "anonymous_number", "zoom_revenue_accelerator"])).optional(), call_types: z.array(z.enum(["general", "emergency"])).optional(), extension_types: z.array(z.enum(["user", "call_queue", "auto_receptionist", "common_area", "zoom_room", "cisco_room", "shared_line_group", "group_call_pickup", "external_contact"])).optional(), call_results: z.array(z.enum(["answered", "connected", "voicemail", "hang_up", "no_answer", "invalid_operation", "abandoned", "blocked", "service_unavailable"])).optional(), group_ids: z.array(z.string()).optional(), site_ids: z.array(z.string()).optional(), department: z.string().optional(), cost_center: z.string().optional(), time_type: z.enum(["start_time", "end_time"]).optional(), recording_status: z.enum(["recorded", "non_recorded"]).optional(), with_voicemail: z.boolean().optional() }),
+    input: obj({ userId: z.string(), page_size: z.number().optional(), from: z.string().optional(), to: z.string().optional(), next_page_token: z.string().optional(), keyword: z.string().optional(), directions: z.array(z.enum(["inbound", "outbound"])).optional(), connect_types: z.array(z.enum(["internal", "external"])).optional(), number_types: z.array(z.enum(["zoom_pstn", "zoom_toll_free_number", "external_pstn", "external_contact", "byoc", "byop", "3rd_party_contact_center", "zoom_service_number", "external_service_number", "zoom_contact_center", "meeting_phone_number", "meeting_id", "anonymous_number", "zoom_revenue_accelerator"])).optional(), call_types: z.array(z.enum(["general", "emergency"])).optional(), extension_types: z.array(z.enum(["user", "call_queue", "auto_receptionist", "common_area", "zoom_room", "cisco_room", "shared_line_group", "group_call_pickup", "external_contact"])).optional(), call_results: z.array(z.enum(["answered", "connected", "voicemail", "hang_up", "no_answer", "invalid_operation", "abandoned", "blocked", "service_unavailable"])).optional(), group_ids: z.array(z.string()).optional(), site_ids: z.array(z.string()).optional(), department: z.string().optional(), cost_center: z.string().optional(), time_type: z.enum(["start_time", "end_time"]).optional(), recording_status: z.enum(["recorded", "non_recorded"]).optional(), with_voicemail: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const callLogsActions: Record<string, ActionDefinition> = {
     description: "Sync user call history. Part of: Call Logs. Calls GET /phone/users/{userId}/callhistory/sync on Zoom.",
     method: "GET",
     path: "/phone/users/{userId}/call_history/sync",
-    input: z.object({ userId: z.string(), sync_type: z.string().optional(), count: z.number().optional(), sync_token: z.string().optional() }),
+    input: obj({ userId: z.string(), sync_type: z.string().optional(), count: z.number().optional(), sync_token: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -66,7 +67,7 @@ export const callLogsActions: Record<string, ActionDefinition> = {
     description: "Delete user call history. Part of: Call Logs. Calls DELETE /phone/users/{userId}/callhistory/{callElementId} on Zoom.",
     method: "DELETE",
     path: "/phone/users/{userId}/call_history/{callElementId}",
-    input: z.object({ userId: z.string(), callElementId: z.string() }),
+    input: obj({ userId: z.string(), callElementId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

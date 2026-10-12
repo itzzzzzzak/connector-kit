@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const dataEventsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const dataEventsActions: Record<string, ActionDefinition> = {
     description: "Submit a data event. You will need an Access Token that has write permissions to send Events. Once you have a key you can submit events via POST to the Events resource, which is located at https://api.intercom.io/events, or you can send events using one of the client libraries. When working with the HTTP API directly a client should send the event w",
     method: "POST",
     path: "/events",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -19,7 +20,7 @@ export const dataEventsActions: Record<string, ActionDefinition> = {
     description: "Create event summaries Calls POST /events/summaries on Intercom.",
     method: "POST",
     path: "/events/summaries",
-    input: z.object({ user_id: z.string().describe("Your identifier for the user.").optional(), event_summaries: z.object({ event_name: z.string().optional(), count: z.number().optional(), first: z.number().optional(), last: z.number().optional() }).describe("A list of event summaries for the user. Each event summary should contain the event name, the time the event occurred, and the number of times the event…").optional() }),
+    input: obj({ user_id: z.string().describe("Your identifier for the user.").optional(), event_summaries: obj({ event_name: z.string().optional(), count: z.number().optional(), first: z.number().optional(), last: z.number().optional() }).describe("A list of event summaries for the user. Each event summary should contain the event name, the time the event occurred, and the number of times the event…").optional() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const screenTabsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const screenTabsActions: Record<string, ActionDefinition> = {
     description: "Get bulk screen tabs. Returns the list of tabs for a bulk of screens.",
     method: "GET",
     path: "/screens/tabs",
-    input: z.object({ screenId: z.array(z.number()).describe("The list of screen IDs. To include multiple screen IDs, provide an ampersand-separated list. For example, screenId=10000&screenId=10001.").optional(), tabId: z.array(z.number()).describe("The list of tab IDs. To include multiple tab IDs, provide an ampersand-separated list. For example, tabId=10000&tabId=10001.").optional(), startAt: z.number().describe("The index of the first item to return in a page of results (page offset).").optional(), maxResult: z.number().describe("The maximum number of items to return per page. The maximum number is 100,").optional() }),
+    input: obj({ screenId: z.array(z.number()).describe("The list of screen IDs. To include multiple screen IDs, provide an ampersand-separated list. For example, screenId=10000&screenId=10001.").optional(), tabId: z.array(z.number()).describe("The list of tab IDs. To include multiple tab IDs, provide an ampersand-separated list. For example, tabId=10000&tabId=10001.").optional(), startAt: z.number().describe("The index of the first item to return in a page of results (page offset).").optional(), maxResult: z.number().describe("The maximum number of items to return per page. The maximum number is 100,").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const screenTabsActions: Record<string, ActionDefinition> = {
     description: "Get all screen tabs. Returns the list of tabs for a screen.",
     method: "GET",
     path: "/screens/{screenId}/tabs",
-    input: z.object({ screenId: z.number().describe("The ID of the screen."), projectKey: z.string().describe("The key of the project.").optional() }),
+    input: obj({ screenId: z.number().describe("The ID of the screen."), projectKey: z.string().describe("The key of the project.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const screenTabsActions: Record<string, ActionDefinition> = {
     description: "Create screen tab. Creates a tab for a screen.",
     method: "POST",
     path: "/screens/{screenId}/tabs",
-    input: z.object({ screenId: z.number().describe("The ID of the screen."), id: z.number().describe("The ID of the screen tab.").optional(), name: z.string().describe("The name of the screen tab. The maximum length is 255 characters.") }),
+    input: obj({ screenId: z.number().describe("The ID of the screen."), id: z.number().describe("The ID of the screen tab.").optional(), name: z.string().describe("The name of the screen tab. The maximum length is 255 characters.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const screenTabsActions: Record<string, ActionDefinition> = {
     description: "Update screen tab. Updates the name of a screen tab.",
     method: "PUT",
     path: "/screens/{screenId}/tabs/{tabId}",
-    input: z.object({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab."), id: z.number().describe("The ID of the screen tab.").optional(), name: z.string().describe("The name of the screen tab. The maximum length is 255 characters.") }),
+    input: obj({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab."), id: z.number().describe("The ID of the screen tab.").optional(), name: z.string().describe("The name of the screen tab. The maximum length is 255 characters.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const screenTabsActions: Record<string, ActionDefinition> = {
     description: "Delete screen tab. Deletes a screen tab. Calls DELETE /screens/{screenId}/tabs/{tabId} on Jira.",
     method: "DELETE",
     path: "/screens/{screenId}/tabs/{tabId}",
-    input: z.object({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab.") }),
+    input: obj({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const screenTabsActions: Record<string, ActionDefinition> = {
     description: "Move screen tab. Moves a screen tab. Calls POST /screens/{screenId}/tabs/{tabId}/move/{pos} on Jira.",
     method: "POST",
     path: "/screens/{screenId}/tabs/{tabId}/move/{pos}",
-    input: z.object({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab."), pos: z.number().describe("The position of tab. The base index is 0.") }),
+    input: obj({ screenId: z.number().describe("The ID of the screen."), tabId: z.number().describe("The ID of the screen tab."), pos: z.number().describe("The position of tab. The base index is 0.") }),
     output: z.unknown(),
     effect: "write",
   },

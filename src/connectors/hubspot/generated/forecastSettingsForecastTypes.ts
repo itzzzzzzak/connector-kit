@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const forecastSettingsForecastTypesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const forecastSettingsForecastTypesActions: Record<string, ActionDefiniti
     description: "List. Part of: Basic. Calls GET /forecast-settings/v3/forecast-types on HubSpot.",
     method: "GET",
     path: "/forecast-settings/v3/forecast-types",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const forecastSettingsForecastTypesActions: Record<string, ActionDefiniti
     description: "Get. Part of: Basic. Calls GET /forecast-settings/v3/forecast-types/{forecastTypeId} on HubSpot.",
     method: "GET",
     path: "/forecast-settings/v3/forecast-types/{forecastTypeId}",
-    input: z.object({ forecastTypeId: z.number() }),
+    input: obj({ forecastTypeId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

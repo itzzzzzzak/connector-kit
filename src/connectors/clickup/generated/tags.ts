@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Get space tags. Part of: Tags. Calls GET /space/{spaceid}/tag on ClickUp.",
     method: "GET",
     path: "/space/{space_id}/tag",
-    input: z.object({ space_id: z.number() }),
+    input: obj({ space_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Create space tag. Part of: Tags. Calls POST /space/{spaceid}/tag on ClickUp.",
     method: "POST",
     path: "/space/{space_id}/tag",
-    input: z.object({ space_id: z.number(), tag: z.object({ name: z.string(), tag_fg: z.string(), tag_bg: z.string() }) }),
+    input: obj({ space_id: z.number(), tag: obj({ name: z.string(), tag_fg: z.string(), tag_bg: z.string() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Edit space tag. Part of: Tags. Calls PUT /space/{spaceid}/tag/{tagname} on ClickUp.",
     method: "PUT",
     path: "/space/{space_id}/tag/{tag_name}",
-    input: z.object({ space_id: z.number(), tag_name: z.string(), tag: z.object({ name: z.string(), fg_color: z.string(), bg_color: z.string() }) }),
+    input: obj({ space_id: z.number(), tag_name: z.string(), tag: obj({ name: z.string(), fg_color: z.string(), bg_color: z.string() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -35,7 +36,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Delete space tag. Part of: Tags. Calls DELETE /space/{spaceid}/tag/{tagname} on ClickUp.",
     method: "DELETE",
     path: "/space/{space_id}/tag/{tag_name}",
-    input: z.object({ space_id: z.number(), tag_name: z.string(), tag: z.object({ name: z.string(), tag_fg: z.string(), tag_bg: z.string() }) }),
+    input: obj({ space_id: z.number(), tag_name: z.string(), tag: obj({ name: z.string(), tag_fg: z.string(), tag_bg: z.string() }) }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => pick(i, ["tag"]),
@@ -44,7 +45,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Add tag to task. Part of: Tags. Calls POST /task/{taskid}/tag/{tagname} on ClickUp.",
     method: "POST",
     path: "/task/{task_id}/tag/{tag_name}",
-    input: z.object({ task_id: z.string(), tag_name: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
+    input: obj({ task_id: z.string(), tag_name: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["custom_task_ids","team_id"]),
@@ -53,7 +54,7 @@ export const tagsActions: Record<string, ActionDefinition> = {
     description: "Remove tag from task. Part of: Tags. Calls DELETE /task/{taskid}/tag/{tagname} on ClickUp.",
     method: "DELETE",
     path: "/task/{task_id}/tag/{tag_name}",
-    input: z.object({ task_id: z.string(), tag_name: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
+    input: obj({ task_id: z.string(), tag_name: z.string(), custom_task_ids: z.boolean().optional(), team_id: z.number().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

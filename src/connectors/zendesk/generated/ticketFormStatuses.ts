@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const ticketFormStatusesActions: Record<string, ActionDefinition> = {
     description: "List ticket form statuses. Part of: Ticket Form Statuses. Calls GET /ticketformstatuses on Zendesk.",
     method: "GET",
     path: "/ticket_form_statuses",
-    input: z.object({ ticket_form_id: z.string().optional() }),
+    input: obj({ ticket_form_id: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const ticketFormStatusesActions: Record<string, ActionDefinition> = {
     description: "Show many ticket form statuses. Part of: Ticket Form Statuses. Calls GET /ticketformstatuses/showmany on Zendesk.",
     method: "GET",
     path: "/ticket_form_statuses/show_many",
-    input: z.object({ ids: z.string() }),
+    input: obj({ ids: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const ticketFormStatusesActions: Record<string, ActionDefinition> = {
     description: "Delete ticket form statuses. Part of: Ticket Form Statuses. Calls DELETE /ticketforms/{ticketformid}/ticketformstatuses on Zendesk.",
     method: "DELETE",
     path: "/ticket_forms/{ticket_form_id}/ticket_form_statuses",
-    input: z.object({ ticket_form_id: z.number(), id: z.array(z.string()).optional() }),
+    input: obj({ ticket_form_id: z.number(), id: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => pick(i, ["id"]),
@@ -36,7 +37,7 @@ export const ticketFormStatusesActions: Record<string, ActionDefinition> = {
     description: "Delete ticket form status by id. Part of: Ticket Form Statuses. Calls DELETE /ticketforms/{ticketformid}/ticketformstatuses/{ticketformstatusid} on Zendesk.",
     method: "DELETE",
     path: "/ticket_forms/{ticket_form_id}/ticket_form_statuses/{ticket_form_status_id}",
-    input: z.object({ ticket_form_id: z.number(), ticket_form_status_id: z.string() }),
+    input: obj({ ticket_form_id: z.number(), ticket_form_status_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const emergencyServicesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const emergencyServicesActions: Record<string, ActionDefinition> = {
     description: "Get emergency service settings. Part of: Emergency Services. Calls GET /phone/emergencyservicesettings on Zoom.",
     method: "GET",
     path: "/phone/emergency_service_settings",
-    input: z.object({ site_id: z.string().optional() }),
+    input: obj({ site_id: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const emergencyServicesActions: Record<string, ActionDefinition> = {
     description: "Update emergency service settings. Part of: Emergency Services. Calls PATCH /phone/emergencyservicesettings on Zoom.",
     method: "PATCH",
     path: "/phone/emergency_service_settings",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,

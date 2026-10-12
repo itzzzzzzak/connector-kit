@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const batchWebhooksActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const batchWebhooksActions: Record<string, ActionDefinition> = {
     description: "Get batch webhook. Part of: batchWebhooks. Calls GET /batch-webhooks/{batchwebhookid} on Mailchimp.",
     method: "GET",
     path: "/batch-webhooks/{batch_webhook_id}",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), batch_webhook_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), batch_webhook_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const batchWebhooksActions: Record<string, ActionDefinition> = {
     description: "Patch batch webhooks. Part of: batchWebhooks. Calls PATCH /batch-webhooks/{batchwebhookid} on Mailchimp.",
     method: "PATCH",
     path: "/batch-webhooks/{batch_webhook_id}",
-    input: z.object({ batch_webhook_id: z.string(), url: z.string().optional(), enabled: z.boolean().optional() }),
+    input: obj({ batch_webhook_id: z.string(), url: z.string().optional(), enabled: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const batchWebhooksActions: Record<string, ActionDefinition> = {
     description: "Delete batch webhook id. Part of: batchWebhooks. Calls DELETE /batch-webhooks/{batchwebhookid} on Mailchimp.",
     method: "DELETE",
     path: "/batch-webhooks/{batch_webhook_id}",
-    input: z.object({ batch_webhook_id: z.string() }),
+    input: obj({ batch_webhook_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const batchWebhooksActions: Record<string, ActionDefinition> = {
     description: "Get batch webhooks. Part of: batchWebhooks. Calls GET /batch-webhooks on Mailchimp.",
     method: "GET",
     path: "/batch-webhooks",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const batchWebhooksActions: Record<string, ActionDefinition> = {
     description: "Post batch webhooks. Part of: batchWebhooks. Calls POST /batch-webhooks on Mailchimp.",
     method: "POST",
     path: "/batch-webhooks",
-    input: z.object({ url: z.string(), enabled: z.boolean().optional() }),
+    input: obj({ url: z.string(), enabled: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },

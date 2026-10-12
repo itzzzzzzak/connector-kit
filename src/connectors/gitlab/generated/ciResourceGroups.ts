@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const ciResourceGroupsActions: Record<string, ActionDefinition> = {
     description: "Get projects id resource groups. Part of: ciresourcegroups. Calls GET /projects/{id}/resourcegroups on GitLab.",
     method: "GET",
     path: "/projects/{id}/resource_groups",
-    input: z.object({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const ciResourceGroupsActions: Record<string, ActionDefinition> = {
     description: "Get projects id resource groups key. Part of: ciresourcegroups. Calls GET /projects/{id}/resourcegroups/{key} on GitLab.",
     method: "GET",
     path: "/projects/{id}/resource_groups/{key}",
-    input: z.object({ id: z.string(), key: z.string() }),
+    input: obj({ id: z.string(), key: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const ciResourceGroupsActions: Record<string, ActionDefinition> = {
     description: "Put projects id resource groups key. Part of: ciresourcegroups. Calls PUT /projects/{id}/resourcegroups/{key} on GitLab.",
     method: "PUT",
     path: "/projects/{id}/resource_groups/{key}",
-    input: z.object({ id: z.string(), key: z.string(), process_mode: z.enum(["unordered", "oldest_first", "newest_first", "newest_ready_first"]).optional() }),
+    input: obj({ id: z.string(), key: z.string(), process_mode: z.enum(["unordered", "oldest_first", "newest_first", "newest_ready_first"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const ciResourceGroupsActions: Record<string, ActionDefinition> = {
     description: "Get projects id resource groups key current job. Part of: ciresourcegroups. Calls GET /projects/{id}/resourcegroups/{key}/currentjob on GitLab.",
     method: "GET",
     path: "/projects/{id}/resource_groups/{key}/current_job",
-    input: z.object({ id: z.string(), key: z.string() }),
+    input: obj({ id: z.string(), key: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -44,7 +45,7 @@ export const ciResourceGroupsActions: Record<string, ActionDefinition> = {
     description: "Get projects id resource groups key upcoming jobs. Part of: ciresourcegroups. Calls GET /projects/{id}/resourcegroups/{key}/upcomingjobs on GitLab.",
     method: "GET",
     path: "/projects/{id}/resource_groups/{key}/upcoming_jobs",
-    input: z.object({ id: z.string(), key: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), key: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const zoomRoomsAccountActions: Record<string, ActionDefinition> = {
     description: "Get zraccount profile. Part of: Zoom Rooms Account. Calls GET /rooms/accountprofile on Zoom.",
     method: "GET",
     path: "/rooms/account_profile",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const zoomRoomsAccountActions: Record<string, ActionDefinition> = {
     description: "Update zracc profile. Part of: Zoom Rooms Account. Calls PATCH /rooms/accountprofile on Zoom.",
     method: "PATCH",
     path: "/rooms/account_profile",
-    input: z.object({ basic: z.object({ required_code_to_ext: z.boolean().optional(), room_passcode: z.string().optional(), support_email: z.string().optional(), support_phone: z.string().optional() }).optional(), setup: z.object({ apply_background_image_to_all_displays: z.boolean().optional(), background_image_info: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }),
+    input: obj({ basic: obj({ required_code_to_ext: z.boolean().optional(), room_passcode: z.string().optional(), support_email: z.string().optional(), support_phone: z.string().optional() }).optional(), setup: obj({ apply_background_image_to_all_displays: z.boolean().optional(), background_image_info: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const zoomRoomsAccountActions: Record<string, ActionDefinition> = {
     description: "Get zraccount settings. Part of: Zoom Rooms Account. Calls GET /rooms/accountsettings on Zoom.",
     method: "GET",
     path: "/rooms/account_settings",
-    input: z.object({ setting_type: z.enum(["meeting", "alert", "signage", "scheduling_display"]) }),
+    input: obj({ setting_type: z.enum(["meeting", "alert", "signage", "scheduling_display"]) }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const zoomRoomsAccountActions: Record<string, ActionDefinition> = {
     description: "Update zoom room acc settings. Part of: Zoom Rooms Account. Calls PATCH /rooms/accountsettings on Zoom.",
     method: "PATCH",
     path: "/rooms/account_settings",
-    input: z.object({ setting_type: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ setting_type: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["setting_type"]),

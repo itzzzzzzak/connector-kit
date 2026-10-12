@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const dependencyProxyActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const dependencyProxyActions: Record<string, ActionDefinition> = {
     description: "Delete groups id dependency proxy cache. Part of: dependencyproxy. Calls DELETE /groups/{id}/dependencyproxy/cache on GitLab.",
     method: "DELETE",
     path: "/groups/{id}/dependency_proxy/cache",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

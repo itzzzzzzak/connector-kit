@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const freezePeriodsActions: Record<string, ActionDefinition> = {
     description: "Get projects id freeze periods. Part of: freezeperiods. Calls GET /projects/{id}/freezeperiods on GitLab.",
     method: "GET",
     path: "/projects/{id}/freeze_periods",
-    input: z.object({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const freezePeriodsActions: Record<string, ActionDefinition> = {
     description: "Post projects id freeze periods. Part of: freezeperiods. Calls POST /projects/{id}/freezeperiods on GitLab.",
     method: "POST",
     path: "/projects/{id}/freeze_periods",
-    input: z.object({ id: z.string(), freeze_start: z.string(), freeze_end: z.string(), cron_timezone: z.string().optional() }),
+    input: obj({ id: z.string(), freeze_start: z.string(), freeze_end: z.string(), cron_timezone: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const freezePeriodsActions: Record<string, ActionDefinition> = {
     description: "Get projects id freeze periods freeze period id. Part of: freezeperiods. Calls GET /projects/{id}/freezeperiods/{freezeperiodid} on GitLab.",
     method: "GET",
     path: "/projects/{id}/freeze_periods/{freeze_period_id}",
-    input: z.object({ id: z.string(), freeze_period_id: z.number() }),
+    input: obj({ id: z.string(), freeze_period_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const freezePeriodsActions: Record<string, ActionDefinition> = {
     description: "Put projects id freeze periods freeze period id. Part of: freezeperiods. Calls PUT /projects/{id}/freezeperiods/{freezeperiodid} on GitLab.",
     method: "PUT",
     path: "/projects/{id}/freeze_periods/{freeze_period_id}",
-    input: z.object({ id: z.string(), freeze_period_id: z.number(), freeze_start: z.string().optional(), freeze_end: z.string().optional(), cron_timezone: z.string().optional() }),
+    input: obj({ id: z.string(), freeze_period_id: z.number(), freeze_start: z.string().optional(), freeze_end: z.string().optional(), cron_timezone: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const freezePeriodsActions: Record<string, ActionDefinition> = {
     description: "Delete projects id freeze periods freeze period id. Part of: freezeperiods. Calls DELETE /projects/{id}/freezeperiods/{freezeperiodid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/freeze_periods/{freeze_period_id}",
-    input: z.object({ id: z.string(), freeze_period_id: z.number() }),
+    input: obj({ id: z.string(), freeze_period_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

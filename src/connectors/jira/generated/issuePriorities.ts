@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const issuePrioritiesActions: Record<string, ActionDefinition> = {
     description: "Create priority. Creates an issue priority. Calls POST /priority on Jira.",
     method: "POST",
     path: "/priority",
-    input: z.object({ avatarId: z.number().describe("The ID for the avatar for the priority. Either the iconUrl or avatarId must be defined, but not both. This parameter is nullable and will become mandatory…").optional(), description: z.string().nullable().describe("The description of the priority.").optional(), iconUrl: z.enum(["/images/icons/priorities/blocker.png", "/images/icons/priorities/critical.png", "/images/icons/priorities/high.png", "/images/icons/priorities/highest.png", "/images/icons/priorities/low.png", "/images/icons/priorities/lowest.png", "/images/icons/priorities/major.png", "/images/icons/priorities/medium.png", "/images/icons/priorities/minor.png", "/images/icons/priorities/trivial.png", "/images/icons/priorities/blocker_new.png", "/images/icons/priorities/critical_new.png", "/images/icons/priorities/high_new.png", "/images/icons/priorities/highest_new.png", "/images/icons/priorities/low_new.png", "/images/icons/priorities/lowest_new.png", "/images/icons/priorities/major_new.png", "/images/icons/priorities/medium_new.png", "/images/icons/priorities/minor_new.png", "/images/icons/priorities/trivial_new.png"]).nullable().describe("The URL of an icon for the priority. Accepted protocols are HTTP and HTTPS. Built in icons can also be used. Either the iconUrl or avatarId must be defined,…").optional(), name: z.string().describe("The name of the priority. Must be unique."), statusColor: z.string().describe("The status color of the priority in 3-digit or 6-digit hexadecimal format.") }),
+    input: obj({ avatarId: z.number().describe("The ID for the avatar for the priority. Either the iconUrl or avatarId must be defined, but not both. This parameter is nullable and will become mandatory…").optional(), description: z.string().nullable().describe("The description of the priority.").optional(), iconUrl: z.enum(["/images/icons/priorities/blocker.png", "/images/icons/priorities/critical.png", "/images/icons/priorities/high.png", "/images/icons/priorities/highest.png", "/images/icons/priorities/low.png", "/images/icons/priorities/lowest.png", "/images/icons/priorities/major.png", "/images/icons/priorities/medium.png", "/images/icons/priorities/minor.png", "/images/icons/priorities/trivial.png", "/images/icons/priorities/blocker_new.png", "/images/icons/priorities/critical_new.png", "/images/icons/priorities/high_new.png", "/images/icons/priorities/highest_new.png", "/images/icons/priorities/low_new.png", "/images/icons/priorities/lowest_new.png", "/images/icons/priorities/major_new.png", "/images/icons/priorities/medium_new.png", "/images/icons/priorities/minor_new.png", "/images/icons/priorities/trivial_new.png"]).nullable().describe("The URL of an icon for the priority. Accepted protocols are HTTP and HTTPS. Built in icons can also be used. Either the iconUrl or avatarId must be defined,…").optional(), name: z.string().describe("The name of the priority. Must be unique."), statusColor: z.string().describe("The status color of the priority in 3-digit or 6-digit hexadecimal format.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const issuePrioritiesActions: Record<string, ActionDefinition> = {
     description: "Set default priority. Sets default issue priority.",
     method: "PUT",
     path: "/priority/default",
-    input: z.object({ id: z.string().describe("The ID of the new default issue priority. Must be an existing ID or null. Setting this to null erases the default priority setting.") }),
+    input: obj({ id: z.string().describe("The ID of the new default issue priority. Must be an existing ID or null. Setting this to null erases the default priority setting.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const issuePrioritiesActions: Record<string, ActionDefinition> = {
     description: "Move priorities. Changes the order of issue priorities.",
     method: "PUT",
     path: "/priority/move",
-    input: z.object({ after: z.string().describe("The ID of the priority. Required if position isn't provided.").optional(), ids: z.array(z.string()).describe("The list of issue IDs to be reordered. Cannot contain duplicates nor after ID."), position: z.string().describe("The position for issue priorities to be moved to. Required if after isn't provided.").optional() }),
+    input: obj({ after: z.string().describe("The ID of the priority. Required if position isn't provided.").optional(), ids: z.array(z.string()).describe("The list of issue IDs to be reordered. Cannot contain duplicates nor after ID."), position: z.string().describe("The position for issue priorities to be moved to. Required if after isn't provided.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -35,7 +36,7 @@ export const issuePrioritiesActions: Record<string, ActionDefinition> = {
     description: "Search priorities. Returns a paginated list of priorities. The list can contain all priorities or a subset determined by any combination of these criteria:",
     method: "GET",
     path: "/priority/search",
-    input: z.object({ id: z.array(z.string()).describe("The list of priority IDs. To include multiple IDs, provide an ampersand-separated list. For example, id=2&id=3.").optional(), projectId: z.array(z.string()).describe("The list of projects IDs. To include multiple IDs, provide an ampersand-separated list. For example, projectId=10010&projectId=10111.").optional(), priorityName: z.string().describe("The name of priority to search for.").optional(), onlyDefault: z.boolean().describe("Whether only the default priority is returned.").optional(), expand: z.string().describe("Use schemes to return the associated priority schemes for each priority. Limited to returning first 15 priority schemes per priority.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.array(z.string()).describe("The list of priority IDs. To include multiple IDs, provide an ampersand-separated list. For example, id=2&id=3.").optional(), projectId: z.array(z.string()).describe("The list of projects IDs. To include multiple IDs, provide an ampersand-separated list. For example, projectId=10010&projectId=10111.").optional(), priorityName: z.string().describe("The name of priority to search for.").optional(), onlyDefault: z.boolean().describe("Whether only the default priority is returned.").optional(), expand: z.string().describe("Use schemes to return the associated priority schemes for each priority. Limited to returning first 15 priority schemes per priority.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -44,7 +45,7 @@ export const issuePrioritiesActions: Record<string, ActionDefinition> = {
     description: "Get priority. Returns an issue priority. To fetch multiple priorities at once, use Search priorities instead.",
     method: "GET",
     path: "/priority/{id}",
-    input: z.object({ id: z.string().describe("The ID of the issue priority.") }),
+    input: obj({ id: z.string().describe("The ID of the issue priority.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -52,7 +53,7 @@ export const issuePrioritiesActions: Record<string, ActionDefinition> = {
     description: "Update priority. Updates an issue priority. Calls PUT /priority/{id} on Jira.",
     method: "PUT",
     path: "/priority/{id}",
-    input: z.object({ id: z.string().describe("The ID of the issue priority."), avatarId: z.number().describe("The ID for the avatar for the priority. This parameter is nullable and both iconUrl and avatarId cannot be defined.").optional(), description: z.string().nullable().describe("The description of the priority.").optional(), iconUrl: z.enum(["/images/icons/priorities/blocker.png", "/images/icons/priorities/critical.png", "/images/icons/priorities/high.png", "/images/icons/priorities/highest.png", "/images/icons/priorities/low.png", "/images/icons/priorities/lowest.png", "/images/icons/priorities/major.png", "/images/icons/priorities/medium.png", "/images/icons/priorities/minor.png", "/images/icons/priorities/trivial.png", "/images/icons/priorities/blocker_new.png", "/images/icons/priorities/critical_new.png", "/images/icons/priorities/high_new.png", "/images/icons/priorities/highest_new.png", "/images/icons/priorities/low_new.png", "/images/icons/priorities/lowest_new.png", "/images/icons/priorities/major_new.png", "/images/icons/priorities/medium_new.png", "/images/icons/priorities/minor_new.png", "/images/icons/priorities/trivial_new.png"]).nullable().describe("The URL of an icon for the priority. Accepted protocols are HTTP and HTTPS. Built in icons can also be used. Both iconUrl and avatarId cannot be defined.").optional(), name: z.string().nullable().describe("The name of the priority. Must be unique.").optional(), statusColor: z.string().nullable().describe("The status color of the priority in 3-digit or 6-digit hexadecimal format.").optional() }),
+    input: obj({ id: z.string().describe("The ID of the issue priority."), avatarId: z.number().describe("The ID for the avatar for the priority. This parameter is nullable and both iconUrl and avatarId cannot be defined.").optional(), description: z.string().nullable().describe("The description of the priority.").optional(), iconUrl: z.enum(["/images/icons/priorities/blocker.png", "/images/icons/priorities/critical.png", "/images/icons/priorities/high.png", "/images/icons/priorities/highest.png", "/images/icons/priorities/low.png", "/images/icons/priorities/lowest.png", "/images/icons/priorities/major.png", "/images/icons/priorities/medium.png", "/images/icons/priorities/minor.png", "/images/icons/priorities/trivial.png", "/images/icons/priorities/blocker_new.png", "/images/icons/priorities/critical_new.png", "/images/icons/priorities/high_new.png", "/images/icons/priorities/highest_new.png", "/images/icons/priorities/low_new.png", "/images/icons/priorities/lowest_new.png", "/images/icons/priorities/major_new.png", "/images/icons/priorities/medium_new.png", "/images/icons/priorities/minor_new.png", "/images/icons/priorities/trivial_new.png"]).nullable().describe("The URL of an icon for the priority. Accepted protocols are HTTP and HTTPS. Built in icons can also be used. Both iconUrl and avatarId cannot be defined.").optional(), name: z.string().nullable().describe("The name of the priority. Must be unique.").optional(), statusColor: z.string().nullable().describe("The status color of the priority in 3-digit or 6-digit hexadecimal format.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -60,7 +61,7 @@ export const issuePrioritiesActions: Record<string, ActionDefinition> = {
     description: "Delete priority. Deletes an issue priority. Calls DELETE /priority/{id} on Jira.",
     method: "DELETE",
     path: "/priority/{id}",
-    input: z.object({ id: z.string().describe("The ID of the issue priority.") }),
+    input: obj({ id: z.string().describe("The ID of the issue priority.") }),
     output: z.unknown(),
     effect: "destructive",
   },

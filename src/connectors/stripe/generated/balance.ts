@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const balanceActions: Record<string, ActionDefinition> = {
     description: "List all balance transactions. Returns a list of transactions that have contributed to the Stripe account balance (for example, charges, transfers, and so on). The transactions return in sorted order, with the most recent transactions appearing first.",
     method: "GET",
     path: "/balance/history",
-    input: z.object({ created: z.unknown().describe("Only return transactions that were created during the given date interval.").optional(), currency: z.string().describe("Only return transactions in a certain currency. Three-letter ISO currency code, in lowercase. Must be a supported currency.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payout: z.string().describe("For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID.").optional(), source: z.string().describe("Only returns transactions associated with the given object.").optional(), type: z.string().describe("Only returns transactions of the given type. One of: taxfund, adjustment, advance, advancefunding, anticipationrepayment, applicationfee,…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ created: z.unknown().describe("Only return transactions that were created during the given date interval.").optional(), currency: z.string().describe("Only return transactions in a certain currency. Three-letter ISO currency code, in lowercase. Must be a supported currency.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payout: z.string().describe("For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID.").optional(), source: z.string().describe("Only returns transactions associated with the given object.").optional(), type: z.string().describe("Only returns transactions of the given type. One of: taxfund, adjustment, advance, advancefunding, anticipationrepayment, applicationfee,…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const balanceActions: Record<string, ActionDefinition> = {
     description: "Retrieve a balance transaction. Retrieves the balance transaction with the given ID.",
     method: "GET",
     path: "/balance/history/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const aliasesActions: Record<string, ActionDefinition> = {
     description: "List deployment aliases. Part of: aliases. Calls GET /v2/deployments/{id}/aliases on Vercel.",
     method: "GET",
     path: "/v2/deployments/{id}/aliases",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -20,7 +21,7 @@ export const aliasesActions: Record<string, ActionDefinition> = {
     description: "Assign alias. Part of: aliases. Calls POST /v2/deployments/{id}/aliases on Vercel.",
     method: "POST",
     path: "/v2/deployments/{id}/aliases",
-    input: z.object({ id: z.unknown(), teamId: z.string().optional(), slug: z.string().optional(), alias: z.string().optional(), redirect: z.string().nullable().optional() }),
+    input: obj({ id: z.unknown(), teamId: z.string().optional(), slug: z.string().optional(), alias: z.string().optional(), redirect: z.string().nullable().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -30,7 +31,7 @@ export const aliasesActions: Record<string, ActionDefinition> = {
     description: "List aliases. Part of: aliases. Calls GET /v4/aliases on Vercel.",
     method: "GET",
     path: "/v4/aliases",
-    input: z.object({ domain: z.unknown().optional(), from: z.number().optional(), projectId: z.string().optional(), since: z.number().optional(), rollbackDeploymentId: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ domain: z.unknown().optional(), from: z.number().optional(), projectId: z.string().optional(), since: z.number().optional(), rollbackDeploymentId: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "aliases", cursorPath: ["pagination", "next"], cursorParam: "until", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -39,7 +40,7 @@ export const aliasesActions: Record<string, ActionDefinition> = {
     description: "Get alias. Part of: aliases. Calls GET /v4/aliases/{idOrAlias} on Vercel.",
     method: "GET",
     path: "/v4/aliases/{idOrAlias}",
-    input: z.object({ from: z.number().optional(), idOrAlias: z.string(), projectId: z.string().optional(), since: z.number().optional(), until: z.number().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ from: z.number().optional(), idOrAlias: z.string(), projectId: z.string().optional(), since: z.number().optional(), until: z.number().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -47,7 +48,7 @@ export const aliasesActions: Record<string, ActionDefinition> = {
     description: "Delete alias. Part of: aliases. Calls DELETE /v2/aliases/{aliasId} on Vercel.",
     method: "DELETE",
     path: "/v2/aliases/{aliasId}",
-    input: z.object({ aliasId: z.unknown(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ aliasId: z.unknown(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -55,7 +56,7 @@ export const aliasesActions: Record<string, ActionDefinition> = {
     description: "Patch url protection bypass. Part of: aliases. Calls PATCH /aliases/{id}/protection-bypass on Vercel.",
     method: "PATCH",
     path: "/aliases/{id}/protection-bypass",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),

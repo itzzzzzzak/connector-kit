@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const certificatesActions: Record<string, ActionDefinition> = {
     description: "List All Certificates. To list all of the certificates available on your account, send a GET request to /v2/certificates.",
     method: "GET",
     path: "/certificates",
-    input: z.object({ name: z.string().describe("Name of expected certificate").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ name: z.string().describe("Name of expected certificate").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "certificates", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const certificatesActions: Record<string, ActionDefinition> = {
     description: "Create a New Certificate. To upload new SSL certificate which you have previously generated, send a POST request to /v2/certificates.",
     method: "POST",
     path: "/certificates",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -29,7 +30,7 @@ export const certificatesActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing Certificate. To show information about an existing certificate, send a GET request to /v2/certificates/$CERTIFICATEID.",
     method: "GET",
     path: "/certificates/{certificate_id}",
-    input: z.object({ certificate_id: z.string().describe("A unique identifier for a certificate.") }),
+    input: obj({ certificate_id: z.string().describe("A unique identifier for a certificate.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const certificatesActions: Record<string, ActionDefinition> = {
     description: "Delete a Certificate. To delete a specific certificate, send a DELETE request to /v2/certificates/$CERTIFICATEID.",
     method: "DELETE",
     path: "/certificates/{certificate_id}",
-    input: z.object({ certificate_id: z.string().describe("A unique identifier for a certificate.") }),
+    input: obj({ certificate_id: z.string().describe("A unique identifier for a certificate.") }),
     output: z.unknown(),
     effect: "destructive",
   },

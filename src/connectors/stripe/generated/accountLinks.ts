@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const accountLinksActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const accountLinksActions: Record<string, ActionDefinition> = {
     description: "Create an account link. Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.",
     method: "POST",
     path: "/account_links",
-    input: z.object({ account: z.string().describe("The identifier of the account to create an account link for."), collect: z.enum(["currently_due", "eventually_due"]).describe("The collect parameter is deprecated. Use collectionoptions instead.").optional(), collection_options: z.object({ fields: z.enum(["currently_due", "eventually_due"]).optional(), future_requirements: z.enum(["include", "omit"]).optional() }).describe("Specifies the requirements that Stripe collects from connected accounts in the Connect Onboarding flow.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), refresh_url: z.string().describe("The URL the user will be redirected to if the account link is expired, has been previously-visited, or is otherwise invalid. The URL you specify should…").optional(), return_url: z.string().describe("The URL that the user will be redirected to upon leaving or completing the linked flow.").optional(), type: z.enum(["account_onboarding", "account_update"]).describe("The type of account link the user is requesting. You can create Account Links of type accountupdate only for connected accounts where your platform is…") }),
+    input: obj({ account: z.string().describe("The identifier of the account to create an account link for."), collect: z.enum(["currently_due", "eventually_due"]).describe("The collect parameter is deprecated. Use collectionoptions instead.").optional(), collection_options: obj({ fields: z.enum(["currently_due", "eventually_due"]).optional(), future_requirements: z.enum(["include", "omit"]).optional() }).describe("Specifies the requirements that Stripe collects from connected accounts in the Connect Onboarding flow.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), refresh_url: z.string().describe("The URL the user will be redirected to if the account link is expired, has been previously-visited, or is otherwise invalid. The URL you specify should…").optional(), return_url: z.string().describe("The URL that the user will be redirected to upon leaving or completing the linked flow.").optional(), type: z.enum(["account_onboarding", "account_update"]).describe("The type of account link the user is requesting. You can create Account Links of type accountupdate only for connected accounts where your platform is…") }),
     output: z.unknown(),
     effect: "write",
   },

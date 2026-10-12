@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const oauthActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const oauthActions: Record<string, ActionDefinition> = {
     description: "Exchanges a temporary OAuth verifier code for an access token.",
     method: "GET",
     path: "/oauth.access",
-    input: z.object({ client_id: z.string().describe("Issued when you created your application.").optional(), client_secret: z.string().describe("Issued when you created your application.").optional(), code: z.string().describe("The code param returned via the OAuth callback.").optional(), redirect_uri: z.string().describe("This must match the originally submitted URI (if one was sent).").optional(), single_channel: z.boolean().describe("Request the user to add your app only to a single channel. Only valid with a legacy workspace app.").optional() }),
+    input: obj({ client_id: z.string().describe("Issued when you created your application.").optional(), client_secret: z.string().describe("Issued when you created your application.").optional(), code: z.string().describe("The code param returned via the OAuth callback.").optional(), redirect_uri: z.string().describe("This must match the originally submitted URI (if one was sent).").optional(), single_channel: z.boolean().describe("Request the user to add your app only to a single channel. Only valid with a legacy workspace app.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const oauthActions: Record<string, ActionDefinition> = {
     description: "Exchanges a temporary OAuth verifier code for a workspace token.",
     method: "GET",
     path: "/oauth.token",
-    input: z.object({ client_id: z.string().describe("Issued when you created your application.").optional(), client_secret: z.string().describe("Issued when you created your application.").optional(), code: z.string().describe("The code param returned via the OAuth callback.").optional(), redirect_uri: z.string().describe("This must match the originally submitted URI (if one was sent).").optional(), single_channel: z.boolean().describe("Request the user to add your app only to a single channel.").optional() }),
+    input: obj({ client_id: z.string().describe("Issued when you created your application.").optional(), client_secret: z.string().describe("Issued when you created your application.").optional(), code: z.string().describe("The code param returned via the OAuth callback.").optional(), redirect_uri: z.string().describe("This must match the originally submitted URI (if one was sent).").optional(), single_channel: z.boolean().describe("Request the user to add your app only to a single channel.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const oauthActions: Record<string, ActionDefinition> = {
     description: "Exchanges a temporary OAuth verifier code for an access token.",
     method: "GET",
     path: "/oauth.v2.access",
-    input: z.object({ client_id: z.string().describe("Issued when you created your application.").optional(), client_secret: z.string().describe("Issued when you created your application.").optional(), code: z.string().describe("The code param returned via the OAuth callback."), redirect_uri: z.string().describe("This must match the originally submitted URI (if one was sent).").optional() }),
+    input: obj({ client_id: z.string().describe("Issued when you created your application.").optional(), client_secret: z.string().describe("Issued when you created your application.").optional(), code: z.string().describe("The code param returned via the OAuth callback."), redirect_uri: z.string().describe("This must match the originally submitted URI (if one was sent).").optional() }),
     output: z.unknown(),
     effect: "read",
   },

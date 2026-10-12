@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const facebookAdsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const facebookAdsActions: Record<string, ActionDefinition> = {
     description: "Get all facebook ads. Part of: facebookAds. Calls GET /facebook-ads on Mailchimp.",
     method: "GET",
     path: "/facebook-ads",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional(), sort_field: z.enum(["created_at", "updated_at", "end_time"]).optional(), sort_dir: z.enum(["ASC", "DESC"]).optional() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional(), sort_field: z.enum(["created_at", "updated_at", "end_time"]).optional(), sort_dir: z.enum(["ASC", "DESC"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const facebookAdsActions: Record<string, ActionDefinition> = {
     description: "Get facebook ads id. Part of: facebookAds. Calls GET /facebook-ads/{outreachid} on Mailchimp.",
     method: "GET",
     path: "/facebook-ads/{outreach_id}",
-    input: z.object({ fields: z.array(z.string()).optional(), outreach_id: z.string(), exclude_fields: z.array(z.string()).optional() }),
+    input: obj({ fields: z.array(z.string()).optional(), outreach_id: z.string(), exclude_fields: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "read",
   },

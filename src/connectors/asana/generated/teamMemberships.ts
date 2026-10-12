@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const teamMembershipsActions: Record<string, ActionDefinition> = {
     description: "Get a team membership. Required scope: teammemberships:read",
     method: "GET",
     path: "/team_memberships/{team_membership_gid}",
-    input: z.object({ team_membership_gid: z.string(), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["is_admin", "is_guest", "is_limited_access", "team", "team.name", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ team_membership_gid: z.string(), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["is_admin", "is_guest", "is_limited_access", "team", "team.name", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const teamMembershipsActions: Record<string, ActionDefinition> = {
     description: "Get team memberships. Required scope: teammemberships:read",
     method: "GET",
     path: "/team_memberships",
-    input: z.object({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), team: z.string().describe("Globally unique identifier for the team.").optional(), user: z.string().describe("A string identifying a user. This can either be the string \"me\", an email, or the gid of a user. This parameter must be used with the workspace parameter.").optional(), workspace: z.string().describe("Globally unique identifier for the workspace. This parameter must be used with the user parameter.").optional(), opt_fields: z.array(z.enum(["is_admin", "is_guest", "is_limited_access", "offset", "path", "team", "team.name", "uri", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), team: z.string().describe("Globally unique identifier for the team.").optional(), user: z.string().describe("A string identifying a user. This can either be the string \"me\", an email, or the gid of a user. This parameter must be used with the workspace parameter.").optional(), workspace: z.string().describe("Globally unique identifier for the workspace. This parameter must be used with the user parameter.").optional(), opt_fields: z.array(z.enum(["is_admin", "is_guest", "is_limited_access", "offset", "path", "team", "team.name", "uri", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -28,7 +29,7 @@ export const teamMembershipsActions: Record<string, ActionDefinition> = {
     description: "Get memberships from a team. Required scope: teammemberships:read",
     method: "GET",
     path: "/teams/{team_gid}/team_memberships",
-    input: z.object({ team_gid: z.string().describe("Globally unique identifier for the team."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["is_admin", "is_guest", "is_limited_access", "offset", "path", "team", "team.name", "uri", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ team_gid: z.string().describe("Globally unique identifier for the team."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["is_admin", "is_guest", "is_limited_access", "offset", "path", "team", "team.name", "uri", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -37,7 +38,7 @@ export const teamMembershipsActions: Record<string, ActionDefinition> = {
     description: "Get memberships from a user. Required scope: teammemberships:read",
     method: "GET",
     path: "/users/{user_gid}/team_memberships",
-    input: z.object({ user_gid: z.string().describe("A string identifying a user. This can either be the string \"me\", an email, or the gid of a user."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), workspace: z.string().describe("Globally unique identifier for the workspace."), opt_fields: z.array(z.enum(["is_admin", "is_guest", "is_limited_access", "offset", "path", "team", "team.name", "uri", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ user_gid: z.string().describe("A string identifying a user. This can either be the string \"me\", an email, or the gid of a user."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), workspace: z.string().describe("Globally unique identifier for the workspace."), opt_fields: z.array(z.enum(["is_admin", "is_guest", "is_limited_access", "offset", "path", "team", "team.name", "uri", "user", "user.name"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),

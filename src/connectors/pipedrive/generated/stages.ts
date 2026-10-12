@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const stagesActions: Record<string, ActionDefinition> = {
     description: "Get stages. Part of: Stages. Calls GET /api/v2/stages on Pipedrive.",
     method: "GET",
     path: "/api/v2/stages",
-    input: z.object({ pipeline_id: z.number().optional(), sort_by: z.enum(["id", "update_time", "add_time", "order_nr"]).optional(), sort_direction: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ pipeline_id: z.number().optional(), sort_by: z.enum(["id", "update_time", "add_time", "order_nr"]).optional(), sort_direction: z.enum(["asc", "desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["additional_data", "next_cursor"], cursorParam: "cursor", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 500 }),
@@ -20,7 +21,7 @@ export const stagesActions: Record<string, ActionDefinition> = {
     description: "Add stage. Part of: Stages. Calls POST /api/v2/stages on Pipedrive.",
     method: "POST",
     path: "/api/v2/stages",
-    input: z.object({ name: z.string(), pipeline_id: z.number(), deal_probability: z.number().optional(), is_deal_rot_enabled: z.boolean().optional(), days_to_rotten: z.number().nullable().optional() }),
+    input: obj({ name: z.string(), pipeline_id: z.number(), deal_probability: z.number().optional(), is_deal_rot_enabled: z.boolean().optional(), days_to_rotten: z.number().nullable().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const stagesActions: Record<string, ActionDefinition> = {
     description: "Get stage. Part of: Stages. Calls GET /api/v2/stages/{id} on Pipedrive.",
     method: "GET",
     path: "/api/v2/stages/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const stagesActions: Record<string, ActionDefinition> = {
     description: "Update stage. Part of: Stages. Calls PATCH /api/v2/stages/{id} on Pipedrive.",
     method: "PATCH",
     path: "/api/v2/stages/{id}",
-    input: z.object({ id: z.number(), name: z.string().optional(), pipeline_id: z.number().optional(), deal_probability: z.number().optional(), is_deal_rot_enabled: z.boolean().optional(), days_to_rotten: z.number().nullable().optional() }),
+    input: obj({ id: z.number(), name: z.string().optional(), pipeline_id: z.number().optional(), deal_probability: z.number().optional(), is_deal_rot_enabled: z.boolean().optional(), days_to_rotten: z.number().nullable().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const stagesActions: Record<string, ActionDefinition> = {
     description: "Delete stage. Part of: Stages. Calls DELETE /api/v2/stages/{id} on Pipedrive.",
     method: "DELETE",
     path: "/api/v2/stages/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

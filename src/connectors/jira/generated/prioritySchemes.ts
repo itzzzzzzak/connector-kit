@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const prioritySchemesActions: Record<string, ActionDefinition> = {
     description: "Get priority schemes. Returns a paginated list of priority schemes.",
     method: "GET",
     path: "/priorityscheme",
-    input: z.object({ priorityId: z.array(z.number()).describe("A set of priority IDs to filter by. To include multiple IDs, provide an ampersand-separated list. For example, priorityId=10000&priorityId=10001.").optional(), schemeId: z.array(z.number()).describe("A set of priority scheme IDs. To include multiple IDs, provide an ampersand-separated list. For example, schemeId=10000&schemeId=10001.").optional(), schemeName: z.string().describe("The name of scheme to search for.").optional(), onlyDefault: z.boolean().describe("Whether only the default priority is returned.").optional(), orderBy: z.enum(["name", "+name", "-name"]).describe("The ordering to return the priority schemes by.").optional(), expand: z.string().describe("A comma separated list of additional information to return. \"priorities\" will return priorities associated with the priority scheme. \"projects\" will return…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ priorityId: z.array(z.number()).describe("A set of priority IDs to filter by. To include multiple IDs, provide an ampersand-separated list. For example, priorityId=10000&priorityId=10001.").optional(), schemeId: z.array(z.number()).describe("A set of priority scheme IDs. To include multiple IDs, provide an ampersand-separated list. For example, schemeId=10000&schemeId=10001.").optional(), schemeName: z.string().describe("The name of scheme to search for.").optional(), onlyDefault: z.boolean().describe("Whether only the default priority is returned.").optional(), orderBy: z.enum(["name", "+name", "-name"]).describe("The ordering to return the priority schemes by.").optional(), expand: z.string().describe("A comma separated list of additional information to return. \"priorities\" will return priorities associated with the priority scheme. \"projects\" will return…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const prioritySchemesActions: Record<string, ActionDefinition> = {
     description: "Create priority scheme. Creates a new priority scheme.",
     method: "POST",
     path: "/priorityscheme",
-    input: z.object({ defaultPriorityId: z.number().describe("The ID of the default priority for the priority scheme."), description: z.string().describe("The description of the priority scheme.").optional(), mappings: z.object({ in: z.record(z.string(), z.unknown()).optional(), out: z.record(z.string(), z.unknown()).optional() }).describe("Instructions to migrate the priorities of issues. in mappings are used to migrate the priorities of issues to priorities used within the priority scheme. out…").optional(), name: z.string().describe("The name of the priority scheme. Must be unique."), priorityIds: z.array(z.number()).describe("The IDs of priorities in the scheme."), projectIds: z.array(z.number()).describe("The IDs of projects that will use the priority scheme.").optional() }),
+    input: obj({ defaultPriorityId: z.number().describe("The ID of the default priority for the priority scheme."), description: z.string().describe("The description of the priority scheme.").optional(), mappings: obj({ in: z.record(z.string(), z.unknown()).optional(), out: z.record(z.string(), z.unknown()).optional() }).describe("Instructions to migrate the priorities of issues. in mappings are used to migrate the priorities of issues to priorities used within the priority scheme. out…").optional(), name: z.string().describe("The name of the priority scheme. Must be unique."), priorityIds: z.array(z.number()).describe("The IDs of priorities in the scheme."), projectIds: z.array(z.number()).describe("The IDs of projects that will use the priority scheme.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const prioritySchemesActions: Record<string, ActionDefinition> = {
     description: "Suggested priorities for mappings. Returns a paginated list of priorities that would require mapping, given a change in priorities or projects associated with a priority scheme.",
     method: "POST",
     path: "/priorityscheme/mappings",
-    input: z.object({ maxResults: z.number().describe("The maximum number of results that could be on the page.").optional(), priorities: z.object({ add: z.array(z.number()).optional(), remove: z.array(z.number()).optional() }).describe("The priority changes in the scheme.").optional(), projects: z.object({ add: z.array(z.number()).optional() }).describe("The project changes in the scheme.").optional(), schemeId: z.number().describe("The id of the priority scheme.").optional(), startAt: z.number().describe("The index of the first item returned on the page.").optional() }),
+    input: obj({ maxResults: z.number().describe("The maximum number of results that could be on the page.").optional(), priorities: obj({ add: z.array(z.number()).optional(), remove: z.array(z.number()).optional() }).describe("The priority changes in the scheme.").optional(), projects: obj({ add: z.array(z.number()).optional() }).describe("The project changes in the scheme.").optional(), schemeId: z.number().describe("The id of the priority scheme.").optional(), startAt: z.number().describe("The index of the first item returned on the page.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const prioritySchemesActions: Record<string, ActionDefinition> = {
     description: "Get available priorities by priority scheme. Returns a paginated list of priorities available for adding to a priority scheme.",
     method: "GET",
     path: "/priorityscheme/priorities/available",
-    input: z.object({ query: z.string().describe("The string to query priorities on by name.").optional(), schemeId: z.string().describe("The priority scheme ID."), exclude: z.array(z.string()).describe("A list of priority IDs to exclude from the results.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ query: z.string().describe("The string to query priorities on by name.").optional(), schemeId: z.string().describe("The priority scheme ID."), exclude: z.array(z.string()).describe("A list of priority IDs to exclude from the results.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -45,7 +46,7 @@ export const prioritySchemesActions: Record<string, ActionDefinition> = {
     description: "Update priority scheme. Updates a priority scheme. This includes its details, the lists of priorities and projects in it",
     method: "PUT",
     path: "/priorityscheme/{schemeId}",
-    input: z.object({ schemeId: z.number().describe("The ID of the priority scheme."), defaultPriorityId: z.number().describe("The default priority of the scheme.").optional(), description: z.string().describe("The description of the priority scheme.").optional(), mappings: z.object({ in: z.record(z.string(), z.unknown()).optional(), out: z.record(z.string(), z.unknown()).optional() }).describe("Instructions to migrate the priorities of issues. in mappings are used to migrate the priorities of issues to priorities used within the priority scheme. out…").optional(), name: z.string().describe("The name of the priority scheme. Must be unique.").optional(), priorities: z.object({ add: z.object({ ids: z.array(z.number()) }).optional(), remove: z.object({ ids: z.array(z.number()) }).optional() }).describe("The priorities in the scheme.").optional(), projects: z.object({ add: z.object({ ids: z.array(z.number()) }).optional(), remove: z.object({ ids: z.array(z.number()) }).optional() }).describe("The projects in the scheme.").optional() }),
+    input: obj({ schemeId: z.number().describe("The ID of the priority scheme."), defaultPriorityId: z.number().describe("The default priority of the scheme.").optional(), description: z.string().describe("The description of the priority scheme.").optional(), mappings: obj({ in: z.record(z.string(), z.unknown()).optional(), out: z.record(z.string(), z.unknown()).optional() }).describe("Instructions to migrate the priorities of issues. in mappings are used to migrate the priorities of issues to priorities used within the priority scheme. out…").optional(), name: z.string().describe("The name of the priority scheme. Must be unique.").optional(), priorities: obj({ add: obj({ ids: z.array(z.number()) }).optional(), remove: obj({ ids: z.array(z.number()) }).optional() }).describe("The priorities in the scheme.").optional(), projects: obj({ add: obj({ ids: z.array(z.number()) }).optional(), remove: obj({ ids: z.array(z.number()) }).optional() }).describe("The projects in the scheme.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -53,7 +54,7 @@ export const prioritySchemesActions: Record<string, ActionDefinition> = {
     description: "Delete priority scheme. Deletes a priority scheme.",
     method: "DELETE",
     path: "/priorityscheme/{schemeId}",
-    input: z.object({ schemeId: z.number().describe("The priority scheme ID.") }),
+    input: obj({ schemeId: z.number().describe("The priority scheme ID.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -61,7 +62,7 @@ export const prioritySchemesActions: Record<string, ActionDefinition> = {
     description: "Get priorities by priority scheme. Returns a paginated list of priorities by scheme.",
     method: "GET",
     path: "/priorityscheme/{schemeId}/priorities",
-    input: z.object({ schemeId: z.string().describe("The priority scheme ID."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ schemeId: z.string().describe("The priority scheme ID."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -70,7 +71,7 @@ export const prioritySchemesActions: Record<string, ActionDefinition> = {
     description: "Get projects by priority scheme. Returns a paginated list of projects by scheme.",
     method: "GET",
     path: "/priorityscheme/{schemeId}/projects",
-    input: z.object({ projectId: z.array(z.number()).describe("The project IDs to filter by. For example, projectId=10000&projectId=10001.").optional(), schemeId: z.string().describe("The priority scheme ID."), query: z.string().describe("The string to query projects on by name.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ projectId: z.array(z.number()).describe("The project IDs to filter by. For example, projectId=10000&projectId=10001.").optional(), schemeId: z.string().describe("The priority scheme ID."), query: z.string().describe("The string to query projects on by name.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),

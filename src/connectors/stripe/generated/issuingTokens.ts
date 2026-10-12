@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const issuingTokensActions: Record<string, ActionDefinition> = {
     description: "List all issuing tokens for card. Lists all Issuing Token objects for a given card.",
     method: "GET",
     path: "/issuing/tokens",
-    input: z.object({ card: z.string().describe("The Issuing card identifier to list tokens for."), created: z.unknown().describe("Only return Issuing tokens that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), status: z.enum(["active", "deleted", "requested", "suspended"]).describe("Select Issuing tokens with the given status.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ card: z.string().describe("The Issuing card identifier to list tokens for."), created: z.unknown().describe("Only return Issuing tokens that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), status: z.enum(["active", "deleted", "requested", "suspended"]).describe("Select Issuing tokens with the given status.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const issuingTokensActions: Record<string, ActionDefinition> = {
     description: "Retrieve an issuing token. Retrieves an Issuing Token object.",
     method: "GET",
     path: "/issuing/tokens/{token}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), token: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), token: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const issuingTokensActions: Record<string, ActionDefinition> = {
     description: "Update a token status. Attempts to update the specified Issuing Token object to the status specified.",
     method: "POST",
     path: "/issuing/tokens/{token}",
-    input: z.object({ token: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), status: z.enum(["active", "deleted", "suspended"]).describe("Specifies which status the token should be updated to.") }),
+    input: obj({ token: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), status: z.enum(["active", "deleted", "suspended"]).describe("Specifies which status the token should be updated to.") }),
     output: z.unknown(),
     effect: "write",
   },

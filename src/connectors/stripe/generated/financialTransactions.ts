@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const financialTransactionsActions: Record<string, ActionDefinition> = {
     description: "List Transactions. Returns a list of Financial Connections Transaction objects.",
     method: "GET",
     path: "/financial_connections/transactions",
-    input: z.object({ account: z.string().describe("The ID of the Financial Connections Account whose transactions will be retrieved."), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), transacted_at: z.unknown().describe("A filter on the list based on the object transactedat field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with the…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ account: z.string().describe("The ID of the Financial Connections Account whose transactions will be retrieved."), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), transacted_at: z.unknown().describe("A filter on the list based on the object transactedat field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with the…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const financialTransactionsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a Transaction. Retrieves the details of a Financial Connections Transaction",
     method: "GET",
     path: "/financial_connections/transactions/{transaction}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), transaction: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), transaction: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

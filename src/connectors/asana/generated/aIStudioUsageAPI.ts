@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const aIStudioUsageAPIActions: Record<string, ActionDefinition> = {
     description: "Get AI Studio credit utilization. Returns one row per AI Studio run (rule execution) for the workspace, in ascending order (oldest first) so that incremental consumers can poll forward. Each row describes what ran, who it is attributed to, the model used, and the credits consumed.",
     method: "GET",
     path: "/workspaces/{workspace_gid}/ai_studio/runs",
-    input: z.object({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), start_at: z.string().describe("Inclusive lower bound. Runs are ordered and filtered by when their usage was recorded (the monotonic timestamp used for incremental polling), not by…").optional(), end_at: z.string().describe("Filter to runs whose usage was recorded before this time (exclusive) — by when the run's credit usage was recorded, not by runstartedat. Defaults to the time…").optional(), division_gid: z.string().describe("Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), start_at: z.string().describe("Inclusive lower bound. Runs are ordered and filtered by when their usage was recorded (the monotonic timestamp used for incremental polling), not by…").optional(), end_at: z.string().describe("Filter to runs whose usage was recorded before this time (exclusive) — by when the run's credit usage was recorded, not by runstartedat. Defaults to the time…").optional(), division_gid: z.string().describe("Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const aIStudioUsageAPIActions: Record<string, ActionDefinition> = {
     description: "Get AI Studio seats. Returns a current snapshot of AI Studio seat allocations for the workspace — who has access, at what license tier, and the state of each seat. This is a point-in-time snapshot; customers build their own history tables on top of periodic pulls.",
     method: "GET",
     path: "/workspaces/{workspace_gid}/ai_studio/seats",
-    input: z.object({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), state: z.enum(["active", "revoked"]).describe("Filter seats to this state.").optional(), division_gid: z.string().describe("Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ workspace_gid: z.string().describe("Globally unique identifier for the workspace or organization."), state: z.enum(["active", "revoked"]).describe("Filter seats to this state.").optional(), division_gid: z.string().describe("Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),

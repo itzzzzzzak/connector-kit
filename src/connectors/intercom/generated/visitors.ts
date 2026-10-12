@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const visitorsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const visitorsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a visitor with User ID. You can fetch the details of a single visitor.",
     method: "GET",
     path: "/visitors",
-    input: z.object({ user_id: z.string().describe("The userid of the Visitor you want to retrieve.") }),
+    input: obj({ user_id: z.string().describe("The userid of the Visitor you want to retrieve.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const visitorsActions: Record<string, ActionDefinition> = {
     description: "Update a visitor. Sending a PUT request to /visitors will result in an update of an existing Visitor.",
     method: "PUT",
     path: "/visitors",
-    input: z.object({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -27,7 +28,7 @@ export const visitorsActions: Record<string, ActionDefinition> = {
     description: "Convert a visitor. You can merge a Visitor to a Contact of role type lead or user.",
     method: "POST",
     path: "/visitors/convert",
-    input: z.object({ type: z.string().describe("Represents the role of the Contact model. Accepts lead or user."), user: z.object({ id: z.string().optional(), user_id: z.string().optional(), email: z.string().optional() }).describe("The unique identifiers retained after converting or merging."), visitor: z.object({ id: z.string().optional(), user_id: z.string().optional(), email: z.string().optional() }).describe("The unique identifiers to convert a single Visitor.") }),
+    input: obj({ type: z.string().describe("Represents the role of the Contact model. Accepts lead or user."), user: obj({ id: z.string().optional(), user_id: z.string().optional(), email: z.string().optional() }).describe("The unique identifiers retained after converting or merging."), visitor: obj({ id: z.string().optional(), user_id: z.string().optional(), email: z.string().optional() }).describe("The unique identifiers to convert a single Visitor.") }),
     output: z.unknown(),
     effect: "write",
   },

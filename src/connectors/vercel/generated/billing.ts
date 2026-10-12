@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const billingActions: Record<string, ActionDefinition> = {
     description: "List billing charges. Part of: billing. Calls GET /v1/billing/charges on Vercel.",
     method: "GET",
     path: "/v1/billing/charges",
-    input: z.object({ from: z.string(), to: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ from: z.string(), to: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const billingActions: Record<string, ActionDefinition> = {
     description: "List contract commitments. Part of: billing. Calls GET /v1/billing/contract-commitments on Vercel.",
     method: "GET",
     path: "/v1/billing/contract-commitments",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const billingActions: Record<string, ActionDefinition> = {
     description: "Buy credits. Part of: billing. Calls POST /v1/billing/buy on Vercel.",
     method: "POST",
     path: "/v1/billing/buy",
-    input: z.object({ source: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional(), item: z.object({ type: z.enum(["credits"]), creditType: z.enum(["v0", "gateway", "agent"]), amount: z.number() }) }),
+    input: obj({ source: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional(), item: obj({ type: z.enum(["credits"]), creditType: z.enum(["v0", "gateway", "agent"]), amount: z.number() }) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["source","teamId","slug"]),

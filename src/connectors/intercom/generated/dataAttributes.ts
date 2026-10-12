@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const dataAttributesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const dataAttributesActions: Record<string, ActionDefinition> = {
     description: "List all data attributes. You can fetch a list of all data attributes belonging to a workspace for contacts, companies or conversations.",
     method: "GET",
     path: "/data_attributes",
-    input: z.object({ model: z.enum(["contact", "company", "conversation"]).describe("Specify the data attribute model to return.").optional(), include_archived: z.boolean().describe("Include archived attributes in the list. By default we return only non archived data attributes.").optional() }),
+    input: obj({ model: z.enum(["contact", "company", "conversation"]).describe("Specify the data attribute model to return.").optional(), include_archived: z.boolean().describe("Include archived attributes in the list. By default we return only non archived data attributes.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const dataAttributesActions: Record<string, ActionDefinition> = {
     description: "Create a data attribute. You can create a data attributes for a contact or a company.",
     method: "POST",
     path: "/data_attributes",
-    input: z.object({ name: z.string().describe("The name of the data attribute."), model: z.enum(["contact", "company"]).describe("The model that the data attribute belongs to."), data_type: z.enum(["string", "integer", "float", "boolean", "datetime", "date"]).describe("The type of data stored for this attribute."), description: z.string().describe("The readable description you see in the UI for the attribute.").optional(), options: z.array(z.string()).describe("To create list attributes. Provide a set of hashes with value as the key of the options you want to make. datatype must be string.").optional(), messenger_writable: z.boolean().describe("Can this attribute be updated by the Messenger").optional() }),
+    input: obj({ name: z.string().describe("The name of the data attribute."), model: z.enum(["contact", "company"]).describe("The model that the data attribute belongs to."), data_type: z.enum(["string", "integer", "float", "boolean", "datetime", "date"]).describe("The type of data stored for this attribute."), description: z.string().describe("The readable description you see in the UI for the attribute.").optional(), options: z.array(z.string()).describe("To create list attributes. Provide a set of hashes with value as the key of the options you want to make. datatype must be string.").optional(), messenger_writable: z.boolean().describe("Can this attribute be updated by the Messenger").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const dataAttributesActions: Record<string, ActionDefinition> = {
     description: "Update a data attribute. You can update a data attribute.",
     method: "PUT",
     path: "/data_attributes/{data_attribute_id}",
-    input: z.object({ data_attribute_id: z.string().describe("The data attribute id"), archived: z.boolean().describe("Whether the attribute is to be archived or not.").optional(), description: z.string().describe("The readable description you see in the UI for the attribute.").optional(), options: z.array(z.object({ value: z.string() })).describe("To create list attributes. Provide a set of hashes with value as the key of the options you want to make. datatype must be string.").optional(), messenger_writable: z.boolean().describe("Can this attribute be updated by the Messenger").optional() }),
+    input: obj({ data_attribute_id: z.string().describe("The data attribute id"), archived: z.boolean().describe("Whether the attribute is to be archived or not.").optional(), description: z.string().describe("The readable description you see in the UI for the attribute.").optional(), options: z.array(obj({ value: z.string() })).describe("To create list attributes. Provide a set of hashes with value as the key of the options you want to make. datatype must be string.").optional(), messenger_writable: z.boolean().describe("Can this attribute be updated by the Messenger").optional() }),
     output: z.unknown(),
     effect: "write",
   },

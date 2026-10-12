@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const groupsActions: Record<string, ActionDefinition> = {
     description: "Create group. Creates a group. Calls POST /group on Jira.",
     method: "POST",
     path: "/group",
-    input: z.object({ name: z.string().describe("The name of the group.") }),
+    input: obj({ name: z.string().describe("The name of the group.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -20,7 +21,7 @@ export const groupsActions: Record<string, ActionDefinition> = {
     description: "Remove group. Deletes a group. Calls DELETE /group on Jira.",
     method: "DELETE",
     path: "/group",
-    input: z.object({ groupname: z.string().optional(), groupId: z.string().describe("The ID of the group. This parameter cannot be used with the groupname parameter.").optional(), swapGroup: z.string().describe("As a group's name can change, use of swapGroupId is recommended to identify a group. The group to transfer restrictions to. Only comments and worklogs are…").optional(), swapGroupId: z.string().describe("The ID of the group to transfer restrictions to. Only comments and worklogs are transferred. If restrictions are not transferred, comments and worklogs are…").optional() }),
+    input: obj({ groupname: z.string().optional(), groupId: z.string().describe("The ID of the group. This parameter cannot be used with the groupname parameter.").optional(), swapGroup: z.string().describe("As a group's name can change, use of swapGroupId is recommended to identify a group. The group to transfer restrictions to. Only comments and worklogs are…").optional(), swapGroupId: z.string().describe("The ID of the group to transfer restrictions to. Only comments and worklogs are transferred. If restrictions are not transferred, comments and worklogs are…").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -28,7 +29,7 @@ export const groupsActions: Record<string, ActionDefinition> = {
     description: "Bulk get groups. Returns a paginated list of groups.",
     method: "GET",
     path: "/group/bulk",
-    input: z.object({ groupId: z.array(z.string()).describe("The ID of a group. To specify multiple IDs, pass multiple groupId parameters. For example, groupId=5b10a2844c20165700ede21g&groupId=5b10ac8d82e05b22cc7d4ef5.").optional(), groupName: z.array(z.string()).describe("The name of a group. To specify multiple names, pass multiple groupName parameters. For example, groupName=administrators&groupName=jira-software-users.").optional(), accessType: z.string().describe("The access level of a group. Valid values: 'site-admin', 'admin', 'user'.").optional(), applicationKey: z.string().describe("The application key of the product user groups to search for. Valid values: 'jira-servicedesk', 'jira-software', 'jira-product-discovery', 'jira-core'.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ groupId: z.array(z.string()).describe("The ID of a group. To specify multiple IDs, pass multiple groupId parameters. For example, groupId=5b10a2844c20165700ede21g&groupId=5b10ac8d82e05b22cc7d4ef5.").optional(), groupName: z.array(z.string()).describe("The name of a group. To specify multiple names, pass multiple groupName parameters. For example, groupName=administrators&groupName=jira-software-users.").optional(), accessType: z.string().describe("The access level of a group. Valid values: 'site-admin', 'admin', 'user'.").optional(), applicationKey: z.string().describe("The application key of the product user groups to search for. Valid values: 'jira-servicedesk', 'jira-software', 'jira-product-discovery', 'jira-core'.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -37,7 +38,7 @@ export const groupsActions: Record<string, ActionDefinition> = {
     description: "Get users from group. Returns a paginated list of all users in a group.",
     method: "GET",
     path: "/group/member",
-    input: z.object({ groupname: z.string().describe("As a group's name can change, use of groupId is recommended to identify a group. The name of the group. This parameter cannot be used with the groupId…").optional(), groupId: z.string().describe("The ID of the group. This parameter cannot be used with the groupName parameter.").optional(), includeInactiveUsers: z.boolean().describe("Include inactive users.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ groupname: z.string().describe("As a group's name can change, use of groupId is recommended to identify a group. The name of the group. This parameter cannot be used with the groupId…").optional(), groupId: z.string().describe("The ID of the group. This parameter cannot be used with the groupName parameter.").optional(), includeInactiveUsers: z.boolean().describe("Include inactive users.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -46,7 +47,7 @@ export const groupsActions: Record<string, ActionDefinition> = {
     description: "Add user to group. Adds a user to a group. Calls POST /group/user on Jira.",
     method: "POST",
     path: "/group/user",
-    input: z.object({ groupname: z.string().describe("As a group's name can change, use of groupId is recommended to identify a group. The name of the group. This parameter cannot be used with the groupId…").optional(), groupId: z.string().describe("The ID of the group. This parameter cannot be used with the groupName parameter.").optional(), accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5.").optional(), name: z.string().describe("This property is no longer available. See the deprecation notice for details.").optional() }),
+    input: obj({ groupname: z.string().describe("As a group's name can change, use of groupId is recommended to identify a group. The name of the group. This parameter cannot be used with the groupId…").optional(), groupId: z.string().describe("The ID of the group. This parameter cannot be used with the groupName parameter.").optional(), accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5.").optional(), name: z.string().describe("This property is no longer available. See the deprecation notice for details.").optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["groupname","groupId"]),
@@ -56,7 +57,7 @@ export const groupsActions: Record<string, ActionDefinition> = {
     description: "Remove user from group. Removes a user from a group.",
     method: "DELETE",
     path: "/group/user",
-    input: z.object({ groupname: z.string().describe("As a group's name can change, use of groupId is recommended to identify a group. The name of the group. This parameter cannot be used with the groupId…").optional(), groupId: z.string().describe("The ID of the group. This parameter cannot be used with the groupName parameter.").optional(), username: z.string().describe("This parameter is no longer available. See the deprecation notice for details.").optional(), accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5.") }),
+    input: obj({ groupname: z.string().describe("As a group's name can change, use of groupId is recommended to identify a group. The name of the group. This parameter cannot be used with the groupId…").optional(), groupId: z.string().describe("The ID of the group. This parameter cannot be used with the groupName parameter.").optional(), username: z.string().describe("This parameter is no longer available. See the deprecation notice for details.").optional(), accountId: z.string().describe("The account ID of the user, which uniquely identifies the user across all Atlassian products. For example, 5b10ac8d82e05b22cc7d4ef5.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -64,7 +65,7 @@ export const groupsActions: Record<string, ActionDefinition> = {
     description: "Find groups. Returns a list of groups whose names contain a query string. A list of group names can be provided to exclude groups from the results.",
     method: "GET",
     path: "/groups/picker",
-    input: z.object({ accountId: z.string().describe("This parameter is deprecated, setting it does not affect the results. To find groups containing a particular user, use Get user groups.").optional(), query: z.string().describe("The string to find in group names.").optional(), exclude: z.array(z.string()).describe("As a group's name can change, use of excludeGroupIds is recommended to identify a group. A group to exclude from the result. To exclude multiple groups,…").optional(), excludeId: z.array(z.string()).describe("A group ID to exclude from the result. To exclude multiple groups, provide an ampersand-separated list. For example, excludeId=group1-id&excludeId=group2-id.…").optional(), maxResults: z.number().describe("The maximum number of groups to return. The maximum number of groups that can be returned is limited by the system property jira.ajax.autocomplete.limit.").optional(), caseInsensitive: z.boolean().describe("Whether the search for groups should be case insensitive.").optional(), userName: z.string().describe("This parameter is no longer available. See the deprecation notice for details.").optional() }),
+    input: obj({ accountId: z.string().describe("This parameter is deprecated, setting it does not affect the results. To find groups containing a particular user, use Get user groups.").optional(), query: z.string().describe("The string to find in group names.").optional(), exclude: z.array(z.string()).describe("As a group's name can change, use of excludeGroupIds is recommended to identify a group. A group to exclude from the result. To exclude multiple groups,…").optional(), excludeId: z.array(z.string()).describe("A group ID to exclude from the result. To exclude multiple groups, provide an ampersand-separated list. For example, excludeId=group1-id&excludeId=group2-id.…").optional(), maxResults: z.number().describe("The maximum number of groups to return. The maximum number of groups that can be returned is limited by the system property jira.ajax.autocomplete.limit.").optional(), caseInsensitive: z.boolean().describe("Whether the search for groups should be case insensitive.").optional(), userName: z.string().describe("This parameter is no longer available. See the deprecation notice for details.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

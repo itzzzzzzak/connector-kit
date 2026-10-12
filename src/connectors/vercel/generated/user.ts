@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const userActions: Record<string, ActionDefinition> = {
     description: "List user events. Part of: user. Calls GET /v3/events on Vercel.",
     method: "GET",
     path: "/v3/events",
-    input: z.object({ since: z.string().optional(), types: z.string().optional(), userId: z.string().optional(), principalId: z.string().optional(), projectIds: z.string().optional(), entityId: z.string().optional(), withPayload: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ since: z.string().optional(), types: z.string().optional(), userId: z.string().optional(), principalId: z.string().optional(), projectIds: z.string().optional(), entityId: z.string().optional(), withPayload: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "events", cursorPath: ["pagination", "next"], cursorParam: "until", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const userActions: Record<string, ActionDefinition> = {
     description: "List event types. Part of: user. Calls GET /v1/events/types on Vercel.",
     method: "GET",
     path: "/v1/events/types",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -29,7 +30,7 @@ export const userActions: Record<string, ActionDefinition> = {
     description: "Request delete. Part of: user. Calls DELETE /v1/user on Vercel.",
     method: "DELETE",
     path: "/v1/user",
-    input: z.object({ reasons: z.array(z.object({ slug: z.string(), description: z.string() })).optional() }),
+    input: obj({ reasons: z.array(obj({ slug: z.string(), description: z.string() })).optional() }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => pick(i, ["reasons"]),

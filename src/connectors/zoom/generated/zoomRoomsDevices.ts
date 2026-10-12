@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const zoomRoomsDevicesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const zoomRoomsDevicesActions: Record<string, ActionDefinition> = {
     description: "Delete device. Part of: Zoom Rooms Devices. Calls DELETE /rooms/{roomId}/devices/{deviceId} on Zoom.",
     method: "DELETE",
     path: "/rooms/{roomId}/devices/{deviceId}",
-    input: z.object({ roomId: z.string(), deviceId: z.string() }),
+    input: obj({ roomId: z.string(), deviceId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -18,7 +19,7 @@ export const zoomRoomsDevicesActions: Record<string, ActionDefinition> = {
     description: "Change zoom rooms app version. Part of: Zoom Rooms Devices. Calls PUT /rooms/{roomId}/devices/{deviceId}/appversion on Zoom.",
     method: "PUT",
     path: "/rooms/{roomId}/devices/{deviceId}/app_version",
-    input: z.object({ roomId: z.string(), deviceId: z.string(), action: z.enum(["upgrade", "downgrade", "cancel"]).optional() }),
+    input: obj({ roomId: z.string(), deviceId: z.string(), action: z.enum(["upgrade", "downgrade", "cancel"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },

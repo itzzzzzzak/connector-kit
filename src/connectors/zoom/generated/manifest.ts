@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const manifestActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const manifestActions: Record<string, ActionDefinition> = {
     description: "Validating manifest. Part of: Manifest. Calls POST /marketplace/apps/manifest/validate on Zoom.",
     method: "POST",
     path: "/marketplace/apps/manifest/validate",
-    input: z.object({ manifest: z.record(z.string(), z.unknown()), app_id: z.string().optional() }),
+    input: obj({ manifest: z.record(z.string(), z.unknown()), app_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const manifestActions: Record<string, ActionDefinition> = {
     description: "Get app manifest. Part of: Manifest. Calls GET /marketplace/apps/{appId}/manifest on Zoom.",
     method: "GET",
     path: "/marketplace/apps/{appId}/manifest",
-    input: z.object({ appId: z.string() }),
+    input: obj({ appId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const manifestActions: Record<string, ActionDefinition> = {
     description: "Update app by manifest. Part of: Manifest. Calls PUT /marketplace/apps/{appId}/manifest on Zoom.",
     method: "PUT",
     path: "/marketplace/apps/{appId}/manifest",
-    input: z.object({ appId: z.string(), manifest: z.record(z.string(), z.unknown()) }),
+    input: obj({ appId: z.string(), manifest: z.record(z.string(), z.unknown()) }),
     output: z.unknown(),
     effect: "write",
   },

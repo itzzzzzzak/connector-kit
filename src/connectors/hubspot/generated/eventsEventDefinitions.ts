@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const eventsEventDefinitionsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /events/v3/event-definitions on HubSpot.",
     method: "GET",
     path: "/events/v3/event-definitions",
-    input: z.object({ includeProperties: z.boolean().optional(), searchString: z.string().optional(), sortOrder: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ includeProperties: z.boolean().optional(), searchString: z.string().optional(), sortOrder: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const eventsEventDefinitionsActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Basic. Calls POST /events/v3/event-definitions on HubSpot.",
     method: "POST",
     path: "/events/v3/event-definitions",
-    input: z.object({ customMatchingId: z.object({ primaryObjectRule: z.object({ eventPropertyName: z.string(), targetObjectPropertyName: z.string() }) }).optional(), description: z.string().optional(), includeDefaultProperties: z.boolean(), label: z.string(), name: z.string().optional(), primaryObject: z.string().optional(), propertyDefinitions: z.array(z.object({ description: z.string().optional(), label: z.string(), name: z.string().optional(), options: z.array(z.record(z.string(), z.unknown())).optional(), type: z.string() })) }),
+    input: obj({ customMatchingId: obj({ primaryObjectRule: obj({ eventPropertyName: z.string(), targetObjectPropertyName: z.string() }) }).optional(), description: z.string().optional(), includeDefaultProperties: z.boolean(), label: z.string(), name: z.string().optional(), primaryObject: z.string().optional(), propertyDefinitions: z.array(obj({ description: z.string().optional(), label: z.string(), name: z.string().optional(), options: z.array(z.record(z.string(), z.unknown())).optional(), type: z.string() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const eventsEventDefinitionsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /events/v3/event-definitions/{eventName} on HubSpot.",
     method: "GET",
     path: "/events/v3/event-definitions/{eventName}",
-    input: z.object({ eventName: z.string() }),
+    input: obj({ eventName: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const eventsEventDefinitionsActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Basic. Calls PATCH /events/v3/event-definitions/{eventName} on HubSpot.",
     method: "PATCH",
     path: "/events/v3/event-definitions/{eventName}",
-    input: z.object({ eventName: z.string(), description: z.string().optional(), detailTemplate: z.string().optional(), headerTemplate: z.string().optional(), label: z.string().optional(), propertyOrder: z.array(z.object({ description: z.string().optional(), displayOrder: z.number().optional(), hidden: z.boolean().optional(), label: z.string().optional(), name: z.string(), options: z.array(z.record(z.string(), z.unknown())).optional() })) }),
+    input: obj({ eventName: z.string(), description: z.string().optional(), detailTemplate: z.string().optional(), headerTemplate: z.string().optional(), label: z.string().optional(), propertyOrder: z.array(obj({ description: z.string().optional(), displayOrder: z.number().optional(), hidden: z.boolean().optional(), label: z.string().optional(), name: z.string(), options: z.array(z.record(z.string(), z.unknown())).optional() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const eventsEventDefinitionsActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /events/v3/event-definitions/{eventName} on HubSpot.",
     method: "DELETE",
     path: "/events/v3/event-definitions/{eventName}",
-    input: z.object({ eventName: z.string() }),
+    input: obj({ eventName: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const eventsEventDefinitionsActions: Record<string, ActionDefinition> = {
     description: "Create property. Part of: Advanced. Calls POST /events/v3/event-definitions/{eventName}/property on HubSpot.",
     method: "POST",
     path: "/events/v3/event-definitions/{eventName}/property",
-    input: z.object({ eventName: z.string(), description: z.string().optional(), label: z.string(), name: z.string().optional(), options: z.array(z.object({ description: z.string().optional(), displayOrder: z.number(), hidden: z.boolean(), label: z.string(), value: z.string() })).optional(), type: z.string() }),
+    input: obj({ eventName: z.string(), description: z.string().optional(), label: z.string(), name: z.string().optional(), options: z.array(obj({ description: z.string().optional(), displayOrder: z.number(), hidden: z.boolean(), label: z.string(), value: z.string() })).optional(), type: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -60,7 +61,7 @@ export const eventsEventDefinitionsActions: Record<string, ActionDefinition> = {
     description: "Update property. Part of: Basic. Calls PATCH /events/v3/event-definitions/{eventName}/property/{propertyName} on HubSpot.",
     method: "PATCH",
     path: "/events/v3/event-definitions/{eventName}/property/{propertyName}",
-    input: z.object({ eventName: z.string(), propertyName: z.string(), description: z.string().optional(), label: z.string().optional(), options: z.array(z.object({ description: z.string().optional(), displayOrder: z.number(), hidden: z.boolean(), label: z.string(), value: z.string() })).optional() }),
+    input: obj({ eventName: z.string(), propertyName: z.string(), description: z.string().optional(), label: z.string().optional(), options: z.array(obj({ description: z.string().optional(), displayOrder: z.number(), hidden: z.boolean(), label: z.string(), value: z.string() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -68,7 +69,7 @@ export const eventsEventDefinitionsActions: Record<string, ActionDefinition> = {
     description: "Delete property. Part of: Basic. Calls DELETE /events/v3/event-definitions/{eventName}/property/{propertyName} on HubSpot.",
     method: "DELETE",
     path: "/events/v3/event-definitions/{eventName}/property/{propertyName}",
-    input: z.object({ eventName: z.string(), propertyName: z.string() }),
+    input: obj({ eventName: z.string(), propertyName: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

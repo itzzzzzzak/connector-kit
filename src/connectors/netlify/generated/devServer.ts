@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const devServerActions: Record<string, ActionDefinition> = {
     description: "List site dev servers Calls GET /sites/{siteid}/devservers on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/dev_servers",
-    input: z.object({ site_id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ site_id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const devServerActions: Record<string, ActionDefinition> = {
     description: "Create site dev server Calls POST /sites/{siteid}/devservers on Netlify.",
     method: "POST",
     path: "/sites/{site_id}/dev_servers",
-    input: z.object({ site_id: z.string(), branch: z.string().optional() }),
+    input: obj({ site_id: z.string(), branch: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["branch"]),
@@ -30,7 +31,7 @@ export const devServerActions: Record<string, ActionDefinition> = {
     description: "Delete site dev servers Calls DELETE /sites/{siteid}/devservers on Netlify.",
     method: "DELETE",
     path: "/sites/{site_id}/dev_servers",
-    input: z.object({ site_id: z.string(), branch: z.string().optional() }),
+    input: obj({ site_id: z.string(), branch: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -38,7 +39,7 @@ export const devServerActions: Record<string, ActionDefinition> = {
     description: "Get site dev server Calls GET /sites/{siteid}/devservers/{devserverid} on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/dev_servers/{dev_server_id}",
-    input: z.object({ site_id: z.string(), dev_server_id: z.string() }),
+    input: obj({ site_id: z.string(), dev_server_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -46,7 +47,7 @@ export const devServerActions: Record<string, ActionDefinition> = {
     description: "Mark dev server activity Calls POST /sites/{siteid}/devservers/{devserverid}/activity on Netlify.",
     method: "POST",
     path: "/sites/{site_id}/dev_servers/{dev_server_id}/activity",
-    input: z.object({ site_id: z.string(), dev_server_id: z.string() }),
+    input: obj({ site_id: z.string(), dev_server_id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -54,7 +55,7 @@ export const devServerActions: Record<string, ActionDefinition> = {
     description: "Update dev server state Calls POST /sites/{siteid}/devservers/{devserverid}/state on Netlify.",
     method: "POST",
     path: "/sites/{site_id}/dev_servers/{dev_server_id}/state",
-    input: z.object({ site_id: z.string(), dev_server_id: z.string(), state: z.enum(["starting", "live", "error", "done"]), task_id: z.string().optional(), error: z.string().optional() }),
+    input: obj({ site_id: z.string(), dev_server_id: z.string(), state: z.enum(["starting", "live", "error", "done"]), task_id: z.string().optional(), error: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

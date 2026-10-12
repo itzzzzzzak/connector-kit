@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const changeEventsActions: Record<string, ActionDefinition> = {
     description: "List change events. Part of: Change Events. Calls GET /changeevents on PagerDuty.",
     method: "GET",
     path: "/change_events",
-    input: z.object({ total: z.boolean().optional(), team_ids__: z.array(z.string()).optional(), integration_ids__: z.array(z.string()).optional(), since: z.string().optional(), until: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ total: z.boolean().optional(), team_ids__: z.array(z.string()).optional(), integration_ids__: z.array(z.string()).optional(), since: z.string().optional(), until: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "change_events", hasMorePath: ["more"], pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -22,7 +23,7 @@ export const changeEventsActions: Record<string, ActionDefinition> = {
     description: "Create change event. Part of: Change Events. Calls POST /changeevents on PagerDuty.",
     method: "POST",
     path: "/change_events",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -30,7 +31,7 @@ export const changeEventsActions: Record<string, ActionDefinition> = {
     description: "Get change event. Part of: Change Events. Calls GET /changeevents/{id} on PagerDuty.",
     method: "GET",
     path: "/change_events/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -38,7 +39,7 @@ export const changeEventsActions: Record<string, ActionDefinition> = {
     description: "Update change event. Part of: Change Events. Calls PUT /changeevents/{id} on PagerDuty.",
     method: "PUT",
     path: "/change_events/{id}",
-    input: z.object({ id: z.string(), change_event: z.object({ id: z.string().optional(), summary: z.string().optional(), type: z.enum(["change_event"]).optional(), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), timestamp: z.string().optional(), services: z.array(z.record(z.string(), z.unknown())).optional(), integration: z.object({ id: z.string(), summary: z.string().nullable().optional(), type: z.enum(["aws_cloudwatch_inbound_integration_reference", "cloudkick_inbound_integration_reference", "event_transformer_api_inbound_integration_reference", "generic_email_inbound_integration_reference", "generic_events_api_inbound_integration_reference", "keynote_inbound_integration_reference", "nagios_inbound_integration_reference", "pingdom_inbound_integration_reference", "sql_monitor_inbound_integration_reference", "events_api_v2_inbound_integration_reference", "inbound_integration_reference"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional() }).optional(), routing_key: z.string().optional(), source: z.string().optional(), links: z.array(z.record(z.string(), z.unknown())).optional(), images: z.array(z.record(z.string(), z.unknown())).optional(), custom_details: z.record(z.string(), z.unknown()).optional() }) }),
+    input: obj({ id: z.string(), change_event: obj({ id: z.string().optional(), summary: z.string().optional(), type: z.enum(["change_event"]).optional(), self: z.string().nullable().optional(), html_url: z.string().nullable().optional(), timestamp: z.string().optional(), services: z.array(z.record(z.string(), z.unknown())).optional(), integration: obj({ id: z.string(), summary: z.string().nullable().optional(), type: z.enum(["aws_cloudwatch_inbound_integration_reference", "cloudkick_inbound_integration_reference", "event_transformer_api_inbound_integration_reference", "generic_email_inbound_integration_reference", "generic_events_api_inbound_integration_reference", "keynote_inbound_integration_reference", "nagios_inbound_integration_reference", "pingdom_inbound_integration_reference", "sql_monitor_inbound_integration_reference", "events_api_v2_inbound_integration_reference", "inbound_integration_reference"]), self: z.string().nullable().optional(), html_url: z.string().nullable().optional() }).optional(), routing_key: z.string().optional(), source: z.string().optional(), links: z.array(z.record(z.string(), z.unknown())).optional(), images: z.array(z.record(z.string(), z.unknown())).optional(), custom_details: z.record(z.string(), z.unknown()).optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -46,7 +47,7 @@ export const changeEventsActions: Record<string, ActionDefinition> = {
     description: "List incident related change events. Part of: Change Events. Calls GET /incidents/{id}/relatedchangeevents on PagerDuty.",
     method: "GET",
     path: "/incidents/{id}/related_change_events",
-    input: z.object({ id: z.string(), limit: z.number().optional() }),
+    input: obj({ id: z.string(), limit: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -54,7 +55,7 @@ export const changeEventsActions: Record<string, ActionDefinition> = {
     description: "List service change events. Part of: Change Events. Calls GET /services/{id}/changeevents on PagerDuty.",
     method: "GET",
     path: "/services/{id}/change_events",
-    input: z.object({ id: z.string(), since: z.string().optional(), until: z.string().optional(), total: z.boolean().optional(), team_ids__: z.array(z.string()).optional(), integration_ids__: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), since: z.string().optional(), until: z.string().optional(), total: z.boolean().optional(), team_ids__: z.array(z.string()).optional(), integration_ids__: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "change_events", hasMorePath: ["more"], pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),

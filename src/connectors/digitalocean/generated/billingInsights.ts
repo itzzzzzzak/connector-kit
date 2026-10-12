@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const billingInsightsActions: Record<string, ActionDefinition> = {
     description: "List Billing Insights. This endpoint returns day-over-day changes in billing resource usage based on nightly invoice items, including total amount, region, SKU, and description for a specified date range. It is important to note that the daily resource usage may not reflect month-end billing totals when totaled for a given month as nightly invoice ite",
     method: "GET",
     path: "/billing/{account_urn}/insights/{start_date}/{end_date}",
-    input: z.object({ account_urn: z.string().describe("URN of the customer account, can be a team (do:team:uuid) or an organization (do:teamgroup:uuid)"), start_date: z.string().describe("Start date for billing insights in YYYY-MM-DD format"), end_date: z.string().describe("End date for billing insights in YYYY-MM-DD format. Must be within 31 days of startdate"), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ account_urn: z.string().describe("URN of the customer account, can be a team (do:team:uuid) or an organization (do:teamgroup:uuid)"), start_date: z.string().describe("Start date for billing insights in YYYY-MM-DD format"), end_date: z.string().describe("End date for billing insights in YYYY-MM-DD format. Must be within 31 days of startdate"), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "data_points", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),

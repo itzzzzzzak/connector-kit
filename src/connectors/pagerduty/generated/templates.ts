@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Get templates. Part of: Templates. Calls GET /templates on PagerDuty.",
     method: "GET",
     path: "/templates",
-    input: z.object({ total: z.boolean().optional(), query: z.string().optional(), template_type: z.string().optional(), sort_by: z.enum(["name", "name:asc", "name:desc", "created_at", "created_at:asc", "created_at:desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ total: z.boolean().optional(), query: z.string().optional(), template_type: z.string().optional(), sort_by: z.enum(["name", "name:asc", "name:desc", "created_at", "created_at:asc", "created_at:desc"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "templates", hasMorePath: ["more"], pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Create template. Part of: Templates. Calls POST /templates on PagerDuty.",
     method: "POST",
     path: "/templates",
-    input: z.object({ template: z.object({ template_type: z.enum(["status_update"]).optional(), name: z.string().optional(), description: z.string().nullable().optional(), templated_fields: z.object({ email_subject: z.string().nullable().optional(), email_body: z.string().nullable().optional(), message: z.string().nullable().optional() }).optional() }) }),
+    input: obj({ template: obj({ template_type: z.enum(["status_update"]).optional(), name: z.string().optional(), description: z.string().nullable().optional(), templated_fields: obj({ email_subject: z.string().nullable().optional(), email_body: z.string().nullable().optional(), message: z.string().nullable().optional() }).optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Get template. Part of: Templates. Calls GET /templates/{id} on PagerDuty.",
     method: "GET",
     path: "/templates/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Update template. Part of: Templates. Calls PUT /templates/{id} on PagerDuty.",
     method: "PUT",
     path: "/templates/{id}",
-    input: z.object({ id: z.string(), template: z.object({ template_type: z.enum(["status_update"]).optional(), name: z.string().optional(), description: z.string().nullable().optional(), templated_fields: z.object({ email_subject: z.string().nullable().optional(), email_body: z.string().nullable().optional(), message: z.string().nullable().optional() }).optional() }) }),
+    input: obj({ id: z.string(), template: obj({ template_type: z.enum(["status_update"]).optional(), name: z.string().optional(), description: z.string().nullable().optional(), templated_fields: obj({ email_subject: z.string().nullable().optional(), email_body: z.string().nullable().optional(), message: z.string().nullable().optional() }).optional() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Delete template. Part of: Templates. Calls DELETE /templates/{id} on PagerDuty.",
     method: "DELETE",
     path: "/templates/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Render template. Part of: Templates. Calls POST /templates/{id}/render on PagerDuty.",
     method: "POST",
     path: "/templates/{id}/render",
-    input: z.object({ id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -61,7 +62,7 @@ export const templatesActions: Record<string, ActionDefinition> = {
     description: "Get template fields. Part of: Templates. Calls GET /templates/fields on PagerDuty.",
     method: "GET",
     path: "/templates/fields",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

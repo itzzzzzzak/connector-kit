@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const logsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const logsActions: Record<string, ActionDefinition> = {
     description: "Get runtime logs. Part of: logs. Calls GET /v1/projects/{projectId}/deployments/{deploymentId}/runtime-logs on Vercel.",
     method: "GET",
     path: "/v1/projects/{projectId}/deployments/{deploymentId}/runtime-logs",
-    input: z.object({ projectId: z.string(), deploymentId: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ projectId: z.string(), deploymentId: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

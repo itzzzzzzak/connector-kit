@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const accountInfoActivityActions: Record<string, ActionDefinition> = {
     description: "List audit logs. Part of: Basic. Calls GET /account-info/v3/activity/audit-logs on HubSpot.",
     method: "GET",
     path: "/account-info/v3/activity/audit-logs",
-    input: z.object({ actingUserId: z.array(z.number()).optional(), fillFinalTimestamp: z.boolean().optional(), occurredAfter: z.string().optional(), occurredBefore: z.string().optional(), sort: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ actingUserId: z.array(z.number()).optional(), fillFinalTimestamp: z.boolean().optional(), occurredAfter: z.string().optional(), occurredBefore: z.string().optional(), sort: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const accountInfoActivityActions: Record<string, ActionDefinition> = {
     description: "List login. Part of: Basic. Calls GET /account-info/v3/activity/login on HubSpot.",
     method: "GET",
     path: "/account-info/v3/activity/login",
-    input: z.object({ userId: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ userId: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -29,7 +30,7 @@ export const accountInfoActivityActions: Record<string, ActionDefinition> = {
     description: "List security. Part of: Basic. Calls GET /account-info/v3/activity/security on HubSpot.",
     method: "GET",
     path: "/account-info/v3/activity/security",
-    input: z.object({ fromTimestamp: z.number().optional(), toTimestamp: z.number().optional(), userId: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ fromTimestamp: z.number().optional(), toTimestamp: z.number().optional(), userId: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),

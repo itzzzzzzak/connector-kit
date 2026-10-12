@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const workflowStatusCategoriesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const workflowStatusCategoriesActions: Record<string, ActionDefinition> =
     description: "Get all status categories. Returns a list of all status categories.",
     method: "GET",
     path: "/statuscategory",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const workflowStatusCategoriesActions: Record<string, ActionDefinition> =
     description: "Get status category. Returns a status category. Status categories provided a mechanism for categorizing statuses.",
     method: "GET",
     path: "/statuscategory/{idOrKey}",
-    input: z.object({ idOrKey: z.string().describe("The ID or key of the status category.") }),
+    input: obj({ idOrKey: z.string().describe("The ID or key of the status category.") }),
     output: z.unknown(),
     effect: "read",
   },

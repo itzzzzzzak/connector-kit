@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const packagesPypiActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const packagesPypiActions: Record<string, ActionDefinition> = {
     description: "Get groups id packages pypi files sha256 file identifier. Part of: packagespypi. Calls GET /groups/{id}/-/packages/pypi/files/{sha256}/fileidentifier on GitLab.",
     method: "GET",
     path: "/groups/{id}/-/packages/pypi/files/{sha256}/*file_identifier",
-    input: z.object({ id: z.number(), file_identifier: z.string(), sha256: z.string() }),
+    input: obj({ id: z.number(), file_identifier: z.string(), sha256: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const packagesPypiActions: Record<string, ActionDefinition> = {
     description: "Get groups id packages pypi simple. Part of: packagespypi. Calls GET /groups/{id}/-/packages/pypi/simple on GitLab.",
     method: "GET",
     path: "/groups/{id}/-/packages/pypi/simple",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const packagesPypiActions: Record<string, ActionDefinition> = {
     description: "Get groups id packages pypi simple package name. Part of: packagespypi. Calls GET /groups/{id}/-/packages/pypi/simple/packagename on GitLab.",
     method: "GET",
     path: "/groups/{id}/-/packages/pypi/simple/*package_name",
-    input: z.object({ id: z.number(), package_name: z.string() }),
+    input: obj({ id: z.number(), package_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const packagesPypiActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages pypi files sha256 file identifier. Part of: packagespypi. Calls GET /projects/{id}/packages/pypi/files/{sha256}/fileidentifier on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/pypi/files/{sha256}/*file_identifier",
-    input: z.object({ id: z.string(), file_identifier: z.string(), sha256: z.string() }),
+    input: obj({ id: z.string(), file_identifier: z.string(), sha256: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const packagesPypiActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages pypi forward package name upstream path. Part of: packagespypi. Calls GET /projects/{id}/packages/pypi/forward/{packagename}/upstreampath on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/pypi/forward/{package_name}/*upstream_path",
-    input: z.object({ id: z.string(), package_name: z.string(), upstream_path: z.string() }),
+    input: obj({ id: z.string(), package_name: z.string(), upstream_path: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -50,7 +51,7 @@ export const packagesPypiActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages pypi simple. Part of: packagespypi. Calls GET /projects/{id}/packages/pypi/simple on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/pypi/simple",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -58,7 +59,7 @@ export const packagesPypiActions: Record<string, ActionDefinition> = {
     description: "Get projects id packages pypi simple package name. Part of: packagespypi. Calls GET /projects/{id}/packages/pypi/simple/packagename on GitLab.",
     method: "GET",
     path: "/projects/{id}/packages/pypi/simple/*package_name",
-    input: z.object({ id: z.string(), package_name: z.string() }),
+    input: obj({ id: z.string(), package_name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -66,7 +67,7 @@ export const packagesPypiActions: Record<string, ActionDefinition> = {
     description: "Post projects id packages pypi. Part of: packagespypi. Calls POST /projects/{id}/packages/pypi on GitLab.",
     method: "POST",
     path: "/projects/{id}/packages/pypi",
-    input: z.object({ id: z.string(), content: z.unknown(), name: z.string(), version: z.string(), requires_python: z.string().optional(), md5_digest: z.string().optional(), sha256_digest: z.string().optional(), metadata_version: z.string().optional(), author_email: z.string().optional(), description: z.string().optional(), description_content_type: z.string().optional(), summary: z.string().optional(), keywords: z.string().optional() }),
+    input: obj({ id: z.string(), content: z.unknown(), name: z.string(), version: z.string(), requires_python: z.string().optional(), md5_digest: z.string().optional(), sha256_digest: z.string().optional(), metadata_version: z.string().optional(), author_email: z.string().optional(), description: z.string().optional(), description_content_type: z.string().optional(), summary: z.string().optional(), keywords: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -74,7 +75,7 @@ export const packagesPypiActions: Record<string, ActionDefinition> = {
     description: "Post projects id packages pypi authorize. Part of: packagespypi. Calls POST /projects/{id}/packages/pypi/authorize on GitLab.",
     method: "POST",
     path: "/projects/{id}/packages/pypi/authorize",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

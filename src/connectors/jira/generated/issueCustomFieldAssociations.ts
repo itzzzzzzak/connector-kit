@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const issueCustomFieldAssociationsActions: Record<string, ActionDefinitio
     description: "Create associations. Associates fields with projects.",
     method: "PUT",
     path: "/field/association",
-    input: z.object({ associationContexts: z.array(z.object({ identifier: z.record(z.string(), z.unknown()).optional(), type: z.string() })).describe("Contexts to associate/unassociate the fields with."), fields: z.array(z.object({ identifier: z.record(z.string(), z.unknown()).optional(), type: z.string() })).describe("Fields to associate/unassociate with projects.") }),
+    input: obj({ associationContexts: z.array(obj({ identifier: z.record(z.string(), z.unknown()).optional(), type: z.string() })).describe("Contexts to associate/unassociate the fields with."), fields: z.array(obj({ identifier: z.record(z.string(), z.unknown()).optional(), type: z.string() })).describe("Fields to associate/unassociate with projects.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const issueCustomFieldAssociationsActions: Record<string, ActionDefinitio
     description: "Remove associations. Unassociates a set of fields with a project and issue type context.",
     method: "DELETE",
     path: "/field/association",
-    input: z.object({ associationContexts: z.array(z.object({ identifier: z.record(z.string(), z.unknown()).optional(), type: z.string() })).describe("Contexts to associate/unassociate the fields with."), fields: z.array(z.object({ identifier: z.record(z.string(), z.unknown()).optional(), type: z.string() })).describe("Fields to associate/unassociate with projects.") }),
+    input: obj({ associationContexts: z.array(obj({ identifier: z.record(z.string(), z.unknown()).optional(), type: z.string() })).describe("Contexts to associate/unassociate the fields with."), fields: z.array(obj({ identifier: z.record(z.string(), z.unknown()).optional(), type: z.string() })).describe("Fields to associate/unassociate with projects.") }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => pick(i, ["associationContexts","fields"]),

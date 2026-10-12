@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const crmMergeActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const crmMergeActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Advanced. Calls POST /crm/objects/v3/{objectType}/merge on HubSpot.",
     method: "POST",
     path: "/crm/objects/v3/{objectType}/merge",
-    input: z.object({ objectType: z.string(), objectIdToMerge: z.string(), primaryObjectId: z.string() }),
+    input: obj({ objectType: z.string(), objectIdToMerge: z.string(), primaryObjectId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const crmMergeActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Advanced. Calls POST /crm/v3/objects/{objectType}/merge on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/{objectType}/merge",
-    input: z.object({ objectType: z.string(), objectIdToMerge: z.string(), primaryObjectId: z.string() }),
+    input: obj({ objectType: z.string(), objectIdToMerge: z.string(), primaryObjectId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

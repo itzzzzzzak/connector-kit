@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const migrationActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const migrationActions: Record<string, ActionDefinition> = {
     description: "For Enterprise Grid workspaces, map local user IDs to global user IDs",
     method: "GET",
     path: "/migration.exchange",
-    input: z.object({ users: z.string().describe("A comma-separated list of user ids, up to 400 per request"), team_id: z.string().describe("Specify teamid starts with T in case of Org Token").optional(), to_old: z.boolean().describe("Specify true to convert W global user IDs to workspace-specific U IDs. Defaults to false.").optional() }),
+    input: obj({ users: z.string().describe("A comma-separated list of user ids, up to 400 per request"), team_id: z.string().describe("Specify teamid starts with T in case of Org Token").optional(), to_old: z.boolean().describe("Specify true to convert W global user IDs to workspace-specific U IDs. Defaults to false.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const radarEarlyFraudWarningsActions: Record<string, ActionDefinition> = 
     description: "List all early fraud warnings. Returns a list of early fraud warnings.",
     method: "GET",
     path: "/radar/early_fraud_warnings",
-    input: z.object({ charge: z.string().describe("Only return early fraud warnings for the charge specified by this charge ID.").optional(), created: z.unknown().describe("Only return early fraud warnings that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payment_intent: z.string().describe("Only return early fraud warnings for charges that were created by the PaymentIntent specified by this PaymentIntent ID.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ charge: z.string().describe("Only return early fraud warnings for the charge specified by this charge ID.").optional(), created: z.unknown().describe("Only return early fraud warnings that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payment_intent: z.string().describe("Only return early fraud warnings for charges that were created by the PaymentIntent specified by this PaymentIntent ID.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const radarEarlyFraudWarningsActions: Record<string, ActionDefinition> = 
     description: "Retrieve an early fraud warning. Retrieves the details of an early fraud warning that has previously been created.",
     method: "GET",
     path: "/radar/early_fraud_warnings/{early_fraud_warning}",
-    input: z.object({ early_fraud_warning: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ early_fraud_warning: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

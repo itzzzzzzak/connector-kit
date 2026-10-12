@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const volumeActionsActions: Record<string, ActionDefinition> = {
     description: "Initiate A Block Storage Action By Volume Name. To initiate an action on a block storage volume by Name, send a POST request to ~/v2/volumes/actions. The body should contain the appropriate attributes for the respective action.",
     method: "POST",
     path: "/volumes/actions",
-    input: z.object({ per_page: z.number().describe("Number of items returned per page").optional(), page: z.number().describe("Which 'page' of paginated results to return.").optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ per_page: z.number().describe("Number of items returned per page").optional(), page: z.number().describe("Which 'page' of paginated results to return.").optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["per_page","page"]),
@@ -22,7 +23,7 @@ export const volumeActionsActions: Record<string, ActionDefinition> = {
     description: "List All Actions for a Volume. To retrieve all actions that have been executed on a volume, send a GET request to /v2/volumes/$VOLUMEID/actions.",
     method: "GET",
     path: "/volumes/{volume_id}/actions",
-    input: z.object({ volume_id: z.string().describe("The ID of the block storage volume."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ volume_id: z.string().describe("The ID of the block storage volume."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "actions", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -31,7 +32,7 @@ export const volumeActionsActions: Record<string, ActionDefinition> = {
     description: "Initiate A Block Storage Action By Volume Id. To initiate an action on a block storage volume by Id, send a POST request to ~/v2/volumes/$VOLUMEID/actions. The body should contain the appropriate attributes for the respective action.",
     method: "POST",
     path: "/volumes/{volume_id}/actions",
-    input: z.object({ volume_id: z.string().describe("The ID of the block storage volume."), per_page: z.number().describe("Number of items returned per page").optional(), page: z.number().describe("Which 'page' of paginated results to return.").optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ volume_id: z.string().describe("The ID of the block storage volume."), per_page: z.number().describe("Number of items returned per page").optional(), page: z.number().describe("Which 'page' of paginated results to return.").optional(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["per_page","page"]),
@@ -41,7 +42,7 @@ export const volumeActionsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing Volume Action. To retrieve the status of a volume action, send a GET request to /v2/volumes/$VOLUMEID/actions/$ACTIONID.",
     method: "GET",
     path: "/volumes/{volume_id}/actions/{action_id}",
-    input: z.object({ volume_id: z.string().describe("The ID of the block storage volume."), action_id: z.number().describe("A unique numeric ID that can be used to identify and reference an action."), per_page: z.number().describe("Number of items returned per page").optional(), page: z.number().describe("Which 'page' of paginated results to return.").optional() }),
+    input: obj({ volume_id: z.string().describe("The ID of the block storage volume."), action_id: z.number().describe("A unique numeric ID that can be used to identify and reference an action."), per_page: z.number().describe("Number of items returned per page").optional(), page: z.number().describe("Which 'page' of paginated results to return.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const coEditorsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const coEditorsActions: Record<string, ActionDefinition> = {
     description: "Get co editors. Part of: Co Editors. Calls GET /zoomevents/events/{eventId}/coeditors on Zoom.",
     method: "GET",
     path: "/zoom_events/events/{eventId}/coeditors",
-    input: z.object({ eventId: z.string() }),
+    input: obj({ eventId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const coEditorsActions: Record<string, ActionDefinition> = {
     description: "Coeditoractions. Part of: Co Editors. Calls PATCH /zoomevents/events/{eventId}/coeditors on Zoom.",
     method: "PATCH",
     path: "/zoom_events/events/{eventId}/coeditors",
-    input: z.object({ eventId: z.string(), operation: z.enum(["add", "update", "delete"]).optional(), coeditors: z.array(z.object({ email: z.string().optional(), permission_groups: z.array(z.enum(["Publish", "EventConfiguration", "EventBranding", "Registration & Join", "Venue", "EventExperience", "EventPlanning", "SpecialRole", "PostEvent", "Analytics", "Email", "Integrations"])).optional() })).optional() }),
+    input: obj({ eventId: z.string(), operation: z.enum(["add", "update", "delete"]).optional(), coeditors: z.array(obj({ email: z.string().optional(), permission_groups: z.array(z.enum(["Publish", "EventConfiguration", "EventBranding", "Registration & Join", "Venue", "EventExperience", "EventPlanning", "SpecialRole", "PostEvent", "Analytics", "Email", "Integrations"])).optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const blockListRulesActions: Record<string, ActionDefinition> = {
     description: "List block list rules ip addresses. Part of: Block List Rules. Calls GET /contactcenter/blocklistrules/ipaddresses on Zoom.",
     method: "GET",
     path: "/contact_center/block_list_rules/ip_addresses",
-    input: z.object({ match_type: z.enum(["ip_address"]).optional(), status: z.enum(["active", "inactive"]).optional(), ip_address: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ match_type: z.enum(["ip_address"]).optional(), status: z.enum(["active", "inactive"]).optional(), ip_address: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "ip_address_block_list_rules", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -21,7 +22,7 @@ export const blockListRulesActions: Record<string, ActionDefinition> = {
     description: "Create block list rules ip addresses. Part of: Block List Rules. Calls POST /contactcenter/blocklistrules/ipaddresses on Zoom.",
     method: "POST",
     path: "/contact_center/block_list_rules/ip_addresses",
-    input: z.object({ ip_address_block_list_rules: z.array(z.object({ status: z.enum(["active", "inactive"]), match_type: z.enum(["ip_address"]), ip_address: z.string(), comment: z.string().optional() })) }),
+    input: obj({ ip_address_block_list_rules: z.array(obj({ status: z.enum(["active", "inactive"]), match_type: z.enum(["ip_address"]), ip_address: z.string(), comment: z.string().optional() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -29,7 +30,7 @@ export const blockListRulesActions: Record<string, ActionDefinition> = {
     description: "Delete block list rule ip addresses. Part of: Block List Rules. Calls DELETE /contactcenter/blocklistrules/ipaddresses on Zoom.",
     method: "DELETE",
     path: "/contact_center/block_list_rules/ip_addresses",
-    input: z.object({ ip_address_block_list_rule_ids: z.array(z.string()) }),
+    input: obj({ ip_address_block_list_rule_ids: z.array(z.string()) }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => pick(i, ["ip_address_block_list_rule_ids"]),
@@ -38,7 +39,7 @@ export const blockListRulesActions: Record<string, ActionDefinition> = {
     description: "Get block list rule ip address. Part of: Block List Rules. Calls GET /contactcenter/blocklistrules/ipaddresses/{ipAddressBlockListRuleId} on Zoom.",
     method: "GET",
     path: "/contact_center/block_list_rules/ip_addresses/{ipAddressBlockListRuleId}",
-    input: z.object({ ipAddressBlockListRuleId: z.string() }),
+    input: obj({ ipAddressBlockListRuleId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -46,7 +47,7 @@ export const blockListRulesActions: Record<string, ActionDefinition> = {
     description: "List block list rules phone numbers. Part of: Block List Rules. Calls GET /contactcenter/blocklistrules/phonenumbers on Zoom.",
     method: "GET",
     path: "/contact_center/block_list_rules/phone_numbers",
-    input: z.object({ match_type: z.enum(["phone_number", "prefix"]).optional(), status: z.enum(["active", "inactive"]).optional(), phone_number: z.string().optional(), channel: z.string().optional(), direction: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ match_type: z.enum(["phone_number", "prefix"]).optional(), status: z.enum(["active", "inactive"]).optional(), phone_number: z.string().optional(), channel: z.string().optional(), direction: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "phone_block_list_rules", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -55,7 +56,7 @@ export const blockListRulesActions: Record<string, ActionDefinition> = {
     description: "Create block list rules phone numbers. Part of: Block List Rules. Calls POST /contactcenter/blocklistrules/phonenumbers on Zoom.",
     method: "POST",
     path: "/contact_center/block_list_rules/phone_numbers",
-    input: z.object({ phone_block_list_rules: z.array(z.object({ status: z.enum(["active", "inactive"]), match_type: z.enum(["phone_number", "prefix"]), country_iso_code: z.string(), phone_number: z.string(), exceptions: z.array(z.string()).optional(), direction: z.array(z.enum(["inbound", "outbound"])), channel: z.array(z.enum(["voice", "sms"])), comment: z.string().optional() })) }),
+    input: obj({ phone_block_list_rules: z.array(obj({ status: z.enum(["active", "inactive"]), match_type: z.enum(["phone_number", "prefix"]), country_iso_code: z.string(), phone_number: z.string(), exceptions: z.array(z.string()).optional(), direction: z.array(z.enum(["inbound", "outbound"])), channel: z.array(z.enum(["voice", "sms"])), comment: z.string().optional() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -63,7 +64,7 @@ export const blockListRulesActions: Record<string, ActionDefinition> = {
     description: "Delete block list rule phone numbers. Part of: Block List Rules. Calls DELETE /contactcenter/blocklistrules/phonenumbers on Zoom.",
     method: "DELETE",
     path: "/contact_center/block_list_rules/phone_numbers",
-    input: z.object({ phone_block_list_rule_ids: z.array(z.string()) }),
+    input: obj({ phone_block_list_rule_ids: z.array(z.string()) }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => pick(i, ["phone_block_list_rule_ids"]),
@@ -72,7 +73,7 @@ export const blockListRulesActions: Record<string, ActionDefinition> = {
     description: "Get block list rule phone number. Part of: Block List Rules. Calls GET /contactcenter/blocklistrules/phonenumbers/{phoneBlockListRuleId} on Zoom.",
     method: "GET",
     path: "/contact_center/block_list_rules/phone_numbers/{phoneBlockListRuleId}",
-    input: z.object({ phoneBlockListRuleId: z.string() }),
+    input: obj({ phoneBlockListRuleId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

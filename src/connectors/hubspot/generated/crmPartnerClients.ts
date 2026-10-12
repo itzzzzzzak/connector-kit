@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const crmPartnerClientsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /crm/v3/objects/partnerclients on HubSpot.",
     method: "GET",
     path: "/crm/v3/objects/partner_clients",
-    input: z.object({ archived: z.boolean().optional(), associations: z.array(z.string()).optional(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ archived: z.boolean().optional(), associations: z.array(z.string()).optional(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -21,7 +22,7 @@ export const crmPartnerClientsActions: Record<string, ActionDefinition> = {
     description: "Create batch read. Part of: Batch. Calls POST /crm/v3/objects/partnerclients/batch/read on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/partner_clients/batch/read",
-    input: z.object({ archived: z.boolean().optional(), idProperty: z.string().optional(), inputs: z.array(z.object({ id: z.string() })), properties: z.array(z.string()), propertiesWithHistory: z.array(z.string()) }),
+    input: obj({ archived: z.boolean().optional(), idProperty: z.string().optional(), inputs: z.array(obj({ id: z.string() })), properties: z.array(z.string()), propertiesWithHistory: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["archived"]),
@@ -31,7 +32,7 @@ export const crmPartnerClientsActions: Record<string, ActionDefinition> = {
     description: "Create batch update. Part of: Batch. Calls POST /crm/v3/objects/partnerclients/batch/update on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/partner_clients/batch/update",
-    input: z.object({ inputs: z.array(z.object({ id: z.string(), idProperty: z.string().optional(), objectWriteTraceId: z.string().optional(), properties: z.record(z.string(), z.unknown()) })) }),
+    input: obj({ inputs: z.array(obj({ id: z.string(), idProperty: z.string().optional(), objectWriteTraceId: z.string().optional(), properties: z.record(z.string(), z.unknown()) })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -39,7 +40,7 @@ export const crmPartnerClientsActions: Record<string, ActionDefinition> = {
     description: "Create search. Part of: Search. Calls POST /crm/v3/objects/partnerclients/search on HubSpot.",
     method: "POST",
     path: "/crm/v3/objects/partner_clients/search",
-    input: z.object({ after: z.string(), filterGroups: z.array(z.object({ filters: z.array(z.record(z.string(), z.unknown())) })), limit: z.number(), properties: z.array(z.string()), query: z.string().optional(), sorts: z.array(z.string()) }),
+    input: obj({ after: z.string(), filterGroups: z.array(obj({ filters: z.array(z.record(z.string(), z.unknown())) })), limit: z.number(), properties: z.array(z.string()), query: z.string().optional(), sorts: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -47,7 +48,7 @@ export const crmPartnerClientsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /crm/v3/objects/partnerclients/{partnerClientId} on HubSpot.",
     method: "GET",
     path: "/crm/v3/objects/partner_clients/{partnerClientId}",
-    input: z.object({ partnerClientId: z.string(), archived: z.boolean().optional(), associations: z.array(z.string()).optional(), idProperty: z.string().optional(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional() }),
+    input: obj({ partnerClientId: z.string(), archived: z.boolean().optional(), associations: z.array(z.string()).optional(), idProperty: z.string().optional(), properties: z.array(z.string()).optional(), propertiesWithHistory: z.array(z.string()).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -55,7 +56,7 @@ export const crmPartnerClientsActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Basic. Calls PATCH /crm/v3/objects/partnerclients/{partnerClientId} on HubSpot.",
     method: "PATCH",
     path: "/crm/v3/objects/partner_clients/{partnerClientId}",
-    input: z.object({ partnerClientId: z.string(), idProperty: z.string().optional(), properties: z.record(z.string(), z.unknown()) }),
+    input: obj({ partnerClientId: z.string(), idProperty: z.string().optional(), properties: z.record(z.string(), z.unknown()) }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["idProperty"]),
@@ -65,7 +66,7 @@ export const crmPartnerClientsActions: Record<string, ActionDefinition> = {
     description: "Get associations. Part of: Basic. Calls GET /crm/v3/objects/partnerclients/{partnerClientId}/associations/{toObjectType} on HubSpot.",
     method: "GET",
     path: "/crm/v3/objects/partner_clients/{partnerClientId}/associations/{toObjectType}",
-    input: z.object({ partnerClientId: z.string(), toObjectType: z.string(), includeFA: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ partnerClientId: z.string(), toObjectType: z.string(), includeFA: z.boolean().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -74,7 +75,7 @@ export const crmPartnerClientsActions: Record<string, ActionDefinition> = {
     description: "Replace associations. Part of: Basic. Calls PUT /crm/v3/objects/partnerclients/{partnerClientId}/associations/{toObjectType}/{toObjectId}/{associationType} on HubSpot.",
     method: "PUT",
     path: "/crm/v3/objects/partner_clients/{partnerClientId}/associations/{toObjectType}/{toObjectId}/{associationType}",
-    input: z.object({ associationType: z.string(), partnerClientId: z.string(), toObjectId: z.string(), toObjectType: z.string() }),
+    input: obj({ associationType: z.string(), partnerClientId: z.string(), toObjectId: z.string(), toObjectType: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -82,7 +83,7 @@ export const crmPartnerClientsActions: Record<string, ActionDefinition> = {
     description: "Delete associations. Part of: Basic. Calls DELETE /crm/v3/objects/partnerclients/{partnerClientId}/associations/{toObjectType}/{toObjectId}/{associationType} on HubSpot.",
     method: "DELETE",
     path: "/crm/v3/objects/partner_clients/{partnerClientId}/associations/{toObjectType}/{toObjectId}/{associationType}",
-    input: z.object({ associationType: z.string(), partnerClientId: z.string(), toObjectId: z.string(), toObjectType: z.string() }),
+    input: obj({ associationType: z.string(), partnerClientId: z.string(), toObjectId: z.string(), toObjectType: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const knowledgeManagementActions: Record<string, ActionDefinition> = {
     description: "Get articles. Part of: Knowledge Management. Calls GET /km/kbs/{kbId}/articles on Zoom.",
     method: "GET",
     path: "/km/kbs/{kbId}/articles",
-    input: z.object({ kbId: z.string(), include_contents: z.boolean().optional(), excluded: z.boolean().optional(), language: z.enum(["zh-CN", "zh-TW", "en-US", "en-GB", "en-AU", "en-NZ", "fr-FR", "fr-CA", "pt-PT", "pt-BR", "es-ES", "es-US", "es-MX", "da-DK", "nl-NL", "nl-BE", "en-CA", "fr-BE", "fr-LU", "de-DE", "de-AT", "de-CH", "it-IT", "ja-JP", "ko-KR", "no-NO", "pl-PL", "ro-RO", "ru-RU", "sv-SE", "tr-TR"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ kbId: z.string(), include_contents: z.boolean().optional(), excluded: z.boolean().optional(), language: z.enum(["zh-CN", "zh-TW", "en-US", "en-GB", "en-AU", "en-NZ", "fr-FR", "fr-CA", "pt-PT", "pt-BR", "es-ES", "es-US", "es-MX", "da-DK", "nl-NL", "nl-BE", "en-CA", "fr-BE", "fr-LU", "de-DE", "de-AT", "de-CH", "it-IT", "ja-JP", "ko-KR", "no-NO", "pl-PL", "ro-RO", "ru-RU", "sv-SE", "tr-TR"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "articles", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const knowledgeManagementActions: Record<string, ActionDefinition> = {
     description: "Create article. Part of: Knowledge Management. Calls POST /km/kbs/{kbId}/articles on Zoom.",
     method: "POST",
     path: "/km/kbs/{kbId}/articles",
-    input: z.object({ kbId: z.string(), category: z.string().optional(), title: z.string(), url: z.string().optional(), content: z.string(), exclude: z.boolean(), language: z.enum(["zh-CN", "zh-TW", "en-US", "en-GB", "en-AU", "en-NZ", "fr-FR", "fr-CA", "pt-PT", "pt-BR", "es-ES", "es-US", "es-MX", "da-DK", "nl-NL", "nl-BE", "en-CA", "fr-BE", "fr-LU", "de-DE", "de-AT", "de-CH", "it-IT", "ja-JP", "ko-KR", "no-NO", "pl-PL", "ro-RO", "ru-RU", "sv-SE", "tr-TR"]).optional(), external_id: z.string().optional() }),
+    input: obj({ kbId: z.string(), category: z.string().optional(), title: z.string(), url: z.string().optional(), content: z.string(), exclude: z.boolean(), language: z.enum(["zh-CN", "zh-TW", "en-US", "en-GB", "en-AU", "en-NZ", "fr-FR", "fr-CA", "pt-PT", "pt-BR", "es-ES", "es-US", "es-MX", "da-DK", "nl-NL", "nl-BE", "en-CA", "fr-BE", "fr-LU", "de-DE", "de-AT", "de-CH", "it-IT", "ja-JP", "ko-KR", "no-NO", "pl-PL", "ro-RO", "ru-RU", "sv-SE", "tr-TR"]).optional(), external_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const knowledgeManagementActions: Record<string, ActionDefinition> = {
     description: "Get article. Part of: Knowledge Management. Calls GET /km/kbs/{kbId}/articles/{articleId} on Zoom.",
     method: "GET",
     path: "/km/kbs/{kbId}/articles/{articleId}",
-    input: z.object({ kbId: z.string(), articleId: z.string() }),
+    input: obj({ kbId: z.string(), articleId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const knowledgeManagementActions: Record<string, ActionDefinition> = {
     description: "Update article. Part of: Knowledge Management. Calls PUT /km/kbs/{kbId}/articles/{articleId} on Zoom.",
     method: "PUT",
     path: "/km/kbs/{kbId}/articles/{articleId}",
-    input: z.object({ kbId: z.string(), articleId: z.string(), category: z.string().optional(), title: z.string(), url: z.string().optional(), content: z.string(), exclude: z.boolean(), language: z.enum(["zh-CN", "zh-TW", "en-US", "en-GB", "en-AU", "en-NZ", "fr-FR", "fr-CA", "pt-PT", "pt-BR", "es-ES", "es-US", "es-MX", "da-DK", "nl-NL", "nl-BE", "en-CA", "fr-BE", "fr-LU", "de-DE", "de-AT", "de-CH", "it-IT", "ja-JP", "ko-KR", "no-NO", "pl-PL", "ro-RO", "ru-RU", "sv-SE", "tr-TR"]).optional(), external_id: z.string().optional() }),
+    input: obj({ kbId: z.string(), articleId: z.string(), category: z.string().optional(), title: z.string(), url: z.string().optional(), content: z.string(), exclude: z.boolean(), language: z.enum(["zh-CN", "zh-TW", "en-US", "en-GB", "en-AU", "en-NZ", "fr-FR", "fr-CA", "pt-PT", "pt-BR", "es-ES", "es-US", "es-MX", "da-DK", "nl-NL", "nl-BE", "en-CA", "fr-BE", "fr-LU", "de-DE", "de-AT", "de-CH", "it-IT", "ja-JP", "ko-KR", "no-NO", "pl-PL", "ro-RO", "ru-RU", "sv-SE", "tr-TR"]).optional(), external_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const knowledgeManagementActions: Record<string, ActionDefinition> = {
     description: "Delete article. Part of: Knowledge Management. Calls DELETE /km/kbs/{kbId}/articles/{articleId} on Zoom.",
     method: "DELETE",
     path: "/km/kbs/{kbId}/articles/{articleId}",
-    input: z.object({ kbId: z.string(), articleId: z.string() }),
+    input: obj({ kbId: z.string(), articleId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const knowledgeManagementActions: Record<string, ActionDefinition> = {
     description: "Create sync request. Part of: Knowledge Management. Calls POST /km/kbs/{kbId}/sync on Zoom.",
     method: "POST",
     path: "/km/kbs/{kbId}/sync",
-    input: z.object({ kbId: z.string() }),
+    input: obj({ kbId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -60,7 +61,7 @@ export const knowledgeManagementActions: Record<string, ActionDefinition> = {
     description: "Get sync. Part of: Knowledge Management. Calls GET /km/kbs/{kbId}/sync/{syncId} on Zoom.",
     method: "GET",
     path: "/km/kbs/{kbId}/sync/{syncId}",
-    input: z.object({ kbId: z.string(), syncId: z.string() }),
+    input: obj({ kbId: z.string(), syncId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const ticketCommentsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const ticketCommentsActions: Record<string, ActionDefinition> = {
     description: "Redact chat comment attachment. Part of: Ticket Comments. Calls PUT /chatfileredactions/{ticketid} on Zendesk.",
     method: "PUT",
     path: "/chat_file_redactions/{ticket_id}",
-    input: z.object({ ticket_id: z.number(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ ticket_id: z.number(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -19,7 +20,7 @@ export const ticketCommentsActions: Record<string, ActionDefinition> = {
     description: "Redact chat comment. Part of: Ticket Comments. Calls PUT /chatredactions/{ticketid} on Zendesk.",
     method: "PUT",
     path: "/chat_redactions/{ticket_id}",
-    input: z.object({ ticket_id: z.number(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ ticket_id: z.number(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -28,7 +29,7 @@ export const ticketCommentsActions: Record<string, ActionDefinition> = {
     description: "Redact ticket comment in agent workspace. Part of: Ticket Comments. Calls PUT /commentredactions/{ticketcommentid} on Zendesk.",
     method: "PUT",
     path: "/comment_redactions/{ticket_comment_id}",
-    input: z.object({ ticket_comment_id: z.number(), external_attachment_urls: z.array(z.string()).optional(), html_body: z.string().optional(), ticket_id: z.number() }),
+    input: obj({ ticket_comment_id: z.number(), external_attachment_urls: z.array(z.string()).optional(), html_body: z.string().optional(), ticket_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const ticketCommentsActions: Record<string, ActionDefinition> = {
     description: "Make ticket comment private. Part of: Ticket Comments. Calls PUT /tickets/{ticketid}/comments/{ticketcommentid}/makeprivate on Zendesk.",
     method: "PUT",
     path: "/tickets/{ticket_id}/comments/{ticket_comment_id}/make_private",
-    input: z.object({ ticket_id: z.number(), ticket_comment_id: z.number() }),
+    input: obj({ ticket_id: z.number(), ticket_comment_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const ticketCommentsActions: Record<string, ActionDefinition> = {
     description: "Redact string in comment. Part of: Ticket Comments. Calls PUT /tickets/{ticketid}/comments/{ticketcommentid}/redact on Zendesk.",
     method: "PUT",
     path: "/tickets/{ticket_id}/comments/{ticket_comment_id}/redact",
-    input: z.object({ ticket_id: z.number(), ticket_comment_id: z.number(), text: z.string() }),
+    input: obj({ ticket_id: z.number(), ticket_comment_id: z.number(), text: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -52,7 +53,7 @@ export const ticketCommentsActions: Record<string, ActionDefinition> = {
     description: "Count ticket comments. Part of: Ticket Comments. Calls GET /tickets/{ticketid}/comments/count on Zendesk.",
     method: "GET",
     path: "/tickets/{ticket_id}/comments/count",
-    input: z.object({ ticket_id: z.number() }),
+    input: obj({ ticket_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

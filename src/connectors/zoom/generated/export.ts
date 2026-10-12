@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const exportActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const exportActions: Record<string, ActionDefinition> = {
     description: "Createwhiteboardsexport. Part of: Export. Calls POST /whiteboards/export on Zoom.",
     method: "POST",
     path: "/whiteboards/export",
-    input: z.object({ whiteboard_ids: z.array(z.string()) }),
+    input: obj({ whiteboard_ids: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const exportActions: Record<string, ActionDefinition> = {
     description: "Downloadwhiteboardexport. Part of: Export. Calls GET /whiteboards/export/task/{taskId} on Zoom.",
     method: "GET",
     path: "/whiteboards/export/task/{taskId}",
-    input: z.object({ taskId: z.string() }),
+    input: obj({ taskId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const exportActions: Record<string, ActionDefinition> = {
     description: "Getwhiteboardexportdatagenerationstatus. Part of: Export. Calls GET /whiteboards/export/task/{taskId}/status on Zoom.",
     method: "GET",
     path: "/whiteboards/export/task/{taskId}/status",
-    input: z.object({ taskId: z.string() }),
+    input: obj({ taskId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

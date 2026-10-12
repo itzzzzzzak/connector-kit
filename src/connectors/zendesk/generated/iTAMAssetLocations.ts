@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const iTAMAssetLocationsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const iTAMAssetLocationsActions: Record<string, ActionDefinition> = {
     description: "List itam locations. Part of: ITAM Asset Locations. Calls GET /itassetmanagement/locations on Zendesk.",
     method: "GET",
     path: "/it_asset_management/locations",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const iTAMAssetLocationsActions: Record<string, ActionDefinition> = {
     description: "Create itam location. Part of: ITAM Asset Locations. Calls POST /itassetmanagement/locations on Zendesk.",
     method: "POST",
     path: "/it_asset_management/locations",
-    input: z.object({ location: z.object({ created_at: z.string().optional(), external_id: z.string().nullable().optional(), id: z.string().optional(), name: z.string(), updated_at: z.string().optional(), url: z.string().optional() }).optional() }),
+    input: obj({ location: obj({ created_at: z.string().optional(), external_id: z.string().nullable().optional(), id: z.string().optional(), name: z.string(), updated_at: z.string().optional(), url: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const iTAMAssetLocationsActions: Record<string, ActionDefinition> = {
     description: "Show itam location. Part of: ITAM Asset Locations. Calls GET /itassetmanagement/locations/{locationid} on Zendesk.",
     method: "GET",
     path: "/it_asset_management/locations/{location_id}",
-    input: z.object({ location_id: z.string() }),
+    input: obj({ location_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const iTAMAssetLocationsActions: Record<string, ActionDefinition> = {
     description: "Update itam location. Part of: ITAM Asset Locations. Calls PATCH /itassetmanagement/locations/{locationid} on Zendesk.",
     method: "PATCH",
     path: "/it_asset_management/locations/{location_id}",
-    input: z.object({ location_id: z.string(), location: z.object({ external_id: z.string().nullable().optional(), name: z.string().optional() }).optional() }),
+    input: obj({ location_id: z.string(), location: obj({ external_id: z.string().nullable().optional(), name: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const iTAMAssetLocationsActions: Record<string, ActionDefinition> = {
     description: "Delete itam location. Part of: ITAM Asset Locations. Calls DELETE /itassetmanagement/locations/{locationid} on Zendesk.",
     method: "DELETE",
     path: "/it_asset_management/locations/{location_id}",
-    input: z.object({ location_id: z.string() }),
+    input: obj({ location_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const ticketContentPinsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const ticketContentPinsActions: Record<string, ActionDefinition> = {
     description: "List ticket content pins. Part of: Ticket Content Pins. Calls GET /ticketcontentpins on Zendesk.",
     method: "GET",
     path: "/ticket_content_pins",
-    input: z.object({ ticket_id: z.string().optional() }),
+    input: obj({ ticket_id: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const ticketContentPinsActions: Record<string, ActionDefinition> = {
     description: "Create ticket content pin. Part of: Ticket Content Pins. Calls POST /ticketcontentpins on Zendesk.",
     method: "POST",
     path: "/ticket_content_pins",
-    input: z.object({ ticket_content_pin: z.object({ content_id: z.string(), content_type: z.string(), locale: z.string().optional(), ticket_id: z.string() }).optional() }),
+    input: obj({ ticket_content_pin: obj({ content_id: z.string(), content_type: z.string(), locale: z.string().optional(), ticket_id: z.string() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const ticketContentPinsActions: Record<string, ActionDefinition> = {
     description: "Delete ticket content pin. Part of: Ticket Content Pins. Calls DELETE /ticketcontentpins/{contentpinid} on Zendesk.",
     method: "DELETE",
     path: "/ticket_content_pins/{content_pin_id}",
-    input: z.object({ content_pin_id: z.string() }),
+    input: obj({ content_pin_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

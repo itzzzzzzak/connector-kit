@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const contentActions: Record<string, ActionDefinition> = {
     description: "Get whiteboard content. Part of: Content. Calls GET /whiteboards/{whiteboardId}/content on Zoom.",
     method: "GET",
     path: "/whiteboards/{whiteboardId}/content",
-    input: z.object({ whiteboardId: z.string() }),
+    input: obj({ whiteboardId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const contentActions: Record<string, ActionDefinition> = {
     description: "Save whiteboard content. Part of: Content. Calls POST /whiteboards/{whiteboardId}/content on Zoom.",
     method: "POST",
     path: "/whiteboards/{whiteboardId}/content",
-    input: z.object({ whiteboardId: z.string(), content_objects: z.array(z.record(z.string(), z.unknown())) }),
+    input: obj({ whiteboardId: z.string(), content_objects: z.array(z.record(z.string(), z.unknown())) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const contentActions: Record<string, ActionDefinition> = {
     description: "Delete whiteboard content. Part of: Content. Calls DELETE /whiteboards/{whiteboardId}/content on Zoom.",
     method: "DELETE",
     path: "/whiteboards/{whiteboardId}/content",
-    input: z.object({ whiteboardId: z.string(), object_ids: z.array(z.string()) }),
+    input: obj({ whiteboardId: z.string(), object_ids: z.array(z.string()) }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => pick(i, ["object_ids"]),

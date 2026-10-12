@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const agentRunnerHookActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const agentRunnerHookActions: Record<string, ActionDefinition> = {
     description: "List site agent runner hooks Calls GET /sites/{siteid}/agentrunnerhooks on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/agent_runner_hooks",
-    input: z.object({ site_id: z.string() }),
+    input: obj({ site_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const agentRunnerHookActions: Record<string, ActionDefinition> = {
     description: "Create site agent runner hook Calls POST /sites/{siteid}/agentrunnerhooks on Netlify.",
     method: "POST",
     path: "/sites/{site_id}/agent_runner_hooks",
-    input: z.object({ site_id: z.string(), title: z.string().optional(), branch: z.string().optional(), prompt: z.string().optional(), agent: z.string().optional() }),
+    input: obj({ site_id: z.string(), title: z.string().optional(), branch: z.string().optional(), prompt: z.string().optional(), agent: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const agentRunnerHookActions: Record<string, ActionDefinition> = {
     description: "Get site agent runner hook Calls GET /sites/{siteid}/agentrunnerhooks/{id} on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/agent_runner_hooks/{id}",
-    input: z.object({ site_id: z.string(), id: z.string() }),
+    input: obj({ site_id: z.string(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const agentRunnerHookActions: Record<string, ActionDefinition> = {
     description: "Update site agent runner hook Calls PUT /sites/{siteid}/agentrunnerhooks/{id} on Netlify.",
     method: "PUT",
     path: "/sites/{site_id}/agent_runner_hooks/{id}",
-    input: z.object({ site_id: z.string(), id: z.string(), title: z.string().optional(), branch: z.string().optional(), prompt: z.string().optional(), agent: z.string().optional() }),
+    input: obj({ site_id: z.string(), id: z.string(), title: z.string().optional(), branch: z.string().optional(), prompt: z.string().optional(), agent: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const agentRunnerHookActions: Record<string, ActionDefinition> = {
     description: "Delete site agent runner hook Calls DELETE /sites/{siteid}/agentrunnerhooks/{id} on Netlify.",
     method: "DELETE",
     path: "/sites/{site_id}/agent_runner_hooks/{id}",
-    input: z.object({ site_id: z.string(), id: z.string() }),
+    input: obj({ site_id: z.string(), id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

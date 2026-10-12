@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const appsSecretsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const appsSecretsActions: Record<string, ActionDefinition> = {
     description: "Set a Secret. Create or replace a secret in the secret store.",
     method: "POST",
     path: "/apps/secrets",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), expires_at: z.number().describe("The Unix timestamp for the expiry time of the secret, after which the secret deletes.").optional(), name: z.string().describe("A name for the secret that's unique within the scope."), payload: z.string().describe("The plaintext secret value to be stored."), scope: z.object({ type: z.enum(["account", "user"]), user: z.string().optional() }).describe("Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.") }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), expires_at: z.number().describe("The Unix timestamp for the expiry time of the secret, after which the secret deletes.").optional(), name: z.string().describe("A name for the secret that's unique within the scope."), payload: z.string().describe("The plaintext secret value to be stored."), scope: obj({ type: z.enum(["account", "user"]), user: z.string().optional() }).describe("Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const appsSecretsActions: Record<string, ActionDefinition> = {
     description: "Delete a Secret. Deletes a secret from the secret store by name and scope.",
     method: "POST",
     path: "/apps/secrets/delete",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), name: z.string().describe("A name for the secret that's unique within the scope."), scope: z.object({ type: z.enum(["account", "user"]), user: z.string().optional() }).describe("Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.") }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), name: z.string().describe("A name for the secret that's unique within the scope."), scope: obj({ type: z.enum(["account", "user"]), user: z.string().optional() }).describe("Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.") }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const crmOwnersActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /crm/v3/owners on HubSpot.",
     method: "GET",
     path: "/crm/v3/owners",
-    input: z.object({ archived: z.boolean().optional(), email: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ archived: z.boolean().optional(), email: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const crmOwnersActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /crm/v3/owners/{ownerId} on HubSpot.",
     method: "GET",
     path: "/crm/v3/owners/{ownerId}",
-    input: z.object({ ownerId: z.number(), archived: z.boolean().optional(), idProperty: z.enum(["id", "userId"]).optional() }),
+    input: obj({ ownerId: z.number(), archived: z.boolean().optional(), idProperty: z.enum(["id", "userId"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const projectPermissionSchemesActions: Record<string, ActionDefinition> =
     description: "Get project issue security scheme. Returns the issue security scheme associated with the project.",
     method: "GET",
     path: "/project/{projectKeyOrId}/issuesecuritylevelscheme",
-    input: z.object({ projectKeyOrId: z.string().describe("The project ID or project key (case sensitive).") }),
+    input: obj({ projectKeyOrId: z.string().describe("The project ID or project key (case sensitive).") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const projectPermissionSchemesActions: Record<string, ActionDefinition> =
     description: "Get assigned permission scheme. Gets the permission scheme associated with the project.",
     method: "GET",
     path: "/project/{projectKeyOrId}/permissionscheme",
-    input: z.object({ projectKeyOrId: z.string().describe("The project ID or project key (case sensitive)."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are included when you…").optional() }),
+    input: obj({ projectKeyOrId: z.string().describe("The project ID or project key (case sensitive)."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are included when you…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const projectPermissionSchemesActions: Record<string, ActionDefinition> =
     description: "Assign permission scheme. Assigns a permission scheme with a project. See Managing project permissions for more information about permission schemes.",
     method: "PUT",
     path: "/project/{projectKeyOrId}/permissionscheme",
-    input: z.object({ projectKeyOrId: z.string().describe("The project ID or project key (case sensitive)."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are included when you…").optional(), id: z.number().describe("The ID of the permission scheme to associate with the project. Use the Get all permission schemes resource to get a list of permission scheme IDs.") }),
+    input: obj({ projectKeyOrId: z.string().describe("The project ID or project key (case sensitive)."), expand: z.string().describe("Use expand to include additional information in the response. This parameter accepts a comma-separated list. Note that permissions are included when you…").optional(), id: z.number().describe("The ID of the permission scheme to associate with the project. Use the Get all permission schemes resource to get a list of permission scheme IDs.") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["expand"]),
@@ -37,7 +38,7 @@ export const projectPermissionSchemesActions: Record<string, ActionDefinition> =
     description: "Get project issue security levels. Returns all issue security levels for the project that the user has access to.",
     method: "GET",
     path: "/project/{projectKeyOrId}/securitylevel",
-    input: z.object({ projectKeyOrId: z.string().describe("The project ID or project key (case sensitive).") }),
+    input: obj({ projectKeyOrId: z.string().describe("The project ID or project key (case sensitive).") }),
     output: z.unknown(),
     effect: "read",
   },

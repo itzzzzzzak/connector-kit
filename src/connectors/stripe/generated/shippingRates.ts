@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const shippingRatesActions: Record<string, ActionDefinition> = {
     description: "List all shipping rates. Returns a list of your shipping rates.",
     method: "GET",
     path: "/shipping_rates",
-    input: z.object({ active: z.boolean().describe("Only return shipping rates that are active or inactive.").optional(), created: z.unknown().describe("A filter on the list, based on the object created field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of…").optional(), currency: z.string().describe("Only return shipping rates for the given currency.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ active: z.boolean().describe("Only return shipping rates that are active or inactive.").optional(), created: z.unknown().describe("A filter on the list, based on the object created field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of…").optional(), currency: z.string().describe("Only return shipping rates for the given currency.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const shippingRatesActions: Record<string, ActionDefinition> = {
     description: "Create a shipping rate. Creates a new shipping rate object.",
     method: "POST",
     path: "/shipping_rates",
-    input: z.object({ delivery_estimate: z.object({ maximum: z.object({ unit: z.enum(["business_day", "day", "hour", "month", "week"]), value: z.number() }).optional(), minimum: z.object({ unit: z.enum(["business_day", "day", "hour", "month", "week"]), value: z.number() }).optional() }).describe("The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.").optional(), display_name: z.string().describe("The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), fixed_amount: z.object({ amount: z.number(), currency: z.string(), currency_options: z.record(z.string(), z.unknown()).optional() }).describe("Describes a fixed amount to charge for shipping. Must be present if type is fixedamount.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).describe("Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of inclusive, exclusive, or unspecified.").optional(), tax_code: z.string().describe("A tax code ID. The Shipping tax code is txcd92010001.").optional(), type: z.enum(["fixed_amount"]).describe("The type of calculation to use on the shipping rate.").optional() }),
+    input: obj({ delivery_estimate: obj({ maximum: z.record(z.string(), z.unknown()).optional(), minimum: z.record(z.string(), z.unknown()).optional() }).describe("The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.").optional(), display_name: z.string().describe("The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), fixed_amount: obj({ amount: z.number(), currency: z.string(), currency_options: z.record(z.string(), z.unknown()).optional() }).describe("Describes a fixed amount to charge for shipping. Must be present if type is fixedamount.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).describe("Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of inclusive, exclusive, or unspecified.").optional(), tax_code: z.string().describe("A tax code ID. The Shipping tax code is txcd92010001.").optional(), type: z.enum(["fixed_amount"]).describe("The type of calculation to use on the shipping rate.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const shippingRatesActions: Record<string, ActionDefinition> = {
     description: "Retrieve a shipping rate. Returns the shipping rate object with the given ID.",
     method: "GET",
     path: "/shipping_rates/{shipping_rate_token}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), shipping_rate_token: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), shipping_rate_token: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const shippingRatesActions: Record<string, ActionDefinition> = {
     description: "Update a shipping rate. Updates an existing shipping rate object.",
     method: "POST",
     path: "/shipping_rates/{shipping_rate_token}",
-    input: z.object({ shipping_rate_token: z.string(), active: z.boolean().describe("Whether the shipping rate can be used for new purchases. Defaults to true.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), fixed_amount: z.object({ currency_options: z.record(z.string(), z.unknown()).optional() }).describe("Describes a fixed amount to charge for shipping. Must be present if type is fixedamount.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).describe("Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of inclusive, exclusive, or unspecified.").optional() }),
+    input: obj({ shipping_rate_token: z.string(), active: z.boolean().describe("Whether the shipping rate can be used for new purchases. Defaults to true.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), fixed_amount: obj({ currency_options: z.record(z.string(), z.unknown()).optional() }).describe("Describes a fixed amount to charge for shipping. Must be present if type is fixedamount.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).describe("Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of inclusive, exclusive, or unspecified.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

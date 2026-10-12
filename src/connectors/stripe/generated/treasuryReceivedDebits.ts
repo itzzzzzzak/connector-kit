@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const treasuryReceivedDebitsActions: Record<string, ActionDefinition> = {
     description: "List all ReceivedDebits. Returns a list of ReceivedDebits.",
     method: "GET",
     path: "/treasury/received_debits",
-    input: z.object({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), financial_account: z.string().describe("The FinancialAccount that funds were pulled from."), status: z.enum(["failed", "succeeded"]).describe("Only return ReceivedDebits that have the given status: succeeded or failed.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), financial_account: z.string().describe("The FinancialAccount that funds were pulled from."), status: z.enum(["failed", "succeeded"]).describe("Only return ReceivedDebits that have the given status: succeeded or failed.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const treasuryReceivedDebitsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a ReceivedDebit. Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list",
     method: "GET",
     path: "/treasury/received_debits/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

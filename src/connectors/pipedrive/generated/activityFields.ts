@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const activityFieldsActions: Record<string, ActionDefinition> = {
     description: "Get activity fields. Part of: ActivityFields. Calls GET /api/v2/activityFields on Pipedrive.",
     method: "GET",
     path: "/api/v2/activityFields",
-    input: z.object({ include_fields: z.array(z.enum(["ui_visibility"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ include_fields: z.array(z.enum(["ui_visibility"])).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["additional_data", "next_cursor"], cursorParam: "cursor", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 500 }),
@@ -20,7 +21,7 @@ export const activityFieldsActions: Record<string, ActionDefinition> = {
     description: "Get activity field. Part of: ActivityFields. Calls GET /api/v2/activityFields/{fieldcode} on Pipedrive.",
     method: "GET",
     path: "/api/v2/activityFields/{field_code}",
-    input: z.object({ field_code: z.string(), include_fields: z.array(z.enum(["ui_visibility"])).optional() }),
+    input: obj({ field_code: z.string(), include_fields: z.array(z.enum(["ui_visibility"])).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const activityFieldsActions: Record<string, ActionDefinition> = {
     description: "Get activity fields. Part of: ActivityFields. Calls GET /v1/activityFields on Pipedrive.",
     method: "GET",
     path: "/v1/activityFields",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

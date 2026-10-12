@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const channelFrameworkActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const channelFrameworkActions: Record<string, ActionDefinition> = {
     description: "Report channelback error. Part of: Channel Framework. Calls POST /anychannel/channelback/reporterror on Zendesk.",
     method: "POST",
     path: "/any_channel/channelback/report_error",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const channelFrameworkActions: Record<string, ActionDefinition> = {
     description: "Push content to support. Part of: Channel Framework. Calls POST /anychannel/push on Zendesk.",
     method: "POST",
     path: "/any_channel/push",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const channelFrameworkActions: Record<string, ActionDefinition> = {
     description: "Validate token. Part of: Channel Framework. Calls POST /anychannel/validatetoken on Zendesk.",
     method: "POST",
     path: "/any_channel/validate_token",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },

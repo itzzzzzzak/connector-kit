@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const oneClicksActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const oneClicksActions: Record<string, ActionDefinition> = {
     description: "List 1-Click Applications. To list all available 1-Click applications, send a GET request to /v2/1-clicks. The type may be provided as query paramater in order to restrict results to a certain type of 1-Click, for example: /v2/1-clicks?type=droplet. Current supported types are kubernetes and droplet.",
     method: "GET",
     path: "/1-clicks",
-    input: z.object({ type: z.enum(["droplet", "kubernetes"]).describe("Restrict results to a certain type of 1-Click.").optional() }),
+    input: obj({ type: z.enum(["droplet", "kubernetes"]).describe("Restrict results to a certain type of 1-Click.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const oneClicksActions: Record<string, ActionDefinition> = {
     description: "Install Kubernetes 1-Click Applications. To install a Kubernetes 1-Click application on a cluster, send a POST request to /v2/1-clicks/kubernetes. The addonslugs and clusteruuid must be provided as body parameter in order to specify which 1-Click application(s) to install. To list all available 1-Click Kubernetes applications, send a request to /v2/1-clicks?type=kubern",
     method: "POST",
     path: "/1-clicks/kubernetes",
-    input: z.object({ addon_slugs: z.array(z.string()).describe("An array of 1-Click Application slugs to be installed to the Kubernetes cluster."), cluster_uuid: z.string().describe("A unique ID for the Kubernetes cluster to which the 1-Click Applications will be installed.") }),
+    input: obj({ addon_slugs: z.array(z.string()).describe("An array of 1-Click Application slugs to be installed to the Kubernetes cluster."), cluster_uuid: z.string().describe("A unique ID for the Kubernetes cluster to which the 1-Click Applications will be installed.") }),
     output: z.unknown(),
     effect: "write",
   },

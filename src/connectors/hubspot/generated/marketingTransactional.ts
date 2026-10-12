@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const marketingTransactionalActions: Record<string, ActionDefinition> = {
     description: "Create single email send. Part of: Send transactional email. Calls POST /marketing/v3/transactional/single-email/send on HubSpot.",
     method: "POST",
     path: "/marketing/v3/transactional/single-email/send",
-    input: z.object({ contactProperties: z.record(z.string(), z.unknown()).optional(), customProperties: z.record(z.string(), z.unknown()).optional(), emailId: z.number(), message: z.object({ bcc: z.array(z.string()).optional(), cc: z.array(z.string()).optional(), from: z.string().optional(), replyTo: z.array(z.string()).optional(), sendId: z.string().optional(), to: z.string() }) }),
+    input: obj({ contactProperties: z.record(z.string(), z.unknown()).optional(), customProperties: z.record(z.string(), z.unknown()).optional(), emailId: z.number(), message: obj({ bcc: z.array(z.string()).optional(), cc: z.array(z.string()).optional(), from: z.string().optional(), replyTo: z.array(z.string()).optional(), sendId: z.string().optional(), to: z.string() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const marketingTransactionalActions: Record<string, ActionDefinition> = {
     description: "List smtp tokens. Part of: SMTP Tokens. Calls GET /marketing/v3/transactional/smtp-tokens on HubSpot.",
     method: "GET",
     path: "/marketing/v3/transactional/smtp-tokens",
-    input: z.object({ campaignName: z.string().optional(), emailCampaignId: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ campaignName: z.string().optional(), emailCampaignId: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "results", cursorPath: ["paging", "next", "after"], cursorParam: "after", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -28,7 +29,7 @@ export const marketingTransactionalActions: Record<string, ActionDefinition> = {
     description: "Create smtp tokens. Part of: SMTP Tokens. Calls POST /marketing/v3/transactional/smtp-tokens on HubSpot.",
     method: "POST",
     path: "/marketing/v3/transactional/smtp-tokens",
-    input: z.object({ campaignName: z.string(), createContact: z.boolean() }),
+    input: obj({ campaignName: z.string(), createContact: z.boolean() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const marketingTransactionalActions: Record<string, ActionDefinition> = {
     description: "Get smtp tokens. Part of: SMTP Tokens. Calls GET /marketing/v3/transactional/smtp-tokens/{tokenId} on HubSpot.",
     method: "GET",
     path: "/marketing/v3/transactional/smtp-tokens/{tokenId}",
-    input: z.object({ tokenId: z.string() }),
+    input: obj({ tokenId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -44,7 +45,7 @@ export const marketingTransactionalActions: Record<string, ActionDefinition> = {
     description: "Delete smtp tokens. Part of: SMTP Tokens. Calls DELETE /marketing/v3/transactional/smtp-tokens/{tokenId} on HubSpot.",
     method: "DELETE",
     path: "/marketing/v3/transactional/smtp-tokens/{tokenId}",
-    input: z.object({ tokenId: z.string() }),
+    input: obj({ tokenId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const marketingTransactionalActions: Record<string, ActionDefinition> = {
     description: "Create smtp tokens password reset. Part of: SMTP Tokens. Calls POST /marketing/v3/transactional/smtp-tokens/{tokenId}/password-reset on HubSpot.",
     method: "POST",
     path: "/marketing/v3/transactional/smtp-tokens/{tokenId}/password-reset",
-    input: z.object({ tokenId: z.string() }),
+    input: obj({ tokenId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

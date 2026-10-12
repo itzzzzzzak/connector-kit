@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const deployedBranchActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const deployedBranchActions: Record<string, ActionDefinition> = {
     description: "List site deployed branches Calls GET /sites/{siteid}/deployed-branches on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/deployed-branches",
-    input: z.object({ site_id: z.string() }),
+    input: obj({ site_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

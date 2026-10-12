@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const resourceCollectionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const resourceCollectionsActions: Record<string, ActionDefinition> = {
     description: "List resource collections. Part of: Resource Collections. Calls GET /resourcecollections on Zendesk.",
     method: "GET",
     path: "/resource_collections",
-    input: z.object({ per_page: z.number().optional() }),
+    input: obj({ per_page: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const resourceCollectionsActions: Record<string, ActionDefinition> = {
     description: "Create resource collection. Part of: Resource Collections. Calls POST /resourcecollections on Zendesk.",
     method: "POST",
     path: "/resource_collections",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const resourceCollectionsActions: Record<string, ActionDefinition> = {
     description: "Retrieve resource collection. Part of: Resource Collections. Calls GET /resourcecollections/{resourcecollectionid} on Zendesk.",
     method: "GET",
     path: "/resource_collections/{resource_collection_id}",
-    input: z.object({ resource_collection_id: z.number() }),
+    input: obj({ resource_collection_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const resourceCollectionsActions: Record<string, ActionDefinition> = {
     description: "Update resource collection. Part of: Resource Collections. Calls PUT /resourcecollections/{resourcecollectionid} on Zendesk.",
     method: "PUT",
     path: "/resource_collections/{resource_collection_id}",
-    input: z.object({ resource_collection_id: z.number() }),
+    input: obj({ resource_collection_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const resourceCollectionsActions: Record<string, ActionDefinition> = {
     description: "Delete resource collection. Part of: Resource Collections. Calls DELETE /resourcecollections/{resourcecollectionid} on Zendesk.",
     method: "DELETE",
     path: "/resource_collections/{resource_collection_id}",
-    input: z.object({ resource_collection_id: z.number() }),
+    input: obj({ resource_collection_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

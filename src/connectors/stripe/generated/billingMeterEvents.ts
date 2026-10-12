@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const billingMeterEventsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const billingMeterEventsActions: Record<string, ActionDefinition> = {
     description: "Create a billing meter event. Creates a billing meter event.",
     method: "POST",
     path: "/billing/meter_events",
-    input: z.object({ event_name: z.string().describe("The name of the meter event. Corresponds with the eventname field on a meter."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), identifier: z.string().describe("A unique identifier for the event. If not provided, one is generated. We recommend using UUID-like identifiers. Stripe enforces uniqueness within a rolling…").optional(), payload: z.record(z.string(), z.unknown()).describe("The payload of the event. This must contain the fields corresponding to a meter's customermapping.eventpayloadkey (default is stripecustomerid) and…"), timestamp: z.number().describe("The time of the event. Measured in seconds since the Unix epoch. Must be within the past 35 calendar days or up to 5 minutes in the future. Defaults to…").optional() }),
+    input: obj({ event_name: z.string().describe("The name of the meter event. Corresponds with the eventname field on a meter."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), identifier: z.string().describe("A unique identifier for the event. If not provided, one is generated. We recommend using UUID-like identifiers. Stripe enforces uniqueness within a rolling…").optional(), payload: z.record(z.string(), z.unknown()).describe("The payload of the event. This must contain the fields corresponding to a meter's customermapping.eventpayloadkey (default is stripecustomerid) and…"), timestamp: z.number().describe("The time of the event. Measured in seconds since the Unix epoch. Must be within the past 35 calendar days or up to 5 minutes in the future. Defaults to…").optional() }),
     output: z.unknown(),
     effect: "write",
   },

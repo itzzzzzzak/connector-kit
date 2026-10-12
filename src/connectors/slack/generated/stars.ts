@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const starsActions: Record<string, ActionDefinition> = {
     description: "Adds a star to an item. Calls POST /stars.add on Slack.",
     method: "POST",
     path: "/stars.add",
-    input: z.object({ channel: z.string().describe("Channel to add star to, or channel where the message to add star to was posted (used with timestamp).").optional(), file: z.string().describe("File to add star to.").optional(), file_comment: z.string().describe("File comment to add star to.").optional(), timestamp: z.string().describe("Timestamp of the message to add star to.").optional() }),
+    input: obj({ channel: z.string().describe("Channel to add star to, or channel where the message to add star to was posted (used with timestamp).").optional(), file: z.string().describe("File to add star to.").optional(), file_comment: z.string().describe("File comment to add star to.").optional(), timestamp: z.string().describe("Timestamp of the message to add star to.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const starsActions: Record<string, ActionDefinition> = {
     description: "Lists stars for a user. Calls GET /stars.list on Slack.",
     method: "GET",
     path: "/stars.list",
-    input: z.object({ count: z.string().optional(), page: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ count: z.string().optional(), page: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "items", cursorPath: ["response_metadata", "next_cursor"] }),
@@ -28,7 +29,7 @@ export const starsActions: Record<string, ActionDefinition> = {
     description: "Removes a star from an item. Calls POST /stars.remove on Slack.",
     method: "POST",
     path: "/stars.remove",
-    input: z.object({ channel: z.string().describe("Channel to remove star from, or channel where the message to remove star from was posted (used with timestamp).").optional(), file: z.string().describe("File to remove star from.").optional(), file_comment: z.string().describe("File comment to remove star from.").optional(), timestamp: z.string().describe("Timestamp of the message to remove star from.").optional() }),
+    input: obj({ channel: z.string().describe("Channel to remove star from, or channel where the message to remove star from was posted (used with timestamp).").optional(), file: z.string().describe("File to remove star from.").optional(), file_comment: z.string().describe("File comment to remove star from.").optional(), timestamp: z.string().describe("Timestamp of the message to remove star from.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

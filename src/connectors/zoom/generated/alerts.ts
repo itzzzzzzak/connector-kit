@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const alertsActions: Record<string, ActionDefinition> = {
     description: "List alert settings with paging query. Part of: Alerts. Calls GET /phone/alertsettings on Zoom.",
     method: "GET",
     path: "/phone/alert_settings",
-    input: z.object({ module: z.number().optional(), rule: z.number().optional(), status: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ module: z.number().optional(), rule: z.number().optional(), status: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "alert_settings", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const alertsActions: Record<string, ActionDefinition> = {
     description: "Add an alert setting. Part of: Alerts. Calls POST /phone/alertsettings on Zoom.",
     method: "POST",
     path: "/phone/alert_settings",
-    input: z.object({ alert_setting_name: z.string(), module: z.number(), rule: z.number(), target_type: z.number(), target_ids: z.array(z.string()).optional(), rule_conditions: z.array(z.object({ rule_condition_type: z.number().optional(), rule_condition_value: z.string().optional() })), time_frame_type: z.enum(["all_day", "specific_time"]), time_frame_from: z.string(), time_frame_to: z.string(), frequency: z.number().optional(), email_recipients: z.array(z.string()).optional(), chat_channels: z.array(z.object({ chat_channel_name: z.string().optional(), token: z.string().optional(), end_point: z.string().optional() })).optional(), status: z.number().optional() }),
+    input: obj({ alert_setting_name: z.string(), module: z.number(), rule: z.number(), target_type: z.number(), target_ids: z.array(z.string()).optional(), rule_conditions: z.array(obj({ rule_condition_type: z.number().optional(), rule_condition_value: z.string().optional() })), time_frame_type: z.enum(["all_day", "specific_time"]), time_frame_from: z.string(), time_frame_to: z.string(), frequency: z.number().optional(), email_recipients: z.array(z.string()).optional(), chat_channels: z.array(obj({ chat_channel_name: z.string().optional(), token: z.string().optional(), end_point: z.string().optional() })).optional(), status: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const alertsActions: Record<string, ActionDefinition> = {
     description: "Get alert setting details. Part of: Alerts. Calls GET /phone/alertsettings/{alertSettingId} on Zoom.",
     method: "GET",
     path: "/phone/alert_settings/{alertSettingId}",
-    input: z.object({ alertSettingId: z.string() }),
+    input: obj({ alertSettingId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const alertsActions: Record<string, ActionDefinition> = {
     description: "Update an alert setting. Part of: Alerts. Calls PATCH /phone/alertsettings/{alertSettingId} on Zoom.",
     method: "PATCH",
     path: "/phone/alert_settings/{alertSettingId}",
-    input: z.object({ alertSettingId: z.string(), alert_setting_name: z.string().optional(), rule_conditions: z.array(z.object({ rule_condition_type: z.number().optional(), rule_condition_value: z.string().optional() })).optional(), target_ids: z.array(z.string()).optional(), time_frame_type: z.enum(["all_day", "specific_time"]).optional(), time_frame_from: z.string().optional(), time_frame_to: z.string().optional(), frequency: z.number().optional(), email_recipients: z.array(z.string()).optional(), chat_channels: z.array(z.object({ chat_channel_name: z.string().optional(), token: z.string().optional(), end_point: z.string().optional() })).optional(), status: z.number().optional() }),
+    input: obj({ alertSettingId: z.string(), alert_setting_name: z.string().optional(), rule_conditions: z.array(obj({ rule_condition_type: z.number().optional(), rule_condition_value: z.string().optional() })).optional(), target_ids: z.array(z.string()).optional(), time_frame_type: z.enum(["all_day", "specific_time"]).optional(), time_frame_from: z.string().optional(), time_frame_to: z.string().optional(), frequency: z.number().optional(), email_recipients: z.array(z.string()).optional(), chat_channels: z.array(obj({ chat_channel_name: z.string().optional(), token: z.string().optional(), end_point: z.string().optional() })).optional(), status: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const alertsActions: Record<string, ActionDefinition> = {
     description: "Delete an alert setting. Part of: Alerts. Calls DELETE /phone/alertsettings/{alertSettingId} on Zoom.",
     method: "DELETE",
     path: "/phone/alert_settings/{alertSettingId}",
-    input: z.object({ alertSettingId: z.string() }),
+    input: obj({ alertSettingId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

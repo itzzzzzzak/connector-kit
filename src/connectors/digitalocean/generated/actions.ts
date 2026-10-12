@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const actionsActions: Record<string, ActionDefinition> = {
     description: "List All Actions. This will be the entire list of actions taken on your account, so it will be quite large. As with any large collection returned by the API, the results will be paginated with only 20 on each page by default.",
     method: "GET",
     path: "/actions",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "actions", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const actionsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing Action. To retrieve a specific action object, send a GET request to /v2/actions/$ACTIONID.",
     method: "GET",
     path: "/actions/{action_id}",
-    input: z.object({ action_id: z.number().describe("A unique numeric ID that can be used to identify and reference an action.") }),
+    input: obj({ action_id: z.number().describe("A unique numeric ID that can be used to identify and reference an action.") }),
     output: z.unknown(),
     effect: "read",
   },

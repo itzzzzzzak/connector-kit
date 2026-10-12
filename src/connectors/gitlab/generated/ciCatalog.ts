@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const ciCatalogActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const ciCatalogActions: Record<string, ActionDefinition> = {
     description: "Post projects id catalog publish. Part of: cicatalog. Calls POST /projects/{id}/catalog/publish on GitLab.",
     method: "POST",
     path: "/projects/{id}/catalog/publish",
-    input: z.object({ id: z.string(), version: z.string(), metadata: z.record(z.string(), z.unknown()) }),
+    input: obj({ id: z.string(), version: z.string(), metadata: z.record(z.string(), z.unknown()) }),
     output: z.unknown(),
     effect: "write",
   },

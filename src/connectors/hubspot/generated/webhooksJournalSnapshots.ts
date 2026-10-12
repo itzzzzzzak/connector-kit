@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const webhooksJournalSnapshotsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const webhooksJournalSnapshotsActions: Record<string, ActionDefinition> =
     description: "Create crm. Part of: Advanced. Calls POST /webhooks-journal/snapshots/2026-09/crm on HubSpot.",
     method: "POST",
     path: "/webhooks-journal/snapshots/2026-09/crm",
-    input: z.object({ snapshotRequests: z.array(z.object({ objectId: z.number(), objectTypeId: z.string(), portalId: z.number(), properties: z.array(z.string()) })) }),
+    input: obj({ snapshotRequests: z.array(obj({ objectId: z.number(), objectTypeId: z.string(), portalId: z.number(), properties: z.array(z.string()) })) }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const triggerCategoriesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const triggerCategoriesActions: Record<string, ActionDefinition> = {
     description: "List trigger categories. Part of: Trigger Categories. Calls GET /triggercategories on Zendesk.",
     method: "GET",
     path: "/trigger_categories",
-    input: z.object({ sort: z.enum(["position", "-position", "name", "-name", "created_at", "-created_at", "updated_at", "-updated_at"]).optional(), include: z.enum(["rule_counts"]).optional() }),
+    input: obj({ sort: z.enum(["position", "-position", "name", "-name", "created_at", "-created_at", "updated_at", "-updated_at"]).optional(), include: z.enum(["rule_counts"]).optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const triggerCategoriesActions: Record<string, ActionDefinition> = {
     description: "Create trigger category. Part of: Trigger Categories. Calls POST /triggercategories on Zendesk.",
     method: "POST",
     path: "/trigger_categories",
-    input: z.object({ trigger_category: z.object({ name: z.string(), position: z.number().optional() }).optional() }),
+    input: obj({ trigger_category: obj({ name: z.string(), position: z.number().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const triggerCategoriesActions: Record<string, ActionDefinition> = {
     description: "Show trigger category by id. Part of: Trigger Categories. Calls GET /triggercategories/{triggercategoryid} on Zendesk.",
     method: "GET",
     path: "/trigger_categories/{trigger_category_id}",
-    input: z.object({ trigger_category_id: z.string() }),
+    input: obj({ trigger_category_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const triggerCategoriesActions: Record<string, ActionDefinition> = {
     description: "Update trigger category. Part of: Trigger Categories. Calls PATCH /triggercategories/{triggercategoryid} on Zendesk.",
     method: "PATCH",
     path: "/trigger_categories/{trigger_category_id}",
-    input: z.object({ trigger_category_id: z.string(), trigger_category: z.object({ name: z.string().optional(), position: z.number().optional() }).optional() }),
+    input: obj({ trigger_category_id: z.string(), trigger_category: obj({ name: z.string().optional(), position: z.number().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const triggerCategoriesActions: Record<string, ActionDefinition> = {
     description: "Delete trigger category. Part of: Trigger Categories. Calls DELETE /triggercategories/{triggercategoryid} on Zendesk.",
     method: "DELETE",
     path: "/trigger_categories/{trigger_category_id}",
-    input: z.object({ trigger_category_id: z.string() }),
+    input: obj({ trigger_category_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const triggerCategoriesActions: Record<string, ActionDefinition> = {
     description: "Batch operate trigger categories. Part of: Trigger Categories. Calls POST /triggercategories/jobs on Zendesk.",
     method: "POST",
     path: "/trigger_categories/jobs",
-    input: z.object({ job: z.object({ action: z.enum(["patch"]).optional(), items: z.object({ trigger_categories: z.array(z.record(z.string(), z.unknown())).optional(), triggers: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }).optional() }),
+    input: obj({ job: obj({ action: z.enum(["patch"]).optional(), items: obj({ trigger_categories: z.array(z.record(z.string(), z.unknown())).optional(), triggers: z.array(z.record(z.string(), z.unknown())).optional() }).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },

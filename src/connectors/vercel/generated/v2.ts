@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const v2Actions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const v2Actions: Record<string, ActionDefinition> = {
     description: "Create observability query. Calls POST /v2/observability/query on Vercel.",
     method: "POST",
     path: "/v2/observability/query",
-    input: z.object({ metric: z.string(), scope: z.record(z.string(), z.unknown()), aggregation: z.string().optional(), groupBy: z.array(z.string()).optional(), filter: z.string().optional(), limit: z.number().optional(), orderBy: z.string().optional(), orderDirection: z.enum(["asc", "desc"]).optional(), granularity: z.record(z.string(), z.unknown()).optional(), startTime: z.string().optional(), endTime: z.string().optional(), bucketTimezone: z.string().optional() }),
+    input: obj({ metric: z.string(), scope: z.record(z.string(), z.unknown()), aggregation: z.string().optional(), groupBy: z.array(z.string()).optional(), filter: z.string().optional(), limit: z.number().optional(), orderBy: z.string().optional(), orderDirection: z.enum(["asc", "desc"]).optional(), granularity: z.record(z.string(), z.unknown()).optional(), startTime: z.string().optional(), endTime: z.string().optional(), bucketTimezone: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const v2Actions: Record<string, ActionDefinition> = {
     description: "Get observability schema. Calls GET /v2/observability/schema on Vercel.",
     method: "GET",
     path: "/v2/observability/schema",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const v2Actions: Record<string, ActionDefinition> = {
     description: "Get observability schema by metric id. Calls GET /v2/observability/schema/{metricId} on Vercel.",
     method: "GET",
     path: "/v2/observability/schema/{metricId}",
-    input: z.object({ metricId: z.string() }),
+    input: obj({ metricId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

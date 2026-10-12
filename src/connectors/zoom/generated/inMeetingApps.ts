@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const inMeetingAppsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const inMeetingAppsActions: Record<string, ActionDefinition> = {
     description: "Meeting app add. Part of: In-Meeting Apps. Calls POST /meetings/{meetingId}/openapps on Zoom.",
     method: "POST",
     path: "/meetings/{meetingId}/open_apps",
-    input: z.object({ meetingId: z.number(), target: z.enum(["participants"]).optional(), user_ids: z.array(z.string()).optional(), share_with: z.object({ internal_participants: z.boolean().optional(), external_participants: z.boolean().optional() }).optional() }),
+    input: obj({ meetingId: z.number(), target: z.enum(["participants"]).optional(), user_ids: z.array(z.string()).optional(), share_with: obj({ internal_participants: z.boolean().optional(), external_participants: z.boolean().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const inMeetingAppsActions: Record<string, ActionDefinition> = {
     description: "Meeting app delete. Part of: In-Meeting Apps. Calls DELETE /meetings/{meetingId}/openapps on Zoom.",
     method: "DELETE",
     path: "/meetings/{meetingId}/open_apps",
-    input: z.object({ meetingId: z.number() }),
+    input: obj({ meetingId: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const importsActions: Record<string, ActionDefinition> = {
     description: "Get bulk imports. Part of: imports. Calls GET /bulkimports on GitLab.",
     method: "GET",
     path: "/bulk_imports",
-    input: z.object({ sort: z.enum(["asc", "desc"]).optional(), status: z.enum(["created", "started", "finished", "timeout", "failed", "canceled"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ sort: z.enum(["asc", "desc"]).optional(), status: z.enum(["created", "started", "finished", "timeout", "failed", "canceled"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const importsActions: Record<string, ActionDefinition> = {
     description: "Get bulk imports entities. Part of: imports. Calls GET /bulkimports/entities on GitLab.",
     method: "GET",
     path: "/bulk_imports/entities",
-    input: z.object({ sort: z.enum(["asc", "desc"]).optional(), status: z.enum(["created", "started", "finished", "timeout", "failed", "canceled"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ sort: z.enum(["asc", "desc"]).optional(), status: z.enum(["created", "started", "finished", "timeout", "failed", "canceled"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -29,7 +30,7 @@ export const importsActions: Record<string, ActionDefinition> = {
     description: "Get bulk imports import id. Part of: imports. Calls GET /bulkimports/{importid} on GitLab.",
     method: "GET",
     path: "/bulk_imports/{import_id}",
-    input: z.object({ import_id: z.number() }),
+    input: obj({ import_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -37,7 +38,7 @@ export const importsActions: Record<string, ActionDefinition> = {
     description: "Get bulk imports import id entities. Part of: imports. Calls GET /bulkimports/{importid}/entities on GitLab.",
     method: "GET",
     path: "/bulk_imports/{import_id}/entities",
-    input: z.object({ import_id: z.number(), status: z.enum(["created", "started", "finished", "timeout", "failed", "canceled"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ import_id: z.number(), status: z.enum(["created", "started", "finished", "timeout", "failed", "canceled"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -46,7 +47,7 @@ export const importsActions: Record<string, ActionDefinition> = {
     description: "Get bulk imports import id entities entity id. Part of: imports. Calls GET /bulkimports/{importid}/entities/{entityid} on GitLab.",
     method: "GET",
     path: "/bulk_imports/{import_id}/entities/{entity_id}",
-    input: z.object({ import_id: z.number(), entity_id: z.number() }),
+    input: obj({ import_id: z.number(), entity_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -54,7 +55,7 @@ export const importsActions: Record<string, ActionDefinition> = {
     description: "Get bulk imports import id entities entity id failures. Part of: imports. Calls GET /bulkimports/{importid}/entities/{entityid}/failures on GitLab.",
     method: "GET",
     path: "/bulk_imports/{import_id}/entities/{entity_id}/failures",
-    input: z.object({ import_id: z.number(), entity_id: z.number() }),
+    input: obj({ import_id: z.number(), entity_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -62,7 +63,7 @@ export const importsActions: Record<string, ActionDefinition> = {
     description: "Post bulk imports import id cancel. Part of: imports. Calls POST /bulkimports/{importid}/cancel on GitLab.",
     method: "POST",
     path: "/bulk_imports/{import_id}/cancel",
-    input: z.object({ import_id: z.number() }),
+    input: obj({ import_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -70,7 +71,7 @@ export const importsActions: Record<string, ActionDefinition> = {
     description: "Post import github gists. Part of: imports. Calls POST /import/github/gists on GitLab.",
     method: "POST",
     path: "/import/github/gists",
-    input: z.object({ personal_access_token: z.string() }),
+    input: obj({ personal_access_token: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

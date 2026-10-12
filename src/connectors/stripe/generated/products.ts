@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination, lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const productsActions: Record<string, ActionDefinition> = {
     description: "Search products. Search for products you’ve previously created using Stripe’s Search Query Language. Don’t use search in read-after-write flows where strict consistency is necessary. Under normal operating conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up to an hour behind during out",
     method: "GET",
     path: "/products/search",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), query: z.string().describe("The search query string. See search query language and the list of supported query fields for products."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), query: z.string().describe("The search query string. See search query language and the list of supported query fields for products."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page"], cursorParam: "page", pageSizeParam: "limit", defaultPageSize: 25, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const productsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a product. Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.",
     method: "GET",
     path: "/products/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const productsActions: Record<string, ActionDefinition> = {
     description: "Update a product. Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.",
     method: "POST",
     path: "/products/{id}",
-    input: z.object({ id: z.string(), active: z.boolean().describe("Whether the product is available for purchase.").optional(), default_price: z.string().describe("The ID of the Price object that is the default price for this product.").optional(), description: z.unknown().describe("The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), images: z.unknown().describe("A list of up to 8 URLs of images for this product, meant to be displayable to the customer.").optional(), marketing_features: z.unknown().describe("A list of up to 15 marketing features for this product. These are displayed in pricing tables.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), name: z.string().describe("The product's name, meant to be displayable to the customer.").optional(), package_dimensions: z.unknown().describe("The dimensions of this product for shipping purposes.").optional(), shippable: z.boolean().describe("Whether this product is shipped (i.e., physical goods).").optional(), statement_descriptor: z.string().describe("An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display…").optional(), tax_code: z.unknown().describe("A tax code ID.").optional(), tax_details: z.unknown().describe("Tax details for this product, including the tax code and an optional performance location.").optional(), unit_label: z.unknown().describe("A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal. May only…").optional(), url: z.unknown().describe("A URL of a publicly-accessible webpage for this product.").optional() }),
+    input: obj({ id: z.string(), active: z.boolean().describe("Whether the product is available for purchase.").optional(), default_price: z.string().describe("The ID of the Price object that is the default price for this product.").optional(), description: z.unknown().describe("The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), images: z.unknown().describe("A list of up to 8 URLs of images for this product, meant to be displayable to the customer.").optional(), marketing_features: z.unknown().describe("A list of up to 15 marketing features for this product. These are displayed in pricing tables.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), name: z.string().describe("The product's name, meant to be displayable to the customer.").optional(), package_dimensions: z.unknown().describe("The dimensions of this product for shipping purposes.").optional(), shippable: z.boolean().describe("Whether this product is shipped (i.e., physical goods).").optional(), statement_descriptor: z.string().describe("An arbitrary string to be displayed on your customer's credit card or bank statement. While most banks display this information consistently, some may display…").optional(), tax_code: z.unknown().describe("A tax code ID.").optional(), tax_details: z.unknown().describe("Tax details for this product, including the tax code and an optional performance location.").optional(), unit_label: z.unknown().describe("A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal. May only…").optional(), url: z.unknown().describe("A URL of a publicly-accessible webpage for this product.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const productsActions: Record<string, ActionDefinition> = {
     description: "Delete a product Calls DELETE /products/{id} on Stripe.",
     method: "DELETE",
     path: "/products/{id}",
-    input: z.object({ id: z.string() }),
+    input: obj({ id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -44,7 +45,7 @@ export const productsActions: Record<string, ActionDefinition> = {
     description: "List all features attached to a product. Retrieve a list of features for a product",
     method: "GET",
     path: "/products/{product}/features",
-    input: z.object({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), product: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), product: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -53,7 +54,7 @@ export const productsActions: Record<string, ActionDefinition> = {
     description: "Attach a feature to a product. Creates a productfeature, which represents a feature attachment to a product",
     method: "POST",
     path: "/products/{product}/features",
-    input: z.object({ product: z.string(), entitlement_feature: z.string().describe("The ID of the Feature object attached to this product."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ product: z.string(), entitlement_feature: z.string().describe("The ID of the Feature object attached to this product."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -61,7 +62,7 @@ export const productsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a productfeature. Retrieves a productfeature, which represents a feature attachment to a product",
     method: "GET",
     path: "/products/{product}/features/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string().describe("The ID of the productfeature."), product: z.string().describe("The ID of the product.") }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string().describe("The ID of the productfeature."), product: z.string().describe("The ID of the product.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -69,7 +70,7 @@ export const productsActions: Record<string, ActionDefinition> = {
     description: "Remove a feature from a product. Deletes the feature attachment to a product",
     method: "DELETE",
     path: "/products/{product}/features/{id}",
-    input: z.object({ id: z.string(), product: z.string() }),
+    input: obj({ id: z.string(), product: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

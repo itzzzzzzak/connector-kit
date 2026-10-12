@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const testHelpersCustomersActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const testHelpersCustomersActions: Record<string, ActionDefinition> = {
     description: "Fund a test mode cash balance. Create an incoming testmode bank transfer",
     method: "POST",
     path: "/test_helpers/customers/{customer}/fund_cash_balance",
-    input: z.object({ customer: z.string(), amount: z.number().describe("Amount to be used for this test cash balance transaction. A positive integer representing how much to fund in the smallest currency unit (e.g., 100 cents to…"), currency: z.string().describe("Three-letter ISO currency code, in lowercase. Must be a supported currency."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), reference: z.string().describe("A description of the test funding. This simulates free-text references supplied by customers when making bank transfers to their cash balance. You can use…").optional() }),
+    input: obj({ customer: z.string(), amount: z.number().describe("Amount to be used for this test cash balance transaction. A positive integer representing how much to fund in the smallest currency unit (e.g., 100 cents to…"), currency: z.string().describe("Three-letter ISO currency code, in lowercase. Must be a supported currency."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), reference: z.string().describe("A description of the test funding. This simulates free-text references supplied by customers when making bank transfers to their cash balance. You can use…").optional() }),
     output: z.unknown(),
     effect: "write",
   },

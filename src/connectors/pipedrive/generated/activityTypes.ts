@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const activityTypesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const activityTypesActions: Record<string, ActionDefinition> = {
     description: "Get activity types. Part of: ActivityTypes. Calls GET /v1/activityTypes on Pipedrive.",
     method: "GET",
     path: "/v1/activityTypes",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const activityTypesActions: Record<string, ActionDefinition> = {
     description: "Add activity type. Part of: ActivityTypes. Calls POST /v1/activityTypes on Pipedrive.",
     method: "POST",
     path: "/v1/activityTypes",
-    input: z.object({ name: z.string(), icon_key: z.enum(["task", "email", "meeting", "deadline", "call", "lunch", "calendar", "downarrow", "document", "smartphone", "camera", "scissors", "cogs", "bubble", "uparrow", "checkbox", "signpost", "shuffle", "addressbook", "linegraph", "picture", "car", "world", "search", "clip", "sound", "brush", "key", "padlock", "pricetag", "suitcase", "finish", "plane", "loop", "wifi", "truck", "cart", "bulb", "bell", "presentation"]), color: z.string().optional() }),
+    input: obj({ name: z.string(), icon_key: z.enum(["task", "email", "meeting", "deadline", "call", "lunch", "calendar", "downarrow", "document", "smartphone", "camera", "scissors", "cogs", "bubble", "uparrow", "checkbox", "signpost", "shuffle", "addressbook", "linegraph", "picture", "car", "world", "search", "clip", "sound", "brush", "key", "padlock", "pricetag", "suitcase", "finish", "plane", "loop", "wifi", "truck", "cart", "bulb", "bell", "presentation"]), color: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const activityTypesActions: Record<string, ActionDefinition> = {
     description: "Update activity type. Part of: ActivityTypes. Calls PUT /v1/activityTypes/{id} on Pipedrive.",
     method: "PUT",
     path: "/v1/activityTypes/{id}",
-    input: z.object({ id: z.number(), name: z.string().optional(), icon_key: z.enum(["task", "email", "meeting", "deadline", "call", "lunch", "calendar", "downarrow", "document", "smartphone", "camera", "scissors", "cogs", "bubble", "uparrow", "checkbox", "signpost", "shuffle", "addressbook", "linegraph", "picture", "car", "world", "search", "clip", "sound", "brush", "key", "padlock", "pricetag", "suitcase", "finish", "plane", "loop", "wifi", "truck", "cart", "bulb", "bell", "presentation"]).optional(), color: z.string().optional(), order_nr: z.number().optional() }),
+    input: obj({ id: z.number(), name: z.string().optional(), icon_key: z.enum(["task", "email", "meeting", "deadline", "call", "lunch", "calendar", "downarrow", "document", "smartphone", "camera", "scissors", "cogs", "bubble", "uparrow", "checkbox", "signpost", "shuffle", "addressbook", "linegraph", "picture", "car", "world", "search", "clip", "sound", "brush", "key", "padlock", "pricetag", "suitcase", "finish", "plane", "loop", "wifi", "truck", "cart", "bulb", "bell", "presentation"]).optional(), color: z.string().optional(), order_nr: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const activityTypesActions: Record<string, ActionDefinition> = {
     description: "Delete activity type. Part of: ActivityTypes. Calls DELETE /v1/activityTypes/{id} on Pipedrive.",
     method: "DELETE",
     path: "/v1/activityTypes/{id}",
-    input: z.object({ id: z.number() }),
+    input: obj({ id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

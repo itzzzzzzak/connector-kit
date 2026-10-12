@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const protectedBranchesActions: Record<string, ActionDefinition> = {
     description: "Get projects id protected branches. Part of: protectedbranches. Calls GET /projects/{id}/protectedbranches on GitLab.",
     method: "GET",
     path: "/projects/{id}/protected_branches",
-    input: z.object({ id: z.string(), search: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ id: z.string(), search: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination({ pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 100 }),
@@ -20,7 +21,7 @@ export const protectedBranchesActions: Record<string, ActionDefinition> = {
     description: "Post projects id protected branches. Part of: protectedbranches. Calls POST /projects/{id}/protectedbranches on GitLab.",
     method: "POST",
     path: "/projects/{id}/protected_branches",
-    input: z.object({ id: z.string(), name: z.string(), push_access_level: z.number().optional(), merge_access_level: z.number().optional(), allow_force_push: z.boolean().optional(), allowed_to_push: z.array(z.object({ deploy_key_id: z.number().optional(), access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional(), member_role_id: z.number().optional(), id: z.number().optional(), _destroy: z.boolean().optional() })).optional(), unprotect_access_level: z.number().optional(), allowed_to_merge: z.array(z.object({ access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional(), member_role_id: z.number().optional(), id: z.number().optional(), _destroy: z.boolean().optional() })).optional(), allowed_to_unprotect: z.array(z.object({ access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional(), member_role_id: z.number().optional(), id: z.number().optional(), _destroy: z.boolean().optional() })).optional(), code_owner_approval_required: z.boolean().optional() }),
+    input: obj({ id: z.string(), name: z.string(), push_access_level: z.number().optional(), merge_access_level: z.number().optional(), allow_force_push: z.boolean().optional(), allowed_to_push: z.array(obj({ deploy_key_id: z.number().optional(), access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional(), member_role_id: z.number().optional(), id: z.number().optional(), _destroy: z.boolean().optional() })).optional(), unprotect_access_level: z.number().optional(), allowed_to_merge: z.array(obj({ access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional(), member_role_id: z.number().optional(), id: z.number().optional(), _destroy: z.boolean().optional() })).optional(), allowed_to_unprotect: z.array(obj({ access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional(), member_role_id: z.number().optional(), id: z.number().optional(), _destroy: z.boolean().optional() })).optional(), code_owner_approval_required: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const protectedBranchesActions: Record<string, ActionDefinition> = {
     description: "Get projects id protected branches name. Part of: protectedbranches. Calls GET /projects/{id}/protectedbranches/{name} on GitLab.",
     method: "GET",
     path: "/projects/{id}/protected_branches/{name}",
-    input: z.object({ id: z.string(), name: z.string() }),
+    input: obj({ id: z.string(), name: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const protectedBranchesActions: Record<string, ActionDefinition> = {
     description: "Patch projects id protected branches name. Part of: protectedbranches. Calls PATCH /projects/{id}/protectedbranches/{name} on GitLab.",
     method: "PATCH",
     path: "/projects/{id}/protected_branches/{name}",
-    input: z.object({ id: z.string(), name: z.string(), allow_force_push: z.boolean().optional(), allowed_to_push: z.array(z.object({ deploy_key_id: z.number().optional(), access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional(), member_role_id: z.number().optional(), id: z.number().optional(), _destroy: z.boolean().optional() })).optional(), unprotect_access_level: z.number().optional(), allowed_to_merge: z.array(z.object({ access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional(), member_role_id: z.number().optional(), id: z.number().optional(), _destroy: z.boolean().optional() })).optional(), allowed_to_unprotect: z.array(z.object({ access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional(), member_role_id: z.number().optional(), id: z.number().optional(), _destroy: z.boolean().optional() })).optional(), code_owner_approval_required: z.boolean().optional() }),
+    input: obj({ id: z.string(), name: z.string(), allow_force_push: z.boolean().optional(), allowed_to_push: z.array(obj({ deploy_key_id: z.number().optional(), access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional(), member_role_id: z.number().optional(), id: z.number().optional(), _destroy: z.boolean().optional() })).optional(), unprotect_access_level: z.number().optional(), allowed_to_merge: z.array(obj({ access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional(), member_role_id: z.number().optional(), id: z.number().optional(), _destroy: z.boolean().optional() })).optional(), allowed_to_unprotect: z.array(obj({ access_level: z.number().optional(), user_id: z.number().optional(), group_id: z.number().optional(), member_role_id: z.number().optional(), id: z.number().optional(), _destroy: z.boolean().optional() })).optional(), code_owner_approval_required: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const protectedBranchesActions: Record<string, ActionDefinition> = {
     description: "Delete projects id protected branches name. Part of: protectedbranches. Calls DELETE /projects/{id}/protectedbranches/{name} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/protected_branches/{name}",
-    input: z.object({ id: z.string(), name: z.string() }),
+    input: obj({ id: z.string(), name: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

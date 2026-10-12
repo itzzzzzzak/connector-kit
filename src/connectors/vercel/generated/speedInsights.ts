@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const speedInsightsActions: Record<string, ActionDefinition> = {
     description: "Create speed insights toggle. Calls POST /speed-insights/toggle on Vercel.",
     method: "POST",
     path: "/speed-insights/toggle",
-    input: z.object({ projectId: z.string(), value: z.boolean() }),
+    input: obj({ projectId: z.string(), value: z.boolean() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["projectId"]),

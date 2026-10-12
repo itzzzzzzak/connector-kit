@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { linkHeaderPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const pullRequestStacksActions: Record<string, ActionDefinition> = {
     description: "List pull request stacks. Lists pull request stacks in a repository.",
     method: "GET",
     path: "/repos/{owner}/{repo}/stacks",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), pull_request: z.number().describe("Filter to the stack containing this repository pull request number.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), pull_request: z.number().describe("Filter to the stack containing this repository pull request number.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: linkHeaderPagination(),
@@ -20,7 +21,7 @@ export const pullRequestStacksActions: Record<string, ActionDefinition> = {
     description: "Create a pull request stack. Creates a stack from an ordered list of pull request numbers. Provide the pull request numbers from the bottom of the stack to the top. Each pull request's base ref must match the previous pull request's head ref.",
     method: "POST",
     path: "/repos/{owner}/{repo}/stacks",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), pull_requests: z.array(z.number()).describe("An ordered list of pull request numbers forming the stack from bottom to top.") }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), pull_requests: z.array(z.number()).describe("An ordered list of pull request numbers forming the stack from bottom to top.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const pullRequestStacksActions: Record<string, ActionDefinition> = {
     description: "Get a pull request stack. Gets a pull request stack by providing its stack number.",
     method: "GET",
     path: "/repos/{owner}/{repo}/stacks/{stack_number}",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), stack_number: z.number().describe("The number that identifies the pull request stack.") }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), stack_number: z.number().describe("The number that identifies the pull request stack.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const pullRequestStacksActions: Record<string, ActionDefinition> = {
     description: "Add pull requests to a pull request stack. Appends an ordered list of pull request numbers onto the top of an existing stack. Provide only the pull requests you want to add, from the current top of the stack upward. The first new pull request's base ref must match the current top pull request's head ref.",
     method: "POST",
     path: "/repos/{owner}/{repo}/stacks/{stack_number}/add",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), stack_number: z.number().describe("The number that identifies the pull request stack."), pull_requests: z.array(z.number()).describe("An ordered list of pull request numbers to append to the stack, from the current top upward.") }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), stack_number: z.number().describe("The number that identifies the pull request stack."), pull_requests: z.array(z.number()).describe("An ordered list of pull request numbers to append to the stack, from the current top upward.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const pullRequestStacksActions: Record<string, ActionDefinition> = {
     description: "Remove pull requests from a pull request stack. Removes the unmerged pull requests from a stack. Pull requests that cannot be unstacked (for example, those that are queued for merge) are left in place. When pull requests remain in the stack, the updated stack is returned with a 200. When no pull requests remain, the stack is dissolved and a 204 is returned.",
     method: "POST",
     path: "/repos/{owner}/{repo}/stacks/{stack_number}/unstack",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), stack_number: z.number().describe("The number that identifies the pull request stack.") }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository without the .git extension. The name is not case sensitive."), stack_number: z.number().describe("The number that identifies the pull request stack.") }),
     output: z.unknown(),
     effect: "write",
   },

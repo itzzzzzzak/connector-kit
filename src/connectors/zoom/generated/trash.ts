@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const trashActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const trashActions: Record<string, ActionDefinition> = {
     description: "Email. Part of: Messages. Calls POST /emails/mailboxes/{email}/messages/{messageId}/trash on Zoom.",
     method: "POST",
     path: "/emails/mailboxes/{email}/messages/{messageId}/trash",
-    input: z.object({ email: z.string(), messageId: z.string() }),
+    input: obj({ email: z.string(), messageId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const trashActions: Record<string, ActionDefinition> = {
     description: "Email thread. Part of: Threads. Calls POST /emails/mailboxes/{email}/threads/{threadId}/trash on Zoom.",
     method: "POST",
     path: "/emails/mailboxes/{email}/threads/{threadId}/trash",
-    input: z.object({ email: z.string(), threadId: z.string() }),
+    input: obj({ email: z.string(), threadId: z.string() }),
     output: z.unknown(),
     effect: "write",
   },

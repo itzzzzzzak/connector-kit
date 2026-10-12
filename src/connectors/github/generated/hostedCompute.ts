@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const hostedComputeActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const hostedComputeActions: Record<string, ActionDefinition> = {
     description: "List hosted compute network configurations for an organization. Lists all hosted compute network configurations configured in an organization.",
     method: "GET",
     path: "/orgs/{org}/settings/network-configurations",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), per_page: z.number().describe("The number of results per page (max 100). For more information, see \"Using pagination in the REST API.\"").optional(), page: z.number().describe("The page number of the results to fetch. For more information, see \"Using pagination in the REST API.\"").optional() }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), per_page: z.number().describe("The number of results per page (max 100). For more information, see \"Using pagination in the REST API.\"").optional(), page: z.number().describe("The page number of the results to fetch. For more information, see \"Using pagination in the REST API.\"").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const hostedComputeActions: Record<string, ActionDefinition> = {
     description: "Create a hosted compute network configuration for an organization. Creates a hosted compute network configuration for an organization.",
     method: "POST",
     path: "/orgs/{org}/settings/network-configurations",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), name: z.string().describe("Name of the network configuration. Must be between 1 and 100 characters and may only contain upper and lowercase letters a-z, numbers 0-9, '.', '-', and ''."), compute_service: z.enum(["none", "actions"]).describe("The hosted compute service to use for the network configuration.").optional(), network_settings_ids: z.array(z.string()).describe("A list of identifiers of the network settings resources to use for the network configuration. Exactly one resource identifier must be specified in the list."), failover_network_settings_ids: z.array(z.string()).describe("A list of identifiers of the failover network settings resources to use for the network configuration. Exactly one resource identifier must be specified in…").optional(), failover_network_enabled: z.boolean().describe("Indicates whether the failover network resource is enabled.").optional() }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), name: z.string().describe("Name of the network configuration. Must be between 1 and 100 characters and may only contain upper and lowercase letters a-z, numbers 0-9, '.', '-', and ''."), compute_service: z.enum(["none", "actions"]).describe("The hosted compute service to use for the network configuration.").optional(), network_settings_ids: z.array(z.string()).describe("A list of identifiers of the network settings resources to use for the network configuration. Exactly one resource identifier must be specified in the list."), failover_network_settings_ids: z.array(z.string()).describe("A list of identifiers of the failover network settings resources to use for the network configuration. Exactly one resource identifier must be specified in…").optional(), failover_network_enabled: z.boolean().describe("Indicates whether the failover network resource is enabled.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const hostedComputeActions: Record<string, ActionDefinition> = {
     description: "Get a hosted compute network configuration for an organization. Gets a hosted compute network configuration configured in an organization.",
     method: "GET",
     path: "/orgs/{org}/settings/network-configurations/{network_configuration_id}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), network_configuration_id: z.string().describe("Unique identifier of the hosted compute network configuration.") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), network_configuration_id: z.string().describe("Unique identifier of the hosted compute network configuration.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const hostedComputeActions: Record<string, ActionDefinition> = {
     description: "Update a hosted compute network configuration for an organization. Updates a hosted compute network configuration for an organization.",
     method: "PATCH",
     path: "/orgs/{org}/settings/network-configurations/{network_configuration_id}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), network_configuration_id: z.string().describe("Unique identifier of the hosted compute network configuration."), name: z.string().describe("Name of the network configuration. Must be between 1 and 100 characters and may only contain upper and lowercase letters a-z, numbers 0-9, '.', '-', and ''.").optional(), compute_service: z.enum(["none", "actions"]).describe("The hosted compute service to use for the network configuration.").optional(), network_settings_ids: z.array(z.string()).describe("A list of identifiers of the network settings resources to use for the network configuration. Exactly one resource identifier must be specified in the list.").optional(), failover_network_settings_ids: z.array(z.string()).describe("A list of identifiers of the failover network settings resources to use for the network configuration. Exactly one resource identifier must be specified in…").optional(), failover_network_enabled: z.boolean().describe("Indicates whether the failover network resource is enabled.").optional() }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), network_configuration_id: z.string().describe("Unique identifier of the hosted compute network configuration."), name: z.string().describe("Name of the network configuration. Must be between 1 and 100 characters and may only contain upper and lowercase letters a-z, numbers 0-9, '.', '-', and ''.").optional(), compute_service: z.enum(["none", "actions"]).describe("The hosted compute service to use for the network configuration.").optional(), network_settings_ids: z.array(z.string()).describe("A list of identifiers of the network settings resources to use for the network configuration. Exactly one resource identifier must be specified in the list.").optional(), failover_network_settings_ids: z.array(z.string()).describe("A list of identifiers of the failover network settings resources to use for the network configuration. Exactly one resource identifier must be specified in…").optional(), failover_network_enabled: z.boolean().describe("Indicates whether the failover network resource is enabled.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const hostedComputeActions: Record<string, ActionDefinition> = {
     description: "Delete a hosted compute network configuration from an organization. Deletes a hosted compute network configuration from an organization.",
     method: "DELETE",
     path: "/orgs/{org}/settings/network-configurations/{network_configuration_id}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), network_configuration_id: z.string().describe("Unique identifier of the hosted compute network configuration.") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), network_configuration_id: z.string().describe("Unique identifier of the hosted compute network configuration.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const hostedComputeActions: Record<string, ActionDefinition> = {
     description: "Get a hosted compute network settings resource for an organization. Gets a hosted compute network settings resource configured for an organization.",
     method: "GET",
     path: "/orgs/{org}/settings/network-settings/{network_settings_id}",
-    input: z.object({ org: z.string().describe("The organization name. The name is not case sensitive."), network_settings_id: z.string().describe("Unique identifier of the hosted compute network settings.") }),
+    input: obj({ org: z.string().describe("The organization name. The name is not case sensitive."), network_settings_id: z.string().describe("Unique identifier of the hosted compute network settings.") }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const applicationFeesActions: Record<string, ActionDefinition> = {
     description: "List all application fees. Returns a list of application fees you’ve previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.",
     method: "GET",
     path: "/application_fees",
-    input: z.object({ charge: z.string().describe("Only return application fees for the charge specified by this charge ID.").optional(), created: z.unknown().describe("Only return applications fees that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ charge: z.string().describe("Only return application fees for the charge specified by this charge ID.").optional(), created: z.unknown().describe("Only return applications fees that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const applicationFeesActions: Record<string, ActionDefinition> = {
     description: "Retrieve an application fee refund. By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.",
     method: "GET",
     path: "/application_fees/{fee}/refunds/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), fee: z.string(), id: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), fee: z.string(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const applicationFeesActions: Record<string, ActionDefinition> = {
     description: "Update an application fee refund. Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.",
     method: "POST",
     path: "/application_fees/{fee}/refunds/{id}",
-    input: z.object({ fee: z.string(), id: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
+    input: obj({ fee: z.string(), id: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const applicationFeesActions: Record<string, ActionDefinition> = {
     description: "Retrieve an application fee. Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee.",
     method: "GET",
     path: "/application_fees/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -44,7 +45,7 @@ export const applicationFeesActions: Record<string, ActionDefinition> = {
     description: "Refund Calls POST /applicationfees/{id}/refund on Stripe.",
     method: "POST",
     path: "/application_fees/{id}/refund",
-    input: z.object({ id: z.string(), amount: z.number().optional(), directive: z.string().optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ id: z.string(), amount: z.number().optional(), directive: z.string().optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const applicationFeesActions: Record<string, ActionDefinition> = {
     description: "List all application fee refunds. You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the limit and startingafter parameters to page through additional refunds.",
     method: "GET",
     path: "/application_fees/{id}/refunds",
-    input: z.object({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -61,7 +62,7 @@ export const applicationFeesActions: Record<string, ActionDefinition> = {
     description: "Create an application fee refund. Refunds an application fee that has previously been collected but not yet refunded. Funds will be refunded to the Stripe account from which the fee was originally collected.",
     method: "POST",
     path: "/application_fees/{id}/refunds",
-    input: z.object({ id: z.string(), amount: z.number().describe("A positive integer, in cents (or local equivalent), representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
+    input: obj({ id: z.string(), amount: z.number().describe("A positive integer, in cents (or local equivalent), representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
     output: z.unknown(),
     effect: "write",
   },

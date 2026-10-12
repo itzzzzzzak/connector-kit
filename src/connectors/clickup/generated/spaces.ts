@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const spacesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const spacesActions: Record<string, ActionDefinition> = {
     description: "Create space. Part of: Spaces. Calls POST /team/{teamid}/space on ClickUp.",
     method: "POST",
     path: "/team/{team_id}/space",
-    input: z.object({ team_id: z.number(), name: z.string(), multiple_assignees: z.boolean(), features: z.object({ due_dates: z.object({ enabled: z.boolean(), start_date: z.boolean(), remap_due_dates: z.boolean(), remap_closed_due_date: z.boolean() }), time_tracking: z.object({ enabled: z.boolean() }), tags: z.object({ enabled: z.boolean() }), time_estimates: z.object({ enabled: z.boolean() }), checklists: z.object({ enabled: z.boolean() }), custom_fields: z.object({ enabled: z.boolean() }), remap_dependencies: z.object({ enabled: z.boolean() }), dependency_warning: z.object({ enabled: z.boolean() }), portfolios: z.object({ enabled: z.boolean() }) }) }),
+    input: obj({ team_id: z.number(), name: z.string(), multiple_assignees: z.boolean(), features: obj({ due_dates: obj({ enabled: z.boolean(), start_date: z.boolean(), remap_due_dates: z.boolean(), remap_closed_due_date: z.boolean() }), time_tracking: obj({ enabled: z.boolean() }), tags: obj({ enabled: z.boolean() }), time_estimates: obj({ enabled: z.boolean() }), checklists: obj({ enabled: z.boolean() }), custom_fields: obj({ enabled: z.boolean() }), remap_dependencies: obj({ enabled: z.boolean() }), dependency_warning: obj({ enabled: z.boolean() }), portfolios: obj({ enabled: z.boolean() }) }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const spacesActions: Record<string, ActionDefinition> = {
     description: "Get space. Part of: Spaces. Calls GET /space/{spaceid} on ClickUp.",
     method: "GET",
     path: "/space/{space_id}",
-    input: z.object({ space_id: z.number() }),
+    input: obj({ space_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const spacesActions: Record<string, ActionDefinition> = {
     description: "Update space. Part of: Spaces. Calls PUT /space/{spaceid} on ClickUp.",
     method: "PUT",
     path: "/space/{space_id}",
-    input: z.object({ space_id: z.number(), name: z.string(), color: z.string(), private: z.boolean(), admin_can_manage: z.boolean(), multiple_assignees: z.boolean(), features: z.object({ due_dates: z.object({ enabled: z.boolean(), start_date: z.boolean(), remap_due_dates: z.boolean(), remap_closed_due_date: z.boolean() }), time_tracking: z.object({ enabled: z.boolean() }), tags: z.object({ enabled: z.boolean() }), time_estimates: z.object({ enabled: z.boolean() }), checklists: z.object({ enabled: z.boolean() }), custom_fields: z.object({ enabled: z.boolean() }), remap_dependencies: z.object({ enabled: z.boolean() }), dependency_warning: z.object({ enabled: z.boolean() }), portfolios: z.object({ enabled: z.boolean() }) }) }),
+    input: obj({ space_id: z.number(), name: z.string(), color: z.string(), private: z.boolean(), admin_can_manage: z.boolean(), multiple_assignees: z.boolean(), features: obj({ due_dates: obj({ enabled: z.boolean(), start_date: z.boolean(), remap_due_dates: z.boolean(), remap_closed_due_date: z.boolean() }), time_tracking: obj({ enabled: z.boolean() }), tags: obj({ enabled: z.boolean() }), time_estimates: obj({ enabled: z.boolean() }), checklists: obj({ enabled: z.boolean() }), custom_fields: obj({ enabled: z.boolean() }), remap_dependencies: obj({ enabled: z.boolean() }), dependency_warning: obj({ enabled: z.boolean() }), portfolios: obj({ enabled: z.boolean() }) }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const spacesActions: Record<string, ActionDefinition> = {
     description: "Delete space. Part of: Spaces. Calls DELETE /space/{spaceid} on ClickUp.",
     method: "DELETE",
     path: "/space/{space_id}",
-    input: z.object({ space_id: z.number() }),
+    input: obj({ space_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

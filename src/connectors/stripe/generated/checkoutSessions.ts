@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const checkoutSessionsActions: Record<string, ActionDefinition> = {
     description: "List all Checkout Sessions. Returns a list of Checkout Sessions.",
     method: "GET",
     path: "/checkout/sessions",
-    input: z.object({ created: z.unknown().describe("Only return Checkout Sessions that were created during the given date interval.").optional(), customer: z.string().describe("Only return the Checkout Sessions for the Customer specified.").optional(), customer_account: z.string().describe("Only return the Checkout Sessions for the Account specified.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payment_intent: z.string().describe("Only return the Checkout Session for the PaymentIntent specified.").optional(), payment_link: z.string().describe("Only return the Checkout Sessions for the Payment Link specified.").optional(), status: z.enum(["complete", "expired", "open"]).describe("Only return the Checkout Sessions matching the given status.").optional(), subscription: z.string().describe("Only return the Checkout Session for the subscription specified.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ created: z.unknown().describe("Only return Checkout Sessions that were created during the given date interval.").optional(), customer: z.string().describe("Only return the Checkout Sessions for the Customer specified.").optional(), customer_account: z.string().describe("Only return the Checkout Sessions for the Account specified.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payment_intent: z.string().describe("Only return the Checkout Session for the PaymentIntent specified.").optional(), payment_link: z.string().describe("Only return the Checkout Sessions for the Payment Link specified.").optional(), status: z.enum(["complete", "expired", "open"]).describe("Only return the Checkout Sessions matching the given status.").optional(), subscription: z.string().describe("Only return the Checkout Session for the subscription specified.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const checkoutSessionsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a Checkout Session. Retrieves a Checkout Session object.",
     method: "GET",
     path: "/checkout/sessions/{session}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), session: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), session: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const checkoutSessionsActions: Record<string, ActionDefinition> = {
     description: "Update a Checkout Session. Updates a Checkout Session object.",
     method: "POST",
     path: "/checkout/sessions/{session}",
-    input: z.object({ session: z.string(), collected_information: z.object({ shipping_details: z.object({ address: z.record(z.string(), z.unknown()), name: z.string() }).optional() }).describe("Information about the customer collected within the Checkout Session. Can only be set when updating embeddedpage or elements sessions.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), line_items: z.array(z.object({ adjustable_quantity: z.record(z.string(), z.unknown()).optional(), id: z.string().optional(), metadata: z.unknown().optional(), price: z.string().optional(), price_data: z.record(z.string(), z.unknown()).optional(), quantity: z.number().optional(), tax_rates: z.unknown().optional() })).describe("A list of items the customer is purchasing. When updating line items, you must retransmit the entire array of line items. To retain an existing line item,…").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), shipping_options: z.unknown().describe("The shipping rate options to apply to this Session. Up to a maximum of 5.").optional() }),
+    input: obj({ session: z.string(), collected_information: obj({ shipping_details: z.record(z.string(), z.unknown()).optional() }).describe("Information about the customer collected within the Checkout Session. Can only be set when updating embeddedpage or elements sessions.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), line_items: z.array(z.record(z.string(), z.unknown())).describe("A list of items the customer is purchasing. When updating line items, you must retransmit the entire array of line items. To retain an existing line item,…").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), shipping_options: z.unknown().describe("The shipping rate options to apply to this Session. Up to a maximum of 5.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const checkoutSessionsActions: Record<string, ActionDefinition> = {
     description: "Expire a Checkout Session. A Checkout Session can be expired when it is in one of these statuses: open",
     method: "POST",
     path: "/checkout/sessions/{session}/expire",
-    input: z.object({ session: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ session: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -44,7 +45,7 @@ export const checkoutSessionsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a Checkout Session's line items. When retrieving a Checkout Session, there is an includable lineitems property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.",
     method: "GET",
     path: "/checkout/sessions/{session}/line_items",
-    input: z.object({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), session: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), session: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),

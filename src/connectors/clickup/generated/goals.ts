@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const goalsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Get goals. Part of: Goals. Calls GET /team/{teamid}/goal on ClickUp.",
     method: "GET",
     path: "/team/{team_id}/goal",
-    input: z.object({ team_id: z.number(), include_completed: z.boolean().optional() }),
+    input: obj({ team_id: z.number(), include_completed: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Create goal. Part of: Goals. Calls POST /team/{teamid}/goal on ClickUp.",
     method: "POST",
     path: "/team/{team_id}/goal",
-    input: z.object({ team_id: z.number(), name: z.string(), due_date: z.number(), description: z.string(), multiple_owners: z.boolean(), owners: z.array(z.number()), color: z.string() }),
+    input: obj({ team_id: z.number(), name: z.string(), due_date: z.number(), description: z.string(), multiple_owners: z.boolean(), owners: z.array(z.number()), color: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Get goal. Part of: Goals. Calls GET /goal/{goalid} on ClickUp.",
     method: "GET",
     path: "/goal/{goal_id}",
-    input: z.object({ goal_id: z.string() }),
+    input: obj({ goal_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Update goal. Part of: Goals. Calls PUT /goal/{goalid} on ClickUp.",
     method: "PUT",
     path: "/goal/{goal_id}",
-    input: z.object({ goal_id: z.string(), name: z.string(), due_date: z.number(), description: z.string(), rem_owners: z.array(z.number()), add_owners: z.array(z.number()), color: z.string() }),
+    input: obj({ goal_id: z.string(), name: z.string(), due_date: z.number(), description: z.string(), rem_owners: z.array(z.number()), add_owners: z.array(z.number()), color: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Delete goal. Part of: Goals. Calls DELETE /goal/{goalid} on ClickUp.",
     method: "DELETE",
     path: "/goal/{goal_id}",
-    input: z.object({ goal_id: z.string() }),
+    input: obj({ goal_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Create key result. Part of: Goals. Calls POST /goal/{goalid}/keyresult on ClickUp.",
     method: "POST",
     path: "/goal/{goal_id}/key_result",
-    input: z.object({ goal_id: z.string(), name: z.string(), owners: z.array(z.number()), type: z.string(), steps_start: z.number(), steps_end: z.number(), unit: z.string(), task_ids: z.array(z.string()), list_ids: z.array(z.string()) }),
+    input: obj({ goal_id: z.string(), name: z.string(), owners: z.array(z.number()), type: z.string(), steps_start: z.number(), steps_end: z.number(), unit: z.string(), task_ids: z.array(z.string()), list_ids: z.array(z.string()) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Edit key result. Part of: Goals. Calls PUT /keyresult/{keyresultid} on ClickUp.",
     method: "PUT",
     path: "/key_result/{key_result_id}",
-    input: z.object({ key_result_id: z.string(), steps_current: z.number(), note: z.string() }),
+    input: obj({ key_result_id: z.string(), steps_current: z.number(), note: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -66,7 +67,7 @@ export const goalsActions: Record<string, ActionDefinition> = {
     description: "Delete key result. Part of: Goals. Calls DELETE /keyresult/{keyresultid} on ClickUp.",
     method: "DELETE",
     path: "/key_result/{key_result_id}",
-    input: z.object({ key_result_id: z.string() }),
+    input: obj({ key_result_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

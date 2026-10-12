@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const testHelpersIssuingCardsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const testHelpersIssuingCardsActions: Record<string, ActionDefinition> = 
     description: "Deliver a testmode card. Updates the shipping status of the specified Issuing Card object to delivered.",
     method: "POST",
     path: "/test_helpers/issuing/cards/{card}/shipping/deliver",
-    input: z.object({ card: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ card: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const testHelpersIssuingCardsActions: Record<string, ActionDefinition> = 
     description: "Fail a testmode card. Updates the shipping status of the specified Issuing Card object to failure.",
     method: "POST",
     path: "/test_helpers/issuing/cards/{card}/shipping/fail",
-    input: z.object({ card: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ card: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const testHelpersIssuingCardsActions: Record<string, ActionDefinition> = 
     description: "Return a testmode card. Updates the shipping status of the specified Issuing Card object to returned.",
     method: "POST",
     path: "/test_helpers/issuing/cards/{card}/shipping/return",
-    input: z.object({ card: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ card: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const testHelpersIssuingCardsActions: Record<string, ActionDefinition> = 
     description: "Ship a testmode card. Updates the shipping status of the specified Issuing Card object to shipped.",
     method: "POST",
     path: "/test_helpers/issuing/cards/{card}/shipping/ship",
-    input: z.object({ card: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ card: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const testHelpersIssuingCardsActions: Record<string, ActionDefinition> = 
     description: "Submit a testmode card. Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia’ or later.",
     method: "POST",
     path: "/test_helpers/issuing/cards/{card}/shipping/submit",
-    input: z.object({ card: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ card: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

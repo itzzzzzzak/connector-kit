@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const deletionSchedulesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const deletionSchedulesActions: Record<string, ActionDefinition> = {
     description: "List deletion schedules. Part of: Deletion Schedules. Calls GET /deletionschedules on Zendesk.",
     method: "GET",
     path: "/deletion_schedules",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const deletionSchedulesActions: Record<string, ActionDefinition> = {
     description: "Create deletion schedule. Part of: Deletion Schedules. Calls POST /deletionschedules on Zendesk.",
     method: "POST",
     path: "/deletion_schedules",
-    input: z.object({ deletion_schedule: z.object({ active: z.boolean().optional(), conditions: z.object({ all: z.array(z.record(z.string(), z.unknown())).optional(), any: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), created_at: z.string().optional(), default: z.boolean().optional(), description: z.string().optional(), id: z.number().optional(), object: z.string().optional(), title: z.string().optional(), updated_at: z.string().optional(), url: z.string().optional() }).optional() }),
+    input: obj({ deletion_schedule: obj({ active: z.boolean().optional(), conditions: obj({ all: z.array(z.record(z.string(), z.unknown())).optional(), any: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), created_at: z.string().optional(), default: z.boolean().optional(), description: z.string().optional(), id: z.number().optional(), object: z.string().optional(), title: z.string().optional(), updated_at: z.string().optional(), url: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const deletionSchedulesActions: Record<string, ActionDefinition> = {
     description: "Get deletion schedule. Part of: Deletion Schedules. Calls GET /deletionschedules/{deletionscheduleid} on Zendesk.",
     method: "GET",
     path: "/deletion_schedules/{deletion_schedule_id}",
-    input: z.object({ deletion_schedule_id: z.number() }),
+    input: obj({ deletion_schedule_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const deletionSchedulesActions: Record<string, ActionDefinition> = {
     description: "Update deletion schedule. Part of: Deletion Schedules. Calls PUT /deletionschedules/{deletionscheduleid} on Zendesk.",
     method: "PUT",
     path: "/deletion_schedules/{deletion_schedule_id}",
-    input: z.object({ deletion_schedule_id: z.number(), deletion_schedule: z.object({ active: z.boolean().optional(), conditions: z.object({ all: z.array(z.record(z.string(), z.unknown())).optional(), any: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), created_at: z.string().optional(), default: z.boolean().optional(), description: z.string().optional(), id: z.number().optional(), object: z.string().optional(), title: z.string().optional(), updated_at: z.string().optional(), url: z.string().optional() }).optional() }),
+    input: obj({ deletion_schedule_id: z.number(), deletion_schedule: obj({ active: z.boolean().optional(), conditions: obj({ all: z.array(z.record(z.string(), z.unknown())).optional(), any: z.array(z.record(z.string(), z.unknown())).optional() }).optional(), created_at: z.string().optional(), default: z.boolean().optional(), description: z.string().optional(), id: z.number().optional(), object: z.string().optional(), title: z.string().optional(), updated_at: z.string().optional(), url: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const deletionSchedulesActions: Record<string, ActionDefinition> = {
     description: "Delete deletion schedule. Part of: Deletion Schedules. Calls DELETE /deletionschedules/{deletionscheduleid} on Zendesk.",
     method: "DELETE",
     path: "/deletion_schedules/{deletion_schedule_id}",
-    input: z.object({ deletion_schedule_id: z.number() }),
+    input: obj({ deletion_schedule_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

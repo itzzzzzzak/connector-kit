@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const ticketMetricsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const ticketMetricsActions: Record<string, ActionDefinition> = {
     description: "List ticket metrics. Part of: Ticket Metrics. Calls GET /ticketmetrics on Zendesk.",
     method: "GET",
     path: "/ticket_metrics",
-    input: z.object({ sort: z.string().optional() }),
+    input: obj({ sort: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const ticketMetricsActions: Record<string, ActionDefinition> = {
     description: "Show ticket metrics. Part of: Ticket Metrics. Calls GET /ticketmetrics/{ticketmetricid} on Zendesk.",
     method: "GET",
     path: "/ticket_metrics/{ticket_metric_id}",
-    input: z.object({ ticket_metric_id: z.string() }),
+    input: obj({ ticket_metric_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const ticketMetricsActions: Record<string, ActionDefinition> = {
     description: "Show ticket metrics by ticket. Part of: Ticket Metrics. Calls GET /tickets/{ticketid}/metrics on Zendesk.",
     method: "GET",
     path: "/tickets/{ticket_id}/metrics",
-    input: z.object({ ticket_id: z.number() }),
+    input: obj({ ticket_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },

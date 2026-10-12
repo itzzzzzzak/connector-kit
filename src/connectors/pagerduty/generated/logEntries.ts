@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pagerduty.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const logEntriesActions: Record<string, ActionDefinition> = {
     description: "List log entries. Part of: Log Entries. Calls GET /logentries on PagerDuty.",
     method: "GET",
     path: "/log_entries",
-    input: z.object({ total: z.boolean().optional(), time_zone: z.string().optional(), since: z.string().optional(), until: z.string().optional(), is_overview: z.boolean().optional(), include__: z.enum(["incidents", "services", "channels", "teams"]).optional(), team_ids__: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ total: z.boolean().optional(), time_zone: z.string().optional(), since: z.string().optional(), until: z.string().optional(), is_overview: z.boolean().optional(), include__: z.enum(["incidents", "services", "channels", "teams"]).optional(), team_ids__: z.array(z.string()).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "log_entries", hasMorePath: ["more"], pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -22,7 +23,7 @@ export const logEntriesActions: Record<string, ActionDefinition> = {
     description: "Get log entry. Part of: Log Entries. Calls GET /logentries/{id} on PagerDuty.",
     method: "GET",
     path: "/log_entries/{id}",
-    input: z.object({ time_zone: z.string().optional(), id: z.string(), include__: z.enum(["incidents", "services", "channels", "teams"]).optional() }),
+    input: obj({ time_zone: z.string().optional(), id: z.string(), include__: z.enum(["incidents", "services", "channels", "teams"]).optional() }),
     output: z.unknown(),
     effect: "read",
     buildQuery: (i) => pickAs(i, { time_zone: "time_zone", include__: "include[]" }),

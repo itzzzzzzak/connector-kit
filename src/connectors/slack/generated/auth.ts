@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const authActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const authActions: Record<string, ActionDefinition> = {
     description: "Revokes a token. Calls GET /auth.revoke on Slack.",
     method: "GET",
     path: "/auth.revoke",
-    input: z.object({ test: z.boolean().describe("Setting this parameter to 1 triggers a testing mode where the specified token will not actually be revoked.").optional() }),
+    input: obj({ test: z.boolean().describe("Setting this parameter to 1 triggers a testing mode where the specified token will not actually be revoked.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const authActions: Record<string, ActionDefinition> = {
     description: "Checks authentication & identity. Calls GET /auth.test on Slack.",
     method: "GET",
     path: "/auth.test",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

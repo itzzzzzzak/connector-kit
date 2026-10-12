@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const submodulesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const submodulesActions: Record<string, ActionDefinition> = {
     description: "Put projects id repository submodules submodule. Part of: submodules. Calls PUT /projects/{id}/repository/submodules/{submodule} on GitLab.",
     method: "PUT",
     path: "/projects/{id}/repository/submodules/{submodule}",
-    input: z.object({ id: z.string(), submodule: z.string(), commit_sha: z.string(), branch: z.string(), commit_message: z.string().optional() }),
+    input: obj({ id: z.string(), submodule: z.string(), commit_sha: z.string(), branch: z.string(), commit_message: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

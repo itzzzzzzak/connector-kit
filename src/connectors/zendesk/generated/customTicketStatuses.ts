@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const customTicketStatusesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const customTicketStatusesActions: Record<string, ActionDefinition> = {
     description: "Bulk update default custom status. Part of: Custom Ticket Statuses. Calls PUT /customstatus/default on Zendesk.",
     method: "PUT",
     path: "/custom_status/default",
-    input: z.object({ ids: z.string().optional() }),
+    input: obj({ ids: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const customTicketStatusesActions: Record<string, ActionDefinition> = {
     description: "List custom statuses. Part of: Custom Ticket Statuses. Calls GET /customstatuses on Zendesk.",
     method: "GET",
     path: "/custom_statuses",
-    input: z.object({ status_categories: z.string().optional(), active: z.boolean().optional(), default: z.boolean().optional() }),
+    input: obj({ status_categories: z.string().optional(), active: z.boolean().optional(), default: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const customTicketStatusesActions: Record<string, ActionDefinition> = {
     description: "Create custom status. Part of: Custom Ticket Statuses. Calls POST /customstatuses on Zendesk.",
     method: "POST",
     path: "/custom_statuses",
-    input: z.object({ custom_status: z.object({ active: z.boolean().optional(), agent_label: z.string(), description: z.string().optional(), end_user_description: z.string().optional(), end_user_label: z.string(), status_category: z.enum(["new", "open", "pending", "hold", "solved"]) }) }),
+    input: obj({ custom_status: obj({ active: z.boolean().optional(), agent_label: z.string(), description: z.string().optional(), end_user_description: z.string().optional(), end_user_label: z.string(), status_category: z.enum(["new", "open", "pending", "hold", "solved"]) }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const customTicketStatusesActions: Record<string, ActionDefinition> = {
     description: "Show custom status. Part of: Custom Ticket Statuses. Calls GET /customstatuses/{customstatusid} on Zendesk.",
     method: "GET",
     path: "/custom_statuses/{custom_status_id}",
-    input: z.object({ custom_status_id: z.number() }),
+    input: obj({ custom_status_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const customTicketStatusesActions: Record<string, ActionDefinition> = {
     description: "Update custom status. Part of: Custom Ticket Statuses. Calls PUT /customstatuses/{customstatusid} on Zendesk.",
     method: "PUT",
     path: "/custom_statuses/{custom_status_id}",
-    input: z.object({ custom_status_id: z.number(), custom_status: z.object({ active: z.boolean().optional(), agent_label: z.string().optional(), description: z.string().optional(), end_user_description: z.string().optional(), end_user_label: z.string().optional() }).optional() }),
+    input: obj({ custom_status_id: z.number(), custom_status: obj({ active: z.boolean().optional(), agent_label: z.string().optional(), description: z.string().optional(), end_user_description: z.string().optional(), end_user_label: z.string().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const customTicketStatusesActions: Record<string, ActionDefinition> = {
     description: "Delete custom status. Part of: Custom Ticket Statuses. Calls DELETE /customstatuses/{customstatusid} on Zendesk.",
     method: "DELETE",
     path: "/custom_statuses/{custom_status_id}",
-    input: z.object({ custom_status_id: z.number() }),
+    input: obj({ custom_status_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -58,7 +59,7 @@ export const customTicketStatusesActions: Record<string, ActionDefinition> = {
     description: "Create ticket form statuses for custom status. Part of: Custom Ticket Statuses. Calls POST /customstatuses/{customstatusid}/ticketformstatuses on Zendesk.",
     method: "POST",
     path: "/custom_statuses/{custom_status_id}/ticket_form_statuses",
-    input: z.object({ custom_status_id: z.number(), ticket_form_status: z.array(z.object({ ticket_form_id: z.number().optional() })).optional() }),
+    input: obj({ custom_status_id: z.number(), ticket_form_status: z.array(obj({ ticket_form_id: z.number().optional() })).optional() }),
     output: z.unknown(),
     effect: "write",
   },

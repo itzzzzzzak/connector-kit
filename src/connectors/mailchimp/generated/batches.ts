@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/mailchimp.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const batchesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const batchesActions: Record<string, ActionDefinition> = {
     description: "Get batches id. Part of: batches. Calls GET /batches/{batchid} on Mailchimp.",
     method: "GET",
     path: "/batches/{batch_id}",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), batch_id: z.string() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), batch_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const batchesActions: Record<string, ActionDefinition> = {
     description: "Delete batches id. Part of: batches. Calls DELETE /batches/{batchid} on Mailchimp.",
     method: "DELETE",
     path: "/batches/{batch_id}",
-    input: z.object({ batch_id: z.string() }),
+    input: obj({ batch_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -26,7 +27,7 @@ export const batchesActions: Record<string, ActionDefinition> = {
     description: "Get batches. Part of: batches. Calls GET /batches on Mailchimp.",
     method: "GET",
     path: "/batches",
-    input: z.object({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional() }),
+    input: obj({ fields: z.array(z.string()).optional(), exclude_fields: z.array(z.string()).optional(), count: z.number().optional(), offset: z.number().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const batchesActions: Record<string, ActionDefinition> = {
     description: "Post batches. Part of: batches. Calls POST /batches on Mailchimp.",
     method: "POST",
     path: "/batches",
-    input: z.object({ operations: z.array(z.object({ method: z.enum(["GET", "POST", "PUT", "PATCH", "DELETE"]), headers: z.record(z.string(), z.unknown()).optional(), path: z.string(), params: z.record(z.string(), z.unknown()).optional(), body: z.string().optional(), operation_id: z.string().optional() })) }),
+    input: obj({ operations: z.array(obj({ method: z.enum(["GET", "POST", "PUT", "PATCH", "DELETE"]), headers: z.record(z.string(), z.unknown()).optional(), path: z.string(), params: z.record(z.string(), z.unknown()).optional(), body: z.string().optional(), operation_id: z.string().optional() })) }),
     output: z.unknown(),
     effect: "write",
   },

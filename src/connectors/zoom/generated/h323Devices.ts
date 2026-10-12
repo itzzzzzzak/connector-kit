@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const h323DevicesActions: Record<string, ActionDefinition> = {
     description: "Device list. Part of: H323 Devices. Calls GET /h323/devices on Zoom.",
     method: "GET",
     path: "/h323/devices",
-    input: z.object({ page_number: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ page_number: z.number().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "devices", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const h323DevicesActions: Record<string, ActionDefinition> = {
     description: "Device create. Part of: H323 Devices. Calls POST /h323/devices on Zoom.",
     method: "POST",
     path: "/h323/devices",
-    input: z.object({ encryption: z.enum(["auto", "yes", "no"]), ip: z.string(), name: z.string(), protocol: z.enum(["H.323", "SIP"]) }),
+    input: obj({ encryption: z.enum(["auto", "yes", "no"]), ip: z.string(), name: z.string(), protocol: z.enum(["H.323", "SIP"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const h323DevicesActions: Record<string, ActionDefinition> = {
     description: "Device update. Part of: H323 Devices. Calls PATCH /h323/devices/{deviceId} on Zoom.",
     method: "PATCH",
     path: "/h323/devices/{deviceId}",
-    input: z.object({ deviceId: z.string(), encryption: z.enum(["auto", "yes", "no"]), ip: z.string(), name: z.string(), protocol: z.enum(["H.323", "SIP"]) }),
+    input: obj({ deviceId: z.string(), encryption: z.enum(["auto", "yes", "no"]), ip: z.string(), name: z.string(), protocol: z.enum(["H.323", "SIP"]) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const h323DevicesActions: Record<string, ActionDefinition> = {
     description: "Device delete. Part of: H323 Devices. Calls DELETE /h323/devices/{deviceId} on Zoom.",
     method: "DELETE",
     path: "/h323/devices/{deviceId}",
-    input: z.object({ deviceId: z.string() }),
+    input: obj({ deviceId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

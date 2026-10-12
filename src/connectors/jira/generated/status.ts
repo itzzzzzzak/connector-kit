@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { offsetPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const statusActions: Record<string, ActionDefinition> = {
     description: "Bulk get statuses. Returns a list of the statuses specified by one or more status IDs.",
     method: "GET",
     path: "/statuses",
-    input: z.object({ id: z.array(z.string()).describe("The list of status IDs. To include multiple IDs, provide an ampersand-separated list. For example, id=10000&id=10001. Min items 1, Max items 50") }),
+    input: obj({ id: z.array(z.string()).describe("The list of status IDs. To include multiple IDs, provide an ampersand-separated list. For example, id=10000&id=10001. Min items 1, Max items 50") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const statusActions: Record<string, ActionDefinition> = {
     description: "Bulk create statuses. Creates statuses for a global or project scope.",
     method: "POST",
     path: "/statuses",
-    input: z.object({ scope: z.object({ project: z.object({ id: z.string() }).nullable().optional(), type: z.enum(["PROJECT", "GLOBAL"]) }).describe("The scope of the status."), statuses: z.array(z.object({ description: z.string().optional(), name: z.string(), statusCategory: z.enum(["TODO", "IN_PROGRESS", "DONE"]) })).describe("Details of the statuses being created.") }),
+    input: obj({ scope: obj({ project: obj({ id: z.string() }).nullable().optional(), type: z.enum(["PROJECT", "GLOBAL"]) }).describe("The scope of the status."), statuses: z.array(obj({ description: z.string().optional(), name: z.string(), statusCategory: z.enum(["TODO", "IN_PROGRESS", "DONE"]) })).describe("Details of the statuses being created.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const statusActions: Record<string, ActionDefinition> = {
     description: "Bulk update statuses. Updates statuses by ID.",
     method: "PUT",
     path: "/statuses",
-    input: z.object({ statuses: z.array(z.object({ description: z.string().optional(), id: z.string(), name: z.string(), statusCategory: z.enum(["TODO", "IN_PROGRESS", "DONE"]) })).describe("The list of statuses that will be updated.") }),
+    input: obj({ statuses: z.array(obj({ description: z.string().optional(), id: z.string(), name: z.string(), statusCategory: z.enum(["TODO", "IN_PROGRESS", "DONE"]) })).describe("The list of statuses that will be updated.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -35,7 +36,7 @@ export const statusActions: Record<string, ActionDefinition> = {
     description: "Bulk delete Statuses. Deletes statuses by ID.",
     method: "DELETE",
     path: "/statuses",
-    input: z.object({ id: z.array(z.string()).describe("The list of status IDs. To include multiple IDs, provide an ampersand-separated list. For example, id=10000&id=10001. Min items 1, Max items 50") }),
+    input: obj({ id: z.array(z.string()).describe("The list of status IDs. To include multiple IDs, provide an ampersand-separated list. For example, id=10000&id=10001. Min items 1, Max items 50") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -43,7 +44,7 @@ export const statusActions: Record<string, ActionDefinition> = {
     description: "Bulk get statuses by name. Returns a list of the statuses specified by one or more status names.",
     method: "GET",
     path: "/statuses/byNames",
-    input: z.object({ name: z.array(z.string()).describe("The list of status names. To include multiple names, provide an ampersand-separated list. For example, name=nameXX&name=nameYY. Min items 1, Max items 50"), projectId: z.string().describe("The project the status is part of or null for global statuses.").optional() }),
+    input: obj({ name: z.array(z.string()).describe("The list of status names. To include multiple names, provide an ampersand-separated list. For example, name=nameXX&name=nameYY. Min items 1, Max items 50"), projectId: z.string().describe("The project the status is part of or null for global statuses.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -51,7 +52,7 @@ export const statusActions: Record<string, ActionDefinition> = {
     description: "Search statuses paginated. Returns a paginated list of statuses that match a search on name or project.",
     method: "GET",
     path: "/statuses/search",
-    input: z.object({ projectId: z.string().describe("The project the status is part of or null for global statuses.").optional(), searchString: z.string().describe("Term to match status names against or null to search for all statuses in the search scope.").optional(), statusCategory: z.string().describe("Category of the status to filter by. The supported values are: TODO, INPROGRESS, and DONE.").optional(), includeGlobalStatuses: z.boolean().describe("Whether to include global statuses (scope = null, not tied to any project) in the response. Defaults to false. Only relevant for project scoped queries.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ projectId: z.string().describe("The project the status is part of or null for global statuses.").optional(), searchString: z.string().describe("Term to match status names against or null to search for all statuses in the search scope.").optional(), statusCategory: z.string().describe("Category of the status to filter by. The supported values are: TODO, INPROGRESS, and DONE.").optional(), includeGlobalStatuses: z.boolean().describe("Whether to include global statuses (scope = null, not tied to any project) in the response. Defaults to false. Only relevant for project scoped queries.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: offsetPagination({ itemsKey: "values", positionParam: "startAt", pageSizeParam: "maxResults", lastPagePath: ["isLast"], totalPath: ["total"], defaultPageSize: 30, maxPageSize: 100 }),
@@ -60,7 +61,7 @@ export const statusActions: Record<string, ActionDefinition> = {
     description: "Get issue type usages by status and project. Returns a page of issue types in a project using a given status.",
     method: "GET",
     path: "/statuses/{statusId}/project/{projectId}/issueTypeUsages",
-    input: z.object({ statusId: z.string().describe("The statusId to fetch issue type usages for"), projectId: z.string().describe("The projectId to fetch issue type usages for"), nextPageToken: z.string().describe("The cursor for pagination").optional(), maxResults: z.number().describe("The maximum number of results to return. Must be an integer between 1 and 200.").optional() }),
+    input: obj({ statusId: z.string().describe("The statusId to fetch issue type usages for"), projectId: z.string().describe("The projectId to fetch issue type usages for"), nextPageToken: z.string().describe("The cursor for pagination").optional(), maxResults: z.number().describe("The maximum number of results to return. Must be an integer between 1 and 200.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -68,7 +69,7 @@ export const statusActions: Record<string, ActionDefinition> = {
     description: "Get project usages by status. Returns a page of projects using a given status.",
     method: "GET",
     path: "/statuses/{statusId}/projectUsages",
-    input: z.object({ statusId: z.string().describe("The statusId to fetch project usages for"), nextPageToken: z.string().describe("The cursor for pagination").optional(), maxResults: z.number().describe("The maximum number of results to return. Must be an integer between 1 and 200.").optional() }),
+    input: obj({ statusId: z.string().describe("The statusId to fetch project usages for"), nextPageToken: z.string().describe("The cursor for pagination").optional(), maxResults: z.number().describe("The maximum number of results to return. Must be an integer between 1 and 200.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -76,7 +77,7 @@ export const statusActions: Record<string, ActionDefinition> = {
     description: "Get workflow usages by status. Returns a page of workflows using a given status.",
     method: "GET",
     path: "/statuses/{statusId}/workflowUsages",
-    input: z.object({ statusId: z.string().describe("The statusId to fetch workflow usages for"), nextPageToken: z.string().describe("The cursor for pagination").optional(), maxResults: z.number().describe("The maximum number of results to return. Must be an integer between 1 and 200.").optional() }),
+    input: obj({ statusId: z.string().describe("The statusId to fetch workflow usages for"), nextPageToken: z.string().describe("The cursor for pagination").optional(), maxResults: z.number().describe("The maximum number of results to return. Must be an integer between 1 and 200.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

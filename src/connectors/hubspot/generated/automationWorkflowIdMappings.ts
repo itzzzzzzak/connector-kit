@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const automationWorkflowIdMappingsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const automationWorkflowIdMappingsActions: Record<string, ActionDefinitio
     description: "Create batch read. Part of: Batch. Calls POST /automation/v4/workflow-id-mappings/batch/read on HubSpot.",
     method: "POST",
     path: "/automation/v4/workflow-id-mappings/batch/read",
-    input: z.object({ inputs: z.array(z.unknown()) }),
+    input: obj({ inputs: z.array(z.unknown()) }),
     output: z.unknown(),
     effect: "write",
   },

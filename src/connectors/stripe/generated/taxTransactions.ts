@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const taxTransactionsActions: Record<string, ActionDefinition> = {
     description: "Create a Transaction from a Calculation. Creates a Tax Transaction from a calculation, if that calculation hasn’t expired. Calculations expire after 90 days.",
     method: "POST",
     path: "/tax/transactions/create_from_calculation",
-    input: z.object({ calculation: z.string().describe("Tax Calculation ID to be used as input when creating the transaction."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), posted_at: z.number().describe("The Unix timestamp representing when the tax liability is assumed or reduced, which determines the liability posting period and handling in tax liability…").optional(), reference: z.string().describe("A custom order or sale identifier, such as 'myOrder123'. Must be unique across all transactions, including reversals.") }),
+    input: obj({ calculation: z.string().describe("Tax Calculation ID to be used as input when creating the transaction."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), posted_at: z.number().describe("The Unix timestamp representing when the tax liability is assumed or reduced, which determines the liability posting period and handling in tax liability…").optional(), reference: z.string().describe("A custom order or sale identifier, such as 'myOrder123'. Must be unique across all transactions, including reversals.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const taxTransactionsActions: Record<string, ActionDefinition> = {
     description: "Create a reversal Transaction. Partially or fully reverses a previously created Transaction.",
     method: "POST",
     path: "/tax/transactions/create_reversal",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), flat_amount: z.number().describe("A flat amount to reverse across the entire transaction, in the smallest currency unit in negative. This value represents the total amount to refund from the…").optional(), line_items: z.array(z.object({ amount: z.number(), amount_tax: z.number(), metadata: z.record(z.string(), z.unknown()).optional(), original_line_item: z.string(), quantity: z.number().optional(), reference: z.string() })).describe("The line item amounts to reverse.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), mode: z.enum(["full", "partial"]).describe("If partial, the provided line item or shipping cost amounts are reversed. If full, the original transaction is fully reversed."), original_transaction: z.string().describe("The ID of the Transaction to partially or fully reverse."), reference: z.string().describe("A custom identifier for this reversal, such as myOrder123-refund1, which must be unique across all transactions. The reference helps identify this reversal…"), shipping_cost: z.object({ amount: z.number(), amount_tax: z.number() }).describe("The shipping cost to reverse.").optional() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), flat_amount: z.number().describe("A flat amount to reverse across the entire transaction, in the smallest currency unit in negative. This value represents the total amount to refund from the…").optional(), line_items: z.array(z.record(z.string(), z.unknown())).describe("The line item amounts to reverse.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), mode: z.enum(["full", "partial"]).describe("If partial, the provided line item or shipping cost amounts are reversed. If full, the original transaction is fully reversed."), original_transaction: z.string().describe("The ID of the Transaction to partially or fully reverse."), reference: z.string().describe("A custom identifier for this reversal, such as myOrder123-refund1, which must be unique across all transactions. The reference helps identify this reversal…"), shipping_cost: obj({ amount: z.number(), amount_tax: z.number() }).describe("The shipping cost to reverse.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -27,7 +28,7 @@ export const taxTransactionsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a Transaction. Retrieves a Tax Transaction object.",
     method: "GET",
     path: "/tax/transactions/{transaction}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), transaction: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), transaction: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const taxTransactionsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a Transaction's line items. Retrieves the line items of a committed standalone transaction as a collection.",
     method: "GET",
     path: "/tax/transactions/{transaction}/line_items",
-    input: z.object({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), transaction: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), transaction: z.string(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),

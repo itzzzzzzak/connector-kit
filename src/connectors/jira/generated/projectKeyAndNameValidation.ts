@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectKeyAndNameValidationActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectKeyAndNameValidationActions: Record<string, ActionDefinition
     description: "Validate project key. Validates a project key by confirming the key is a valid string and not in use.",
     method: "GET",
     path: "/projectvalidate/key",
-    input: z.object({ key: z.string().describe("The project key.").optional() }),
+    input: obj({ key: z.string().describe("The project key.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const projectKeyAndNameValidationActions: Record<string, ActionDefinition
     description: "Get valid project key. Validates a project key and, if the key is invalid or in use, generates a valid random string for the project key.",
     method: "GET",
     path: "/projectvalidate/validProjectKey",
-    input: z.object({ key: z.string().describe("The project key.").optional() }),
+    input: obj({ key: z.string().describe("The project key.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const projectKeyAndNameValidationActions: Record<string, ActionDefinition
     description: "Get valid project name. Checks that a project name isn't in use. If the name isn't in use, the passed string is returned. If the name is in use, this operation attempts to generate a valid project name based on the one supplied, usually by adding a sequence number. If a valid project name cannot be generated, a 404 response is returned.",
     method: "GET",
     path: "/projectvalidate/validProjectName",
-    input: z.object({ name: z.string().describe("The project name.") }),
+    input: obj({ name: z.string().describe("The project name.") }),
     output: z.unknown(),
     effect: "read",
   },

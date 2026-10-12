@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const observabilityActions: Record<string, ActionDefinition> = {
     description: "Get observability configuration projects. Part of: observability. Calls GET /v1/observability/manage/configuration/projects on Vercel.",
     method: "GET",
     path: "/v1/observability/manage/configuration/projects",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const observabilityActions: Record<string, ActionDefinition> = {
     description: "Update observability configuration project. Part of: observability. Calls PUT /v1/observability/manage/configuration/projects/{projectIdOrName} on Vercel.",
     method: "PUT",
     path: "/v1/observability/manage/configuration/projects/{projectIdOrName}",
-    input: z.object({ projectIdOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional(), disabled: z.boolean() }),
+    input: obj({ projectIdOrName: z.string(), teamId: z.string().optional(), slug: z.string().optional(), disabled: z.boolean() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),

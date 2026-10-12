@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const billingMeterEventAdjustmentsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const billingMeterEventAdjustmentsActions: Record<string, ActionDefinitio
     description: "Create a billing meter event adjustment. Creates a billing meter event adjustment.",
     method: "POST",
     path: "/billing/meter_event_adjustments",
-    input: z.object({ cancel: z.object({ identifier: z.string().optional() }).describe("Specifies which event to cancel.").optional(), event_name: z.string().describe("The name of the meter event. Corresponds with the eventname field on a meter."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), type: z.enum(["cancel"]).describe("Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.") }),
+    input: obj({ cancel: obj({ identifier: z.string().optional() }).describe("Specifies which event to cancel.").optional(), event_name: z.string().describe("The name of the meter event. Corresponds with the eventname field on a meter."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), type: z.enum(["cancel"]).describe("Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.") }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const buildLogMsgActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const buildLogMsgActions: Record<string, ActionDefinition> = {
     description: "Update site build log Calls POST /builds/{buildid}/log on Netlify.",
     method: "POST",
     path: "/builds/{build_id}/log",
-    input: z.object({ build_id: z.string(), message: z.string().optional(), error: z.boolean().optional(), section: z.enum(["initializing", "building", "deploying", "cleanup", "postprocessing"]).optional() }),
+    input: obj({ build_id: z.string(), message: z.string().optional(), error: z.boolean().optional(), section: z.enum(["initializing", "building", "deploying", "cleanup", "postprocessing"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },

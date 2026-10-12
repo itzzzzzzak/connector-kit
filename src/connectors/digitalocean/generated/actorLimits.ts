@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const actorLimitsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const actorLimitsActions: Record<string, ActionDefinition> = {
     description: "Get an Actor's Limits. Returns the per-minute limits set for the actor and the limits in effect, each the lower of your team's limit and the actor's override. Returns 404 when the actor has no sessions, connections, or limit overrides.",
     method: "GET",
     path: "/action-gateway/actors/{actor_id}/limits",
-    input: z.object({ actor_id: z.string().describe("Actor ID: a session actorid or a connection userid, 1 to 64 characters from [A-Za-z0-9.-].") }),
+    input: obj({ actor_id: z.string().describe("Actor ID: a session actorid or a connection userid, 1 to 64 characters from [A-Za-z0-9.-].") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const actorLimitsActions: Record<string, ActionDefinition> = {
     description: "Clear an Actor's Limits. Removes the actor's overrides for the listed categories, which then follow your team's limits again. Clearing a category without an override succeeds.",
     method: "POST",
     path: "/action-gateway/actors/{actor_id}/limits:clear",
-    input: z.object({ actor_id: z.string().describe("Actor ID: a session actorid or a connection userid, 1 to 64 characters from [A-Za-z0-9.-]."), categories: z.array(z.enum(["LIMIT_CATEGORY_WEB_SEARCH_REQUESTS_PER_MINUTE", "LIMIT_CATEGORY_WEB_FETCH_REQUESTS_PER_MINUTE", "LIMIT_CATEGORY_NATIVE_TOOL_CALLS_REQUESTS_PER_MINUTE", "LIMIT_CATEGORY_NON_NATIVE_TOOL_CALLS_REQUESTS_PER_MINUTE"])).describe("Required. Categories to clear, each at most once.") }),
+    input: obj({ actor_id: z.string().describe("Actor ID: a session actorid or a connection userid, 1 to 64 characters from [A-Za-z0-9.-]."), categories: z.array(z.enum(["LIMIT_CATEGORY_WEB_SEARCH_REQUESTS_PER_MINUTE", "LIMIT_CATEGORY_WEB_FETCH_REQUESTS_PER_MINUTE", "LIMIT_CATEGORY_NATIVE_TOOL_CALLS_REQUESTS_PER_MINUTE", "LIMIT_CATEGORY_NON_NATIVE_TOOL_CALLS_REQUESTS_PER_MINUTE"])).describe("Required. Categories to clear, each at most once.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const actorLimitsActions: Record<string, ActionDefinition> = {
     description: "Set an Actor's Limits. Sets per-minute limits for the listed categories and leaves the others unchanged. A limit may not exceed your team's current limit for the category (400 otherwise), and 0 blocks every call in the category. The actor does not need to exist yet.",
     method: "POST",
     path: "/action-gateway/actors/{actor_id}/limits:set",
-    input: z.object({ actor_id: z.string().describe("Actor ID: a session actorid or a connection userid, 1 to 64 characters from [A-Za-z0-9.-]."), overrides: z.array(z.object({ category: z.enum(["LIMIT_CATEGORY_WEB_SEARCH_REQUESTS_PER_MINUTE", "LIMIT_CATEGORY_WEB_FETCH_REQUESTS_PER_MINUTE", "LIMIT_CATEGORY_NATIVE_TOOL_CALLS_REQUESTS_PER_MINUTE", "LIMIT_CATEGORY_NON_NATIVE_TOOL_CALLS_REQUESTS_PER_MINUTE"]), requests_per_minute: z.string() })).describe("Required. Limits to set, at most one per category.") }),
+    input: obj({ actor_id: z.string().describe("Actor ID: a session actorid or a connection userid, 1 to 64 characters from [A-Za-z0-9.-]."), overrides: z.array(obj({ category: z.enum(["LIMIT_CATEGORY_WEB_SEARCH_REQUESTS_PER_MINUTE", "LIMIT_CATEGORY_WEB_FETCH_REQUESTS_PER_MINUTE", "LIMIT_CATEGORY_NATIVE_TOOL_CALLS_REQUESTS_PER_MINUTE", "LIMIT_CATEGORY_NON_NATIVE_TOOL_CALLS_REQUESTS_PER_MINUTE"]), requests_per_minute: z.string() })).describe("Required. Limits to set, at most one per category.") }),
     output: z.unknown(),
     effect: "write",
   },

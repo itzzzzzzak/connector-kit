@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const interactionsActions: Record<string, ActionDefinition> = {
     description: "List interactions. Part of: Interactions. Calls GET /qm/interactions on Zoom.",
     method: "GET",
     path: "/qm/interactions",
-    input: z.object({ from: z.string().optional(), to: z.string().optional(), indicator_id: z.string().optional(), topic: z.string().optional(), engagement_id: z.string().optional(), scored: z.boolean().optional(), user_ids: z.string().optional(), channels: z.string().optional(), direction: z.string().optional(), dispositions: z.string().optional(), language: z.string().optional(), queues: z.string().optional(), time_zone: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ from: z.string().optional(), to: z.string().optional(), indicator_id: z.string().optional(), topic: z.string().optional(), engagement_id: z.string().optional(), scored: z.boolean().optional(), user_ids: z.string().optional(), channels: z.string().optional(), direction: z.string().optional(), dispositions: z.string().optional(), language: z.string().optional(), queues: z.string().optional(), time_zone: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "interactions", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const interactionsActions: Record<string, ActionDefinition> = {
     description: "Addinteraction. Part of: Interactions. Calls POST /qm/interactions on Zoom.",
     method: "POST",
     path: "/qm/interactions",
-    input: z.object({ download_url: z.string(), interaction_info: z.object({ from: z.string().optional(), to: z.string().optional(), consumer_name: z.string().optional(), channel_type: z.enum(["video", "voice"]), agent_id: z.string().optional(), agent_email: z.string().optional() }).optional(), start_time: z.string().optional(), direction: z.enum(["inbound", "outbound"]).optional(), queue_id: z.string().optional(), disposition: z.string().optional(), primary_language: z.enum(["en-GB", "en-US", "ar", "da-DK", "de-DE", "es-ES", "es-MX", "fr-CA", "fr-FR", "it-IT", "ja", "ko-KR", "nl-NL", "pt-BR", "pt-PT", "ru", "zh-CN", "zh-HK"]).optional() }),
+    input: obj({ download_url: z.string(), interaction_info: obj({ from: z.string().optional(), to: z.string().optional(), consumer_name: z.string().optional(), channel_type: z.enum(["video", "voice"]), agent_id: z.string().optional(), agent_email: z.string().optional() }).optional(), start_time: z.string().optional(), direction: z.enum(["inbound", "outbound"]).optional(), queue_id: z.string().optional(), disposition: z.string().optional(), primary_language: z.enum(["en-GB", "en-US", "ar", "da-DK", "de-DE", "es-ES", "es-MX", "fr-CA", "fr-FR", "it-IT", "ja", "ko-KR", "nl-NL", "pt-BR", "pt-PT", "ru", "zh-CN", "zh-HK"]).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const interactionsActions: Record<string, ActionDefinition> = {
     description: "Interaction detail. Part of: Interactions. Calls GET /qm/interactions/{interactionId} on Zoom.",
     method: "GET",
     path: "/qm/interactions/{interactionId}",
-    input: z.object({ interactionId: z.string() }),
+    input: obj({ interactionId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

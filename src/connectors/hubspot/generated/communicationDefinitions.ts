@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const communicationDefinitionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const communicationDefinitionsActions: Record<string, ActionDefinition> =
     description: "List. Part of: Definitions. Calls GET /communication-preferences/v4/definitions on HubSpot.",
     method: "GET",
     path: "/communication-preferences/v4/definitions",
-    input: z.object({ businessUnitId: z.number().optional(), includeTranslations: z.boolean().optional() }),
+    input: obj({ businessUnitId: z.number().optional(), includeTranslations: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },

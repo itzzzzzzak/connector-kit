@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const usersActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const usersActions: Record<string, ActionDefinition> = {
     description: "Invite user to workspace. Part of: Users. Calls POST /team/{teamid}/user on ClickUp.",
     method: "POST",
     path: "/team/{team_id}/user",
-    input: z.object({ team_id: z.number(), email: z.string(), admin: z.boolean(), custom_role_id: z.number().optional() }),
+    input: obj({ team_id: z.number(), email: z.string(), admin: z.boolean(), custom_role_id: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const usersActions: Record<string, ActionDefinition> = {
     description: "Get user. Part of: Users. Calls GET /team/{teamid}/user/{userid} on ClickUp.",
     method: "GET",
     path: "/team/{team_id}/user/{user_id}",
-    input: z.object({ team_id: z.number(), user_id: z.number(), include_shared: z.boolean().optional() }),
+    input: obj({ team_id: z.number(), user_id: z.number(), include_shared: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const usersActions: Record<string, ActionDefinition> = {
     description: "Edit user on workspace. Part of: Users. Calls PUT /team/{teamid}/user/{userid} on ClickUp.",
     method: "PUT",
     path: "/team/{team_id}/user/{user_id}",
-    input: z.object({ team_id: z.number(), user_id: z.number(), username: z.string(), admin: z.boolean(), custom_role_id: z.number() }),
+    input: obj({ team_id: z.number(), user_id: z.number(), username: z.string(), admin: z.boolean(), custom_role_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const usersActions: Record<string, ActionDefinition> = {
     description: "Remove user from workspace. Part of: Users. Calls DELETE /team/{teamid}/user/{userid} on ClickUp.",
     method: "DELETE",
     path: "/team/{team_id}/user/{user_id}",
-    input: z.object({ team_id: z.number(), user_id: z.number() }),
+    input: obj({ team_id: z.number(), user_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

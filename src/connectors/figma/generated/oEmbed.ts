@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/figma.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const oEmbedActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const oEmbedActions: Record<string, ActionDefinition> = {
     description: "Get oEmbed data. Returns oEmbed data for a Figma file or published Make site URL, following the oEmbed specification.",
     method: "GET",
     path: "/v1/oembed",
-    input: z.object({ url: z.string().describe("The URL of the Figma file or published Make site to retrieve oEmbed data for."), maxwidth: z.number().describe("Maximum width of the embed in pixels. Defaults to 800. The response width will be adjusted to maintain a 16:9 aspect ratio with maxheight.").optional(), maxheight: z.number().describe("Maximum height of the embed in pixels. Defaults to 450. The response height will be adjusted to maintain a 16:9 aspect ratio with maxwidth.").optional() }),
+    input: obj({ url: z.string().describe("The URL of the Figma file or published Make site to retrieve oEmbed data for."), maxwidth: z.number().describe("Maximum width of the embed in pixels. Defaults to 800. The response width will be adjusted to maintain a 16:9 aspect ratio with maxheight.").optional(), maxheight: z.number().describe("Maximum height of the embed in pixels. Defaults to 450. The response height will be adjusted to maintain a 16:9 aspect ratio with maxwidth.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

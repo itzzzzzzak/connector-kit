@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const organizationsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const organizationsActions: Record<string, ActionDefinition> = {
     description: "Create a Team in an Organization. To create a new team within an organization, send a POST request to /v2/organizations/team.",
     method: "POST",
     path: "/organizations/team",
-    input: z.object({ name: z.string().describe("The human-readable name for the team to create."), invitations: z.array(z.object({ email: z.string(), role: z.enum(["member", "biller", "billing viewer", "resource viewer", "modifier"]) })).describe("Optional invitations to send when creating the team. Each invitation includes an email address and a role. The owner role cannot be assigned via invitation.").optional() }),
+    input: obj({ name: z.string().describe("The human-readable name for the team to create."), invitations: z.array(obj({ email: z.string(), role: z.enum(["member", "biller", "billing viewer", "resource viewer", "modifier"]) })).describe("Optional invitations to send when creating the team. Each invitation includes an email address and a role. The owner role cannot be assigned via invitation.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const organizationsActions: Record<string, ActionDefinition> = {
     description: "List Teams in an Organization. To list all teams in an organization, send a GET request to /v2/organizations/teams.",
     method: "GET",
     path: "/organizations/teams",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

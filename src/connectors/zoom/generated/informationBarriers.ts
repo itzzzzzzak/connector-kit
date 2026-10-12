@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const informationBarriersActions: Record<string, ActionDefinition> = {
     description: "Information barriers list. Part of: Information Barriers. Calls GET /informationbarriers/policies on Zoom.",
     method: "GET",
     path: "/information_barriers/policies",
-    input: z.object({ cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "policies", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const informationBarriersActions: Record<string, ActionDefinition> = {
     description: "Information barriers create. Part of: Information Barriers. Calls POST /informationbarriers/policies on Zoom.",
     method: "POST",
     path: "/information_barriers/policies",
-    input: z.object({ assigned_group_id: z.string(), id: z.string(), policy_name: z.string(), settings: z.object({ complete_phone_calls: z.boolean(), file_transfer: z.boolean(), im: z.boolean(), in_meeting_chat: z.boolean(), meeting: z.boolean(), message_via_sms: z.boolean(), recording: z.boolean(), screen_share: z.boolean() }), status: z.number(), to_group_id: z.string(), type: z.number() }),
+    input: obj({ assigned_group_id: z.string(), id: z.string(), policy_name: z.string(), settings: obj({ complete_phone_calls: z.boolean(), file_transfer: z.boolean(), im: z.boolean(), in_meeting_chat: z.boolean(), meeting: z.boolean(), message_via_sms: z.boolean(), recording: z.boolean(), screen_share: z.boolean() }), status: z.number(), to_group_id: z.string(), type: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const informationBarriersActions: Record<string, ActionDefinition> = {
     description: "Information barriers get. Part of: Information Barriers. Calls GET /informationbarriers/policies/{policyId} on Zoom.",
     method: "GET",
     path: "/information_barriers/policies/{policyId}",
-    input: z.object({ policyId: z.string() }),
+    input: obj({ policyId: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const informationBarriersActions: Record<string, ActionDefinition> = {
     description: "Information barriers update. Part of: Information Barriers. Calls PATCH /informationbarriers/policies/{policyId} on Zoom.",
     method: "PATCH",
     path: "/information_barriers/policies/{policyId}",
-    input: z.object({ policyId: z.string(), assigned_group_id: z.string(), id: z.string(), policy_name: z.string(), settings: z.object({ complete_phone_calls: z.boolean(), file_transfer: z.boolean(), im: z.boolean(), in_meeting_chat: z.boolean(), meeting: z.boolean(), message_via_sms: z.boolean(), recording: z.boolean(), screen_share: z.boolean() }), status: z.number(), to_group_id: z.string(), type: z.number() }),
+    input: obj({ policyId: z.string(), assigned_group_id: z.string(), id: z.string(), policy_name: z.string(), settings: obj({ complete_phone_calls: z.boolean(), file_transfer: z.boolean(), im: z.boolean(), in_meeting_chat: z.boolean(), meeting: z.boolean(), message_via_sms: z.boolean(), recording: z.boolean(), screen_share: z.boolean() }), status: z.number(), to_group_id: z.string(), type: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const informationBarriersActions: Record<string, ActionDefinition> = {
     description: "Information barriers delete. Part of: Information Barriers. Calls DELETE /informationbarriers/policies/{policyId} on Zoom.",
     method: "DELETE",
     path: "/information_barriers/policies/{policyId}",
-    input: z.object({ policyId: z.string() }),
+    input: obj({ policyId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const radarValueListItemsActions: Record<string, ActionDefinition> = {
     description: "List all value list items. Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.",
     method: "GET",
     path: "/radar/value_list_items",
-    input: z.object({ created: z.unknown().describe("Only return items that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), value: z.string().describe("Return items belonging to the parent list whose value matches the specified value (using an \"is like\" match).").optional(), value_list: z.string().describe("Identifier for the parent value list this item belongs to."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ created: z.unknown().describe("Only return items that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), value: z.string().describe("Return items belonging to the parent list whose value matches the specified value (using an \"is like\" match).").optional(), value_list: z.string().describe("Identifier for the parent value list this item belongs to."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const radarValueListItemsActions: Record<string, ActionDefinition> = {
     description: "Create a value list item. Creates a new ValueListItem object, which is added to the specified parent value list.",
     method: "POST",
     path: "/radar/value_list_items",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), value: z.string().describe("The value of the item (whose type must match the type of the parent value list)."), value_list: z.string().describe("The identifier of the value list which the created item will be added to.") }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), value: z.string().describe("The value of the item (whose type must match the type of the parent value list)."), value_list: z.string().describe("The identifier of the value list which the created item will be added to.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const radarValueListItemsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a value list item. Retrieves a ValueListItem object.",
     method: "GET",
     path: "/radar/value_list_items/{item}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), item: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), item: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const radarValueListItemsActions: Record<string, ActionDefinition> = {
     description: "Delete a value list item. Deletes a ValueListItem object, removing it from its parent value list.",
     method: "DELETE",
     path: "/radar/value_list_items/{item}",
-    input: z.object({ item: z.string() }),
+    input: obj({ item: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/vercel.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const integrationsActions: Record<string, ActionDefinition> = {
     description: "Git namespaces. Part of: integrations. Calls GET /v1/integrations/git-namespaces on Vercel.",
     method: "GET",
     path: "/v1/integrations/git-namespaces",
-    input: z.object({ host: z.string().optional(), provider: z.enum(["github", "github-limited", "github-custom-host", "gitlab", "bitbucket"]).optional(), viewerMetadata: z.boolean().optional() }),
+    input: obj({ host: z.string().optional(), provider: z.enum(["github", "github-limited", "github-custom-host", "gitlab", "bitbucket"]).optional(), viewerMetadata: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const integrationsActions: Record<string, ActionDefinition> = {
     description: "Search repo. Part of: integrations. Calls GET /v1/integrations/search-repo on Vercel.",
     method: "GET",
     path: "/v1/integrations/search-repo",
-    input: z.object({ query: z.string().optional(), namespaceId: z.unknown().nullable().optional(), provider: z.enum(["github", "github-limited", "github-custom-host", "gitlab", "bitbucket", "cursor-origin"]).optional(), installationId: z.string().optional(), host: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ query: z.string().optional(), namespaceId: z.unknown().nullable().optional(), provider: z.enum(["github", "github-limited", "github-custom-host", "gitlab", "bitbucket", "cursor-origin"]).optional(), installationId: z.string().optional(), host: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -27,7 +28,7 @@ export const integrationsActions: Record<string, ActionDefinition> = {
     description: "Get billing plans. Part of: integrations. Calls GET /v1/integrations/integration/{integrationIdOrSlug}/products/{productIdOrSlug}/plans on Vercel.",
     method: "GET",
     path: "/v1/integrations/integration/{integrationIdOrSlug}/products/{productIdOrSlug}/plans",
-    input: z.object({ integrationIdOrSlug: z.string(), integrationConfigurationId: z.string().optional(), productIdOrSlug: z.string(), metadata: z.string().optional(), source: z.enum(["marketplace", "deploy-button", "external", "v0", "resource-claims", "cli", "oauth", "backoffice", "import-recommended-integrations", "organization"]).optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ integrationIdOrSlug: z.string(), integrationConfigurationId: z.string().optional(), productIdOrSlug: z.string(), metadata: z.string().optional(), source: z.enum(["marketplace", "deploy-button", "external", "v0", "resource-claims", "cli", "oauth", "backoffice", "import-recommended-integrations", "organization"]).optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const integrationsActions: Record<string, ActionDefinition> = {
     description: "Connect integration resource to project. Part of: integrations. Calls POST /v1/integrations/installations/{integrationConfigurationId}/resources/{resourceId}/connections on Vercel.",
     method: "POST",
     path: "/v1/integrations/installations/{integrationConfigurationId}/resources/{resourceId}/connections",
-    input: z.object({ integrationConfigurationId: z.string(), resourceId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), projectId: z.string(), envVarEnvironments: z.array(z.string()).optional(), makeEnvVarsSensitive: z.boolean().optional() }),
+    input: obj({ integrationConfigurationId: z.string(), resourceId: z.string(), teamId: z.string().optional(), slug: z.string().optional(), projectId: z.string(), envVarEnvironments: z.array(z.string()).optional(), makeEnvVarsSensitive: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),
@@ -45,7 +46,7 @@ export const integrationsActions: Record<string, ActionDefinition> = {
     description: "Get configurations. Part of: integrations. Calls GET /v1/integrations/configurations on Vercel.",
     method: "GET",
     path: "/v1/integrations/configurations",
-    input: z.object({ view: z.enum(["account", "project"]), installationType: z.enum(["marketplace", "external", "provisioning"]).optional(), integrationIdOrSlug: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ view: z.enum(["account", "project"]), installationType: z.enum(["marketplace", "external", "provisioning"]).optional(), integrationIdOrSlug: z.string().optional(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -53,7 +54,7 @@ export const integrationsActions: Record<string, ActionDefinition> = {
     description: "Get configuration. Part of: integrations. Calls GET /v1/integrations/configuration/{id} on Vercel.",
     method: "GET",
     path: "/v1/integrations/configuration/{id}",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -61,7 +62,7 @@ export const integrationsActions: Record<string, ActionDefinition> = {
     description: "Delete configuration. Part of: integrations. Calls DELETE /v1/integrations/configuration/{id} on Vercel.",
     method: "DELETE",
     path: "/v1/integrations/configuration/{id}",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -69,7 +70,7 @@ export const integrationsActions: Record<string, ActionDefinition> = {
     description: "Get configuration products. Part of: integrations. Calls GET /v1/integrations/configuration/{id}/products on Vercel.",
     method: "GET",
     path: "/v1/integrations/configuration/{id}/products",
-    input: z.object({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
+    input: obj({ id: z.string(), teamId: z.string().optional(), slug: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -77,7 +78,7 @@ export const integrationsActions: Record<string, ActionDefinition> = {
     description: "Create integration store direct. Part of: integrations. Calls POST /v1/storage/stores/integration/direct on Vercel.",
     method: "POST",
     path: "/v1/storage/stores/integration/direct",
-    input: z.object({ teamId: z.string().optional(), slug: z.string().optional(), name: z.string(), integrationConfigurationId: z.string(), integrationProductIdOrSlug: z.string(), metadata: z.record(z.string(), z.unknown()).optional(), externalId: z.string().optional(), protocolSettings: z.record(z.string(), z.unknown()).optional(), source: z.enum(["marketplace", "deploy-button", "external", "v0", "resource-claims", "cli", "oauth", "backoffice", "import-recommended-integrations", "organization"]).optional(), billingPlanId: z.string().optional(), paymentMethodId: z.string().optional(), prepaymentAmountCents: z.number().optional() }),
+    input: obj({ teamId: z.string().optional(), slug: z.string().optional(), name: z.string(), integrationConfigurationId: z.string(), integrationProductIdOrSlug: z.string(), metadata: z.record(z.string(), z.unknown()).optional(), externalId: z.string().optional(), protocolSettings: z.record(z.string(), z.unknown()).optional(), source: z.enum(["marketplace", "deploy-button", "external", "v0", "resource-claims", "cli", "oauth", "backoffice", "import-recommended-integrations", "organization"]).optional(), billingPlanId: z.string().optional(), paymentMethodId: z.string().optional(), prepaymentAmountCents: z.number().optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["teamId","slug"]),

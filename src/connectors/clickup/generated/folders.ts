@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/clickup.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const foldersActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const foldersActions: Record<string, ActionDefinition> = {
     description: "Create folder. Part of: Folders. Calls POST /space/{spaceid}/folder on ClickUp.",
     method: "POST",
     path: "/space/{space_id}/folder",
-    input: z.object({ space_id: z.number(), name: z.string(), parent_folder_id: z.string().optional() }),
+    input: obj({ space_id: z.number(), name: z.string(), parent_folder_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const foldersActions: Record<string, ActionDefinition> = {
     description: "Get folder. Part of: Folders. Calls GET /folder/{folderid} on ClickUp.",
     method: "GET",
     path: "/folder/{folder_id}",
-    input: z.object({ folder_id: z.number(), include_subfolders: z.boolean().optional() }),
+    input: obj({ folder_id: z.number(), include_subfolders: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const foldersActions: Record<string, ActionDefinition> = {
     description: "Update folder. Part of: Folders. Calls PUT /folder/{folderid} on ClickUp.",
     method: "PUT",
     path: "/folder/{folder_id}",
-    input: z.object({ folder_id: z.number(), name: z.string() }),
+    input: obj({ folder_id: z.number(), name: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const foldersActions: Record<string, ActionDefinition> = {
     description: "Delete folder. Part of: Folders. Calls DELETE /folder/{folderid} on ClickUp.",
     method: "DELETE",
     path: "/folder/{folder_id}",
-    input: z.object({ folder_id: z.number() }),
+    input: obj({ folder_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const foldersActions: Record<string, ActionDefinition> = {
     description: "Move folder. Part of: Folders. Calls PUT /folder/{folderid}/position on ClickUp.",
     method: "PUT",
     path: "/folder/{folder_id}/position",
-    input: z.object({ folder_id: z.number(), parent_folder_id: z.string().optional(), space_id: z.string().optional(), position: z.number().optional(), custom_type_map: z.record(z.string(), z.unknown()).optional() }),
+    input: obj({ folder_id: z.number(), parent_folder_id: z.string().optional(), space_id: z.string().optional(), position: z.number().optional(), custom_type_map: z.record(z.string(), z.unknown()).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const foldersActions: Record<string, ActionDefinition> = {
     description: "Create folder from template. Part of: Folders. Calls POST /space/{spaceid}/foldertemplate/{templateid} on ClickUp.",
     method: "POST",
     path: "/space/{space_id}/folder_template/{template_id}",
-    input: z.object({ space_id: z.string(), template_id: z.string(), name: z.string(), parent_folder_id: z.string().optional(), options: z.object({ return_immediately: z.boolean().optional(), content: z.string().optional(), time_estimate: z.boolean().optional(), automation: z.boolean().optional(), include_views: z.boolean().optional(), old_due_date: z.boolean().optional(), old_start_date: z.boolean().optional(), old_followers: z.boolean().optional(), comment_attachments: z.boolean().optional(), recur_settings: z.boolean().optional(), old_tags: z.boolean().optional(), old_statuses: z.boolean().optional(), subtasks: z.boolean().optional(), custom_type: z.boolean().optional(), old_assignees: z.boolean().optional(), attachments: z.boolean().optional(), comment: z.boolean().optional(), old_status: z.boolean().optional(), external_dependencies: z.boolean().optional(), internal_dependencies: z.boolean().optional(), priority: z.boolean().optional(), custom_fields: z.boolean().optional(), old_checklists: z.boolean().optional(), relationships: z.boolean().optional(), old_subtask_assignees: z.boolean().optional(), start_date: z.string().optional(), due_date: z.string().optional(), remap_start_date: z.boolean().optional(), skip_weekends: z.boolean().optional(), archived: z.number().optional() }).optional() }),
+    input: obj({ space_id: z.string(), template_id: z.string(), name: z.string(), parent_folder_id: z.string().optional(), options: obj({ return_immediately: z.boolean().optional(), content: z.string().optional(), time_estimate: z.boolean().optional(), automation: z.boolean().optional(), include_views: z.boolean().optional(), old_due_date: z.boolean().optional(), old_start_date: z.boolean().optional(), old_followers: z.boolean().optional(), comment_attachments: z.boolean().optional(), recur_settings: z.boolean().optional(), old_tags: z.boolean().optional(), old_statuses: z.boolean().optional(), subtasks: z.boolean().optional(), custom_type: z.boolean().optional(), old_assignees: z.boolean().optional(), attachments: z.boolean().optional(), comment: z.boolean().optional(), old_status: z.boolean().optional(), external_dependencies: z.boolean().optional(), internal_dependencies: z.boolean().optional(), priority: z.boolean().optional(), custom_fields: z.boolean().optional(), old_checklists: z.boolean().optional(), relationships: z.boolean().optional(), old_subtask_assignees: z.boolean().optional(), start_date: z.string().optional(), due_date: z.string().optional(), remap_start_date: z.boolean().optional(), skip_weekends: z.boolean().optional(), archived: z.number().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },

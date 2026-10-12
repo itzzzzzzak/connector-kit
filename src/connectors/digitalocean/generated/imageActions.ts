@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const imageActionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const imageActionsActions: Record<string, ActionDefinition> = {
     description: "List All Actions for an Image. To retrieve all actions that have been executed on an image, send a GET request to /v2/images/$IMAGEID/actions.",
     method: "GET",
     path: "/images/{image_id}/actions",
-    input: z.object({ image_id: z.number().describe("A unique number that can be used to identify and reference a specific image.") }),
+    input: obj({ image_id: z.number().describe("A unique number that can be used to identify and reference a specific image.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const imageActionsActions: Record<string, ActionDefinition> = {
     description: "Initiate an Image Action. The following actions are available on an Image.",
     method: "POST",
     path: "/images/{image_id}/actions",
-    input: z.object({ image_id: z.number().describe("A unique number that can be used to identify and reference a specific image."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
+    input: obj({ image_id: z.number().describe("A unique number that can be used to identify and reference a specific image."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)").optional() }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -27,7 +28,7 @@ export const imageActionsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an Existing Action. To retrieve the status of an image action, send a GET request to /v2/images/$IMAGEID/actions/$IMAGEACTIONID.",
     method: "GET",
     path: "/images/{image_id}/actions/{action_id}",
-    input: z.object({ image_id: z.number().describe("A unique number that can be used to identify and reference a specific image."), action_id: z.number().describe("A unique numeric ID that can be used to identify and reference an action.") }),
+    input: obj({ image_id: z.number().describe("A unique number that can be used to identify and reference a specific image."), action_id: z.number().describe("A unique numeric ID that can be used to identify and reference an action.") }),
     output: z.unknown(),
     effect: "read",
   },

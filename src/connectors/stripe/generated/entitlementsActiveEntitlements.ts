@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const entitlementsActiveEntitlementsActions: Record<string, ActionDefinit
     description: "List all active entitlements. Retrieve a list of active entitlements for a customer",
     method: "GET",
     path: "/entitlements/active_entitlements",
-    input: z.object({ customer: z.string().describe("The ID of the customer."), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ customer: z.string().describe("The ID of the customer."), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const entitlementsActiveEntitlementsActions: Record<string, ActionDefinit
     description: "Retrieve an active entitlement Calls GET /entitlements/activeentitlements/{id} on Stripe.",
     method: "GET",
     path: "/entitlements/active_entitlements/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string().describe("The ID of the entitlement.") }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string().describe("The ID of the entitlement.") }),
     output: z.unknown(),
     effect: "read",
   },

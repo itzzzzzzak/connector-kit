@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const functionsAccessKeyActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const functionsAccessKeyActions: Record<string, ActionDefinition> = {
     description: "List Namespace Access Keys. Lists all access keys for a serverless functions namespace.",
     method: "GET",
     path: "/functions/namespaces/{namespace_id}/keys",
-    input: z.object({ namespace_id: z.string().describe("The ID of the namespace to be managed.") }),
+    input: obj({ namespace_id: z.string().describe("The ID of the namespace to be managed.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const functionsAccessKeyActions: Record<string, ActionDefinition> = {
     description: "Create a Namespace Access Key. Creates a new access key for a serverless functions namespace. The access key can be used to authenticate requests to the namespace's functions. The secret key is only returned once upon creation.",
     method: "POST",
     path: "/functions/namespaces/{namespace_id}/keys",
-    input: z.object({ namespace_id: z.string().describe("The ID of the namespace to be managed."), name: z.string().describe("The access key's name."), expires_in: z.string().describe("The duration after which the access key expires, specified as a human-readable duration string in the format <inth (hours) or <intd (days). Minimum value is…").optional() }),
+    input: obj({ namespace_id: z.string().describe("The ID of the namespace to be managed."), name: z.string().describe("The access key's name."), expires_in: z.string().describe("The duration after which the access key expires, specified as a human-readable duration string in the format <inth (hours) or <intd (days). Minimum value is…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const functionsAccessKeyActions: Record<string, ActionDefinition> = {
     description: "Update a Namespace Access Key. Updates the name of an access key for a serverless functions namespace.",
     method: "PUT",
     path: "/functions/namespaces/{namespace_id}/keys/{key_id}",
-    input: z.object({ namespace_id: z.string().describe("The ID of the namespace to be managed."), key_id: z.string().describe("The ID of the access key to be managed."), name: z.string().describe("The new name for the access key.") }),
+    input: obj({ namespace_id: z.string().describe("The ID of the namespace to be managed."), key_id: z.string().describe("The ID of the access key to be managed."), name: z.string().describe("The new name for the access key.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const functionsAccessKeyActions: Record<string, ActionDefinition> = {
     description: "Delete a Namespace Access Key. Deletes an access key for a serverless functions namespace.",
     method: "DELETE",
     path: "/functions/namespaces/{namespace_id}/keys/{key_id}",
-    input: z.object({ namespace_id: z.string().describe("The ID of the namespace to be managed."), key_id: z.string().describe("The ID of the access key to be managed.") }),
+    input: obj({ namespace_id: z.string().describe("The ID of the namespace to be managed."), key_id: z.string().describe("The ID of the access key to be managed.") }),
     output: z.unknown(),
     effect: "destructive",
   },

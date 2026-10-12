@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/slack.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const apiActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const apiActions: Record<string, ActionDefinition> = {
     description: "Checks API calling code. Calls GET /api.test on Slack.",
     method: "GET",
     path: "/api.test",
-    input: z.object({ error: z.string().describe("Error response to return").optional(), foo: z.string().describe("example property to return").optional() }),
+    input: obj({ error: z.string().describe("Error response to return").optional(), foo: z.string().describe("example property to return").optional() }),
     output: z.unknown(),
     effect: "read",
   },

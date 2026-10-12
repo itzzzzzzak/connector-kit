@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const singleActions: Record<string, ActionDefinition> = {
     description: "Use link. Part of: scheduling links. Calls POST /scheduler/schedules/singleuselink on Zoom.",
     method: "POST",
     path: "/scheduler/schedules/single_use_link",
-    input: z.object({ team_id: z.string().optional(), schedule_id: z.string() }),
+    input: obj({ team_id: z.string().optional(), schedule_id: z.string() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["team_id"]),

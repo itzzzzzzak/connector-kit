@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const settingTemplatesActions: Record<string, ActionDefinition> = {
     description: "List setting templates. Part of: Setting Templates. Calls GET /phone/settingtemplates on Zoom.",
     method: "GET",
     path: "/phone/setting_templates",
-    input: z.object({ site_id: z.string().optional(), keyword: z.string().optional(), type: z.enum(["user", "group", "autoReceptionist", "commonArea"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ site_id: z.string().optional(), keyword: z.string().optional(), type: z.enum(["user", "group", "autoReceptionist", "commonArea"]).optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "templates", cursorPath: ["next_page_token"], cursorParam: "next_page_token", pageSizeParam: "page_size", defaultPageSize: 30, maxPageSize: 300 }),
@@ -20,7 +21,7 @@ export const settingTemplatesActions: Record<string, ActionDefinition> = {
     description: "Add setting template. Part of: Setting Templates. Calls POST /phone/settingtemplates on Zoom.",
     method: "POST",
     path: "/phone/setting_templates",
-    input: z.object({ description: z.string().optional(), name: z.string(), site_id: z.string().optional(), type: z.string() }),
+    input: obj({ description: z.string().optional(), name: z.string(), site_id: z.string().optional(), type: z.string() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const settingTemplatesActions: Record<string, ActionDefinition> = {
     description: "Get setting template. Part of: Setting Templates. Calls GET /phone/settingtemplates/{templateId} on Zoom.",
     method: "GET",
     path: "/phone/setting_templates/{templateId}",
-    input: z.object({ templateId: z.string(), custom_query_fields: z.string().optional() }),
+    input: obj({ templateId: z.string(), custom_query_fields: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const settingTemplatesActions: Record<string, ActionDefinition> = {
     description: "Update setting template. Part of: Setting Templates. Calls PATCH /phone/settingtemplates/{templateId} on Zoom.",
     method: "PATCH",
     path: "/phone/setting_templates/{templateId}",
-    input: z.object({ templateId: z.string(), description: z.string().optional(), name: z.string().optional(), policy: z.object({ ad_hoc_call_recording: z.object({ enable: z.boolean().optional(), recording_start_prompt: z.boolean().optional(), recording_transcription: z.boolean().optional() }).optional(), auto_call_recording: z.object({ enable: z.boolean().optional(), recording_calls: z.enum(["inbound", "outbound", "both"]).optional(), recording_start_prompt: z.boolean().optional(), recording_transcription: z.boolean().optional(), inbound_audio_notification: z.record(z.string(), z.unknown()).optional(), outbound_audio_notification: z.record(z.string(), z.unknown()).optional() }).optional(), sms: z.object({ enable: z.boolean().optional(), international_sms: z.boolean().optional() }).optional(), voicemail: z.object({ allow_transcription: z.boolean().optional(), enable: z.boolean().optional() }).optional(), call_forwarding: z.object({ enable: z.boolean().optional(), call_forwarding_type: z.number().optional() }).optional(), call_overflow: z.object({ enable: z.boolean().optional(), call_overflow_type: z.number().optional() }).optional() }).optional(), profile: z.object({ area_code: z.string().optional(), country: z.string().optional() }).optional(), user_settings: z.object({ audio_prompt_language: z.string().optional(), block_calls_without_caller_id: z.boolean().optional(), call_handling: z.object({ business_hours: z.record(z.string(), z.unknown()).optional(), close_hours: z.record(z.string(), z.unknown()).optional() }).optional(), desk_phone: z.object({ pin_code: z.string().optional() }).optional(), hold_music: z.enum(["default", "disable"]).optional() }).optional() }),
+    input: obj({ templateId: z.string(), description: z.string().optional(), name: z.string().optional(), policy: obj({ ad_hoc_call_recording: obj({ enable: z.boolean().optional(), recording_start_prompt: z.boolean().optional(), recording_transcription: z.boolean().optional() }).optional(), auto_call_recording: obj({ enable: z.boolean().optional(), recording_calls: z.enum(["inbound", "outbound", "both"]).optional(), recording_start_prompt: z.boolean().optional(), recording_transcription: z.boolean().optional(), inbound_audio_notification: z.record(z.string(), z.unknown()).optional(), outbound_audio_notification: z.record(z.string(), z.unknown()).optional() }).optional(), sms: obj({ enable: z.boolean().optional(), international_sms: z.boolean().optional() }).optional(), voicemail: obj({ allow_transcription: z.boolean().optional(), enable: z.boolean().optional() }).optional(), call_forwarding: obj({ enable: z.boolean().optional(), call_forwarding_type: z.number().optional() }).optional(), call_overflow: obj({ enable: z.boolean().optional(), call_overflow_type: z.number().optional() }).optional() }).optional(), profile: obj({ area_code: z.string().optional(), country: z.string().optional() }).optional(), user_settings: obj({ audio_prompt_language: z.string().optional(), block_calls_without_caller_id: z.boolean().optional(), call_handling: obj({ business_hours: z.record(z.string(), z.unknown()).optional(), close_hours: z.record(z.string(), z.unknown()).optional() }).optional(), desk_phone: obj({ pin_code: z.string().optional() }).optional(), hold_music: z.enum(["default", "disable"]).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },

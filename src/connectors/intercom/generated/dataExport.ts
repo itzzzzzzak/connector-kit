@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/intercom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const dataExportActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const dataExportActions: Record<string, ActionDefinition> = {
     description: "Create content data export. To create your export job, you need to send a POST request to the export endpoint https://api.intercom.io/export/content/data.",
     method: "POST",
     path: "/export/content/data",
-    input: z.object({ created_at_after: z.number().describe("The start date that you request data for. It must be formatted as a unix timestamp."), created_at_before: z.number().describe("The end date that you request data for. It must be formatted as a unix timestamp.") }),
+    input: obj({ created_at_after: z.number().describe("The start date that you request data for. It must be formatted as a unix timestamp."), created_at_before: z.number().describe("The end date that you request data for. It must be formatted as a unix timestamp.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const dataExportActions: Record<string, ActionDefinition> = {
     description: "Show content data export. You can view the status of your job by sending a GET request to the URL https://api.intercom.io/export/content/data/{jobidentifier} - the {jobidentifier} is the value returned in the response when you first created the export job. More on it can be seen in the Export Job Model.",
     method: "GET",
     path: "/export/content/data/{job_identifier}",
-    input: z.object({ job_identifier: z.string().describe("jobidentifier") }),
+    input: obj({ job_identifier: z.string().describe("jobidentifier") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const dataExportActions: Record<string, ActionDefinition> = {
     description: "Cancel content data export. You can cancel your job",
     method: "POST",
     path: "/export/cancel/{job_identifier}",
-    input: z.object({ job_identifier: z.string().describe("jobidentifier") }),
+    input: obj({ job_identifier: z.string().describe("jobidentifier") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const dataExportActions: Record<string, ActionDefinition> = {
     description: "Download content data export. When a job has a status of complete, and thus a filled downloadurl, you can download your data by hitting that provided URL, formatted like so: https://api.intercom.io/download/content/data/xyz1234.",
     method: "GET",
     path: "/download/content/data/{job_identifier}",
-    input: z.object({ job_identifier: z.string().describe("jobidentifier") }),
+    input: obj({ job_identifier: z.string().describe("jobidentifier") }),
     output: z.unknown(),
     effect: "read",
   },

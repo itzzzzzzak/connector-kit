@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const balanceSettingsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const balanceSettingsActions: Record<string, ActionDefinition> = {
     description: "Retrieve balance settings. Retrieves balance settings for a given connected account. Related guide: Making API calls for connected accounts",
     method: "GET",
     path: "/balance_settings",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const balanceSettingsActions: Record<string, ActionDefinition> = {
     description: "Update balance settings. Updates balance settings for a given connected account. Related guide: Making API calls for connected accounts",
     method: "POST",
     path: "/balance_settings",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payments: z.object({ debit_negative_balances: z.boolean().optional(), payouts: z.object({ automatic_transfer_rules_by_currency: z.unknown().optional(), minimum_balance_by_currency: z.unknown().optional(), schedule: z.record(z.string(), z.unknown()).optional(), statement_descriptor: z.string().optional() }).optional(), settlement_timing: z.object({ delay_days_override: z.unknown().optional(), start_of_day: z.unknown().optional() }).optional() }).describe("Settings that apply to the Payments Balance.").optional() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payments: obj({ debit_negative_balances: z.boolean().optional(), payouts: z.record(z.string(), z.unknown()).optional(), settlement_timing: z.record(z.string(), z.unknown()).optional() }).describe("Settings that apply to the Payments Balance.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

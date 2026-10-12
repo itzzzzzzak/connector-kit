@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const terminalOnboardingLinksActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const terminalOnboardingLinksActions: Record<string, ActionDefinition> = 
     description: "Create an Onboarding Link. Creates a new OnboardingLink object that contains a redirecturl used for onboarding onto Tap to Pay on iPhone.",
     method: "POST",
     path: "/terminal/onboarding_links",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), link_options: z.object({ apple_terms_and_conditions: z.object({ allow_relinking: z.boolean().optional(), merchant_display_name: z.string() }).optional() }).describe("Specific fields needed to generate the desired link type."), link_type: z.enum(["apple_terms_and_conditions"]).describe("The type of link being generated."), on_behalf_of: z.string().describe("Stripe account ID to generate the link for.").optional() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), link_options: obj({ apple_terms_and_conditions: z.record(z.string(), z.unknown()).optional() }).describe("Specific fields needed to generate the desired link type."), link_type: z.enum(["apple_terms_and_conditions"]).describe("The type of link being generated."), on_behalf_of: z.string().describe("Stripe account ID to generate the link for.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const customObjectRecordAttachmentsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const customObjectRecordAttachmentsActions: Record<string, ActionDefiniti
     description: "List custom object record attachments. Part of: Custom Object Record Attachments. Calls GET /customobjects/{customobjectkey}/records/{recordid}/attachments on Zendesk.",
     method: "GET",
     path: "/custom_objects/{custom_object_key}/records/{record_id}/attachments",
-    input: z.object({ custom_object_key: z.string(), record_id: z.string() }),
+    input: obj({ custom_object_key: z.string(), record_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const customObjectRecordAttachmentsActions: Record<string, ActionDefiniti
     description: "Update custom object record attachment. Part of: Custom Object Record Attachments. Calls PUT /customobjects/{customobjectkey}/records/{recordid}/attachments/{id} on Zendesk.",
     method: "PUT",
     path: "/custom_objects/{custom_object_key}/records/{record_id}/attachments/{id}",
-    input: z.object({ custom_object_key: z.string(), record_id: z.string(), id: z.string(), custom_object_record_attachment: z.object({ malware_access_override: z.boolean() }) }),
+    input: obj({ custom_object_key: z.string(), record_id: z.string(), id: z.string(), custom_object_record_attachment: obj({ malware_access_override: z.boolean() }) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const customObjectRecordAttachmentsActions: Record<string, ActionDefiniti
     description: "Delete custom object record attachment. Part of: Custom Object Record Attachments. Calls DELETE /customobjects/{customobjectkey}/records/{recordid}/attachments/{id} on Zendesk.",
     method: "DELETE",
     path: "/custom_objects/{custom_object_key}/records/{record_id}/attachments/{id}",
-    input: z.object({ custom_object_key: z.string(), record_id: z.string(), id: z.string() }),
+    input: obj({ custom_object_key: z.string(), record_id: z.string(), id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const customObjectRecordAttachmentsActions: Record<string, ActionDefiniti
     description: "Download custom object record attachment. Part of: Custom Object Record Attachments. Calls GET /customobjects/{customobjectkey}/records/{recordid}/attachments/{id}/download on Zendesk.",
     method: "GET",
     path: "/custom_objects/{custom_object_key}/records/{record_id}/attachments/{id}/download",
-    input: z.object({ custom_object_key: z.string(), record_id: z.string(), id: z.string(), inline: z.boolean().optional() }),
+    input: obj({ custom_object_key: z.string(), record_id: z.string(), id: z.string(), inline: z.boolean().optional() }),
     output: z.unknown(),
     effect: "read",
   },

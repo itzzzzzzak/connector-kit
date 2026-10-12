@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/asana.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 import { bodyCursorPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const projectPortfolioSettingsActions: Record<string, ActionDefinition> =
     description: "Get a project portfolio setting. Required scope: projectportfoliosettings:read",
     method: "GET",
     path: "/project_portfolio_settings/{project_portfolio_setting_gid}",
-    input: z.object({ project_portfolio_setting_gid: z.string().describe("Globally unique identifier for the project portfolio setting."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "is_access_control_inherited", "portfolio", "project"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
+    input: obj({ project_portfolio_setting_gid: z.string().describe("Globally unique identifier for the project portfolio setting."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "is_access_control_inherited", "portfolio", "project"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -20,7 +21,7 @@ export const projectPortfolioSettingsActions: Record<string, ActionDefinition> =
     description: "Update a project portfolio setting. Required scope: projectportfoliosettings:write",
     method: "PUT",
     path: "/project_portfolio_settings/{project_portfolio_setting_gid}",
-    input: z.object({ project_portfolio_setting_gid: z.string().describe("Globally unique identifier for the project portfolio setting."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "is_access_control_inherited", "portfolio", "project"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: z.object({ is_access_control_inherited: z.boolean().optional() }).optional() }),
+    input: obj({ project_portfolio_setting_gid: z.string().describe("Globally unique identifier for the project portfolio setting."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "is_access_control_inherited", "portfolio", "project"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), data: obj({ is_access_control_inherited: z.boolean().optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["opt_pretty","opt_fields"]),
@@ -30,7 +31,7 @@ export const projectPortfolioSettingsActions: Record<string, ActionDefinition> =
     description: "Get project portfolio settings for a project. Required scope: projectportfoliosettings:read",
     method: "GET",
     path: "/projects/{project_gid}/project_portfolio_settings",
-    input: z.object({ project_gid: z.string().describe("Globally unique identifier for the project."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "is_access_control_inherited", "offset", "path", "portfolio", "project", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ project_gid: z.string().describe("Globally unique identifier for the project."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "is_access_control_inherited", "offset", "path", "portfolio", "project", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),
@@ -39,7 +40,7 @@ export const projectPortfolioSettingsActions: Record<string, ActionDefinition> =
     description: "Get project portfolio settings for a portfolio. Required scope: projectportfoliosettings:read",
     method: "GET",
     path: "/portfolios/{portfolio_gid}/project_portfolio_settings",
-    input: z.object({ portfolio_gid: z.string().describe("Globally unique identifier for the portfolio."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "is_access_control_inherited", "offset", "path", "portfolio", "project", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ portfolio_gid: z.string().describe("Globally unique identifier for the portfolio."), opt_pretty: z.boolean().describe("Provides “pretty” output. Provides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it…").optional(), opt_fields: z.array(z.enum(["created_at", "is_access_control_inherited", "offset", "path", "portfolio", "project", "uri"])).describe("This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a…").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyCursorPagination({ itemsKey: "data", cursorPath: ["next_page", "offset"], cursorParam: "offset", pageSizeParam: "limit", defaultPageSize: 30, maxPageSize: 100 }),

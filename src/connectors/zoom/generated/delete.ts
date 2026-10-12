@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const deleteActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const deleteActions: Record<string, ActionDefinition> = {
     description: "Availability. Part of: availability. Calls DELETE /scheduler/availability/{availabilityId} on Zoom.",
     method: "DELETE",
     path: "/scheduler/availability/{availabilityId}",
-    input: z.object({ availabilityId: z.string() }),
+    input: obj({ availabilityId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -18,7 +19,7 @@ export const deleteActions: Record<string, ActionDefinition> = {
     description: "Scheduled events. Part of: scheduled events. Calls DELETE /scheduler/events/{eventId} on Zoom.",
     method: "DELETE",
     path: "/scheduler/events/{eventId}",
-    input: z.object({ eventId: z.string(), user_id: z.string().optional() }),
+    input: obj({ eventId: z.string(), user_id: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -26,7 +27,7 @@ export const deleteActions: Record<string, ActionDefinition> = {
     description: "Schedules. Part of: schedules. Calls DELETE /scheduler/schedules/{scheduleId} on Zoom.",
     method: "DELETE",
     path: "/scheduler/schedules/{scheduleId}",
-    input: z.object({ scheduleId: z.string(), user_id: z.string().optional() }),
+    input: obj({ scheduleId: z.string(), user_id: z.string().optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -34,7 +35,7 @@ export const deleteActions: Record<string, ActionDefinition> = {
     description: "Draft email. Part of: Drafts. Calls DELETE /emails/mailboxes/{email}/drafts/{draftId} on Zoom.",
     method: "DELETE",
     path: "/emails/mailboxes/{email}/drafts/{draftId}",
-    input: z.object({ email: z.string(), draftId: z.string() }),
+    input: obj({ email: z.string(), draftId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -42,7 +43,7 @@ export const deleteActions: Record<string, ActionDefinition> = {
     description: "Label from mailbox. Part of: Labels. Calls DELETE /emails/mailboxes/{email}/labels/{labelId} on Zoom.",
     method: "DELETE",
     path: "/emails/mailboxes/{email}/labels/{labelId}",
-    input: z.object({ email: z.string(), labelId: z.string() }),
+    input: obj({ email: z.string(), labelId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const deleteActions: Record<string, ActionDefinition> = {
     description: "Email. Part of: Messages. Calls DELETE /emails/mailboxes/{email}/messages/{messageId} on Zoom.",
     method: "DELETE",
     path: "/emails/mailboxes/{email}/messages/{messageId}",
-    input: z.object({ email: z.string(), messageId: z.string() }),
+    input: obj({ email: z.string(), messageId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -58,7 +59,7 @@ export const deleteActions: Record<string, ActionDefinition> = {
     description: "Email filter. Part of: Settings.Filters. Calls DELETE /emails/mailboxes/{email}/settings/filters/{filterId} on Zoom.",
     method: "DELETE",
     path: "/emails/mailboxes/{email}/settings/filters/{filterId}",
-    input: z.object({ email: z.string(), filterId: z.string() }),
+    input: obj({ email: z.string(), filterId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -66,7 +67,7 @@ export const deleteActions: Record<string, ActionDefinition> = {
     description: "Email thread. Part of: Threads. Calls DELETE /emails/mailboxes/{email}/threads/{threadId} on Zoom.",
     method: "DELETE",
     path: "/emails/mailboxes/{email}/threads/{threadId}",
-    input: z.object({ email: z.string(), threadId: z.string() }),
+    input: obj({ email: z.string(), threadId: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

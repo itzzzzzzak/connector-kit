@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectEmailActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectEmailActions: Record<string, ActionDefinition> = {
     description: "Get project's sender email. Returns the project's sender email address.",
     method: "GET",
     path: "/project/{projectId}/email",
-    input: z.object({ projectId: z.number().describe("The project ID.") }),
+    input: obj({ projectId: z.number().describe("The project ID.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const projectEmailActions: Record<string, ActionDefinition> = {
     description: "Set project's sender email. Sets the project's sender email address.",
     method: "PUT",
     path: "/project/{projectId}/email",
-    input: z.object({ projectId: z.number().describe("The project ID."), emailAddress: z.string().describe("The email address.").optional(), emailAddressStatus: z.array(z.string()).describe("When using a custom domain, the status of the email address.").optional() }),
+    input: obj({ projectId: z.number().describe("The project ID."), emailAddress: z.string().describe("The email address.").optional(), emailAddressStatus: z.array(z.string()).describe("When using a custom domain, the status of the email address.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

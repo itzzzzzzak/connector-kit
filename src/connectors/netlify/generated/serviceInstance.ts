@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/netlify.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const serviceInstanceActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const serviceInstanceActions: Record<string, ActionDefinition> = {
     description: "List service instances for site Calls GET /sites/{siteid}/service-instances on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/service-instances",
-    input: z.object({ site_id: z.string() }),
+    input: obj({ site_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const serviceInstanceActions: Record<string, ActionDefinition> = {
     description: "Create service instance Calls POST /sites/{siteid}/services/{addon}/instances on Netlify.",
     method: "POST",
     path: "/sites/{site_id}/services/{addon}/instances",
-    input: z.object({ site_id: z.string(), addon: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ site_id: z.string(), addon: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -27,7 +28,7 @@ export const serviceInstanceActions: Record<string, ActionDefinition> = {
     description: "Show service instance Calls GET /sites/{siteid}/services/{addon}/instances/{instanceid} on Netlify.",
     method: "GET",
     path: "/sites/{site_id}/services/{addon}/instances/{instance_id}",
-    input: z.object({ site_id: z.string(), addon: z.string(), instance_id: z.string() }),
+    input: obj({ site_id: z.string(), addon: z.string(), instance_id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -35,7 +36,7 @@ export const serviceInstanceActions: Record<string, ActionDefinition> = {
     description: "Update service instance Calls PUT /sites/{siteid}/services/{addon}/instances/{instanceid} on Netlify.",
     method: "PUT",
     path: "/sites/{site_id}/services/{addon}/instances/{instance_id}",
-    input: z.object({ site_id: z.string(), addon: z.string(), instance_id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ site_id: z.string(), addon: z.string(), instance_id: z.string(), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -44,7 +45,7 @@ export const serviceInstanceActions: Record<string, ActionDefinition> = {
     description: "Delete service instance Calls DELETE /sites/{siteid}/services/{addon}/instances/{instanceid} on Netlify.",
     method: "DELETE",
     path: "/sites/{site_id}/services/{addon}/instances/{instance_id}",
-    input: z.object({ site_id: z.string(), addon: z.string(), instance_id: z.string() }),
+    input: obj({ site_id: z.string(), addon: z.string(), instance_id: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

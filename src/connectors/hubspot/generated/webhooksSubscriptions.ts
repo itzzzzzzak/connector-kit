@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/hubspot.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const webhooksSubscriptionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const webhooksSubscriptionsActions: Record<string, ActionDefinition> = {
     description: "List. Part of: Basic. Calls GET /webhooks/v3/{appId}/subscriptions on HubSpot.",
     method: "GET",
     path: "/webhooks/v3/{appId}/subscriptions",
-    input: z.object({ appId: z.number() }),
+    input: obj({ appId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const webhooksSubscriptionsActions: Record<string, ActionDefinition> = {
     description: "Create. Part of: Basic. Calls POST /webhooks/v3/{appId}/subscriptions on HubSpot.",
     method: "POST",
     path: "/webhooks/v3/{appId}/subscriptions",
-    input: z.object({ appId: z.number(), active: z.boolean().optional(), eventType: z.enum(["company.associationChange", "company.creation", "company.deletion", "company.merge", "company.propertyChange", "company.restore", "contact.associationChange", "contact.creation", "contact.deletion", "contact.merge", "contact.privacyDeletion", "contact.propertyChange", "contact.restore", "conversation.creation", "conversation.deletion", "conversation.newMessage", "conversation.privacyDeletion", "conversation.propertyChange", "deal.associationChange", "deal.creation", "deal.deletion", "deal.merge", "deal.propertyChange", "deal.restore", "event.completed", "line_item.associationChange", "line_item.creation", "line_item.deletion", "line_item.merge", "line_item.propertyChange", "line_item.restore", "object.associationChange", "object.creation", "object.deletion", "object.merge", "object.propertyChange", "object.restore", "product.creation", "product.deletion", "product.merge", "product.propertyChange", "product.restore", "ticket.associationChange", "ticket.creation", "ticket.deletion", "ticket.merge", "ticket.propertyChange", "ticket.restore"]), eventTypeName: z.string().optional(), objectTypeId: z.string().optional(), propertyName: z.string().optional() }),
+    input: obj({ appId: z.number(), active: z.boolean().optional(), eventType: z.enum(["company.associationChange", "company.creation", "company.deletion", "company.merge", "company.propertyChange", "company.restore", "contact.associationChange", "contact.creation", "contact.deletion", "contact.merge", "contact.privacyDeletion", "contact.propertyChange", "contact.restore", "conversation.creation", "conversation.deletion", "conversation.newMessage", "conversation.privacyDeletion", "conversation.propertyChange", "deal.associationChange", "deal.creation", "deal.deletion", "deal.merge", "deal.propertyChange", "deal.restore", "event.completed", "line_item.associationChange", "line_item.creation", "line_item.deletion", "line_item.merge", "line_item.propertyChange", "line_item.restore", "object.associationChange", "object.creation", "object.deletion", "object.merge", "object.propertyChange", "object.restore", "product.creation", "product.deletion", "product.merge", "product.propertyChange", "product.restore", "ticket.associationChange", "ticket.creation", "ticket.deletion", "ticket.merge", "ticket.propertyChange", "ticket.restore"]), eventTypeName: z.string().optional(), objectTypeId: z.string().optional(), propertyName: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const webhooksSubscriptionsActions: Record<string, ActionDefinition> = {
     description: "Create batch update. Part of: Batch. Calls POST /webhooks/v3/{appId}/subscriptions/batch/update on HubSpot.",
     method: "POST",
     path: "/webhooks/v3/{appId}/subscriptions/batch/update",
-    input: z.object({ appId: z.number(), inputs: z.array(z.object({ active: z.boolean(), id: z.number() })) }),
+    input: obj({ appId: z.number(), inputs: z.array(obj({ active: z.boolean(), id: z.number() })) }),
     output: z.unknown(),
     effect: "write",
   },
@@ -34,7 +35,7 @@ export const webhooksSubscriptionsActions: Record<string, ActionDefinition> = {
     description: "Get. Part of: Basic. Calls GET /webhooks/v3/{appId}/subscriptions/{subscriptionId} on HubSpot.",
     method: "GET",
     path: "/webhooks/v3/{appId}/subscriptions/{subscriptionId}",
-    input: z.object({ appId: z.number(), subscriptionId: z.number() }),
+    input: obj({ appId: z.number(), subscriptionId: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const webhooksSubscriptionsActions: Record<string, ActionDefinition> = {
     description: "Update. Part of: Basic. Calls PATCH /webhooks/v3/{appId}/subscriptions/{subscriptionId} on HubSpot.",
     method: "PATCH",
     path: "/webhooks/v3/{appId}/subscriptions/{subscriptionId}",
-    input: z.object({ appId: z.number(), subscriptionId: z.number(), active: z.boolean().optional() }),
+    input: obj({ appId: z.number(), subscriptionId: z.number(), active: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -50,7 +51,7 @@ export const webhooksSubscriptionsActions: Record<string, ActionDefinition> = {
     description: "Delete. Part of: Basic. Calls DELETE /webhooks/v3/{appId}/subscriptions/{subscriptionId} on HubSpot.",
     method: "DELETE",
     path: "/webhooks/v3/{appId}/subscriptions/{subscriptionId}",
-    input: z.object({ appId: z.number(), subscriptionId: z.number() }),
+    input: obj({ appId: z.number(), subscriptionId: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },

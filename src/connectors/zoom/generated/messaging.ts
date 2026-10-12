@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zoom.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const messagingActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const messagingActions: Record<string, ActionDefinition> = {
     description: "Senda message. Part of: Messaging. Calls POST /contactcenter/messages on Zoom.",
     method: "POST",
     path: "/contact_center/messages",
-    input: z.object({ from: z.string(), to: z.string(), whatsapp_message: z.object({ type: z.enum(["whatsAppTemplate"]), value: z.string() }).optional(), sms_message: z.object({ type: z.enum(["text"]), value: z.string() }).optional(), create_engagement: z.boolean().optional(), flow_id: z.string().optional() }),
+    input: obj({ from: z.string(), to: z.string(), whatsapp_message: obj({ type: z.enum(["whatsAppTemplate"]), value: z.string() }).optional(), sms_message: obj({ type: z.enum(["text"]), value: z.string() }).optional(), create_engagement: z.boolean().optional(), flow_id: z.string().optional() }),
     output: z.unknown(),
     effect: "write",
   },

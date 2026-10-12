@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/zendesk.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick, pickAs } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
@@ -12,7 +13,7 @@ export const searchActions: Record<string, ActionDefinition> = {
     description: "List search results. Part of: Search. Calls GET /search on Zendesk.",
     method: "GET",
     path: "/search",
-    input: z.object({ query: z.string(), sort_by: z.string().optional(), sort_order: z.string().optional(), include: z.string().optional() }),
+    input: obj({ query: z.string(), sort_by: z.string().optional(), sort_order: z.string().optional(), include: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -20,7 +21,7 @@ export const searchActions: Record<string, ActionDefinition> = {
     description: "Count search results. Part of: Search. Calls GET /search/count on Zendesk.",
     method: "GET",
     path: "/search/count",
-    input: z.object({ query: z.string() }),
+    input: obj({ query: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const searchActions: Record<string, ActionDefinition> = {
     description: "Export search results. Part of: Search. Calls GET /search/export on Zendesk.",
     method: "GET",
     path: "/search/export",
-    input: z.object({ query: z.string(), filter_type_: z.string(), include: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ query: z.string(), filter_type_: z.string(), include: z.string().optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "results", nextUrlPath: ["links", "next"], hasMorePath: ["meta", "has_more"], pageSizeParam: "page[size]", defaultPageSize: 30, maxPageSize: 100 }),

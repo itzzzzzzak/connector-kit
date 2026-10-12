@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/github.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const agentTasksActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const agentTasksActions: Record<string, ActionDefinition> = {
     description: "List tasks for repository. [!NOTE] This endpoint is in public preview and is subject to change.",
     method: "GET",
     path: "/agents/repos/{owner}/{repo}/tasks",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository. The name is not case sensitive."), per_page: z.number().describe("The number of results per page (max 100).").optional(), page: z.number().describe("The page number of the results to fetch.").optional(), sort: z.enum(["updated_at", "created_at"]).describe("The field to sort results by. Can be updatedat or createdat.").optional(), direction: z.enum(["asc", "desc"]).describe("The direction to sort results. Can be asc or desc.").optional(), state: z.string().describe("Comma-separated list of task states to filter by. Can be any combination of: queued, inprogress, completed, failed, idle, waitingforuser, timedout, cancelled.").optional(), is_archived: z.boolean().describe("Filter by archived status. When true, returns only archived tasks. When false or omitted, returns only non-archived tasks. Defaults to false.").optional(), since: z.string().describe("Only show tasks updated at or after this time (ISO 8601 timestamp)").optional(), creator_id: z.array(z.number()).describe("Filter tasks by creator user ID. Accepts one or more user IDs.").optional() }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository. The name is not case sensitive."), per_page: z.number().describe("The number of results per page (max 100).").optional(), page: z.number().describe("The page number of the results to fetch.").optional(), sort: z.enum(["updated_at", "created_at"]).describe("The field to sort results by. Can be updatedat or createdat.").optional(), direction: z.enum(["asc", "desc"]).describe("The direction to sort results. Can be asc or desc.").optional(), state: z.string().describe("Comma-separated list of task states to filter by. Can be any combination of: queued, inprogress, completed, failed, idle, waitingforuser, timedout, cancelled.").optional(), is_archived: z.boolean().describe("Filter by archived status. When true, returns only archived tasks. When false or omitted, returns only non-archived tasks. Defaults to false.").optional(), since: z.string().describe("Only show tasks updated at or after this time (ISO 8601 timestamp)").optional(), creator_id: z.array(z.number()).describe("Filter tasks by creator user ID. Accepts one or more user IDs.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const agentTasksActions: Record<string, ActionDefinition> = {
     description: "Start a task. [!NOTE] This endpoint is in public preview and is subject to change.",
     method: "POST",
     path: "/agents/repos/{owner}/{repo}/tasks",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository. The name is not case sensitive."), prompt: z.string().describe("The user's prompt for the agent"), model: z.string().describe("The model to use for this task. The allowed models may change over time and depend on the user's GitHub Copilot plan and organization policies. Currently…").optional(), custom_agent: z.string().describe("Optional identifier for a custom agent to use for this task. Use the custom agent's filename without the extension - for example, for a…").optional(), create_pull_request: z.boolean().describe("Whether to create a PR.").optional(), base_ref: z.string().describe("Base ref for new branch/PR").optional(), head_ref: z.string().describe("Head ref for existing branch/PR. If provided with baseref, the agent looks up open PR context for headref targeting baseref and commits to headref instead of…").optional() }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository. The name is not case sensitive."), prompt: z.string().describe("The user's prompt for the agent"), model: z.string().describe("The model to use for this task. The allowed models may change over time and depend on the user's GitHub Copilot plan and organization policies. Currently…").optional(), custom_agent: z.string().describe("Optional identifier for a custom agent to use for this task. Use the custom agent's filename without the extension - for example, for a…").optional(), create_pull_request: z.boolean().describe("Whether to create a PR.").optional(), base_ref: z.string().describe("Base ref for new branch/PR").optional(), head_ref: z.string().describe("Head ref for existing branch/PR. If provided with baseref, the agent looks up open PR context for headref targeting baseref and commits to headref instead of…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const agentTasksActions: Record<string, ActionDefinition> = {
     description: "Get a task by repo. [!NOTE] This endpoint is in public preview and is subject to change.",
     method: "GET",
     path: "/agents/repos/{owner}/{repo}/tasks/{task_id}",
-    input: z.object({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository. The name is not case sensitive."), task_id: z.string().describe("The unique identifier of the task.") }),
+    input: obj({ owner: z.string().describe("The account owner of the repository. The name is not case sensitive."), repo: z.string().describe("The name of the repository. The name is not case sensitive."), task_id: z.string().describe("The unique identifier of the task.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const agentTasksActions: Record<string, ActionDefinition> = {
     description: "List tasks. [!NOTE] This endpoint is in public preview and is subject to change.",
     method: "GET",
     path: "/agents/tasks",
-    input: z.object({ per_page: z.number().describe("The number of results per page (max 100).").optional(), page: z.number().describe("The page number of the results to fetch.").optional(), sort: z.enum(["updated_at", "created_at"]).describe("The field to sort results by. Can be updatedat or createdat.").optional(), direction: z.enum(["asc", "desc"]).describe("The direction to sort results. Can be asc or desc.").optional(), state: z.string().describe("Comma-separated list of task states to filter by. Can be any combination of: queued, inprogress, completed, failed, idle, waitingforuser, timedout, cancelled.").optional(), is_archived: z.boolean().describe("Filter by archived status. When true, returns only archived tasks. When false or omitted, returns only non-archived tasks. Defaults to false.").optional(), since: z.string().describe("Only show tasks updated at or after this time (ISO 8601 timestamp)").optional() }),
+    input: obj({ per_page: z.number().describe("The number of results per page (max 100).").optional(), page: z.number().describe("The page number of the results to fetch.").optional(), sort: z.enum(["updated_at", "created_at"]).describe("The field to sort results by. Can be updatedat or createdat.").optional(), direction: z.enum(["asc", "desc"]).describe("The direction to sort results. Can be asc or desc.").optional(), state: z.string().describe("Comma-separated list of task states to filter by. Can be any combination of: queued, inprogress, completed, failed, idle, waitingforuser, timedout, cancelled.").optional(), is_archived: z.boolean().describe("Filter by archived status. When true, returns only archived tasks. When false or omitted, returns only non-archived tasks. Defaults to false.").optional(), since: z.string().describe("Only show tasks updated at or after this time (ISO 8601 timestamp)").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -42,7 +43,7 @@ export const agentTasksActions: Record<string, ActionDefinition> = {
     description: "Get a task by ID. [!NOTE] This endpoint is in public preview and is subject to change.",
     method: "GET",
     path: "/agents/tasks/{task_id}",
-    input: z.object({ task_id: z.string().describe("The unique identifier of the task.") }),
+    input: obj({ task_id: z.string().describe("The unique identifier of the task.") }),
     output: z.unknown(),
     effect: "read",
   },

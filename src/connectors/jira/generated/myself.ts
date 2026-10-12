@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const myselfActions: Record<string, ActionDefinition> = {
     description: "Get preference. Returns the value of a preference of the current user.",
     method: "GET",
     path: "/mypreferences",
-    input: z.object({ key: z.string().describe("The key of the preference.") }),
+    input: obj({ key: z.string().describe("The key of the preference.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -19,7 +20,7 @@ export const myselfActions: Record<string, ActionDefinition> = {
     description: "Set preference. Creates a preference for the user or updates a preference's value by sending a plain text string. For example, false. An arbitrary preference can be created with the value containing up to 255 characters. In addition, the following keys define system preferences that can be set or created:",
     method: "PUT",
     path: "/mypreferences",
-    input: z.object({ key: z.string().describe("The key of the preference. The maximum length is 255 characters."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ key: z.string().describe("The key of the preference. The maximum length is 255 characters."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildQuery: (i) => pick(i, ["key"]),
@@ -29,7 +30,7 @@ export const myselfActions: Record<string, ActionDefinition> = {
     description: "Delete preference. Deletes a preference of the user, which restores the default value of system defined settings.",
     method: "DELETE",
     path: "/mypreferences",
-    input: z.object({ key: z.string().describe("The key of the preference.") }),
+    input: obj({ key: z.string().describe("The key of the preference.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -37,7 +38,7 @@ export const myselfActions: Record<string, ActionDefinition> = {
     description: "Get locale. Returns the locale for the user. Calls GET /mypreferences/locale on Jira.",
     method: "GET",
     path: "/mypreferences/locale",
-    input: z.object({  }),
+    input: obj({  }),
     output: z.unknown(),
     effect: "read",
   },

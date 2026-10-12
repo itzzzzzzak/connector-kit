@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/jira.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const projectPropertiesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const projectPropertiesActions: Record<string, ActionDefinition> = {
     description: "Get project property keys. Returns all project property keys for the project.",
     method: "GET",
     path: "/project/{projectIdOrKey}/properties",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive).") }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive).") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const projectPropertiesActions: Record<string, ActionDefinition> = {
     description: "Get project property. Returns the value of a project property.",
     method: "GET",
     path: "/project/{projectIdOrKey}/properties/{propertyKey}",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), propertyKey: z.string().describe("The project property key. Use Get project property keys to get a list of all project property keys.") }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), propertyKey: z.string().describe("The project property key. Use Get project property keys to get a list of all project property keys.") }),
     output: z.unknown(),
     effect: "read",
   },
@@ -26,7 +27,7 @@ export const projectPropertiesActions: Record<string, ActionDefinition> = {
     description: "Set project property. Sets the value of the project property. You can use project properties to store custom data against the project.",
     method: "PUT",
     path: "/project/{projectIdOrKey}/properties/{propertyKey}",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), propertyKey: z.string().describe("The key of the project property. The maximum length is 255 characters."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), propertyKey: z.string().describe("The key of the project property. The maximum length is 255 characters."), body: z.record(z.string(), z.unknown()).describe("The JSON request body (see the provider documentation)") }),
     output: z.unknown(),
     effect: "write",
     buildBody: (i) => i.body,
@@ -35,7 +36,7 @@ export const projectPropertiesActions: Record<string, ActionDefinition> = {
     description: "Delete project property. Deletes the property from a project.",
     method: "DELETE",
     path: "/project/{projectIdOrKey}/properties/{propertyKey}",
-    input: z.object({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), propertyKey: z.string().describe("The project property key. Use Get project property keys to get a list of all project property keys.") }),
+    input: obj({ projectIdOrKey: z.string().describe("The project ID or project key (case sensitive)."), propertyKey: z.string().describe("The project property key. Use Get project property keys to get a list of all project property keys.") }),
     output: z.unknown(),
     effect: "destructive",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/pipedrive.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const currenciesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const currenciesActions: Record<string, ActionDefinition> = {
     description: "Get currencies. Part of: Currencies. Calls GET /v1/currencies on Pipedrive.",
     method: "GET",
     path: "/v1/currencies",
-    input: z.object({ term: z.string().optional() }),
+    input: obj({ term: z.string().optional() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/digitalocean.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { bodyLinkPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const toolbeltsActions: Record<string, ActionDefinition> = {
     description: "List Toolbelts. Returns your team's toolbelts, one entry per name describing its latest version, sorted by name. Offset-paged with page and perpage; pagination reports the total.",
     method: "GET",
     path: "/action-gateway/toolbelts",
-    input: z.object({ status: z.enum(["active", "deprecated", "all"]).describe("active (default), deprecated, or all. Case-insensitive.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ status: z.enum(["active", "deprecated", "all"]).describe("active (default), deprecated, or all. Case-insensitive.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "toolbelts", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -20,7 +21,7 @@ export const toolbeltsActions: Record<string, ActionDefinition> = {
     description: "Create a Toolbelt. A toolbelt is a named set of tools, each pinned to a version, that your team can attach to sessions as toolbelt:<name@<version. The first version is 1 unless version is set. Returns 409 if an active toolbelt with the same name exists. The name of a deleted toolbelt can be reused; its versions start again from the initial version",
     method: "POST",
     path: "/action-gateway/toolbelts",
-    input: z.object({ name: z.string().describe("Toolbelt name, unique among your team's active toolbelts. Must match ^[a-z][a-z0-9-]{0,63}$; search is reserved."), version: z.string().describe("Optional initial version number, a positive integer such as 1. Defaults to 1.").optional(), display_name: z.string().describe("Optional human-readable label, separate from name. At most 128 bytes.").optional(), description: z.string().describe("Optional description. At most 255 bytes.").optional(), tools: z.array(z.string()).describe("Optional initial members, as catalog tool slugs (<provider<name). Each may be pinned as <toolslug@<version; a pin must equal the tool's current released…").optional() }),
+    input: obj({ name: z.string().describe("Toolbelt name, unique among your team's active toolbelts. Must match ^[a-z][a-z0-9-]{0,63}$; search is reserved."), version: z.string().describe("Optional initial version number, a positive integer such as 1. Defaults to 1.").optional(), display_name: z.string().describe("Optional human-readable label, separate from name. At most 128 bytes.").optional(), description: z.string().describe("Optional description. At most 255 bytes.").optional(), tools: z.array(z.string()).describe("Optional initial members, as catalog tool slugs (<provider<name). Each may be pinned as <toolslug@<version; a pin must equal the tool's current released…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const toolbeltsActions: Record<string, ActionDefinition> = {
     description: "Search Toolbelts. Returns your team's toolbelts whose name, display name, or description contains query, case-insensitively, sorted by name. Cursor-paged with pagesize and pagetoken; no total is reported.",
     method: "GET",
     path: "/action-gateway/toolbelts/search",
-    input: z.object({ query: z.string().describe("Matched case-insensitively as a substring of name, displayname, or description. Empty matches every toolbelt of your team.").optional(), status: z.enum(["active", "deprecated", "all"]).describe("active (default), deprecated, or all. Case-insensitive.").optional(), page_size: z.number().describe("Page size, 1 to 100. Defaults to 20 when omitted or 0; other values are rejected with 400.").optional(), page_token: z.string().describe("nextpagetoken from the previous response. Valid only with the same query and status; otherwise the request is rejected with 400.").optional() }),
+    input: obj({ query: z.string().describe("Matched case-insensitively as a substring of name, displayname, or description. Empty matches every toolbelt of your team.").optional(), status: z.enum(["active", "deprecated", "all"]).describe("active (default), deprecated, or all. Case-insensitive.").optional(), page_size: z.number().describe("Page size, 1 to 100. Defaults to 20 when omitted or 0; other values are rejected with 400.").optional(), page_token: z.string().describe("nextpagetoken from the previous response. Valid only with the same query and status; otherwise the request is rejected with 400.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const toolbeltsActions: Record<string, ActionDefinition> = {
     description: "Get a Toolbelt. Returns the latest version of the named toolbelt, or the version requested, with catalog metadata for one page of its members in tooldetails. A deleted toolbelt returns 404 unless a version is requested.",
     method: "GET",
     path: "/action-gateway/toolbelts/{name}",
-    input: z.object({ name: z.string().describe("Toolbelt name."), version: z.string().describe("Version number to read. Empty returns the latest version.").optional(), page_size: z.number().describe("Page size for tooldetails only; toolbelt.tools always lists every member. Defaults to 20; values above 100 are capped at 100.").optional(), page_token: z.string().describe("nextpagetoken from the previous response, to continue tooldetails. Treat it as opaque, and send it only with the same toolbelt, version, and search.").optional(), search: z.string().describe("Restricts tooldetails to members whose tool slug, name, title, description, provider, or category contains this value, case-insensitively. It does not filter…").optional() }),
+    input: obj({ name: z.string().describe("Toolbelt name."), version: z.string().describe("Version number to read. Empty returns the latest version.").optional(), page_size: z.number().describe("Page size for tooldetails only; toolbelt.tools always lists every member. Defaults to 20; values above 100 are capped at 100.").optional(), page_token: z.string().describe("nextpagetoken from the previous response, to continue tooldetails. Treat it as opaque, and send it only with the same toolbelt, version, and search.").optional(), search: z.string().describe("Restricts tooldetails to members whose tool slug, name, title, description, provider, or category contains this value, case-insensitively. It does not filter…").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -44,7 +45,7 @@ export const toolbeltsActions: Record<string, ActionDefinition> = {
     description: "Delete a Toolbelt. Marks the toolbelt deleted and returns its latest version with status deprecated. Its versions stay readable by explicit version until the name is reused. The name is free to reuse immediately; a new toolbelt with it starts a fresh version history. Returns 404 when the toolbelt does not exist or is already deleted.",
     method: "DELETE",
     path: "/action-gateway/toolbelts/{name}",
-    input: z.object({ name: z.string().describe("Toolbelt name.") }),
+    input: obj({ name: z.string().describe("Toolbelt name.") }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const toolbeltsActions: Record<string, ActionDefinition> = {
     description: "List the Providers in a Toolbelt. Returns the distinct providers of the toolbelt's members, each with its member count, sorted by provider ID. List one provider's members with GET .../toolbelts/{name}/providers/{provider}/tools.",
     method: "GET",
     path: "/action-gateway/toolbelts/{name}/providers",
-    input: z.object({ name: z.string().describe("Toolbelt name."), version: z.string().describe("Version number to read. Empty reads the latest version.").optional(), search: z.string().describe("Restricts providers whose ID, name, or description contains this value, case-insensitively.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ name: z.string().describe("Toolbelt name."), version: z.string().describe("Version number to read. Empty reads the latest version.").optional(), search: z.string().describe("Restricts providers whose ID, name, or description contains this value, case-insensitively.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "providers", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -61,7 +62,7 @@ export const toolbeltsActions: Record<string, ActionDefinition> = {
     description: "List a Toolbelt's Tools from One Provider. Returns a page of catalog metadata for the toolbelt's members from the named provider, sorted by tool slug. An unknown provider returns an empty page.",
     method: "GET",
     path: "/action-gateway/toolbelts/{name}/providers/{provider}/tools",
-    input: z.object({ name: z.string().describe("Toolbelt name."), provider: z.string().describe("A provider ID from the toolbelt's provider list, or legacy for members recorded without a provider. Matched exactly."), version: z.string().describe("Version number to read. Empty reads the latest version.").optional(), search: z.string().describe("Restricts tools whose slug, name, title, description, provider, or category contains this value, case-insensitively, within the provider only.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ name: z.string().describe("Toolbelt name."), provider: z.string().describe("A provider ID from the toolbelt's provider list, or legacy for members recorded without a provider. Matched exactly."), version: z.string().describe("Version number to read. Empty reads the latest version.").optional(), search: z.string().describe("Restricts tools whose slug, name, title, description, provider, or category contains this value, case-insensitively, within the provider only.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: bodyLinkPagination({ itemsKey: "tools", nextUrlPath: ["links", "pages", "next"], pageSizeParam: "per_page", defaultPageSize: 30, maxPageSize: 200 }),
@@ -70,7 +71,7 @@ export const toolbeltsActions: Record<string, ActionDefinition> = {
     description: "Add Tools to a Toolbelt. Adds the listed tools and returns the toolbelt. When membership changes, this creates a new version that keeps the display name and description. Tools already in the toolbelt are left as they are, so a request that adds nothing new returns the current version unchanged. Returns 400 when a tool is not an active catalog tool, when",
     method: "POST",
     path: "/action-gateway/toolbelts/{name}/tools/add",
-    input: z.object({ name: z.string().describe("Toolbelt name, from the path."), tools: z.array(z.string()).describe("Tool slugs (<provider<name) to add or remove, each optionally pinned as <toolslug@<version. At least one is required. When adding, a pin must equal the tool's…") }),
+    input: obj({ name: z.string().describe("Toolbelt name, from the path."), tools: z.array(z.string()).describe("Tool slugs (<provider<name) to add or remove, each optionally pinned as <toolslug@<version. At least one is required. When adding, a pin must equal the tool's…") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -78,7 +79,7 @@ export const toolbeltsActions: Record<string, ActionDefinition> = {
     description: "Remove Tools from a Toolbelt. Removes the listed tools and returns the toolbelt. When membership changes, this creates a new version that keeps the display name and description. Tools that are not members are ignored, and removing every tool is allowed; deleting the toolbelt itself is a separate DELETE. Returns 400 when a pin differs from the version the too",
     method: "POST",
     path: "/action-gateway/toolbelts/{name}/tools/remove",
-    input: z.object({ name: z.string().describe("Toolbelt name, from the path."), tools: z.array(z.string()).describe("Tool slugs (<provider<name) to add or remove, each optionally pinned as <toolslug@<version. At least one is required. When adding, a pin must equal the tool's…") }),
+    input: obj({ name: z.string().describe("Toolbelt name, from the path."), tools: z.array(z.string()).describe("Tool slugs (<provider<name) to add or remove, each optionally pinned as <toolslug@<version. At least one is required. When adding, a pin must equal the tool's…") }),
     output: z.unknown(),
     effect: "write",
   },

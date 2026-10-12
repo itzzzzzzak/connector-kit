@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const topupsActions: Record<string, ActionDefinition> = {
     description: "List all top-ups. Returns a list of top-ups. Calls GET /topups on Stripe.",
     method: "GET",
     path: "/topups",
-    input: z.object({ amount: z.unknown().describe("A positive integer representing how much to transfer.").optional(), created: z.unknown().describe("A filter on the list, based on the object created field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of…").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), status: z.enum(["canceled", "failed", "pending", "succeeded"]).describe("Only return top-ups that have the given status. One of canceled, failed, pending or succeeded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ amount: z.unknown().describe("A positive integer representing how much to transfer.").optional(), created: z.unknown().describe("A filter on the list, based on the object created field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of…").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), status: z.enum(["canceled", "failed", "pending", "succeeded"]).describe("Only return top-ups that have the given status. One of canceled, failed, pending or succeeded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const topupsActions: Record<string, ActionDefinition> = {
     description: "Create a top-up. Top up the balance of an account",
     method: "POST",
     path: "/topups",
-    input: z.object({ amount: z.number().describe("A positive integer representing how much to transfer."), currency: z.string().describe("Three-letter ISO currency code, in lowercase. Must be a supported currency."), description: z.string().describe("An arbitrary string attached to the object. Often useful for displaying to users.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), payment_method: z.string().describe("The ID of a PaymentMethod representing the payment method to be used for the top-up. A PaymentMethod of type usbankaccount can be used.").optional(), payment_method_options: z.object({ us_bank_account: z.object({ network: z.enum(["ach"]) }).optional() }).describe("Payment method-specific configuration for this top-up.").optional(), source: z.string().describe("The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard…").optional(), statement_descriptor: z.string().describe("Extra information about a top-up for the source's bank statement. Limited to 15 ASCII characters.").optional(), transfer_group: z.string().describe("A string that identifies this top-up as part of a group.").optional() }),
+    input: obj({ amount: z.number().describe("A positive integer representing how much to transfer."), currency: z.string().describe("Three-letter ISO currency code, in lowercase. Must be a supported currency."), description: z.string().describe("An arbitrary string attached to the object. Often useful for displaying to users.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), payment_method: z.string().describe("The ID of a PaymentMethod representing the payment method to be used for the top-up. A PaymentMethod of type usbankaccount can be used.").optional(), payment_method_options: obj({ us_bank_account: z.record(z.string(), z.unknown()).optional() }).describe("Payment method-specific configuration for this top-up.").optional(), source: z.string().describe("The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard…").optional(), statement_descriptor: z.string().describe("Extra information about a top-up for the source's bank statement. Limited to 15 ASCII characters.").optional(), transfer_group: z.string().describe("A string that identifies this top-up as part of a group.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const topupsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a top-up. Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.",
     method: "GET",
     path: "/topups/{topup}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), topup: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), topup: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const topupsActions: Record<string, ActionDefinition> = {
     description: "Update a top-up. Updates the metadata of a top-up. Other top-up details are not editable by design.",
     method: "POST",
     path: "/topups/{topup}",
-    input: z.object({ topup: z.string(), description: z.string().describe("An arbitrary string attached to the object. Often useful for displaying to users.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
+    input: obj({ topup: z.string(), description: z.string().describe("An arbitrary string attached to the object. Often useful for displaying to users.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const topupsActions: Record<string, ActionDefinition> = {
     description: "Cancel a top-up. Cancels a top-up. Only pending top-ups can be canceled.",
     method: "POST",
     path: "/topups/{topup}/cancel",
-    input: z.object({ topup: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ topup: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

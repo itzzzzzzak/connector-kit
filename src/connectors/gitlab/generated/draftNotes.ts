@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/gitlab.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const draftNotesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const draftNotesActions: Record<string, ActionDefinition> = {
     description: "Get projects id merge requests merge request iid draft notes. Part of: draftnotes. Calls GET /projects/{id}/mergerequests/{mergerequestiid}/draftnotes on GitLab.",
     method: "GET",
     path: "/projects/{id}/merge_requests/{merge_request_iid}/draft_notes",
-    input: z.object({ id: z.string(), merge_request_iid: z.number() }),
+    input: obj({ id: z.string(), merge_request_iid: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const draftNotesActions: Record<string, ActionDefinition> = {
     description: "Post projects id merge requests merge request iid draft notes. Part of: draftnotes. Calls POST /projects/{id}/mergerequests/{mergerequestiid}/draftnotes on GitLab.",
     method: "POST",
     path: "/projects/{id}/merge_requests/{merge_request_iid}/draft_notes",
-    input: z.object({ id: z.string(), merge_request_iid: z.number(), note: z.string(), in_reply_to_discussion_id: z.string().optional(), commit_id: z.string().optional(), resolve_discussion: z.boolean().optional(), position: z.object({ base_sha: z.string(), start_sha: z.string(), head_sha: z.string(), position_type: z.enum(["text", "image", "file"]), new_path: z.string().optional(), new_line: z.number().optional(), old_path: z.string().optional(), old_line: z.number().optional(), width: z.number().optional(), height: z.number().optional(), x: z.number().optional(), y: z.number().optional(), line_range: z.object({ start: z.record(z.string(), z.unknown()).optional(), end: z.record(z.string(), z.unknown()).optional() }).optional() }).optional() }),
+    input: obj({ id: z.string(), merge_request_iid: z.number(), note: z.string(), in_reply_to_discussion_id: z.string().optional(), commit_id: z.string().optional(), resolve_discussion: z.boolean().optional(), position: obj({ base_sha: z.string(), start_sha: z.string(), head_sha: z.string(), position_type: z.enum(["text", "image", "file"]), new_path: z.string().optional(), new_line: z.number().optional(), old_path: z.string().optional(), old_line: z.number().optional(), width: z.number().optional(), height: z.number().optional(), x: z.number().optional(), y: z.number().optional(), line_range: obj({ start: z.record(z.string(), z.unknown()).optional(), end: z.record(z.string(), z.unknown()).optional() }).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -26,7 +27,7 @@ export const draftNotesActions: Record<string, ActionDefinition> = {
     description: "Get projects id merge requests merge request iid draft notes draft note id. Part of: draftnotes. Calls GET /projects/{id}/mergerequests/{mergerequestiid}/draftnotes/{draftnoteid} on GitLab.",
     method: "GET",
     path: "/projects/{id}/merge_requests/{merge_request_iid}/draft_notes/{draft_note_id}",
-    input: z.object({ id: z.string(), merge_request_iid: z.number(), draft_note_id: z.number() }),
+    input: obj({ id: z.string(), merge_request_iid: z.number(), draft_note_id: z.number() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -34,7 +35,7 @@ export const draftNotesActions: Record<string, ActionDefinition> = {
     description: "Put projects id merge requests merge request iid draft notes draft note id. Part of: draftnotes. Calls PUT /projects/{id}/mergerequests/{mergerequestiid}/draftnotes/{draftnoteid} on GitLab.",
     method: "PUT",
     path: "/projects/{id}/merge_requests/{merge_request_iid}/draft_notes/{draft_note_id}",
-    input: z.object({ id: z.string(), merge_request_iid: z.number(), draft_note_id: z.number(), note: z.string().optional(), position: z.object({ base_sha: z.string(), start_sha: z.string(), head_sha: z.string(), position_type: z.enum(["text", "image", "file"]), new_path: z.string().optional(), new_line: z.number().optional(), old_path: z.string().optional(), old_line: z.number().optional(), width: z.number().optional(), height: z.number().optional(), x: z.number().optional(), y: z.number().optional(), line_range: z.object({ start: z.record(z.string(), z.unknown()).optional(), end: z.record(z.string(), z.unknown()).optional() }).optional() }).optional() }),
+    input: obj({ id: z.string(), merge_request_iid: z.number(), draft_note_id: z.number(), note: z.string().optional(), position: obj({ base_sha: z.string(), start_sha: z.string(), head_sha: z.string(), position_type: z.enum(["text", "image", "file"]), new_path: z.string().optional(), new_line: z.number().optional(), old_path: z.string().optional(), old_line: z.number().optional(), width: z.number().optional(), height: z.number().optional(), x: z.number().optional(), y: z.number().optional(), line_range: obj({ start: z.record(z.string(), z.unknown()).optional(), end: z.record(z.string(), z.unknown()).optional() }).optional() }).optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -42,7 +43,7 @@ export const draftNotesActions: Record<string, ActionDefinition> = {
     description: "Delete projects id merge requests merge request iid draft notes draft note id. Part of: draftnotes. Calls DELETE /projects/{id}/mergerequests/{mergerequestiid}/draftnotes/{draftnoteid} on GitLab.",
     method: "DELETE",
     path: "/projects/{id}/merge_requests/{merge_request_iid}/draft_notes/{draft_note_id}",
-    input: z.object({ id: z.string(), merge_request_iid: z.number(), draft_note_id: z.number() }),
+    input: obj({ id: z.string(), merge_request_iid: z.number(), draft_note_id: z.number() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -50,7 +51,7 @@ export const draftNotesActions: Record<string, ActionDefinition> = {
     description: "Put projects id merge requests merge request iid draft notes draft note id publish. Part of: draftnotes. Calls PUT /projects/{id}/mergerequests/{mergerequestiid}/draftnotes/{draftnoteid}/publish on GitLab.",
     method: "PUT",
     path: "/projects/{id}/merge_requests/{merge_request_iid}/draft_notes/{draft_note_id}/publish",
-    input: z.object({ id: z.string(), merge_request_iid: z.number(), draft_note_id: z.number() }),
+    input: obj({ id: z.string(), merge_request_iid: z.number(), draft_note_id: z.number() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -58,7 +59,7 @@ export const draftNotesActions: Record<string, ActionDefinition> = {
     description: "Post projects id merge requests merge request iid draft notes bulk publish. Part of: draftnotes. Calls POST /projects/{id}/mergerequests/{mergerequestiid}/draftnotes/bulkpublish on GitLab.",
     method: "POST",
     path: "/projects/{id}/merge_requests/{merge_request_iid}/draft_notes/bulk_publish",
-    input: z.object({ id: z.string(), merge_request_iid: z.number(), reviewer_state: z.enum(["requested_changes", "reviewed"]).optional(), note: z.string().optional(), internal: z.boolean().optional() }),
+    input: obj({ id: z.string(), merge_request_iid: z.number(), reviewer_state: z.enum(["requested_changes", "reviewed"]).optional(), note: z.string().optional(), internal: z.boolean().optional() }),
     output: z.unknown(),
     effect: "write",
   },
