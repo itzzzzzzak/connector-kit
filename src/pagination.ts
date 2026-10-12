@@ -277,3 +277,31 @@ export function lastItemPagination(options: {
     },
   }
 }
+
+/**
+ * GraphQL Relay-style paging (Linear): the list is `data.<connection>.nodes`, and `pageInfo.hasNextPage` / `pageInfo.endCursor` say
+ * whether and where to continue. The page size and cursor are the variables `first` and `after` in the request body.
+ */
+export function relayPagination(options: {
+  /** Path from `data` to the connection, e.g. ["issues"] or ["team", "issues"]. */
+  connection: string[]
+  defaultPageSize?: number
+  maxPageSize?: number
+}): PaginationStrategy {
+  const base = ["data", ...options.connection]
+  return {
+    cursorIn: "body",
+    cursorField: "variables.after",
+    pageSizeParam: "variables.first",
+    defaultPageSize: options.defaultPageSize ?? 25,
+    maxPageSize: options.maxPageSize ?? 100,
+    items: (body) => dig(body, [...base, "nodes"]),
+    nextCursor({ body }) {
+      const info = dig(body, [...base, "pageInfo"])
+      if (dig(info, ["hasNextPage"]) !== true) return null
+      const cursor = dig(info, ["endCursor"])
+      return typeof cursor === "string" && cursor !== "" ? cursor : null
+    },
+    applyCursor: (url) => new URL(url),
+  }
+}

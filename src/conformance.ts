@@ -67,6 +67,9 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
       if (!auth[field].startsWith("https://")) fail(`auth.${field} must be https`)
       if (placeholdersOf(auth[field]).length > 0) fail(`auth.${field} cannot contain {placeholders} yet`)
     }
+    if (auth.rawTokenPattern !== undefined) {
+      try { new RegExp(auth.rawTokenPattern) } catch { fail("auth.rawTokenPattern is not a valid regular expression") }
+    }
   }
 
   // ---- meta

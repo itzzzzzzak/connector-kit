@@ -21,6 +21,9 @@ importers:
       '@types/pg':
         specifier: ^8.23.1
         version: 8.23.1
+      graphql:
+        specifier: ^17.0.2
+        version: 17.0.2
       pg:
         specifier: ^8.23.1
         version: 8.23.1
@@ -239,6 +242,10 @@ packages:
   gopd@1.2.0:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
     engines: {node: '>= 0.4'}
+
+  graphql@17.0.2:
+    resolution: {integrity: sha512-FRWbddMxfkjiB7z+aQDWIR+E34xo9I8c9mtK2RPv8PmMzKRvrdsreHL/Ui/TmwHJfhHChEtsFPyMHKI+xuarQQ==}
+    engines: {node: ^22.0.0 || ^24.0.0 || ^25.0.0 || >=26.0.0}
 
   has-symbols@1.1.0:
     resolution: {integrity: sha512-1cDNdwJ2Jaohmb3sg4OmKaMBwuC48sYni5HUw2DvsC8LjGTLK9h+eb1X6RyuOHe4hT0ULCW68iomhjUoKUqlPQ==}
@@ -728,6 +735,8 @@ snapshots:
       es-object-atoms: 1.1.2
 
   gopd@1.2.0: {}
+
+  graphql@17.0.2: {}
 
   has-symbols@1.1.0: {}
 

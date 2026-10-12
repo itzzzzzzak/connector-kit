@@ -52,9 +52,21 @@ function applyAuth(headers: Headers, auth: AuthConfig, token: string): void {
     headers.set(auth.header, `${auth.prefix ?? ""}${token}`)
   } else if (auth.type === "basic") {
     headers.set("Authorization", `Basic ${Buffer.from(token, "utf8").toString("base64")}`)
+  } else if (auth.type === "oauth2" && auth.rawTokenPattern !== undefined && new RegExp(auth.rawTokenPattern).test(token)) {
+    headers.set("Authorization", token) // a personal API key some providers (Linear) want without the Bearer prefix
   } else {
     headers.set("Authorization", `Bearer ${token}`)
   }
+}
+
+/** Set `a.b.c` inside a copy of `target`, creating the objects on the way. Plain keys behave like a spread. */
+function withPath(target: Record<string, unknown>, path: string, value: unknown): Record<string, unknown> {
+  const [head, ...tail] = path.split(".")
+  if (head === undefined || head === "__proto__" || head === "constructor" || head === "prototype") return target
+  if (tail.length === 0) return { ...target, [head]: value }
+  const inner = target[head]
+  const innerObject = typeof inner === "object" && inner !== null && !Array.isArray(inner) ? (inner as Record<string, unknown>) : {}
+  return { ...target, [head]: withPath(innerObject, tail.join("."), value) }
 }
 
 type Scalar = string | number | boolean | bigint
@@ -273,7 +285,10 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
     if (hasBody && !queryOnly) {
       const source = bodyRest ?? rest
       const built = action.buildBody ? action.buildBody(source) : source
-      const payload = Object.keys(pageBody).length > 0 && typeof built === "object" && built !== null && !Array.isArray(built) ? { ...built, ...pageBody } : built
+      let payload: unknown = action.graphql !== undefined ? { query: action.graphql, variables: built ?? {} } : built
+      if (typeof payload === "object" && payload !== null && !Array.isArray(payload)) {
+        for (const [key, value] of Object.entries(pageBody)) payload = withPath(payload as Record<string, unknown>, key, value)
+      }
       if (formArrays) {
         if (typeof payload !== "object" || payload === null || Array.isArray(payload)) throw invalid(`"${actionName}" must send an object as its form body.`)
         headers.set("Content-Type", "application/x-www-form-urlencoded")
@@ -303,6 +318,12 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
         body = (await readCapped(response, ERROR_BODY_READ_BYTES)).text.slice(0, RAW_BODY_LIMIT_CHARS)
       } catch {
         // The error body is best-effort; the status alone is enough to classify.
+      }
+      if (connector.detectHttpError) {
+        let parsed: unknown
+        try { parsed = JSON.parse(body) } catch { /* not JSON; fall through to the status mapping */ }
+        const custom = connector.detectHttpError({ status: response.status, headers: response.headers, body: parsed })
+        if (custom) throw custom
       }
       const rateLimitExhausted = response.headers.get("x-ratelimit-remaining") === "0"
       const retryAfter = parseRetryAfter(response.headers, rateLimitExhausted)
@@ -342,7 +363,7 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
     // Providers that report failure inside a 200 response (Slack) get to say so before we try to read the body as data.
     const detected = connector.detectError?.(body)
     if (detected) throw detected
-    const data = action.paginate?.items ? action.paginate.items(body) : body
+    const data = action.paginate?.items ? action.paginate.items(body) : action.extract ? action.extract(body) : body
     const output = action.output.safeParse(data)
     if (!output.success) {
       throw new ConnectorKitError("upstream_error", `The provider response did not match the expected shape for "${actionName}".`, { retryable: false, status: response.status })

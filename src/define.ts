@@ -36,6 +36,11 @@ export type AuthConfig =
       tokenRequestFormat?: "form" | "json"
       /** Extra query params for the authorize URL (e.g. { access_type: "offline" }). */
       authorizeParams?: Record<string, string>
+      /**
+       * A regular expression. A token that matches is sent as the bare `Authorization` value, without "Bearer". For providers whose
+       * personal API keys are sent that way while their OAuth tokens are Bearer tokens (Linear: `^lin_api_`).
+       */
+      rawTokenPattern?: string
     }
 
 /** Description of one operation. Says WHAT; the runtime decides HOW. */
@@ -73,6 +78,16 @@ export interface ActionDefinition {
    * removes them, it does not add them for you.
    */
   paginate?: PaginationStrategy
+  /**
+   * A GraphQL document (ADR-021). The request is then a POST whose JSON body is `{ query, variables }`, where the variables are the
+   * validated input (shaped by `buildBody`, when given). Use `graphqlAction()` rather than writing this by hand.
+   */
+  graphql?: string
+  /**
+   * Pick the value to validate against `output` out of the parsed response body. Default: the whole body. For GraphQL, the field
+   * under `data` that the query asked for. Not used for the items of a paginated action (the strategy finds those).
+   */
+  extract?: (body: unknown) => unknown
 }
 
 /**
@@ -139,6 +154,12 @@ export interface ConnectorDefinition<A extends Record<string, ActionDefinition>>
    * (see ADR-015).
    */
   detectError?: (body: unknown) => ConnectorKitError | undefined
+  /**
+   * For providers that report a failure in the BODY of a non-2xx response in a way the status alone cannot tell (Linear rate limiting
+   * is HTTP 400 with `errors[0].extensions.code = "RATELIMITED"`). Called with the status, headers and parsed JSON body (undefined when
+   * it is not JSON) of every failed response; return a ConnectorKitError, or undefined to use the normal status mapping.
+   */
+  detectHttpError?: (response: { status: number; headers: Headers; body: unknown }) => ConnectorKitError | undefined
   actions: A
 }
 
