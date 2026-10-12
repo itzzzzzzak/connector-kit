@@ -17,13 +17,23 @@ connector-kit is an open-source TypeScript library for building and running conn
 
 It is designed **agent-first**. Every action is a typed, validated, LLM-readable tool, and the same definition also gives you a normal developer SDK.
 
-> **Status: pre-1.0.** The core (validation, OAuth, token storage, retries, pagination, MCP server) is tested end to end, and **22 connectors cover about 10,200 API actions**. Only GitHub has been run against its real API so far; the rest are built from official API descriptions and tested against fake servers (see [Connectors](#connectors)). Expect breaking changes until 1.0. Distributed from GitHub Releases, not npm.
+> **Status: pre-1.0.** The core (validation, OAuth, token storage, retries, pagination, MCP server) is tested end to end, and **43 connectors cover about 13,000 API actions**. Only GitHub has been run against its real API so far; the rest are built from official API descriptions and tested against fake servers (see [Connectors](#connectors)). Expect breaking changes until 1.0. Distributed from GitHub Releases, not npm.
 
 ## Why
 
 Every product that talks to third-party APIs re-implements the same plumbing, and every AI agent that calls tools needs it to be *safe*: a model can invent arguments, repeat a call in a loop, or be steered by text inside an API response. connector-kit puts that plumbing, and those guardrails, in one small, permissively licensed (MIT) library instead of in every integration.
 
-It is a **library, not a platform**: no server to run, no dashboard, no hosted service. It covers a lot of ground (22 providers, whole APIs) but stays small to adopt: you import only the connector you use, and nothing runs until you call it. It competes on being embeddable and safe by default.
+It is a **library, not a platform**: no server to run, no dashboard, no hosted service. It covers a lot of ground (43 providers, whole APIs) but stays small to adopt: you import only the connector you use, and nothing runs until you call it. It competes on being embeddable and safe by default.
+
+## Safe by default
+
+These are tested rules, not promises:
+
+- **Every action says what it does.** Each is marked `read`, `write` or `destructive`, and your `beforeExecute` policy decides what may run. Deleting, refunding, banning and the like are `destructive`.
+- **Retries never duplicate a write.** Reads retry after a timeout or 5xx. A write is retried only when it is safe to (Stripe-style idempotency keys), otherwise it fails once and says so.
+- **Secrets stay out.** Credentials never appear in errors, logs or tool output.
+- **A model cannot reach another server.** Hosts and paths are validated, so an invented argument cannot send your token elsewhere.
+- **Bounded output.** Lists return one page at a time with a cursor, and large responses are capped, so an agent cannot flood its own context.
 
 ## Install
 
@@ -33,7 +43,7 @@ connector-kit is distributed from **GitHub Releases**, not npm. Each release has
 npm install https://github.com/itzzzzzzak/connector-kit/releases/download/v<version>/connector-kit-<version>.tgz
 ```
 
-Pick a `<version>` (the latest is `0.4.0`) from the [Releases page](https://github.com/itzzzzzzak/connector-kit/releases). To hack on it instead, clone and build:
+Pick a `<version>` (the latest is `0.5.0`) from the [Releases page](https://github.com/itzzzzzzak/connector-kit/releases). To hack on it instead, clone and build:
 
 ```bash
 git clone https://github.com/itzzzzzzak/connector-kit && cd connector-kit
