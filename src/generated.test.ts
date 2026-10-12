@@ -44,7 +44,7 @@ for (const folder of folders) {
       const schema = z.toJSONSchema(action.input, { io: "input" }) as Schema & { required?: string[] }
       const input: Record<string, unknown> = {}
       for (const [key, prop] of Object.entries(schema.properties ?? {})) if (key !== "cursor" && key !== "pageSize") input[key] = dummy(prop)
-      const pathKeys = [...action.path.matchAll(/\{(\w+)\}/g)].map((m) => m[1]!)
+      const pathKeys = [...action.path.matchAll(/\{\+?(\w+)\}/g)].map((m) => m[1]!)
       const { conn, calls } = harness(connector, () => json(action.paginate ? (action.paginate.itemsKey ? { [action.paginate.itemsKey]: [] } : []) : {}), { variables, credentials: { token: connector.auth.type === "basic" ? "user:pass" : "test-token" } })
       try {
         await conn.execute(name as never, input as never)
@@ -55,7 +55,7 @@ for (const folder of folders) {
       const call = calls[0]
       if (!call) { problems.push(`${name}: nothing was sent`); continue }
       if (call.init.method !== action.method) problems.push(`${name}: sent ${call.init.method}, expected ${action.method}`)
-      const expectedPath = action.path.replace(/\{(\w+)\}/g, (_, k: string) => encodeURIComponent(String(input[k])))
+      const expectedPath = action.path.replace(/\{(\+?)(\w+)\}/g, (_, plus: string, k: string) => (plus ? String(input[k]).split("/").map(encodeURIComponent).join("/") : encodeURIComponent(String(input[k]))))
       if (!call.url.pathname.endsWith(expectedPath)) problems.push(`${name}: path ${call.url.pathname} does not end with ${expectedPath}`)
       const body = call.body && typeof call.body === "object" && !Array.isArray(call.body) ? (call.body as Record<string, unknown>) : {}
       const queryNames = topNames(call.url.searchParams.keys())

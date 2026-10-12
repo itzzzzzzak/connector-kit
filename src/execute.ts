@@ -93,7 +93,7 @@ function assertWithinBase(url: URL, base: URL, basePath: string, context: string
  */
 function fillPath(template: string, input: Record<string, unknown>): { path: string; rest: Record<string, unknown> } {
   const rest = { ...input }
-  const path = template.replace(/\{(\w+)\}/g, (_match, key: string) => {
+  const path = template.replace(/\{(\+?)(\w+)\}/g, (_match, plus: string, key: string) => {
     const value = rest[key]
     if (value === undefined || value === null) {
       throw invalid(`Missing required path parameter "${key}".`)
@@ -106,7 +106,11 @@ function fillPath(template: string, input: Record<string, unknown>): { path: str
       throw invalid(`Path parameter "${key}" has an invalid value.`)
     }
     delete rest[key]
-    return encodeURIComponent(text)
+    if (plus === "") return encodeURIComponent(text)
+    // `{+name}` takes a value that is itself a path (Google's "people/c123", "spaces/AAA/messages/BBB"): each segment is encoded, the slashes stay.
+    const segments = text.split("/")
+    if (segments.some((segment) => segment === "" || segment === "." || segment === "..")) throw invalid(`Path parameter "${key}" has an invalid value.`)
+    return segments.map(encodeURIComponent).join("/")
   })
   return { path, rest }
 }

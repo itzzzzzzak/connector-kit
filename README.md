@@ -219,6 +219,7 @@ The reasoning behind each decision is in [docs/adr](docs/adr), and the design ov
 - [ ] Full coverage for Airtable and Calendly (no official machine-readable description; hand-written)
 - [x] Cursor paging inside a POST body and JSON OAuth token requests, for Notion ([ADR-020](docs/adr/0020-body-cursor-paging-and-json-token-requests.md))
 - [x] GraphQL actions with Relay paging and GraphQL error mapping, for Linear ([ADR-021](docs/adr/0021-graphql-actions.md))
+- [x] Google Workspace as thirteen connectors generated from Discovery documents, with `{+name}` path values ([ADR-022](docs/adr/0022-google-workspace-connectors.md))
 - [ ] Linear, Google Workspace, Salesforce, Twilio, Shopify, Discord, Datadog (each needs one core feature first)
 - [ ] Promote connectors to `live-tested` as they are run against real accounts
 - [ ] Webhook verification and delivery de-duplication
@@ -227,7 +228,7 @@ Have an idea or a connector you need? [Open an issue](https://github.com/itzzzzz
 
 ## Connectors
 
-The catalog is in [docs/connectors.md](docs/connectors.md) (23 connectors, about 10,200 actions: GitHub, Stripe, Notion, Linear, Slack, Asana, HubSpot, Airtable, Calendly, Zoom, GitLab, Netlify, DigitalOcean, Vercel, Pipedrive, Intercom, Figma, Zendesk, Jira, PagerDuty, Mailchimp, ClickUp, Sentry), generated from each connector's own metadata. Every connector is marked **`live-tested`** (run against the real API) or **`docs-based`** (written from the provider's official docs and tested against a fake server, **not** run live). We do not blur the two. See ADR-016 for the plan and [docs/writing-connectors.md](docs/writing-connectors.md) to add one: `pnpm new:connector <name>` scaffolds it, and an automatic check over every connector keeps them consistent.
+The catalog is in [docs/connectors.md](docs/connectors.md) (36 connectors, about 10,700 actions: GitHub, Stripe, Notion, Linear, Gmail, Google Calendar, Drive, Sheets, Docs, Slides, Tasks, Contacts, Forms, Meet, Chat, Admin and Classroom, Slack, Asana, HubSpot, Airtable, Calendly, Zoom, GitLab, Netlify, DigitalOcean, Vercel, Pipedrive, Intercom, Figma, Zendesk, Jira, PagerDuty, Mailchimp, ClickUp, Sentry), generated from each connector's own metadata. Every connector is marked **`live-tested`** (run against the real API) or **`docs-based`** (written from the provider's official docs and tested against a fake server, **not** run live). We do not blur the two. See ADR-016 for the plan and [docs/writing-connectors.md](docs/writing-connectors.md) to add one: `pnpm new:connector <name>` scaffolds it, and an automatic check over every connector keeps them consistent.
 
 **Big connectors are used by group.** GitHub alone has about 1,190 actions, far too many to give a model at once. Actions are named `group.verb` (for example `issues.create`); expose a group with `--group issues,repos` (MCP) or `kit.toTools(connection, { groups: ["issues"] })`, or single actions with `only`. The MCP command refuses to start a connector with more than 40 actions unless you choose. Most actions are generated from the provider's official API description; the important ones are hand-written with typed results and take precedence by name. Generated actions are never marked safe to retry, and writes are blocked over MCP unless you pass `--allow-writes`.
 

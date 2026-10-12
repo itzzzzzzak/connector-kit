@@ -1,0 +1,29 @@
+{
+ "name": "google-people",
+ "title": "Google Contacts",
+ "descriptions": "derived",
+ "license": "none declared in the Discovery document; descriptions are written by this project",
+ "specs": [
+  {
+   "discovery": "https://www.googleapis.com/discovery/v1/apis/people/v1/rest"
+  }
+ ],
+ "pagination": [
+  {
+   "size": "maxResults",
+   "cursor": "pageToken",
+   "itemsKey": "auto",
+   "import": "bodyCursorPagination",
+   "call": "bodyCursorPagination({ itemsKey: \"{items}\", cursorPath: [\"nextPageToken\"], cursorParam: \"pageToken\", pageSizeParam: \"maxResults\", defaultPageSize: 25, maxPageSize: 100 })"
+  },
+  {
+   "size": "pageSize",
+   "cursor": "pageToken",
+   "itemsKey": "auto",
+   "import": "bodyCursorPagination",
+   "call": "bodyCursorPagination({ itemsKey: \"{items}\", cursorPath: [\"nextPageToken\"], cursorParam: \"pageToken\", pageSizeParam: \"pageSize\", defaultPageSize: 25, maxPageSize: 100 })"
+  }
+ ],
+ "destructiveVerbs": "^(delete|remove|trash|emptyTrash|clear|batchDelete|purge|cancel|revoke|stop|suspend|archive|wipe|block)",
+ "maxDepth": 2
+}

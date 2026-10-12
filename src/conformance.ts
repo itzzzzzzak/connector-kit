@@ -112,7 +112,7 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
     // effect must agree with the HTTP method (RPC-style providers that POST reads may declare effect "read")
     if (action.method === "GET" && action.effect !== "read") fail(`${at}: a GET must have effect "read"`)
     if (action.method === "DELETE" && action.effect !== "destructive") fail(`${at}: a DELETE must have effect "destructive"`)
-    if (action.effect === "destructive" && action.method !== "DELETE" && !/\b(delete|remov|revok|cancel|destroy|archiv|void|refund|terminat|reject|deactivat|expire|close)/i.test(`${name} ${description}`)) {
+    if (action.effect === "destructive" && action.method !== "DELETE" && !/\b(delete|remov|revok|cancel|destroy|archiv|void|refund|terminat|reject|deactivat|expire|close|trash|purg|wip|suspend|clear|block|stop|empty)/i.test(`${name} ${description}`)) {
       fail(`${at}: effect "destructive" on a ${action.method} should say in the description what is destroyed`)
     }
 
@@ -131,7 +131,7 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
       if (input.type !== "object") fail(`${at}: input must be an object schema`)
       const properties = input.properties ?? {}
       const required = new Set(input.required ?? [])
-      for (const [, param] of action.path.matchAll(/\{(\w+)\}/g)) {
+      for (const [, param] of action.path.matchAll(/\{\+?(\w+)\}/g)) {
         if (!param || !(param in properties)) fail(`${at}: path parameter {${param}} is not in the input schema`)
         // Optional is fine ONLY with a default (e.g. userId defaults to "me"): the value is then always present.
         else if (!required.has(param) && (properties[param] as { default?: unknown }).default === undefined) fail(`${at}: path parameter {${param}} must be required in the input schema (or have a default)`)

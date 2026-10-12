@@ -44,6 +44,58 @@
       "types": "./dist/connectors/gitlab/index.d.ts",
       "default": "./dist/connectors/gitlab/index.js"
     },
+    "./gmail": {
+      "types": "./dist/connectors/gmail/index.d.ts",
+      "default": "./dist/connectors/gmail/index.js"
+    },
+    "./google-admin": {
+      "types": "./dist/connectors/google-admin/index.d.ts",
+      "default": "./dist/connectors/google-admin/index.js"
+    },
+    "./google-calendar": {
+      "types": "./dist/connectors/google-calendar/index.d.ts",
+      "default": "./dist/connectors/google-calendar/index.js"
+    },
+    "./google-chat": {
+      "types": "./dist/connectors/google-chat/index.d.ts",
+      "default": "./dist/connectors/google-chat/index.js"
+    },
+    "./google-classroom": {
+      "types": "./dist/connectors/google-classroom/index.d.ts",
+      "default": "./dist/connectors/google-classroom/index.js"
+    },
+    "./google-docs": {
+      "types": "./dist/connectors/google-docs/index.d.ts",
+      "default": "./dist/connectors/google-docs/index.js"
+    },
+    "./google-drive": {
+      "types": "./dist/connectors/google-drive/index.d.ts",
+      "default": "./dist/connectors/google-drive/index.js"
+    },
+    "./google-forms": {
+      "types": "./dist/connectors/google-forms/index.d.ts",
+      "default": "./dist/connectors/google-forms/index.js"
+    },
+    "./google-meet": {
+      "types": "./dist/connectors/google-meet/index.d.ts",
+      "default": "./dist/connectors/google-meet/index.js"
+    },
+    "./google-people": {
+      "types": "./dist/connectors/google-people/index.d.ts",
+      "default": "./dist/connectors/google-people/index.js"
+    },
+    "./google-sheets": {
+      "types": "./dist/connectors/google-sheets/index.d.ts",
+      "default": "./dist/connectors/google-sheets/index.js"
+    },
+    "./google-slides": {
+      "types": "./dist/connectors/google-slides/index.d.ts",
+      "default": "./dist/connectors/google-slides/index.js"
+    },
+    "./google-tasks": {
+      "types": "./dist/connectors/google-tasks/index.d.ts",
+      "default": "./dist/connectors/google-tasks/index.js"
+    },
     "./hubspot": {
       "types": "./dist/connectors/hubspot/index.d.ts",
       "default": "./dist/connectors/hubspot/index.js"
