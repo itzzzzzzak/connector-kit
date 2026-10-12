@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const productCatalogActions: Record<string, ActionDefinition> = {
     description: "List trial offers. Returns a list of trial offers.",
     method: "GET",
     path: "/product_catalog/trial_offers",
-    input: z.object({ active: z.boolean().describe("Only return trial offers that are active (true) or archived (false). If omitted, both active and archived trial offers are returned.").optional(), created: z.unknown().describe("Only return trial offers that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), prices: z.array(z.string()).describe("Only return trial offers that reference these prices (during the trial period).").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ active: z.boolean().describe("Only return trial offers that are active (true) or archived (false). If omitted, both active and archived trial offers are returned.").optional(), created: z.unknown().describe("Only return trial offers that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), prices: z.array(z.string()).describe("Only return trial offers that reference these prices (during the trial period).").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const productCatalogActions: Record<string, ActionDefinition> = {
     description: "Create a trial offer. Creates a trial offer. Calls POST /productcatalog/trialoffers on Stripe.",
     method: "POST",
     path: "/product_catalog/trial_offers",
-    input: z.object({ active: z.boolean().describe("Whether the trial offer can be used for new subscriptions. Defaults to true.").optional(), duration: z.object({ relative: z.object({ iterations: z.number() }).optional(), type: z.enum(["relative"]) }).describe("Duration of one service period of the trial."), end_behavior: z.object({ transition: z.object({ price: z.string() }) }).describe("Define behavior that occurs at the end of the trial."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), nickname: z.string().describe("A brief description of the trial offer, hidden from customers.").optional(), price: z.string().describe("Price configuration during the trial period (amount, billing scheme, etc).") }),
+    input: obj({ active: z.boolean().describe("Whether the trial offer can be used for new subscriptions. Defaults to true.").optional(), duration: obj({ relative: z.record(z.string(), z.unknown()).optional(), type: z.enum(["relative"]) }).describe("Duration of one service period of the trial."), end_behavior: obj({ transition: z.record(z.string(), z.unknown()) }).describe("Define behavior that occurs at the end of the trial."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), nickname: z.string().describe("A brief description of the trial offer, hidden from customers.").optional(), price: z.string().describe("Price configuration during the trial period (amount, billing scheme, etc).") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const productCatalogActions: Record<string, ActionDefinition> = {
     description: "Retrieve a trial offer. Retrieves the trial offer with the given ID.",
     method: "GET",
     path: "/product_catalog/trial_offers/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const productCatalogActions: Record<string, ActionDefinition> = {
     description: "Update a trial offer. Updates the specified trial offer by setting the values of the parameters passed. Any parameters not provided are left unchanged.",
     method: "POST",
     path: "/product_catalog/trial_offers/{id}",
-    input: z.object({ id: z.string(), active: z.boolean().describe("Whether the trial offer can be used for new purchases.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ id: z.string(), active: z.boolean().describe("Whether the trial offer can be used for new purchases.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

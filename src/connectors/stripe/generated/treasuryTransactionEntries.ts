@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const treasuryTransactionEntriesActions: Record<string, ActionDefinition>
     description: "List all TransactionEntries. Retrieves a list of TransactionEntry objects.",
     method: "GET",
     path: "/treasury/transaction_entries",
-    input: z.object({ created: z.unknown().describe("Only return TransactionEntries that were created during the given date interval.").optional(), effective_at: z.unknown().optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), financial_account: z.string().describe("Returns objects associated with this FinancialAccount."), order_by: z.enum(["created", "effective_at"]).describe("The results are in reverse chronological order by created or effectiveat. The default is created.").optional(), transaction: z.string().describe("Only return TransactionEntries associated with this Transaction.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ created: z.unknown().describe("Only return TransactionEntries that were created during the given date interval.").optional(), effective_at: z.unknown().optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), financial_account: z.string().describe("Returns objects associated with this FinancialAccount."), order_by: z.enum(["created", "effective_at"]).describe("The results are in reverse chronological order by created or effectiveat. The default is created.").optional(), transaction: z.string().describe("Only return TransactionEntries associated with this Transaction.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const treasuryTransactionEntriesActions: Record<string, ActionDefinition>
     description: "Retrieve a TransactionEntry. Retrieves a TransactionEntry object.",
     method: "GET",
     path: "/treasury/transaction_entries/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

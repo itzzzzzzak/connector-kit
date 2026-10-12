@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const paymentAttemptRecordsActions: Record<string, ActionDefinition> = {
     description: "List Payment Attempt Records. List all the Payment Attempt Records attached to the specified Payment Record.",
     method: "GET",
     path: "/payment_attempt_records",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payment_record: z.string().describe("The ID of the Payment Record."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payment_record: z.string().describe("The ID of the Payment Record."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const paymentAttemptRecordsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a Payment Attempt Record. Retrieves a Payment Attempt Record with the given ID",
     method: "GET",
     path: "/payment_attempt_records/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string().describe("The ID of the Payment Attempt Record.") }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string().describe("The ID of the Payment Attempt Record.") }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const testHelpersTestClocksActions: Record<string, ActionDefinition> = {
     description: "List all test clocks. Returns a list of your test clocks.",
     method: "GET",
     path: "/test_helpers/test_clocks",
-    input: z.object({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const testHelpersTestClocksActions: Record<string, ActionDefinition> = {
     description: "Create a test clock. Creates a new test clock that can be attached to new customers and quotes.",
     method: "POST",
     path: "/test_helpers/test_clocks",
-    input: z.object({ customer: z.string().describe("Existing customer this test clock will be attached to. Once attached, customers can't be removed from a test clock.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), frozen_time: z.number().describe("The initial frozen time for this test clock."), name: z.string().describe("The name for this test clock.").optional() }),
+    input: obj({ customer: z.string().describe("Existing customer this test clock will be attached to. Once attached, customers can't be removed from a test clock.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), frozen_time: z.number().describe("The initial frozen time for this test clock."), name: z.string().describe("The name for this test clock.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const testHelpersTestClocksActions: Record<string, ActionDefinition> = {
     description: "Retrieve a test clock. Retrieves a test clock.",
     method: "GET",
     path: "/test_helpers/test_clocks/{test_clock}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), test_clock: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), test_clock: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const testHelpersTestClocksActions: Record<string, ActionDefinition> = {
     description: "Delete a test clock. Deletes a test clock. Calls DELETE /testhelpers/testclocks/{testclock} on Stripe.",
     method: "DELETE",
     path: "/test_helpers/test_clocks/{test_clock}",
-    input: z.object({ test_clock: z.string() }),
+    input: obj({ test_clock: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -44,7 +45,7 @@ export const testHelpersTestClocksActions: Record<string, ActionDefinition> = {
     description: "Advance a test clock. Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.",
     method: "POST",
     path: "/test_helpers/test_clocks/{test_clock}/advance",
-    input: z.object({ test_clock: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), frozen_time: z.number().describe("The time to advance the test clock. Must be after the test clock's current frozen time. Cannot be more than two intervals in the future from the shortest…") }),
+    input: obj({ test_clock: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), frozen_time: z.number().describe("The time to advance the test clock. Must be after the test clock's current frozen time. Cannot be more than two intervals in the future from the shortest…") }),
     output: z.unknown(),
     effect: "write",
   },

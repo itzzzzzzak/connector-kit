@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const financialConnectionsAccountsActions: Record<string, ActionDefinitio
     description: "List Accounts. Returns a list of Financial Connections Account objects.",
     method: "GET",
     path: "/financial_connections/accounts",
-    input: z.object({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), session: z.string().describe("If present, only return accounts that were collected as part of the given session.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), session: z.string().describe("If present, only return accounts that were collected as part of the given session.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const financialConnectionsAccountsActions: Record<string, ActionDefinitio
     description: "Retrieve an Account. Retrieves the details of a Financial Connections Account.",
     method: "GET",
     path: "/financial_connections/accounts/{account}",
-    input: z.object({ account: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ account: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const financialConnectionsAccountsActions: Record<string, ActionDefinitio
     description: "Disconnect an Account. Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).",
     method: "POST",
     path: "/financial_connections/accounts/{account}/disconnect",
-    input: z.object({ account: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ account: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const financialConnectionsAccountsActions: Record<string, ActionDefinitio
     description: "List Account Owners. Lists all owners for a given Account",
     method: "GET",
     path: "/financial_connections/accounts/{account}/owners",
-    input: z.object({ account: z.string(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), ownership: z.string().describe("The ID of the ownership object to fetch owners from."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ account: z.string(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), ownership: z.string().describe("The ID of the ownership object to fetch owners from."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -45,7 +46,7 @@ export const financialConnectionsAccountsActions: Record<string, ActionDefinitio
     description: "Refresh Account data. Refreshes the data associated with a Financial Connections Account.",
     method: "POST",
     path: "/financial_connections/accounts/{account}/refresh",
-    input: z.object({ account: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), features: z.array(z.enum(["balance", "ownership", "transactions"])).describe("The list of account features that you would like to refresh.") }),
+    input: obj({ account: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), features: z.array(z.enum(["balance", "ownership", "transactions"])).describe("The list of account features that you would like to refresh.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -53,7 +54,7 @@ export const financialConnectionsAccountsActions: Record<string, ActionDefinitio
     description: "Subscribe to data refreshes for an Account. Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.",
     method: "POST",
     path: "/financial_connections/accounts/{account}/subscribe",
-    input: z.object({ account: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), features: z.array(z.enum(["transactions"])).describe("The list of account features to which you would like to subscribe.") }),
+    input: obj({ account: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), features: z.array(z.enum(["transactions"])).describe("The list of account features to which you would like to subscribe.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -61,7 +62,7 @@ export const financialConnectionsAccountsActions: Record<string, ActionDefinitio
     description: "Unsubscribe from data refreshes for an Account. Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.",
     method: "POST",
     path: "/financial_connections/accounts/{account}/unsubscribe",
-    input: z.object({ account: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), features: z.array(z.enum(["transactions"])).describe("The list of account features from which you would like to unsubscribe.") }),
+    input: obj({ account: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), features: z.array(z.enum(["transactions"])).describe("The list of account features from which you would like to unsubscribe.") }),
     output: z.unknown(),
     effect: "write",
   },

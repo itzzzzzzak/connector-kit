@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const refundsActions: Record<string, ActionDefinition> = {
     description: "List all refunds. Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.",
     method: "GET",
     path: "/refunds",
-    input: z.object({ charge: z.string().describe("Only return refunds for the charge specified by this charge ID.").optional(), created: z.unknown().describe("Only return refunds that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payment_intent: z.string().describe("Only return refunds for the PaymentIntent specified by this ID.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ charge: z.string().describe("Only return refunds for the charge specified by this charge ID.").optional(), created: z.unknown().describe("Only return refunds that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payment_intent: z.string().describe("Only return refunds for the PaymentIntent specified by this ID.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const refundsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a refund. Retrieves the details of an existing refund.",
     method: "GET",
     path: "/refunds/{refund}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), refund: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), refund: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -28,7 +29,7 @@ export const refundsActions: Record<string, ActionDefinition> = {
     description: "Update a refund. Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don’t provide remain unchanged.",
     method: "POST",
     path: "/refunds/{refund}",
-    input: z.object({ refund: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
+    input: obj({ refund: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -36,7 +37,7 @@ export const refundsActions: Record<string, ActionDefinition> = {
     description: "Cancel a refund. Cancels a refund with a status of requiresaction.",
     method: "POST",
     path: "/refunds/{refund}/cancel",
-    input: z.object({ refund: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ refund: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },

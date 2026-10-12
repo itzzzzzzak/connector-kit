@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const issuingSettlementsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const issuingSettlementsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a settlement. Retrieves an Issuing Settlement object.",
     method: "GET",
     path: "/issuing/settlements/{settlement}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), settlement: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), settlement: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const issuingSettlementsActions: Record<string, ActionDefinition> = {
     description: "Update a settlement. Updates the specified Issuing Settlement object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.",
     method: "POST",
     path: "/issuing/settlements/{settlement}",
-    input: z.object({ settlement: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
+    input: obj({ settlement: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
     output: z.unknown(),
     effect: "write",
   },

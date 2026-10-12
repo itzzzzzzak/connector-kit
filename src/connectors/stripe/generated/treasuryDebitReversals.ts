@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const treasuryDebitReversalsActions: Record<string, ActionDefinition> = {
     description: "List all DebitReversals. Returns a list of DebitReversals.",
     method: "GET",
     path: "/treasury/debit_reversals",
-    input: z.object({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), financial_account: z.string().describe("Returns objects associated with this FinancialAccount."), received_debit: z.string().describe("Only return DebitReversals for the ReceivedDebit ID.").optional(), resolution: z.enum(["lost", "won"]).describe("Only return DebitReversals for a given resolution.").optional(), status: z.enum(["canceled", "completed", "processing"]).describe("Only return DebitReversals for a given status.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), financial_account: z.string().describe("Returns objects associated with this FinancialAccount."), received_debit: z.string().describe("Only return DebitReversals for the ReceivedDebit ID.").optional(), resolution: z.enum(["lost", "won"]).describe("Only return DebitReversals for a given resolution.").optional(), status: z.enum(["canceled", "completed", "processing"]).describe("Only return DebitReversals for a given status.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const treasuryDebitReversalsActions: Record<string, ActionDefinition> = {
     description: "Create a DebitReversal. Reverses a ReceivedDebit and creates a DebitReversal object.",
     method: "POST",
     path: "/treasury/debit_reversals",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), received_debit: z.string().describe("The ReceivedDebit to reverse.") }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), received_debit: z.string().describe("The ReceivedDebit to reverse.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const treasuryDebitReversalsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a DebitReversal. Retrieves a DebitReversal object.",
     method: "GET",
     path: "/treasury/debit_reversals/{debit_reversal}",
-    input: z.object({ debit_reversal: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ debit_reversal: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "read",
   },

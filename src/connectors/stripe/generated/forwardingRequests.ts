@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const forwardingRequestsActions: Record<string, ActionDefinition> = {
     description: "List all ForwardingRequests. Lists all ForwardingRequest objects.",
     method: "GET",
     path: "/forwarding/requests",
-    input: z.object({ ending_before: z.string().describe("A pagination cursor to fetch the previous page of the list. The value must be a ForwardingRequest ID.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ ending_before: z.string().describe("A pagination cursor to fetch the previous page of the list. The value must be a ForwardingRequest ID.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const forwardingRequestsActions: Record<string, ActionDefinition> = {
     description: "Create a ForwardingRequest. Creates a ForwardingRequest object.",
     method: "POST",
     path: "/forwarding/requests",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), payment_method: z.string().describe("The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed."), replacements: z.array(z.enum(["card_cvc", "card_expiry", "card_number", "cardholder_name", "request_signature"])).describe("The field kinds to be replaced in the forwarded request."), request: z.object({ body: z.string().optional(), headers: z.array(z.record(z.string(), z.unknown())).optional() }).describe("The request body and headers to be sent to the destination endpoint.").optional(), url: z.string().describe("The destination URL for the forwarded request. Must be supported by the config.") }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), payment_method: z.string().describe("The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed."), replacements: z.array(z.enum(["card_cvc", "card_expiry", "card_number", "cardholder_name", "request_signature"])).describe("The field kinds to be replaced in the forwarded request."), request: obj({ body: z.string().optional(), headers: z.array(z.record(z.string(), z.unknown())).optional() }).describe("The request body and headers to be sent to the destination endpoint.").optional(), url: z.string().describe("The destination URL for the forwarded request. Must be supported by the config.") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const forwardingRequestsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a ForwardingRequest. Retrieves a ForwardingRequest object.",
     method: "GET",
     path: "/forwarding/requests/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

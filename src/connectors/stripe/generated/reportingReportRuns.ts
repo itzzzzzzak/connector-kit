@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const reportingReportRunsActions: Record<string, ActionDefinition> = {
     description: "List all Report Runs. Returns a list of Report Runs, with the most recent appearing first.",
     method: "GET",
     path: "/reporting/report_runs",
-    input: z.object({ created: z.unknown().describe("Only return Report Runs that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ created: z.unknown().describe("Only return Report Runs that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const reportingReportRunsActions: Record<string, ActionDefinition> = {
     description: "Create a Report Run. Creates a new object and begin running the report. (Certain report types require a live-mode API key.)",
     method: "POST",
     path: "/reporting/report_runs",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), parameters: z.object({ columns: z.array(z.string()).optional(), connected_account: z.string().optional(), currency: z.string().optional(), interval_end: z.number().optional(), interval_start: z.number().optional(), payout: z.string().optional(), reporting_category: z.string().optional(), timezone: z.string().optional() }).describe("Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the API Access to…").optional(), report_type: z.string().describe("The ID of the report type to run, such as \"balance.summary.1\".") }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), parameters: obj({ columns: z.array(z.string()).optional(), connected_account: z.string().optional(), currency: z.string().optional(), interval_end: z.number().optional(), interval_start: z.number().optional(), payout: z.string().optional(), reporting_category: z.string().optional(), timezone: z.string().optional() }).describe("Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the API Access to…").optional(), report_type: z.string().describe("The ID of the report type to run, such as \"balance.summary.1\".") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const reportingReportRunsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a Report Run. Retrieves the details of an existing Report Run.",
     method: "GET",
     path: "/reporting/report_runs/{report_run}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), report_run: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), report_run: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

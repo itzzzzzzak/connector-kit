@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const identityVerificationReportsActions: Record<string, ActionDefinition
     description: "List VerificationReports. List all verification reports.",
     method: "GET",
     path: "/identity/verification_reports",
-    input: z.object({ client_reference_id: z.string().describe("A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.").optional(), created: z.unknown().describe("Only return VerificationReports that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), type: z.enum(["document", "id_number"]).describe("Only return VerificationReports of this type").optional(), verification_session: z.string().describe("Only return VerificationReports created by this VerificationSession ID. It is allowed to provide a VerificationIntent ID.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ client_reference_id: z.string().describe("A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.").optional(), created: z.unknown().describe("Only return VerificationReports that were created during the given date interval.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), type: z.enum(["document", "id_number"]).describe("Only return VerificationReports of this type").optional(), verification_session: z.string().describe("Only return VerificationReports created by this VerificationSession ID. It is allowed to provide a VerificationIntent ID.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const identityVerificationReportsActions: Record<string, ActionDefinition
     description: "Retrieve a VerificationReport. Retrieves an existing VerificationReport",
     method: "GET",
     path: "/identity/verification_reports/{report}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), report: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), report: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const taxLocationsActions: Record<string, ActionDefinition> = {
     description: "List tax locations. Retrieve a list of all tax locations. Tax locations can represent the venues for services, tickets, or other product types.",
     method: "GET",
     path: "/tax/locations",
-    input: z.object({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), type: z.enum(["performance"]).describe("Type of the tax location. Currently the only option is performance."), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), type: z.enum(["performance"]).describe("Type of the tax location. Currently the only option is performance."), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const taxLocationsActions: Record<string, ActionDefinition> = {
     description: "Create a tax location Calls POST /tax/locations on Stripe.",
     method: "POST",
     path: "/tax/locations",
-    input: z.object({ address: z.object({ city: z.unknown().optional(), country: z.string(), line1: z.unknown().optional(), line2: z.unknown().optional(), postal_code: z.unknown().optional(), state: z.unknown().optional() }).describe("The physical address of the tax location."), description: z.string().describe("Details to identify the tax location by its venue, types of events held, or available services, such as \"A spacious auditorium suitable for large concerts and…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), type: z.enum(["performance"]).describe("The type of tax location. The only supported value is \"performance\".") }),
+    input: obj({ address: obj({ city: z.unknown().optional(), country: z.string(), line1: z.unknown().optional(), line2: z.unknown().optional(), postal_code: z.unknown().optional(), state: z.unknown().optional() }).describe("The physical address of the tax location."), description: z.string().describe("Details to identify the tax location by its venue, types of events held, or available services, such as \"A spacious auditorium suitable for large concerts and…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), type: z.enum(["performance"]).describe("The type of tax location. The only supported value is \"performance\".") }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const taxLocationsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a tax location. Fetch the details of a specific tax location using its unique identifier. Use a tax location to calculate taxes based on the location of the end product, such as a performance, instead of the customer address. For more details, check the integration guide.",
     method: "GET",
     path: "/tax/locations/{location}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), location: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), location: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

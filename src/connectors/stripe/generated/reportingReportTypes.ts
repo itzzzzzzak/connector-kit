@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const reportingReportTypesActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const reportingReportTypesActions: Record<string, ActionDefinition> = {
     description: "List all Report Types. Returns a full list of Report Types.",
     method: "GET",
     path: "/reporting/report_types",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -18,7 +19,7 @@ export const reportingReportTypesActions: Record<string, ActionDefinition> = {
     description: "Retrieve a Report Type. Retrieves the details of a Report Type. (Certain report types require a live-mode API key.)",
     method: "GET",
     path: "/reporting/report_types/{report_type}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), report_type: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), report_type: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { pick } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const ephemeralKeysActions: Record<string, ActionDefinition> = {
     description: "Create an ephemeral key. Creates a short-lived API key for a given resource.",
     method: "POST",
     path: "/ephemeral_keys",
-    input: z.object({ customer: z.string().describe("The ID of the Customer you'd like to modify using the resulting ephemeral key.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), issuing_card: z.string().describe("The ID of the Issuing Card you'd like to access using the resulting ephemeral key.").optional(), nonce: z.string().describe("A single-use token, created by Stripe.js, used for creating ephemeral keys for Issuing Cards without exchanging sensitive information.").optional(), verification_session: z.string().describe("The ID of the Identity VerificationSession you'd like to access using the resulting ephemeral key").optional() }),
+    input: obj({ customer: z.string().describe("The ID of the Customer you'd like to modify using the resulting ephemeral key.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), issuing_card: z.string().describe("The ID of the Issuing Card you'd like to access using the resulting ephemeral key.").optional(), nonce: z.string().describe("A single-use token, created by Stripe.js, used for creating ephemeral keys for Issuing Cards without exchanging sensitive information.").optional(), verification_session: z.string().describe("The ID of the Identity VerificationSession you'd like to access using the resulting ephemeral key").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -19,7 +20,7 @@ export const ephemeralKeysActions: Record<string, ActionDefinition> = {
     description: "Immediately invalidate an ephemeral key. Invalidates a short-lived API key for a given resource.",
     method: "DELETE",
     path: "/ephemeral_keys/{key}",
-    input: z.object({ key: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ key: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "destructive",
     buildBody: (i) => pick(i, ["expand"]),

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const customerSessionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const customerSessionsActions: Record<string, ActionDefinition> = {
     description: "Create a Customer Session. Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.",
     method: "POST",
     path: "/customer_sessions",
-    input: z.object({ components: z.object({ active_entitlements: z.object({ enabled: z.boolean() }).optional(), buy_button: z.object({ enabled: z.boolean() }).optional(), customer_portal: z.object({ enabled: z.boolean() }).optional(), customer_sheet: z.object({ enabled: z.boolean(), features: z.record(z.string(), z.unknown()).optional() }).optional(), mobile_payment_element: z.object({ enabled: z.boolean(), features: z.record(z.string(), z.unknown()).optional() }).optional(), payment_element: z.object({ enabled: z.boolean(), features: z.record(z.string(), z.unknown()).optional() }).optional(), pricing_table: z.object({ enabled: z.boolean() }).optional() }).describe("Configuration for each component. At least 1 component must be enabled."), customer: z.string().describe("The ID of an existing customer for which to create the Customer Session.").optional(), customer_account: z.string().describe("The ID of an existing Account for which to create the Customer Session.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ components: obj({ active_entitlements: z.record(z.string(), z.unknown()).optional(), buy_button: z.record(z.string(), z.unknown()).optional(), customer_portal: z.record(z.string(), z.unknown()).optional(), customer_sheet: z.record(z.string(), z.unknown()).optional(), mobile_payment_element: z.record(z.string(), z.unknown()).optional(), payment_element: z.record(z.string(), z.unknown()).optional(), pricing_table: z.record(z.string(), z.unknown()).optional() }).describe("Configuration for each component. At least 1 component must be enabled."), customer: z.string().describe("The ID of an existing customer for which to create the Customer Session.").optional(), customer_account: z.string().describe("The ID of an existing Account for which to create the Customer Session.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

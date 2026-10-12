@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const appsInstallsActions: Record<string, ActionDefinition> = {
     description: "List all app installs. Returns a list of app installs. An app developer or embedding platform filtering by its own app sees the installs across the accounts that installed it; other callers see the installs on their own account. The key selects the environment: a live key lists live installs, a sandbox API key lists the installs on that sandbox, and t",
     method: "GET",
     path: "/apps/installs",
-    input: z.object({ account: z.string().describe("Only return installs made by this account. Only useful to app developers and embedding platforms, whose lists span the accounts that installed their app.").optional(), app: z.string().describe("Only return installs for the app specified by this app ID.").optional(), approval_required: z.boolean().describe("Only return installs whose installer must authorize pending permissions, content security policy entries, or endpoints.").optional(), channel: z.enum(["private_live", "private_test", "public", "testing"]).describe("Only return installs in the distribution channel specified by this channel name.").optional(), created: z.unknown().describe("Only return app installs that were created during the given date interval.").optional(), created_by: z.string().describe("Only return installs created by the embedding platform specified by this account ID.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), status: z.enum(["install_failed", "installed", "installing", "uninstall_failed", "uninstalling"]).describe("Only return installs with the given status.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ account: z.string().describe("Only return installs made by this account. Only useful to app developers and embedding platforms, whose lists span the accounts that installed their app.").optional(), app: z.string().describe("Only return installs for the app specified by this app ID.").optional(), approval_required: z.boolean().describe("Only return installs whose installer must authorize pending permissions, content security policy entries, or endpoints.").optional(), channel: z.enum(["private_live", "private_test", "public", "testing"]).describe("Only return installs in the distribution channel specified by this channel name.").optional(), created: z.unknown().describe("Only return app installs that were created during the given date interval.").optional(), created_by: z.string().describe("Only return installs created by the embedding platform specified by this account ID.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), status: z.enum(["install_failed", "installed", "installing", "uninstall_failed", "uninstalling"]).describe("Only return installs with the given status.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const appsInstallsActions: Record<string, ActionDefinition> = {
     description: "Create an app install. Creates an app install. An account installs its own private app with its own key; public and testing installs are made from the Dashboard. An app developer or embedding platform acting on a connected account through Stripe-Account installs or reinstalls its app there. For a private app, creating an install installs the newest co",
     method: "POST",
     path: "/apps/installs",
-    input: z.object({ app: z.string().describe("The ID of the app to install."), channel: z.enum(["private_live", "private_test", "public", "testing"]).describe("The distribution channel to install from. Defaults to public. A private app must be installed on privatetest or privatelive, matching the mode of the API key.").optional(), code_challenge: z.string().describe("For OAuth apps, the PKCE code challenge used to issue the authcode returned on the install. Must be 43 to 128 characters and contain only letters, numbers, -,…").optional(), code_challenge_method: z.string().describe("The method used to derive codechallenge. Required when codechallenge is provided, and must be S256.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ app: z.string().describe("The ID of the app to install."), channel: z.enum(["private_live", "private_test", "public", "testing"]).describe("The distribution channel to install from. Defaults to public. A private app must be installed on privatetest or privatelive, matching the mode of the API key.").optional(), code_challenge: z.string().describe("For OAuth apps, the PKCE code challenge used to issue the authcode returned on the install. Must be 43 to 128 characters and contain only letters, numbers, -,…").optional(), code_challenge_method: z.string().describe("The method used to derive codechallenge. Required when codechallenge is provided, and must be S256.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const appsInstallsActions: Record<string, ActionDefinition> = {
     description: "Retrieve an app install. Retrieves an app install. The installing account, the app’s developer (with the keys of the account that owns the app or of the app’s managed sandbox), and the embedding platform that created the install can retrieve it.",
     method: "GET",
     path: "/apps/installs/{id}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), id: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const appsInstallsActions: Record<string, ActionDefinition> = {
     description: "Update an app install. Reauthorizes an app install. The installer grants the permissions, content security policy entries, and endpoints that the version being installed requests. An account reauthorizes its own installs on any channel with its own key; app developers and embedding platforms reauthorize installs on connected accounts through Stripe-Ac",
     method: "POST",
     path: "/apps/installs/{id}",
-    input: z.object({ id: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ id: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const appsInstallsActions: Record<string, ActionDefinition> = {
     description: "Uninstall an app install. Uninstalls an app from the account that installed it.",
     method: "POST",
     path: "/apps/installs/{id}/uninstall",
-    input: z.object({ id: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ id: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
 export const financialConnectionsSessionsActions: Record<string, ActionDefinition> = {
@@ -10,7 +11,7 @@ export const financialConnectionsSessionsActions: Record<string, ActionDefinitio
     description: "Create a Session. To launch the Financial Connections authorization flow, create a Session. The session’s clientsecret can be used to launch the flow using Stripe.js.",
     method: "POST",
     path: "/financial_connections/sessions",
-    input: z.object({ account_holder: z.object({ account: z.string().optional(), customer: z.string().optional(), customer_account: z.string().optional(), type: z.enum(["account", "customer"]) }).describe("The account holder to link accounts for."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), filters: z.object({ account_subcategories: z.array(z.enum(["checking", "credit_card", "line_of_credit", "mortgage", "savings"])).optional(), country: z.string().optional(), require_payment_method_support: z.enum(["all", "at_least_one", "none"]).optional() }).describe("Filters to restrict the kinds of accounts to collect.").optional(), limits: z.object({ accounts: z.unknown() }).describe("Settings for configuring Session-specific limits.").optional(), manual_entry: z.object({ mode: z.enum(["automatic", "disabled"]).optional() }).describe("Customize manual entry behavior").optional(), permissions: z.array(z.enum(["balances", "ownership", "payment_method", "transactions"])).describe("List of data features that you would like to request access to. Possible values are balances, transactions, ownership, and paymentmethod."), prefetch: z.array(z.enum(["balances", "ownership", "transactions"])).describe("List of data features that you would like to retrieve upon account creation.").optional(), return_url: z.string().describe("For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.").optional() }),
+    input: obj({ account_holder: obj({ account: z.string().optional(), customer: z.string().optional(), customer_account: z.string().optional(), type: z.enum(["account", "customer"]) }).describe("The account holder to link accounts for."), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), filters: obj({ account_subcategories: z.array(z.enum(["checking", "credit_card", "line_of_credit", "mortgage", "savings"])).optional(), country: z.string().optional(), require_payment_method_support: z.enum(["all", "at_least_one", "none"]).optional() }).describe("Filters to restrict the kinds of accounts to collect.").optional(), limits: obj({ accounts: z.unknown() }).describe("Settings for configuring Session-specific limits.").optional(), manual_entry: obj({ mode: z.enum(["automatic", "disabled"]).optional() }).describe("Customize manual entry behavior").optional(), permissions: z.array(z.enum(["balances", "ownership", "payment_method", "transactions"])).describe("List of data features that you would like to request access to. Possible values are balances, transactions, ownership, and paymentmethod."), prefetch: z.array(z.enum(["balances", "ownership", "transactions"])).describe("List of data features that you would like to retrieve upon account creation.").optional(), return_url: z.string().describe("For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -18,7 +19,7 @@ export const financialConnectionsSessionsActions: Record<string, ActionDefinitio
     description: "Retrieve a Session. Retrieves the details of a Financial Connections Session",
     method: "GET",
     path: "/financial_connections/sessions/{session}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), session: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), session: z.string() }),
     output: z.unknown(),
     effect: "read",
   },

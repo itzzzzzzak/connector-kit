@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const applePayActions: Record<string, ActionDefinition> = {
     description: "List apple pay domains. Calls GET /applepay/domains on Stripe.",
     method: "GET",
     path: "/apple_pay/domains",
-    input: z.object({ domain_name: z.string().optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ domain_name: z.string().optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const applePayActions: Record<string, ActionDefinition> = {
     description: "Create an apple pay domain. Calls POST /applepay/domains on Stripe.",
     method: "POST",
     path: "/apple_pay/domains",
-    input: z.object({ domain_name: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ domain_name: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const applePayActions: Record<string, ActionDefinition> = {
     description: "Retrieve an apple pay domain. Calls GET /applepay/domains/{domain} on Stripe.",
     method: "GET",
     path: "/apple_pay/domains/{domain}",
-    input: z.object({ domain: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ domain: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const applePayActions: Record<string, ActionDefinition> = {
     description: "Delete an apple pay domain. Calls DELETE /applepay/domains/{domain} on Stripe.",
     method: "DELETE",
     path: "/apple_pay/domains/{domain}",
-    input: z.object({ domain: z.string() }),
+    input: obj({ domain: z.string() }),
     output: z.unknown(),
     effect: "destructive",
   },

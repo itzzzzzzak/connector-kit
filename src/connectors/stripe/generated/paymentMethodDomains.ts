@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const paymentMethodDomainsActions: Record<string, ActionDefinition> = {
     description: "List payment method domains. Lists the details of existing payment method domains.",
     method: "GET",
     path: "/payment_method_domains",
-    input: z.object({ domain_name: z.string().describe("The domain name that this payment method domain object represents.").optional(), enabled: z.boolean().describe("Whether this payment method domain is enabled. If the domain is not enabled, payment methods will not appear in Elements or Embedded Checkout").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ domain_name: z.string().describe("The domain name that this payment method domain object represents.").optional(), enabled: z.boolean().describe("Whether this payment method domain is enabled. If the domain is not enabled, payment methods will not appear in Elements or Embedded Checkout").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const paymentMethodDomainsActions: Record<string, ActionDefinition> = {
     description: "Create a payment method domain. Creates a payment method domain.",
     method: "POST",
     path: "/payment_method_domains",
-    input: z.object({ domain_name: z.string().describe("The domain name that this payment method domain object represents."), enabled: z.boolean().describe("Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ domain_name: z.string().describe("The domain name that this payment method domain object represents."), enabled: z.boolean().describe("Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const paymentMethodDomainsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a payment method domain. Retrieves the details of an existing payment method domain.",
     method: "GET",
     path: "/payment_method_domains/{payment_method_domain}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payment_method_domain: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payment_method_domain: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const paymentMethodDomainsActions: Record<string, ActionDefinition> = {
     description: "Update a payment method domain. Updates an existing payment method domain.",
     method: "POST",
     path: "/payment_method_domains/{payment_method_domain}",
-    input: z.object({ payment_method_domain: z.string(), enabled: z.boolean().describe("Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ payment_method_domain: z.string(), enabled: z.boolean().describe("Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const paymentMethodDomainsActions: Record<string, ActionDefinition> = {
     description: "Validate an existing payment method domain. Some payment methods might require additional steps to register a domain. If the requirements weren’t satisfied when the domain was created, the payment method will be inactive on the domain. The payment method doesn’t appear in Elements or Embedded Checkout for this domain until it is active.",
     method: "POST",
     path: "/payment_method_domains/{payment_method_domain}/validate",
-    input: z.object({ payment_method_domain: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ payment_method_domain: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "write",
   },

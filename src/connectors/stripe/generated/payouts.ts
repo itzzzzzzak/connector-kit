@@ -3,6 +3,7 @@
 // Do not edit by hand: change scripts/openapi/stripe.json or the generator, then re-run it.
 import { z } from "zod"
 import type { ActionDefinition } from "../../../define.js"
+import { obj } from "../../../openapi-helpers.js"
 import { lastItemPagination } from "../../../index.js"
 
 // Annotated (not inferred) on purpose: a precise type for thousands of actions makes the compiler run out of memory.
@@ -11,7 +12,7 @@ export const payoutsActions: Record<string, ActionDefinition> = {
     description: "List all payouts. Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.",
     method: "GET",
     path: "/payouts",
-    input: z.object({ arrival_date: z.unknown().describe("Only return payouts that are expected to arrive during the given date interval.").optional(), created: z.unknown().describe("Only return payouts that were created during the given date interval.").optional(), destination: z.string().describe("The ID of an external account - only return payouts sent to this external account.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), status: z.string().describe("Only return payouts that have the given status: pending, paid, failed, or canceled.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
+    input: obj({ arrival_date: z.unknown().describe("Only return payouts that are expected to arrive during the given date interval.").optional(), created: z.unknown().describe("Only return payouts that were created during the given date interval.").optional(), destination: z.string().describe("The ID of an external account - only return payouts sent to this external account.").optional(), ending_before: z.string().describe("A cursor for use in pagination. endingbefore is an object ID that defines your place in the list. For instance, if you make a list request and receive 100…").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), status: z.string().describe("Only return payouts that have the given status: pending, paid, failed, or canceled.").optional(), cursor: z.string().optional(), pageSize: z.number().optional() }),
     output: z.array(z.unknown()),
     effect: "read",
     paginate: lastItemPagination(),
@@ -20,7 +21,7 @@ export const payoutsActions: Record<string, ActionDefinition> = {
     description: "Create a payout. To send funds to your own bank account, create a new payout object. Your Stripe balance must cover the payout amount. If it doesn’t, you receive an “Insufficient Funds” error.",
     method: "POST",
     path: "/payouts",
-    input: z.object({ amount: z.number().describe("A positive integer in cents representing how much to pay out."), currency: z.string().describe("Three-letter ISO currency code, in lowercase. Must be a supported currency."), description: z.string().describe("An arbitrary string attached to the object. Often useful for displaying to users.").optional(), destination: z.string().describe("The ID of a bank account or a card to send the payout to. If you don't provide a destination, we use the default external account for the specified currency.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), method: z.enum(["instant", "standard"]).describe("The method used to send this payout, which is standard or instant. We support instant for payouts to debit cards and bank accounts in certain countries. Learn…").optional(), payout_method: z.string().describe("The ID of a v2 FinancialAccount to send funds to.").optional(), source_type: z.enum(["bank_account", "card", "fpx"]).describe("The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with…").optional(), statement_descriptor: z.string().describe("A string that displays on the recipient's bank or card statement (up to 22 characters). A statementdescriptor that's longer than 22 characters return an…").optional() }),
+    input: obj({ amount: z.number().describe("A positive integer in cents representing how much to pay out."), currency: z.string().describe("Three-letter ISO currency code, in lowercase. Must be a supported currency."), description: z.string().describe("An arbitrary string attached to the object. Often useful for displaying to users.").optional(), destination: z.string().describe("The ID of a bank account or a card to send the payout to. If you don't provide a destination, we use the default external account for the specified currency.").optional(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional(), method: z.enum(["instant", "standard"]).describe("The method used to send this payout, which is standard or instant. We support instant for payouts to debit cards and bank accounts in certain countries. Learn…").optional(), payout_method: z.string().describe("The ID of a v2 FinancialAccount to send funds to.").optional(), source_type: z.enum(["bank_account", "card", "fpx"]).describe("The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with…").optional(), statement_descriptor: z.string().describe("A string that displays on the recipient's bank or card statement (up to 22 characters). A statementdescriptor that's longer than 22 characters return an…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -28,7 +29,7 @@ export const payoutsActions: Record<string, ActionDefinition> = {
     description: "Retrieve a payout. Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.",
     method: "GET",
     path: "/payouts/{payout}",
-    input: z.object({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payout: z.string() }),
+    input: obj({ expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), payout: z.string() }),
     output: z.unknown(),
     effect: "read",
   },
@@ -36,7 +37,7 @@ export const payoutsActions: Record<string, ActionDefinition> = {
     description: "Update a payout. Updates the specified payout by setting the values of the parameters you pass. We don’t change parameters that you don’t provide. This request only accepts the metadata as arguments.",
     method: "POST",
     path: "/payouts/{payout}",
-    input: z.object({ payout: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
+    input: obj({ payout: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.unknown().describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
@@ -44,7 +45,7 @@ export const payoutsActions: Record<string, ActionDefinition> = {
     description: "Cancel a payout. You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can’t cancel automatic Stripe payouts.",
     method: "POST",
     path: "/payouts/{payout}/cancel",
-    input: z.object({ payout: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
+    input: obj({ payout: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional() }),
     output: z.unknown(),
     effect: "destructive",
   },
@@ -52,7 +53,7 @@ export const payoutsActions: Record<string, ActionDefinition> = {
     description: "Reverse a payout. Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US and Canadian bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.",
     method: "POST",
     path: "/payouts/{payout}/reverse",
-    input: z.object({ payout: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
+    input: obj({ payout: z.string(), expand: z.array(z.string()).describe("Specifies which fields in the response should be expanded.").optional(), metadata: z.record(z.string(), z.unknown()).describe("Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.…").optional() }),
     output: z.unknown(),
     effect: "write",
   },
