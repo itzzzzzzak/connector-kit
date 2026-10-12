@@ -140,9 +140,17 @@
       "types": "./dist/connectors/pipedrive/index.d.ts",
       "default": "./dist/connectors/pipedrive/index.js"
     },
+    "./resend": {
+      "types": "./dist/connectors/resend/index.d.ts",
+      "default": "./dist/connectors/resend/index.js"
+    },
     "./salesforce": {
       "types": "./dist/connectors/salesforce/index.d.ts",
       "default": "./dist/connectors/salesforce/index.js"
+    },
+    "./sendgrid": {
+      "types": "./dist/connectors/sendgrid/index.d.ts",
+      "default": "./dist/connectors/sendgrid/index.js"
     },
     "./sentry": {
       "types": "./dist/connectors/sentry/index.d.ts",
