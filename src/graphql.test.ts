@@ -62,6 +62,8 @@ test("graphql: errors in a 200 response become normalized errors, with the provi
     ["AUTHENTICATION_ERROR", "auth_expired"],
     ["FORBIDDEN", "forbidden"],
     ["RATELIMITED", "rate_limited"],
+    ["THROTTLED", "rate_limited"],
+    ["ACCESS_DENIED", "forbidden"],
     ["INVALID_INPUT", "invalid_input"],
     ["SOMETHING_ELSE", "upstream_error"],
   ]

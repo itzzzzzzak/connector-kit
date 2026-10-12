@@ -140,6 +140,10 @@
       "types": "./dist/connectors/sentry/index.d.ts",
       "default": "./dist/connectors/sentry/index.js"
     },
+    "./shopify": {
+      "types": "./dist/connectors/shopify/index.d.ts",
+      "default": "./dist/connectors/shopify/index.js"
+    },
     "./slack": {
       "types": "./dist/connectors/slack/index.d.ts",
       "default": "./dist/connectors/slack/index.js"

@@ -58,8 +58,8 @@ export function detectGraphqlError(body: unknown, status = 200): ConnectorKitErr
   const raw = { status, body: JSON.stringify(errors).slice(0, 2000) }
   const init = (retryable: boolean) => ({ retryable, status, raw })
   if (/auth|unauthor/.test(tag)) return new ConnectorKitError("auth_expired", "The credentials were rejected. They may be expired or revoked.", init(false))
-  if (/forbidden|permission|featurenotaccessible/.test(tag)) return new ConnectorKitError("forbidden", "The credentials are valid but not allowed to do this. Check scopes or permissions.", init(false))
-  if (/rate/.test(tag)) return new ConnectorKitError("rate_limited", "The provider rate limit was hit. Retry later.", init(true))
+  if (/forbidden|permission|featurenotaccessible|accessdenied/.test(tag)) return new ConnectorKitError("forbidden", "The credentials are valid but not allowed to do this. Check scopes or permissions.", init(false))
+  if (/rate|throttl/.test(tag)) return new ConnectorKitError("rate_limited", "The provider rate limit was hit. Retry later.", init(true))
   if (/notfound/.test(tag) || /^entity not found|not found/i.test(text)) return new ConnectorKitError("not_found", "The requested resource was not found, or the credentials cannot see it.", init(false))
   if (/invalid|input|validation|baduser|usererror/.test(tag)) return new ConnectorKitError("invalid_input", "The provider rejected the request as invalid.", init(false))
   return new ConnectorKitError("upstream_error", "The provider returned a GraphQL error.", init(false))

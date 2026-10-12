@@ -24,5 +24,7 @@ Each piece is small and optional, and an existing connector behaves exactly as b
 ## Trade-offs
 Each action carries a fixed selection set, so a caller cannot ask for a field that action does not return. That keeps results small and typed. Linear's connector is therefore curated (23 actions), not the whole schema.
 
+A connector with a schema too large to curate (Shopify) may add two raw actions next to the curated ones: a read-only `graphql.query` that refuses any document containing a mutation or subscription (comments and strings are stripped first, in one pass), and a `graphql.mutate` marked `destructive`, because it can do anything the token allows. A mutation that reports failure in the payload (`userErrors`, HTTP 200) is turned into an error by the connector's `detectError`.
+
 ## When we may revisit
 If other GraphQL providers (Shopify's Admin API) need the whole schema, add a generator that writes `graphqlAction` calls from introspection.
