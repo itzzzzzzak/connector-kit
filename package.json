@@ -132,6 +132,10 @@
       "types": "./dist/connectors/pipedrive/index.d.ts",
       "default": "./dist/connectors/pipedrive/index.js"
     },
+    "./salesforce": {
+      "types": "./dist/connectors/salesforce/index.d.ts",
+      "default": "./dist/connectors/salesforce/index.js"
+    },
     "./sentry": {
       "types": "./dist/connectors/sentry/index.d.ts",
       "default": "./dist/connectors/sentry/index.js"
