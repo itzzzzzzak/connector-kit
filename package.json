@@ -32,6 +32,10 @@
       "types": "./dist/connectors/digitalocean/index.d.ts",
       "default": "./dist/connectors/digitalocean/index.js"
     },
+    "./discord": {
+      "types": "./dist/connectors/discord/index.d.ts",
+      "default": "./dist/connectors/discord/index.js"
+    },
     "./figma": {
       "types": "./dist/connectors/figma/index.d.ts",
       "default": "./dist/connectors/figma/index.js"

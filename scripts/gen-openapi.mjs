@@ -372,7 +372,8 @@ for (const { path, rel, method, op, params: allParams, bodySchema, bodyRequired,
     return clean(d, 480)
   })()
 
-  const destructiveVerb = config.destructiveVerbs && method !== "get" && new RegExp(config.destructiveVerbs, "i").test(verbWords)
+  // `destructiveIds` is tested against the operation id too, for providers whose verb is not first (Discord: create_guild_ban, bulk_delete_messages).
+  const destructiveVerb = method !== "get" && ((config.destructiveVerbs && new RegExp(config.destructiveVerbs, "i").test(verbWords)) || (config.destructiveIds && new RegExp(config.destructiveIds, "i").test(id)))
   const effect = method === "get" ? "read" : method === "delete" || destructiveVerb ? "destructive" : "write"
   const bodyKeys = entries.filter(([, f]) => f.where === "body")
   const queryKeys = entries.filter(([, f]) => f.where === "query")

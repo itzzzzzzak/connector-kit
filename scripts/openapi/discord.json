@@ -1,0 +1,23 @@
+{
+ "name": "discord",
+ "title": "Discord",
+ "spec": "https://raw.githubusercontent.com/discord/discord-api-spec/main/specs/openapi.json",
+ "license": "MIT (github.com/discord/discord-api-spec)",
+ "idSplit": "^([a-z]+)_(.+)$",
+ "destructiveIds": "(^|_)(ban|kick|prune|purge|delete|remove)(_|$)",
+ "maxDepth": 2,
+ "pagination": [
+  {
+   "size": "limit",
+   "cursor": "before",
+   "import": "lastIdPagination",
+   "call": "lastIdPagination({ cursorParam: \"before\", defaultPageSize: 50, maxPageSize: 100 })"
+  },
+  {
+   "size": "limit",
+   "cursor": "after",
+   "import": "lastIdPagination",
+   "call": "lastIdPagination({ cursorParam: \"after\", defaultPageSize: 50, maxPageSize: 100 })"
+  }
+ ]
+}

@@ -282,6 +282,41 @@ export function lastItemPagination(options: {
 }
 
 /**
+ * Discord-style: the body IS the list, there is no "more" flag and no cursor in the response. A page that came back FULL (as many items as
+ * the request's page size) may have a successor; the next one starts after the last item's id (`after`, for lists oldest first) or before it
+ * (`before`, for lists newest first, such as channel messages). A short or empty page ends the listing.
+ */
+export function lastIdPagination(options: {
+  /** The query parameter that carries the cursor back: "after" or "before". */
+  cursorParam: "after" | "before"
+  /** Where the id is inside each item, dotted for a nested one ("user.id" for a guild member). Default "id". */
+  idKey?: string
+  pageSizeParam?: string
+  defaultPageSize?: number
+  maxPageSize?: number
+}): PaginationStrategy {
+  const idPath = (options.idKey ?? "id").split(".")
+  const pageSizeParam = options.pageSizeParam ?? "limit"
+  return {
+    pageSizeParam,
+    defaultPageSize: options.defaultPageSize ?? 50,
+    maxPageSize: options.maxPageSize ?? 100,
+    nextCursor({ body, url }) {
+      if (!Array.isArray(body) || body.length === 0) return null
+      const asked = Number(url.searchParams.get(pageSizeParam))
+      if (!Number.isFinite(asked) || body.length < asked) return null
+      const id = dig(body[body.length - 1], idPath)
+      return typeof id === "string" && id !== "" ? id : null
+    },
+    applyCursor(url, cursor) {
+      const next = new URL(url)
+      next.searchParams.set(options.cursorParam, cursor)
+      return next
+    },
+  }
+}
+
+/**
  * GraphQL Relay-style paging (Linear): the list is `data.<connection>.nodes`, and `pageInfo.hasNextPage` / `pageInfo.endCursor` say
  * whether and where to continue. The page size and cursor are the variables `first` and `after` in the request body.
  */
