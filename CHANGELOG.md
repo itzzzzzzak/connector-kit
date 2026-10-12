@@ -2,6 +2,26 @@
 
 All notable changes are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims to follow [Semantic Versioning](https://semver.org/) from 0.1.
 
+## [0.5.0](https://github.com/itzzzzzzak/connector-kit/compare/v0.4.0...v0.5.0) (2026-10-12)
+
+
+### Features
+
+* add Notion connector, cursor paging in a POST body and JSON OAuth token requests ([#37](https://github.com/itzzzzzzak/connector-kit/issues/37)) ([d6ecf76](https://github.com/itzzzzzzak/connector-kit/commit/d6ecf764cdd5f5f79e67127f952c2266ae3b2524))
+* add Stripe connector, form-encoded bodies, idempotency keys and last-item paging ([#35](https://github.com/itzzzzzzak/connector-kit/issues/35)) ([55e9ae5](https://github.com/itzzzzzzak/connector-kit/commit/55e9ae528e8c5bc83f34697e212a1f5c05dd1931))
+* add the Discord connector ([#43](https://github.com/itzzzzzzak/connector-kit/issues/43)) ([fbdb1a6](https://github.com/itzzzzzzak/connector-kit/commit/fbdb1a648b9ff8a19be2964556ef3bf1602901af))
+* add the Linear connector and GraphQL actions ([#38](https://github.com/itzzzzzzak/connector-kit/issues/38)) ([aacbb9f](https://github.com/itzzzzzzak/connector-kit/commit/aacbb9f4b5c4e6904e99eb242a796f9f228356e6))
+* add the Salesforce connector ([#40](https://github.com/itzzzzzzak/connector-kit/issues/40)) ([b4dcef3](https://github.com/itzzzzzzak/connector-kit/commit/b4dcef34ed07a3004a993dbef5d00a2e632bc7ad))
+* add the Shopify connector ([#42](https://github.com/itzzzzzzak/connector-kit/issues/42)) ([82d7ea6](https://github.com/itzzzzzzak/connector-kit/commit/82d7ea6c69a9f5f0ff44986360caaad67dee57d3))
+* add the Twilio, Twilio Verify and Twilio Lookups connectors ([#41](https://github.com/itzzzzzzak/connector-kit/issues/41)) ([7bc7630](https://github.com/itzzzzzzak/connector-kit/commit/7bc763021dff521abd4af4bc09a6174d9ddb6fd8))
+* add thirteen Google Workspace connectors ([#39](https://github.com/itzzzzzzak/connector-kit/issues/39)) ([958a25a](https://github.com/itzzzzzzak/connector-kit/commit/958a25ac5c84edf94ad2ad738a7a5e1a713e6e1d))
+* Datadog connector with two-key auth ([#44](https://github.com/itzzzzzzak/connector-kit/issues/44)) ([14caa29](https://github.com/itzzzzzzak/connector-kit/commit/14caa294a725dee66f3b89762e8dcdc43e083e71))
+
+
+### Performance Improvements
+
+* stop the type check running out of memory (5 GB to 1.6 GB) ([#36](https://github.com/itzzzzzzak/connector-kit/issues/36)) ([ddcf7bc](https://github.com/itzzzzzzak/connector-kit/commit/ddcf7bc76a9d94dedad78bc16c31a55c44560225))
+
 ## [0.4.0](https://github.com/itzzzzzzak/connector-kit/compare/v0.3.0...v0.4.0) (2026-10-11)
 
 
