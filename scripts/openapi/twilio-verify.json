@@ -1,0 +1,20 @@
+{
+ "name": "twilio-verify",
+ "title": "Twilio Verify",
+ "spec": "https://raw.githubusercontent.com/twilio/twilio-oai/main/spec/json/twilio_verify_v2.json",
+ "license": "MIT (github.com/twilio/twilio-oai)",
+ "formEncoded": true,
+ "idSplit": "^(Create|Read|List|Fetch|Update|Delete)(.+)$",
+ "dropParams": [
+  "Page"
+ ],
+ "pagination": [
+  {
+   "size": "PageSize",
+   "cursor": "PageToken",
+   "itemsKey": "auto",
+   "import": "bodyLinkPagination",
+   "call": "bodyLinkPagination({ itemsKey: \"{items}\", nextUrlPath: [\"meta\", \"next_page_url\"], pageSizeParam: \"PageSize\", defaultPageSize: 50, maxPageSize: 1000 })"
+  }
+ ]
+}

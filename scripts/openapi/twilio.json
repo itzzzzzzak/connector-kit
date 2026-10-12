@@ -1,0 +1,20 @@
+{
+ "name": "twilio",
+ "title": "Twilio",
+ "spec": "https://raw.githubusercontent.com/twilio/twilio-oai/main/spec/json/twilio_api_v2010.json",
+ "license": "MIT (github.com/twilio/twilio-oai)",
+ "formEncoded": true,
+ "idSplit": "^(Create|Read|List|Fetch|Update|Delete)(.+)$",
+ "dropParams": [
+  "Page"
+ ],
+ "pagination": [
+  {
+   "size": "PageSize",
+   "cursor": "PageToken",
+   "itemsKey": "auto",
+   "import": "bodyLinkPagination",
+   "call": "bodyLinkPagination({ itemsKey: \"{items}\", nextUrlPath: [\"next_page_uri\"], relative: true, pageSizeParam: \"PageSize\", defaultPageSize: 50, maxPageSize: 1000 })"
+  }
+ ]
+}

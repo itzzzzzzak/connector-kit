@@ -1,0 +1,12 @@
+{
+ "name": "twilio-lookups",
+ "title": "Twilio Lookups",
+ "spec": "https://raw.githubusercontent.com/twilio/twilio-oai/main/spec/json/twilio_lookups_v2.json",
+ "license": "MIT (github.com/twilio/twilio-oai)",
+ "formEncoded": true,
+ "idSplit": "^(Create|Read|List|Fetch|Update|Delete)(.+)$",
+ "dropParams": [
+  "Page"
+ ],
+ "pagination": []
+}

@@ -116,6 +116,8 @@ export function bodyLinkPagination(options: {
    * for providers that keep sending a next link on the last page.
    */
   hasMorePath?: string[]
+  /** The next-page link is a path on the same host ("/2010-04-01/Accounts/AC.../Messages.json?Page=1", Twilio) rather than a full URL. */
+  relative?: boolean
   pageSizeParam?: string
   defaultPageSize?: number
   maxPageSize?: number
@@ -131,8 +133,9 @@ export function bodyLinkPagination(options: {
       const next = dig(body, options.nextUrlPath)
       return typeof next === "string" && next !== "" ? next : null
     },
-    applyCursor(_url, cursor) {
-      return new URL(cursor)
+    applyCursor(url, cursor) {
+      // A "//host/path" link would change the host; the kit's base-URL check then refuses it before anything is sent.
+      return options.relative ? new URL(cursor, url.origin) : new URL(cursor)
     },
   }
 }

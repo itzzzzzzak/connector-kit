@@ -273,7 +273,10 @@ for (const { path, rel, method, op, params: allParams, bodySchema, bodyRequired,
     verbWords = `${verb0} ${tailWords.join(" ")}`.trim()
   }
   const sep = config.naming === "path" || config.naming === "rest" ? null : /^([A-Za-z0-9-]+)[/_](.+)$/.exec(id)
+  // `idSplit`: a regular expression over the operation id with the verb first and the resource second (Twilio: CreateMessage, ListCall).
+  const split = config.idSplit ? new RegExp(config.idSplit).exec(id) : null
   if (config.naming === "path" || config.naming === "rest") { /* names set above */ }
+  else if (split) { verbWords = split[1]; groupWords = split[2] }
   else if (sep && !/\s/.test(id)) { groupWords = sep[1]; verbWords = sep[2] }
   else {
     groupWords = op.tags?.[0] ?? rel.split("/").filter((s) => s && !s.startsWith("{"))[0] ?? "misc"
@@ -322,7 +325,7 @@ for (const { path, rel, method, op, params: allParams, bodySchema, bodyRequired,
 
   for (const p of params) {
     if (paged.has(p.name)) continue
-    const key = p.name.replace(/[^A-Za-z0-9_]/g, "_")
+    const key = p.name.replace(/<$/, "_before").replace(/>$/, "_after").replace(/[^A-Za-z0-9_]/g, "_") // Twilio: DateSent< and DateSent>
     const desc = derived ? "" : clean(p.description, 160)
     let zod = zodOf(swagger2 ? { type: p.type, enum: p.enum, items: p.items, format: p.format } : p.schema)
     if (desc) zod += `.describe(${q(desc)})`
