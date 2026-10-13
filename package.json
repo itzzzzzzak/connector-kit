@@ -208,6 +208,10 @@
       "types": "./dist/connectors/vercel/index.d.ts",
       "default": "./dist/connectors/vercel/index.js"
     },
+    "./whatsapp": {
+      "types": "./dist/connectors/whatsapp/index.d.ts",
+      "default": "./dist/connectors/whatsapp/index.js"
+    },
     "./zendesk": {
       "types": "./dist/connectors/zendesk/index.d.ts",
       "default": "./dist/connectors/zendesk/index.js"
