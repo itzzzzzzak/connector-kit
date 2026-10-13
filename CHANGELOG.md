@@ -2,6 +2,15 @@
 
 All notable changes are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims to follow [Semantic Versioning](https://semver.org/) from 0.1.
 
+## [0.6.0](https://github.com/itzzzzzzak/connector-kit/compare/v0.5.0...v0.6.0) (2026-10-13)
+
+
+### Features
+
+* add Dropbox connector ([#53](https://github.com/itzzzzzzak/connector-kit/issues/53)) ([e236c5f](https://github.com/itzzzzzzak/connector-kit/commit/e236c5fc727a452bcf89ce12bf5c0731118c82d4))
+* add Outlook, OneDrive and Microsoft Teams connectors ([#50](https://github.com/itzzzzzzak/connector-kit/issues/50)) ([a73e325](https://github.com/itzzzzzzak/connector-kit/commit/a73e32597f0fd395cf4c9531610acdbb1faa8665))
+* add Resend and SendGrid connectors ([#52](https://github.com/itzzzzzzak/connector-kit/issues/52)) ([e54d912](https://github.com/itzzzzzzak/connector-kit/commit/e54d912fec64b6c8f113e6aa24c88213095189d8))
+
 ## [0.5.0](https://github.com/itzzzzzzak/connector-kit/compare/v0.4.0...v0.5.0) (2026-10-12)
 
 
