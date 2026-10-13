@@ -54,6 +54,8 @@ function applyAuth(headers: Headers, auth: AuthConfig, token: string): void {
     const values = token.split(":")
     if (values.length !== auth.headers.length) throw invalid(`The credential must hold ${auth.headers.length} values joined by ":" (${auth.headers.join(", ")}).`)
     auth.headers.forEach((name, i) => headers.set(name, values[i]!))
+  } else if (auth.type === "pathToken") {
+    // nothing in the headers: the token goes into the URL path (see `requestUrl`)
   } else if (auth.type === "basic") {
     headers.set("Authorization", `Basic ${Buffer.from(token, "utf8").toString("base64")}`)
   } else if (auth.type === "oauth2" && auth.rawTokenPattern !== undefined && new RegExp(auth.rawTokenPattern).test(token)) {
@@ -61,6 +63,14 @@ function applyAuth(headers: Headers, auth: AuthConfig, token: string): void {
   } else {
     headers.set("Authorization", `Bearer ${token}`)
   }
+}
+
+/** For a `pathToken` connector, the URL to fetch: the token (and its prefix) is inserted right after the base path. Every other connector fetches `url` as it is. */
+function requestUrl(url: URL, basePath: string, auth: AuthConfig, token: string): URL {
+  if (auth.type !== "pathToken") return url
+  const target = new URL(url)
+  target.pathname = `${basePath}/${auth.prefix ?? ""}${encodeURIComponent(token).replace(/%3A/gi, ":")}${url.pathname.slice(basePath.length)}`
+  return target
 }
 
 /** Set `a.b.c` inside a copy of `target`, creating the objects on the way. Plain keys behave like a spread. */
@@ -314,7 +324,7 @@ export async function execute(params: ExecuteParams): Promise<unknown> {
     // 3. Call and read, both under the same timeout signal.
     let response: Response
     try {
-      response = await params.fetch(url, init)
+      response = await params.fetch(requestUrl(url, basePath, connector.auth, lastToken), init)
     } catch (error) {
       throw networkError(error, params.timeoutMs)
     }

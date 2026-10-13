@@ -188,6 +188,10 @@
       "types": "./dist/connectors/supabase/index.d.ts",
       "default": "./dist/connectors/supabase/index.js"
     },
+    "./telegram": {
+      "types": "./dist/connectors/telegram/index.d.ts",
+      "default": "./dist/connectors/telegram/index.js"
+    },
     "./twilio": {
       "types": "./dist/connectors/twilio/index.d.ts",
       "default": "./dist/connectors/twilio/index.js"
