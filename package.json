@@ -180,6 +180,10 @@
       "types": "./dist/connectors/stripe/index.d.ts",
       "default": "./dist/connectors/stripe/index.js"
     },
+    "./supabase": {
+      "types": "./dist/connectors/supabase/index.d.ts",
+      "default": "./dist/connectors/supabase/index.js"
+    },
     "./twilio": {
       "types": "./dist/connectors/twilio/index.d.ts",
       "default": "./dist/connectors/twilio/index.js"

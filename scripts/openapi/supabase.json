@@ -1,0 +1,12 @@
+{
+  "name": "supabase",
+  "title": "Supabase",
+  "spec": "https://raw.githubusercontent.com/supabase/supabase/master/apps/docs/spec/api_v1_openapi.json",
+  "license": "Apache-2.0 (github.com/supabase/supabase)",
+  "groupFromTag": false,
+  "stripFromOperationId": "^v1-",
+  "excludePathPattern": "^/v1/oauth/|/api-keys|/analytics/endpoints/metrics",
+  "destructiveVerbs": "(delete|remove|reset|restore|revoke|disable|merge|pause|rollback|cancel|clear|drop)",
+  "pagination": [],
+  "destructiveNote": "This disables or overwrites existing project data and may not be reversible."
+}
