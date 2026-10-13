@@ -212,6 +212,10 @@
       "types": "./dist/connectors/telegram/index.d.ts",
       "default": "./dist/connectors/telegram/index.js"
     },
+    "./trello": {
+      "types": "./dist/connectors/trello/index.d.ts",
+      "default": "./dist/connectors/trello/index.js"
+    },
     "./twilio": {
       "types": "./dist/connectors/twilio/index.d.ts",
       "default": "./dist/connectors/twilio/index.js"

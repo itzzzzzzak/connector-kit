@@ -1,6 +1,6 @@
 import { z } from "zod"
 import { fixedHostSuffix, hostPartOf, placeholdersOf, variableMatches } from "./base-url.js"
-import type { ActionDefinition, ConnectorDefinition } from "./define.js"
+import { headerTemplateSlots, type ActionDefinition, type ConnectorDefinition } from "./define.js"
 
 /**
  * Static quality checks every connector must pass (docs/writing-connectors.md). Returns a list of problems;
@@ -66,6 +66,13 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
     if (auth.headers.length < 2) fail("auth.apiKeys needs at least two header names (use apiKey for one)")
     if (new Set(auth.headers.map((h) => h.toLowerCase())).size !== auth.headers.length) fail("auth.apiKeys header names must be different")
     for (const name of auth.headers) if (!/^[A-Za-z][A-Za-z0-9-]*$/.test(name)) fail(`auth.apiKeys header "${name}" is not a valid header name`)
+  }
+  if (auth.type === "headerTemplate") {
+    if (!/^[A-Za-z][A-Za-z0-9-]*$/.test(auth.header)) fail(`auth.headerTemplate header "${auth.header}" is not a valid header name`)
+    const slots = [...auth.template.matchAll(/\{(\d+)\}/g)].map((m) => Number(m[1]))
+    const needed = headerTemplateSlots(auth.template)
+    if (needed < 1 || !Array.from({ length: needed }, (_, i) => i + 1).every((n) => slots.includes(n))) fail("auth.headerTemplate template needs numbered slots {1}, {2}, ... with no gaps")
+    if (/[\r\n]/.test(auth.template)) fail("auth.headerTemplate template cannot contain a line break")
   }
   if (auth.type === "pathToken" && auth.prefix !== undefined && !/^[A-Za-z0-9_-]{0,16}$/.test(auth.prefix)) fail("auth.pathToken prefix must be at most 16 letters, digits, - or _")
   if (auth.type === "oauth2") {
