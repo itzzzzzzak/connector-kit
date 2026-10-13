@@ -188,7 +188,7 @@ Manage Cloudflare zones, DNS records and the cache, and list accounts and Worker
 - `zone.get` (read): Get a zone by id: its status, name servers and plan.
 - `zoneSettings.list` (read): List a zone's settings (SSL mode, minimum TLS version, always-use-HTTPS, caching level and more) with their current values.
 - `dnsRecords.list` (read): List a zone's DNS records, optionally filtered by type, name or content.
-- `dnsRecord.get` (read): Get one DNS record by id.
+- `dnsRecord.get` (read): Get one DNS record by id, with its type, name, content, TTL and whether it is proxied.
 - `dnsRecord.create` (write): Create a DNS record.
 - `dnsRecord.update` (write): Change fields of an existing DNS record (only the fields you give).
 - `dnsRecord.delete` (destructive): Delete a DNS record.
