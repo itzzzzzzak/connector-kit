@@ -32,6 +32,10 @@
       "types": "./dist/connectors/cloudflare/index.d.ts",
       "default": "./dist/connectors/cloudflare/index.js"
     },
+    "./confluence": {
+      "types": "./dist/connectors/confluence/index.d.ts",
+      "default": "./dist/connectors/confluence/index.js"
+    },
     "./datadog": {
       "types": "./dist/connectors/datadog/index.d.ts",
       "default": "./dist/connectors/datadog/index.js"
