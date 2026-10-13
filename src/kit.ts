@@ -1,5 +1,5 @@
 import type { z } from "zod"
-import type { ActionDefinition, ConnectorDefinition } from "./define.js"
+import { headerTemplateSlots, type ActionDefinition, type ConnectorDefinition } from "./define.js"
 import { resolveBaseUrl } from "./base-url.js"
 import { credentialToToken, DEFAULT_MAX_RESPONSE_BYTES, DEFAULT_TIMEOUT_MS, execute, staticTokenSource, type Credentials, type TokenSource } from "./execute.js"
 import { credentialKey, finishAuth, oauthConfigOf, oauthTokenSource, startAuth, type OAuthClientConfig, type OAuthDeps } from "./oauth.js"
@@ -110,6 +110,9 @@ export function createConnectorKit(options: KitOptions = {}) {
         const secret = credentialToToken(credentials)
         if (connector.auth.type === "basic" && !secret.includes(":")) {
           throw new Error(`Connector "${connector.name}" uses Basic auth: pass credentials as { username, password } or a token written "username:password".`)
+        }
+        if (connector.auth.type === "headerTemplate" && secret.split(":").length !== headerTemplateSlots(connector.auth.template)) {
+          throw new Error(`Connector "${connector.name}" needs ${headerTemplateSlots(connector.auth.template)} values: pass credentials as a token written "${Array.from({ length: headerTemplateSlots(connector.auth.template) }, (_, i) => `value${i + 1}`).join(":")}".`)
         }
         if (connector.auth.type === "apiKeys" && secret.split(":").length !== connector.auth.headers.length) {
           throw new Error(`Connector "${connector.name}" needs ${connector.auth.headers.length} keys (${connector.auth.headers.join(", ")}): pass credentials as a token written "${connector.auth.headers.map((_, i) => `key${i + 1}`).join(":")}".`)

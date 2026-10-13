@@ -1,5 +1,5 @@
 import { ConnectorKitError, errorFromStatus } from "./errors.js"
-import type { ActionDefinition, AuthConfig, ConnectorDefinition } from "./define.js"
+import { headerTemplateSlots, type ActionDefinition, type AuthConfig, type ConnectorDefinition } from "./define.js"
 import type { PageEnvelope } from "./pagination.js"
 import type { BeforeExecute } from "./policy.js"
 import { encodeForm, formPairs, type FormArrays } from "./form.js"
@@ -54,6 +54,12 @@ function applyAuth(headers: Headers, auth: AuthConfig, token: string): void {
     const values = token.split(":")
     if (values.length !== auth.headers.length) throw invalid(`The credential must hold ${auth.headers.length} values joined by ":" (${auth.headers.join(", ")}).`)
     auth.headers.forEach((name, i) => headers.set(name, values[i]!))
+  } else if (auth.type === "headerTemplate") {
+    const values = token.split(":")
+    if (values.length !== headerTemplateSlots(auth.template) || !values.every((v) => /^[A-Za-z0-9._~+-]+$/.test(v))) {
+      throw invalid(`The credential must hold ${headerTemplateSlots(auth.template)} values joined by ":" (letters, digits and . _ ~ + - only).`)
+    }
+    headers.set(auth.header, auth.template.replace(/\{(\d+)\}/g, (_slot, n: string) => values[Number(n) - 1] ?? ""))
   } else if (auth.type === "pathToken") {
     // nothing in the headers: the token goes into the URL path (see `requestUrl`)
   } else if (auth.type === "basic") {

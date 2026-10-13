@@ -21,6 +21,12 @@ export type AuthConfig =
    */
   | { type: "apiKeys"; headers: string[] }
   /**
+   * One header whose value is built from several secrets (Trello: `Authorization: OAuth oauth_consumer_key="KEY", oauth_token="TOKEN"`).
+   * `template` holds numbered slots {1}, {2}, ... and the credential is the values joined by ":" in that order ("key:token"). Each value
+   * may only hold letters, digits and . _ ~ + -, so a value can never break out of the header. See ADR-028.
+   */
+  | { type: "headerTemplate"; header: string; template: string }
+  /**
    * The credential is part of the URL PATH: `https://api.telegram.org/bot<token>/sendMessage`. `prefix` is the literal text before it ("bot").
    * No header is sent. The token is added only to the URL handed to `fetch`; it is never in an error, a pagination cursor or a result. See ADR-027.
    */
@@ -52,6 +58,9 @@ export type AuthConfig =
        */
       rawTokenPattern?: string
     }
+
+/** How many secrets a `headerTemplate` needs: the highest {n} slot in the template. */
+export const headerTemplateSlots = (template: string): number => Math.max(0, ...[...template.matchAll(/\{(\d+)\}/g)].map((m) => Number(m[1])))
 
 /** Description of one operation. Says WHAT; the runtime decides HOW. */
 export interface ActionDefinition {
