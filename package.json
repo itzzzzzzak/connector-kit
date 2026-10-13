@@ -48,6 +48,10 @@
       "types": "./dist/connectors/discord/index.d.ts",
       "default": "./dist/connectors/discord/index.js"
     },
+    "./dropbox": {
+      "types": "./dist/connectors/dropbox/index.d.ts",
+      "default": "./dist/connectors/dropbox/index.js"
+    },
     "./figma": {
       "types": "./dist/connectors/figma/index.d.ts",
       "default": "./dist/connectors/figma/index.js"
