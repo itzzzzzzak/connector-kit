@@ -136,6 +136,10 @@
       "types": "./dist/connectors/microsoft-teams/index.d.ts",
       "default": "./dist/connectors/microsoft-teams/index.js"
     },
+    "./monday": {
+      "types": "./dist/connectors/monday/index.d.ts",
+      "default": "./dist/connectors/monday/index.js"
+    },
     "./netlify": {
       "types": "./dist/connectors/netlify/index.d.ts",
       "default": "./dist/connectors/netlify/index.js"
