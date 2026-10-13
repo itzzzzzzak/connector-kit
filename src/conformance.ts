@@ -67,6 +67,7 @@ export function checkConnector(connector: ConnectorDefinition<Record<string, Act
     if (new Set(auth.headers.map((h) => h.toLowerCase())).size !== auth.headers.length) fail("auth.apiKeys header names must be different")
     for (const name of auth.headers) if (!/^[A-Za-z][A-Za-z0-9-]*$/.test(name)) fail(`auth.apiKeys header "${name}" is not a valid header name`)
   }
+  if (auth.type === "pathToken" && auth.prefix !== undefined && !/^[A-Za-z0-9_-]{0,16}$/.test(auth.prefix)) fail("auth.pathToken prefix must be at most 16 letters, digits, - or _")
   if (auth.type === "oauth2") {
     for (const field of ["authorizeUrl", "tokenUrl"] as const) {
       if (!auth[field].startsWith("https://")) fail(`auth.${field} must be https`)

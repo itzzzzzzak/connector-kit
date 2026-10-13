@@ -32,6 +32,10 @@
       "types": "./dist/connectors/cloudflare/index.d.ts",
       "default": "./dist/connectors/cloudflare/index.js"
     },
+    "./confluence": {
+      "types": "./dist/connectors/confluence/index.d.ts",
+      "default": "./dist/connectors/confluence/index.js"
+    },
     "./datadog": {
       "types": "./dist/connectors/datadog/index.d.ts",
       "default": "./dist/connectors/datadog/index.js"
@@ -132,6 +136,10 @@
       "types": "./dist/connectors/microsoft-teams/index.d.ts",
       "default": "./dist/connectors/microsoft-teams/index.js"
     },
+    "./monday": {
+      "types": "./dist/connectors/monday/index.d.ts",
+      "default": "./dist/connectors/monday/index.js"
+    },
     "./netlify": {
       "types": "./dist/connectors/netlify/index.d.ts",
       "default": "./dist/connectors/netlify/index.js"
@@ -188,6 +196,10 @@
       "types": "./dist/connectors/supabase/index.d.ts",
       "default": "./dist/connectors/supabase/index.js"
     },
+    "./telegram": {
+      "types": "./dist/connectors/telegram/index.d.ts",
+      "default": "./dist/connectors/telegram/index.js"
+    },
     "./twilio": {
       "types": "./dist/connectors/twilio/index.d.ts",
       "default": "./dist/connectors/twilio/index.js"
@@ -203,6 +215,10 @@
     "./vercel": {
       "types": "./dist/connectors/vercel/index.d.ts",
       "default": "./dist/connectors/vercel/index.js"
+    },
+    "./whatsapp": {
+      "types": "./dist/connectors/whatsapp/index.d.ts",
+      "default": "./dist/connectors/whatsapp/index.js"
     },
     "./zendesk": {
       "types": "./dist/connectors/zendesk/index.d.ts",

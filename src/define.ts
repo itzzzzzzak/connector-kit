@@ -21,6 +21,11 @@ export type AuthConfig =
    */
   | { type: "apiKeys"; headers: string[] }
   /**
+   * The credential is part of the URL PATH: `https://api.telegram.org/bot<token>/sendMessage`. `prefix` is the literal text before it ("bot").
+   * No header is sent. The token is added only to the URL handed to `fetch`; it is never in an error, a pagination cursor or a result. See ADR-027.
+   */
+  | { type: "pathToken"; prefix?: string }
+  /**
    * OAuth 2.0 authorization-code flow (ADR-014). Calls are sent as `Authorization: Bearer <token>`,
    * where the token comes from the TokenStore (refreshed when needed) or from static `credentials`
    * passed to `connect()` (e.g. a personal access token).

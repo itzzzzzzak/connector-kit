@@ -12,7 +12,7 @@ if (!existsSync(root)) {
 }
 
 const authLabel = (auth) =>
-  ({ oauth2: "OAuth 2.0 or token", bearer: "API token", apiKey: "API key", apiKeys: "API keys (several headers)", basic: "Basic (username:password)" })[auth.type] ?? auth.type
+  ({ oauth2: "OAuth 2.0 or token", bearer: "API token", apiKey: "API key", apiKeys: "API keys (several headers)", pathToken: "Bot token (in the URL path)", basic: "Basic (username:password)" })[auth.type] ?? auth.type
 
 const connectors = []
 for (const name of readdirSync(root, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name).sort()) {
