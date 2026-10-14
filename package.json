@@ -244,6 +244,10 @@
       "types": "./dist/connectors/zendesk/index.d.ts",
       "default": "./dist/connectors/zendesk/index.js"
     },
+    "./zoho-crm": {
+      "types": "./dist/connectors/zoho-crm/index.d.ts",
+      "default": "./dist/connectors/zoho-crm/index.js"
+    },
     "./zoom": {
       "types": "./dist/connectors/zoom/index.d.ts",
       "default": "./dist/connectors/zoom/index.js"
