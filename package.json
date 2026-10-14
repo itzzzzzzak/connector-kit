@@ -303,11 +303,11 @@
     "new:connector": "node scripts/new-connector.mjs"
   },
   "dependencies": {
-    "zod": "^4.6.5"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",
-    "@types/node": "^22.0.0",
+    "@types/node": "^22.20.5",
     "@types/pg": "^8.23.1",
     "graphql": "^17.0.2",
     "pg": "^8.23.1",
