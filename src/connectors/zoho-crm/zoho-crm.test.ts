@@ -201,9 +201,7 @@ test("Zoho's error codes are mapped: scope mismatch, too many requests, invalid 
   await assert.rejects(() => invalid.conn.execute("record.get", { module: "Leads", id: ID }), (e: unknown) => (e as { code?: string }).code === "invalid_input")
 })
 
-test("only record.delete is destructive, and the token is a Zoho-oauthtoken header", () => {
-  const effects = Object.fromEntries(Object.entries(zohoCrm.actions).map(([name, a]) => [name, a.effect]))
-  assert.equal(effects["record.delete"], "destructive")
-  assert.equal(Object.values(effects).filter((e) => e === "destructive").length, 1)
+test("record.delete is destructive, and the token is a Zoho-oauthtoken header", () => {
+  assert.equal(zohoCrm.actions["record.delete"]!.effect, "destructive")
   assert.deepEqual(zohoCrm.auth, { type: "apiKey", header: "Authorization", prefix: "Zoho-oauthtoken " })
 })

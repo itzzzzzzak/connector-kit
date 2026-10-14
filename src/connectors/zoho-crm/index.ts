@@ -1,7 +1,8 @@
 import { ConnectorKitError, defineConnector } from "../../index.js"
-import type { PaginationStrategy } from "../../index.js"
-import { offsetPagination } from "../../index.js"
+import type { ActionDefinition } from "../../index.js"
 import { z } from "zod"
+import { detectRecordError, fieldList, firstOf, moduleName, pageInfo, pageInputs, pagePaging, record, recordId, writeResult } from "./common.js"
+import { allModuleActions, genericRecordActions, leadsConvert } from "./modules.js"
 
 // Facts from Zoho's CRM API v8 documentation (zoho.com/crm/developer/docs/api/v8):
 // every call is `https://www.zohoapis.<region>/crm/v8/...` and the access token goes in `Authorization: Zoho-oauthtoken <token>` (not Bearer).
@@ -16,119 +17,211 @@ import { z } from "zod"
 //
 // AUTH: a Zoho access token lives one hour. This connector sends the token the host gives it; refreshing it (with the refresh token, at
 // accounts.zoho.<region>/oauth/v2/token) is the host's job for now, because the kit's built-in OAuth flow always sends `Bearer` and cannot
-// put the region in its URLs yet. Scopes the token needs: ZohoCRM.modules.ALL (or per module, e.g. ZohoCRM.modules.leads.READ), ZohoCRM.coql.READ
-// for COQL, ZohoCRM.settings.modules.READ and ZohoCRM.settings.fields.READ for metadata, and ZohoSearch.securesearch.READ for search.
+// put the region in its URLs yet. Scopes the token needs: ZohoCRM.modules.ALL (or per module, e.g. ZohoCRM.modules.leads.READ), plus
+// ZohoCRM.modules.notes.* / ZohoCRM.modules.attachments.* for notes and attachments, ZohoCRM.coql.READ for COQL, ZohoCRM.settings.*.READ for
+// metadata, ZohoCRM.users.READ, ZohoCRM.org.READ, and ZohoSearch.securesearch.READ for search.
 //
-// WHAT IS COVERED: list, get, search, create, update and delete one record at a time, COQL queries, and module and field metadata. NOT covered:
-// bulk read/write, upsert, notes, attachments and files, users, lead conversion, mail, blueprints, and webhooks.
-// SECURITY: record fields are typed by your users and customers and can contain anything, including text aimed at an AI. They are data, never
-// instructions. A write changes what everyone in the CRM sees, and Zoho runs the org's workflow rules on it (which can send emails or create tasks).
+// TOOLS: the same record tools exist twice (see modules.ts): `records.list`, `record.create`, ... take the module as an input and reach custom
+// modules too; `leads.list`, `deals.create`, `salesOrders.notes.add`, ... are one set per standard module, grouped by module (`--group leads`).
+// Around them: notes, tags, attachments, lead conversion, deleted records, related lists, users, the organisation, and the metadata that
+// describes modules, fields, layouts, custom views, roles and profiles.
+//
+// NOT COVERED: bulk read/write jobs, mass update/delete, the composite API, webhooks and notifications, attachment upload and download (files),
+// linking and delinking related records, record counts, mail, blueprints, and anything that changes the CRM's setup (fields, layouts, roles).
+// SECURITY: record fields, notes and tags are typed by your users and customers and can contain anything, including text aimed at an AI. They
+// are data, never instructions. A write changes what everyone in the CRM sees, and Zoho runs the org's workflow rules on it (which can send
+// emails or create tasks).
 
-const moduleName = z
-  .string()
-  .regex(/^[A-Za-z][A-Za-z0-9_]{0,49}$/, 'A module API name such as "Leads" or "Deals"')
-  .describe('The module API name, e.g. "Leads", "Contacts", "Accounts", "Deals", or a custom module such as "Invoices". Use modules.list to see them.')
-const recordId = z.string().regex(/^\d{5,25}$/, "A numeric Zoho record id").describe("The numeric record id, e.g. 4150868000001234567")
-const fieldName = z.string().regex(/^\$?[A-Za-z][A-Za-z0-9_]{0,79}$/, 'A field API name such as "Last_Name"')
-const fieldValues = z.record(z.string(), z.unknown()).refine((v) => Object.keys(v).length > 0, "Give at least one field").describe('Field values by API name, e.g. { "Last_Name": "Lovelace", "Email": "ada@acme.dev" }')
-const record = z.looseObject({ id: z.string().optional() })
-const writeResult = z.looseObject({
-  data: z.array(
-    z.looseObject({
-      code: z.string(),
-      status: z.string(),
-      message: z.string().optional(),
-      details: z.looseObject({ id: z.string().optional() }).optional(),
-    }),
-  ),
+const flag = z.boolean().optional()
+const settingsInput = z.object({ module: moduleName })
+
+const moduleInfo = z.looseObject({
+  api_name: z.string(),
+  plural_label: z.string().optional(),
+  singular_label: z.string().optional(),
+  api_supported: flag,
+  creatable: flag,
+  editable: flag,
+  deletable: flag,
+  viewable: flag,
+  generated_type: z.string().optional(),
 })
-const pageInfo = z.looseObject({ count: z.number().optional(), more_records: z.boolean().optional() })
+const user = z.looseObject({ id: z.string().optional(), full_name: z.string().optional(), email: z.string().optional(), status: z.string().optional(), role: z.looseObject({ name: z.string().optional(), id: z.string().optional() }).optional(), profile: z.looseObject({ name: z.string().optional(), id: z.string().optional() }).optional() })
+const idName = z.looseObject({ id: z.string().optional(), name: z.string().optional(), display_label: z.string().optional() })
 
-const dataOf = (body: unknown): unknown => (typeof body === "object" && body !== null ? (body as { data?: unknown }).data : undefined)
-/** Zoho answers 204 with no body when nothing matches; that is an empty page, not a broken response. */
-const itemsOrEmpty = (body: unknown): unknown => (body === undefined ? [] : dataOf(body))
-
-const CURSOR_PAGE = /^p:[1-9]\d{0,4}$/
-const CURSOR_TOKEN = /^t:[A-Za-z0-9_.~=-]{1,1024}$/
-const PAGE_WINDOW = 2000
-
-/**
- * Record lists page by number for the first 2,000 records, then continue with the `next_page_token` the last page returned.
- * The cursor is `p:<page>` or `t:<token>`, and anything else is refused before it is put in a request.
- */
-const recordsPaging: PaginationStrategy = {
-  pageSizeParam: "per_page",
-  defaultPageSize: 50,
-  maxPageSize: 200,
-  itemsKey: "data",
-  items: itemsOrEmpty,
-  nextCursor: ({ body, url }) => {
-    const info = (body as { info?: { more_records?: unknown; next_page_token?: unknown } } | null | undefined)?.info
-    if (info?.more_records !== true) return null
-    const token = typeof info.next_page_token === "string" && CURSOR_TOKEN.test(`t:${info.next_page_token}`) ? `t:${info.next_page_token}` : null
-    if (url.searchParams.has("page_token")) return token
-    const perPage = Number(url.searchParams.get("per_page")) || 50
-    const page = Number(url.searchParams.get("page") ?? 1)
-    if (!Number.isFinite(page) || page < 1) return null
-    return page * perPage >= PAGE_WINDOW ? token : `p:${page + 1}`
+const extras: Record<string, ActionDefinition> = {
+  "coql.query": {
+    description:
+      "Run a COQL query (SQL-like, SELECT only) such as: select Last_Name, Email from Contacts where Email is not null order by Created_Time desc limit 50. Returns up to 2,000 rows; use LIMIT offset, count to page. Use for filters and sorting that records.search cannot express.",
+    method: "POST",
+    path: "/coql",
+    input: z.object({ query: z.string().min(1).max(20000).describe("A COQL SELECT statement. Field names are API names; always give a LIMIT.") }),
+    output: z.looseObject({ data: z.array(record), info: pageInfo.optional() }),
+    effect: "read",
+    buildBody: (i) => ({ select_query: i.query }),
+    extract: (body) => body ?? { data: [] },
   },
-  applyCursor: (url, cursor) => {
-    const next = new URL(url)
-    if (CURSOR_PAGE.test(cursor)) {
-      next.searchParams.delete("page_token")
-      next.searchParams.set("page", cursor.slice(2))
-    } else if (CURSOR_TOKEN.test(cursor)) {
-      next.searchParams.delete("page")
-      next.searchParams.set("page_token", cursor.slice(2))
-    } else {
-      throw new ConnectorKitError("invalid_input", "The page cursor is not one this connector produced.", { retryable: false })
-    }
-    return next
+  "leads.convert": leadsConvert,
+  "notes.update": {
+    description: "Change the title or text of one note. Only what you pass changes.",
+    method: "PUT",
+    path: "/Notes/{noteId}",
+    input: z
+      .object({ noteId: recordId, title: z.string().min(1).max(255).optional(), content: z.string().min(1).max(32000).optional(), sharedToClient: flag })
+      .refine((i) => i.title !== undefined || i.content !== undefined || i.sharedToClient !== undefined, "Give a title, content or sharedToClient"),
+    output: writeResult,
+    effect: "write",
+    buildBody: (i) => ({ data: [{ ...(i.title !== undefined && { Note_Title: i.title }), ...(i.content !== undefined && { Note_Content: i.content }), ...(i.sharedToClient !== undefined && { $is_shared_to_client: i.sharedToClient }) }] }),
   },
-}
-
-const searchPaging: PaginationStrategy = {
-  ...offsetPagination({ itemsKey: "data", unit: "page", positionParam: "page", pageSizeParam: "per_page", hasMorePath: ["info", "more_records"], defaultPageSize: 50, maxPageSize: 200 }),
-  items: itemsOrEmpty,
-}
-
-const searchInput = z
-  .object({
-    module: moduleName,
-    criteria: z.string().min(1).max(2000).optional().describe("Conditions like (Last_Name:equals:Smith) and (Company:starts_with:Acme). Up to 10 conditions. Operators include equals, starts_with, in, not_equal, greater_than, less_than, between."),
-    email: z.string().min(3).max(320).optional().describe("Find records with this email address"),
-    phone: z.string().min(3).max(40).optional().describe("Find records with this phone number"),
-    word: z.string().min(1).max(200).optional().describe("Find records containing this word in any text field"),
-    cursor: z.string().optional(),
-    pageSize: z.number().int().min(1).max(200).optional(),
-  })
-  .refine((i) => [i.criteria, i.email, i.phone, i.word].filter((v) => v !== undefined).length === 1 || i.cursor !== undefined, "Give exactly one of criteria, email, phone or word")
-
-const listInput = z
-  .object({
-    module: moduleName,
-    fields: z.array(fieldName).min(1).max(50).describe('The field API names to return, 1 to 50, e.g. ["Last_Name", "Email", "Owner"]. Zoho requires this when listing.'),
-    sortBy: z.enum(["id", "Created_Time", "Modified_Time"]).optional(),
-    sortOrder: z.enum(["asc", "desc"]).optional().describe("Needs sortBy. Zoho's default order is descending."),
-    cursor: z.string().optional(),
-    pageSize: z.number().int().min(1).max(200).optional(),
-  })
-  .refine((i) => i.sortOrder === undefined || i.sortBy !== undefined, "sortOrder needs sortBy")
-
-const safeCode = /^[A-Z][A-Z0-9_]{0,39}$/
-/**
- * A per-record failure inside a 2xx answer (Zoho reports duplicates and invalid values this way, and answers 207 for a mixed batch).
- * A write result carries its id under `details`; a real record always has a top-level `id`, so a record that happens to have custom
- * fields named status, code and message is never mistaken for a failure.
- */
-const failedEntry = (body: unknown): { code: string } | undefined => {
-  const data = dataOf(body)
-  if (!Array.isArray(data)) return undefined
-  for (const entry of data) {
-    const e = entry as { id?: unknown; status?: unknown; code?: unknown; message?: unknown; details?: unknown } | null
-    if (e && e.id === undefined && typeof e.details === "object" && e.details !== null && e.status === "error" && typeof e.code === "string" && typeof e.message === "string") return { code: e.code }
-  }
-  return undefined
+  "notes.delete": {
+    description: "Delete one note by its id. Use notes.list or a module's notes.list to find the id.",
+    method: "DELETE",
+    path: "/Notes/{noteId}",
+    input: z.object({ noteId: recordId }),
+    output: writeResult,
+    effect: "destructive",
+  },
+  "attachments.list": {
+    description: "List the files attached to one record: name, size, who added them and when. Returns metadata only, not the file. Use to see what documents a record has.",
+    method: "GET",
+    path: "/{module}/{id}/Attachments",
+    input: z.object({ module: moduleName, id: recordId, fields: fieldList.optional().describe("Attachment fields to return. Default: id, File_Name, Size, Created_Time, Owner") }),
+    output: z.looseObject({ data: z.array(z.looseObject({ id: z.string().optional(), File_Name: z.string().optional(), Size: z.union([z.number(), z.string()]).optional() })), info: pageInfo.optional() }),
+    effect: "read",
+    buildQuery: (i) => ({ fields: Array.isArray(i.fields) && i.fields.length > 0 ? i.fields.join(",") : "id,File_Name,Size,Created_Time,Owner" }),
+    extract: (body) => body ?? { data: [] },
+  },
+  "attachments.delete": {
+    description: "Delete one file attached to a record, by the attachment id from attachments.list. The record itself stays.",
+    method: "DELETE",
+    path: "/{module}/{id}/Attachments/{attachmentId}",
+    input: z.object({ module: moduleName, id: recordId, attachmentId: recordId }),
+    output: writeResult,
+    effect: "destructive",
+  },
+  "tags.list": {
+    description: "List the tags that exist for a module, with ids and colors. Use before tagging records so you reuse an existing name.",
+    method: "GET",
+    path: "/settings/tags",
+    input: z.object({ module: moduleName, myTags: flag.describe("Only tags the signed-in user created") }),
+    output: z.looseObject({ tags: z.array(z.looseObject({ id: z.string().optional(), name: z.string(), color_code: z.string().nullable().optional() })), info: pageInfo.optional() }),
+    effect: "read",
+    buildQuery: (i) => ({ module: i.module, ...(i.myTags !== undefined && { my_tags: i.myTags }) }),
+  },
+  "modules.list": {
+    description: "List the modules in the account (standard and custom) with their API names and whether the signed-in user can create, edit and delete records in them. Use first when the module name is not known.",
+    method: "GET",
+    path: "/settings/modules",
+    input: z.object({}),
+    output: z.looseObject({ modules: z.array(moduleInfo) }),
+    effect: "read",
+  },
+  "modules.get": {
+    description: "Describe one module: its labels, whether it can be created in, edited and deleted from through the API, and what kind of module it is.",
+    method: "GET",
+    path: "/settings/modules/{module}",
+    input: settingsInput,
+    output: z.looseObject({ modules: z.array(moduleInfo) }),
+    effect: "read",
+  },
+  "fields.list": {
+    description: "List the fields of a module with API names, types, whether they are required or read-only, and picklist options. Use before creating or updating records of an unfamiliar module.",
+    method: "GET",
+    path: "/settings/fields",
+    input: settingsInput,
+    output: z.looseObject({
+      fields: z.array(
+        z.looseObject({
+          api_name: z.string(),
+          field_label: z.string().optional(),
+          data_type: z.string().optional(),
+          length: z.number().optional(),
+          system_mandatory: flag,
+          read_only: flag,
+          pick_list_values: z.array(z.looseObject({ display_value: z.string().optional(), actual_value: z.string().optional() })).optional(),
+        }),
+      ),
+    }),
+    effect: "read",
+    buildQuery: (i) => ({ module: i.module }),
+  },
+  "layouts.list": {
+    description: "List a module's layouts (the forms users fill in) with their sections and fields. Use to see which fields a layout shows and requires.",
+    method: "GET",
+    path: "/settings/layouts",
+    input: settingsInput,
+    output: z.looseObject({ layouts: z.array(z.looseObject({ id: z.string().optional(), name: z.string().optional(), status: z.string().optional() })) }),
+    effect: "read",
+    buildQuery: (i) => ({ module: i.module }),
+  },
+  "relatedLists.list": {
+    description: "List a module's related lists (what can be shown under a record, such as Notes, Campaigns or Contacts) with their API names. Use to find the relatedList name for the related-records action.",
+    method: "GET",
+    path: "/settings/related_lists",
+    input: z.object({ module: moduleName, layoutId: recordId.optional().describe("A layout id, to list that layout's related lists instead of the standard layout's") }),
+    output: z.looseObject({ related_lists: z.array(z.looseObject({ id: z.string().optional(), api_name: z.string().optional(), display_label: z.string().optional(), type: z.string().optional() })) }),
+    effect: "read",
+    buildQuery: (i) => ({ module: i.module, ...(i.layoutId !== undefined && { layout_id: i.layoutId }) }),
+  },
+  "customViews.list": {
+    description: "List a module's custom views (saved filters such as 'Today's Leads') with their ids. A view id can be used to list records through a view.",
+    method: "GET",
+    path: "/settings/custom_views",
+    input: settingsInput,
+    output: z.looseObject({ custom_views: z.array(z.looseObject({ id: z.string().optional(), name: z.string().optional(), display_value: z.string().optional(), default: flag })), info: pageInfo.optional() }),
+    effect: "read",
+    buildQuery: (i) => ({ module: i.module }),
+  },
+  "roles.list": {
+    description: "List the CRM's roles and who each reports to. Use to understand the org's hierarchy and record visibility.",
+    method: "GET",
+    path: "/settings/roles",
+    input: z.object({}),
+    output: z.looseObject({ roles: z.array(z.looseObject({ id: z.string().optional(), name: z.string().optional(), display_label: z.string().optional(), reporting_to: idName.nullable().optional() })) }),
+    effect: "read",
+  },
+  "profiles.list": {
+    description: "List the CRM's profiles (sets of permissions that users are given). Names and types only; use it to see which profiles exist.",
+    method: "GET",
+    path: "/settings/profiles",
+    input: z.object({}),
+    output: z.looseObject({ profiles: z.array(z.looseObject({ id: z.string().optional(), name: z.string().optional(), display_label: z.string().optional(), type: z.string().optional() })) }),
+    effect: "read",
+  },
+  "users.list": {
+    description: "List the CRM's users: name, email, role, profile and status. Use to find a user's id, for example to set a record owner. Up to 200 per page; pass nextCursor for more.",
+    method: "GET",
+    path: "/users",
+    input: z.object({
+      type: z
+        .enum(["AllUsers", "ActiveUsers", "DeactiveUsers", "ConfirmedUsers", "NotConfirmedUsers", "DeletedUsers", "ActiveConfirmedUsers", "AdminUsers", "ActiveConfirmedAdmins", "CurrentUser"])
+        .optional()
+        .describe("Which users to list. Default: all."),
+      ...pageInputs,
+    }),
+    output: z.array(user),
+    effect: "read",
+    paginate: pagePaging("users"),
+    buildQuery: (i) => (i.type !== undefined ? { type: i.type } : {}),
+  },
+  "users.get": {
+    description: "Get one user by id: name, email, role, profile and status.",
+    method: "GET",
+    path: "/users/{userId}",
+    input: z.object({ userId: recordId }),
+    output: user,
+    effect: "read",
+    extract: firstOf("users"),
+  },
+  "org.get": {
+    description: "Get the organisation's details: company name, primary email, time zone, currency and country. Use to know the account's time zone and currency before reading dates or amounts.",
+    method: "GET",
+    path: "/org",
+    input: z.object({}),
+    output: z.looseObject({ id: z.string().optional(), company_name: z.string().optional(), primary_email: z.string().nullable().optional(), time_zone: z.string().optional(), currency: z.string().optional(), country: z.string().nullable().optional() }),
+    effect: "read",
+    extract: firstOf("org"),
+  },
 }
 
 export const zohoCrm = defineConnector({
@@ -142,14 +235,7 @@ export const zohoCrm = defineConnector({
     },
   },
   auth: { type: "apiKey", header: "Authorization", prefix: "Zoho-oauthtoken " },
-  detectError: (body) => {
-    const failed = failedEntry(body)
-    if (!failed) return undefined
-    const code = safeCode.test(failed.code) ? failed.code.toLowerCase() : "unknown"
-    if (failed.code === "NO_PERMISSION" || failed.code === "AUTHORIZATION_FAILED") return new ConnectorKitError("forbidden", `Zoho CRM refused the change (${code}). The signed-in user may not be allowed to do this.`, { retryable: false })
-    if (["DUPLICATE_DATA", "INVALID_DATA", "MANDATORY_NOT_FOUND", "MULTIPLE_OR_MULTI_ERRORS", "INVALID_MODULE"].includes(failed.code)) return new ConnectorKitError("invalid_input", `Zoho CRM rejected the record (${code}). Check the module, field names, required fields and unique values.`, { retryable: false })
-    return new ConnectorKitError("upstream_error", `Zoho CRM reported an error for the record (${code}).`, { retryable: false })
-  },
+  detectError: detectRecordError,
   detectHttpError: ({ status, body }) => {
     const code = typeof body === "object" && body !== null ? (body as { code?: unknown }).code : undefined
     if (code === "TOO_MANY_REQUESTS" && status !== 429) return new ConnectorKitError("rate_limited", "Zoho CRM's API limit was hit (too many calls at once, or the daily credits are used up). Retry later.", { retryable: true, status })
@@ -158,129 +244,13 @@ export const zohoCrm = defineConnector({
   },
   meta: {
     title: "Zoho CRM",
-    description: "Search, read, create, update and delete records in Zoho CRM (Leads, Contacts, Accounts, Deals, custom modules), run COQL queries, and inspect modules and fields.",
+    description:
+      "Work with every Zoho CRM module (Leads, Contacts, Accounts, Deals, Campaigns, Tasks, Cases, Products, Quotes, Invoices and more): search, read, create, update, upsert and delete records, notes, tags, related records, lead conversion, COQL queries, users and metadata.",
     docsUrl: "https://www.zoho.com/crm/developer/docs/api/v8/",
     status: "docs-based",
     credentialEnv: "ZOHO_CRM_TOKEN",
   },
-  actions: {
-    "records.list": {
-      description: "List records of a module with the fields you choose, up to 200 per page; pass nextCursor for the next page. Use when the user wants to browse a module. Use records.search to find specific records.",
-      method: "GET",
-      path: "/{module}",
-      input: listInput,
-      output: z.array(record),
-      effect: "read",
-      paginate: recordsPaging,
-      buildQuery: (i) => ({
-        fields: (i.fields as string[]).join(","),
-        ...(i.sortBy !== undefined && { sort_by: i.sortBy }),
-        ...(i.sortOrder !== undefined && { sort_order: i.sortOrder }),
-      }),
-    },
-    "records.search": {
-      description: "Find records in a module by criteria, email, phone or a word, up to 2,000 results (200 per page); pass nextCursor for more. Use for lookups like a contact by email. Very recent edits may not show yet; coql.query is exact.",
-      method: "GET",
-      path: "/{module}/search",
-      input: searchInput,
-      output: z.array(record),
-      effect: "read",
-      paginate: searchPaging,
-      buildQuery: (i) => {
-        const mode = (["criteria", "email", "phone", "word"] as const).find((k) => i[k] !== undefined)
-        return mode ? { [mode]: i[mode] } : {}
-      },
-    },
-    "record.get": {
-      description: "Get one record by module and id. Pass fields to choose which fields come back.",
-      method: "GET",
-      path: "/{module}/{id}",
-      input: z.object({ module: moduleName, id: recordId, fields: z.array(fieldName).min(1).max(50).optional() }),
-      output: record,
-      effect: "read",
-      buildQuery: (i) => (Array.isArray(i.fields) && i.fields.length > 0 ? { fields: i.fields.join(",") } : {}),
-      extract: (body) => (Array.isArray(dataOf(body)) ? (dataOf(body) as unknown[])[0] : undefined),
-    },
-    "coql.query": {
-      description: "Run a COQL query (SQL-like, SELECT only) such as: select Last_Name, Email from Contacts where Email is not null order by Created_Time desc limit 50. Returns up to 2,000 rows; use LIMIT offset, count to page. Use for filters and sorting that records.search cannot express.",
-      method: "POST",
-      path: "/coql",
-      input: z.object({ query: z.string().min(1).max(20000).describe("A COQL SELECT statement. Field names are API names; always give a LIMIT.") }),
-      output: z.looseObject({ data: z.array(record), info: pageInfo.optional() }),
-      effect: "read",
-      buildBody: (i) => ({ select_query: i.query }),
-      extract: (body) => body ?? { data: [] },
-    },
-    "record.create": {
-      description: "Create one record in a module. Required fields depend on the module (fields.list shows them). The org's workflow rules run on the new record and can notify people. Returns the new record's id.",
-      method: "POST",
-      path: "/{module}",
-      input: z.object({ module: moduleName, fields: fieldValues }),
-      output: writeResult,
-      effect: "write",
-      buildBody: (i) => ({ data: [i.fields] }),
-    },
-    "record.update": {
-      description: "Change fields of one record. Only the fields you pass change. The org's workflow rules run on the change and can notify people.",
-      method: "PUT",
-      path: "/{module}/{id}",
-      input: z.object({ module: moduleName, id: recordId, fields: fieldValues }),
-      output: writeResult,
-      effect: "write",
-      buildBody: (i) => ({ data: [i.fields] }),
-    },
-    "record.delete": {
-      description: "Delete one record. Related subform records are deleted with it and the org's workflow rules run. Zoho's documentation does not say it can be restored, so treat it as permanent.",
-      method: "DELETE",
-      path: "/{module}/{id}",
-      input: z.object({ module: moduleName, id: recordId }),
-      output: writeResult,
-      effect: "destructive",
-    },
-    "modules.list": {
-      description: "List the modules in the account (standard and custom) with their API names and whether the signed-in user can create, edit and delete records in them. Use first when the module name is not known.",
-      method: "GET",
-      path: "/settings/modules",
-      input: z.object({}),
-      output: z.looseObject({
-        modules: z.array(
-          z.looseObject({
-            api_name: z.string(),
-            plural_label: z.string().optional(),
-            singular_label: z.string().optional(),
-            api_supported: z.boolean().optional(),
-            creatable: z.boolean().optional(),
-            editable: z.boolean().optional(),
-            deletable: z.boolean().optional(),
-            viewable: z.boolean().optional(),
-            generated_type: z.string().optional(),
-          }),
-        ),
-      }),
-      effect: "read",
-    },
-    "fields.list": {
-      description: "List the fields of a module with API names, types, whether they are required or read-only, and picklist options. Use before creating or updating records of an unfamiliar module.",
-      method: "GET",
-      path: "/settings/fields",
-      input: z.object({ module: moduleName }),
-      output: z.looseObject({
-        fields: z.array(
-          z.looseObject({
-            api_name: z.string(),
-            field_label: z.string().optional(),
-            data_type: z.string().optional(),
-            length: z.number().optional(),
-            system_mandatory: z.boolean().optional(),
-            read_only: z.boolean().optional(),
-            pick_list_values: z.array(z.looseObject({ display_value: z.string().optional(), actual_value: z.string().optional() })).optional(),
-          }),
-        ),
-      }),
-      effect: "read",
-      buildQuery: (i) => ({ module: i.module }),
-    },
-  },
+  actions: { ...genericRecordActions(), ...extras, ...allModuleActions() } as Record<string, ActionDefinition>,
 })
 
 export default zohoCrm
