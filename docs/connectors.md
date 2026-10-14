@@ -64,7 +64,7 @@
 | **Vercel** | `connector-kit/vercel` | docs-based | API token | - | 438 | [API docs](https://vercel.com/docs/rest-api) |
 | **WhatsApp** | `connector-kit/whatsapp` | docs-based | API token | - | 9 | [API docs](https://developers.facebook.com/docs/whatsapp/cloud-api) |
 | **Zendesk** | `connector-kit/zendesk` | docs-based | Basic (username:password) | `subdomain` | 654 | [API docs](https://developer.zendesk.com/api-reference/ticketing/introduction/) |
-| **Zoho CRM** | `connector-kit/zoho-crm` | docs-based | API key | `region` | 9 | [API docs](https://www.zoho.com/crm/developer/docs/api/v8/) |
+| **Zoho CRM** | `connector-kit/zoho-crm` | docs-based | API key | `region` | 252 | [API docs](https://www.zoho.com/crm/developer/docs/api/v8/) |
 | **Zoom** | `connector-kit/zoom` | docs-based | OAuth 2.0 or token | - | 1509 | [API docs](https://developers.zoom.us/docs/api/meetings/) |
 
 ## What the status means
@@ -2421,17 +2421,44 @@ Read and search support tickets, comments and users; create tickets and add inte
 
 ### Zoho CRM (`zoho-crm`)
 
-Search, read, create, update and delete records in Zoho CRM (Leads, Contacts, Accounts, Deals, custom modules), run COQL queries, and inspect modules and fields.
+Work with every Zoho CRM module (Leads, Contacts, Accounts, Deals, Campaigns, Tasks, Cases, Products, Quotes, Invoices and more): search, read, create, update, upsert and delete records, notes, tags, related records, lead conversion, COQL queries, users and metadata.
 
-- `records.list` (read): List records of a module with the fields you choose, up to 200 per page; pass nextCursor for the next page.
-- `records.search` (read): Find records in a module by criteria, email, phone or a word, up to 2,000 results (200 per page); pass nextCursor for more.
-- `record.get` (read): Get one record by module and id.
-- `coql.query` (read): Run a COQL query (SQL-like, SELECT only) such as: select Last_Name, Email from Contacts where Email is not null order by Created_Time desc limit 50.
-- `record.create` (write): Create one record in a module.
-- `record.update` (write): Change fields of one record.
-- `record.delete` (destructive): Delete one record.
-- `modules.list` (read): List the modules in the account (standard and custom) with their API names and whether the signed-in user can create, edit and delete records in them.
-- `fields.list` (read): List the fields of a module with API names, types, whether they are required or read-only, and picklist options.
+252 actions: too many to list. Expose a group with `connector-kit-mcp zoho-crm --group <group>` (or `toTools(connection, { groups: [...] })`).
+
+| Group | Actions | Reads | Writes | Destructive |
+|---|---|---|---|---|
+| `accounts` | 13 | 6 | 6 | 1 |
+| `attachments` | 2 | 1 | 0 | 1 |
+| `calls` | 13 | 6 | 6 | 1 |
+| `campaigns` | 13 | 6 | 6 | 1 |
+| `cases` | 13 | 6 | 6 | 1 |
+| `contacts` | 13 | 6 | 6 | 1 |
+| `coql` | 1 | 1 | 0 | 0 |
+| `customViews` | 1 | 1 | 0 | 0 |
+| `deals` | 13 | 6 | 6 | 1 |
+| `events` | 13 | 6 | 6 | 1 |
+| `fields` | 1 | 1 | 0 | 0 |
+| `invoices` | 13 | 6 | 6 | 1 |
+| `layouts` | 1 | 1 | 0 | 0 |
+| `leads` | 14 | 6 | 7 | 1 |
+| `modules` | 2 | 2 | 0 | 0 |
+| `notes` | 4 | 1 | 2 | 1 |
+| `org` | 1 | 1 | 0 | 0 |
+| `priceBooks` | 13 | 6 | 6 | 1 |
+| `products` | 13 | 6 | 6 | 1 |
+| `profiles` | 1 | 1 | 0 | 0 |
+| `purchaseOrders` | 13 | 6 | 6 | 1 |
+| `quotes` | 13 | 6 | 6 | 1 |
+| `record` | 5 | 1 | 3 | 1 |
+| `records` | 4 | 4 | 0 | 0 |
+| `relatedLists` | 1 | 1 | 0 | 0 |
+| `roles` | 1 | 1 | 0 | 0 |
+| `salesOrders` | 13 | 6 | 6 | 1 |
+| `solutions` | 13 | 6 | 6 | 1 |
+| `tags` | 3 | 1 | 2 | 0 |
+| `tasks` | 13 | 6 | 6 | 1 |
+| `users` | 2 | 2 | 0 | 0 |
+| `vendors` | 13 | 6 | 6 | 1 |
 
 ### Zoom (`zoom`)
 
