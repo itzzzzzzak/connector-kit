@@ -2,6 +2,13 @@
 
 All notable changes are documented here. Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project aims to follow [Semantic Versioning](https://semver.org/) from 0.1.
 
+## [0.7.0](https://github.com/itzzzzzzak/connector-kit/compare/v0.6.0...v0.7.0) (2026-10-14)
+
+
+### Features
+
+* add zoho-crm connector ([#66](https://github.com/itzzzzzzak/connector-kit/issues/66)) ([98e0d37](https://github.com/itzzzzzzak/connector-kit/commit/98e0d37dbcb3b2ba091aba2ed46393ce23cc6be0))
+
 ## [0.6.0](https://github.com/itzzzzzzak/connector-kit/compare/v0.5.0...v0.6.0) (2026-10-13)
 
 
